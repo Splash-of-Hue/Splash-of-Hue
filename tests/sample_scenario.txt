@@ -1,0 +1,77 @@
+# A0 - sample_scenario.txt
+
+# Tower0
+BREAK Tower0
+ADD Tower0
+
+ADD Tower0 tower
+SET Tower0 tower.range 1
+
+ADD Tower0 position
+SET Tower0 position.x 11
+SET Tower0 position.y 3
+
+PRINT Tower0
+
+# Red0
+BREAK Red0
+ADD Red0
+
+ADD Red0 invader
+
+ADD Red0 position
+SET Red0 position.x 0
+SET Red0 position.y 5
+
+ADD Red0 release_timer
+SET Red0 release_timer.timer 1
+ADD Red0 queued
+
+PRINT Red0
+
+# Blue0
+BREAK Blue0-visible-to-Tower0
+
+ADD Blue0
+ADD Blue0 invader
+
+ADD Blue0 position
+SET Blue0 position.x 0
+SET Blue0 position.y 2
+
+ADD Blue0 release_timer
+SET Blue0 release_timer.timer 3
+ADD Blue0 queued
+
+PRINT Blue0
+
+# Blue1-visible-to-Tower0
+BREAK Blue1
+
+ADD Blue1
+ADD Blue1 invader
+
+ADD Blue1 position
+SET Blue1 position.x 0
+SET Blue1 position.y 3
+
+ADD Blue1 release_timer
+SET Blue1 release_timer.timer 10
+ADD Blue1 queued
+
+PRINT Blue1
+
+# Green0
+BREAK Green0
+ADD Green0
+ADD Green0 invader
+
+ADD Green0 position
+SET Green0 position.x 0
+SET Green0 position.y 8
+
+ADD Green0 release_timer
+SET Green0 release_timer.timer 8
+ADD Green0 queued
+
+PRINT Green0

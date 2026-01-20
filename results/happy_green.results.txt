@@ -1,0 +1,76 @@
+========================================
+Reading file: happy_green.txt
+========================================
+---------- GreenInvader ----------
+ADD Entity: GreenInvader
+New entity GreenInvader added with id 1
+ADD Component: position to Entity: GreenInvader
+GreenInvader with id 1
+Successfully added component position to GreenInvader.
+SET Component: position.x for Entity: GreenInvader to value: 0.00
+SET Component: position.y for Entity: GreenInvader to value: 1.00
+PRINT Entity: GreenInvader
+Entity: GreenInvader has id: 1
+- GreenInvader IS NOT detected
+- GreenInvader HAS NOT exited
+- GreenInvader IS NOT an invader
+- GreenInvader IS NOT moving
++ GreenInvader HAS a position, with values (0.00, 1.00)
+- GreenInvader IS NOT queued
+- GreenInvader DOES NOT have a release_timer
+- GreenInvader IS NOT a tower
+---------- GreenInvader-y+1 ----------
+INCREASE Component: position.y for Entity:GreenInvader from old value: 1.00 by 1.00 to new value: 2.00
+PRINT Entity: GreenInvader
+Entity: GreenInvader has id: 1
+- GreenInvader IS NOT detected
+- GreenInvader HAS NOT exited
+- GreenInvader IS NOT an invader
+- GreenInvader IS NOT moving
++ GreenInvader HAS a position, with values (0.00, 2.00)
+- GreenInvader IS NOT queued
+- GreenInvader DOES NOT have a release_timer
+- GreenInvader IS NOT a tower
+---------- Queue-GreenInvader ----------
+ADD Component: queued to Entity: GreenInvader
+GreenInvader with id 1
+Successfully added component queued to GreenInvader.
+---------- GreenInvader-release-timer ----------
+ADD Component: release_timer to Entity: GreenInvader
+GreenInvader with id 1
+Successfully added component release_timer to GreenInvader.
+SET Component: release_timer.timer for Entity: GreenInvader to value: 2.00
+========================================
+========================================
+Starting game loop.
+========================================
+invader_release_system: Entity GreenInvader 1 release timer change from 2.00 to 1.00
+========================================
+invader_release_system: Entity GreenInvader 1 release timer change from 1.00 to 0.00
+invader_release_system: Releasing Entity GreenInvader 1 at position(0.00, 2.00)
+invader_movement_system: Moved Entity GreenInvader 1 from (0.00, 2.00) to (1.00, 2.00)
+========================================
+invader_movement_system: Moved Entity GreenInvader 1 from (1.00, 2.00) to (2.00, 2.00)
+========================================
+invader_movement_system: Moved Entity GreenInvader 1 from (2.00, 2.00) to (3.00, 2.00)
+========================================
+invader_movement_system: Moved Entity GreenInvader 1 from (3.00, 2.00) to (4.00, 2.00)
+========================================
+invader_movement_system: Moved Entity GreenInvader 1 from (4.00, 2.00) to (5.00, 2.00)
+========================================
+invader_movement_system: Moved Entity GreenInvader 1 from (5.00, 2.00) to (6.00, 2.00)
+========================================
+invader_movement_system: Moved Entity GreenInvader 1 from (6.00, 2.00) to (7.00, 2.00)
+========================================
+invader_movement_system: Moved Entity GreenInvader 1 from (7.00, 2.00) to (8.00, 2.00)
+========================================
+invader_movement_system: Moved Entity GreenInvader 1 from (8.00, 2.00) to (9.00, 2.00)
+========================================
+invader_movement_system: Moved Entity GreenInvader 1 from (9.00, 2.00) to (10.00, 2.00)
+========================================
+invader_movement_system: Moved Entity GreenInvader 1 from (10.00, 2.00) to (11.00, 2.00)
+invader_movement_system: Exited Entity GreenInvader 1
+========================================
+========================================
+Ending game loop.
+========================================

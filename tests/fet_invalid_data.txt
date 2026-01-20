@@ -1,0 +1,21 @@
+# A0 - fet_invalid_data.txt
+
+# Tower0
+BREAK Adding-Tower0
+ADD Tower0
+
+#
+# FET - forced error tests
+#
+
+ADD Tower0 queued
+ADD Tower0 exited
+ADD Tower0 release_timer
+ADD Tower0 invader
+ADD Tower0 invader
+SET Tower0 release_timer.timer -10
+ADD Tower0 tower
+SET Tower0 release_timer.timer -10
+
+# try to print undefined Tower1
+PRINT Tower0

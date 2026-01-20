@@ -1,0 +1,30 @@
+# A0 - wide-tower-range
+
+# ensure that adding an item prints, removing does not print, adding w/o same parameters results in new ID and components
+
+BREAK Blue0
+ADD Blue0
+
+ADD Blue0 invader
+ADD Blue0 position
+SET Blue0 position.x 0
+SET Blue0 position.y 5
+
+ADD Blue0 release_timer
+SET Blue0 release_timer.timer 1
+ADD Blue0 queued
+
+PRINT Blue0
+
+# Tower0
+BREAK Tower0
+ADD Tower0
+
+ADD Tower0 tower
+SET Tower0 tower.range 5
+
+ADD Tower0 position
+SET Tower0 position.x 11
+SET Tower0 position.y 1
+
+PRINT Tower0

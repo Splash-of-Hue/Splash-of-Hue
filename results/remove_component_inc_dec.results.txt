@@ -1,0 +1,99 @@
+========================================
+Reading file: remove_component_inc_dec.txt
+========================================
+---------- Blue8 ----------
+ADD Entity: Blue8
+New entity Blue8 added with id 1
+ADD Component: position to Entity: Blue8
+Blue8 with id 1
+Successfully added component position to Blue8.
+SET Component: position.x for Entity: Blue8 to value: 8.80
+SET Component: position.y for Entity: Blue8 to value: 88.00
+PRINT Entity: Blue8
+Entity: Blue8 has id: 1
+- Blue8 IS NOT detected
+- Blue8 HAS NOT exited
+- Blue8 IS NOT an invader
+- Blue8 IS NOT moving
++ Blue8 HAS a position, with values (8.80, 88.00)
+- Blue8 IS NOT queued
+- Blue8 DOES NOT have a release_timer
+- Blue8 IS NOT a tower
+---------- FET-Blue8-try-to-remove-non-existant-moving ----------
+REMOVE Component: moving FROM Entity: Blue8
+Blue8 with id 1
+ERROR: Failed to remove component moving from Blue8.
+---------- Remove-position-from-Blue8 ----------
+REMOVE Component: position FROM Entity: Blue8
+Blue8 with id 1
+Successfully removed component position from Blue8.
+PRINT Entity: Blue8
+Entity: Blue8 has id: 1
+- Blue8 IS NOT detected
+- Blue8 HAS NOT exited
+- Blue8 IS NOT an invader
+- Blue8 IS NOT moving
+- Blue8 DOES NOT have a position
+- Blue8 IS NOT queued
+- Blue8 DOES NOT have a release_timer
+- Blue8 IS NOT a tower
+---------- Add-position-back ----------
+ADD Component: position to Entity: Blue8
+Blue8 with id 1
+Successfully added component position to Blue8.
+SET Component: position.x for Entity: Blue8 to value: 9.09
+SET Component: position.y for Entity: Blue8 to value: 90.90
+PRINT Entity: Blue8
+Entity: Blue8 has id: 1
+- Blue8 IS NOT detected
+- Blue8 HAS NOT exited
+- Blue8 IS NOT an invader
+- Blue8 IS NOT moving
++ Blue8 HAS a position, with values (9.09, 90.90)
+- Blue8 IS NOT queued
+- Blue8 DOES NOT have a release_timer
+- Blue8 IS NOT a tower
+---------- Increase-X ----------
+INCREASE Component: position.x for Entity:Blue8 from old value: 9.09 by 0.90 to new value: 9.99
+PRINT Entity: Blue8
+Entity: Blue8 has id: 1
+- Blue8 IS NOT detected
+- Blue8 HAS NOT exited
+- Blue8 IS NOT an invader
+- Blue8 IS NOT moving
++ Blue8 HAS a position, with values (9.99, 90.90)
+- Blue8 IS NOT queued
+- Blue8 DOES NOT have a release_timer
+- Blue8 IS NOT a tower
+---------- Decrease-Y ----------
+DECREASE Component: position.y for Entity:Blue8 from old value: 90.90 by 0.90 to new value: 90.00
+PRINT Entity: Blue8
+Entity: Blue8 has id: 1
+- Blue8 IS NOT detected
+- Blue8 HAS NOT exited
+- Blue8 IS NOT an invader
+- Blue8 IS NOT moving
++ Blue8 HAS a position, with values (9.99, 90.00)
+- Blue8 IS NOT queued
+- Blue8 DOES NOT have a release_timer
+- Blue8 IS NOT a tower
+---------- FET-decrease-invalid-Z ----------
+ERROR: Failed to set value for Component: position.z for Entity: Blue8.
+PRINT Entity: Blue8
+Entity: Blue8 has id: 1
+- Blue8 IS NOT detected
+- Blue8 HAS NOT exited
+- Blue8 IS NOT an invader
+- Blue8 IS NOT moving
++ Blue8 HAS a position, with values (9.99, 90.00)
+- Blue8 IS NOT queued
+- Blue8 DOES NOT have a release_timer
+- Blue8 IS NOT a tower
+========================================
+========================================
+Starting game loop.
+========================================
+========================================
+========================================
+Ending game loop.
+========================================

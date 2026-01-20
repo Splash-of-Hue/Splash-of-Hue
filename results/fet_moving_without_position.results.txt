@@ -1,0 +1,19 @@
+========================================
+Reading file: fet_moving_without_position.txt
+========================================
+---------- Blue0 ----------
+ADD Entity: Blue0
+New entity Blue0 added with id 1
+ADD Component: moving to Entity: Blue0
+Blue0 with id 1
+Successfully added component moving to Blue0.
+========================================
+========================================
+Starting game loop.
+========================================
+ERROR: Moving Entity Blue0 1 does not have a position.
+ERROR: Moving Entity Blue0 1 does not have a position.
+========================================
+========================================
+Ending game loop.
+========================================

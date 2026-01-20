@@ -1,0 +1,314 @@
+========================================
+Reading file: sample_scenario.txt
+========================================
+---------- Tower0 ----------
+ADD Entity: Tower0
+New entity Tower0 added with id 1
+ADD Component: tower to Entity: Tower0
+Tower0 with id 1
+Successfully added component tower to Tower0.
+SET Component: tower.range for Entity: Tower0 to value: 1.00
+ADD Component: position to Entity: Tower0
+Tower0 with id 1
+Successfully added component position to Tower0.
+SET Component: position.x for Entity: Tower0 to value: 11.00
+SET Component: position.y for Entity: Tower0 to value: 3.00
+PRINT Entity: Tower0
+Entity: Tower0 has id: 1
+- Tower0 IS NOT detected
+- Tower0 HAS NOT exited
+- Tower0 IS NOT an invader
+- Tower0 IS NOT moving
++ Tower0 HAS a position, with values (11.00, 3.00)
+- Tower0 IS NOT queued
+- Tower0 DOES NOT have a release_timer
++ Tower0 IS a tower, with range: 1.00
+---------- Red0 ----------
+ADD Entity: Red0
+New entity Red0 added with id 2
+ADD Component: invader to Entity: Red0
+Red0 with id 2
+Successfully added component invader to Red0.
+ADD Component: position to Entity: Red0
+Red0 with id 2
+Successfully added component position to Red0.
+SET Component: position.x for Entity: Red0 to value: 0.00
+SET Component: position.y for Entity: Red0 to value: 5.00
+ADD Component: release_timer to Entity: Red0
+Red0 with id 2
+Successfully added component release_timer to Red0.
+SET Component: release_timer.timer for Entity: Red0 to value: 1.00
+ADD Component: queued to Entity: Red0
+Red0 with id 2
+Successfully added component queued to Red0.
+PRINT Entity: Red0
+Entity: Red0 has id: 2
+- Red0 IS NOT detected
+- Red0 HAS NOT exited
++ Red0 IS an invader
+- Red0 IS NOT moving
++ Red0 HAS a position, with values (0.00, 5.00)
++ Red0 IS queued
++ Red0 HAS a release_timer, with timer: 1.00
+- Red0 IS NOT a tower
+---------- Blue0-visible-to-Tower0 ----------
+ADD Entity: Blue0
+New entity Blue0 added with id 3
+ADD Component: invader to Entity: Blue0
+Blue0 with id 3
+Successfully added component invader to Blue0.
+ADD Component: position to Entity: Blue0
+Blue0 with id 3
+Successfully added component position to Blue0.
+SET Component: position.x for Entity: Blue0 to value: 0.00
+SET Component: position.y for Entity: Blue0 to value: 2.00
+ADD Component: release_timer to Entity: Blue0
+Blue0 with id 3
+Successfully added component release_timer to Blue0.
+SET Component: release_timer.timer for Entity: Blue0 to value: 3.00
+ADD Component: queued to Entity: Blue0
+Blue0 with id 3
+Successfully added component queued to Blue0.
+PRINT Entity: Blue0
+Entity: Blue0 has id: 3
+- Blue0 IS NOT detected
+- Blue0 HAS NOT exited
++ Blue0 IS an invader
+- Blue0 IS NOT moving
++ Blue0 HAS a position, with values (0.00, 2.00)
++ Blue0 IS queued
++ Blue0 HAS a release_timer, with timer: 3.00
+- Blue0 IS NOT a tower
+---------- Blue1 ----------
+ADD Entity: Blue1
+New entity Blue1 added with id 4
+ADD Component: invader to Entity: Blue1
+Blue1 with id 4
+Successfully added component invader to Blue1.
+ADD Component: position to Entity: Blue1
+Blue1 with id 4
+Successfully added component position to Blue1.
+SET Component: position.x for Entity: Blue1 to value: 0.00
+SET Component: position.y for Entity: Blue1 to value: 3.00
+ADD Component: release_timer to Entity: Blue1
+Blue1 with id 4
+Successfully added component release_timer to Blue1.
+SET Component: release_timer.timer for Entity: Blue1 to value: 10.00
+ADD Component: queued to Entity: Blue1
+Blue1 with id 4
+Successfully added component queued to Blue1.
+PRINT Entity: Blue1
+Entity: Blue1 has id: 4
+- Blue1 IS NOT detected
+- Blue1 HAS NOT exited
++ Blue1 IS an invader
+- Blue1 IS NOT moving
++ Blue1 HAS a position, with values (0.00, 3.00)
++ Blue1 IS queued
++ Blue1 HAS a release_timer, with timer: 10.00
+- Blue1 IS NOT a tower
+---------- Green0 ----------
+ADD Entity: Green0
+New entity Green0 added with id 5
+ADD Component: invader to Entity: Green0
+Green0 with id 5
+Successfully added component invader to Green0.
+ADD Component: position to Entity: Green0
+Green0 with id 5
+Successfully added component position to Green0.
+SET Component: position.x for Entity: Green0 to value: 0.00
+SET Component: position.y for Entity: Green0 to value: 8.00
+ADD Component: release_timer to Entity: Green0
+Green0 with id 5
+Successfully added component release_timer to Green0.
+SET Component: release_timer.timer for Entity: Green0 to value: 8.00
+ADD Component: queued to Entity: Green0
+Green0 with id 5
+Successfully added component queued to Green0.
+PRINT Entity: Green0
+Entity: Green0 has id: 5
+- Green0 IS NOT detected
+- Green0 HAS NOT exited
++ Green0 IS an invader
+- Green0 IS NOT moving
++ Green0 HAS a position, with values (0.00, 8.00)
++ Green0 IS queued
++ Green0 HAS a release_timer, with timer: 8.00
+- Green0 IS NOT a tower
+========================================
+========================================
+Starting game loop.
+========================================
+invader_release_system: Entity Red0 2 release timer change from 1.00 to
+0.00
+invader_release_system: Entity Blue0 3 release timer change from 3.00 to
+2.00
+invader_release_system: Entity Blue1 4 release timer change from 10.00 to
+9.00
+invader_release_system: Entity Green0 5 release timer change from 8.00 to
+7.00
+invader_release_system: Releasing Entity Red0 2 at position(0.00, 5.00)
+invader_movement_system: Moved Entity Red0 2 from (0.00, 5.00) to (1.00,
+5.00)
+========================================
+invader_release_system: Entity Green0 5 release timer change from 7.00 to
+6.00
+invader_release_system: Entity Blue0 3 release timer change from 2.00 to
+1.00
+invader_release_system: Entity Blue1 4 release timer change from 9.00 to
+8.00
+invader_movement_system: Moved Entity Red0 2 from (1.00, 5.00) to (2.00,
+5.00)
+========================================
+invader_release_system: Entity Green0 5 release timer change from 6.00 to
+5.00
+invader_release_system: Entity Blue0 3 release timer change from 1.00 to
+0.00
+invader_release_system: Entity Blue1 4 release timer change from 8.00 to
+7.00
+invader_release_system: Releasing Entity Blue0 3 at position(0.00, 2.00)
+invader_movement_system: Moved Entity Red0 2 from (2.00, 5.00) to (3.00,
+5.00)
+invader_movement_system: Moved Entity Blue0 3 from (0.00, 2.00) to (1.00,
+2.00)
+========================================
+invader_release_system: Entity Green0 5 release timer change from 5.00 to
+4.00
+invader_release_system: Entity Blue1 4 release timer change from 7.00 to
+6.00
+invader_movement_system: Moved Entity Red0 2 from (3.00, 5.00) to (4.00,
+5.00)
+invader_movement_system: Moved Entity Blue0 3 from (1.00, 2.00) to (2.00,
+2.00)
+========================================
+invader_release_system: Entity Green0 5 release timer change from 4.00 to
+3.00
+invader_release_system: Entity Blue1 4 release timer change from 6.00 to
+5.00
+invader_movement_system: Moved Entity Red0 2 from (4.00, 5.00) to (5.00,
+5.00)
+invader_movement_system: Moved Entity Blue0 3 from (2.00, 2.00) to (3.00,
+2.00)
+========================================
+invader_release_system: Entity Green0 5 release timer change from 3.00 to
+2.00
+invader_release_system: Entity Blue1 4 release timer change from 5.00 to
+4.00
+invader_movement_system: Moved Entity Red0 2 from (5.00, 5.00) to (6.00,
+5.00)
+invader_movement_system: Moved Entity Blue0 3 from (3.00, 2.00) to (4.00,
+2.00)
+========================================
+invader_release_system: Entity Green0 5 release timer change from 2.00 to
+1.00
+invader_release_system: Entity Blue1 4 release timer change from 4.00 to
+3.00
+invader_movement_system: Moved Entity Red0 2 from (6.00, 5.00) to (7.00,
+5.00)
+invader_movement_system: Moved Entity Blue0 3 from (4.00, 2.00) to (5.00,
+2.00)
+========================================
+invader_release_system: Entity Green0 5 release timer change from 1.00 to
+0.00
+invader_release_system: Entity Blue1 4 release timer change from 3.00 to
+2.00
+invader_release_system: Releasing Entity Green0 5 at position(0.00, 8.00)
+invader_movement_system: Moved Entity Red0 2 from (7.00, 5.00) to (8.00,
+5.00)
+invader_movement_system: Moved Entity Blue0 3 from (5.00, 2.00) to (6.00,
+2.00)
+invader_movement_system: Moved Entity Green0 5 from (0.00, 8.00) to (1.00,
+8.00)
+========================================
+invader_release_system: Entity Blue1 4 release timer change from 2.00 to
+1.00
+invader_movement_system: Moved Entity Red0 2 from (8.00, 5.00) to (9.00,
+5.00)
+invader_movement_system: Moved Entity Blue0 3 from (6.00, 2.00) to (7.00,
+2.00)
+invader_movement_system: Moved Entity Green0 5 from (1.00, 8.00) to (2.00,
+8.00)
+========================================
+invader_release_system: Entity Blue1 4 release timer change from 1.00 to
+0.00
+invader_release_system: Releasing Entity Blue1 4 at position(0.00, 3.00)
+invader_movement_system: Moved Entity Red0 2 from (9.00, 5.00) to (10.00,
+5.00)
+invader_movement_system: Moved Entity Blue0 3 from (7.00, 2.00) to (8.00,
+2.00)
+invader_movement_system: Moved Entity Green0 5 from (2.00, 8.00) to (3.00,
+8.00)
+invader_movement_system: Moved Entity Blue1 4 from (0.00, 3.00) to (1.00,
+3.00)
+invader_detection_system: Detected Entity Blue1 4 at (1.00, 3.00)
+========================================
+invader_movement_system: Moved Entity Red0 2 from (10.00, 5.00) to (11.00,
+5.00)
+invader_movement_system: Moved Entity Blue0 3 from (8.00, 2.00) to (9.00,
+2.00)
+invader_movement_system: Moved Entity Green0 5 from (3.00, 8.00) to (4.00,
+8.00)
+invader_movement_system: Moved Entity Blue1 4 from (1.00, 3.00) to (2.00,
+3.00)
+invader_movement_system: Exited Entity Red0 2
+invader_detection_system: Detected Entity Blue1 4 at (2.00, 3.00)
+========================================
+invader_movement_system: Moved Entity Blue1 4 from (2.00, 3.00) to (3.00,
+3.00)
+invader_movement_system: Moved Entity Blue0 3 from (9.00, 2.00) to (10.00,
+2.00)
+invader_movement_system: Moved Entity Green0 5 from (4.00, 8.00) to (5.00,
+8.00)
+invader_detection_system: Detected Entity Blue1 4 at (3.00, 3.00)
+========================================
+invader_movement_system: Moved Entity Blue1 4 from (3.00, 3.00) to (4.00,
+3.00)
+invader_movement_system: Moved Entity Blue0 3 from (10.00, 2.00) to
+(11.00, 2.00)
+invader_movement_system: Moved Entity Green0 5 from (5.00, 8.00) to (6.00,
+8.00)
+invader_movement_system: Exited Entity Blue0 3
+invader_detection_system: Detected Entity Blue1 4 at (4.00, 3.00)
+========================================
+invader_movement_system: Moved Entity Blue1 4 from (4.00, 3.00) to (5.00,
+3.00)
+invader_movement_system: Moved Entity Green0 5 from (6.00, 8.00) to (7.00,
+8.00)
+invader_detection_system: Detected Entity Blue1 4 at (5.00, 3.00)
+========================================
+invader_movement_system: Moved Entity Blue1 4 from (5.00, 3.00) to (6.00,
+3.00)
+invader_movement_system: Moved Entity Green0 5 from (7.00, 8.00) to (8.00,
+8.00)
+invader_detection_system: Detected Entity Blue1 4 at (6.00, 3.00)
+========================================
+invader_movement_system: Moved Entity Blue1 4 from (6.00, 3.00) to (7.00,
+3.00)
+invader_movement_system: Moved Entity Green0 5 from (8.00, 8.00) to (9.00,
+8.00)
+invader_detection_system: Detected Entity Blue1 4 at (7.00, 3.00)
+========================================
+invader_movement_system: Moved Entity Blue1 4 from (7.00, 3.00) to (8.00,
+3.00)
+invader_movement_system: Moved Entity Green0 5 from (9.00, 8.00) to
+(10.00, 8.00)
+invader_detection_system: Detected Entity Blue1 4 at (8.00, 3.00)
+========================================
+invader_movement_system: Moved Entity Blue1 4 from (8.00, 3.00) to (9.00,
+3.00)
+invader_movement_system: Moved Entity Green0 5 from (10.00, 8.00) to
+(11.00, 8.00)
+invader_movement_system: Exited Entity Green0 5
+invader_detection_system: Detected Entity Blue1 4 at (9.00, 3.00)
+========================================
+invader_movement_system: Moved Entity Blue1 4 from (9.00, 3.00) to (10.00,
+3.00)
+invader_detection_system: Detected Entity Blue1 4 at (10.00, 3.00)
+========================================
+invader_movement_system: Moved Entity Blue1 4 from (10.00, 3.00) to
+(11.00, 3.00)
+invader_movement_system: Exited Entity Blue1 4
+========================================
+========================================
+Ending game loop.
+========================================
