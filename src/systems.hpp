@@ -1,7 +1,8 @@
 #pragma once
 
 // external function definitions for ECS systems
-#include "tinyECS/registry.hpp"
+#include "ecs/registry.hpp"
+
 
 // forward function declaractions (ordered alphabetically)
 int invader_detection_system(Registry& entity_registry);

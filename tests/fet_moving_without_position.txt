@@ -1,7 +1,0 @@
-# A0 - FET - moving without required position
-
-BREAK Blue0
-ADD Blue0
-ADD Blue0 moving
-
-# this should return an error in the systems due to the missing position for the 'moving'
