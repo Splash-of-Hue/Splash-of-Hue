@@ -23,5 +23,14 @@
 ## Documentation
 > Link to any new documentation relevent to what is being added.
 
+## Areas Effected / Required Reviewers
+- [ ] 2D Geometry (Geetika)
+- [ ] AI (Sophia or Abby)
+- [ ] Assets (Clair)
+- [ ] Gameplay Logic (Sophia or Abby)
+- [ ] Physics (Geetika or Spencer)
+- [ ] Rendering (Clair)
+- [ ] Sound (Spencer)
+
 # Screenshots
 > If the changes are visual, add screenshots with context (i.e. do not post zoomed in screenshots of only parts of the game screen).
