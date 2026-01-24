@@ -2,4 +2,4 @@
 
 # Docs
 
-- (Game Proposal)[./doc/proposal.pdf]
+- [Game Proposal](./doc/proposal.pdf)
