@@ -158,11 +158,11 @@ enum class TEXTURE_ASSET_ID {
 const int texture_count = (int)TEXTURE_ASSET_ID::TEXTURE_COUNT;
 
 enum class EFFECT_ASSET_ID {
-	COLOURED = 0,
+	DEFAULT = 0,
+	COLOURED = DEFAULT + 1,
 	TEXTURED = COLOURED + 1,
 	VIGNETTE = TEXTURED + 1,
-	LINE = VIGNETTE + 1,
-	EFFECT_COUNT = LINE + 1
+	EFFECT_COUNT = VIGNETTE + 1
 };
 const int effect_count = (int)EFFECT_ASSET_ID::EFFECT_COUNT;
 
