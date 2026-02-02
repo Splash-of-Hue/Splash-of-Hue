@@ -1,0 +1,43 @@
+========================================
+Reading file: fet_invalid_data.txt
+========================================
+---------- Adding-Tower0 ----------
+ADD Entity: Tower0
+New entity Tower0 added with id 1
+ADD Component: queued to Entity: Tower0
+Tower0 with id 1
+Successfully added component queued to Tower0.
+ADD Component: exited to Entity: Tower0
+ERROR: Tried adding invalid component type exited to the entity Tower0 (ID: 1)
+ADD Component: release_timer to Entity: Tower0
+Tower0 with id 1
+Successfully added component release_timer to Tower0.
+ADD Component: invader to Entity: Tower0
+Tower0 with id 1
+Successfully added component invader to Tower0.
+ADD Component: invader to Entity: Tower0
+ERROR: Tried adding component type invader to the entity Tower0 (ID: 1), but component already exists.
+SET Component: release_timer.timer for Entity: Tower0 to value: -10.00
+ADD Component: tower to Entity: Tower0
+ERROR: Tried adding component type tower to the entity Tower0 (ID: 1), but it can't be both invader and tower.
+SET Component: release_timer.timer for Entity: Tower0 to value: -10.00
+PRINT Entity: Tower0
+Entity: Tower0 has id: 1
+- Tower0 IS NOT detected
+- Tower0 HAS NOT exited
++ Tower0 IS an invader
+- Tower0 IS NOT moving
+- Tower0 DOES NOT have a position
++ Tower0 IS queued
++ Tower0 HAS a release_timer, with timer: -10.00
+- Tower0 IS NOT a tower
+========================================
+========================================
+Starting game loop.
+========================================
+invader_release_system: Entity Tower0 1 release timer change from -10.00 to -11.00
+ERROR: Queued Entity Tower0 1 does not have a valid position.
+========================================
+========================================
+Ending game loop.
+========================================
