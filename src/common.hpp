@@ -18,17 +18,17 @@
 #include <glm/mat3x3.hpp>           // mat3
 using namespace glm;
 
-#include "tinyECS/tiny_ecs.hpp"
+#include "ecs/tiny_ecs.hpp"
 
 // Simple utility functions to avoid mistyping directory name
 // audio_path("audio.ogg") -> data/audio/audio.ogg
 // Get defintion of PROJECT_SOURCE_DIR from:
 #include "../ext/project_path.hpp"
-inline std::string data_path() { return std::string(PROJECT_SOURCE_DIR) + "data"; };
+inline std::string asset_path() { return std::string(PROJECT_SOURCE_DIR) + "assets"; };
 inline std::string shader_path(const std::string& name) {return std::string(PROJECT_SOURCE_DIR) + "/shaders/" + name;};
-inline std::string textures_path(const std::string& name) {return data_path() + "/textures/" + std::string(name);};
-inline std::string audio_path(const std::string& name) {return data_path() + "/audio/" + std::string(name);};
-inline std::string mesh_path(const std::string& name) {return data_path() + "/meshes/" + std::string(name);};
+inline std::string textures_path(const std::string& name) {return asset_path() + "/textures/" + std::string(name);};
+inline std::string audio_path(const std::string& name) {return asset_path() + "/audio/" + std::string(name);};
+inline std::string mesh_path(const std::string& name) {return asset_path() + "/meshes/" + std::string(name);};
 
 //
 // game constants

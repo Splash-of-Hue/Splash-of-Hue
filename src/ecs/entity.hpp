@@ -14,10 +14,10 @@ public:
         m_id = id_count++; // assign and increment
     }
 
-    Entity(Entity& e)
+    /*Entity(Entity& e)
     {
         m_id = e.m_id;
-    }
+    }*/
 
     ~Entity()
     {

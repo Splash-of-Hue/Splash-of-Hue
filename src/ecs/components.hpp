@@ -4,12 +4,11 @@
 #include <unordered_map>
 #include "../ext/stb_image/stb_image.h"
 
-
 // Component flags
 enum ComponentType
 {
 	Invalid = 0,
-	Player = 1 << 1,
+	PlayerType = 1 << 1,
 	Moving = 1 << 2,
 	Position = 1 << 3,
 };
@@ -152,28 +151,25 @@ struct Mesh
  */
 
 enum class TEXTURE_ASSET_ID {
-	INVADER = 0,
-	TOWER = INVADER + 1,
-	PROJECTILE = TOWER + 1,
-	TEXTURE_COUNT = PROJECTILE + 1
+	PLAYER_TEXTURE_1 = 0,
+	MAP_TEXTURE_1 = PLAYER_TEXTURE_1 + 1,
+	TEXTURE_COUNT = MAP_TEXTURE_1 + 1
 };
 const int texture_count = (int)TEXTURE_ASSET_ID::TEXTURE_COUNT;
 
 enum class EFFECT_ASSET_ID {
 	COLOURED = 0,
-	EGG = COLOURED + 1,
-	CHICKEN = EGG + 1,
-	TEXTURED = CHICKEN + 1,
+	TEXTURED = COLOURED + 1,
 	VIGNETTE = TEXTURED + 1,
-	EFFECT_COUNT = VIGNETTE + 1
+	LINE = VIGNETTE + 1,
+	EFFECT_COUNT = LINE + 1
 };
 const int effect_count = (int)EFFECT_ASSET_ID::EFFECT_COUNT;
 
 enum class GEOMETRY_BUFFER_ID {
-	CHICKEN = 0,
-	SPRITE = CHICKEN + 1,
-	EGG = SPRITE + 1,
-	DEBUG_LINE = EGG + 1,
+	DEFAULT = 0,
+	SPRITE = DEFAULT + 1,
+	DEBUG_LINE = SPRITE + 1,
 	SCREEN_TRIANGLE = DEBUG_LINE + 1,
 	GEOMETRY_COUNT = SCREEN_TRIANGLE + 1
 };

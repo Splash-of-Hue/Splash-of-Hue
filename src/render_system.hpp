@@ -23,23 +23,21 @@ class RenderSystem {
 	// Make sure these paths remain in sync with the associated enumerators.
 	// Associated id with .obj path
 	const std::vector<std::pair<GEOMETRY_BUFFER_ID, std::string>> mesh_paths = {
-		std::pair<GEOMETRY_BUFFER_ID, std::string>(GEOMETRY_BUFFER_ID::CHICKEN, mesh_path("chicken.obj"))
+		//std::pair<GEOMETRY_BUFFER_ID, std::string>(GEOMETRY_BUFFER_ID::CHICKEN, mesh_path("chicken.obj"))
 		// specify meshes of other assets here
 	};
 
 	// Make sure these paths remain in sync with the associated enumerators (see TEXTURE_ASSET_ID).
 	const std::array<std::string, texture_count> texture_paths = {
-		textures_path("invaders/blue_1.png"),
-		textures_path("towers/tower01.png"),
-		textures_path("projectiles/gold_bubble.png")
+		textures_path("e1420d15-c54f-40ad-bfd7-6415aa61f3fe.png"),
+		textures_path("Untitled_Artwork.png")
 	};
 
 	std::array<GLuint, effect_count> effects;
 	// Make sure these paths remain in sync with the associated enumerators.
 	const std::array<std::string, effect_count> effect_paths = {
+		shader_path("default"),
 		shader_path("coloured"),
-		shader_path("egg"),
-		shader_path("chicken"),
 		shader_path("textured"),
 		shader_path("vignette")
 	};
