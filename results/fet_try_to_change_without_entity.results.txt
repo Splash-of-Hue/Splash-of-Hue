@@ -1,0 +1,21 @@
+========================================
+Reading file: fet_try_to_change_without_entity.txt
+========================================
+---------- FET-try-to-remove-moving-from-NotHere ----------
+REMOVE Component: moving FROM Entity: NotHere
+ERROR: Failed to remove component moving from NotHere, Entity doesn't exist.
+---------- FET-try-to-set-position-x-for-NotHere ----------
+SET Component: position.x for Entity: NotHere to value: 1000.00
+ERROR: Unknown Entity: NotHere when setting Component: position.x.
+---------- FET-try-inc-range-NotATower ----------
+ERROR: Unknown Entity: NotATower when increasing/decreasing Component: range.
+---------- FET-try-dec-range-AlsoNotATower ----------
+ERROR: Unknown Entity: AlsoNotATower when increasing/decreasing Component: range.
+========================================
+========================================
+Starting game loop.
+========================================
+========================================
+========================================
+Ending game loop.
+========================================

@@ -1,0 +1,27 @@
+========================================
+Reading file: fet_invalid_names.txt
+========================================
+---------- There-is-no-Tower0-yet ----------
+PRINT Entity: Tower0
+ERROR: Unknown Entity: Tower0.
+---------- Adding-Tower0 ----------
+ADD Entity: Tower0
+New entity Tower0 added with id 1
+---------- There-is-no-Tower1 ----------
+PRINT Entity: Tower1
+ERROR: Unknown Entity: Tower1.
+ADD Component: tower to Entity: Tower1
+ERROR: Failed to add component tower to Tower1, Entity doesn't exist.
+SET Component: tower.range for Entity: Tower1 to value: 1.00
+ERROR: Unknown Entity: Tower1 when setting Component: tower.range.
+---------- Try-to-add-invalid-position-z-to-Tower0 ----------
+SET Component: position.z for Entity: Tower0 to value: -99.00
+ERROR: Failed to set value for Component: position.z for Entity: Tower0.
+========================================
+========================================
+Starting game loop.
+========================================
+========================================
+========================================
+Ending game loop.
+========================================
