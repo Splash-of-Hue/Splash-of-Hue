@@ -30,6 +30,12 @@ inline std::string textures_path(const std::string& name) {return asset_path() +
 inline std::string audio_path(const std::string& name) {return asset_path() + "/audio/" + std::string(name);};
 inline std::string mesh_path(const std::string& name) {return asset_path() + "/meshes/" + std::string(name);};
 
+/*
+	Rendering constants and inlines
+*/
+const vec4 CLEAR_SCREEN_COLOR = vec4(vec3(0.0f), 1.0f);
+
+
 //
 // game constants
 //

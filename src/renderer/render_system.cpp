@@ -4,7 +4,8 @@
 #include <iostream>
 
 // internal
-#include "render_system.hpp"
+#include "common.hpp"
+#include "renderer/render_system.hpp"
 #include "ecs/registry.hpp"
 
 void RenderSystem::drawGridLine(Entity entity,
@@ -41,7 +42,7 @@ void RenderSystem::drawGridLine(Entity entity,
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo);
 	gl_has_errors();
 
-	if (render_request.used_effect == EFFECT_ASSET_ID::LINE)
+	if (render_request.used_effect == EFFECT_ASSET_ID::DEFAULT)
 	{
 		GLint in_position_loc = glGetAttribLocation(program, "in_position");
 		gl_has_errors();
@@ -157,7 +158,7 @@ void RenderSystem::drawTexturedMesh(Entity entity,
 		gl_has_errors();
 	}
 	// .obj entities
-	else if (render_request.used_effect == EFFECT_ASSET_ID::LINE)
+	else if (render_request.used_effect == EFFECT_ASSET_ID::DEFAULT)
 	{
 		GLint in_position_loc = glGetAttribLocation(program, "in_position");
 		GLint in_color_loc = glGetAttribLocation(program, "in_color");
@@ -224,7 +225,7 @@ void RenderSystem::drawToScreen()
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 	glViewport(0, 0, w, h);
 	glDepthRange(0, 10);
-	glClearColor(1.f, 0, 0, 1.0);
+	glClearColor(CLEAR_SCREEN_COLOR.r, CLEAR_SCREEN_COLOR.g, CLEAR_SCREEN_COLOR.b, CLEAR_SCREEN_COLOR.a);
 	glClearDepth(1.f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	gl_has_errors();
