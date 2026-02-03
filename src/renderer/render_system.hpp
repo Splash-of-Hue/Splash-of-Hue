@@ -79,6 +79,7 @@ public:
 
 private:
 	// Internal drawing functions for each entity type
+	void drawRect(Entity entity, const mat3& projection); // TODO 1ch6Q0BE: Remove
 	void drawGridLine(Entity entity, const mat3& projection);
 	void drawTexturedMesh(Entity entity, const mat3& projection);
 	void drawToScreen();

@@ -4,24 +4,6 @@
 #include <unordered_map>
 #include "../ext/stb_image/stb_image.h"
 
-// Component flags
-enum ComponentType
-{
-	Invalid = 0,
-	PlayerType = 1 << 1,
-	Moving = 1 << 2,
-	Position = 1 << 3,
-};
-
-inline ComponentType operator|(ComponentType a, ComponentType b)
-{
-	return static_cast<ComponentType>(static_cast<int>(a) | static_cast<int>(b));
-}
-inline ComponentType operator&(ComponentType a, ComponentType b)
-{
-	return static_cast<ComponentType>(static_cast<int>(a) & static_cast<int>(b));
-}
-
 // Player component
 struct Player
 {
@@ -58,9 +40,12 @@ struct Eatable
 
 // All data relevant to the shape and motion of entities
 struct Motion {
+	// DEPRECATION: This will be removed in favour of the Position component
 	vec2  position = { 0, 0 };
+	// DEPRECATION: This will be removed in favour of the Angle component
 	float angle = 0;
 	vec2  velocity = { 0, 0 };
+	// DEPRECATION: This will be removed in favour of the Scale component
 	vec2  scale = { 10, 10 };
 };
 
@@ -126,6 +111,21 @@ struct Mesh
 	std::vector<uint16_t> vertex_indices;
 };
 
+// TODO 1ch6Q0BE: Remove in favour of robust rendering engine
+// An entity that is drawn as a rectangle on screen
+struct Rect {};
+
+struct Angle
+{
+	float degrees;
+};
+
+struct Size
+{
+	float width;
+	float height;
+};
+
 /**
  * The following enumerators represent global identifiers refering to graphic
  * assets. For example TEXTURE_ASSET_ID are the identifiers of each texture
@@ -158,19 +158,19 @@ enum class TEXTURE_ASSET_ID {
 const int texture_count = (int)TEXTURE_ASSET_ID::TEXTURE_COUNT;
 
 enum class EFFECT_ASSET_ID {
-	COLOURED = 0,
+	DEFAULT = 0,
+	COLOURED = DEFAULT + 1,
 	TEXTURED = COLOURED + 1,
 	VIGNETTE = TEXTURED + 1,
-	LINE = VIGNETTE + 1,
-	EFFECT_COUNT = LINE + 1
+	EFFECT_COUNT = VIGNETTE + 1
 };
 const int effect_count = (int)EFFECT_ASSET_ID::EFFECT_COUNT;
 
 enum class GEOMETRY_BUFFER_ID {
-	DEFAULT = 0,
-	SPRITE = DEFAULT + 1,
-	DEBUG_LINE = SPRITE + 1,
-	SCREEN_TRIANGLE = DEBUG_LINE + 1,
+	GRADIENT_CIRCLE = 0,
+	SPRITE = GRADIENT_CIRCLE + 1,
+	RECTANGLE = SPRITE + 1,
+	SCREEN_TRIANGLE = RECTANGLE + 1,
 	GEOMETRY_COUNT = SCREEN_TRIANGLE + 1
 };
 const int geometry_count = (int)GEOMETRY_BUFFER_ID::GEOMETRY_COUNT;
