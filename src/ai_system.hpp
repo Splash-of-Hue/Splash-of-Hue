@@ -1,7 +1,7 @@
 #pragma once
 
 #include "common.hpp"
-#include "render_system.hpp"
+#include "renderer/render_system.hpp"
 #include "ecs/registry.hpp"
 
 class AISystem

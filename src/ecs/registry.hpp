@@ -28,6 +28,11 @@ public:
 	ComponentContainer<GridLine> gridLines;
 	ComponentContainer<Invader> invaders;
 	ComponentContainer<Projectile> projectiles;
+	ComponentContainer<vec2> positions;
+	ComponentContainer<Angle> angles;
+	ComponentContainer<vec2> scales;
+	ComponentContainer<Size> sizes;
+	ComponentContainer<Rect> rectangles; // TODO 1ch6Q0BE: Remove
 
 	// constructor that adds all containers for looping over them
 	ECSRegistry()
@@ -48,6 +53,11 @@ public:
 		registry_list.push_back(&gridLines);
 		registry_list.push_back(&invaders);
 		registry_list.push_back(&projectiles);
+		registry_list.push_back(&positions);
+		registry_list.push_back(&angles);
+		registry_list.push_back(&scales);
+		registry_list.push_back(&sizes);
+		registry_list.push_back(&rectangles); // TODO 1ch6Q0BE: Remove
 	}
 
 	void clear_all_components() {
