@@ -113,6 +113,7 @@ struct Mesh
 // TODO 1ch6Q0BE: Remove in favour of robust rendering engine
 // An entity that is drawn as a rectangle on screen
 struct Rect {};
+struct Circle {};
 
 struct Angle
 {

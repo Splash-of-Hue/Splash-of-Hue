@@ -9,7 +9,7 @@
 #include "ecs/registry.hpp"
 
 // TODO 1ch6Q0BE: Remove function
-void RenderSystem::drawRect(Entity entity,
+void RenderSystem::drawShape(Entity entity,
 	const mat3& projection) {
 
 	auto& position = registry.positions.get(entity);
@@ -411,9 +411,9 @@ void RenderSystem::draw()
 		{
 			drawGridLine(entity, projection_2D);
 		}
-		else if (registry.rectangles.has(entity))
+		else if (registry.rectangles.has(entity) || registry.circles.has(entity))
 		{
-			drawRect(entity, projection_2D);
+			drawShape(entity, projection_2D);
 		}
 	}
 

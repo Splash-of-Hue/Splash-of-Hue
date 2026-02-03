@@ -218,7 +218,7 @@ void WorldSystem::restart_game() {
 
 	// create rectangles
 	auto center_screen = vec2(WINDOW_WIDTH_PX / 2, WINDOW_HEIGHT_PX / 2);
-	//createRectangle(vec2(WINDOW_WIDTH_PX / 2, WINDOW_HEIGHT_PX / 2), 200, 200);
+	mouse_shape_entity = createRectangle(center_screen, center_screen + vec2(200));
 	mouse_rect_entity = createRectangle(center_screen, center_screen + vec2(200));
 }
 
@@ -278,7 +278,7 @@ void WorldSystem::on_key(int key, int, int action, int mod) {
 		if (color_rect_change.count(key) > 0)
 		{
 			auto [rgb_index, value_change] = color_rect_change[key];
-			auto& rect_color = registry.colors.get(mouse_rect_entity);
+			auto& rect_color = registry.colors.get(mouse_shape_entity);
 			rect_color[rgb_index] += value_change;
 		}
 	}
@@ -303,7 +303,7 @@ void WorldSystem::on_mouse_move(vec2 mouse_position) {
 	mouse_pos_y = mouse_position.y;
 
 	// TODO m1EAwQf4: Remove
-	auto& pos = registry.positions.get(mouse_rect_entity);
+	auto& pos = registry.positions.get(mouse_shape_entity);
 	pos = mouse_position;
 }
 
@@ -317,7 +317,7 @@ void WorldSystem::on_mouse_scroll(double xoffset, double yoffset)
 	std::cout << "mouse scroll, X Offset: " << xoffset << ", Y Offset: " << yoffset << std::endl;
 
 	// TODO m1EAwQf4: Remove
-	auto& size = registry.sizes.get(mouse_rect_entity);
+	auto& size = registry.sizes.get(mouse_shape_entity);
 	if (shift_key_pressed)
 	{
 		size.width += yoffset;
@@ -340,8 +340,8 @@ void WorldSystem::on_mouse_button_pressed(int button, int action, int mods) {
 		std::cout << "mouse tile position: " << tile_x << ", " << tile_y << std::endl;
 
 		// TODO m1EAwQf4: Remove
-		auto& size = registry.sizes.get(mouse_rect_entity);
-		auto& color = registry.colors.get(mouse_rect_entity);
+		auto& size = registry.sizes.get(mouse_shape_entity);
+		auto& color = registry.colors.get(mouse_shape_entity);
 		createRectangle(vec2(mouse_pos_x, mouse_pos_y), size.width, size.height, color);
 	}
 }

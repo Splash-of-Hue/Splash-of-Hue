@@ -104,3 +104,26 @@ Entity createRectangle(vec2 top_left, vec2 bottom_right, vec3 color)
 
 	return entity;
 }
+
+Entity createCircle(vec2 position, float radius, vec3 color)
+{
+	Entity entity = Entity();
+
+	Size size = { radius, radius };
+	registry.positions.insert(entity, position);
+	registry.sizes.insert(entity, size);
+	registry.circles.emplace(entity);
+	registry.colors.emplace(entity, color);
+
+	registry.renderRequests.insert(
+		entity,
+		{
+			// usage TEXTURE_COUNT when no texture is needed, i.e., an .obj or other vertices are used instead
+			TEXTURE_ASSET_ID::TEXTURE_COUNT,
+			EFFECT_ASSET_ID::DEFAULT,
+			GEOMETRY_BUFFER_ID::CIRCLE
+		}
+	);
+
+	return entity;
+}
