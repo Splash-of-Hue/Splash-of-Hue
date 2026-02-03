@@ -7,7 +7,7 @@ uniform float hurt_screen_factor;
 
 in vec2 texcoord;
 // 0 if not applied, 1 otherwise
-in int vignette_applied;
+//in int vignette_applied;
 
 layout(location = 0) out vec4 color;
 

@@ -41,7 +41,7 @@ void RenderSystem::drawGridLine(Entity entity,
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo);
 	gl_has_errors();
 
-	if (render_request.used_effect == EFFECT_ASSET_ID::LINE)
+	if (render_request.used_effect == EFFECT_ASSET_ID::DEFAULT)
 	{
 		GLint in_position_loc = glGetAttribLocation(program, "in_position");
 		gl_has_errors();
@@ -157,7 +157,7 @@ void RenderSystem::drawTexturedMesh(Entity entity,
 		gl_has_errors();
 	}
 	// .obj entities
-	else if (render_request.used_effect == EFFECT_ASSET_ID::LINE)
+	else if (render_request.used_effect == EFFECT_ASSET_ID::DEFAULT)
 	{
 		GLint in_position_loc = glGetAttribLocation(program, "in_position");
 		GLint in_color_loc = glGetAttribLocation(program, "in_color");
