@@ -1,7 +1,13 @@
 // internal
 #include "physics_system.hpp"
 #include "world_init.hpp"
+#include "input_system.hpp"
 #include <iostream>
+
+void PhysicsSystem::init(InputSystem* input_system)
+{
+	this->input_system = input_system;
+}
 
 // Returns the local bounding coordinates scaled by the current size of the entity
 vec4 get_bounding_box(const Entity& entity)
@@ -112,4 +118,61 @@ void PhysicsSystem::step(float elapsed_ms)
 			
 		}
 	}
+
+	handle_player_movement();
+}
+
+void PhysicsSystem::handle_player_movement()
+{
+	auto& movement_keys = input_system->getMovementKeys();
+
+	// Check if 3+ keys are currently being pushed. If yes, don't move
+	// @Geetika feel free to change this, I just figured that the sheep shouldn't move if more than 3 keys are being pressed
+	if (movement_keys.count() >= 3)
+	{
+		std::cout << "DEBUG: too many keys pushed to move :(" << std::endl;
+		return;
+	}
+
+	// Northwest
+	if (movement_keys[InputSystem::W] && movement_keys[InputSystem::A])
+	{
+		std::cout << "DEBUG: Moving northwest!" << std::endl;
+	}
+	// Northeast
+	else if (movement_keys[InputSystem::W] && movement_keys[InputSystem::D])
+	{
+		std::cout << "DEBUG: Moving northeast!" << std::endl;
+	}
+	// Southeast
+	else if (movement_keys[InputSystem::D] && movement_keys[InputSystem::S])
+	{
+		std::cout << "DEBUG: Moving southeast!" << std::endl;
+	}
+	// Southwest
+	else if (movement_keys[InputSystem::A] && movement_keys[InputSystem::S])
+	{
+		std::cout << "DEBUG: Moving southwest!" << std::endl;
+	}
+	// North
+	else if (movement_keys[InputSystem::W])
+	{
+		std::cout << "DEBUG: Moving north!" << std::endl;
+	}
+	// East
+	else if (movement_keys[InputSystem::D])
+	{
+		std::cout << "DEBUG: Moving east!" << std::endl;
+	}
+	// South
+	else if (movement_keys[InputSystem::S])
+	{
+		std::cout << "DEBUG: Moving south!" << std::endl;
+	}
+	// West
+	else if (movement_keys[InputSystem::A])
+	{
+		std::cout << "DEBUG: Moving west!" << std::endl;
+	}
+
 }
