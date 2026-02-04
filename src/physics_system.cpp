@@ -80,7 +80,7 @@ void PhysicsSystem::step(float elapsed_ms)
 				// CK: why the duplication, except to allow searching by entity_id
 				if (registry.overlayCollisions.has(entity_i) || registry.overlayCollisions.has(entity_i)) {
 					//let world_systems handle it
-					registry.collisions.emplace_with_duplicates(entity_i, entity_j);
+					registry.collisions.emplace(entity_i, entity_j);
 				}
 				//must both be inelastic for this collision resolution to occur
 				if (registry.inelasticCollisions.has(entity_i) && registry.inelasticCollisions.has(entity_i)) {
