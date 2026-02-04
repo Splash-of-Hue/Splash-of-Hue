@@ -2,9 +2,7 @@
 #include "ecs/registry.hpp"
 #include <iostream>
 
-// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-// !!! TODO A1: create grid lines
-// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
 Entity createGridLine(vec2 start_pos, vec2 end_pos)
 {
 	Entity entity = Entity();
@@ -65,7 +63,8 @@ Entity createRectangle(vec2 position, float width, float height, vec3 color)
 	registry.sizes.insert(entity, size);
 	registry.rectangles.emplace(entity);
 	registry.colors.emplace(entity, color);
-
+	registry.overlayCollisions.emplace(entity); // TODO: inelastic for rectangle, overlay for circle
+	
 	registry.renderRequests.insert(
 		entity,
 		{
@@ -91,6 +90,7 @@ Entity createRectangle(vec2 top_left, vec2 bottom_right, vec3 color)
 	registry.sizes.insert(entity, size);
 	registry.rectangles.emplace(entity);
 	registry.colors.emplace(entity, color);
+	registry.overlayCollisions.emplace(entity);
 
 	registry.renderRequests.insert(
 		entity,

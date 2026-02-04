@@ -227,7 +227,13 @@ void WorldSystem::handle_collisions() {
 
 	ComponentContainer<Collision>& collision_container = registry.collisions;
 	for (uint i = 0; i < collision_container.components.size(); i++) {
-
+		Entity& entity = collision_container.entities[i];
+		Entity& other = collision_container.get(entity).other;
+		//if one entity has overlay collision, behaviour change
+		if (registry.overlayCollisions.has(entity) || registry.overlayCollisions.has(other)) {
+			std::cout << "Overlay collision with entities: " << entity.id() << " " << other.id() << std::endl;
+		}
+		
 	}
 
 	// Remove all collisions from this simulation step
