@@ -10,6 +10,16 @@ class ECSRegistry
 	std::vector<ContainerInterface*> registry_list;
 
 public:
+	// SPLASH OF HUE SECTION
+	ComponentContainer<Colour> colours;
+	ComponentContainer<Collision> collisions;
+	ComponentContainer<Deadly> deadlys;
+	ComponentContainer<PistolShrimp> pistolShrimps;
+	ComponentContainer<Sawfish> sawfishes;
+
+	// END SPLASH OF HUE SECTION
+
+
 	// Manually created list of all components this game has
 	// TODO: A1 add a LightUp component
 	ComponentContainer<DeathTimer> deathTimers;
@@ -20,7 +30,6 @@ public:
 	ComponentContainer<RenderRequest> renderRequests;
 	ComponentContainer<ScreenState> screenStates;
 	ComponentContainer<Eatable> eatables;
-	ComponentContainer<Deadly> deadlys;
 	ComponentContainer<DebugComponent> debugComponents;
 	ComponentContainer<vec3> colors;
 	// IMPORTANT: Add any new CC's below to the registry_list
@@ -58,6 +67,9 @@ public:
 		registry_list.push_back(&scales);
 		registry_list.push_back(&sizes);
 		registry_list.push_back(&rectangles); // TODO 1ch6Q0BE: Remove
+		registry_list.push_back(&colours);
+		registry_list.push_back(&pistolShrimps);
+		registry_list.push_back(&sawfishes);
 	}
 
 	void clear_all_components() {

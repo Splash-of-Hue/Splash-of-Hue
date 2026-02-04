@@ -10,6 +10,39 @@ struct Player
 
 };
 
+// SPLASH OF HUE COMPONENTS //////////////////////////////
+enum class COLOUR_STATE {
+	NEUTRAL = 0,
+	BLUE = 1,
+	RED = 2
+};
+
+// used for entities that are affected by a certain colour (or player who is that colour)
+struct Colour {
+	COLOUR_STATE colour_state;
+};
+
+struct Collision {
+	Entity collider;
+	Entity collided; // the other entity involved in the collision
+};
+
+// used for Entities that cause damage (e.g. sawfish, spikes)
+struct Deadly
+{
+
+};
+
+struct PistolShrimp {
+	
+};
+
+struct Sawfish {
+
+};
+
+
+//////////////////////////////////////////////////////////
 // Tower
 struct Tower {
 	float range;	// for vision / detection
@@ -26,11 +59,7 @@ struct Projectile {
 	int damage;
 };
 
-// used for Entities that cause damage
-struct Deadly
-{
 
-};
 
 // used for edible entities
 struct Eatable
