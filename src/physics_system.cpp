@@ -71,8 +71,43 @@ void PhysicsSystem::step(float elapsed_ms)
 				// Create a collisions event
 				// We are abusing the ECS system a bit in that we potentially insert muliple collisions for the same entity
 				// CK: why the duplication, except to allow searching by entity_id
-				registry.collisions.emplace_with_duplicates(entity_i, entity_j);
-				// registry.collisions.emplace_with_duplicates(entity_j, entity_i);
+				if (registry.overlayCollisions.has(entity_i) || registry.overlayCollisions.has(entity_i)) {
+					//let world_systems handle it
+					registry.collisions.emplace_with_duplicates(entity_i, entity_j);
+				}
+				//must both be inelastic for this collision resolution to occur
+				if (registry.inelasticCollisions.has(entity_i) && registry.inelasticCollisions.has(entity_i)) {
+					//handle it here because using bounding box for correction (also it is a physics resolution)
+					vec2& pos1 = registry.positions.get(entity_i);
+					vec2& pos2 = registry.positions.get(entity_j);
+					vec4 box1 = get_bounding_box(entity_i);
+					vec4 box2 = get_bounding_box(entity_j);
+
+					
+					float x_depth = box1[3] < box2[3] ? box1[3] - box2[2] : box2[3] - box1[2];
+					float y_depth = box1[1] < box2[1] ? box1[1] - box2[0] : box2[1] - box1[0];
+
+					//only correct one entity, TODO: correct moving entity pos
+					if (x_depth < y_depth) {
+						if (pos1.x < pos2.x) {
+							pos1.x -= x_depth;
+						}
+						else {
+							pos1.x += x_depth;
+						}
+						
+					}
+					else {
+						if (pos1.y < pos2.y) {
+							pos1.y -= y_depth;
+						}
+						else {
+							pos1.y += y_depth;
+						}
+					}
+					
+				}
+
 			}
 			
 		}

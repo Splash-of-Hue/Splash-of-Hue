@@ -50,7 +50,7 @@ private:
 	float mouse_pos_y = 0.0f;
 	bool shift_key_pressed = false;
 	// TODO m1EAwQf4: Remove
-	Entity mouse_rect_entity;
+	Entity mouse_shape_entity;
 
 	// input callback functions
 	void on_window_moved(int xpos, int ypos);

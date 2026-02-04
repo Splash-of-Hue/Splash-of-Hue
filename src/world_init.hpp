@@ -30,3 +30,13 @@ Entity createRectangle(vec2 position, float width, float height, vec3 color = {1
 /// <param name="color">The color of the rectangle, defaults to white if not set.</param>
 /// <returns></returns>
 Entity createRectangle(vec2 top_left, vec2 bottom_right, vec3 color = { 1.0, 1.0, 1.0 });
+
+/// <summary>
+/// Creates an entity associated with a circle and returns the entity
+/// Should have Circle component when returned.
+/// </summary>
+/// <param name="position">The (x, y) coordinates of the center of the circle.</param>
+/// <param name="radius">The size of the circle's radius.</param>
+/// <param name="color">The color of the circle, defaults to white if not set.</param>
+/// <returns></returns>
+Entity createCircle(vec2 position, float radius, vec3 color = { 1.0, 1.0, 1.0 });

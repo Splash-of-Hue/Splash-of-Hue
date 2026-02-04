@@ -218,8 +218,9 @@ void WorldSystem::restart_game() {
 
 	// create rectangles
 	auto center_screen = vec2(WINDOW_WIDTH_PX / 2, WINDOW_HEIGHT_PX / 2);
-	//createRectangle(vec2(WINDOW_WIDTH_PX / 2, WINDOW_HEIGHT_PX / 2), 200, 200);
-	mouse_rect_entity = createRectangle(center_screen, center_screen + vec2(200));
+	
+	//mouse_shape_entity = createCircle(center_screen, 200);
+	mouse_shape_entity = createRectangle(center_screen, center_screen + vec2(200));
 }
 
 // Compute collisions between entities
@@ -229,10 +230,12 @@ void WorldSystem::handle_collisions() {
 	for (uint i = 0; i < collision_container.components.size(); i++) {
 		Entity& entity = collision_container.entities[i];
 		Entity& other = collision_container.get(entity).other;
-		//if one entity has overlay collision, behaviour change
+		//if one entity has overlay collision, then behaviour change occurs here
 		if (registry.overlayCollisions.has(entity) || registry.overlayCollisions.has(other)) {
 			std::cout << "Overlay collision with entities: " << entity.id() << " " << other.id() << std::endl;
 		}
+
+		//inelastic collisions are handled in physics_system
 		
 	}
 
@@ -273,18 +276,18 @@ void WorldSystem::on_key(int key, int, int action, int mod) {
 		// TODO m1EAwQf4: Remove this when no longer need to manually make rectangles for test
 		// Map numpad to increasing or decreasing the RGB value of rect on screen
 		std::map<int, std::tuple<int, float>> color_rect_change = {
-			{ GLFW_KEY_KP_1, { 0, -0.01 } },
-			{ GLFW_KEY_KP_2, { 1, -0.01 } },
-			{ GLFW_KEY_KP_3, { 2, -0.01 } },
-			{ GLFW_KEY_KP_4, { 0,  0.01 } },
-			{ GLFW_KEY_KP_5, { 1,  0.01 } },
-			{ GLFW_KEY_KP_6, { 2,  0.01 } }
+			{ GLFW_KEY_1, { 0, -0.01 } },
+			{ GLFW_KEY_2, { 1, -0.01 } },
+			{ GLFW_KEY_3, { 2, -0.01 } },
+			{ GLFW_KEY_4, { 0,  0.01 } },
+			{ GLFW_KEY_5, { 1,  0.01 } },
+			{ GLFW_KEY_6, { 2,  0.01 } }
 		};
 
 		if (color_rect_change.count(key) > 0)
 		{
 			auto [rgb_index, value_change] = color_rect_change[key];
-			auto& rect_color = registry.colors.get(mouse_rect_entity);
+			auto& rect_color = registry.colors.get(mouse_shape_entity);
 			rect_color[rgb_index] += value_change;
 		}
 	}
@@ -309,7 +312,7 @@ void WorldSystem::on_mouse_move(vec2 mouse_position) {
 	mouse_pos_y = mouse_position.y;
 
 	// TODO m1EAwQf4: Remove
-	auto& pos = registry.positions.get(mouse_rect_entity);
+	auto& pos = registry.positions.get(mouse_shape_entity);
 	pos = mouse_position;
 }
 
@@ -323,7 +326,7 @@ void WorldSystem::on_mouse_scroll(double xoffset, double yoffset)
 	std::cout << "mouse scroll, X Offset: " << xoffset << ", Y Offset: " << yoffset << std::endl;
 
 	// TODO m1EAwQf4: Remove
-	auto& size = registry.sizes.get(mouse_rect_entity);
+	auto& size = registry.sizes.get(mouse_shape_entity);
 	if (shift_key_pressed)
 	{
 		size.width += yoffset;
@@ -346,8 +349,8 @@ void WorldSystem::on_mouse_button_pressed(int button, int action, int mods) {
 		std::cout << "mouse tile position: " << tile_x << ", " << tile_y << std::endl;
 
 		// TODO m1EAwQf4: Remove
-		auto& size = registry.sizes.get(mouse_rect_entity);
-		auto& color = registry.colors.get(mouse_rect_entity);
+		auto& size = registry.sizes.get(mouse_shape_entity);
+		auto& color = registry.colors.get(mouse_shape_entity);
 		createRectangle(vec2(mouse_pos_x, mouse_pos_y), size.width, size.height, color);
 	}
 }
