@@ -14,10 +14,11 @@ vec4 get_bounding_box(const Entity& entity)
 {
 	Size& size = registry.sizes.get(entity);
 	vec2& pos = registry.positions.get(entity);
-	float bottom = pos[1] - size.height / 2;
-	float top = pos[1] + size.height / 2;
-	float left = pos[0] - size.width / 2;
-	float right = pos[0] + size.width / 2;
+	auto half_size = size * 0.5f;
+	float bottom = pos[1] - size.half_size ;
+	float top = pos[1] + half_size;
+	float left = pos[0] - half_size;
+	float right = pos[0] + half_size;
 	
 	return { bottom, top, left, right };
 }
