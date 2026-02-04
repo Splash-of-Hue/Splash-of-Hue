@@ -33,6 +33,7 @@ public:
 	ComponentContainer<vec2> scales;
 	ComponentContainer<Size> sizes;
 	ComponentContainer<Rect> rectangles; // TODO 1ch6Q0BE: Remove
+	ComponentContainer<MoveKeys> move_keys; // There should only be 1 entity for move_keys... TODO better way to store it then?
 
 	// constructor that adds all containers for looping over them
 	ECSRegistry()

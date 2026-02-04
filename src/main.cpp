@@ -42,7 +42,6 @@ int main()
 	// initialize the main systems
 	renderer_system.init(window);
 	world_system.init(&renderer_system);
-	physics_system.init(&input_system);
 	input_system.on_world_reset(); // TODO m1EAwQf4: This is only being used to make sure that the mouse rectangle isn't being destroyed on world_system reset so maybe don't need this.
 
 	// variable timestep loop

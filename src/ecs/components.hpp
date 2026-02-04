@@ -1,6 +1,7 @@
 #pragma once
 #include "common.hpp"
 #include <vector>
+#include <bitset>
 #include <unordered_map>
 #include "../ext/stb_image/stb_image.h"
 
@@ -124,6 +125,26 @@ struct Size
 {
 	float width;
 	float height;
+};
+
+enum MoveKey {
+	W = 0, 
+	A = 1, 
+	S = 2, 
+	D = 3 
+};
+
+struct MoveKeys
+{
+	std::bitset<4> movement_keys;
+
+	MoveKeys()
+	{
+		movement_keys.set(W, false);
+		movement_keys.set(A, false);
+		movement_keys.set(S, false);
+		movement_keys.set(D, false);
+	}
 };
 
 /**
