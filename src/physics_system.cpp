@@ -4,27 +4,39 @@
 #include <iostream>
 
 // Returns the local bounding coordinates scaled by the current size of the entity
-vec2 get_bounding_box(const Motion& motion)
+vec4 get_bounding_box(const Entity& entity)
 {
-	// abs is to avoid negative scale due to the facing direction.
-	return { abs(motion.scale.x), abs(motion.scale.y) };
+	Size& size = registry.sizes.get(entity);
+	vec2& pos = registry.positions.get(entity);
+	float half_height = size.height * 0.5;
+	float half_width = size.width * 0.5;
+	float bottom = pos[1] - half_height;
+	float top = pos[1] + half_height;
+	float left = pos[0] - half_width;
+	float right = pos[0] + half_width;
+	
+	return { bottom, top, left, right };
 }
 
-// This is a SUPER APPROXIMATE check that puts a circle around the bounding boxes and sees
-// if the center point of either object is inside the other's bounding-box-circle. You can
-// surely implement a more accurate detection
-bool collides(const Motion& motion1, const Motion& motion2)
+
+bool collides(const Entity& entity1, const Entity& entity2)
 {
-	vec2 dp = motion1.position - motion2.position;
-	float dist_squared = dot(dp,dp);
-	const vec2 other_bonding_box = get_bounding_box(motion1) / 2.f;
-	const float other_r_squared = dot(other_bonding_box, other_bonding_box);
-	const vec2 my_bonding_box = get_bounding_box(motion2) / 2.f;
-	const float my_r_squared = dot(my_bonding_box, my_bonding_box);
-	const float r_squared = max(other_r_squared, my_r_squared);
-	if (dist_squared < r_squared)
-		return true;
-	return false;
+	if (!registry.positions.has(entity1) || !registry.positions.has(entity2)) {
+		return false;
+	}
+	if (!registry.sizes.has(entity1) || !registry.sizes.has(entity2)) {
+		return false;
+	}
+	
+	vec4 box1 = get_bounding_box(entity1);
+	vec4 box2 = get_bounding_box(entity2);
+
+	// This is the equivalent of (left1 > right2 OR right1 < left2) OR (bottom1 > top2 OR top1 < bottom2)
+	// Which is asking if any of the edges of the boxes do NOT overlap.
+	return ((box1[2] <= box2[3]) && 
+			(box2[2] <= box1[3]) && 
+			(box1[0] <= box2[1]) && 
+			(box2[0] <= box1[1]));
 }
 
 void PhysicsSystem::step(float elapsed_ms)
@@ -35,9 +47,6 @@ void PhysicsSystem::step(float elapsed_ms)
 	auto& motion_registry = registry.motions;
 	for(uint i = 0; i< motion_registry.size(); i++)
 	{
-		// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-		// !!! TODO A1: update motion.position based on step_seconds and motion.velocity
-		// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 		Motion& motion = motion_registry.components[i];
 		Entity entity = motion_registry.entities[i];
 		float step_seconds = elapsed_ms / 1000.f;
@@ -45,26 +54,62 @@ void PhysicsSystem::step(float elapsed_ms)
 		(void)elapsed_ms; // placeholder to silence unused warning until implemented
 	}
 
-	// check for collisions between all moving entities
-    ComponentContainer<Motion> &motion_container = registry.motions;
-	for(uint i = 0; i < motion_container.components.size(); i++)
+	// check for collisions between all positioned entities
+    ComponentContainer<vec2> &position_container = registry.positions;
+	for(uint i = 0; i < position_container.components.size(); i++)
 	{
-		Motion& motion_i = motion_container.components[i];
-		Entity entity_i = motion_container.entities[i];
+		
+		Entity& entity_i = position_container.entities[i];
 		
 		// note starting j at i+1 to compare all (i,j) pairs only once (and to not compare with itself)
-		for(uint j = i+1; j < motion_container.components.size(); j++)
+		for(uint j = i+1; j < position_container.components.size(); j++)
 		{
-			Motion& motion_j = motion_container.components[j];
-			if (collides(motion_i, motion_j))
+			Entity& entity_j = position_container.entities[j];
+			if (collides(entity_i, entity_j))
 			{
-				Entity entity_j = motion_container.entities[j];
+				
 				// Create a collisions event
 				// We are abusing the ECS system a bit in that we potentially insert muliple collisions for the same entity
 				// CK: why the duplication, except to allow searching by entity_id
-				registry.collisions.emplace_with_duplicates(entity_i, entity_j);
-				// registry.collisions.emplace_with_duplicates(entity_j, entity_i);
+				if (registry.overlayCollisions.has(entity_i) || registry.overlayCollisions.has(entity_i)) {
+					//let world_systems handle it
+					registry.collisions.emplace(entity_i, entity_j);
+				}
+				//must both be inelastic for this collision resolution to occur
+				if (registry.inelasticCollisions.has(entity_i) && registry.inelasticCollisions.has(entity_i)) {
+					//handle it here because using bounding box for correction (also it is a physics resolution)
+					vec2& pos1 = registry.positions.get(entity_i);
+					vec2& pos2 = registry.positions.get(entity_j);
+					vec4 box1 = get_bounding_box(entity_i);
+					vec4 box2 = get_bounding_box(entity_j);
+
+					
+					float x_depth = box1[3] < box2[3] ? box1[3] - box2[2] : box2[3] - box1[2];
+					float y_depth = box1[1] < box2[1] ? box1[1] - box2[0] : box2[1] - box1[0];
+
+					//only correct one entity, TODO: correct moving entity pos
+					if (x_depth < y_depth) {
+						if (pos1.x < pos2.x) {
+							pos1.x -= x_depth;
+						}
+						else {
+							pos1.x += x_depth;
+						}
+						
+					}
+					else {
+						if (pos1.y < pos2.y) {
+							pos1.y -= y_depth;
+						}
+						else {
+							pos1.y += y_depth;
+						}
+					}
+					
+				}
+
 			}
+			
 		}
 	}
 
@@ -135,4 +180,5 @@ void PhysicsSystem::handle_player_movement()
 	{
 		std::cout << "DEBUG: Moving west!" << std::endl;
 	}
+
 }

@@ -59,6 +59,16 @@ struct Collision
 	Collision(Entity& other) { this->other = other; };
 };
 
+//entity is assigned a type of collision (when created) to determine how its collision is resolved
+struct OverlayCollision {
+
+};
+
+struct InelasticCollision {
+
+};
+
+
 // Data structure for toggling debug mode
 struct Debug {
 	bool in_debug_mode = 0;
@@ -128,6 +138,7 @@ struct Size
 	float width;
 	float height;
 };
+
 
 enum MoveKey {
 	W = 0, 
