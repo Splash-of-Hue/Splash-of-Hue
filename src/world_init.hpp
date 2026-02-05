@@ -19,7 +19,7 @@ Entity createLine(vec2 position, vec2 size);
 /// <param name="height">The size of the rectangle along the y-axis.</param>
 /// <param name="color">The color of the rectangle, defaults to white if not set.</param>
 /// <returns></returns>
-Entity createRectangle(vec2 position, float width, float height, vec3 color = {1.0, 1.0, 1.0});
+Entity createRectangle(vec2 position, float width, float height, vec3 color = { 1.0, 1.0, 1.0 });
 
 /// <summary>
 /// Creates an entity associated with a rectangle and returns the entity
