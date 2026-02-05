@@ -266,39 +266,6 @@ bool RenderSystem::initScreenTexture()
 
 	return true;
 }
-std::vector<ColoredVertex> getCircleVertices(int triangle_count, float z_position, vec3 inner_color, vec3 outer_color)
-{
-	std::vector<ColoredVertex> vertices;
-
-	for (int i = 0; i < triangle_count; i++)
-	{
-		const float t = float(i) * M_PI * 2.f / float(triangle_count - 1);
-		vertices.push_back({});
-		vertices.back().position = { 0.5 * cos(t), 0.5 * sin(t), z_position };
-		vertices.back().color = { outer_color.r, outer_color.g, outer_color.b };
-	}
-
-	vertices.push_back({});
-	vertices.back().position = { 0, 0, 0 };
-	vertices.back().color = { inner_color.r, inner_color.g, inner_color.b };
-
-	return vertices;
-}
-
-std::vector<uint16_t> getCircleIndices(int triangle_count)
-{
-	std::vector<uint16_t> indices;
-
-	// Wedges towards middle
-	for (int i = 0; i < triangle_count; i++)
-	{
-		indices.push_back((uint16_t)i);
-		indices.push_back((uint16_t)((i + 1) % triangle_count));
-		indices.push_back((uint16_t)triangle_count);
-	}
-
-	return indices;
-}
 
 std::vector<ColoredVertex> getCircleVertices(int triangle_count, float z_position, vec3 inner_color, vec3 outer_color)
 {
