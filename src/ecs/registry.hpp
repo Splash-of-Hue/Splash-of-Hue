@@ -42,6 +42,7 @@ public:
 	ComponentContainer<vec2> scales;
 	ComponentContainer<Size> sizes;
 	ComponentContainer<Rect> rectangles; // TODO 1ch6Q0BE: Remove
+	ComponentContainer<Circle> circles; // TODO 1ch6Q0BE: Remove
 
 	// constructor that adds all containers for looping over them
 	ECSRegistry()
@@ -66,7 +67,7 @@ public:
 		registry_list.push_back(&angles);
 		registry_list.push_back(&scales);
 		registry_list.push_back(&sizes);
-		registry_list.push_back(&rectangles); // TODO 1ch6Q0BE: Remove
+		registry_list.push_back(&circles); // TODO 1ch6Q0BE: Remove
 		registry_list.push_back(&colours);
 		registry_list.push_back(&pistolShrimps);
 		registry_list.push_back(&sawfishes);
