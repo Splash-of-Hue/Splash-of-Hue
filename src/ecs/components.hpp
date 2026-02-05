@@ -137,7 +137,6 @@ struct Size
 	float height;
 };
 
-
 enum MoveKey {
 	W = 0, 
 	A = 1, 
