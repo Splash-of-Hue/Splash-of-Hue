@@ -45,6 +45,7 @@ public:
 	bool is_over() const;
 
 private:
+
 	float mouse_pos_x = 0.0f;
 	float mouse_pos_y = 0.0f;
 	bool shift_key_pressed = false;

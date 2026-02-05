@@ -36,8 +36,6 @@ public:
 	ComponentContainer<OverlayCollision> overlayCollisions;
 	ComponentContainer<InelasticCollision> inelasticCollisions;
 	ComponentContainer<MoveKeys> move_keys; // There should only be 1 entity for move_keys... TODO better way to store it then?
-	ComponentContainer<Circle> circles; // TODO 1ch6Q0BE: Remove
-
 	// constructor that adds all containers for looping over them
 	ECSRegistry()
 	{
