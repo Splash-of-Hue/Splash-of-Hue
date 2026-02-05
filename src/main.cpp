@@ -10,6 +10,7 @@
 #include "physics_system.hpp"
 #include "renderer/render_system.hpp"
 #include "world_system.hpp"
+#include "sound/sound_system.hpp"
 
 using Clock = std::chrono::high_resolution_clock;
 
@@ -21,6 +22,7 @@ int main()
 	WorldSystem   world_system;
 	RenderSystem  renderer_system;
 	PhysicsSystem physics_system;
+	SoundSystem   sound_system;
 
 	// initialize window
 	GLFWwindow* window = world_system.create_window();
@@ -31,11 +33,12 @@ int main()
 		return EXIT_FAILURE;
 	}
 
-	if (!world_system.start_and_load_sounds()) {
+	if (!sound_system.start_and_load_sounds()) {
 		std::cerr << "ERROR: Failed to start or load sounds." << std::endl;
 	}
 
 	// initialize the main systems
+	sound_system.init();
 	renderer_system.init(window);
 	world_system.init(&renderer_system);
 
