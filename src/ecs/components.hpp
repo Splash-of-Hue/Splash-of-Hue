@@ -2,10 +2,6 @@
 #include "common.hpp"
 #include <vector>
 #include <bitset>
-
-#include <unordered_map>
-#include "../ext/stb_image/stb_image.h"
-
 #include "renderer/render_constants.hpp"
 
 // Player component
