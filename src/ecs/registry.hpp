@@ -32,9 +32,9 @@ public:
 	ComponentContainer<Size> sizes;
 	ComponentContainer<Rect> rectangles; // TODO 1ch6Q0BE: Remove
 	ComponentContainer<Circle> circles; // TODO 1ch6Q0BE: Remove
-  ComponentContainer<Animatable> animatables;
-  ComponentContainer<Animation> animations;
-  ComponentContainer<AnimationTrigger> animation_triggers;
+	ComponentContainer<Animatable> animatables;
+	ComponentContainer<Animation> animations;
+	ComponentContainer<AnimationTrigger> animation_triggers;
 
 	// constructor that adds all containers for looping over them
 	ECSRegistry()
@@ -60,9 +60,9 @@ public:
 		registry_list.push_back(&sizes);
 		registry_list.push_back(&rectangles); // TODO 1ch6Q0BE: Remove
 		registry_list.push_back(&circles); // TODO 1ch6Q0BE: Remove
-	registry_list.push_back(&animatables);
-	registry_list.push_back(&animations);
-	registry_list.push_back(&animation_triggers);
+		registry_list.push_back(&animatables);
+		registry_list.push_back(&animations);
+		registry_list.push_back(&animation_triggers);
 	}
 
 	void clear_all_components() {
