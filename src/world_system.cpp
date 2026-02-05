@@ -10,6 +10,7 @@
 #include <tuple>
 
 #include "physics_system.hpp"
+#include "loading/loading_constants.hpp"
 
 // create the world
 WorldSystem::WorldSystem() :
@@ -219,7 +220,10 @@ void WorldSystem::restart_game() {
 	// create rectangles
 	auto center_screen = vec2(WINDOW_WIDTH_PX / 2, WINDOW_HEIGHT_PX / 2);
 	mouse_shape_entity = createRectangle(center_screen, center_screen + vec2(200));
-	mouse_rect_entity = createRectangle(center_screen, center_screen + vec2(200));
+
+	// Load level
+	Entity load_request_entity;
+	registry.loadRequests.insert(load_request_entity, { LOAD_TYPE::LOAD_LEVEL, current_level_uid });
 }
 
 // Compute collisions between entities

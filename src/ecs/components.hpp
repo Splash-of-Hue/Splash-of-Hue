@@ -2,6 +2,7 @@
 #include "common.hpp"
 #include <vector>
 #include "renderer/render_constants.hpp"
+#include "loading/loading_constants.hpp"
 
 // Player component
 struct Player
@@ -131,4 +132,31 @@ struct RenderRequest
 	TEXTURE_ASSET_ID   used_texture = TEXTURE_ASSET_ID::TEXTURE_COUNT;
 	EFFECT_ASSET_ID    used_effect = EFFECT_ASSET_ID::EFFECT_COUNT;
 	GEOMETRY_BUFFER_ID used_geometry = GEOMETRY_BUFFER_ID::GEOMETRY_COUNT;
+};
+
+// Used to load in new data dynamically instead of at start of the game
+struct LoadRequest
+{
+	// The type of thing that needs loading. Could be a level, music, etc.
+	LOAD_TYPE load_type;
+	// The unique ID of whatever needs to be loaded
+	int uid;
+};
+
+// Used for level entity
+struct Level
+{
+	// Unique ID for the room
+	int uid;
+};
+
+struct Creature
+{
+
+};
+
+// TODO: Remove as we probably won't need this, this is just for M1 prototyping
+struct Toggle
+{
+
 };

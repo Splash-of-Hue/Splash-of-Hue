@@ -46,6 +46,7 @@ public:
 
 private:
 
+	int current_level_uid = 0;
 	float mouse_pos_x = 0.0f;
 	float mouse_pos_y = 0.0f;
 	bool shift_key_pressed = false;
