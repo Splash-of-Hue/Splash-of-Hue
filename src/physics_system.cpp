@@ -37,7 +37,8 @@ bool collides(const Entity& entity1, const Entity& entity2)
 	vec4 box1 = get_bounding_box(entity1);
 	vec4 box2 = get_bounding_box(entity2);
 
-	// left1 <= right2 AND left2 <= right1 AND bottom1 <= top2 AND bottom2 <= top1
+	// This is the equivalent of (left1 > right2 OR right1 < left2) OR (bottom1 > top2 OR top1 < bottom2)
+	// Which is asking if any of the edges of the boxes do NOT overlap.
 	return ((box1[2] <= box2[3]) && 
 			(box2[2] <= box1[3]) && 
 			(box1[0] <= box2[1]) && 
