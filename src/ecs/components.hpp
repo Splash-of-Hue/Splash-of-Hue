@@ -134,15 +134,6 @@ struct RenderRequest
 	GEOMETRY_BUFFER_ID used_geometry = GEOMETRY_BUFFER_ID::GEOMETRY_COUNT;
 };
 
-// Used to load in new data dynamically instead of at start of the game
-struct LoadRequest
-{
-	// The type of thing that needs loading. Could be a level, music, etc.
-	LOAD_TYPE load_type;
-	// The unique ID of whatever needs to be loaded
-	int uid;
-};
-
 // Used for level entity
 struct Level
 {

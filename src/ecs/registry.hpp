@@ -3,6 +3,7 @@
 
 #include "tiny_ecs.hpp"
 #include "components.hpp"
+#include "loading/loading_components.hpp"
 
 class ECSRegistry
 {
