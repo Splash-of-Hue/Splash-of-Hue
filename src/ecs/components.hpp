@@ -1,6 +1,7 @@
 #pragma once
 #include "common.hpp"
 #include <vector>
+#include <bitset>
 #include "renderer/render_constants.hpp"
 
 // Player component
@@ -155,8 +156,27 @@ struct Size
 	float height;
 };
 
-struct RenderRequest
+enum MoveKey {
+	W = 0, 
+	A = 1, 
+	S = 2, 
+	D = 3 
+};
+
+struct MoveKeys
 {
+	std::bitset<4> movement_keys;
+
+	MoveKeys()
+	{
+		movement_keys.set(W, false);
+		movement_keys.set(A, false);
+		movement_keys.set(S, false);
+		movement_keys.set(D, false);
+	}
+};
+
+struct RenderRequest {
 	TEXTURE_ASSET_ID   used_texture = TEXTURE_ASSET_ID::TEXTURE_COUNT;
 	EFFECT_ASSET_ID    used_effect = EFFECT_ASSET_ID::EFFECT_COUNT;
 	GEOMETRY_BUFFER_ID used_geometry = GEOMETRY_BUFFER_ID::GEOMETRY_COUNT;
