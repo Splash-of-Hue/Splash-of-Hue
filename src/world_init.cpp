@@ -2,7 +2,6 @@
 #include "ecs/registry.hpp"
 #include <iostream>
 
-
 Entity createGridLine(vec2 start_pos, vec2 end_pos)
 {
 	Entity entity = Entity();
