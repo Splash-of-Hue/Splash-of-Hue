@@ -79,7 +79,7 @@ public:
 
 private:
 	// Internal drawing functions for each entity type
-	void drawRect(Entity entity, const mat3& projection); // TODO 1ch6Q0BE: Remove
+	void drawShape(Entity entity, const mat3& projection); // TODO 1ch6Q0BE: Remove
 	void drawGridLine(Entity entity, const mat3& projection);
 	void drawTexturedMesh(Entity entity, const mat3& projection);
 	void drawToScreen();
@@ -97,3 +97,5 @@ private:
 
 bool loadEffectFromFile(
 	const std::string& vs_path, const std::string& fs_path, GLuint& out_program);
+std::vector<ColoredVertex> getCircleVertices(int triangle_count, float z_position, vec3 inner_color, vec3 outer_color);
+std::vector<uint16_t> getCircleIndices(int triangle_count);

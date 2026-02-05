@@ -4,6 +4,7 @@
 #include <bitset>
 #include <unordered_map>
 #include "../ext/stb_image/stb_image.h"
+#include "renderer/render_constants.hpp"
 
 // Player component
 struct Player
@@ -115,6 +116,7 @@ struct Mesh
 // TODO 1ch6Q0BE: Remove in favour of robust rendering engine
 // An entity that is drawn as a rectangle on screen
 struct Rect {};
+struct Circle {};
 
 struct Angle
 {
@@ -196,9 +198,9 @@ enum class GEOMETRY_BUFFER_ID {
 };
 const int geometry_count = (int)GEOMETRY_BUFFER_ID::GEOMETRY_COUNT;
 
-struct RenderRequest {
+struct RenderRequest
+{
 	TEXTURE_ASSET_ID   used_texture = TEXTURE_ASSET_ID::TEXTURE_COUNT;
 	EFFECT_ASSET_ID    used_effect = EFFECT_ASSET_ID::EFFECT_COUNT;
 	GEOMETRY_BUFFER_ID used_geometry = GEOMETRY_BUFFER_ID::GEOMETRY_COUNT;
 };
-
