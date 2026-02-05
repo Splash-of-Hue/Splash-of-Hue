@@ -114,8 +114,6 @@ Entity createCircle(vec2 position, float radius, vec3 color)
 	registry.colors.emplace(entity, color);
 
 	registry.overlayCollisions.emplace(entity);
-
-
 	registry.renderRequests.insert(
 		entity,
 		{
