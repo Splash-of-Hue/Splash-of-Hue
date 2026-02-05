@@ -37,7 +37,7 @@ bool collides(const Entity& entity1, const Entity& entity2)
 	vec4 box1 = get_bounding_box(entity1);
 	vec4 box2 = get_bounding_box(entity2);
 
-
+	// left1 <= right2 AND left2 <= right1 AND bottom1 <= top2 AND bottom2 <= top1
 	return ((box1[2] <= box2[3]) && 
 			(box2[2] <= box1[3]) && 
 			(box1[0] <= box2[1]) && 
@@ -52,9 +52,7 @@ void PhysicsSystem::step(float elapsed_ms)
 	auto& motion_registry = registry.motions;
 	for(uint i = 0; i< motion_registry.size(); i++)
 	{
-		// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-		// !!! TODO A1: update motion.position based on step_seconds and motion.velocity
-		// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+		
 		Motion& motion = motion_registry.components[i];
 		Entity entity = motion_registry.entities[i];
 		float step_seconds = elapsed_ms / 1000.f;
@@ -81,7 +79,7 @@ void PhysicsSystem::step(float elapsed_ms)
 				// CK: why the duplication, except to allow searching by entity_id
 				if (registry.overlayCollisions.has(entity_i) || registry.overlayCollisions.has(entity_i)) {
 					//let world_systems handle it
-					registry.collisions.emplace_with_duplicates(entity_i, entity_j);
+					registry.collisions.emplace(entity_i, entity_j);
 				}
 				//must both be inelastic for this collision resolution to occur
 				if (registry.inelasticCollisions.has(entity_i) && registry.inelasticCollisions.has(entity_i)) {
