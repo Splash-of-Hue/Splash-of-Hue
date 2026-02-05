@@ -34,6 +34,9 @@ public:
 	ComponentContainer<Size> sizes;
 	ComponentContainer<Rect> rectangles; // TODO 1ch6Q0BE: Remove
 	ComponentContainer<Circle> circles; // TODO 1ch6Q0BE: Remove
+	ComponentContainer<OverlayCollision> overlayCollisions;
+	ComponentContainer<InelasticCollision> inelasticCollisions;
+	ComponentContainer<MoveKeys> move_keys; // There should only be 1 entity for move_keys... TODO better way to store it then?
 	ComponentContainer<Animatable> animatables;
 	ComponentContainer<Animation> animations;
 	ComponentContainer<AnimationTrigger> animation_triggers;
@@ -42,6 +45,7 @@ public:
 	// constructor that adds all containers for looping over them
 	ECSRegistry()
 	{
+		
 		registry_list.push_back(&deathTimers);
 		registry_list.push_back(&motions);
 		registry_list.push_back(&collisions);
@@ -63,6 +67,9 @@ public:
 		registry_list.push_back(&sizes);
 		registry_list.push_back(&rectangles); // TODO 1ch6Q0BE: Remove
 		registry_list.push_back(&circles); // TODO 1ch6Q0BE: Remove
+
+		registry_list.push_back(&overlayCollisions);
+		registry_list.push_back(&inelasticCollisions);
 		registry_list.push_back(&animatables);
 		registry_list.push_back(&animations);
 		registry_list.push_back(&animation_triggers);

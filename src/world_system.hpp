@@ -64,7 +64,7 @@ private:
 
 	// OpenGL window handle
 	GLFWwindow* window;
-
+	
 	float next_invader_spawn;
 	float invader_spawn_rate_ms;	// see default value in common.hpp
 
@@ -88,4 +88,7 @@ private:
 	// C++ random number generator
 	std::default_random_engine rng;
 	std::uniform_real_distribution<float> uniform_dist; // number between 0..1
+
+	// Allow InputSystem to access private functions on input
+	friend class InputSystem;
 };
