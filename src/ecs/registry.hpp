@@ -1,7 +1,7 @@
 #pragma once
 #include <vector>
 
-#include "tiny_ecs.hpp"
+#include "animation/animation_components.hpp"
 #include "components.hpp"
 
 class ECSRegistry
@@ -11,7 +11,6 @@ class ECSRegistry
 
 public:
 	// Manually created list of all components this game has
-	// TODO: A1 add a LightUp component
 	ComponentContainer<DeathTimer> deathTimers;
 	ComponentContainer<Motion> motions;
 	ComponentContainer<Collision> collisions;
@@ -23,7 +22,6 @@ public:
 	ComponentContainer<Deadly> deadlys;
 	ComponentContainer<DebugComponent> debugComponents;
 	ComponentContainer<vec3> colors;
-	// IMPORTANT: Add any new CC's below to the registry_list
 	ComponentContainer<Tower> towers;
 	ComponentContainer<GridLine> gridLines;
 	ComponentContainer<Invader> invaders;
@@ -34,11 +32,13 @@ public:
 	ComponentContainer<Size> sizes;
 	ComponentContainer<Rect> rectangles; // TODO 1ch6Q0BE: Remove
 	ComponentContainer<Circle> circles; // TODO 1ch6Q0BE: Remove
+  ComponentContainer<Animatable> animatables;
+  ComponentContainer<Animation> animations;
+  ComponentContainer<AnimationTrigger> animation_triggers;
 
 	// constructor that adds all containers for looping over them
 	ECSRegistry()
 	{
-		// TODO: A1 add a LightUp component
 		registry_list.push_back(&deathTimers);
 		registry_list.push_back(&motions);
 		registry_list.push_back(&collisions);
@@ -60,6 +60,9 @@ public:
 		registry_list.push_back(&sizes);
 		registry_list.push_back(&rectangles); // TODO 1ch6Q0BE: Remove
 		registry_list.push_back(&circles); // TODO 1ch6Q0BE: Remove
+	registry_list.push_back(&animatables);
+	registry_list.push_back(&animations);
+	registry_list.push_back(&animation_triggers);
 	}
 
 	void clear_all_components() {
