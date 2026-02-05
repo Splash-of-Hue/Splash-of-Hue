@@ -9,6 +9,7 @@ void AnimationSystem::step(float elapsed_ms)
 {
 	auto& animatable_registry = registry.animatables;
 	auto& animation_trigger_registry = registry.animation_triggers;
+	auto& textured_registry = registry.textured;
 	auto& render_request_registry = registry.renderRequests;
 
 	for (Entity entity : animation_trigger_registry.entities)
@@ -70,9 +71,9 @@ void AnimationSystem::step(float elapsed_ms)
 		// The next frame will depend on the behavior, use a helper function
 		int next_frame = get_next_frame(animatable, (int)animation_texture_ids.size());
 		TEXTURE_ASSET_ID texture_asset_id = animation_texture_ids[next_frame];
-		auto& render_request = render_request_registry.get(entity);
+		auto& textured = textured_registry.get(entity);
 		// Update both components
-		render_request.used_texture = texture_asset_id;
+		textured.used_texture = texture_asset_id;
 		animatable.current_frame = next_frame;
 		animatable.time_on_current_frame = 0;
 		//std::cout << "ANIMATION: Using texture  ID: " << (int)texture_asset_id << " for entity ID: " << (int)entity.id() << ", time spent on this frame: " << animatable.time_on_current_frame << std::endl;

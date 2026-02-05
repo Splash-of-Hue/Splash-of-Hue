@@ -2,6 +2,7 @@
 #include <vector>
 
 #include "animation/animation_components.hpp"
+#include "renderer/render_components.hpp"
 #include "components.hpp"
 #include "tiny_ecs.hpp"
 
@@ -22,7 +23,7 @@ public:
 	ComponentContainer<Eatable> eatables;
 	ComponentContainer<Deadly> deadlys;
 	ComponentContainer<DebugComponent> debugComponents;
-	ComponentContainer<vec3> colors;
+	ComponentContainer<vec4> colors;
 	ComponentContainer<Tower> towers;
 	ComponentContainer<GridLine> gridLines;
 	ComponentContainer<Invader> invaders;
@@ -36,6 +37,7 @@ public:
 	ComponentContainer<Animatable> animatables;
 	ComponentContainer<Animation> animations;
 	ComponentContainer<AnimationTrigger> animation_triggers;
+	ComponentContainer<Textured> textured;
 
 	// constructor that adds all containers for looping over them
 	ECSRegistry()
@@ -64,6 +66,7 @@ public:
 		registry_list.push_back(&animatables);
 		registry_list.push_back(&animations);
 		registry_list.push_back(&animation_triggers);
+		registry_list.push_back(&textured);
 	}
 
 	void clear_all_components()
