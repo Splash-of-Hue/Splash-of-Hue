@@ -22,7 +22,7 @@ void AnimationSystem::step(float elapsed_ms)
 	// Clear triggers each frame after they have been queued
 	animation_trigger_registry.clear();
 
-	for (Entity entity : animatable_registry.entities)
+	for (Entity& entity : animatable_registry.entities)
 	{
 		// If there is nothing requested to be rendered, simply move on
 		if (!render_request_registry.has(entity))
