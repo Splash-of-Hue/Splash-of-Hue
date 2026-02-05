@@ -52,3 +52,4 @@ enum class GEOMETRY_BUFFER_ID
 	GEOMETRY_COUNT = SCREEN_TRIANGLE + 1
 };
 const int geometry_count = (int)GEOMETRY_BUFFER_ID::GEOMETRY_COUNT;
+
