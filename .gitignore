@@ -1,3 +1,3 @@
-/ext/project_path.*
+/ext/project_path.hpp
 /out/**
 /.vs/**
