@@ -180,5 +180,4 @@ void PhysicsSystem::handle_player_movement()
 	{
 		std::cout << "DEBUG: Moving west!" << std::endl;
 	}
-
 }
