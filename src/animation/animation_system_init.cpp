@@ -30,9 +30,9 @@ void AnimationSystem::init()
 		{ TEXTURE_ASSET_ID::SAWFISH_01 }
 	);
 	generate_animation(
-		ANIMATABLE_TYPE::SAWFISH,
+		ANIMATABLE_TYPE::WHALE,
 		ANIMATION_TRIGGER::IDLE,
-		{ TEXTURE_ASSET_ID::SAWFISH_01 }
+		{ TEXTURE_ASSET_ID::WHALE_01 }
 	);
 	generate_animation(
 		ANIMATABLE_TYPE::PISTOL_SHRIMP,
