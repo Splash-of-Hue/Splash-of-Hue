@@ -7,7 +7,6 @@ Entity createGridLine(vec2 start_pos, vec2 end_pos)
 {
 	Entity entity = Entity();
 
-	// TODO A1: create a gridLine component
 	registry.gridLines.insert(entity, { start_pos, end_pos });
 
 	// re-use the "DEBUG_LINE" renderRequest
