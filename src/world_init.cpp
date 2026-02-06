@@ -44,8 +44,6 @@ Entity createLine(vec2 position, vec2 scale)
 	// Create motion
 	Motion& motion = registry.motions.emplace(entity);
 	motion.velocity = { 0, 0 };
-	//motion.position = position;
-	//motion.scale = scale;
 
 	registry.debugComponents.emplace(entity);
 	return entity;
