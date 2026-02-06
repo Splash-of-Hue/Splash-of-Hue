@@ -8,7 +8,7 @@ struct M1ShapeData
 {
 	Size size;
 	vec2 position;
-	vec3 color;
+	vec4 color;
 	// TODO: Add AI behaviour for creatures
 };
 
@@ -27,17 +27,17 @@ const std::vector<M1TestData> m1_test_data = {
 			{
 				{ 100, 100 }, // size
 				{ 400, 120 }, // position
-				{ 0.2f, 0.4f, 0 } // color
+				{ 0.2f, 0.4f, 0, 1.0f } // color
 			},
 			{
 				{ 80, 20 }, // size
 				{ 50, 20 }, // position
-				{ 0, 1.0f, 0.6f } // color
+				{ 0, 1.0f, 0.6f, 1.0f  } // color
 			},
 			{
 				{ 50, 200 }, // size
 				{ 800, 320 }, // position
-				{ 0.4f, 0, 0.85f } // color
+				{ 0.4f, 0, 0.85f, 1.0f  } // color
 			},
 		},
 		{
@@ -45,12 +45,12 @@ const std::vector<M1TestData> m1_test_data = {
 			{
 				{ 100, 100 }, // size
 				{ 600, 220 }, // position
-				{ 1.0f, 0, 0 } // color
+				{ 1.0f, 0, 0, 1.0f  } // color
 			},
 			{
 				{ 100, 100 }, // size
 				{ 150, 500 }, // position
-				{ 0, 0, 1.0f } // color
+				{ 0, 0, 1.0f, 1.0f  } // color
 			},
 		},
 	}
@@ -64,7 +64,7 @@ void LoaderSystem::load_level(int level_uid)
 	registry.levels.insert(level_entity, { level_uid });
 
 	// For now, the player is a red circle of size 40
-	auto player_entity = createCircle(level_data.player_start_position, 40.0f, { 1.0f, 0, 0 });
+	auto player_entity = createCircle(level_data.player_start_position, 40.0f, { 1.0f, 0, 0, 1.0f});
 	registry.players.emplace(player_entity);
 
 	// Load each "creature", make a rectangle
