@@ -3,6 +3,7 @@
 #include <vector>
 #include <bitset>
 #include "renderer/render_constants.hpp"
+#include "creature_behaviour_system/creature_constants.hpp"
 
 // Player component
 struct Player
