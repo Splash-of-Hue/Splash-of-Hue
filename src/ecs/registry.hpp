@@ -1,7 +1,8 @@
 #pragma once
 #include <vector>
 
-#include "tiny_ecs.hpp"
+#include "animation/animation_components.hpp"
+#include "renderer/render_components.hpp"
 #include "components.hpp"
 #include "input/input_components.hpp"
 #include "controls/control_components.hpp"
@@ -23,8 +24,7 @@ public:
 	ComponentContainer<Eatable> eatables;
 	ComponentContainer<Deadly> deadlys;
 	ComponentContainer<DebugComponent> debugComponents;
-	ComponentContainer<vec3> colors;
-	// IMPORTANT: Add any new CC's below to the registry_list
+	ComponentContainer<vec4> colors;
 	ComponentContainer<Tower> towers;
 	ComponentContainer<GridLine> gridLines;
 	ComponentContainer<Invader> invaders;
@@ -37,8 +37,13 @@ public:
 	ComponentContainer<Circle> circles; // TODO 1ch6Q0BE: Remove
 	ComponentContainer<OverlayCollision> overlayCollisions;
 	ComponentContainer<InelasticCollision> inelasticCollisions;
+	ComponentContainer<Animatable> animatables;
+	ComponentContainer<Animation> animations;
+	ComponentContainer<AnimationTrigger> animation_triggers;
+	ComponentContainer<Textured> textured;
 	ComponentContainer<Input> inputs;
 	ComponentContainer<Control> controls;
+
 	// constructor that adds all containers for looping over them
 	ECSRegistry()
 	{
@@ -66,30 +71,38 @@ public:
 		registry_list.push_back(&circles); // TODO 1ch6Q0BE: Remove
 		registry_list.push_back(&overlayCollisions);
 		registry_list.push_back(&inelasticCollisions);
+		registry_list.push_back(&animatables);
+		registry_list.push_back(&animations);
+		registry_list.push_back(&animation_triggers);
+		registry_list.push_back(&textured);
 		registry_list.push_back(&inputs);
 		registry_list.push_back(&controls);
 	}
 
-	void clear_all_components() {
+	void clear_all_components()
+	{
 		for (ContainerInterface* reg : registry_list)
 			reg->clear();
 	}
 
-	void list_all_components() {
+	void list_all_components()
+	{
 		printf("Debug info on all registry entries:\n");
 		for (ContainerInterface* reg : registry_list)
 			if (reg->size() > 0)
 				printf("%4d components of type %s\n", (int)reg->size(), typeid(*reg).name());
 	}
 
-	void list_all_components_of(Entity e) {
+	void list_all_components_of(Entity e)
+	{
 		printf("Debug info on components of entity %u:\n", (unsigned int)e);
 		for (ContainerInterface* reg : registry_list)
 			if (reg->has(e))
 				printf("type %s\n", typeid(*reg).name());
 	}
 
-	void remove_all_components_of(Entity e) {
+	void remove_all_components_of(Entity e)
+	{
 		for (ContainerInterface* reg : registry_list)
 			reg->remove(e);
 	}

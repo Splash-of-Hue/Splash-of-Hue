@@ -10,6 +10,7 @@
 #include "physics_system.hpp"
 #include "renderer/render_system.hpp"
 #include "world_system.hpp"
+#include "animation/animation_system.hpp""
 #include "input/input_system.hpp"
 #include "controls/control_input_conversion_system.hpp"
 
@@ -23,6 +24,7 @@ int main()
 	WorldSystem   world_system;
 	RenderSystem  renderer_system;
 	PhysicsSystem physics_system;
+	AnimationSystem animation_system;
 	InputSystem input_system;
 	ControlInputConversionSystem control_input_conversion_system;
 
@@ -44,6 +46,7 @@ int main()
 	input_system.init(window);
 	renderer_system.init(window);
 	world_system.init(&renderer_system);
+	animation_system.init();
 
 	// variable timestep loop
 	auto t = Clock::now();
@@ -63,6 +66,7 @@ int main()
 		world_system.step(elapsed_ms);
 		ai_system.step(elapsed_ms);
 		physics_system.step(elapsed_ms);
+		animation_system.step(elapsed_ms);
 		world_system.handle_collisions();
 
 		renderer_system.draw();
