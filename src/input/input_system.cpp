@@ -48,7 +48,7 @@ void InputSystem::on_mouse_move(vec2 mouse_position)
 	registry.inputs.insert(mouse_move_entity, input);
 }
 
-// TODO: Move to a window system
+// TODO LtiFv3Nh: Move to a window system
 void InputSystem::on_window_moved(int xpos, int ypos)
 {
 	std::cout << "Window position, X: " << xpos << ", Y: " << ypos << std::endl;
