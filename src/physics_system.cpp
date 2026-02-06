@@ -116,68 +116,13 @@ void PhysicsSystem::step(float elapsed_ms)
 	handle_player_movement();
 }
 
+// TODO SnB9A38K: Move to a player controller system and remove input in favour of component
 void PhysicsSystem::handle_player_movement()
 {
-	// How should we assert if move_keys is uninitialized?
-	ComponentContainer<MoveKeys> &move_keys_container = registry.move_keys;
+	auto &player_container = registry.players;
+	assert(player_container.size() == 1 && "Should only be 1 player.");
+	auto& player_entity = player_container.entities[0];
 
-	// TODO: refactor once I'm awake
-	assert(move_keys_container.entities.size() == 1 && "move_keys has too many entities in it. Should only be 1.");
-	if (move_keys_container.entities.size() == 0)
-	{ 
-		std::cout << "DEBUG: move_keys not initialized yet" << std::endl;
-		return;
-	}
-	// Should only be one but obviously refactor later
-	auto& move_keys = move_keys_container.components[0];
-
-	// Check if 3+ keys are currently being pushed. If yes, don't move
-	// @Geetika feel free to change this, I just figured that the sheep shouldn't move if more than 3 keys are being pressed
-	// TODO: don't move on W + S being pressed or A + D being pressed 
-	if (move_keys.movement_keys.count() >= 3)
-	{
-		std::cout << "DEBUG: too many keys pushed to move :(" << std::endl;
-		return;
-	}
-
-	// Northwest
-	if (move_keys.movement_keys[W] && move_keys.movement_keys[A])
-	{
-		std::cout << "DEBUG: Moving northwest!" << std::endl;
-	}
-	// Northeast
-	else if (move_keys.movement_keys[W] && move_keys.movement_keys[D])
-	{
-		std::cout << "DEBUG: Moving northeast!" << std::endl;
-	}
-	// Southeast
-	else if (move_keys.movement_keys[D] && move_keys.movement_keys[S])
-	{
-		std::cout << "DEBUG: Moving southeast!" << std::endl;
-	}
-	// Southwest
-	else if (move_keys.movement_keys[A] && move_keys.movement_keys[S])
-	{
-		std::cout << "DEBUG: Moving southwest!" << std::endl;
-	}
-	// North
-	else if (move_keys.movement_keys[W])
-	{
-		std::cout << "DEBUG: Moving north!" << std::endl;
-	}
-	// East
-	else if (move_keys.movement_keys[D])
-	{
-		std::cout << "DEBUG: Moving east!" << std::endl;
-	}
-	// South
-	else if (move_keys.movement_keys[S])
-	{
-		std::cout << "DEBUG: Moving south!" << std::endl;
-	}
-	// West
-	else if (move_keys.movement_keys[A])
-	{
-		std::cout << "DEBUG: Moving west!" << std::endl;
-	}
+	auto& player_velocity = registry.motions.get(player_entity).velocity;
+	std::cout << "DEBUG: Moving x:" << player_velocity.x << ", y: " << player_velocity.y << std::endl;
 }

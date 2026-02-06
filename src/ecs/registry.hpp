@@ -3,6 +3,8 @@
 
 #include "tiny_ecs.hpp"
 #include "components.hpp"
+#include "input/input_components.hpp"
+#include "controls/control_components.hpp"
 
 class ECSRegistry
 {
@@ -35,7 +37,8 @@ public:
 	ComponentContainer<Circle> circles; // TODO 1ch6Q0BE: Remove
 	ComponentContainer<OverlayCollision> overlayCollisions;
 	ComponentContainer<InelasticCollision> inelasticCollisions;
-	ComponentContainer<MoveKeys> move_keys; // There should only be 1 entity for move_keys... TODO better way to store it then?
+	ComponentContainer<Input> inputs;
+	ComponentContainer<Control> controls;
 	// constructor that adds all containers for looping over them
 	ECSRegistry()
 	{
@@ -61,9 +64,10 @@ public:
 		registry_list.push_back(&sizes);
 		registry_list.push_back(&rectangles); // TODO 1ch6Q0BE: Remove
 		registry_list.push_back(&circles); // TODO 1ch6Q0BE: Remove
-
 		registry_list.push_back(&overlayCollisions);
 		registry_list.push_back(&inelasticCollisions);
+		registry_list.push_back(&inputs);
+		registry_list.push_back(&controls);
 	}
 
 	void clear_all_components() {
