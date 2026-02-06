@@ -119,7 +119,7 @@ void PhysicsSystem::step(float elapsed_ms)
 
 void PhysicsSystem::handle_player_movement()
 {
-	auto& movement_keys = input_system->getMovementKeys();
+	
 	//there should only be one player entity 
 	Entity& player = registry.players.entities[0]; 
 	vec2& pos = registry.positions.get(player);
@@ -182,7 +182,7 @@ void PhysicsSystem::handle_player_movement()
 		pos.y -= vel.y;
 	}
 	// East
-	else if (movement_keys[InputSystem::D])
+	else if (move_keys.movement_keys[D])
 	{
 		std::cout << "DEBUG: Moving east!" << std::endl;
 		pos.x += vel.x;
