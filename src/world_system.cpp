@@ -161,7 +161,7 @@ bool WorldSystem::step(float elapsed_ms_since_last_update) {
 	auto& player_velocity = motions_registry.get(player_entity).velocity;
 	player_velocity = vec2(0);
 	
-	// TODO: Move some of this to player controller and leave other parts for a window controller
+	// TODO SnB9A38K: Move some of this to player controller and leave other parts for a window controller
 	for (auto& entity : registry.controls.entities)
 	{
 		auto& control = registry.controls.get(entity);
@@ -180,8 +180,6 @@ bool WorldSystem::step(float elapsed_ms_since_last_update) {
 
 			restart_game();
 		}
-
-		// TODO: Note that we are removing the ability to scroll with modifiers
 
 		//// Movement, on push sets the corresponding bitset value to true and on release sets it to false
 		if (control.type == CONTROL_TYPE::MOVE)
