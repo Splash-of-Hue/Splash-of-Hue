@@ -22,7 +22,7 @@ struct ColourPalette {
 	std::map<COLOUR_STATE, vec3> state_to_colour = {
 		{ COLOUR_STATE::NEUTRAL, vec3(0.5f, 0.5f, 0.5f)},
 		{ COLOUR_STATE::BLUE, vec3(0.0f, 0.0f, 1.0f)},
-		{ COLOUR_STATE::RED, vec3(1.0f, 0.0f, 0.0f, 0.5f)}
+		{ COLOUR_STATE::RED, vec3(1.0f, 0.0f, 0.0f)}
 	};
 };
 

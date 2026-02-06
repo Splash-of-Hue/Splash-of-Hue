@@ -10,7 +10,6 @@ ColourSystem::ColourSystem() {}
 // SPLASH OF HUE Colour System
 auto& players = registry.players;
 auto& colours = registry.colours;
-auto& pistolShrimps = registry.pistolShrimps;
 auto& deadlys = registry.deadlys;
 // function is called when collision event happens, Event handler system can pass over to other systems
 void ColourSystem::on_collision(Entity collider, Entity collided) 
