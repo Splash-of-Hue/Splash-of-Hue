@@ -212,7 +212,7 @@ bool WorldSystem::step(float elapsed_ms_since_last_update) {
 		}
 
 		// TODO m1EAwQf4: Remove
-		if (control.type == CONTROL_TYPE::MOVE_RECT_TEST_SIZE)
+		if (control.type == CONTROL_TYPE::MOVE_RECT_TEST)
 		{
 			auto& pos = registry.positions.get(mouse_shape_entity);
 			pos.x = control.value_1;

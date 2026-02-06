@@ -149,7 +149,7 @@ Control ControlInputConversionSystem::convert_mouse_scroll_input(Input input)
 Control ControlInputConversionSystem::convert_mouse_move_input(Input input)
 {
 	Control control = { 
-		CONTROL_TYPE::MOVE_RECT_TEST_SIZE,
+		CONTROL_TYPE::MOVE_RECT_TEST,
 		CONTROL_PHASE::END,
 		input.value_1,
 		input.value_2

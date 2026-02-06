@@ -17,7 +17,7 @@ enum class CONTROL_TYPE
 	// Map numpad to increasing or decreasing the RGB value of rect on screen
 	CHANGE_RECT_TEST_COLOR,
 	CHANGE_RECT_TEST_SIZE,
-	MOVE_RECT_TEST_SIZE,
+	MOVE_RECT_TEST,
 	PLACE_RECT_TEST,
 };
 
