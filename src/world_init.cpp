@@ -44,10 +44,10 @@ Entity createLine(vec2 position, vec2 scale)
 
 	// Create motion
 	Motion& motion = registry.motions.emplace(entity);
-	motion.angle = 0.f;
+	//motion.angle = 0.f;
 	motion.velocity = { 0, 0 };
-	motion.position = position;
-	motion.scale = scale;
+	//motion.position = position;
+	//motion.scale = scale;
 
 	registry.debugComponents.emplace(entity);
 	return entity;
@@ -64,6 +64,11 @@ Entity createRectangle(vec2 position, float width, float height, vec3 color)
 	registry.colors.emplace(entity, color);
 	registry.inelasticCollisions.emplace(entity); // TODO: inelastic for rectangle, overlay for circle
 	
+	//TODO: remove
+	registry.players.emplace(entity);
+	vec2 velocity = { 10.0, 10.0 };
+	registry.velocities.insert(entity, velocity);
+
 	registry.renderRequests.insert(
 		entity,
 		{
@@ -90,6 +95,11 @@ Entity createRectangle(vec2 top_left, vec2 bottom_right, vec3 color)
 	registry.rectangles.emplace(entity);
 	registry.colors.emplace(entity, color);
 	registry.inelasticCollisions.emplace(entity);
+
+	//TODO: remove
+	registry.players.emplace(entity);
+	vec2 velocity = { 10.0, 10.0 };
+	registry.velocities.insert(entity, velocity);
 
 	registry.renderRequests.insert(
 		entity,

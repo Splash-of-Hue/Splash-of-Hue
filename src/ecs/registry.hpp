@@ -36,6 +36,7 @@ public:
 	ComponentContainer<OverlayCollision> overlayCollisions;
 	ComponentContainer<InelasticCollision> inelasticCollisions;
 
+	ComponentContainer<vec2> velocities;
 
 	// constructor that adds all containers for looping over them
 	ECSRegistry()
@@ -64,6 +65,7 @@ public:
 		registry_list.push_back(&circles); // TODO 1ch6Q0BE: Remove
 		registry_list.push_back(&overlayCollisions);
 		registry_list.push_back(&inelasticCollisions);
+		registry_list.push_back(&velocities);
 	}
 
 	void clear_all_components() {

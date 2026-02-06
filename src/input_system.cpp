@@ -192,6 +192,7 @@ void InputSystem::on_mouse_button_pressed(int button, int action, int mods) {
 		auto& size = registry.sizes.get(mouse_rect_entity);
 		auto& color = registry.colors.get(mouse_rect_entity);
 		createRectangle(vec2(mouse_pos_x, mouse_pos_y), size.width, size.height, color);
+		
 	}
 }
 

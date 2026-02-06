@@ -47,7 +47,7 @@ struct Motion {
 	float angle = 0;
 	vec2  velocity = { 0, 0 };
 	// DEPRECATION: This will be removed in favour of the Scale component
-	vec2  scale = { 10, 10 };
+	vec2  scale = { 50, 50 };
 };
 
 // Stucture to store collision information

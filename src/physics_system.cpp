@@ -49,16 +49,16 @@ void PhysicsSystem::step(float elapsed_ms)
 	// Move each entity that has motion (invaders, projectiles, and even towers [they have 0 for velocity])
 	// based on how much time has passed, this is to (partially) avoid
 	// having entities move at different speed based on the machine.
-	auto& motion_registry = registry.motions;
-	for(uint i = 0; i< motion_registry.size(); i++)
-	{
-		
-		Motion& motion = motion_registry.components[i];
-		Entity entity = motion_registry.entities[i];
-		float step_seconds = elapsed_ms / 1000.f;
+	//auto& motion_registry = registry.motions;
+	//for(uint i = 0; i< motion_registry.size(); i++)
+	//{
+	//	
+	//	//& motion = motion_registry.components[i];
+	//	Entity entity = motion_registry.entities[i];
+	//	float step_seconds = elapsed_ms / 1000.f;
 
-		(void)elapsed_ms; // placeholder to silence unused warning until implemented
-	}
+	//	(void)elapsed_ms; // placeholder to silence unused warning until implemented
+	//}
 
 	// check for collisions between all positioned entities
     ComponentContainer<vec2> &position_container = registry.positions;
@@ -125,9 +125,14 @@ void PhysicsSystem::step(float elapsed_ms)
 void PhysicsSystem::handle_player_movement()
 {
 	auto& movement_keys = input_system->getMovementKeys();
-
+	//there should only be one player entity 
+	Entity& player = registry.players.entities[0]; 
+	vec2& pos = registry.positions.get(player);
+	vec2& vel = registry.velocities.get(player);
+	vec2 half_vel = vel * vec2{ 1/sqrt(2), 1/sqrt(2)};
+	//vec2 half_vel = vel * vec2{ 0.5, 0.5};
+	
 	// Check if 3+ keys are currently being pushed. If yes, don't move
-	// @Geetika feel free to change this, I just figured that the sheep shouldn't move if more than 3 keys are being pressed
 	if (movement_keys.count() >= 3)
 	{
 		std::cout << "DEBUG: too many keys pushed to move :(" << std::endl;
@@ -138,41 +143,52 @@ void PhysicsSystem::handle_player_movement()
 	if (movement_keys[InputSystem::W] && movement_keys[InputSystem::A])
 	{
 		std::cout << "DEBUG: Moving northwest!" << std::endl;
+		pos -= half_vel;
+		
 	}
 	// Northeast
 	else if (movement_keys[InputSystem::W] && movement_keys[InputSystem::D])
 	{
 		std::cout << "DEBUG: Moving northeast!" << std::endl;
+		pos.y -= half_vel.y;
+		pos.x += half_vel.x;
 	}
 	// Southeast
 	else if (movement_keys[InputSystem::D] && movement_keys[InputSystem::S])
 	{
 		std::cout << "DEBUG: Moving southeast!" << std::endl;
+		pos += half_vel;
 	}
 	// Southwest
 	else if (movement_keys[InputSystem::A] && movement_keys[InputSystem::S])
 	{
 		std::cout << "DEBUG: Moving southwest!" << std::endl;
+		pos.y += half_vel.y;
+		pos.x -= half_vel.x;
 	}
 	// North
 	else if (movement_keys[InputSystem::W])
 	{
 		std::cout << "DEBUG: Moving north!" << std::endl;
+		pos.y -= vel.y;
 	}
 	// East
 	else if (movement_keys[InputSystem::D])
 	{
 		std::cout << "DEBUG: Moving east!" << std::endl;
+		pos.x += vel.x;
 	}
 	// South
 	else if (movement_keys[InputSystem::S])
 	{
 		std::cout << "DEBUG: Moving south!" << std::endl;
+		pos.y += vel.y;
 	}
 	// West
 	else if (movement_keys[InputSystem::A])
 	{
 		std::cout << "DEBUG: Moving west!" << std::endl;
+		pos.x -= vel.x;
 	}
 
 }
