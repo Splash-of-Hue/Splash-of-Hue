@@ -45,9 +45,6 @@ void PhysicsSystem::step(float elapsed_ms)
 	// based on how much time has passed, this is to (partially) avoid
 	// having entities move at different speed based on the machine.
 
-	//	(void)elapsed_ms; // placeholder to silence unused warning until implemented
-	//}
-
 	// check for collisions between all positioned entities
     ComponentContainer<vec2> &position_container = registry.positions;
 	for(uint i = 0; i < position_container.components.size(); i++)
