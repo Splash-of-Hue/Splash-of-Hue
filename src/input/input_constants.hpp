@@ -1,13 +1,5 @@
 #pragma once
 
-enum MoveKey
-{
-	W = 0,
-	A = 1,
-	S = 2,
-	D = 3
-};
-
 enum class INPUT_TYPE
 {
 	// value_1 = xoffset, value_2 = yoffset, value_3 = N/A
