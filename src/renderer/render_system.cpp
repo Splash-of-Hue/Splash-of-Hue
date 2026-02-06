@@ -192,9 +192,6 @@ void RenderSystem::drawTexturedMesh(Entity entity,
 	// specification for more info Incrementally updates transformation matrix,
 	// thus ORDER IS IMPORTANT
 	Transform transform;
-	//transform.translate(motion.position);
-	//transform.scale(motion.scale);
-	//transform.rotate(radians(motion.angle));
 
 	assert(registry.renderRequests.has(entity));
 	const RenderRequest &render_request = registry.renderRequests.get(entity);
