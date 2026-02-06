@@ -10,7 +10,7 @@
 #include "physics_system.hpp"
 #include "renderer/render_system.hpp"
 #include "world_system.hpp"
-#include "animation/animation_system.hpp""
+#include "animation/animation_system.hpp"
 #include "input/input_system.hpp"
 #include "controls/control_input_conversion_system.hpp"
 
