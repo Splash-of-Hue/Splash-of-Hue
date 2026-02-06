@@ -5,6 +5,7 @@
 #include "ecs/tiny_ecs.hpp"
 #include "ecs/components.hpp"
 #include "ecs/registry.hpp"
+ColourSystem::ColourSystem() {}
 
 // SPLASH OF HUE Colour System
 auto& players = registry.players;
@@ -31,4 +32,31 @@ void ColourSystem::on_collision(Entity collider, Entity collided)
 		
 		player_colour_comp.colour_state = other_colour_comp.colour_state;
 	}
+}
+
+COLOUR_STATE ColourSystem::getEntityColour(Entity entity) {
+    if (registry.colours.has(entity)) {
+        return registry.colours.get(entity).colour_state;
+    }
+	// TODO: should this be an error instead? 
+    return COLOUR_STATE::NEUTRAL;
+}
+
+void ColourSystem::applyColour(Entity entity, COLOUR_STATE colour) {
+	if (!registry.colours.has(entity)) {
+		registry.colours.emplace(entity);
+	}
+	else {
+		registry.colours.get(entity).colour_state = colour;
+	}
+}
+
+vec3 ColourSystem::getPaletteColour(COLOUR_STATE state) {
+    // Find the palette entity (you might want to make this a singleton or pass it in)
+    for (Entity entity : registry.colourPalettes.entities) {
+        const auto& palette = registry.colourPalettes.get(entity);
+        auto it = palette.state_to_colour.find(state);
+        return (it != palette.state_to_colour.end()) ? it->second : vec3(1.0f, 1.0f, 1.0f);
+    }
+    return vec4(1.0f, 1.0f, 1.0f, 0.5f); // fallback
 }

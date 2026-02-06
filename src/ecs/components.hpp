@@ -3,6 +3,7 @@
 #include <vector>
 #include <bitset>
 #include "renderer/render_constants.hpp"
+#include <map>
 
 // Player component
 struct Player
@@ -17,27 +18,27 @@ enum class COLOUR_STATE {
 	RED = 2
 };
 
+struct ColourPalette {
+	std::map<COLOUR_STATE, vec3> state_to_colour = {
+		{ COLOUR_STATE::NEUTRAL, vec3(0.5f, 0.5f, 0.5f)},
+		{ COLOUR_STATE::BLUE, vec3(0.0f, 0.0f, 1.0f)},
+		{ COLOUR_STATE::RED, vec3(1.0f, 0.0f, 0.0f, 0.5f)}
+	};
+};
+
 // used for entities that are affected by a certain colour (or player who is that colour)
 struct Colour {
-	COLOUR_STATE colour_state;
+	COLOUR_STATE colour_state = COLOUR_STATE::NEUTRAL;
+	COLOUR_STATE prev_colour_state = COLOUR_STATE::NEUTRAL;
 };
 
-struct Collision {
-	Entity collider;
-	Entity collided; // the other entity involved in the collision
+struct ColourWheel {
+	COLOUR_STATE prev_colour = COLOUR_STATE::NEUTRAL;
+	COLOUR_STATE curr_colour = COLOUR_STATE::NEUTRAL;
 };
 
-// used for Entities that cause damage (e.g. sawfish, spikes)
 struct Deadly
 {
-
-};
-
-struct PistolShrimp {
-	
-};
-
-struct Sawfish {
 
 };
 
@@ -181,3 +182,4 @@ struct RenderRequest {
 	EFFECT_ASSET_ID    used_effect = EFFECT_ASSET_ID::EFFECT_COUNT;
 	GEOMETRY_BUFFER_ID used_geometry = GEOMETRY_BUFFER_ID::GEOMETRY_COUNT;
 };
+

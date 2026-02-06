@@ -10,15 +10,6 @@ class ECSRegistry
 	std::vector<ContainerInterface*> registry_list;
 
 public:
-	// SPLASH OF HUE SECTION
-	ComponentContainer<Colour> colours;
-	ComponentContainer<Collision> collisions;
-	ComponentContainer<Deadly> deadlys;
-	ComponentContainer<PistolShrimp> pistolShrimps;
-	ComponentContainer<Sawfish> sawfishes;
-
-	// END SPLASH OF HUE SECTION
-
 
 	// Manually created list of all components this game has
 	// TODO: A1 add a LightUp component
@@ -44,6 +35,15 @@ public:
 	ComponentContainer<Rect> rectangles; // TODO 1ch6Q0BE: Remove
 	ComponentContainer<Circle> circles; // TODO 1ch6Q0BE: Remove
 	ComponentContainer<MoveKeys> move_keys; // There should only be 1 entity for move_keys... TODO better way to store it then?
+	
+	ComponentContainer<Colour> colours;
+	ComponentContainer<ColourWheel> colourWheels;
+	ComponentContainer<ColourPalette> colourPalettes;
+	ComponentContainer<Deadly> deadlys;
+
+
+
+
 
 	// constructor that adds all containers for looping over them
 	ECSRegistry()
@@ -70,8 +70,8 @@ public:
 		registry_list.push_back(&sizes);
 		registry_list.push_back(&circles); // TODO 1ch6Q0BE: Remove
 		registry_list.push_back(&colours);
-		registry_list.push_back(&pistolShrimps);
-		registry_list.push_back(&sawfishes);
+		registry_list.push_back(&colourWheels);
+		registry_list.push_back(&colourPalettes);
 	}
 
 	void clear_all_components() {

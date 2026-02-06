@@ -199,6 +199,37 @@ void WorldSystem::restart_game() {
 			grid_lines.push_back(createGridLine(vec2(0, col * cell_height), vec2(2 * WINDOW_WIDTH_PX, grid_line_width)));
 		}
 	}
+	{
+		Entity player = Entity();
+
+		// mark entity as player
+		registry.players.emplace(player);
+
+		// motion
+		Motion& motion = registry.motions.emplace(player);
+		motion.position = vec2(WINDOW_WIDTH_PX * 0.5f, WINDOW_HEIGHT_PX * 0.5f);
+		motion.scale = vec2(20.0f, 20.0f);
+		motion.velocity = vec2(0.0f, 0.0f);
+		motion.angle = 0.0f;
+
+		// rendering so player is visible 
+		registry.positions.insert(player, motion.position);
+		registry.sizes.insert(player, Size{ motion.scale.x, motion.scale.y });
+		registry.circles.emplace(player);
+		registry.colors.emplace(player, vec3(0.0f, 1.0f, 0.0f));
+		registry.renderRequests.insert(
+			player,
+			{
+				TEXTURE_ASSET_ID::TEXTURE_COUNT,
+				EFFECT_ASSET_ID::DEFAULT,
+				GEOMETRY_BUFFER_ID::CIRCLE
+			}
+		);
+
+		// Colour system 
+		registry.colours.emplace(player);
+		registry.colours.get(player).colour_state = COLOUR_STATE::NEUTRAL;
+	}
 }
 
 // Compute collisions between entities
