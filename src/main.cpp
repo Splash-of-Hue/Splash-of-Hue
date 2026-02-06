@@ -11,6 +11,7 @@
 #include "renderer/render_system.hpp"
 #include "world_system.hpp"
 #include "input_system.hpp"
+#include <animation/animation_system.hpp>
 
 using Clock = std::chrono::high_resolution_clock;
 
@@ -22,6 +23,7 @@ int main()
 	WorldSystem   world_system;
 	RenderSystem  renderer_system;
 	PhysicsSystem physics_system;
+	AnimationSystem animation_system;
 	InputSystem input_system;
 
 	// initialize window
@@ -42,6 +44,7 @@ int main()
 	// initialize the main systems
 	renderer_system.init(window);
 	world_system.init(&renderer_system);
+	animation_system.init();
 	input_system.on_world_reset(); // TODO m1EAwQf4: This is only being used to make sure that the mouse rectangle isn't being destroyed on world_system reset so maybe don't need this.
 
 	// variable timestep loop
@@ -61,6 +64,7 @@ int main()
 		world_system.step(elapsed_ms);
 		ai_system.step(elapsed_ms);
 		physics_system.step(elapsed_ms);
+		animation_system.step(elapsed_ms);
 		world_system.handle_collisions();
 
 		renderer_system.draw();
