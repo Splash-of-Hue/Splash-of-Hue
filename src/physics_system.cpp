@@ -109,7 +109,6 @@ void PhysicsSystem::step(float elapsed_ms)
 
 void PhysicsSystem::handle_player_movement()
 {
-	
 	//there should only be one player entity 
 	Entity& player = registry.players.entities[0]; 
 	vec2& pos = registry.positions.get(player);
