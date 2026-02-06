@@ -49,7 +49,6 @@ const std::map<int, std::pair<CONTROL_TYPE, std::vector<float>>> keyboard_contro
 const std::map<int, std::map<int, std::pair<CONTROL_TYPE, std::vector<float>>>> keyboard_modified_control_map = {
 };
 
-
 const std::map<int, std::pair<CONTROL_TYPE, std::vector<float>>> mouse_control_map = {
 	// TODO m1EAwQf4: Remove this when no longer need to manually make rectangles for test
 	{ GLFW_MOUSE_BUTTON_LEFT, { CONTROL_TYPE::PLACE_RECT_TEST, { }}},
