@@ -12,7 +12,6 @@ class ECSRegistry
 public:
 
 	// Manually created list of all components this game has
-	// TODO: A1 add a LightUp component
 	ComponentContainer<DeathTimer> deathTimers;
 	ComponentContainer<Motion> motions;
 	ComponentContainer<Collision> collisions;
@@ -34,6 +33,8 @@ public:
 	ComponentContainer<Size> sizes;
 	ComponentContainer<Rect> rectangles; // TODO 1ch6Q0BE: Remove
 	ComponentContainer<Circle> circles; // TODO 1ch6Q0BE: Remove
+	ComponentContainer<OverlayCollision> overlayCollisions;
+	ComponentContainer<InelasticCollision> inelasticCollisions;
 	ComponentContainer<MoveKeys> move_keys; // There should only be 1 entity for move_keys... TODO better way to store it then?
 	
 	ComponentContainer<Colour> colours;
@@ -48,7 +49,7 @@ public:
 	// constructor that adds all containers for looping over them
 	ECSRegistry()
 	{
-		// TODO: A1 add a LightUp component
+		
 		registry_list.push_back(&deathTimers);
 		registry_list.push_back(&motions);
 		registry_list.push_back(&collisions);
@@ -69,6 +70,9 @@ public:
 		registry_list.push_back(&scales);
 		registry_list.push_back(&sizes);
 		registry_list.push_back(&circles); // TODO 1ch6Q0BE: Remove
+
+		registry_list.push_back(&overlayCollisions);
+		registry_list.push_back(&inelasticCollisions);
 		registry_list.push_back(&colours);
 		registry_list.push_back(&colourWheels);
 		registry_list.push_back(&colourPalettes);

@@ -45,6 +45,20 @@ public:
 	bool is_over() const;
 
 private:
+
+	float mouse_pos_x = 0.0f;
+	float mouse_pos_y = 0.0f;
+	bool shift_key_pressed = false;
+	// TODO m1EAwQf4: Remove
+	Entity mouse_shape_entity;
+
+	// input callback functions
+	void on_window_moved(int xpos, int ypos);
+	void on_key(int key, int, int action, int mod);
+	void on_mouse_move(vec2 pos);
+	void on_mouse_scroll(double xoffset, double yoffset);
+	void on_mouse_button_pressed(int button, int action, int mods);
+
 	// restart level
 	void restart_game();
 
