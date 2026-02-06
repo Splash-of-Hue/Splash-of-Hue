@@ -1,5 +1,6 @@
 #pragma once
 #include "common.hpp"
+#include <bitset>
 #include <vector>
 #include "renderer/render_constants.hpp"
 #include "loading/loading_constants.hpp"
@@ -57,6 +58,15 @@ struct Collision
 	Collision(Entity& other) { this->other = other; };
 };
 
+//entity is assigned a type of collision (when created) to determine how its collision is resolved
+struct OverlayCollision {
+
+};
+
+struct InelasticCollision {
+
+};
+
 // Data structure for toggling debug mode
 struct Debug {
 	bool in_debug_mode = 0;
@@ -88,29 +98,6 @@ struct DeathTimer
 	float counter_ms = 3000;
 };
 
-// Single Vertex Buffer element for non-textured meshes (coloured.vs.glsl & chicken.vs.glsl)
-struct ColoredVertex
-{
-	vec3 position;
-	vec3 color;
-};
-
-// Single Vertex Buffer element for textured sprites (textured.vs.glsl)
-struct TexturedVertex
-{
-	vec3 position;
-	vec2 texcoord;
-};
-
-// Mesh datastructure for storing vertex and index buffers
-struct Mesh
-{
-	static bool loadFromOBJFile(std::string obj_path, std::vector<ColoredVertex>& out_vertices, std::vector<uint16_t>& out_vertex_indices, vec2& out_size);
-	vec2 original_size = { 1,1 };
-	std::vector<ColoredVertex> vertices;
-	std::vector<uint16_t> vertex_indices;
-};
-
 // TODO 1ch6Q0BE: Remove in favour of robust rendering engine
 // An entity that is drawn as a rectangle on screen
 struct Rect {};
@@ -127,11 +114,24 @@ struct Size
 	float height;
 };
 
-struct RenderRequest
+enum MoveKey {
+	W = 0, 
+	A = 1, 
+	S = 2, 
+	D = 3 
+};
+
+struct MoveKeys
 {
-	TEXTURE_ASSET_ID   used_texture = TEXTURE_ASSET_ID::TEXTURE_COUNT;
-	EFFECT_ASSET_ID    used_effect = EFFECT_ASSET_ID::EFFECT_COUNT;
-	GEOMETRY_BUFFER_ID used_geometry = GEOMETRY_BUFFER_ID::GEOMETRY_COUNT;
+	std::bitset<4> movement_keys;
+
+	MoveKeys()
+	{
+		movement_keys.set(W, false);
+		movement_keys.set(A, false);
+		movement_keys.set(S, false);
+		movement_keys.set(D, false);
+	}
 };
 
 // Used for level entity

@@ -2,14 +2,10 @@
 #include "ecs/registry.hpp"
 #include <iostream>
 
-// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-// !!! TODO A1: create grid lines
-// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 Entity createGridLine(vec2 start_pos, vec2 end_pos)
 {
 	Entity entity = Entity();
 
-	// TODO A1: create a gridLine component
 	registry.gridLines.insert(entity, { start_pos, end_pos });
 
 	// re-use the "DEBUG_LINE" renderRequest
@@ -17,7 +13,6 @@ Entity createGridLine(vec2 start_pos, vec2 end_pos)
 	registry.renderRequests.insert(
 		entity,
 		{
-			TEXTURE_ASSET_ID::TEXTURE_COUNT,
 			EFFECT_ASSET_ID::DEFAULT,
 			GEOMETRY_BUFFER_ID::GRADIENT_CIRCLE
 		}
@@ -38,8 +33,6 @@ Entity createLine(vec2 position, vec2 scale)
 	registry.renderRequests.insert(
 		entity,
 		{
-			// usage TEXTURE_COUNT when no texture is needed, i.e., an .obj or other vertices are used instead
-			TEXTURE_ASSET_ID::TEXTURE_COUNT,
 			EFFECT_ASSET_ID::EFFECT_COUNT,
 			GEOMETRY_BUFFER_ID::RECTANGLE
 		}
@@ -56,7 +49,7 @@ Entity createLine(vec2 position, vec2 scale)
 	return entity;
 }
 
-Entity createRectangle(vec2 position, float width, float height, vec3 color)
+Entity createRectangle(vec2 position, float width, float height, vec4 color)
 {
 	Entity entity = Entity();
 
@@ -65,12 +58,11 @@ Entity createRectangle(vec2 position, float width, float height, vec3 color)
 	registry.sizes.insert(entity, size);
 	registry.rectangles.emplace(entity);
 	registry.colors.emplace(entity, color);
-
+	registry.inelasticCollisions.emplace(entity); // TODO: inelastic for rectangle, overlay for circle
+	
 	registry.renderRequests.insert(
 		entity,
 		{
-			// usage TEXTURE_COUNT when no texture is needed, i.e., an .obj or other vertices are used instead
-			TEXTURE_ASSET_ID::TEXTURE_COUNT,
 			EFFECT_ASSET_ID::DEFAULT,
 			GEOMETRY_BUFFER_ID::RECTANGLE
 		}
@@ -79,7 +71,7 @@ Entity createRectangle(vec2 position, float width, float height, vec3 color)
 	return entity;
 }
 
-Entity createRectangle(vec2 top_left, vec2 bottom_right, vec3 color)
+Entity createRectangle(vec2 top_left, vec2 bottom_right, vec4 color)
 {
 	Entity entity = Entity();
 
@@ -91,12 +83,11 @@ Entity createRectangle(vec2 top_left, vec2 bottom_right, vec3 color)
 	registry.sizes.insert(entity, size);
 	registry.rectangles.emplace(entity);
 	registry.colors.emplace(entity, color);
+	registry.inelasticCollisions.emplace(entity);
 
 	registry.renderRequests.insert(
 		entity,
 		{
-			// usage TEXTURE_COUNT when no texture is needed, i.e., an .obj or other vertices are used instead
-			TEXTURE_ASSET_ID::TEXTURE_COUNT,
 			EFFECT_ASSET_ID::DEFAULT,
 			GEOMETRY_BUFFER_ID::RECTANGLE
 		}
@@ -105,7 +96,7 @@ Entity createRectangle(vec2 top_left, vec2 bottom_right, vec3 color)
 	return entity;
 }
 
-Entity createCircle(vec2 position, float radius, vec3 color)
+Entity createCircle(vec2 position, float radius, vec4 color)
 {
 	Entity entity = Entity();
 
@@ -115,11 +106,10 @@ Entity createCircle(vec2 position, float radius, vec3 color)
 	registry.circles.emplace(entity);
 	registry.colors.emplace(entity, color);
 
+	registry.overlayCollisions.emplace(entity);
 	registry.renderRequests.insert(
 		entity,
 		{
-			// usage TEXTURE_COUNT when no texture is needed, i.e., an .obj or other vertices are used instead
-			TEXTURE_ASSET_ID::TEXTURE_COUNT,
 			EFFECT_ASSET_ID::DEFAULT,
 			GEOMETRY_BUFFER_ID::CIRCLE
 		}
@@ -127,3 +117,4 @@ Entity createCircle(vec2 position, float radius, vec3 color)
 
 	return entity;
 }
+
