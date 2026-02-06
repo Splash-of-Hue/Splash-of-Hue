@@ -124,5 +124,5 @@ void PhysicsSystem::handle_player_movement()
 	auto& player_entity = player_container.entities[0];
 
 	auto& player_velocity = registry.motions.get(player_entity).velocity;
-	std::cout << "DEBUG: Moving x:" << player_velocity.x << ", y: " << player_velocity.y << std::endl;
+	std::cout << "DEBUG: Moving x: " << player_velocity.x << ", y: " << player_velocity.y << std::endl;
 }

@@ -8,5 +8,4 @@ struct Input
 	int value_1 = 0;
 	int value_2 = 0;
 	int value_3 = 0;
-
 };
