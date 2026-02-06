@@ -10,6 +10,6 @@ enum class INPUT_TYPE
 	MOUSE_MOVE,
 	// value_1 = key, value_2 = action, value_3 = mods
 	KEYBOARD,
-	// TODO
+	// TODO J2IQyq6W: Add gamepad support
 	GAMEPAD,
 };
