@@ -130,7 +130,6 @@ void PhysicsSystem::handle_player_movement()
 	vec2& pos = registry.positions.get(player);
 	vec2& vel = registry.velocities.get(player);
 	vec2 half_vel = vel * vec2{ 1/sqrt(2), 1/sqrt(2)};
-	//vec2 half_vel = vel * vec2{ 0.5, 0.5};
 	
 	// Check if 3+ keys are currently being pushed. If yes, don't move
 	if (movement_keys.count() >= 3)
