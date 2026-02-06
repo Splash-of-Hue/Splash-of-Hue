@@ -241,7 +241,6 @@ bool WorldSystem::step(float elapsed_ms_since_last_update) {
 	// TODO SnB9A38K: Move to player controller
 	player_velocity += player_movement;
 
-
 	assert(registry.screenStates.components.size() <= 1);
     ScreenState &screen = registry.screenStates.components[0];
 
