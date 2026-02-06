@@ -8,11 +8,6 @@
 
 InputSystem::InputSystem()
 {
-	// Initialize movement keys
-	movement_keys.set(W, false);
-	movement_keys.set(A, false);
-	movement_keys.set(S, false);
-	movement_keys.set(D, false);
 }
 
 GLFWwindow* InputSystem::init(GLFWwindow* window, WorldSystem* world_system)
@@ -23,6 +18,10 @@ GLFWwindow* InputSystem::init(GLFWwindow* window, WorldSystem* world_system)
 
 	this->window = window;
 	this->world_system = world_system;
+
+	// Initialize movement keys
+	move_keys_entity = Entity();
+	registry.move_keys.emplace(move_keys_entity);
 
 	glfwSetWindowUserPointer(window, this);
 	auto key_redirect = [](GLFWwindow* wnd, int _0, int _1, int _2, int _3) { ((InputSystem*)glfwGetWindowUserPointer(wnd))->on_key(_0, _1, _2, _3); };
@@ -49,7 +48,9 @@ void InputSystem::on_world_reset()
 }
 
 // on key callback
-void InputSystem::on_key(int key, int, int action, int mod) {
+void InputSystem::on_key(int key, int, int action, int mod) 
+{
+	MoveKeys& move_keys = registry.move_keys.get(move_keys_entity);
 
 	// exit game w/ ESC
 	if (action == GLFW_RELEASE && key == GLFW_KEY_ESCAPE) {
@@ -73,44 +74,27 @@ void InputSystem::on_key(int key, int, int action, int mod) {
 	}
 
 	// Movement, on push sets the corresponding bitset value to true and on release sets it to false
-	if (action == GLFW_PRESS && key == GLFW_KEY_W)
+	if (action == GLFW_PRESS || action == GLFW_RELEASE)
 	{
-		movement_keys[W] = true;
-	}
+		bool key_pressed = (action == GLFW_PRESS);
 
-	if (action == GLFW_PRESS && key == GLFW_KEY_A)
-	{
-		movement_keys[A] = true;
-	}
-
-	if (action == GLFW_PRESS && key == GLFW_KEY_S)
-	{
-		movement_keys[S] = true;
-	}
-
-	if (action == GLFW_PRESS && key == GLFW_KEY_D)
-	{
-		movement_keys[D] = true;
-	}
-
-	if (action == GLFW_RELEASE && key == GLFW_KEY_W)
-	{
-		movement_keys[W] = false;
-	}
-
-	if (action == GLFW_RELEASE && key == GLFW_KEY_A)
-	{
-		movement_keys[A] = false;
-	}
-
-	if (action == GLFW_RELEASE && key == GLFW_KEY_S)
-	{
-		movement_keys[S] = false;
-	}
-
-	if (action == GLFW_RELEASE && key == GLFW_KEY_D)
-	{
-		movement_keys[D] = false;
+		switch (key)
+		{
+		case GLFW_KEY_W:
+			move_keys.movement_keys.set(W, key_pressed);
+			break;
+		case GLFW_KEY_A:
+			move_keys.movement_keys.set(A, key_pressed);
+			break;
+		case GLFW_KEY_S:
+			move_keys.movement_keys.set(S, key_pressed);
+			break;
+		case GLFW_KEY_D:
+			move_keys.movement_keys.set(D, key_pressed);
+			break;
+		default:
+			break;
+		}
 	}
 
 	if (action == GLFW_PRESS || action == GLFW_REPEAT)
@@ -194,9 +178,4 @@ void InputSystem::on_mouse_button_pressed(int button, int action, int mods) {
 		createRectangle(vec2(mouse_pos_x, mouse_pos_y), size.width, size.height, color);
 		
 	}
-}
-
-const std::bitset<4>& InputSystem::getMovementKeys()
-{
-	return movement_keys;
 }

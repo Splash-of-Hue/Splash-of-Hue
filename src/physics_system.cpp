@@ -1,13 +1,7 @@
 // internal
 #include "physics_system.hpp"
 #include "world_init.hpp"
-#include "input_system.hpp"
 #include <iostream>
-
-void PhysicsSystem::init(InputSystem* input_system)
-{
-	this->input_system = input_system;
-}
 
 // Returns the local bounding coordinates scaled by the current size of the entity
 vec4 get_bounding_box(const Entity& entity)
@@ -37,7 +31,8 @@ bool collides(const Entity& entity1, const Entity& entity2)
 	vec4 box1 = get_bounding_box(entity1);
 	vec4 box2 = get_bounding_box(entity2);
 
-	// left1 <= right2 AND left2 <= right1 AND bottom1 <= top2 AND bottom2 <= top1
+	// This is the equivalent of (left1 > right2 OR right1 < left2) OR (bottom1 > top2 OR top1 < bottom2)
+	// Which is asking if any of the edges of the boxes do NOT overlap.
 	return ((box1[2] <= box2[3]) && 
 			(box2[2] <= box1[3]) && 
 			(box1[0] <= box2[1]) && 
@@ -131,42 +126,57 @@ void PhysicsSystem::handle_player_movement()
 	vec2& vel = registry.velocities.get(player);
 	vec2 half_vel = vel * vec2{ 1/sqrt(2), 1/sqrt(2)};
 	
+	// How should we assert if move_keys is uninitialized?
+	ComponentContainer<MoveKeys> &move_keys_container = registry.move_keys;
+
+	// TODO: refactor once I'm awake
+	assert(move_keys_container.entities.size() == 1 && "move_keys has too many entities in it. Should only be 1.");
+	if (move_keys_container.entities.size() == 0)
+	{ 
+		std::cout << "DEBUG: move_keys not initialized yet" << std::endl;
+		return;
+	}
+	// Should only be one but obviously refactor later
+	auto& move_keys = move_keys_container.components[0];
+
 	// Check if 3+ keys are currently being pushed. If yes, don't move
-	if (movement_keys.count() >= 3)
+	// @Geetika feel free to change this, I just figured that the sheep shouldn't move if more than 3 keys are being pressed
+	// TODO: don't move on W + S being pressed or A + D being pressed 
+	if (move_keys.movement_keys.count() >= 3)
 	{
 		std::cout << "DEBUG: too many keys pushed to move :(" << std::endl;
 		return;
 	}
 
 	// Northwest
-	if (movement_keys[InputSystem::W] && movement_keys[InputSystem::A])
+	if (move_keys.movement_keys[W] && move_keys.movement_keys[A])
 	{
 		std::cout << "DEBUG: Moving northwest!" << std::endl;
 		pos -= half_vel;
 		
 	}
 	// Northeast
-	else if (movement_keys[InputSystem::W] && movement_keys[InputSystem::D])
+	else if (move_keys.movement_keys[W] && move_keys.movement_keys[D])
 	{
 		std::cout << "DEBUG: Moving northeast!" << std::endl;
 		pos.y -= half_vel.y;
 		pos.x += half_vel.x;
 	}
 	// Southeast
-	else if (movement_keys[InputSystem::D] && movement_keys[InputSystem::S])
+	else if (move_keys.movement_keys[D] && move_keys.movement_keys[S])
 	{
 		std::cout << "DEBUG: Moving southeast!" << std::endl;
 		pos += half_vel;
 	}
 	// Southwest
-	else if (movement_keys[InputSystem::A] && movement_keys[InputSystem::S])
+	else if (move_keys.movement_keys[A] && move_keys.movement_keys[S])
 	{
 		std::cout << "DEBUG: Moving southwest!" << std::endl;
 		pos.y += half_vel.y;
 		pos.x -= half_vel.x;
 	}
 	// North
-	else if (movement_keys[InputSystem::W])
+	else if (move_keys.movement_keys[W])
 	{
 		std::cout << "DEBUG: Moving north!" << std::endl;
 		pos.y -= vel.y;
@@ -178,16 +188,15 @@ void PhysicsSystem::handle_player_movement()
 		pos.x += vel.x;
 	}
 	// South
-	else if (movement_keys[InputSystem::S])
+	else if (move_keys.movement_keys[S])
 	{
 		std::cout << "DEBUG: Moving south!" << std::endl;
 		pos.y += vel.y;
 	}
 	// West
-	else if (movement_keys[InputSystem::A])
+	else if (move_keys.movement_keys[A])
 	{
 		std::cout << "DEBUG: Moving west!" << std::endl;
 		pos.x -= vel.x;
 	}
-
 }

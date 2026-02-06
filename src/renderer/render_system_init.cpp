@@ -172,7 +172,7 @@ void RenderSystem::initializeGlGeometryBuffers()
 	meshes[geom_index].vertices = circle_vertices;
 	meshes[geom_index].vertex_indices = circle_indices;
 	bindVBOandIBO(GEOMETRY_BUFFER_ID::CIRCLE, meshes[geom_index].vertices, meshes[geom_index].vertex_indices);
-	
+
 	////////////////////////
 	// Initialize gradient circle
 	constexpr int GRAD_CIRCLE_NUM_TRIANGLES = 62;
@@ -209,7 +209,6 @@ void RenderSystem::initializeGlGeometryBuffers()
 	screen_vertices[0] = { -1, -6, 0.f };
 	screen_vertices[1] = {  6, -1, 0.f };
 	screen_vertices[2] = { -1,  6, 0.f };
-
 	// Counterclockwise as it's the default opengl front winding direction.
 	const std::vector<uint16_t> screen_indices = { 0, 1, 2 };
 	bindVBOandIBO(GEOMETRY_BUFFER_ID::SCREEN_TRIANGLE, screen_vertices, screen_indices);
@@ -265,6 +264,7 @@ bool RenderSystem::initScreenTexture()
 
 	return true;
 }
+
 std::vector<ColoredVertex> getCircleVertices(int triangle_count, float z_position, vec3 inner_color, vec3 outer_color)
 {
 	std::vector<ColoredVertex> vertices;

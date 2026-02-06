@@ -3,7 +3,6 @@
 #include "common.hpp"
 #include "renderer/render_system.hpp"
 #include "ecs/registry.hpp"
-//#include "physics_system.hpp"
 #include "world_system.hpp"
 
 #include <map>
@@ -19,9 +18,6 @@ public:
 
 	// TODO m1EAwQf4: This is only being used to make sure that the mouse rectangle isn't being destroyed on world_system reset so maybe don't need this.
 	void on_world_reset();
-	enum MoveKey { W = 0, A = 1, S = 2, D = 3 };
-
-	const std::bitset<4>& getMovementKeys();
 
 private:
 	// Window handle
@@ -44,6 +40,7 @@ private:
 	void on_mouse_scroll(double xoffset, double yoffset);
 	void on_mouse_button_pressed(int button, int action, int mods);
 
-	// Track which movement keys are currently being pressed
-	std::bitset<4> movement_keys;
+	// For movement key handling
+	Entity move_keys_entity;
 };
+
