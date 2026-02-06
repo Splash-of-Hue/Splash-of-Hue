@@ -148,12 +148,10 @@ Control ControlInputConversionSystem::convert_mouse_scroll_input(Input input)
 
 Control ControlInputConversionSystem::convert_mouse_move_input(Input input)
 {
-	Control control = { 
-		CONTROL_TYPE::MOVE_RECT_TEST,
-		CONTROL_PHASE::END,
-		input.value_1,
-		input.value_2
-	};
+	Control control = { CONTROL_TYPE::MOVE_RECT_TEST };
+	control.phase = CONTROL_PHASE::END;
+	control.value_1 = input.value_1;
+	control.value_2 = input.value_2;
 
 	return control;
 }
