@@ -22,13 +22,8 @@ void CreatureBehaviourSystem::follow_player(float elapsed_ms, Entity& follower)
 	Motion& follower_motion_component = registry.motions.get(follower);
 
 	const vec2 playerPosition = player_motion_component.position;
-	//vec2& followerPosition = follower_motion_component.position;
-	//vec2& followerVelocity = follower_motion_component.velocity;
-	vec2& followerPosition = registry.positions.emplace(follower);
+	vec2& followerPosition = follower_motion_component.position;
 	followerPosition = follower_motion_component.position;
-
-	//vec2& followerPosition = registry.positions.emplace(follower);
-	//	followerPosition = follower_motion_component.position;
 
 	// Get the vector to the player
 	float dx = playerPosition.x - followerPosition.x;
@@ -57,7 +52,7 @@ void CreatureBehaviourSystem::follow_player(float elapsed_ms, Entity& follower)
 		float t = (distance - pathfinder_component.minimumDistanceToTarget) / (slow_radius - pathfinder_component.minimumDistanceToTarget);
 		t = std::clamp(t, 0.f, 1.f);
 		max_speed = max_speed * t;
-	}
+	} 
 
 	//followerVelocity = { norm_x * max_speed, norm_y * max_speed };
 	//std::cout << "follower velocity " << followerVelocity.x << ", " << followerVelocity.y << std::endl;

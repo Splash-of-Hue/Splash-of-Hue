@@ -47,9 +47,17 @@ int main()
 
 
 	// initialize the main systems
+	std::cout << "Input system..." << std::endl;
+
 	input_system.init(window);
+	std::cout << "renderer system..." << std::endl;
+
 	renderer_system.init(window);
+	std::cout << "world system..." << std::endl;
+
 	world_system.init(&renderer_system);
+	std::cout << "animation system..." << std::endl;
+
 	animation_system.init();
 
 	// variable timestep loop
