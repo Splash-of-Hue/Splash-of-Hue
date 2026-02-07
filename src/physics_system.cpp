@@ -71,9 +71,6 @@ bool isLineInRangeOfCircle(vec2 posC, float radiusC, vec2 point1, vec2 point2) {
 			return false;
 		}
 	}
-		
-
-	
 }
 
 
