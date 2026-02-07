@@ -103,7 +103,6 @@ struct InelasticCollision {
 
 };
 
-
 // Data structure for toggling debug mode
 struct Debug {
 	bool in_debug_mode = 0;
@@ -151,22 +150,20 @@ struct Size
 	float height;
 };
 
-enum MoveKey {
-	W = 0, 
-	A = 1, 
-	S = 2, 
-	D = 3 
+// Used for level entity
+struct Level
+{
+	// Unique ID for the room
+	int uid;
 };
 
-struct MoveKeys
+struct Creature
 {
-	std::bitset<4> movement_keys;
 
-	MoveKeys()
-	{
-		movement_keys.set(W, false);
-		movement_keys.set(A, false);
-		movement_keys.set(S, false);
-		movement_keys.set(D, false);
-	}
+};
+
+// TODO: Remove as we probably won't need this, this is just for M1 prototyping
+struct Toggle
+{
+
 };

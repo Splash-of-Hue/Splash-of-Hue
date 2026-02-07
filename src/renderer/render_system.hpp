@@ -29,8 +29,14 @@ class RenderSystem {
 
 	// Make sure these paths remain in sync with the associated enumerators (see TEXTURE_ASSET_ID).
 	const std::array<std::string, texture_count> texture_paths = {
-		textures_path("e1420d15-c54f-40ad-bfd7-6415aa61f3fe.png"),
-		textures_path("Untitled_Artwork.png")
+		textures_path("Sheap.png"),
+		textures_path("Sawfish.png"),
+		textures_path("Whale.png"),
+		textures_path("P_Shrimp.png"),
+		textures_path("Minnow.png"),
+		textures_path("JP_Crab.png"),
+		textures_path("Anglerfish.png"),
+		textures_path("Coral Tree.png"),
 	};
 
 	std::array<GLuint, effect_count> effects;

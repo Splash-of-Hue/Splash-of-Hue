@@ -10,6 +10,7 @@
 #include <tuple>
 
 #include "physics_system.hpp"
+#include "loading/loading_constants.hpp"
 
 // create the world
 WorldSystem::WorldSystem() :
@@ -156,6 +157,90 @@ bool WorldSystem::step(float elapsed_ms_since_last_update) {
 		}
 	}
 
+	// TODO SnB9A38K: Move the player controller system
+	// Reset player velocity each step
+	auto& player_entity = registry.players.entities[0];
+	auto& player_velocity = motions_registry.get(player_entity).velocity;
+	player_velocity = vec2(0);
+	
+	// TODO SnB9A38K: Move some of this to player controller and leave other parts for a window controller
+	for (auto& entity : registry.controls.entities)
+	{
+		auto& control = registry.controls.get(entity);
+
+		//// exit game w/ ESC
+		if (control.type == CONTROL_TYPE::END_GAME)
+		{
+			close_window();
+		}
+
+		//// Resetting game
+		if (control.type == CONTROL_TYPE::RESTART && control.phase == CONTROL_PHASE::END)
+		{
+			int w, h;
+			glfwGetWindowSize(window, &w, &h);
+
+			restart_game();
+		}
+
+		//// Movement, on push sets the corresponding bitset value to true and on release sets it to false
+		if (control.type == CONTROL_TYPE::MOVE)
+		{
+			if (control.phase == CONTROL_PHASE::START)
+			{
+				player_movement += vec2(control.value_1, control.value_2);
+			}
+			else if (control.phase == CONTROL_PHASE::END)
+			{
+				player_movement -= vec2(control.value_1, control.value_2);
+			}
+		}
+
+		// TODO m1EAwQf4: Remove
+		if (control.type == CONTROL_TYPE::CHANGE_RECT_TEST_SIZE)
+		{
+			auto& size = registry.sizes.get(mouse_shape_entity);
+			size.width += control.value_2;
+		}
+
+		// TODO m1EAwQf4: Remove
+		if (control.type == CONTROL_TYPE::CHANGE_RECT_TEST_COLOR)
+		{
+			// Map numpad to increasing or decreasing the RGB value of rect on screen
+			auto rgb_index = control.value_1;
+			auto value_change = control.value_2;
+			auto& rect_color = registry.colors.get(mouse_shape_entity);
+			rect_color[rgb_index] += value_change;
+		}
+
+		// TODO m1EAwQf4: Remove
+		if (control.type == CONTROL_TYPE::MOVE_RECT_TEST)
+		{
+			auto& pos = registry.positions.get(mouse_shape_entity);
+			pos.x = control.value_1;
+			pos.y = control.value_2;
+		}
+
+		// TODO m1EAwQf4: Remove
+		if (control.type == CONTROL_TYPE::PLACE_RECT_TEST && control.phase == CONTROL_PHASE::START)
+		{
+			auto& pos = registry.positions.get(mouse_shape_entity);
+			auto& size = registry.sizes.get(mouse_shape_entity);
+			auto& color = registry.colors.get(mouse_shape_entity);
+			createRectangle(vec2(pos.x, pos.y), size.width, size.height, color);
+		}
+
+		if (control.type == CONTROL_TYPE::DEBUG && control.phase == CONTROL_PHASE::END)
+		{
+			// Toggle debug mode
+			debugging.in_debug_mode = !debugging.in_debug_mode;
+		}
+	}
+
+	registry.controls.clear();
+	// TODO SnB9A38K: Move to player controller
+	player_velocity += player_movement;
+
 	assert(registry.screenStates.components.size() <= 1);
     ScreenState &screen = registry.screenStates.components[0];
 
@@ -176,7 +261,9 @@ void WorldSystem::restart_game() {
 	// Remove all entities that we created
 	// All that have a motion, we could also iterate over all bug, eagles, ... but that would be more cumbersome
 	while (registry.motions.entities.size() > 0)
-	    registry.remove_all_components_of(registry.motions.entities.back());
+		registry.remove_all_components_of(registry.motions.entities.back());
+	while (registry.renderRequests.entities.size() > 0)
+		registry.remove_all_components_of(registry.renderRequests.entities.back());
 
 	// debugging for memory/component leaks
 	registry.list_all_components();
