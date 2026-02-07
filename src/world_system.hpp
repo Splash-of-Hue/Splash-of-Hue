@@ -46,25 +46,19 @@ public:
 
 private:
 
+	int current_level_uid = 0;
 	float mouse_pos_x = 0.0f;
 	float mouse_pos_y = 0.0f;
 	bool shift_key_pressed = false;
 	// TODO m1EAwQf4: Remove
-	Entity mouse_rect_entity;
-
-	// input callback functions
-	void on_window_moved(int xpos, int ypos);
-	void on_key(int key, int, int action, int mod);
-	void on_mouse_move(vec2 pos);
-	void on_mouse_scroll(double xoffset, double yoffset);
-	void on_mouse_button_pressed(int button, int action, int mods);
+	Entity mouse_shape_entity;
 
 	// restart level
 	void restart_game();
 
 	// OpenGL window handle
 	GLFWwindow* window;
-
+	
 	float next_invader_spawn;
 	float invader_spawn_rate_ms;	// see default value in common.hpp
 
@@ -77,6 +71,9 @@ private:
 	RenderSystem* renderer;
 	float current_speed;
 
+	// TODO SnB9A38K: Move to player control system
+	vec2 player_movement;
+
 	// grid
 	std::vector<Entity> grid_lines;
 
@@ -88,4 +85,7 @@ private:
 	// C++ random number generator
 	std::default_random_engine rng;
 	std::uniform_real_distribution<float> uniform_dist; // number between 0..1
+
+	// Allow InputSystem to access private functions on input
+	friend class InputSystem;
 };

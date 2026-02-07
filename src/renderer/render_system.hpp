@@ -4,7 +4,7 @@
 #include <utility>
 
 #include "common.hpp"
-#include "ecs/components.hpp"
+#include "renderer/render_components.hpp"
 #include "ecs/tiny_ecs.hpp"
 
 // System responsible for setting up OpenGL and for rendering all the
@@ -29,8 +29,14 @@ class RenderSystem {
 
 	// Make sure these paths remain in sync with the associated enumerators (see TEXTURE_ASSET_ID).
 	const std::array<std::string, texture_count> texture_paths = {
-		textures_path("e1420d15-c54f-40ad-bfd7-6415aa61f3fe.png"),
-		textures_path("Untitled_Artwork.png")
+		textures_path("Sheap.png"),
+		textures_path("Sawfish.png"),
+		textures_path("Whale.png"),
+		textures_path("P_Shrimp.png"),
+		textures_path("Minnow.png"),
+		textures_path("JP_Crab.png"),
+		textures_path("Anglerfish.png"),
+		textures_path("Coral Tree.png"),
 	};
 
 	std::array<GLuint, effect_count> effects;
@@ -79,7 +85,7 @@ public:
 
 private:
 	// Internal drawing functions for each entity type
-	void drawRect(Entity entity, const mat3& projection); // TODO 1ch6Q0BE: Remove
+	void drawShape(Entity entity, const mat3& projection); // TODO 1ch6Q0BE: Remove
 	void drawGridLine(Entity entity, const mat3& projection);
 	void drawTexturedMesh(Entity entity, const mat3& projection);
 	void drawToScreen();
@@ -97,3 +103,5 @@ private:
 
 bool loadEffectFromFile(
 	const std::string& vs_path, const std::string& fs_path, GLuint& out_program);
+std::vector<ColoredVertex> getCircleVertices(int triangle_count, float z_position, vec3 inner_color, vec3 outer_color);
+std::vector<uint16_t> getCircleIndices(int triangle_count);

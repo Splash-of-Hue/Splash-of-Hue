@@ -9,7 +9,7 @@
 #include "ecs/registry.hpp"
 
 // TODO 1ch6Q0BE: Remove function
-void RenderSystem::drawRect(Entity entity,
+void RenderSystem::drawShape(Entity entity,
 	const mat3& projection) {
 
 	auto& position = registry.positions.get(entity);
@@ -187,14 +187,16 @@ void RenderSystem::drawGridLine(Entity entity,
 void RenderSystem::drawTexturedMesh(Entity entity,
 									const mat3 &projection)
 {
-	Motion &motion = registry.motions.get(entity);
+	auto &position = registry.positions.get(entity);
+	auto &scale = registry.scales.get(entity);
+	auto &angle = registry.angles.get(entity);
 	// Transformation code, see Rendering and Transformation in the template
 	// specification for more info Incrementally updates transformation matrix,
 	// thus ORDER IS IMPORTANT
 	Transform transform;
-	transform.translate(motion.position);
-	transform.scale(motion.scale);
-	transform.rotate(radians(motion.angle));
+	transform.translate(position);
+	transform.scale(scale);
+	transform.rotate(radians(angle.degrees));
 
 	assert(registry.renderRequests.has(entity));
 	const RenderRequest &render_request = registry.renderRequests.get(entity);
@@ -239,9 +241,9 @@ void RenderSystem::drawTexturedMesh(Entity entity,
 		glActiveTexture(GL_TEXTURE0);
 		gl_has_errors();
 
-		assert(registry.renderRequests.has(entity));
+		assert(registry.textured.has(entity));
 		GLuint texture_id =
-			texture_gl_handles[(GLuint)registry.renderRequests.get(entity).used_texture];
+			texture_gl_handles[(GLuint)registry.textured.get(entity).used_texture];
 
 		glBindTexture(GL_TEXTURE_2D, texture_id);
 		gl_has_errors();
@@ -270,8 +272,8 @@ void RenderSystem::drawTexturedMesh(Entity entity,
 
 	// Getting uniform locations for glUniform* calls
 	GLint color_uloc = glGetUniformLocation(program, "fcolor");
-	const vec3 color = registry.colors.has(entity) ? registry.colors.get(entity) : vec3(1);
-	glUniform3fv(color_uloc, 1, (float *)&color);
+	const vec4 color = registry.colors.has(entity) ? registry.colors.get(entity) : vec4(1);
+	glUniform4fv(color_uloc, 1, (float *)&color);
 	gl_has_errors();
 
 	// Get number of indices from index buffer, which has elements uint16_t
@@ -400,7 +402,7 @@ void RenderSystem::draw()
 	for (Entity entity : registry.renderRequests.entities)
 	{
 		// filter to entities that have a motion component
-		if (registry.motions.has(entity))
+		if (registry.textured.has(entity))
 		{
 			// Note, its not very efficient to access elements indirectly via the entity
 			// albeit iterating through all Sprites in sequence. A good point to optimize
@@ -411,9 +413,9 @@ void RenderSystem::draw()
 		{
 			drawGridLine(entity, projection_2D);
 		}
-		else if (registry.rectangles.has(entity))
+		else if (registry.rectangles.has(entity) || registry.circles.has(entity))
 		{
-			drawRect(entity, projection_2D);
+			drawShape(entity, projection_2D);
 		}
 	}
 
