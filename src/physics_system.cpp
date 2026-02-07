@@ -79,7 +79,6 @@ bool collides(const Entity& entity1, const Entity& entity2)
 
 		const vec2& posC = registry.positions.get(eC);
 		const vec2& posR = registry.positions.get(eR);
-		
 
 		const Size& sC = registry.sizes.get(eC);
 		const Size& sR = registry.sizes.get(eR);
