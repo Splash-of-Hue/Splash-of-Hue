@@ -9,7 +9,6 @@ struct Player
 
 };
 
-// SPLASH OF HUE COMPONENTS //////////////////////////////
 enum class COLOUR_STATE {
 	NEUTRAL = 0,
 	BLUE = 1,

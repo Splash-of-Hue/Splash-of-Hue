@@ -23,6 +23,7 @@ public:
 	ComponentContainer<RenderRequest> renderRequests;
 	ComponentContainer<ScreenState> screenStates;
 	ComponentContainer<Eatable> eatables;
+	ComponentContainer<Deadly> deadlys;
 	ComponentContainer<DebugComponent> debugComponents;
 	ComponentContainer<vec4> colors;
 	ComponentContainer<Tower> towers;
@@ -42,7 +43,6 @@ public:
 	ComponentContainer<ColourPalette> colourPalettes;
 	ComponentContainer<ColourMenuState> colourMenuStates;
 	ComponentContainer<ColourMenuInput> colourMenuInputs;
-	ComponentContainer<Deadly> deadlys;
 	ComponentContainer<Animatable> animatables;
 	ComponentContainer<Animation> animations;
 	ComponentContainer<AnimationTrigger> animation_triggers;
