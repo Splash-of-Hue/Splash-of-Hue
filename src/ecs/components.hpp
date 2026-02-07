@@ -63,7 +63,6 @@ struct InelasticCollision {
 
 };
 
-
 // Data structure for toggling debug mode
 struct Debug {
 	bool in_debug_mode = 0;
@@ -111,3 +110,20 @@ struct Size
 	float height;
 };
 
+// Used for level entity
+struct Level
+{
+	// Unique ID for the room
+	int uid;
+};
+
+struct Creature
+{
+
+};
+
+// TODO: Remove as we probably won't need this, this is just for M1 prototyping
+struct Toggle
+{
+
+};

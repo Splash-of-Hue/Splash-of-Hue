@@ -10,6 +10,7 @@
 #include <tuple>
 
 #include "physics_system.hpp"
+#include "loading/loading_constants.hpp"
 
 // create the world
 WorldSystem::WorldSystem() :
@@ -158,6 +159,7 @@ bool WorldSystem::step(float elapsed_ms_since_last_update) {
 
 	// TODO SnB9A38K: Move the player controller system
 	// Reset player velocity each step
+	auto& player_entity = registry.players.entities[0];
 	auto& player_velocity = motions_registry.get(player_entity).velocity;
 	player_velocity = vec2(0);
 	
@@ -285,15 +287,14 @@ void WorldSystem::restart_game() {
 		}
 	}
 
-	// TODO SnB9A38K: Move to player controller
-	registry.players.emplace(player_entity);
-	registry.motions.emplace(player_entity);
-	player_movement = vec2(0);
-
 	// TODO m1EAwQf4: This is only being used to make sure that the mouse rectangle isn't being destroyed on world_system reset so maybe don't need this.
 	// Recreate anything that may have been destroyed by world_system's restart_game function.
 	auto center_screen = vec2(WINDOW_WIDTH_PX / 2, WINDOW_HEIGHT_PX / 2);
 	mouse_shape_entity = createRectangle(center_screen, center_screen + vec2(200));
+
+	// Load level
+	Entity load_request_entity;
+	registry.loadRequests.insert(load_request_entity, { LOAD_TYPE::LOAD_LEVEL, current_level_uid });
 }
 
 // Compute collisions between entities

@@ -7,12 +7,13 @@
 
 // internal
 #include "ai_system.hpp"
+#include "animation/animation_system.hpp"
+#include "controls/control_input_conversion_system.hpp"
+#include "input/input_system.hpp"
+#include "loading/loader_system.hpp"
 #include "physics_system.hpp"
 #include "renderer/render_system.hpp"
 #include "world_system.hpp"
-#include "animation/animation_system.hpp"
-#include "input/input_system.hpp"
-#include "controls/control_input_conversion_system.hpp"
 
 using Clock = std::chrono::high_resolution_clock;
 
@@ -26,6 +27,7 @@ int main()
 	PhysicsSystem physics_system;
 	AnimationSystem animation_system;
 	InputSystem input_system;
+	LoaderSystem loader_system;
 	ControlInputConversionSystem control_input_conversion_system;
 
 	// initialize window
@@ -63,6 +65,7 @@ int main()
 
 		// CK: be mindful of the order of your systems and rearrange this list only if necessary
 		control_input_conversion_system.step(elapsed_ms);
+		loader_system.step(elapsed_ms);
 		world_system.step(elapsed_ms);
 		ai_system.step(elapsed_ms);
 		physics_system.step(elapsed_ms);
