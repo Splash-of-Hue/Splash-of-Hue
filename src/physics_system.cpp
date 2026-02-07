@@ -59,12 +59,7 @@ bool isLineInRangeOfCircle(vec2 posC, float radiusC, vec2 point1, vec2 point2) {
 		vec2 pProj = projection - posC;
 		distance = hypot(pProj.x, pProj.y);
 
-		if (distance <= radiusC) {
-			return true;
-		}
-		else {
-			return false;
-		}
+		return distance <= radiusC;
 	}
 }
 
