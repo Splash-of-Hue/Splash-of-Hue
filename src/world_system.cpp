@@ -295,6 +295,7 @@ void WorldSystem::restart_game() {
 	// Load level
 	Entity load_request_entity;
 	registry.loadRequests.insert(load_request_entity, { LOAD_TYPE::LOAD_LEVEL, current_level_uid });
+	player_movement = vec2(0);
 }
 
 // Compute collisions between entities
