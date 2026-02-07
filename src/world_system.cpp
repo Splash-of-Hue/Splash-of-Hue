@@ -199,7 +199,7 @@ bool WorldSystem::step(float elapsed_ms_since_last_update) {
 		// TODO m1EAwQf4: Remove
 		if (control.type == CONTROL_TYPE::CHANGE_RECT_TEST_SIZE)
 		{
-			auto& size = registry.sizes.get(mouse_shape_entity);
+			auto& size = registry.sizes.get( mouse_shape_entity);
 			size.width += control.value_2;
 		}
 
@@ -316,6 +316,16 @@ void WorldSystem::restart_game() {
 		registry.colours.emplace(player);
 		registry.colours.get(player).curr_colour_state = COLOUR_STATE::NEUTRAL;
 	}
+	// TODO m1EAwQf4: This is only being used to make sure that the mouse rectangle isn't being destroyed on world_system reset so maybe don't need this.
+	// Recreate anything that may have been destroyed by world_system's restart_game function.
+	auto center_screen = vec2(WINDOW_WIDTH_PX / 2, WINDOW_HEIGHT_PX / 2);
+	mouse_shape_entity = createRectangle(center_screen, center_screen + vec2(200));
+
+	// Load level
+	Entity load_request_entity;
+	registry.loadRequests.insert(load_request_entity, { LOAD_TYPE::LOAD_LEVEL, current_level_uid });
+
+	player_movement = vec2(0);
 }
 
 // Compute collisions between entities

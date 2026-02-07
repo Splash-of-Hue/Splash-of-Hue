@@ -3,6 +3,7 @@
 #include "ecs/entity.hpp"
 #include "ecs/components.hpp"
 #include "common.hpp"
+#include "controls/control_components.hpp"
 
 class ColourSystem
 {
@@ -13,7 +14,7 @@ public:
 
 	void pollMenuState();
 
-	void pollColourMenuInput();
+	void pollColourMenuInput(Control control);
 
 	void step(float elapsed_ms);
 
