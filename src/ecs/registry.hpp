@@ -50,7 +50,6 @@ public:
 	ComponentContainer<Textured> textured;
 	ComponentContainer<LoadRequest> loadRequests;
 	ComponentContainer<Level> levels;
-	ComponentContainer<Creature> creatures;
 	ComponentContainer<Toggle> toggles;
 
 	// constructor that adds all containers for looping over them

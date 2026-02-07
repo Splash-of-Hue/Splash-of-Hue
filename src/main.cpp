@@ -69,10 +69,10 @@ int main()
 		loader_system.step(elapsed_ms);
 		world_system.step(elapsed_ms);
 		ai_system.step(elapsed_ms);
+		creature_behaviour_system.step(elapsed_ms);
 		physics_system.step(elapsed_ms);
 		animation_system.step(elapsed_ms);
 		world_system.handle_collisions(); // Question from Sophia: should this not come right after physics_system.step? I would imagine we'd want collisions to be handled before animations?
-		creature_behaviour_system.step(elapsed_ms);
 
 		renderer_system.draw();
 	}

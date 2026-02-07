@@ -3,28 +3,15 @@
 #include "creature_behaviour_system/creature_behaviour_system.hpp"
 #include "world_init.hpp" // For testing = using createrectangle
 
-void CreatureBehaviourSystem::updateSawfish(float elapsed_ms)
+void CreatureBehaviourSystem::updateSawfish(float elapsed_ms, Entity& sawfish_entity, Creature& creature_component)
 {
-
-	// TEMPORARY FOR TESTING
-	if (registry.shrimps.entities.size() == 0)
+	assert(registry.motions.has(sawfish_entity) && "sawfish does not have a motion component");
+	if (!registry.pathfinders.has(sawfish_entity))
 	{
-		vec2 top_left = vec2(WINDOW_WIDTH_PX * 0.25f, WINDOW_HEIGHT_PX * 0.25f);
-		vec2 bottom_right = vec2(WINDOW_WIDTH_PX * 0.5f, WINDOW_HEIGHT_PX * 0.50f);
-
-		Entity& shrimp_entity = createRectangle(top_left, bottom_right, vec4(0.2f, 0.2f, 0.2f, 1));
-		registry.rectangles.emplace(shrimp_entity);
-		registry.shrimps.emplace(shrimp_entity);
-
-		Pathfinder& pathfinder = registry.pathfinders.emplace(shrimp_entity);
-
-		Motion& motion = registry.motions.get(shrimp_entity);
-		//motion.position = { -10, -50 };
-		//motion.velocity = { 1.0, 1.0 };
-
+		registry.pathfinders.emplace(sawfish_entity);
 	}
 
-	follow_player(elapsed_ms, registry.shrimps.entities[0]);
+	follow_player(elapsed_ms, sawfish_entity);
 }
 
 void CreatureBehaviourSystem::neutralSawfish()

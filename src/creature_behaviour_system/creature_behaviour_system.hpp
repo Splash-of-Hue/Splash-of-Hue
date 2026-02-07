@@ -12,8 +12,11 @@ class CreatureBehaviourSystem
 public:
 	void step(float elapsed_ms)
 	{
-		for (Creature& creature_component : registry.creatures.components)
+		for (Entity& creature : registry.creatures.entities)
 		{
+
+			Creature& creature_component = registry.creatures.get(creature);
+
 			switch (creature_component.creatureType)
 			{
 			case ANGLERFISH:
@@ -26,7 +29,7 @@ public:
 				updateMinnows();
 				break;
 			case SAWFISH:
-				updateSawfish(elapsed_ms);
+				updateSawfish(elapsed_ms, creature, creature_component);
 				break;
 			case SHRIMP:
 				updateShrimp();
@@ -46,7 +49,7 @@ private:
 	void updateCrab();
 	void updateCreature();
 	void updateMinnows();
-	void updateSawfish(float elapsed_ms);
+	void updateSawfish(float elapsed_ms, Entity& sawfish_entity, Creature& creature_component);
 	void updateShrimp();
 	void updateWhale();
 

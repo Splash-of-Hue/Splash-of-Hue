@@ -21,11 +21,14 @@ void CreatureBehaviourSystem::follow_player(float elapsed_ms, Entity& follower)
 	const Motion& player_motion_component = registry.motions.get(player);
 	Motion& follower_motion_component = registry.motions.get(follower);
 
-	// TODO: REFACTOR ONCE "POSITION" COMPONENT IS IN PLAY
 	const vec2 playerPosition = player_motion_component.position;
-	vec2 followerPosition = follower_motion_component.position;
+	//vec2& followerPosition = follower_motion_component.position;
+	//vec2& followerVelocity = follower_motion_component.velocity;
+	vec2& followerPosition = registry.positions.emplace(follower);
+	followerPosition = follower_motion_component.position;
 
-	vec2 followerVelocity = follower_motion_component.velocity;
+	vec2& followerPosition = registry.positions.emplace(follower);
+	followerPosition = follower_motion_component.position;
 
 	// Get the vector to the player
 	float dx = playerPosition.x - followerPosition.x;
@@ -38,8 +41,7 @@ void CreatureBehaviourSystem::follow_player(float elapsed_ms, Entity& follower)
 	// If too close to the target, stop
 	if (distance_squared <= minDistToTarget_squared)
 	{
-		followerVelocity.x = 0.0f;
-		followerVelocity.y = 0.0f;
+		// followerVelocity = { 0.0f, 0.0f };
 		return;
 	}
 
@@ -48,8 +50,16 @@ void CreatureBehaviourSystem::follow_player(float elapsed_ms, Entity& follower)
 	float norm_x = dx / distance;
 	float norm_y = dy / distance;
 
+	float slow_radius = pathfinder_component.minimumDistanceToTarget * 3.f;
 	float max_speed = pathfinder_component.max_speed;
-	followerVelocity = { norm_x * max_speed, norm_y * max_speed };
-	followerPosition = { followerPosition.x + followerVelocity.x * elapsed_ms, followerPosition.y + followerVelocity.y * elapsed_ms };
+
+	if (distance < slow_radius) {
+		float t = (distance - pathfinder_component.minimumDistanceToTarget) / (slow_radius - pathfinder_component.minimumDistanceToTarget);
+		t = std::clamp(t, 0.f, 1.f);
+		max_speed = max_speed * t;
+	}
+
+	//followerVelocity = { norm_x * max_speed, norm_y * max_speed };
+	//std::cout << "follower velocity " << followerVelocity.x << ", " << followerVelocity.y << std::endl;
 	
 }

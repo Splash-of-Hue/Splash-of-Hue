@@ -6,9 +6,11 @@
 
 struct M1ShapeData
 {
+	CREATURETYPE creatureType;
 	Size size;
 	vec2 position;
 	vec4 color;
+	vec2 velocity;
 	// TODO: Add AI behaviour for creatures
 };
 
@@ -25,32 +27,42 @@ const std::vector<M1TestData> m1_test_data = {
 		{
 			// Three creatures
 			{
+				SAWFISH,
 				{ 100, 100 }, // size
 				{ 400, 120 }, // position
-				{ 0.2f, 0.4f, 0, 1.0f } // color
+				{ 0.2f, 0.4f, 0, 1.0f }, // color
+				vec2( 0.2f, 0.2f ) // velocity
 			},
 			{
+				ANGLERFISH,
 				{ 80, 20 }, // size
 				{ 50, 20 }, // position
-				{ 0, 1.0f, 0.6f, 1.0f  } // color
+				{ 0, 1.0f, 0.6f, 1.0f  }, // color
+				vec2(0.0f, 0.0f) // velocity
 			},
 			{
+				SHRIMP,
 				{ 50, 200 }, // size
 				{ 800, 320 }, // position
-				{ 0.4f, 0, 0.85f, 1.0f  } // color
+				{ 0.4f, 0, 0.85f, 1.0f  }, // color
+				vec2(0.0f, 0.0f) // velocity
 			},
 		},
 		{
 			// Two toggles
 			{
+				UNDEFINED,
 				{ 100, 100 }, // size
 				{ 600, 220 }, // position
-				{ 1.0f, 0, 0, 1.0f  } // color
+				{ 1.0f, 0, 0, 1.0f  }, // color
+				vec2(0.0f, 0.0f) // velocity
 			},
 			{
+				UNDEFINED,
 				{ 100, 100 }, // size
 				{ 150, 500 }, // position
-				{ 0, 0, 1.0f, 1.0f  } // color
+				{ 0, 0, 1.0f, 1.0f }, // color
+				vec2(0.0f, 0.0f) // velocity
 			},
 		},
 	}
@@ -64,14 +76,21 @@ void LoaderSystem::load_level(int level_uid)
 	registry.levels.insert(level_entity, { level_uid });
 
 	// For now, the player is a red circle of size 40
-	auto& player_entity = createCircle(level_data.player_start_position, 40.0f, { 1.0f, 0, 0, 1.0f});
+	Entity& player_entity = createCircle(level_data.player_start_position, 40.0f, { 1.0f, 0, 0, 1.0f});
 	registry.players.emplace(player_entity);
+	Motion& player_motion_component = registry.motions.emplace(player_entity);
+	player_motion_component.position = vec2(0.0f, 0.0f); // stick it in the middle
+	player_motion_component.velocity = vec2(0.0f, 0.0f);
 
 	// Load each "creature", make a rectangle
 	for (auto& creature : level_data.creatures)
 	{
-		auto& creature_entity = createRectangle(creature.position, creature.size.width, creature.size.height, creature.color);
-		registry.creatures.emplace(creature_entity);
+		Entity& creature_entity = createRectangle(creature.position, creature.size.width, creature.size.height, creature.color);
+		Creature& creature_component = registry.creatures.emplace(creature_entity);
+		creature_component.creatureType = creature.creatureType;
+		Motion& motion_component = registry.motions.emplace(creature_entity);
+		motion_component.position = creature.position;
+		motion_component.velocity = creature.velocity;
 	}
 
 	// Load each "toggle", make a circle
