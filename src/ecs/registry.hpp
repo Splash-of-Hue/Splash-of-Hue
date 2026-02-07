@@ -2,10 +2,11 @@
 #include <vector>
 
 #include "animation/animation_components.hpp"
-#include "renderer/render_components.hpp"
 #include "components.hpp"
-#include "tiny_ecs.hpp"
+#include "controls/control_components.hpp"
+#include "input/input_components.hpp"
 #include "loading/loading_components.hpp"
+#include "renderer/render_components.hpp"
 
 class ECSRegistry
 {
@@ -37,8 +38,6 @@ public:
 	ComponentContainer<Circle> circles; // TODO 1ch6Q0BE: Remove
 	ComponentContainer<OverlayCollision> overlayCollisions;
 	ComponentContainer<InelasticCollision> inelasticCollisions;
-	ComponentContainer<MoveKeys> move_keys; // There should only be 1 entity for move_keys... TODO better way to store it then?
-	
 	// Creatures
 	ComponentContainer<Creature> creatures;
 	ComponentContainer<Shrimp> shrimps;
@@ -51,6 +50,8 @@ public:
 	ComponentContainer<LoadRequest> loadRequests;
 	ComponentContainer<Level> levels;
 	ComponentContainer<Toggle> toggles;
+	ComponentContainer<Input> inputs;
+	ComponentContainer<Control> controls;
 
 	// constructor that adds all containers for looping over them
 	ECSRegistry()
@@ -78,7 +79,6 @@ public:
 		registry_list.push_back(&circles); // TODO 1ch6Q0BE: Remove
 		registry_list.push_back(&overlayCollisions);
 		registry_list.push_back(&inelasticCollisions);
-		registry_list.push_back(&move_keys);
 		registry_list.push_back(&creatures);
 		registry_list.push_back(&animatables);
 		registry_list.push_back(&animations);
@@ -88,6 +88,8 @@ public:
 		registry_list.push_back(&levels);
 		registry_list.push_back(&creatures);
 		registry_list.push_back(&toggles);
+		registry_list.push_back(&inputs);
+		registry_list.push_back(&controls);
 	}
 
 	void clear_all_components()

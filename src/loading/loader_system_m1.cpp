@@ -78,6 +78,7 @@ void LoaderSystem::load_level(int level_uid)
 	// For now, the player is a red circle of size 40
 	Entity& player_entity = createCircle(level_data.player_start_position, 40.0f, { 1.0f, 0, 0, 1.0f});
 	registry.players.emplace(player_entity);
+	// TODO SnB9A38K: Move to player controller
 	Motion& player_motion_component = registry.motions.emplace(player_entity);
 	player_motion_component.position = vec2(0.0f, 0.0f); // stick it in the middle
 	player_motion_component.velocity = vec2(0.0f, 0.0f);

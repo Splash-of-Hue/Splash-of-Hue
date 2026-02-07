@@ -53,13 +53,6 @@ private:
 	// TODO m1EAwQf4: Remove
 	Entity mouse_shape_entity;
 
-	// input callback functions
-	void on_window_moved(int xpos, int ypos);
-	void on_key(int key, int, int action, int mod);
-	void on_mouse_move(vec2 pos);
-	void on_mouse_scroll(double xoffset, double yoffset);
-	void on_mouse_button_pressed(int button, int action, int mods);
-
 	// restart level
 	void restart_game();
 
@@ -77,6 +70,9 @@ private:
 	// Game state
 	RenderSystem* renderer;
 	float current_speed;
+
+	// TODO SnB9A38K: Move to player control system
+	vec2 player_movement;
 
 	// grid
 	std::vector<Entity> grid_lines;
