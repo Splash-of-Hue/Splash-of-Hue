@@ -176,5 +176,16 @@ void InputSystem::on_mouse_button_pressed(int button, int action, int mods) {
 		auto& size = registry.sizes.get(mouse_rect_entity);
 		auto& color = registry.colors.get(mouse_rect_entity);
 		createRectangle(vec2(mouse_pos_x, mouse_pos_y), size.width, size.height, color);
+	} else if (action == GLFW_PRESS && button == GLFW_MOUSE_BUTTON_RIGHT) {
+		int tile_x = (int)(mouse_pos_x / GRID_CELL_WIDTH_PX);
+		int tile_y = (int)(mouse_pos_y / GRID_CELL_HEIGHT_PX);
+
+		std::cout << "CIRCLE mouse position: " << mouse_pos_x << ", " << mouse_pos_y << std::endl;
+		std::cout << "CIRCLE mouse tile position: " << tile_x << ", " << tile_y << std::endl;
+
+		// TODO m1EAwQf4: Remove
+		auto& size = registry.sizes.get(mouse_rect_entity);
+		auto& color = registry.colors.get(mouse_rect_entity);
+		createCircle(vec2(mouse_pos_x, mouse_pos_y), size.width, color);
 	}
 }
