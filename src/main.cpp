@@ -11,6 +11,7 @@
 #include "controls/control_input_conversion_system.hpp"
 #include "input/input_system.hpp"
 #include "loading/loader_system.hpp"
+#include "colour_system.hpp"
 #include "physics_system.hpp"
 #include "renderer/render_system.hpp"
 #include "world_system.hpp"
@@ -30,6 +31,7 @@ int main()
 	InputSystem input_system;
 	LoaderSystem loader_system;
 	ControlInputConversionSystem control_input_conversion_system;
+	ColourSystem colour_system;
 	CreatureBehaviourSystem creature_behaviour_system;
 
 	// initialize window
@@ -47,19 +49,11 @@ int main()
 
 
 	// initialize the main systems
-	std::cout << "Input system..." << std::endl;
-
 	input_system.init(window);
-	std::cout << "renderer system..." << std::endl;
-
 	renderer_system.init(window);
-	std::cout << "world system..." << std::endl;
-
 	world_system.init(&renderer_system);
-	std::cout << "animation system..." << std::endl;
-
 	animation_system.init();
-
+	colour_system.initialize_palette();
 	// variable timestep loop
 	auto t = Clock::now();
 	while (!world_system.is_over()) {
@@ -76,6 +70,7 @@ int main()
 		// CK: be mindful of the order of your systems and rearrange this list only if necessary
 		control_input_conversion_system.step(elapsed_ms);
 		loader_system.step(elapsed_ms);
+		colour_system.step(elapsed_ms);
 		world_system.step(elapsed_ms);
 		ai_system.step(elapsed_ms);
 		creature_behaviour_system.step(elapsed_ms);

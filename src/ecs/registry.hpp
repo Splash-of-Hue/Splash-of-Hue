@@ -43,6 +43,11 @@ public:
 	ComponentContainer<Shrimp> shrimps;
 	ComponentContainer<Pathfinder> pathfinders;
 
+	ComponentContainer<ColourState> colourStates;
+	ComponentContainer<ColourWheel> colourWheels;
+	ComponentContainer<ColourPalette> colourPalettes;
+	ComponentContainer<ColourMenuState> colourMenuStates;
+	ComponentContainer<ColourMenuInput> colourMenuInputs;
 	ComponentContainer<Animatable> animatables;
 	ComponentContainer<Animation> animations;
 	ComponentContainer<AnimationTrigger> animation_triggers;
@@ -90,6 +95,11 @@ public:
 		registry_list.push_back(&toggles);
 		registry_list.push_back(&inputs);
 		registry_list.push_back(&controls);
+		registry_list.push_back(&colourStates);
+		registry_list.push_back(&colourWheels);
+		registry_list.push_back(&colourPalettes);
+		registry_list.push_back(&colourMenuStates);
+		registry_list.push_back(&colourMenuInputs);
 	}
 
 	void clear_all_components()

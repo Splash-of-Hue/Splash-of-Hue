@@ -3,6 +3,7 @@
 #include "renderer/render_constants.hpp"
 #include "loading/loading_constants.hpp"
 #include "creature_behaviour_system/creature_constants.hpp"
+#include <map>
 
 // Player component
 struct Player
@@ -10,6 +11,46 @@ struct Player
 
 };
 
+enum class COLOUR_STATE {
+	NEUTRAL = 0,
+	BLUE = 1,
+	RED = 2
+};
+
+struct ColourPalette {
+	std::map<COLOUR_STATE, vec4> state_to_colour = {
+		{ COLOUR_STATE::NEUTRAL, vec4(0.5f, 0.5f, 0.5f, 1.0f)},
+		{ COLOUR_STATE::BLUE, vec4(0.0f, 0.0f, 1.0f, 1.0f)},
+		{ COLOUR_STATE::RED, vec4(1.0f, 0.0f, 0.0f, 1.0f)}
+	};
+};
+
+struct ColourState {
+	COLOUR_STATE curr_colour_state = COLOUR_STATE::NEUTRAL;
+	COLOUR_STATE prev_colour_state = COLOUR_STATE::NEUTRAL;
+};
+
+struct ColourWheel {
+	COLOUR_STATE prev_colour = COLOUR_STATE::NEUTRAL;
+	COLOUR_STATE curr_colour = COLOUR_STATE::NEUTRAL;
+};
+
+struct ColourMenuState {
+	bool is_curr_open = false;
+	bool just_closed = false; 
+};
+
+struct ColourMenuInput {
+	int direction = 0; 
+};
+
+struct Deadly
+{
+
+};
+
+
+//////////////////////////////////////////////////////////
 // Tower
 struct Tower {
 	float range;	// for vision / detection
@@ -26,11 +67,7 @@ struct Projectile {
 	int damage;
 };
 
-// used for Entities that cause damage
-struct Deadly
-{
 
-};
 
 // used for edible entities
 struct Eatable
