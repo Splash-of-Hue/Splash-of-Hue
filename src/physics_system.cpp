@@ -141,7 +141,6 @@ void PhysicsSystem::step(float elapsed_ms)
 					if (!registry.change_behaviours.has(entity_i)) {
 						registry.change_behaviours.emplace(entity_i);
 					}
-					
 				}
 				//must both be inelastic for this collision resolution to occur
 				if (registry.collidables.get(entity_i).inelastic && registry.collidables.get(entity_j).inelastic) {
