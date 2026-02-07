@@ -4,7 +4,7 @@
 // Player component
 struct Player
 {
-	float speed = 10.f;
+	float speed = PLAYER_SPEED;
 };
 
 // Tower
