@@ -14,31 +14,30 @@ public:
 	{
 		for (Entity& creature : registry.creatures.entities)
 		{
-
 			Creature& creature_component = registry.creatures.get(creature);
 
 			switch (creature_component.creatureType)
 			{
 			case ANGLERFISH:
-				updateAnglerfish();
+				updateAnglerfish(elapsed_ms, creature);
 				break;
 			case CRAB:
-				updateCrab();
+				updateCrab(creature);
 				break;
 			case MINNOWS:
-				updateMinnows();
+				updateMinnows(elapsed_ms, creature);
 				break;
 			case SAWFISH:
-				updateSawfish(elapsed_ms, creature, creature_component);
+				updateSawfish(elapsed_ms, creature);
 				break;
 			case SHRIMP:
-				updateShrimp();
+				updateShrimp(creature);
 				break;
 			case WHALE:
-				updateWhale();
+				updateWhale(creature);
 				break;
 			default: // UNDEFINED
-				updateCreature();
+				updateCreature(creature);
 				break;
 			}
 		}
@@ -49,14 +48,14 @@ private:
 	void updateCrab(Entity& crab_entity);
 	void updateCreature(Entity& creature_entity);
 	void updateMinnows(float elapsed_ms, Entity& minnow_entity);
-	void updateSawfish(float elapsed_ms, Entity& sawfish_entity, Creature& creature_component);
+	void updateSawfish(float elapsed_ms, Entity& sawfish_entity);
 	void updateShrimp(Entity& shrimp_entity);
 	void updateWhale(Entity& whale_entity);
 
 	// Coloured behaviours for each creature.
 	void neutralAnglerfish(Entity& anglerfish_entity);
-	void blueAnglerfish(Entity& anglerfish_entity);
-	void redAnglerfish(Entity& anglerfish_entity);
+	void blueAnglerfish(float elapsed_ms, Entity& anglerfish_entity);
+	void redAnglerfish(float elapsed_ms, Entity& anglerfish_entity);
 
 	void neutralCrab(Entity& crab_entity);
 	void blueCrab(Entity& crab_entity);
@@ -70,7 +69,7 @@ private:
 	void blueMinnows(Entity& minnow_entity);
 	void redMinnows(Entity& minnow_entity);
 
-	void neutralSawfish(Entity& sawfish_entity);
+	void neutralSawfish(float elapsed_ms, Entity& sawfish_entity);
 	void blueSawfish(Entity& sawfish_entity);
 	void redSawfish(float elapsed_ms, Entity& sawfish_entity);
 

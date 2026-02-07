@@ -2,7 +2,6 @@
 #include "common.hpp"
 #include "creature_behaviour_system/creature_behaviour_system.hpp"
 
-
 // Sophia note:
 /*
 	It might make more sense for just the leader minnow to have the creature component

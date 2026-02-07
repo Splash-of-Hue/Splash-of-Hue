@@ -15,11 +15,11 @@ void CreatureBehaviourSystem::updateAnglerfish(float elapsed_ms, Entity& anglerf
 	switch (anglerfishColourState.curr_colour_state)
 	{
 	case COLOUR_STATE::BLUE:
-		blueAnglerfish(anglerfish_entity);
+		blueAnglerfish(elapsed_ms, anglerfish_entity);
 		break;
 
 	case COLOUR_STATE::RED:
-		redAnglerfish(anglerfish_entity);
+		redAnglerfish(elapsed_ms, anglerfish_entity);
 		break;
 
 	default: // COLOUR_STATE::NEUTRAL or an undefined state
@@ -31,15 +31,16 @@ void CreatureBehaviourSystem::updateAnglerfish(float elapsed_ms, Entity& anglerf
 // For the Anglerfish, the neutral state is just the initial state
 void CreatureBehaviourSystem::neutralAnglerfish(Entity& anglerfish_entity)
 {
-
+	// Stationary, with the initial light colour
 }
 
-void CreatureBehaviourSystem::blueAnglerfish(Entity& anglerfish_entity)
+void CreatureBehaviourSystem::blueAnglerfish(float elapsed_ms, Entity& anglerfish_entity)
 {
 	// Lights radius around it in blue, pathfinds to player
+	follow_player(elapsed_ms, anglerfish_entity);
 }
 
-void CreatureBehaviourSystem::redAnglerfish(Entity& anglerfish_entity)
+void CreatureBehaviourSystem::redAnglerfish(float elapsed_ms, Entity& anglerfish_entity)
 {
 	// lights radius around it in red, pathfinds to player
 }

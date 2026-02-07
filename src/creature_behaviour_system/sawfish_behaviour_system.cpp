@@ -3,7 +3,7 @@
 #include "creature_behaviour_system/creature_behaviour_system.hpp"
 #include "world_init.hpp" // For testing = using createrectangle
 
-void CreatureBehaviourSystem::updateSawfish(float elapsed_ms, Entity& sawfish_entity, Creature& creature_component)
+void CreatureBehaviourSystem::updateSawfish(float elapsed_ms, Entity& sawfish_entity)
 {
 	assert(registry.motions.has(sawfish_entity) && "sawfish does not have a motion component");
 
@@ -12,6 +12,7 @@ void CreatureBehaviourSystem::updateSawfish(float elapsed_ms, Entity& sawfish_en
 	{
 		registry.pathfinders.emplace(sawfish_entity);
 	}
+
 	if (!registry.colourStates.has(sawfish_entity))
 	{
 		ColourState& sawfishColourState = registry.colourStates.emplace(sawfish_entity);
@@ -31,14 +32,17 @@ void CreatureBehaviourSystem::updateSawfish(float elapsed_ms, Entity& sawfish_en
 		break;
 
 	default: // COLOUR_STATE::NEUTRAL or an undefined state
-		neutralSawfish(sawfish_entity);
+		neutralSawfish(elapsed_ms, sawfish_entity);
 		break;
 	}
 }
 
-void CreatureBehaviourSystem::neutralSawfish(Entity& sawfish_entity)
+void CreatureBehaviourSystem::neutralSawfish(float elapsed_ms, Entity& sawfish_entity)
 {
 	// aimlessly pathfinding. For M1, stationary
+
+	// For testing only:
+	follow_player(elapsed_ms, sawfish_entity);
 }
 
 void CreatureBehaviourSystem::blueSawfish(Entity& sawfish_entity)
