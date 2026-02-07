@@ -37,7 +37,7 @@ void ControlInputConversionSystem::step(float elapsed_ms)
 	registry.inputs.clear();
 }
 
-Control ControlInputConversionSystem::convert_input(const Input& input)
+Control& ControlInputConversionSystem::convert_input(const Input& input)
 {
 	switch (input.input_type)
 	{
@@ -54,7 +54,7 @@ Control ControlInputConversionSystem::convert_input(const Input& input)
 	}
 }
 
-Control ControlInputConversionSystem::convert_keyboard_input(const Input& input)
+Control& ControlInputConversionSystem::convert_keyboard_input(const Input& input)
 {
 	int key = input.value_1;
 	int action = input.value_2;
@@ -98,7 +98,7 @@ Control ControlInputConversionSystem::convert_keyboard_input(const Input& input)
 	return control;
 }
 
-Control ControlInputConversionSystem::convert_mouse_button_input(const Input& input)
+Control& ControlInputConversionSystem::convert_mouse_button_input(const Input& input)
 {
 	Control control = { CONTROL_TYPE::INVALID };
 	std::pair<CONTROL_TYPE, std::vector<float>> control_map_values;
@@ -142,7 +142,7 @@ Control ControlInputConversionSystem::convert_mouse_button_input(const Input& in
 	return control;
 }
 
-Control ControlInputConversionSystem::convert_mouse_scroll_input(const Input& input)
+Control& ControlInputConversionSystem::convert_mouse_scroll_input(const Input& input)
 {
 	Control control = { CONTROL_TYPE::CHANGE_RECT_TEST_SIZE };
 	control.phase = CONTROL_PHASE::END;
@@ -152,7 +152,7 @@ Control ControlInputConversionSystem::convert_mouse_scroll_input(const Input& in
 	return control;
 }
 
-Control ControlInputConversionSystem::convert_mouse_move_input(const Input& input)
+Control& ControlInputConversionSystem::convert_mouse_move_input(const Input& input)
 {
 	Control control = { CONTROL_TYPE::MOVE_RECT_TEST };
 	control.phase = CONTROL_PHASE::END;
