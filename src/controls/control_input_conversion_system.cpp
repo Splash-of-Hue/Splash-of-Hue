@@ -15,7 +15,7 @@ void ControlInputConversionSystem::step(float elapsed_ms)
 	for (Entity& entity : registry.inputs.entities)
 	{
 		const Input& input = registry.inputs.get(entity);
-		Control& control = convert_input(input);
+		Control control = convert_input(input);
 
 		if (control.type == CONTROL_TYPE::INVALID)
 		{
@@ -37,7 +37,7 @@ void ControlInputConversionSystem::step(float elapsed_ms)
 	registry.inputs.clear();
 }
 
-Control& ControlInputConversionSystem::convert_input(const Input& input)
+Control ControlInputConversionSystem::convert_input(const Input& input)
 {
 	switch (input.input_type)
 	{
