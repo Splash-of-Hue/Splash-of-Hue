@@ -199,7 +199,7 @@ bool WorldSystem::step(float elapsed_ms_since_last_update) {
 		// TODO m1EAwQf4: Remove
 		if (control.type == CONTROL_TYPE::CHANGE_RECT_TEST_SIZE)
 		{
-			auto& size = registry.sizes.get(mouse_shape_entity);
+			auto& size = registry.sizes.get( mouse_shape_entity);
 			size.width += control.value_2;
 		}
 
@@ -286,7 +286,36 @@ void WorldSystem::restart_game() {
 			grid_lines.push_back(createGridLine(vec2(0, col * cell_height), vec2(2 * WINDOW_WIDTH_PX, grid_line_width)));
 		}
 	}
+	{
+		Entity player = Entity();
 
+		// mark entity as player
+		registry.players.emplace(player);
+
+		// motion
+		Motion& motion = registry.motions.emplace(player);
+		motion.position = vec2(WINDOW_WIDTH_PX * 0.5f, WINDOW_HEIGHT_PX * 0.5f);
+		motion.scale = vec2(20.0f, 20.0f);
+		motion.velocity = vec2(0.0f, 0.0f);
+		motion.angle = 0.0f;
+
+		// rendering so player is visible 
+		registry.positions.insert(player, motion.position);
+		registry.sizes.insert(player, Size{ motion.scale.x, motion.scale.y });
+		registry.circles.emplace(player);
+		registry.colors.emplace(player, vec4(0.0f, 1.0f, 0.0f, 1.0));
+		registry.renderRequests.insert(
+			player,
+			{
+				EFFECT_ASSET_ID::DEFAULT,
+				GEOMETRY_BUFFER_ID::CIRCLE
+			}
+		);
+
+		// Colour system 
+		registry.colourStates.emplace(player);
+		registry.colourStates.get(player).curr_colour_state = COLOUR_STATE::NEUTRAL;
+	}
 	// TODO m1EAwQf4: This is only being used to make sure that the mouse rectangle isn't being destroyed on world_system reset so maybe don't need this.
 	// Recreate anything that may have been destroyed by world_system's restart_game function.
 	auto center_screen = vec2(WINDOW_WIDTH_PX / 2, WINDOW_HEIGHT_PX / 2);
@@ -295,6 +324,7 @@ void WorldSystem::restart_game() {
 	// Load level
 	Entity load_request_entity;
 	registry.loadRequests.insert(load_request_entity, { LOAD_TYPE::LOAD_LEVEL, current_level_uid });
+
 	player_movement = vec2(0);
 }
 
