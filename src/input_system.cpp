@@ -177,7 +177,6 @@ void InputSystem::on_mouse_button_pressed(int button, int action, int mods) {
 		auto& color = registry.colors.get(mouse_rect_entity);
 		createRectangle(vec2(mouse_pos_x, mouse_pos_y), size.width, size.height, color);
 	} else if (action == GLFW_PRESS && button == GLFW_MOUSE_BUTTON_RIGHT) {
-
 		int tile_x = (int)(mouse_pos_x / GRID_CELL_WIDTH_PX);
 		int tile_y = (int)(mouse_pos_y / GRID_CELL_HEIGHT_PX);
 
