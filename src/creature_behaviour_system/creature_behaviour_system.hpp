@@ -45,42 +45,42 @@ public:
 	}
 
 private:
-	void updateAnglerfish();
-	void updateCrab();
-	void updateCreature();
-	void updateMinnows();
+	void updateAnglerfish(float elapsed_ms, Entity& anglerfish_entity);
+	void updateCrab(Entity& crab_entity);
+	void updateCreature(Entity& creature_entity);
+	void updateMinnows(float elapsed_ms, Entity& minnow_entity);
 	void updateSawfish(float elapsed_ms, Entity& sawfish_entity, Creature& creature_component);
-	void updateShrimp();
-	void updateWhale();
+	void updateShrimp(Entity& shrimp_entity);
+	void updateWhale(Entity& whale_entity);
 
 	// Coloured behaviours for each creature.
-	void neutralAnglerfish();
-	void blueAnglerfish();
-	void redAnglerfish();
+	void neutralAnglerfish(Entity& anglerfish_entity);
+	void blueAnglerfish(Entity& anglerfish_entity);
+	void redAnglerfish(Entity& anglerfish_entity);
 
-	void neutralCrab();
-	void blueCrab();
-	void redCrab();
+	void neutralCrab(Entity& crab_entity);
+	void blueCrab(Entity& crab_entity);
+	void redCrab(Entity& crab_entity);
 
-	void neutralCreature();
-	void blueCreature();
-	void redCreature();
+	void neutralCreature(Entity& creature_entity);
+	void blueCreature(Entity& creature_entity);
+	void redCreature(Entity& creature_entity);
 
-	void neutralMinnows();
-	void blueMinnows();
-	void redMinnows();
+	void neutralMinnows(Entity& minnow_entity);
+	void blueMinnows(Entity& minnow_entity);
+	void redMinnows(Entity& minnow_entity);
 
-	void neutralSawfish();
-	void blueSawfish();
-	void redSawfish();
+	void neutralSawfish(Entity& sawfish_entity);
+	void blueSawfish(Entity& sawfish_entity);
+	void redSawfish(float elapsed_ms, Entity& sawfish_entity);
 
-	void neutralShrimp();
-	void blueShrimp();
-	void redShrimp();
+	void neutralShrimp(Entity& shrimp_entity);
+	void blueShrimp(Entity& shrimp_entity);
+	void redShrimp(Entity& shrimp_entity);
 
-	void neutralWhale();
-	void blueWhale();
-	void redWhale();
+	void neutralWhale(Entity& whale_entity);
+	void blueWhale(Entity& whale_entity);
+	void redWhale(Entity& whale_entity);
 
 	// Pathfinder
 	void follow_player(float elapsed_ms, Entity& follower);

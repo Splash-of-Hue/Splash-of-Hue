@@ -6,6 +6,7 @@
 #include "creature_behaviour_system/creature_behaviour_system.hpp"
 
 // For M1, no real fancy-schmancy AI pathfinding, just bare bones following 
+// SOPHIA NOTE: THIS CURRENTLY DOES NOT WORK, WAITING ON GEETIKA'S PHYSICS SYSTEM
 void CreatureBehaviourSystem::follow_player(float elapsed_ms, Entity& follower)
 {
 	assert(registry.pathfinders.has(follower) && "The follower creature isn't registered as a pathfinder");

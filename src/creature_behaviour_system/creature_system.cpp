@@ -2,22 +2,22 @@
 #include "common.hpp"
 #include "creature_behaviour_system/creature_behaviour_system.hpp"
 
-void CreatureBehaviourSystem::updateCreature()
+void CreatureBehaviourSystem::updateCreature(Entity& creature_entity)
 {
 
 }
 
-void CreatureBehaviourSystem::neutralCreature()
+void CreatureBehaviourSystem::neutralCreature(Entity& creature_entity)
 {
 
 }
 
-void CreatureBehaviourSystem::blueCreature()
+void CreatureBehaviourSystem::blueCreature(Entity& creature_entity)
 {
 
 }
 
-void CreatureBehaviourSystem::redCreature()
+void CreatureBehaviourSystem::redCreature(Entity& creature_entity)
 {
 
 }
