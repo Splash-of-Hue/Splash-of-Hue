@@ -21,7 +21,6 @@ vec4 get_bounding_box(const Entity& entity)
 }
 
 bool isCircleInRect(vec2 posC, float radiusC, vec2 point1, vec2 point2, vec2 point3) {
-
 	//math taken from https://stackoverflow.com/questions/2752725/finding-whether-a-point-lies-inside-a-rectangle-or-not
 		
 	vec2 AB = vec2{ point2.x - point1.x, point2.y - point1.y };
