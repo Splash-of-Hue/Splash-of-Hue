@@ -10,10 +10,10 @@ SoundSystem::~SoundSystem() {
 	// Destroy music components
 	if (background_music != nullptr)
 		Mix_FreeMusic(background_music);
-	if (invader_hit_sound != nullptr)
+	/*if (invader_hit_sound != nullptr)
 		Mix_FreeChunk(invader_hit_sound);
 	if (tower_hit_sound != nullptr)
-		Mix_FreeChunk(tower_hit_sound);
+		Mix_FreeChunk(tower_hit_sound);*/
 	Mix_CloseAudio();
 
 }
@@ -35,7 +35,7 @@ bool SoundSystem::start_and_load_sounds() {
 	//invader_hit_sound = Mix_LoadWAV(audio_path("invader_hit.wav").c_str());
 	//tower_hit_sound = Mix_LoadWAV(audio_path("tower_hit.wav").c_str());
 
-	if (background_music == nullptr || invader_hit_sound == nullptr || tower_hit_sound == nullptr) {
+	if (background_music == nullptr /* || invader_hit_sound == nullptr || tower_hit_sound == nullptr*/) {
 		fprintf(stderr, "Failed to load sounds\n %s\n %s\n %s\n make sure the data directory is present",
 			audio_path("music.wav").c_str(),
 			audio_path("invader_hit.wav").c_str(),
