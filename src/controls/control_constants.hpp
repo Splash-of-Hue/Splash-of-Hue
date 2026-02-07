@@ -13,12 +13,6 @@ enum class CONTROL_TYPE
 	RESTART,
 	DEBUG,
 	END_GAME,
-	// TODO m1EAwQf4: Remove this when no longer need to manually make rectangles for test
-	// Map numpad to increasing or decreasing the RGB value of rect on screen
-	CHANGE_RECT_TEST_COLOR,
-	CHANGE_RECT_TEST_SIZE,
-	MOVE_RECT_TEST,
-	PLACE_RECT_TEST,
 };
 
 enum class CONTROL_PHASE
@@ -36,13 +30,6 @@ const std::map<int, std::pair<CONTROL_TYPE, std::vector<float>>> keyboard_contro
 	{ GLFW_KEY_R, { CONTROL_TYPE::RESTART, { } } }, // TODO: Change to system state
 	{ GLFW_KEY_TAB, { CONTROL_TYPE::DEBUG, { } } }, // TODO: Revisit for actual debug mode
 	{ GLFW_KEY_ESCAPE, { CONTROL_TYPE::END_GAME, { } } }, // TODO: Change to system state
-	// TODO m1EAwQf4: Remove this when no longer need to manually make rectangles for test
-	{ GLFW_KEY_KP_1, { CONTROL_TYPE::CHANGE_RECT_TEST_COLOR, { 0, -0.01 } } },
-	{ GLFW_KEY_KP_2, { CONTROL_TYPE::CHANGE_RECT_TEST_COLOR, { 1, -0.01 } } },
-	{ GLFW_KEY_KP_3, { CONTROL_TYPE::CHANGE_RECT_TEST_COLOR, { 2, -0.01 } } },
-	{ GLFW_KEY_KP_4, { CONTROL_TYPE::CHANGE_RECT_TEST_COLOR, { 0,  0.01 } } },
-	{ GLFW_KEY_KP_5, { CONTROL_TYPE::CHANGE_RECT_TEST_COLOR, { 1,  0.01 } } },
-	{ GLFW_KEY_KP_6, { CONTROL_TYPE::CHANGE_RECT_TEST_COLOR, { 2,  0.01 } } },
 };
 
 // This is for any mouse inputs with modifiers (i.e. Shift, Alt, Control)
@@ -50,8 +37,6 @@ const std::map<int, std::map<int, std::pair<CONTROL_TYPE, std::vector<float>>>> 
 };
 
 const std::map<int, std::pair<CONTROL_TYPE, std::vector<float>>> mouse_control_map = {
-	// TODO m1EAwQf4: Remove this when no longer need to manually make rectangles for test
-	{ GLFW_MOUSE_BUTTON_LEFT, { CONTROL_TYPE::PLACE_RECT_TEST, { }}},
 };
 
 // This is for any mouse inputs with modifiers (i.e. Shift, Alt, Control)
