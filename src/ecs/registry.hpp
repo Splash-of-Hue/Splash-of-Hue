@@ -12,7 +12,6 @@ class ECSRegistry
 	std::vector<ContainerInterface*> registry_list;
 
 public:
-
 	// Manually created list of all components this game has
 	ComponentContainer<DeathTimer> deathTimers;
 	ComponentContainer<Motion> motions;
@@ -37,16 +36,12 @@ public:
 	ComponentContainer<OverlayCollision> overlayCollisions;
 	ComponentContainer<InelasticCollision> inelasticCollisions;
 	ComponentContainer<MoveKeys> move_keys; // There should only be 1 entity for move_keys... TODO better way to store it then?
-	
 	ComponentContainer<Colour> colours;
 	ComponentContainer<ColourWheel> colourWheels;
 	ComponentContainer<ColourPalette> colourPalettes;
+	ComponentContainer<ColourMenuState> colourMenuStates;
+	ComponentContainer<ColourMenuInput> colourMenuInputs;
 	ComponentContainer<Deadly> deadlys;
-
-
-
-
-
 	ComponentContainer<Animatable> animatables;
 	ComponentContainer<Animation> animations;
 	ComponentContainer<AnimationTrigger> animation_triggers;
@@ -75,8 +70,8 @@ public:
 		registry_list.push_back(&angles);
 		registry_list.push_back(&scales);
 		registry_list.push_back(&sizes);
+		registry_list.push_back(&rectangles); // TODO 1ch6Q0BE: Remove
 		registry_list.push_back(&circles); // TODO 1ch6Q0BE: Remove
-
 		registry_list.push_back(&overlayCollisions);
 		registry_list.push_back(&inelasticCollisions);
 		registry_list.push_back(&animatables);
@@ -86,6 +81,8 @@ public:
 		registry_list.push_back(&colours);
 		registry_list.push_back(&colourWheels);
 		registry_list.push_back(&colourPalettes);
+		registry_list.push_back(&colourMenuStates);
+		registry_list.push_back(&colourMenuInputs);
 	}
 
 	void clear_all_components()

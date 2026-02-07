@@ -24,11 +24,11 @@ GLFWwindow* InputSystem::init(GLFWwindow* window, WorldSystem* world_system)
 	move_keys_entity = Entity();
 	registry.move_keys.emplace(move_keys_entity);
 
-	colour_palette_entity = Entity();
-	registry.colourPalettes.emplace(colour_palette_entity);
-
-	colour_menu_entity = Entity();
-	colour_menu_open = false;
+	colour_menu_state_entity = Entity();
+	ColourMenuState menu_state;
+	menu_state.is_curr_open = false;
+	menu_state.just_closed = false;
+	registry.colourMenuStates.insert(colour_menu_state_entity, menu_state);
 
 	glfwSetWindowUserPointer(window, this);
 	auto key_redirect = [](GLFWwindow* wnd, int _0, int _1, int _2, int _3) { ((InputSystem*)glfwGetWindowUserPointer(wnd))->on_key(_0, _1, _2, _3); };
@@ -52,110 +52,6 @@ void InputSystem::on_world_reset()
 {
 	auto center_screen = vec2(WINDOW_WIDTH_PX / 2, WINDOW_HEIGHT_PX / 2);
 	mouse_rect_entity = createRectangle(center_screen, center_screen + vec2(200));
-}
-
-void InputSystem::openColourMenu() {
-	vec2 top_left = vec2(WINDOW_WIDTH_PX * 0.25f, WINDOW_HEIGHT_PX * 0.25f);
-	vec2 bottom_right = vec2(WINDOW_WIDTH_PX * 0.50f, WINDOW_HEIGHT_PX * 0.50f);
-
-	COLOUR_STATE initial_colour = COLOUR_STATE::NEUTRAL;
-	if (!registry.players.entities.empty()) {
-		Entity player = registry.players.entities[0];
-		if (registry.colours.has(player)) {
-			initial_colour = registry.colours.get(player).colour_state;
-		}
-	}
-	colour_menu_entity = createRectangle(top_left, bottom_right, vec3(0.2f, 0.2f, 0.2f));
-	registry.colourWheels.emplace(colour_menu_entity);
-	registry.colourWheels.get(colour_menu_entity).curr_colour = initial_colour;
-	registry.colourWheels.get(colour_menu_entity).prev_colour = initial_colour;
-
-	if (!registry.colourPalettes.entities.empty()) {
-		Entity palette_entity = registry.colourPalettes.entities[0];
-		const auto& palette = registry.colourPalettes.get(palette_entity);
-		auto colour_vec = palette.state_to_colour.find(initial_colour);
-		if (colour_vec != palette.state_to_colour.end()) {
-			vec3 color = colour_vec->second;
-			if (registry.colors.has(colour_menu_entity)) {
-				registry.colors.get(colour_menu_entity) = color;
-			}
-		}
-	}
-	colour_menu_open = true;
-}
-
-void InputSystem::closeColourMenu() {
-	if (!colour_menu_open) return;
-
-	COLOUR_STATE chosen = COLOUR_STATE::NEUTRAL;
-	if (registry.colourWheels.has(colour_menu_entity)) {
-		chosen = registry.colourWheels.get(colour_menu_entity).curr_colour;
-	}
-
-	registry.remove_all_components_of(colour_menu_entity);
-	colour_menu_open = false;
-
-	// apply colour to player
-	if (!registry.players.entities.empty()) {
-		Entity player = registry.players.entities[0];
-
-		if (!registry.colours.has(player)) {
-    registry.colours.emplace(player);
-}
-registry.colours.get(player).colour_state = chosen;
-
-		// Update visual colour for player
-		if (!registry.colourPalettes.entities.empty()) {
-			Entity palette_entity = registry.colourPalettes.entities[0];
-			const auto& palette = registry.colourPalettes.get(palette_entity);
-			auto it = palette.state_to_colour.find(chosen);
-			if (it != palette.state_to_colour.end()) {
-				vec3 color = it->second;
-				if (!registry.colors.has(player)) {
-					registry.colors.emplace(player);
-				}
-				registry.colors.get(player) = vec3(color.r, color.g, color.b);
-			}
-		}
-	}
-}
-
-void InputSystem::handleColourMenuNav(int key) {
-	if (!registry.colourWheels.has(colour_menu_entity)) return;
-
-	auto& wheel = registry.colourWheels.get(colour_menu_entity);
-
-	int direction = 0;
-	if (key == GLFW_KEY_RIGHT || key == GLFW_KEY_DOWN) {
-		direction = 1;
-	}
-	else if (key == GLFW_KEY_LEFT || key == GLFW_KEY_UP) {
-		direction = -1;
-	}
-	else {
-		return;
-	}
-
-	int curr_idx = static_cast<int>(wheel.curr_colour);
-	int num_colors = 3; 
-	curr_idx = (curr_idx + direction + num_colors) % num_colors;
-	wheel.curr_colour = static_cast<COLOUR_STATE>(curr_idx);
-
-	// update visual from palette
-	if (!registry.colourPalettes.entities.empty()) {
-		Entity palette_entity = registry.colourPalettes.entities[0];
-		const auto& palette = registry.colourPalettes.get(palette_entity);
-		auto it = palette.state_to_colour.find(wheel.curr_colour);
-		if (it != palette.state_to_colour.end()) {
-			vec3 color = it->second;
-
-			if (!registry.colors.has(colour_menu_entity)) {
-				registry.colors.emplace(colour_menu_entity);
-				
-			}
-			registry.colors.get(colour_menu_entity) = vec3(color.r, color.g, color.b);
-		}
-	}
 }
 
 // on key callback
@@ -208,18 +104,41 @@ void InputSystem::on_key(int key, int, int action, int mod)
 		}
 	}
 
+	// handling E press to toggle colour menu (open & closed) 
 	if (key == GLFW_KEY_E && action == GLFW_RELEASE) {
-		if (!colour_menu_open) {
-			openColourMenu();
-		}
-		else {
-			closeColourMenu();
-		}
+		assert(!registry.colourMenuStates.entities.empty() && "Colour menu states should not be empty");
+		Entity& ctrl = registry.colourMenuStates.entities[0];
+		ColourMenuState &state = registry.colourMenuStates.get(ctrl);
+
+		bool prev = state.is_curr_open;
+		state.is_curr_open = !prev;
+
+		state.just_closed = !state.is_curr_open ? true : false;
+
+		std::cout << "Colour menu requested " << (state.is_curr_open ? "open" : "closed") << std::endl;
 	}
 
-	// Color menu navigation (arrow keys)
-	if (colour_menu_open && (action == GLFW_PRESS || action == GLFW_REPEAT)) {
-		handleColourMenuNav(key);
+	// handling arrow keys to cycle between colour meny colours 
+	if (action == GLFW_PRESS || action == GLFW_REPEAT) {
+		if (key == GLFW_KEY_LEFT || key == GLFW_KEY_RIGHT ||
+			key == GLFW_KEY_UP || key == GLFW_KEY_DOWN) {
+
+			assert(!registry.colourMenuStates.entities.empty() && "Colour menu states should not be empty");
+			Entity& ctrl = registry.colourMenuStates.entities[0];
+
+			if (!registry.colourMenuInputs.has(ctrl)) {
+				registry.colourMenuInputs.emplace(ctrl);
+			}
+
+			ColourMenuInput& nav_input = registry.colourMenuInputs.get(ctrl);
+
+			if (key == GLFW_KEY_RIGHT || key == GLFW_KEY_DOWN) {
+				nav_input.direction = 1;
+			}
+			else if (key == GLFW_KEY_LEFT || key == GLFW_KEY_UP) {
+				nav_input.direction = -1;
+			}
+		}
 	}
 
 	if (action == GLFW_PRESS || action == GLFW_REPEAT)

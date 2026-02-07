@@ -216,11 +216,10 @@ void WorldSystem::restart_game() {
 		registry.positions.insert(player, motion.position);
 		registry.sizes.insert(player, Size{ motion.scale.x, motion.scale.y });
 		registry.circles.emplace(player);
-		registry.colors.emplace(player, vec3(0.0f, 1.0f, 0.0f));
+		registry.colors.emplace(player, vec4(0.0f, 1.0f, 0.0f, 1.0));
 		registry.renderRequests.insert(
 			player,
 			{
-				TEXTURE_ASSET_ID::TEXTURE_COUNT,
 				EFFECT_ASSET_ID::DEFAULT,
 				GEOMETRY_BUFFER_ID::CIRCLE
 			}
@@ -228,7 +227,7 @@ void WorldSystem::restart_game() {
 
 		// Colour system 
 		registry.colours.emplace(player);
-		registry.colours.get(player).colour_state = COLOUR_STATE::NEUTRAL;
+		registry.colours.get(player).curr_colour_state = COLOUR_STATE::NEUTRAL;
 	}
 }
 

@@ -42,14 +42,10 @@ private:
 
 	// For movement key handling
 	Entity move_keys_entity;
-
-	// For Colour Wheel Menu 
-	void openColourMenu();
-	void closeColourMenu();
-	void handleColourMenuNav(int key);
-
 	Entity colour_palette_entity;
 	Entity colour_menu_entity;
 	bool colour_menu_open = false;
+
+	Entity colour_menu_state_entity;
 };
 

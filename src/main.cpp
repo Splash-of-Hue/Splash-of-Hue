@@ -7,6 +7,7 @@
 
 // internal
 #include "ai_system.hpp"
+#include "colour_system.hpp"
 #include "physics_system.hpp"
 #include "renderer/render_system.hpp"
 #include "world_system.hpp"
@@ -25,6 +26,7 @@ int main()
 	PhysicsSystem physics_system;
 	AnimationSystem animation_system;
 	InputSystem input_system;
+	ColourSystem colour_system;
 
 	// initialize window
 	GLFWwindow* window = world_system.create_window();
@@ -46,6 +48,7 @@ int main()
 	world_system.init(&renderer_system);
 	animation_system.init();
 	input_system.on_world_reset(); // TODO m1EAwQf4: This is only being used to make sure that the mouse rectangle isn't being destroyed on world_system reset so maybe don't need this.
+	colour_system.initialize_palette();
 
 	// variable timestep loop
 	auto t = Clock::now();
@@ -66,6 +69,7 @@ int main()
 		physics_system.step(elapsed_ms);
 		animation_system.step(elapsed_ms);
 		world_system.handle_collisions();
+		colour_system.step(elapsed_ms);
 
 		renderer_system.draw();
 	}

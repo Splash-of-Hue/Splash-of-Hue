@@ -2,21 +2,33 @@
 
 #include "ecs/entity.hpp"
 #include "ecs/components.hpp"
+#include "common.hpp"
 
 class ColourSystem
 {
 public:
 	ColourSystem();
 
-	void on_collision(Entity collider, Entity collided);
-	Entity open_wheel_ui(const vec2& top_left, const vec2& bottom_right);
-	void close_wheel_ui(Entity wheel_entity);
-	void cycle_wheel(Entity wheel_entity, bool forward);
+	void initialize_palette();
+
+	void pollMenuState();
+
+	void pollColourMenuInput();
+
+	void step(float elapsed_ms);
+
+	// existing API kept for other use
 	COLOUR_STATE getEntityColour(Entity entity);
 	static void applyColour(Entity entity, COLOUR_STATE colour);
-	static vec3 getPaletteColour(COLOUR_STATE state);
-
+	static vec4 getPaletteColour(COLOUR_STATE state);
 
 private:
+	Entity colour_menu_entity;
+	Entity colour_palette_entity;
+	bool colour_menu_open = false;
 
+	// helper methods (existing)
+	void openColourMenu();
+	void closeColourMenu();
+	void setEntityVisualColour(Entity entity, COLOUR_STATE colour_state);
 };

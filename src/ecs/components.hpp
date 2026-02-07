@@ -1,6 +1,7 @@
 #pragma once
 #include "common.hpp"
 #include <bitset>
+#include <map>
 
 // Player component
 struct Player
@@ -16,22 +17,31 @@ enum class COLOUR_STATE {
 };
 
 struct ColourPalette {
-	std::map<COLOUR_STATE, vec3> state_to_colour = {
-		{ COLOUR_STATE::NEUTRAL, vec3(0.5f, 0.5f, 0.5f)},
-		{ COLOUR_STATE::BLUE, vec3(0.0f, 0.0f, 1.0f)},
-		{ COLOUR_STATE::RED, vec3(1.0f, 0.0f, 0.0f)}
+	std::map<COLOUR_STATE, vec4> state_to_colour = {
+		{ COLOUR_STATE::NEUTRAL, vec4(0.5f, 0.5f, 0.5f, 1.0f)},
+		{ COLOUR_STATE::BLUE, vec4(0.0f, 0.0f, 1.0f, 1.0f)},
+		{ COLOUR_STATE::RED, vec4(1.0f, 0.0f, 0.0f, 1.0f)}
 	};
 };
 
 // used for entities that are affected by a certain colour (or player who is that colour)
 struct Colour {
-	COLOUR_STATE colour_state = COLOUR_STATE::NEUTRAL;
+	COLOUR_STATE curr_colour_state = COLOUR_STATE::NEUTRAL;
 	COLOUR_STATE prev_colour_state = COLOUR_STATE::NEUTRAL;
 };
 
 struct ColourWheel {
 	COLOUR_STATE prev_colour = COLOUR_STATE::NEUTRAL;
 	COLOUR_STATE curr_colour = COLOUR_STATE::NEUTRAL;
+};
+
+struct ColourMenuState {
+	bool is_curr_open = false;
+	bool just_closed = false; 
+};
+
+struct ColourMenuInput {
+	int direction = 0; 
 };
 
 struct Deadly
