@@ -113,7 +113,8 @@ Entity createCircle(vec2 position, float radius, vec3 color)
 	registry.circles.emplace(entity);
 	registry.colors.emplace(entity, color);
 
-	registry.overlayCollisions.emplace(entity);
+	//registry.inelasticCollisions.emplace(entity);    To test circle collisions, uncomment this and comment out overlaycollisions
+	registry.overlayCollisions.emplace(entity);		
 	registry.renderRequests.insert(
 		entity,
 		{
@@ -123,7 +124,6 @@ Entity createCircle(vec2 position, float radius, vec3 color)
 			GEOMETRY_BUFFER_ID::CIRCLE
 		}
 	);
-
 	return entity;
 }
 
