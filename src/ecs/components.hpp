@@ -24,6 +24,11 @@ struct ColourPalette {
 	};
 };
 
+struct Colour {
+	COLOUR_STATE curr_colour_state = COLOUR_STATE::NEUTRAL;
+	COLOUR_STATE prev_colour_state = COLOUR_STATE::NEUTRAL;
+};
+
 struct ColourWheel {
 	COLOUR_STATE prev_colour = COLOUR_STATE::NEUTRAL;
 	COLOUR_STATE curr_colour = COLOUR_STATE::NEUTRAL;
