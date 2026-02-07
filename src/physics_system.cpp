@@ -61,7 +61,6 @@ bool isLineInRangeOfCircle(vec2 posC, float radiusC, vec2 point1, vec2 point2) {
 	}
 }
 
-
 bool collides(const Entity& entity1, const Entity& entity2)
 {
 	if (!registry.positions.has(entity1) || !registry.positions.has(entity2)) {
