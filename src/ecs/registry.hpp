@@ -37,7 +37,6 @@ public:
 	ComponentContainer<Circle> circles; // TODO 1ch6Q0BE: Remove
 	ComponentContainer<OverlayCollision> overlayCollisions;
 	ComponentContainer<InelasticCollision> inelasticCollisions;
-	ComponentContainer<Colour> colours;
 	ComponentContainer<ColourWheel> colourWheels;
 	ComponentContainer<ColourPalette> colourPalettes;
 	ComponentContainer<ColourMenuState> colourMenuStates;
@@ -90,7 +89,6 @@ public:
 		registry_list.push_back(&toggles);
 		registry_list.push_back(&inputs);
 		registry_list.push_back(&controls);
-		registry_list.push_back(&colours);
 		registry_list.push_back(&colourWheels);
 		registry_list.push_back(&colourPalettes);
 		registry_list.push_back(&colourMenuStates);
