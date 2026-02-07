@@ -113,7 +113,7 @@ void PhysicsSystem::handle_player_movement()
 	Entity& player = registry.players.entities[0]; 
 	vec2& pos = registry.positions.get(player);
 	vec2& vel = registry.velocities.get(player);
-	vec2 half_vel = vel * vec2{ 1/sqrt(2), 1/sqrt(2)};
+	vec2 half_vel = vel * vec2{ 0.71, 0.71};
 	
 	// How should we assert if move_keys is uninitialized?
 	ComponentContainer<MoveKeys> &move_keys_container = registry.move_keys;
