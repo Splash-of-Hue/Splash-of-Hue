@@ -161,9 +161,6 @@ void PhysicsSystem::step(float elapsed_ms)
 				// Create a collisions event
 				// We are abusing the ECS system a bit in that we potentially insert muliple collisions for the same entity
 				// CK: why the duplication, except to allow searching by entity_id
-				
-				
-				
 				if (registry.overlayCollisions.has(entity_i) || registry.overlayCollisions.has(entity_i)) {
 					//let world_systems handle it
 					registry.collisions.emplace(entity_i, entity_j);
