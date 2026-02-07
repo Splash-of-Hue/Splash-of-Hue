@@ -10,6 +10,7 @@
 #include <tuple>
 
 #include "physics_system.hpp"
+#include "loading/loading_constants.hpp"
 
 // create the world
 WorldSystem::WorldSystem() :
@@ -199,6 +200,10 @@ void WorldSystem::restart_game() {
 			grid_lines.push_back(createGridLine(vec2(0, col * cell_height), vec2(2 * WINDOW_WIDTH_PX, grid_line_width)));
 		}
 	}
+
+	// Load level
+	Entity load_request_entity;
+	registry.loadRequests.insert(load_request_entity, { LOAD_TYPE::LOAD_LEVEL, current_level_uid });
 }
 
 // Compute collisions between entities
