@@ -57,26 +57,52 @@ void PhysicsSystem::step(float elapsed_ms)
 	// check for collisions between all positioned entities
     ComponentContainer<vec2> &position_container = registry.positions;
 	for(uint i = 0; i < position_container.components.size(); i++)
-	{
-		
+	{	
 		Entity& entity_i = position_container.entities[i];
-		
+
 		// note starting j at i+1 to compare all (i,j) pairs only once (and to not compare with itself)
 		for(uint j = i+1; j < position_container.components.size(); j++)
 		{
 			Entity& entity_j = position_container.entities[j];
 			if (collides(entity_i, entity_j))
 			{
-				
+				//im wondering if its better to look at what type of creatures/entities we're dealing with BEFORE we look at their type
+				//of collision. Because walls will be changing between inelastic and no collision, so im not entirely sure which
+				//type of collision we want to put it in. For now, it will be its own thing. 
+
+				if (registry.colouredWall.has(entity_i) || registry.colouredWall.has(entity_j)) {
+					//find out which entity is which, since we need to find out if the other entity is a player
+					//although right now, im testing collisions between the hovering rectangle and a placed rectangle
+					//so that does not really apply here
+					Entity& eCW = registry.colouredWall.has(entity_i) ? entity_i : entity_j;
+					Entity& eO  = registry.colouredWall.has(entity_j) ? entity_i : entity_j;
+
+					ColourState& csCW = registry.colourStates.get(eCW);
+					ColourState& csO = registry.colourStates.get(eO);
+
+					//if colourStates are same, wall is no longer collidable
+					if (csCW.curr_colour_state == csO.curr_colour_state && csCW.curr_colour_state != COLOUR_STATE::NEUTRAL) {
+						registry.inelasticCollisions.remove(eCW);
+					}
+					else {
+						//add collidable state BACK to wall if colours are not the same
+						//but need to check if it has that component first so it doesnt add it a second time
+						if (!registry.inelasticCollisions.has(eCW)) {
+							registry.inelasticCollisions.emplace(eCW);
+						}
+					}
+
+				}
+
 				// Create a collisions event
 				// We are abusing the ECS system a bit in that we potentially insert muliple collisions for the same entity
 				// CK: why the duplication, except to allow searching by entity_id
-				if (registry.overlayCollisions.has(entity_i) || registry.overlayCollisions.has(entity_i)) {
+				if (registry.overlayCollisions.has(entity_i) || registry.overlayCollisions.has(entity_j)) {
 					//let world_systems handle it
 					registry.collisions.emplace(entity_i, entity_j);
 				}
 				//must both be inelastic for this collision resolution to occur
-				if (registry.inelasticCollisions.has(entity_i) && registry.inelasticCollisions.has(entity_i)) {
+				if (registry.inelasticCollisions.has(entity_i) && registry.inelasticCollisions.has(entity_j)) {
 					//handle it here because using bounding box for correction (also it is a physics resolution)
 					vec2& pos1 = registry.positions.get(entity_i);
 					vec2& pos2 = registry.positions.get(entity_j);

@@ -49,7 +49,7 @@ Entity createLine(vec2 position, vec2 scale)
 	return entity;
 }
 
-Entity createRectangle(vec2 position, float width, float height, vec4 color)
+Entity createRectangle(vec2 position, float width, float height, vec4 color, bool isColouredWall, int state)
 {
 	Entity entity = Entity();
 
@@ -59,7 +59,12 @@ Entity createRectangle(vec2 position, float width, float height, vec4 color)
 	registry.rectangles.emplace(entity);
 	registry.colors.emplace(entity, color);
 	registry.inelasticCollisions.emplace(entity); // TODO: inelastic for rectangle, overlay for circle
-	
+	if (isColouredWall) {
+		registry.colouredWall.emplace(entity);
+		ColourState& csCW = registry.colourStates.emplace(entity);
+		csCW.curr_colour_state = COLOUR_STATE(state);
+		csCW.prev_colour_state = COLOUR_STATE(state);
+	}
 	registry.renderRequests.insert(
 		entity,
 		{
@@ -71,7 +76,7 @@ Entity createRectangle(vec2 position, float width, float height, vec4 color)
 	return entity;
 }
 
-Entity createRectangle(vec2 top_left, vec2 bottom_right, vec4 color)
+Entity createRectangle(vec2 top_left, vec2 bottom_right, vec4 color, bool isColouredWall, int state)
 {
 	Entity entity = Entity();
 
@@ -84,7 +89,12 @@ Entity createRectangle(vec2 top_left, vec2 bottom_right, vec4 color)
 	registry.rectangles.emplace(entity);
 	registry.colors.emplace(entity, color);
 	registry.inelasticCollisions.emplace(entity);
-
+	if (isColouredWall) {
+		registry.colouredWall.emplace(entity);
+		ColourState& csCW = registry.colourStates.emplace(entity);
+		csCW.curr_colour_state = COLOUR_STATE(state);
+		csCW.prev_colour_state = COLOUR_STATE(state);
+	}
 	registry.renderRequests.insert(
 		entity,
 		{

@@ -19,7 +19,7 @@ Entity createLine(vec2 position, vec2 size);
 /// <param name="height">The size of the rectangle along the y-axis.</param>
 /// <param name="color">The color of the rectangle, defaults to white if not set.</param>
 /// <returns></returns>
-Entity createRectangle(vec2 position, float width, float height, vec4 color = { 1.0, 1.0, 1.0, 1.0 });
+Entity createRectangle(vec2 position, float width, float height, vec4 color = { 1.0, 1.0, 1.0, 1.0 }, bool isColouredWall = false, int state = 0);
 
 /// <summary>
 /// Creates an entity associated with a rectangle and returns the entity
@@ -29,7 +29,7 @@ Entity createRectangle(vec2 position, float width, float height, vec4 color = { 
 /// <param name="bottom_right">The (x, y) coordinates of the bottom-right.</param>
 /// <param name="color">The color of the rectangle, defaults to white if not set.</param>
 /// <returns></returns>
-Entity createRectangle(vec2 top_left, vec2 bottom_right, vec4 color = { 1.0, 1.0, 1.0, 1.0 });
+Entity createRectangle(vec2 top_left, vec2 bottom_right, vec4 color = { 1.0, 1.0, 1.0, 1.0 }, bool isColouredWall = false, int state = 0);
 
 /// <summary>
 /// Creates an entity associated with a circle and returns the entity

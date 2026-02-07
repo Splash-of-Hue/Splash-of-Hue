@@ -53,6 +53,7 @@ public:
 	ComponentContainer<Toggle> toggles;
 	ComponentContainer<Input> inputs;
 	ComponentContainer<Control> controls;
+	ComponentContainer<ColouredWall> colouredWall;
 
 	// constructor that adds all containers for looping over them
 	ECSRegistry()
@@ -95,6 +96,7 @@ public:
 		registry_list.push_back(&colourPalettes);
 		registry_list.push_back(&colourMenuStates);
 		registry_list.push_back(&colourMenuInputs);
+		registry_list.push_back(&colouredWall);
 	}
 
 	void clear_all_components()

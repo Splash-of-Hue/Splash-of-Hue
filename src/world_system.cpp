@@ -86,7 +86,6 @@ void WorldSystem::init(RenderSystem* renderer_arg) {
 
 	this->renderer = renderer_arg;
 
-
 	// Set all states to default
     restart_game();
 }
@@ -163,6 +162,7 @@ bool WorldSystem::step(float elapsed_ms_since_last_update) {
 			size.width += control.value_2;
 		}
 
+
 		// TODO m1EAwQf4: Remove
 		if (control.type == CONTROL_TYPE::CHANGE_RECT_TEST_COLOR)
 		{
@@ -171,6 +171,8 @@ bool WorldSystem::step(float elapsed_ms_since_last_update) {
 			auto value_change = control.value_2;
 			auto& rect_color = registry.colors.get(mouse_shape_entity);
 			rect_color[rgb_index] += value_change;
+
+
 		}
 
 		// TODO m1EAwQf4: Remove
@@ -187,13 +189,34 @@ bool WorldSystem::step(float elapsed_ms_since_last_update) {
 			auto& pos = registry.positions.get(mouse_shape_entity);
 			auto& size = registry.sizes.get(mouse_shape_entity);
 			auto& color = registry.colors.get(mouse_shape_entity);
-			createRectangle(vec2(pos.x, pos.y), size.width, size.height, color);
+			auto& colourState = registry.colourStates.get(mouse_shape_entity);
+			createRectangle(vec2(pos.x, pos.y), size.width, size.height, color, true, int(colourState.curr_colour_state));
 		}
 
 		if (control.type == CONTROL_TYPE::DEBUG && control.phase == CONTROL_PHASE::END)
 		{
 			// Toggle debug mode
 			debugging.in_debug_mode = !debugging.in_debug_mode;
+		}
+
+		//testing coloured wall collisions, need to manually change state of rectangle
+		if (control.type == CONTROL_TYPE::CHANGE_RECT_TEST_STATE && control.phase == CONTROL_PHASE::START)
+		{
+			ColourState& state = registry.colourStates.get(mouse_shape_entity);
+			state.prev_colour_state = state.curr_colour_state;
+			state.curr_colour_state = COLOUR_STATE(control.value_1);
+
+			vec4& color = registry.colors.get(mouse_shape_entity);
+			switch (state.curr_colour_state) {
+				case COLOUR_STATE::NEUTRAL:
+					color = vec4{ 1.f, 1.f, 1.f, 1.f };
+					break;
+				case COLOUR_STATE::BLUE:
+					color = vec4{ 0.f, 0.f, 1.f, 1.f };
+					break;
+				case COLOUR_STATE::RED:
+					color = vec4{ 1.f, 0.f, 0.f, 1.f };
+			}
 		}
 	}
 
@@ -280,6 +303,11 @@ void WorldSystem::restart_game() {
 	// Recreate anything that may have been destroyed by world_system's restart_game function.
 	auto center_screen = vec2(WINDOW_WIDTH_PX / 2, WINDOW_HEIGHT_PX / 2);
 	mouse_shape_entity = createRectangle(center_screen, center_screen + vec2(200));
+	//the hovering rectangle now has a state associated with it (i am hoping this is how we are envisioning doing the code for walls
+	//when placing the wall, it will have the state it did before, to test coloured collisions
+	ColourState& csHR = registry.colourStates.emplace(mouse_shape_entity);
+	csHR.prev_colour_state = COLOUR_STATE::NEUTRAL;
+	csHR.curr_colour_state = COLOUR_STATE::NEUTRAL;
 
 	// Load level
 	Entity load_request_entity;
@@ -299,11 +327,9 @@ void WorldSystem::handle_collisions() {
 		if (registry.overlayCollisions.has(entity) || registry.overlayCollisions.has(other)) {
 			std::cout << "Overlay collision with entities: " << entity.id() << " " << other.id() << std::endl;
 		}
-
 		//inelastic collisions are handled in physics_system
 		
 	}
-
 	// Remove all collisions from this simulation step
 	registry.collisions.clear();
 }

@@ -165,3 +165,8 @@ struct Toggle
 {
 
 };
+
+struct ColouredWall
+{
+
+};
