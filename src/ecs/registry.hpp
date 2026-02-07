@@ -3,6 +3,7 @@
 
 #include "animation/animation_components.hpp"
 #include "components.hpp"
+#include "controllers/player_components.hpp"
 #include "controls/control_components.hpp"
 #include "input/input_components.hpp"
 #include "loading/loading_components.hpp"
@@ -48,6 +49,7 @@ public:
 	ComponentContainer<Toggle> toggles;
 	ComponentContainer<Input> inputs;
 	ComponentContainer<Control> controls;
+	ComponentContainer<PlayerCreateRequests> playerCreateRequests;
 
 	// constructor that adds all containers for looping over them
 	ECSRegistry()
@@ -85,6 +87,7 @@ public:
 		registry_list.push_back(&toggles);
 		registry_list.push_back(&inputs);
 		registry_list.push_back(&controls);
+		registry_list.push_back(&playerCreateRequests);
 	}
 
 	void clear_all_components()

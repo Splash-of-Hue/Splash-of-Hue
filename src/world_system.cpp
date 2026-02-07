@@ -6,8 +6,6 @@
 #include <cassert>
 #include <sstream>
 #include <iostream>
-#include <map>
-#include <tuple>
 
 #include "physics_system.hpp"
 #include "loading/loading_constants.hpp"
@@ -157,44 +155,9 @@ bool WorldSystem::step(float elapsed_ms_since_last_update) {
 		}
 	}
 
-	// TODO SnB9A38K: Move the player controller system
-	// Reset player velocity each step
-	auto& player_entity = registry.players.entities[0];
-	auto& player_velocity = motions_registry.get(player_entity).velocity;
-	player_velocity = vec2(0);
-	
-	// TODO SnB9A38K: Move some of this to player controller and leave other parts for a window controller
 	for (auto& entity : registry.controls.entities)
 	{
 		auto& control = registry.controls.get(entity);
-
-		//// exit game w/ ESC
-		if (control.type == CONTROL_TYPE::END_GAME)
-		{
-			close_window();
-		}
-
-		//// Resetting game
-		if (control.type == CONTROL_TYPE::RESTART && control.phase == CONTROL_PHASE::END)
-		{
-			int w, h;
-			glfwGetWindowSize(window, &w, &h);
-
-			restart_game();
-		}
-
-		//// Movement, on push sets the corresponding bitset value to true and on release sets it to false
-		if (control.type == CONTROL_TYPE::MOVE)
-		{
-			if (control.phase == CONTROL_PHASE::START)
-			{
-				player_movement += vec2(control.value_1, control.value_2);
-			}
-			else if (control.phase == CONTROL_PHASE::END)
-			{
-				player_movement -= vec2(control.value_1, control.value_2);
-			}
-		}
 
 		// TODO m1EAwQf4: Remove
 		if (control.type == CONTROL_TYPE::CHANGE_RECT_TEST_SIZE)
@@ -230,16 +193,32 @@ bool WorldSystem::step(float elapsed_ms_since_last_update) {
 			createRectangle(vec2(pos.x, pos.y), size.width, size.height, color);
 		}
 
-		if (control.type == CONTROL_TYPE::DEBUG && control.phase == CONTROL_PHASE::END)
+		// The rest only matter at the phase end
+		if (control.phase != CONTROL_PHASE::END)
+		{
+			continue;
+		}
+
+		if (control.type == CONTROL_TYPE::END_GAME)
+		{
+			close_window();
+		}
+
+		//// Resetting game
+		if (control.type == CONTROL_TYPE::RESTART)
+		{
+			int w, h;
+			glfwGetWindowSize(window, &w, &h);
+
+			restart_game();
+		}
+
+		if (control.type == CONTROL_TYPE::DEBUG)
 		{
 			// Toggle debug mode
 			debugging.in_debug_mode = !debugging.in_debug_mode;
 		}
 	}
-
-	registry.controls.clear();
-	// TODO SnB9A38K: Move to player controller
-	player_velocity += player_movement;
 
 	assert(registry.screenStates.components.size() <= 1);
     ScreenState &screen = registry.screenStates.components[0];
@@ -291,11 +270,13 @@ void WorldSystem::restart_game() {
 	// Recreate anything that may have been destroyed by world_system's restart_game function.
 	auto center_screen = vec2(WINDOW_WIDTH_PX / 2, WINDOW_HEIGHT_PX / 2);
 	mouse_shape_entity = createRectangle(center_screen, center_screen + vec2(200));
-
+	
+	// Request a player be made
+	Entity player_create_request_entity;
+	registry.playerCreateRequests.emplace(player_create_request_entity);
 	// Load level
 	Entity load_request_entity;
 	registry.loadRequests.insert(load_request_entity, { LOAD_TYPE::LOAD_LEVEL, current_level_uid });
-	player_movement = vec2(0);
 }
 
 // Compute collisions between entities

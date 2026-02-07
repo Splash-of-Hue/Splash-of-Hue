@@ -112,17 +112,4 @@ void PhysicsSystem::step(float elapsed_ms)
 			
 		}
 	}
-
-	handle_player_movement();
-}
-
-// TODO SnB9A38K: Move to a player controller system and remove input in favour of component
-void PhysicsSystem::handle_player_movement()
-{
-	auto &player_container = registry.players;
-	assert(player_container.size() == 1 && "Should only be 1 player.");
-	auto& player_entity = player_container.entities[0];
-
-	auto& player_velocity = registry.motions.get(player_entity).velocity;
-	std::cout << "DEBUG: Moving x: " << player_velocity.x << ", y: " << player_velocity.y << std::endl;
 }
