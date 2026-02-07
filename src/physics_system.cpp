@@ -31,7 +31,6 @@ bool isCircleInRect(vec2 posC, float radiusC, vec2 point1, vec2 point2, vec2 poi
 	//c++ does not like double less than comparisons, i think it acts as an OR or something?
 
 	return (0 <= dot(AB, AP) && dot(AB, AP) <= dot(AB, AB)) && (0 <= dot(BC, BP) && dot(BC, BP) <= dot(BC, BC));
-
 }
 
 bool isLineInRangeOfCircle(vec2 posC, float radiusC, vec2 point1, vec2 point2) {
@@ -61,7 +60,6 @@ bool isLineInRangeOfCircle(vec2 posC, float radiusC, vec2 point1, vec2 point2) {
 		return distance <= radiusC;
 	}
 }
-
 
 bool collides(const Entity& entity1, const Entity& entity2)
 {
@@ -126,7 +124,6 @@ void PhysicsSystem::step(float elapsed_ms)
 			Entity& entity_j = collidables.entities[j];
 			if (collides(entity_i, entity_j))
 			{
-
 				// Create a collisions event
 				// We are abusing the ECS system a bit in that we potentially insert muliple collisions for the same entity
 				// CK: why the duplication, except to allow searching by entity_id
@@ -141,7 +138,6 @@ void PhysicsSystem::step(float elapsed_ms)
 					if (!registry.change_behaviours.has(entity_i)) {
 						registry.change_behaviours.emplace(entity_i);
 					}
-					
 				}
 				//must both be inelastic for this collision resolution to occur
 				if (registry.collidables.get(entity_i).inelastic && registry.collidables.get(entity_j).inelastic) {

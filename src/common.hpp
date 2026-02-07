@@ -45,7 +45,7 @@ const int WINDOW_HEIGHT_PX = 600;
 const int GRID_CELL_WIDTH_PX = 60;
 const int GRID_CELL_HEIGHT_PX = 60;
 const int GRID_LINE_WIDTH_PX = 2;
-
+const int PLAYER_SPEED = 10.0f;
 // towers
 const int MAX_TOWERS_START = 5;
 const float TOWER_TIMER_MS = 1000.0f;	// number of milliseconds between tower shots

@@ -4,7 +4,7 @@
 // Player component
 struct Player
 {
-	float speed = 10.f;
+	float speed = PLAYER_SPEED;
 };
 
 // Tower
@@ -80,7 +80,6 @@ struct GridLine {
 	vec2 start_pos = { 0,  0 };
 	vec2 end_pos = { 10, 10 };	// default to diagonal line
 };
-
 
 struct DeathTimer
 {
