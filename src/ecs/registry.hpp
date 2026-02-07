@@ -35,6 +35,11 @@ public:
 	ComponentContainer<Size> sizes;
 	ComponentContainer<Rect> rectangles; // TODO 1ch6Q0BE: Remove
 	ComponentContainer<Circle> circles; // TODO 1ch6Q0BE: Remove
+	ComponentContainer<ColourState> colourStates;
+	ComponentContainer<ColourWheel> colourWheels;
+	ComponentContainer<ColourPalette> colourPalettes;
+	ComponentContainer<ColourMenuState> colourMenuStates;
+	ComponentContainer<ColourMenuInput> colourMenuInputs;
 	ComponentContainer<Animatable> animatables;
 	ComponentContainer<Animation> animations;
 	ComponentContainer<AnimationTrigger> animation_triggers;
@@ -84,6 +89,12 @@ public:
 		registry_list.push_back(&controls);
 		registry_list.push_back(&collidables);
 		registry_list.push_back(&change_behaviours);
+		registry_list.push_back(&colourStates);
+		registry_list.push_back(&colourWheels);
+		registry_list.push_back(&colourPalettes);
+		registry_list.push_back(&colourMenuStates);
+		registry_list.push_back(&colourMenuInputs);
+
 	}
 
 	void clear_all_components()
