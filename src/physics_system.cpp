@@ -31,7 +31,6 @@ bool isCircleInRect(vec2 posC, float radiusC, vec2 point1, vec2 point2, vec2 poi
 	//c++ does not like double less than comparisons, i think it acts as an OR or something?
 
 	return (0 <= dot(AB, AP) && dot(AB, AP) <= dot(AB, AB)) && (0 <= dot(BC, BP) && dot(BC, BP) <= dot(BC, BC));
-
 }
 
 bool isLineInRangeOfCircle(vec2 posC, float radiusC, vec2 point1, vec2 point2) {
