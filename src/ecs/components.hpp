@@ -2,6 +2,9 @@
 #include "common.hpp"
 #include <vector>
 #include <bitset>
+#include <vector>
+#include "renderer/render_constants.hpp"
+#include "loading/loading_constants.hpp"
 #include "creature_behaviour_system/creature_constants.hpp"
 
 // Player component
@@ -65,7 +68,6 @@ struct OverlayCollision {
 struct InelasticCollision {
 
 };
-
 
 // Data structure for toggling debug mode
 struct Debug {
@@ -132,4 +134,22 @@ struct MoveKeys
 		movement_keys.set(S, false);
 		movement_keys.set(D, false);
 	}
+};
+
+// Used for level entity
+struct Level
+{
+	// Unique ID for the room
+	int uid;
+};
+
+struct Creature
+{
+
+};
+
+// TODO: Remove as we probably won't need this, this is just for M1 prototyping
+struct Toggle
+{
+
 };

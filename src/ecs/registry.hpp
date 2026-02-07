@@ -5,6 +5,7 @@
 #include "renderer/render_components.hpp"
 #include "components.hpp"
 #include "tiny_ecs.hpp"
+#include "loading/loading_components.hpp"
 
 class ECSRegistry
 {
@@ -47,6 +48,10 @@ public:
 	ComponentContainer<Animation> animations;
 	ComponentContainer<AnimationTrigger> animation_triggers;
 	ComponentContainer<Textured> textured;
+	ComponentContainer<LoadRequest> loadRequests;
+	ComponentContainer<Level> levels;
+	ComponentContainer<Creature> creatures;
+	ComponentContainer<Toggle> toggles;
 
 	// constructor that adds all containers for looping over them
 	ECSRegistry()
@@ -80,6 +85,10 @@ public:
 		registry_list.push_back(&animations);
 		registry_list.push_back(&animation_triggers);
 		registry_list.push_back(&textured);
+		registry_list.push_back(&loadRequests);
+		registry_list.push_back(&levels);
+		registry_list.push_back(&creatures);
+		registry_list.push_back(&toggles);
 	}
 
 	void clear_all_components()
