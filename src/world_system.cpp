@@ -313,8 +313,8 @@ void WorldSystem::restart_game() {
 		);
 
 		// Colour system 
-		registry.colours.emplace(player);
-		registry.colours.get(player).curr_colour_state = COLOUR_STATE::NEUTRAL;
+		registry.colourStates.emplace(player);
+		registry.colourStates.get(player).curr_colour_state = COLOUR_STATE::NEUTRAL;
 	}
 	// TODO m1EAwQf4: This is only being used to make sure that the mouse rectangle isn't being destroyed on world_system reset so maybe don't need this.
 	// Recreate anything that may have been destroyed by world_system's restart_game function.

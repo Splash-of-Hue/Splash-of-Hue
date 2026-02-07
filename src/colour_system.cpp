@@ -54,8 +54,8 @@ void ColourSystem::openColourMenu()
 	COLOUR_STATE initial_colour = COLOUR_STATE::NEUTRAL;
 	if (!registry.players.entities.empty()) {
 		Entity player = registry.players.entities[0];
-		if (registry.colours.has(player)) {
-			initial_colour = registry.colours.get(player).curr_colour_state;
+		if (registry.colourStates.has(player)) {
+			initial_colour = registry.colourStates.get(player).curr_colour_state;
 		}
 	}
 
@@ -85,10 +85,10 @@ void ColourSystem::closeColourMenu()
 	assert(!registry.players.entities.empty() && "Player should exist when closing colour menu");
 	Entity& player = registry.players.entities[0];
 
-	if (!registry.colours.has(player)) {
-		registry.colours.emplace(player);
+	if (!registry.colourStates.has(player)) {
+		registry.colourStates.emplace(player);
 	}
-	registry.colours.get(player).curr_colour_state = chosen;
+	registry.colourStates.get(player).curr_colour_state = chosen;
 
 	setEntityVisualColour(player, chosen);
 	
@@ -149,17 +149,17 @@ void ColourSystem::pollColourMenuInput(Control control)
 }
 
 COLOUR_STATE ColourSystem::getEntityColour(Entity entity) {
-    if (registry.colours.has(entity)) {
-        return registry.colours.get(entity).curr_colour_state;
+    if (registry.colourStates.has(entity)) {
+        return registry.colourStates.get(entity).curr_colour_state;
     }
     return COLOUR_STATE::NEUTRAL;
 }
 
 void ColourSystem::applyColour(Entity entity, COLOUR_STATE colour) {
-	if (!registry.colours.has(entity)) {
-		registry.colours.emplace(entity);
+	if (!registry.colourStates.has(entity)) {
+		registry.colourStates.emplace(entity);
 	}
-	registry.colours.get(entity).curr_colour_state = colour;
+	registry.colourStates.get(entity).curr_colour_state = colour;
 }
 
 vec4 ColourSystem::getPaletteColour(COLOUR_STATE state) {

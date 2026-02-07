@@ -24,7 +24,7 @@ struct ColourPalette {
 	};
 };
 
-struct Colour {
+struct ColourState {
 	COLOUR_STATE curr_colour_state = COLOUR_STATE::NEUTRAL;
 	COLOUR_STATE prev_colour_state = COLOUR_STATE::NEUTRAL;
 };
