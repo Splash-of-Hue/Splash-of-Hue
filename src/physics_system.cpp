@@ -105,10 +105,6 @@ bool collides(const Entity& entity1, const Entity& entity2)
 		vec2 vertexBottomLeft = { rectL, rectB };
 		vec2 vertexBottomRight = { rectR, rectB };
 
-
-		
-		
-		
 		if (isCircleInRect(posC, radiusC, vertexTopLeft, vertexTopRight, vertexBottomRight) ||
 			isLineInRangeOfCircle(posC, radiusC, vertexTopLeft, vertexTopRight) ||
 			isLineInRangeOfCircle(posC, radiusC, vertexTopRight, vertexBottomRight) ||
