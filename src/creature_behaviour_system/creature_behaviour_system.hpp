@@ -26,10 +26,10 @@ public:
 				updateMinnows();
 				break;
 			case SAWFISH:
-				updateSawfish();
+				updateSawfish(elapsed_ms);
 				break;
 			case SHRIMP:
-				updateShrimp(elapsed_ms);
+				updateShrimp();
 				break;
 			case WHALE:
 				updateWhale();
@@ -46,8 +46,8 @@ private:
 	void updateCrab();
 	void updateCreature();
 	void updateMinnows();
-	void updateSawfish();
-	void updateShrimp(float elapsed_ms);
+	void updateSawfish(float elapsed_ms);
+	void updateShrimp();
 	void updateWhale();
 
 	// Coloured behaviours for each creature.

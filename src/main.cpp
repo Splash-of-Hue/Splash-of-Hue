@@ -11,6 +11,7 @@
 #include "renderer/render_system.hpp"
 #include "world_system.hpp"
 #include "input_system.hpp"
+#include "creature_behaviour_system/creature_behaviour_system.hpp"
 #include <animation/animation_system.hpp>
 
 using Clock = std::chrono::high_resolution_clock;
@@ -25,6 +26,7 @@ int main()
 	PhysicsSystem physics_system;
 	AnimationSystem animation_system;
 	InputSystem input_system;
+	CreatureBehaviourSystem creature_behaviour_system;
 
 	// initialize window
 	GLFWwindow* window = world_system.create_window();
@@ -65,7 +67,8 @@ int main()
 		ai_system.step(elapsed_ms);
 		physics_system.step(elapsed_ms);
 		animation_system.step(elapsed_ms);
-		world_system.handle_collisions();
+		world_system.handle_collisions(); // Question from Sophia: should this not come right after physics_system.step? I would imagine we'd want collisions to be handled before animations?
+		creature_behaviour_system.step(elapsed_ms);
 
 		renderer_system.draw();
 	}

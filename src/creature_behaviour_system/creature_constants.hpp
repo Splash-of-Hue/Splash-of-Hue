@@ -56,18 +56,20 @@ struct Whale
 
 
 // for creatures that pathfind. TODO, edit based on experiments with how close each creature should be
-constexpr vec2 pathfinderMinDistToTarget(CREATURETYPE creatureType) {
-	switch (creatureType) {
-	case ANGLERFISH: return { 0.5f, 0.5f };
-	case SAWFISH:  return { 0.0f, 0.0f };
-	}
+constexpr float pathfinderMinDistToTarget(CREATURETYPE creatureType) {
+	switch (creatureType)
 	{
-		return { 0.0f, 0.0f }; // fallback
+	case ANGLERFISH:
+		return 0.5f;
+	case SAWFISH:
+		return 0.0f;
+	default:
+		return 0.0f;
 	}
 }
 
 struct Pathfinder
 {
-	vec2 minimumDistanceToTarget = { 0.0f, 0.0f };
+	float minimumDistanceToTarget = 0.0f;
 	float max_speed = 2.0f;
 };

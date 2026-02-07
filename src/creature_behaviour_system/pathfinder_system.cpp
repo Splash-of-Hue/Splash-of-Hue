@@ -1,17 +1,21 @@
+// stlib
+#include <iostream>
+#include <sstream>
+
 #include "common.hpp"
 #include "creature_behaviour_system/creature_behaviour_system.hpp"
 
 // For M1, no real fancy-schmancy AI pathfinding, just bare bones following 
-void follow_player(float elapsed_ms, Entity& follower)
+void CreatureBehaviourSystem::follow_player(float elapsed_ms, Entity& follower)
 {
-	assert(registry.pathfinders.get(follower) && "The follower creature isn't registered as a pathfinder");
+	assert(registry.pathfinders.has(follower) && "The follower creature isn't registered as a pathfinder");
 	Pathfinder& pathfinder_component = registry.pathfinders.get(follower);
 
 	assert(registry.players.entities.size() == 1 && "There's no player for the creature to follow!");
 	Entity& player = registry.players.entities[0];
 
-	assert(registry.motions.get(player) && "Player doesn't have a motion component, so there's nothing for the creature to follow");
-	assert(registry.motions.get(follower) && "Follower doesn't have a motion component!");
+	assert(registry.motions.has(player) && "Player doesn't have a motion component, so there's nothing for the creature to follow");
+	assert(registry.motions.has(follower) && "Follower doesn't have a motion component!");
 
 	// TODO: REFACTOR SO THIS IS GENERAL FOR ANY "TARGET". Whatever entity's ColourComponent triggers it
 	const Motion& player_motion_component = registry.motions.get(player);
@@ -46,5 +50,6 @@ void follow_player(float elapsed_ms, Entity& follower)
 
 	float max_speed = pathfinder_component.max_speed;
 	followerVelocity = { norm_x * max_speed, norm_y * max_speed };
-	followerPosition = { followerPosition.x + followerVelocity.x * elapsed_ms, followerPosition.y + followerVelocity.y * elapsed_ms}
+	followerPosition = { followerPosition.x + followerVelocity.x * elapsed_ms, followerPosition.y + followerVelocity.y * elapsed_ms };
+	
 }
