@@ -128,7 +128,6 @@ void PhysicsSystem::step(float elapsed_ms)
 			Entity& entity_j = collidables.entities[j];
 			if (collides(entity_i, entity_j))
 			{
-
 				// Create a collisions event
 				// We are abusing the ECS system a bit in that we potentially insert muliple collisions for the same entity
 				// CK: why the duplication, except to allow searching by entity_id
