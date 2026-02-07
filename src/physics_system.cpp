@@ -28,7 +28,6 @@ bool isCircleInRect(vec2 posC, float radiusC, vec2 point1, vec2 point2, vec2 poi
 	vec2 AP = vec2{ posC.x - point1.x, posC.y - point1.y };
 	vec2 BC = vec2{ point3.x - point2.x, point3.y - point2.y };
 	vec2 BP = vec2{ posC.x - point2.x, posC.y - point2.y };
-	
 
 	//c++ does not like double less than comparisons, i think it acts as an OR or something?
 
