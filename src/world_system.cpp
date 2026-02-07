@@ -143,12 +143,6 @@ bool WorldSystem::step(float elapsed_ms_since_last_update) {
 	while (registry.debugComponents.entities.size() > 0)
 	    registry.remove_all_components_of(registry.debugComponents.entities.back());
 
-	// Removing out of screen entities
-
-	// Remove entities that leave the screen on the left side
-	// Iterate backwards to be able to remove without interfering with the next object to visit
-	// (the containers exchange the last element with the current)
-
 	// TODO SnB9A38K: Move the player controller system
 	Entity& player_entity = registry.players.entities[0];
 	vec2& player_pos = registry.positions.get(player_entity);
@@ -181,11 +175,11 @@ bool WorldSystem::step(float elapsed_ms_since_last_update) {
 		{
 			if (control.phase == CONTROL_PHASE::START)
 			{
-				player_movement += vec2(control.value_1, control.value_2)*player_speed;
+				player_movement += vec2(control.value_1, control.value_2);
 			}
 			else if (control.phase == CONTROL_PHASE::END)
 			{
-				player_movement -= vec2(control.value_1, control.value_2)*player_speed;
+				player_movement -= vec2(control.value_1, control.value_2);
 			}
 		}
 
@@ -232,7 +226,7 @@ bool WorldSystem::step(float elapsed_ms_since_last_update) {
 
 	registry.controls.clear();
 	// TODO SnB9A38K: Move to player controller
-	player_vel += player_movement;
+	player_vel += (player_movement*player_speed);
 	assert(registry.screenStates.components.size() <= 1);
     ScreenState &screen = registry.screenStates.components[0];
 
@@ -255,6 +249,12 @@ void WorldSystem::restart_game() {
 	// debugging for memory/component leaks
 	registry.list_all_components();
 
+	
+	while (registry.velocities.entities.size() > 0)
+		registry.remove_all_components_of(registry.velocities.entities.back());
+	while (registry.renderRequests.entities.size() > 0)
+		registry.remove_all_components_of(registry.renderRequests.entities.back());
+
 	int grid_line_width = GRID_LINE_WIDTH_PX;
 
 	// create grid lines if they do not already exist
@@ -274,10 +274,19 @@ void WorldSystem::restart_game() {
 		}
 	}
 
+	
+
 	// TODO m1EAwQf4: This is only being used to make sure that the mouse rectangle isn't being destroyed on world_system reset so maybe don't need this.
 	// Recreate anything that may have been destroyed by world_system's restart_game function.
 	auto center_screen = vec2(WINDOW_WIDTH_PX / 2, WINDOW_HEIGHT_PX / 2);
 	mouse_shape_entity = createRectangle(center_screen, center_screen + vec2(200));
+
+	// Now only one rectangle is collidable TODO: remove after testing
+	Collidable& col = registry.collidables.emplace(mouse_shape_entity);
+	col.inelastic = true;
+	registry.players.emplace(mouse_shape_entity);
+	
+
 
 	// Load level
 	Entity load_request_entity;

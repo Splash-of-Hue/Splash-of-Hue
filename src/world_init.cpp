@@ -46,13 +46,10 @@ Entity createRectangle(vec2 position, float width, float height, vec4 color)
 	registry.sizes.insert(entity, size);
 	registry.rectangles.emplace(entity);
 	registry.colors.emplace(entity, color);
-	Collidable& col =registry.collidables.emplace(entity);
-	col.inelastic = true;
 	//TODO: remove after testing
-	registry.players.emplace(entity);
 	vec2 velocity = { 1.0, -1.0 };
 	registry.velocities.insert(entity, velocity);
-
+	
 	registry.renderRequests.insert(
 		entity,
 		{
@@ -75,12 +72,8 @@ Entity createRectangle(vec2 top_left, vec2 bottom_right, vec4 color)
 	registry.sizes.insert(entity, size);
 	registry.rectangles.emplace(entity);
 	registry.colors.emplace(entity, color);
-	Collidable& col = registry.collidables.emplace(entity); 
-	col.inelastic = true;
-
 	//TODO: remove after testing
-	registry.players.emplace(entity);
-	vec2 velocity = { 1.0, 1.0 };
+	vec2 velocity = { 1.0, -1.0 };
 	registry.velocities.insert(entity, velocity);
 
 	registry.renderRequests.insert(

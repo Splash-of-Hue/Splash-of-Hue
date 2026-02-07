@@ -112,9 +112,6 @@ bool collides(const Entity& entity1, const Entity& entity2)
 
 void PhysicsSystem::step(float elapsed_ms)
 {
-	// Move each entity that has motion (invaders, projectiles, and even towers [they have 0 for velocity])
-	// based on how much time has passed, this is to (partially) avoid
-	// having entities move at different speed based on the machine.
 
 	// check for collisions between all positioned entities
     ComponentContainer<Collidable> &collidables = registry.collidables;
