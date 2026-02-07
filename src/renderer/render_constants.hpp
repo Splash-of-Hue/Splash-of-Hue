@@ -1,3 +1,5 @@
+#pragma once
+
 /**
  * The following enumerators represent global identifiers refering to graphic
  * assets. For example TEXTURE_ASSET_ID are the identifiers of each texture
@@ -24,9 +26,15 @@
 
 enum class TEXTURE_ASSET_ID
 {
-	PLAYER_TEXTURE_1 = 0,
-	MAP_TEXTURE_1 = PLAYER_TEXTURE_1 + 1,
-	TEXTURE_COUNT = MAP_TEXTURE_1 + 1
+	PLAYER_TEXTURE_01 = 0,
+	SAWFISH_01 = PLAYER_TEXTURE_01 + 1,
+	WHALE_01 = SAWFISH_01 + 1,
+	PISTOL_SHRIMP_01 = WHALE_01 + 1,
+	MINNOW_01 = PISTOL_SHRIMP_01 + 1,
+	JAPANESE_PORCUPINE_CRAB_01 = MINNOW_01 + 1,
+	ANGLERFISH_01 = JAPANESE_PORCUPINE_CRAB_01 + 1,
+	CORAL_TREE_01 = ANGLERFISH_01 + 1,
+	TEXTURE_COUNT = CORAL_TREE_01 + 1
 };
 const int texture_count = (int)TEXTURE_ASSET_ID::TEXTURE_COUNT;
 

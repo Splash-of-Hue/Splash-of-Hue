@@ -1,8 +1,12 @@
 #pragma once
 #include <vector>
 
-#include "tiny_ecs.hpp"
+#include "animation/animation_components.hpp"
 #include "components.hpp"
+#include "controls/control_components.hpp"
+#include "input/input_components.hpp"
+#include "loading/loading_components.hpp"
+#include "renderer/render_components.hpp"
 
 class ECSRegistry
 {
@@ -21,8 +25,7 @@ public:
 	ComponentContainer<Eatable> eatables;
 	ComponentContainer<Deadly> deadlys;
 	ComponentContainer<DebugComponent> debugComponents;
-	ComponentContainer<vec3> colors;
-	// IMPORTANT: Add any new CC's below to the registry_list
+	ComponentContainer<vec4> colors;
 	ComponentContainer<Tower> towers;
 	ComponentContainer<GridLine> gridLines;
 	ComponentContainer<Invader> invaders;
@@ -35,14 +38,20 @@ public:
 	ComponentContainer<Circle> circles; // TODO 1ch6Q0BE: Remove
 	ComponentContainer<OverlayCollision> overlayCollisions;
 	ComponentContainer<InelasticCollision> inelasticCollisions;
+	ComponentContainer<Animatable> animatables;
+	ComponentContainer<Animation> animations;
+	ComponentContainer<AnimationTrigger> animation_triggers;
+	ComponentContainer<Textured> textured;
+	ComponentContainer<LoadRequest> loadRequests;
+	ComponentContainer<Level> levels;
+	ComponentContainer<Creature> creatures;
+	ComponentContainer<Toggle> toggles;
+	ComponentContainer<Input> inputs;
+	ComponentContainer<Control> controls;
 
-	ComponentContainer<vec2> velocities;
-
-	ComponentContainer<MoveKeys> move_keys; // There should only be 1 entity for move_keys... TODO better way to store it then?
 	// constructor that adds all containers for looping over them
 	ECSRegistry()
 	{
-		
 		registry_list.push_back(&deathTimers);
 		registry_list.push_back(&motions);
 		registry_list.push_back(&collisions);
@@ -64,32 +73,44 @@ public:
 		registry_list.push_back(&sizes);
 		registry_list.push_back(&rectangles); // TODO 1ch6Q0BE: Remove
 		registry_list.push_back(&circles); // TODO 1ch6Q0BE: Remove
-
 		registry_list.push_back(&overlayCollisions);
 		registry_list.push_back(&inelasticCollisions);
-		registry_list.push_back(&velocities);
+		registry_list.push_back(&animatables);
+		registry_list.push_back(&animations);
+		registry_list.push_back(&animation_triggers);
+		registry_list.push_back(&textured);
+		registry_list.push_back(&loadRequests);
+		registry_list.push_back(&levels);
+		registry_list.push_back(&creatures);
+		registry_list.push_back(&toggles);
+		registry_list.push_back(&inputs);
+		registry_list.push_back(&controls);
 	}
 
-	void clear_all_components() {
+	void clear_all_components()
+	{
 		for (ContainerInterface* reg : registry_list)
 			reg->clear();
 	}
 
-	void list_all_components() {
+	void list_all_components()
+	{
 		printf("Debug info on all registry entries:\n");
 		for (ContainerInterface* reg : registry_list)
 			if (reg->size() > 0)
 				printf("%4d components of type %s\n", (int)reg->size(), typeid(*reg).name());
 	}
 
-	void list_all_components_of(Entity e) {
+	void list_all_components_of(Entity e)
+	{
 		printf("Debug info on components of entity %u:\n", (unsigned int)e);
 		for (ContainerInterface* reg : registry_list)
 			if (reg->has(e))
 				printf("type %s\n", typeid(*reg).name());
 	}
 
-	void remove_all_components_of(Entity e) {
+	void remove_all_components_of(Entity e)
+	{
 		for (ContainerInterface* reg : registry_list)
 			reg->remove(e);
 	}
