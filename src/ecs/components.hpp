@@ -81,7 +81,6 @@ struct GridLine {
 	vec2 end_pos = { 10, 10 };	// default to diagonal line
 };
 
-
 struct DeathTimer
 {
 	float counter_ms = 3000;
