@@ -32,6 +32,8 @@ void CreatureBehaviourSystem::updateAnglerfish(float elapsed_ms, Entity& anglerf
 void CreatureBehaviourSystem::neutralAnglerfish(Entity& anglerfish_entity)
 {
 	// Stationary, with the initial light colour
+	// 
+	// TODO: VELOCITY = 0 once we have physics implemented 
 }
 
 void CreatureBehaviourSystem::blueAnglerfish(float elapsed_ms, Entity& anglerfish_entity)
@@ -43,4 +45,5 @@ void CreatureBehaviourSystem::blueAnglerfish(float elapsed_ms, Entity& anglerfis
 void CreatureBehaviourSystem::redAnglerfish(float elapsed_ms, Entity& anglerfish_entity)
 {
 	// lights radius around it in red, pathfinds to player
+	follow_player(elapsed_ms, anglerfish_entity);
 }

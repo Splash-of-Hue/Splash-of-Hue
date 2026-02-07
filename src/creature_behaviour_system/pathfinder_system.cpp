@@ -5,8 +5,11 @@
 #include "common.hpp"
 #include "creature_behaviour_system/creature_behaviour_system.hpp"
 
+// Please see trello task: https://trello.com/c/dwbflQHN
+
 // For M1, no real fancy-schmancy AI pathfinding, just bare bones following 
 // SOPHIA NOTE: THIS CURRENTLY DOES NOT WORK, WAITING ON GEETIKA'S PHYSICS SYSTEM
+// WHICH WILL PROBABLY CAUSE THIS WHOLE THING TO CHANGE
 void CreatureBehaviourSystem::follow_player(float elapsed_ms, Entity& follower)
 {
 	assert(registry.pathfinders.has(follower) && "The follower creature isn't registered as a pathfinder");
@@ -19,6 +22,7 @@ void CreatureBehaviourSystem::follow_player(float elapsed_ms, Entity& follower)
 	assert(registry.motions.has(follower) && "Follower doesn't have a motion component!");
 
 	// TODO: REFACTOR SO THIS IS GENERAL FOR ANY "TARGET". Whatever entity's ColourComponent triggers it
+	// no trello task card yet because this will evolve with the dwbflQHN task
 	const Motion& player_motion_component = registry.motions.get(player);
 	Motion& follower_motion_component = registry.motions.get(follower);
 
@@ -54,8 +58,7 @@ void CreatureBehaviourSystem::follow_player(float elapsed_ms, Entity& follower)
 		t = std::clamp(t, 0.f, 1.f);
 		max_speed = max_speed * t;
 	} 
-
+	// Should work but we have no velocity component right now
 	//followerVelocity = { norm_x * max_speed, norm_y * max_speed };
 	//std::cout << "follower velocity " << followerVelocity.x << ", " << followerVelocity.y << std::endl;
-	
 }

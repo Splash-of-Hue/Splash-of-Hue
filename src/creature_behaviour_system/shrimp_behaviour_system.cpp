@@ -2,6 +2,7 @@
 #include "common.hpp"
 #include "creature_behaviour_system/creature_behaviour_system.hpp"
 
+// Please see trello task: https://trello.com/c/CRvulzMB
 void CreatureBehaviourSystem::updateShrimp(Entity& shrimp_entity)
 {
 	if (!registry.colourStates.has(shrimp_entity))
