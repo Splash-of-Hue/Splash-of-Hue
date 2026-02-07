@@ -181,11 +181,11 @@ bool WorldSystem::step(float elapsed_ms_since_last_update) {
 		{
 			if (control.phase == CONTROL_PHASE::START)
 			{
-				player_movement += vec2(control.value_1, control.value_2)*player_speed;
+				player_movement += vec2(control.value_1, control.value_2);
 			}
 			else if (control.phase == CONTROL_PHASE::END)
 			{
-				player_movement -= vec2(control.value_1, control.value_2)*player_speed;
+				player_movement -= vec2(control.value_1, control.value_2);
 			}
 		}
 
@@ -232,7 +232,7 @@ bool WorldSystem::step(float elapsed_ms_since_last_update) {
 
 	registry.controls.clear();
 	// TODO SnB9A38K: Move to player controller
-	player_vel += player_movement;
+	player_vel += (player_movement*player_speed);
 	assert(registry.screenStates.components.size() <= 1);
     ScreenState &screen = registry.screenStates.components[0];
 
