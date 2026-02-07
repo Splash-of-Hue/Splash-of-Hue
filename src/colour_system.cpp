@@ -132,25 +132,8 @@ void ColourSystem::pollColourMenuInput(Control control)
 		registry.colourMenuInputs.emplace(ctrl);
 	}
 
-	/*ColourMenuInput& nav_input = registry.colourMenuInputs.get(ctrl);
-
-	if (key == GLFW_KEY_RIGHT || key == GLFW_KEY_DOWN) {
-		nav_input.direction = 1;
-	}
-	else if (key == GLFW_KEY_LEFT || key == GLFW_KEY_UP) {
-		nav_input.direction = -1;
-	}*/
-
 	if (!colour_menu_open) return;
 	assert(!registry.colourMenuStates.entities.empty() && "Colour menu states should not be empty");
-
-	/*Entity& controller = registry.colourMenuStates.entities[0];
-
-	if (!registry.colourMenuInputs.has(controller)) return;
-
-	ColourMenuInput& nav_input = registry.colourMenuInputs.get(controller);
-
-	if (nav_input.direction == 0) return;*/
 
 	if (registry.colourWheels.has(colour_menu_entity)) {
 		ColourWheel& wheel = registry.colourWheels.get(colour_menu_entity);
@@ -163,9 +146,6 @@ void ColourSystem::pollColourMenuInput(Control control)
 
 		setEntityVisualColour(colour_menu_entity, wheel.curr_colour);
 	}
-
-	//// Clear the navigation input after processing
-	//nav_input.direction = 0;
 }
 
 COLOUR_STATE ColourSystem::getEntityColour(Entity entity) {
@@ -196,10 +176,6 @@ void ColourSystem::step(float elapsed_ms)
 {
 	(void)elapsed_ms; // unused for now
 
-	// Process controls produced by the conversion system.
-	// Only handle toggle on key RELEASE (END) so a single press toggles once.
-	// Handle selection change on key PRESS (START) or SUSTAIN (repeat).
-	// Remove control entries after processing so they aren't re-processed every frame.
 	std::vector<Entity> to_remove;
 	for (auto& entity : registry.controls.entities)
 	{
@@ -217,48 +193,4 @@ void ColourSystem::step(float elapsed_ms)
 
 		to_remove.push_back(entity);
 	}
-
-	for (Entity e : to_remove) {
-		registry.controls.remove(e);
-	}
 }
-
-/*
-
-// handling E press to toggle colour menu (open & closed)
-	if (key == GLFW_KEY_E && action == GLFW_RELEASE) {
-		assert(!registry.colourMenuStates.entities.empty() && "Colour menu states should not be empty");
-		Entity& ctrl = registry.colourMenuStates.entities[0];
-		ColourMenuState &state = registry.colourMenuStates.get(ctrl);
-
-		bool prev = state.is_curr_open;
-		state.is_curr_open = !prev;
-
-		state.just_closed = !state.is_curr_open ? true : false;
-
-		std::cout << "Colour menu requested " << (state.is_curr_open ? "open" : "closed") << std::endl;
-	}
-
-	// handling arrow keys to cycle between colour meny colours
-	if (action == GLFW_PRESS || action == GLFW_REPEAT) {
-		if (key == GLFW_KEY_LEFT || key == GLFW_KEY_RIGHT ||
-			key == GLFW_KEY_UP || key == GLFW_KEY_DOWN) {
-
-			assert(!registry.colourMenuStates.entities.empty() && "Colour menu states should not be empty");
-			Entity& ctrl = registry.colourMenuStates.entities[0];
-
-			if (!registry.colourMenuInputs.has(ctrl)) {
-				registry.colourMenuInputs.emplace(ctrl);
-			}
-
-			ColourMenuInput& nav_input = registry.colourMenuInputs.get(ctrl);
-
-			if (key == GLFW_KEY_RIGHT || key == GLFW_KEY_DOWN) {
-				nav_input.direction = 1;
-			}
-			else if (key == GLFW_KEY_LEFT || key == GLFW_KEY_UP) {
-				nav_input.direction = -1;
-			}
-		}
-	}
-*/
