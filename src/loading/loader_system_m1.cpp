@@ -76,8 +76,17 @@ void LoaderSystem::load_level(int level_uid)
 	registry.levels.insert(level_entity, { level_uid });
 
 	// For now, the player is a red circle of size 40
-	Entity& player_entity = createCircle(level_data.player_start_position, 40.0f, { 1.0f, 0, 0, 1.0f});
-	registry.players.emplace(player_entity);
+	Entity& player_entity = createCircle(level_data.player_start_position, 40.0f, { 1.0f, 0, 0, 1.0f });
+
+	// Just for testing purposes, will be removed later 
+	if (registry.players.entities.size() == 0) {
+		registry.players.emplace(player_entity);
+	}
+	else
+	{
+		Entity& player_entity = registry.players.entities[0];
+	}
+	
 	// TODO SnB9A38K: Move to player controller
 	Motion& player_motion_component = registry.motions.emplace(player_entity);
 	player_motion_component.position = vec2(0.0f, 0.0f); // stick it in the middle
