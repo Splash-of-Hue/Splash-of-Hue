@@ -14,7 +14,6 @@
 #include "animation/animation_system.hpp"
 #include "loading/loader_system.hpp"
 #include "creature_behaviour_system/creature_behaviour_system.hpp"
-#include <animation/animation_system.hpp>
 
 using Clock = std::chrono::high_resolution_clock;
 

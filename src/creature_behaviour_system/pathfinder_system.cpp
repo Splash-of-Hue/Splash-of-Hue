@@ -27,8 +27,8 @@ void CreatureBehaviourSystem::follow_player(float elapsed_ms, Entity& follower)
 	vec2& followerPosition = registry.positions.emplace(follower);
 	followerPosition = follower_motion_component.position;
 
-	vec2& followerPosition = registry.positions.emplace(follower);
-	followerPosition = follower_motion_component.position;
+	//vec2& followerPosition = registry.positions.emplace(follower);
+	//	followerPosition = follower_motion_component.position;
 
 	// Get the vector to the player
 	float dx = playerPosition.x - followerPosition.x;
