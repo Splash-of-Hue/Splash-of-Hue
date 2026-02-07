@@ -6,6 +6,7 @@ void CreatureBehaviourSystem::updateShrimp()
 {
 	// get colour state based on Abby's work
 	// based on that choose the corresponding function
+
 }
 
 // For the shrimp, the neutral state is the initial state

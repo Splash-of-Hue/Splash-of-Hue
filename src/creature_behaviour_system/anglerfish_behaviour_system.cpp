@@ -4,6 +4,7 @@
 
 void CreatureBehaviourSystem::updateAnglerfish()
 {
+	// does it hav ea colour component? no? lets add one sis <todo make a todo and ticket :) >
 
 }
 

@@ -5,6 +5,7 @@
 
 void CreatureBehaviourSystem::updateSawfish(float elapsed_ms)
 {
+
 	// TEMPORARY FOR TESTING
 	if (registry.shrimps.entities.size() == 0)
 	{
