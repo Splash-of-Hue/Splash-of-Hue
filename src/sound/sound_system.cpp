@@ -46,7 +46,6 @@ bool SoundSystem::start_and_load_sounds() {
 	return true;
 }
 
-
 void SoundSystem::init() {
 	// start playing background music indefinitely
 	std::cout << "Starting music..." << std::endl;
