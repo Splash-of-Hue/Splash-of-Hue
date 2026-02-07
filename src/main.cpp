@@ -11,7 +11,8 @@
 #include "renderer/render_system.hpp"
 #include "world_system.hpp"
 #include "input_system.hpp"
-#include <animation/animation_system.hpp>
+#include "animation/animation_system.hpp"
+#include "loading/loader_system.hpp"
 
 using Clock = std::chrono::high_resolution_clock;
 
@@ -25,6 +26,7 @@ int main()
 	PhysicsSystem physics_system;
 	AnimationSystem animation_system;
 	InputSystem input_system;
+	LoaderSystem loader_system;
 
 	// initialize window
 	GLFWwindow* window = world_system.create_window();
@@ -61,6 +63,7 @@ int main()
 		t = now;
 
 		// CK: be mindful of the order of your systems and rearrange this list only if necessary
+		loader_system.step(elapsed_ms);
 		world_system.step(elapsed_ms);
 		ai_system.step(elapsed_ms);
 		physics_system.step(elapsed_ms);
