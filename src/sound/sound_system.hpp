@@ -21,6 +21,8 @@ public:
 private:
 	// music references
 	Mix_Music* background_music;
-	Mix_Chunk* invader_hit_sound;
-	Mix_Chunk* tower_hit_sound;
+
+	//Mix_Chunk* invader_hit_sound;
+
+	//Mix_Chunk* tower_hit_sound;
 };
