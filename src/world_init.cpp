@@ -46,7 +46,7 @@ Entity createRectangle(vec2 position, float width, float height, vec4 color)
 	registry.sizes.insert(entity, size);
 	registry.rectangles.emplace(entity);
 	registry.colors.emplace(entity, color);
-	Collidable& col =registry.collidables.emplace(entity);
+	Collidable& col = registry.collidables.emplace(entity);
 	col.inelastic = true;
 	//TODO: remove after testing
 	registry.players.emplace(entity);
