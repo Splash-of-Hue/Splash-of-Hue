@@ -8,8 +8,8 @@ class ControlInputConversionSystem
 {
 private:
 	std::map<CONTROL_TYPE, float> control_times_ms;
-	Control convert_input(Input input);
-	Control convert_mouse_button_input(Input input);
+	// TODO edMG9tmb: This is inefficiently checked each time
+	std::set<CONTROL_TYPE> processed_types_this_frame;
 	Control convert_mouse_scroll_input(Input input);
 	Control convert_mouse_move_input(Input input);
 	Control convert_keyboard_input(Input input);

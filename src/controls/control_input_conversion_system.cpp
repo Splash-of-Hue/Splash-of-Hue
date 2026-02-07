@@ -10,6 +10,8 @@
 
 void ControlInputConversionSystem::step(float elapsed_ms)
 {
+	processed_types_this_frame.clear();
+
 	for (Entity& entity : registry.inputs.entities)
 	{
 		Input input = registry.inputs.get(entity);
@@ -20,9 +22,13 @@ void ControlInputConversionSystem::step(float elapsed_ms)
 			continue;
 		}
 
-		// TODO edMG9tmb: Issue where if multiple things have the same control, it increases time more
+		// TODO edMG9tmb: Inefficient
+		if (processed_types_this_frame.count(control.type) == 0)
+		{
 		control_times_ms[control.type] += elapsed_ms;
 		control.time_held_ms = control_times_ms[control.type];
+			processed_types_this_frame.insert(control.type);
+		}
 
 		registry.controls.emplace(entity, control);
 	}
