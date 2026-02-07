@@ -77,7 +77,7 @@ void LoaderSystem::load_level(int level_uid)
 	// Load each "toggle", make a circle
 	for (auto& toggle : level_data.light_toggles)
 	{
-		auto toggle_entity = createCircle(toggle.position, toggle.size.width, toggle.color);
+		auto& toggle_entity = createCircle(toggle.position, toggle.size.width, toggle.color);
 		registry.toggles.emplace(toggle_entity);
 	}
 }
