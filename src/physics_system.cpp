@@ -100,7 +100,7 @@ bool collides(const Entity& entity1, const Entity& entity2)
 			isLineInRangeOfCircle(posC, radiusC, vertexTopRight, vertexBottomRight) ||
 			isLineInRangeOfCircle(posC, radiusC, vertexBottomRight, vertexBottomLeft) ||
 			isLineInRangeOfCircle(posC, radiusC, vertexBottomLeft, vertexTopLeft));
-}
+	}
 	vec4 box1 = get_bounding_box(entity1);
 	vec4 box2 = get_bounding_box(entity2);
 
