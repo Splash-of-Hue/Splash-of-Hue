@@ -16,7 +16,6 @@ class ECSRegistry
 public:
 	// Manually created list of all components this game has
 	ComponentContainer<DeathTimer> deathTimers;
-	ComponentContainer<Motion> motions;
 	ComponentContainer<Collision> collisions;
 	ComponentContainer<Player> players;
 	ComponentContainer<Mesh*> meshPtrs;
@@ -36,8 +35,6 @@ public:
 	ComponentContainer<Size> sizes;
 	ComponentContainer<Rect> rectangles; // TODO 1ch6Q0BE: Remove
 	ComponentContainer<Circle> circles; // TODO 1ch6Q0BE: Remove
-	ComponentContainer<OverlayCollision> overlayCollisions;
-	ComponentContainer<InelasticCollision> inelasticCollisions;
 	ComponentContainer<Animatable> animatables;
 	ComponentContainer<Animation> animations;
 	ComponentContainer<AnimationTrigger> animation_triggers;
@@ -48,12 +45,14 @@ public:
 	ComponentContainer<Toggle> toggles;
 	ComponentContainer<Input> inputs;
 	ComponentContainer<Control> controls;
+	ComponentContainer<vec2> velocities;
+	ComponentContainer<Collidable> collidables;
+	ComponentContainer<ChangeBehaviour> change_behaviours;
 
 	// constructor that adds all containers for looping over them
 	ECSRegistry()
 	{
 		registry_list.push_back(&deathTimers);
-		registry_list.push_back(&motions);
 		registry_list.push_back(&collisions);
 		registry_list.push_back(&players);
 		registry_list.push_back(&meshPtrs);
@@ -73,8 +72,6 @@ public:
 		registry_list.push_back(&sizes);
 		registry_list.push_back(&rectangles); // TODO 1ch6Q0BE: Remove
 		registry_list.push_back(&circles); // TODO 1ch6Q0BE: Remove
-		registry_list.push_back(&overlayCollisions);
-		registry_list.push_back(&inelasticCollisions);
 		registry_list.push_back(&animatables);
 		registry_list.push_back(&animations);
 		registry_list.push_back(&animation_triggers);
@@ -85,6 +82,8 @@ public:
 		registry_list.push_back(&toggles);
 		registry_list.push_back(&inputs);
 		registry_list.push_back(&controls);
+		registry_list.push_back(&collidables);
+		registry_list.push_back(&change_behaviours);
 	}
 
 	void clear_all_components()

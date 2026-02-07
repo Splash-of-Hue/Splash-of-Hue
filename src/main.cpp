@@ -70,7 +70,7 @@ int main()
 		ai_system.step(elapsed_ms);
 		physics_system.step(elapsed_ms);
 		animation_system.step(elapsed_ms);
-		world_system.handle_collisions();
+		world_system.handle_behaviour_change();
 
 		renderer_system.draw();
 	}

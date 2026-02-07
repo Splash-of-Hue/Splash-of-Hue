@@ -144,22 +144,22 @@ bool WorldSystem::step(float elapsed_ms_since_last_update) {
 	    registry.remove_all_components_of(registry.debugComponents.entities.back());
 
 	// Removing out of screen entities
-	auto& motions_registry = registry.motions;
 
 	// Remove entities that leave the screen on the left side
 	// Iterate backwards to be able to remove without interfering with the next object to visit
 	// (the containers exchange the last element with the current)
 
 	// TODO SnB9A38K: Move the player controller system
-	// Reset player velocity each step
-	auto& player_entity = registry.players.entities[0];
-	auto& player_velocity = motions_registry.get(player_entity).velocity;
-	player_velocity = vec2(0);
+	Entity& player_entity = registry.players.entities[0];
+	vec2& player_pos = registry.positions.get(player_entity);
+	vec2& player_vel = registry.velocities.get(player_entity);
+	float player_speed = registry.players.get(player_entity).speed;
+	player_vel = vec2(0);
 	
 	// TODO SnB9A38K: Move some of this to player controller and leave other parts for a window controller
-	for (auto& entity : registry.controls.entities)
+	for (Entity& entity : registry.controls.entities)
 	{
-		auto& control = registry.controls.get(entity);
+		Control& control = registry.controls.get(entity);
 
 		//// exit game w/ ESC
 		if (control.type == CONTROL_TYPE::END_GAME)
@@ -181,11 +181,11 @@ bool WorldSystem::step(float elapsed_ms_since_last_update) {
 		{
 			if (control.phase == CONTROL_PHASE::START)
 			{
-				player_movement += vec2(control.value_1, control.value_2);
+				player_movement += vec2(control.value_1, control.value_2)*player_speed;
 			}
 			else if (control.phase == CONTROL_PHASE::END)
 			{
-				player_movement -= vec2(control.value_1, control.value_2);
+				player_movement -= vec2(control.value_1, control.value_2)*player_speed;
 			}
 		}
 
@@ -232,8 +232,7 @@ bool WorldSystem::step(float elapsed_ms_since_last_update) {
 
 	registry.controls.clear();
 	// TODO SnB9A38K: Move to player controller
-	player_velocity += player_movement;
-
+	player_vel += player_movement;
 	assert(registry.screenStates.components.size() <= 1);
     ScreenState &screen = registry.screenStates.components[0];
 
@@ -251,12 +250,7 @@ void WorldSystem::restart_game() {
 	// Reset the game speed
 	current_speed = 1.f;
 
-	// Remove all entities that we created
-	// All that have a motion, we could also iterate over all bug, eagles, ... but that would be more cumbersome
-	while (registry.motions.entities.size() > 0)
-		registry.remove_all_components_of(registry.motions.entities.back());
-	while (registry.renderRequests.entities.size() > 0)
-		registry.remove_all_components_of(registry.renderRequests.entities.back());
+	
 
 	// debugging for memory/component leaks
 	registry.list_all_components();
@@ -291,24 +285,17 @@ void WorldSystem::restart_game() {
 	player_movement = vec2(0);
 }
 
-// Compute collisions between entities
-void WorldSystem::handle_collisions() {
+// When entity collides with colour radius, it needs to have its behaviour change handled here
+void WorldSystem::handle_behaviour_change() {
 
-	ComponentContainer<Collision>& collision_container = registry.collisions;
-	for (uint i = 0; i < collision_container.components.size(); i++) {
-		Entity& entity = collision_container.entities[i];
-		Entity& other = collision_container.get(entity).other;
-		//if one entity has overlay collision, then behaviour change occurs here
-		if (registry.overlayCollisions.has(entity) || registry.overlayCollisions.has(other)) {
-			std::cout << "Overlay collision with entities: " << entity.id() << " " << other.id() << std::endl;
-		}
+	ComponentContainer<ChangeBehaviour>& changes = registry.change_behaviours;
+	for (uint i = 0; i < changes.components.size(); i++) {
+		Entity& entity = changes.entities[i];
+		std::cout << "Entity has interacted with a colour radius! Entity: " << entity.id() << std::endl;
 
-		//inelastic collisions are handled in physics_system
-		
 	}
-
-	// Remove all collisions from this simulation step
-	registry.collisions.clear();
+	// Since behaviour change was handled, remove the entity
+	registry.change_behaviours.clear();
 }
 
 // Should the game be over ?

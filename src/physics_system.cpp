@@ -117,39 +117,52 @@ void PhysicsSystem::step(float elapsed_ms)
 	// having entities move at different speed based on the machine.
 
 	// check for collisions between all positioned entities
-    ComponentContainer<vec2> &position_container = registry.positions;
-	for(uint i = 0; i < position_container.components.size(); i++)
+    ComponentContainer<Collidable> &collidables = registry.collidables;
+	for(uint i = 0; i < collidables.components.size(); i++)
 	{
 		
-		Entity& entity_i = position_container.entities[i];
+		Entity& entity_i = collidables.entities[i];
 		
 		// note starting j at i+1 to compare all (i,j) pairs only once (and to not compare with itself)
-		for(uint j = i+1; j < position_container.components.size(); j++)
+		for(uint j = i+1; j < collidables.components.size(); j++)
 		{
-			Entity& entity_j = position_container.entities[j];
+			Entity& entity_j = collidables.entities[j];
 			if (collides(entity_i, entity_j))
 			{
 
 				// Create a collisions event
 				// We are abusing the ECS system a bit in that we potentially insert muliple collisions for the same entity
 				// CK: why the duplication, except to allow searching by entity_id
-				if (registry.overlayCollisions.has(entity_i) || registry.overlayCollisions.has(entity_i)) {
+				if (registry.collidables.get(entity_i).overlay) {
 					//let world_systems handle it
-					registry.collisions.emplace(entity_i, entity_j);
+					//extra guard for potential errors
+					if (!registry.change_behaviours.has(entity_j)) {
+						registry.change_behaviours.emplace(entity_j);
+					}
+				}
+				if (registry.collidables.get(entity_j).overlay) {
+					if (!registry.change_behaviours.has(entity_i)) {
+						registry.change_behaviours.emplace(entity_i);
+					}
+					
 				}
 				//must both be inelastic for this collision resolution to occur
-				if (registry.inelasticCollisions.has(entity_i) && registry.inelasticCollisions.has(entity_i)) {
+				if (registry.collidables.get(entity_i).inelastic && registry.collidables.get(entity_j).inelastic) {
 					//handle it here because using bounding box for correction (also it is a physics resolution)
 					vec2& pos1 = registry.positions.get(entity_i);
 					vec2& pos2 = registry.positions.get(entity_j);
 					vec4 box1 = get_bounding_box(entity_i);
 					vec4 box2 = get_bounding_box(entity_j);
-
 					
 					float x_depth = box1[3] < box2[3] ? box1[3] - box2[2] : box2[3] - box1[2];
 					float y_depth = box1[1] < box2[1] ? box1[1] - box2[0] : box2[1] - box1[0];
 
-					//only correct one entity, TODO: correct moving entity pos
+					//if entity_i does not have a velocity, it should not be corrected
+					if (!registry.velocities.has(entity_i)) {
+						vec2& x = pos1;
+						pos1 = pos2;
+						pos2 = x;
+					}
 					if (x_depth < y_depth) {
 						if (pos1.x < pos2.x) {
 							pos1.x -= x_depth;
@@ -174,17 +187,26 @@ void PhysicsSystem::step(float elapsed_ms)
 			
 		}
 	}
-
-	handle_player_movement();
+	handle_movement();
 }
 
-// TODO SnB9A38K: Move to a player controller system and remove input in favour of component
-void PhysicsSystem::handle_player_movement()
+void PhysicsSystem::handle_movement()
 {
-	auto &player_container = registry.players;
-	assert(player_container.size() == 1 && "Should only be 1 player.");
-	auto& player_entity = player_container.entities[0];
+	ComponentContainer<vec2>& moving_entities = registry.velocities;
 
-	auto& player_velocity = registry.motions.get(player_entity).velocity;
-	std::cout << "DEBUG: Moving x: " << player_velocity.x << ", y: " << player_velocity.y << std::endl;
+	for (int i = 0; i < moving_entities.size(); i++) {
+		vec2& pos = registry.positions.get(moving_entities.entities[i]);
+		vec2& vel = registry.velocities.get(moving_entities.entities[i]);
+		pos += vel;
+		//entities travel within screen, for testing
+		if (pos.x > WINDOW_WIDTH_PX || pos.x < 0) {
+			vel.x *= -1;
+		}
+		if (pos.y < 0 || pos.y > WINDOW_HEIGHT_PX) {
+			vel.y *= -1;
+		}
+
+
+	}
 }
+
