@@ -57,8 +57,9 @@ void CreatureBehaviourSystem::follow_player(float elapsed_ms, Entity& follower)
 		float t = (distance - pathfinder_component.minimumDistanceToTarget) / (slow_radius - pathfinder_component.minimumDistanceToTarget);
 		t = std::clamp(t, 0.f, 1.f);
 		max_speed = max_speed * t;
-	}  */
+	}  
 	// Should work but we have no velocity component right now
 	//followerVelocity = { norm_x * max_speed, norm_y * max_speed };
 	//std::cout << "follower velocity " << followerVelocity.x << ", " << followerVelocity.y << std::endl;
+	*/
 }
