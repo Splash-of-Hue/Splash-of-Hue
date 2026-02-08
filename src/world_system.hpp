@@ -56,7 +56,7 @@ private:
 
 	// OpenGL window handle
 	GLFWwindow* window;
-	
+
 	float next_invader_spawn;
 	float invader_spawn_rate_ms;	// see default value in common.hpp
 

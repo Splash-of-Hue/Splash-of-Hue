@@ -8,8 +8,6 @@ Entity createGridLine(vec2 start_pos, vec2 end_pos)
 
 	registry.gridLines.insert(entity, { start_pos, end_pos });
 
-	// re-use the "DEBUG_LINE" renderRequest
-	
 	registry.renderRequests.insert(
 		entity,
 		{
@@ -17,9 +15,7 @@ Entity createGridLine(vec2 start_pos, vec2 end_pos)
 			GEOMETRY_BUFFER_ID::GRADIENT_CIRCLE
 		}
 	);
-	
 
-	// TODO A1: grid line color (choose your own color)
 	registry.colors.emplace(entity, vec4(1.0f, 0.0f, 0.0f, 1.0f));
 
 	return entity;
@@ -37,14 +33,6 @@ Entity createLine(vec2 position, vec2 scale)
 			GEOMETRY_BUFFER_ID::RECTANGLE
 		}
 	);
-
-	// Create motion
-	Motion& motion = registry.motions.emplace(entity);
-	motion.angle = 0.f;
-	motion.velocity = { 0, 0 };
-	motion.position = position;
-	motion.scale = scale;
-
 	registry.debugComponents.emplace(entity);
 	return entity;
 }
@@ -102,7 +90,6 @@ Entity createCircle(vec2 position, float radius, vec4 color)
 	registry.sizes.insert(entity, size);
 	registry.circles.emplace(entity);
 	registry.colors.emplace(entity, color);
-	
 	registry.renderRequests.insert(
 		entity,
 		{
@@ -113,4 +100,3 @@ Entity createCircle(vec2 position, float radius, vec4 color)
 
 	return entity;
 }
-

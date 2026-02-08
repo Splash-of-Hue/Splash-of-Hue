@@ -4,6 +4,7 @@
 #include "loading/loading_constants.hpp"
 #include "creature_behaviour_system/creature_constants.hpp"
 #include <map>
+#include <vector>
 
 enum class COLOUR_STATE {
 	NEUTRAL = 0,
@@ -31,11 +32,11 @@ struct ColourWheel {
 
 struct ColourMenuState {
 	bool is_curr_open = false;
-	bool just_closed = false; 
+	bool just_closed = false;
 };
 
 struct ColourMenuInput {
-	int direction = 0; 
+	int direction = 0;
 };
 
 struct Deadly
@@ -144,6 +145,11 @@ struct Level
 
 // TODO: Remove as we probably won't need this, this is just for M1 prototyping
 struct Toggle
+{
+	std::vector<Entity> wallsToToggle;
+};
+
+struct ColouredWall
 {
 
 };

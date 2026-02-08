@@ -39,4 +39,4 @@ Entity createRectangle(vec2 top_left, vec2 bottom_right, vec4 color = { 1.0, 1.0
 /// <param name="radius">The size of the circle's radius.</param>
 /// <param name="color">The color of the circle, defaults to white if not set.</param>
 /// <returns></returns>
-Entity createCircle(vec2 position, float radius, vec4 color = { 1.0, 1.0, 1.0, 1.0});
+Entity createCircle(vec2 position, float radius, vec4 color = { 1.0, 1.0, 1.0, 1.0 });

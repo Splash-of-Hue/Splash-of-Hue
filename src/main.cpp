@@ -84,7 +84,6 @@ int main()
 		animation_system.step(elapsed_ms);
 		world_system.handle_behaviour_change();
 
-
 		renderer_system.draw();
 	}
 
