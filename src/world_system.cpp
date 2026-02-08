@@ -321,7 +321,7 @@ void WorldSystem::handle_behaviour_change() {
 		std::cout << "Entity has interacted with a colour radius! Entity: " << entity.id() << std::endl;
 		
 		assert(!registry.players.entities.empty() && "There must be one player");
-		Entity player = registry.players.entities[0];
+		Entity& player = registry.players.entities[0];
 		assert(registry.colourStates.has(player) && "player entity must have a ColourState component");
 		COLOUR_STATE player_colour_state = registry.colourStates.get(player).curr_colour_state;
 
