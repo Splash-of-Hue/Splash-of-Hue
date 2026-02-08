@@ -22,7 +22,6 @@ vec4 get_bounding_box(const Entity& entity)
 
 bool isCircleInRect(vec2 posC, float radiusC, vec2 point1, vec2 point2, vec2 point3) {
 	//math taken from https://stackoverflow.com/questions/2752725/finding-whether-a-point-lies-inside-a-rectangle-or-not
-
 	vec2 AB = vec2{ point2.x - point1.x, point2.y - point1.y };
 	vec2 AP = vec2{ posC.x - point1.x, posC.y - point1.y };
 	vec2 BC = vec2{ point3.x - point2.x, point3.y - point2.y };
@@ -71,7 +70,6 @@ bool collides(const Entity& entity1, const Entity& entity2)
 	}
 
 	if (registry.circles.has(entity1) || registry.circles.has(entity2)) {
-		
 		const Entity& eC = registry.circles.has(entity1) ? entity1 : entity2;
 		const Entity& eR = registry.circles.has(entity1) ? entity2 : entity1;
 
@@ -103,10 +101,10 @@ bool collides(const Entity& entity1, const Entity& entity2)
 
 	// This is the equivalent of (left1 > right2 OR right1 < left2) OR (bottom1 > top2 OR top1 < bottom2)
 	// Which is asking if any of the edges of the boxes do NOT overlap.
-	return ((box1[2] <= box2[3]) &&
-		(box2[2] <= box1[3]) &&
-		(box1[0] <= box2[1]) &&
-		(box2[0] <= box1[1]));
+	return ((box1[2] <= box2[3]) && 
+			(box2[2] <= box1[3]) && 
+			(box1[0] <= box2[1]) && 
+			(box2[0] <= box1[1]));
 }
 
 void PhysicsSystem::step(float elapsed_ms)
@@ -116,7 +114,6 @@ void PhysicsSystem::step(float elapsed_ms)
 	ComponentContainer<Collidable>& collidables = registry.collidables;
 	for (uint i = 0; i < collidables.components.size(); i++)
 	{
-
 		Entity& entity_i = collidables.entities[i];
 
 		// note starting j at i+1 to compare all (i,j) pairs only once (and to not compare with itself)
@@ -255,4 +252,3 @@ void PhysicsSystem::handle_movement()
 		}
 	}
 }
-
