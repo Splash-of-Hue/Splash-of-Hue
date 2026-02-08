@@ -86,7 +86,7 @@ void WorldSystem::init(RenderSystem* renderer_arg) {
 
 
 	// Set all states to default
-    restart_game();
+	restart_game();
 }
 
 // Update our game world

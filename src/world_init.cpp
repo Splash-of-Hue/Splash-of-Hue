@@ -90,8 +90,6 @@ Entity createCircle(vec2 position, float radius, vec4 color)
 	registry.sizes.insert(entity, size);
 	registry.circles.emplace(entity);
 	registry.colors.emplace(entity, color);
-	Collidable& col = registry.collidables.emplace(entity);
-	col.overlay = true;
 	registry.renderRequests.insert(
 		entity,
 		{

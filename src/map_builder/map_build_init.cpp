@@ -41,6 +41,8 @@ Entity createToggle(vec2 position, float radius, COLOUR_STATE color_state, std::
 	auto& color_state_component = registry.colourStates.emplace(toggle_entity);
 	color_state_component.curr_colour_state = color_state;
 	toggle.wallsToToggle = controlled_walls;
+	Collidable& col = registry.collidables.emplace(toggle_entity);
+	col.inelastic = true;
 
 	return toggle_entity;
 }

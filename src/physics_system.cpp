@@ -109,7 +109,6 @@ bool collides(const Entity& entity1, const Entity& entity2)
 
 void PhysicsSystem::step(float elapsed_ms)
 {
-
 	// check for collisions between all collidable entities
 	ComponentContainer<Collidable>& collidables = registry.collidables;
 	for (uint i = 0; i < collidables.components.size(); i++)
@@ -165,15 +164,17 @@ void PhysicsSystem::step(float elapsed_ms)
 				if (registry.toggles.has(entity_i) || registry.toggles.has(entity_j)) {
 					Entity& eT = registry.toggles.has(entity_i) ? entity_i : entity_j;
 					Entity& eO = registry.toggles.has(entity_j) ? entity_i : entity_j;
-
 					Toggle& tT = registry.toggles.get(eT);
+
 					if (registry.colourStates.has(eO)) {
 						ColourState& csO = registry.colourStates.get(eO);
 						ColourState& csT = registry.colourStates.get(eT);
+
 						if (csT.curr_colour_state != csO.curr_colour_state) {
 							vec4& colT = registry.colors.get(eT);
 							vec4& colO = registry.colors.get(eO);
 							colT = colO;
+
 							for (Entity& toggledEntity : tT.wallsToToggle) {
 								ColourState& csTE = registry.colourStates.get(toggledEntity);
 								csTE.prev_colour_state = csTE.curr_colour_state;

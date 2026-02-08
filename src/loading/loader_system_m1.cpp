@@ -2,7 +2,6 @@
 #include "loader_system.hpp"
 #include "map_builder/map_build_init.hpp"
 #include "world_init.hpp"
-#include <iostream>
 #include <map>
 #include <string>
 #include <vector>
@@ -39,7 +38,7 @@ struct M1TestData
 	vec2 player_start_position;
 	std::vector<M1CreatureData> creatures;
 	std::vector<M1ToggleData> light_toggles;
-	std::vector<M1WallData> coloured_Walls;
+	std::vector<M1WallData> coloured_walls;
 };
 
 const std::vector<M1TestData> m1_test_data = {
@@ -138,7 +137,7 @@ void LoaderSystem::load_level(int level_uid)
 	}
 
 	// Make walls and store their entities to use when making toggles
-	for (auto& wall : level_data.coloured_Walls)
+	for (auto& wall : level_data.coloured_walls)
 	{
 		auto& colored_wall_entity = createWall(wall.position, wall.size.width, wall.size.height, wall.color_state);
 
