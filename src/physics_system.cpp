@@ -128,7 +128,7 @@ void PhysicsSystem::step(float elapsed_ms)
 				vec2& posI = registry.positions.get(entity_i);
 				vec2& posJ = registry.positions.get(entity_j);
 
-				registry.list_all_components_of(entity_i);
+				//registry.list_all_components_of(entity_i);
 
 				//std::cout << posI.x << " " << posI.y << std::endl;
 				//registry.list_all_components_of(entity_j);
