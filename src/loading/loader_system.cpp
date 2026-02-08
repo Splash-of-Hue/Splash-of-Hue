@@ -1,5 +1,5 @@
 #include "loader_system.hpp"
-
+#include <iostream>
 void LoaderSystem::step(float elapsed_ms)
 {
 	auto& loadRequestRegistry = registry.loadRequests;

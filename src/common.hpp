@@ -25,10 +25,10 @@ using namespace glm;
 // Get defintion of PROJECT_SOURCE_DIR from:
 #include "../ext/project_path.hpp"
 inline std::string asset_path() { return std::string(PROJECT_SOURCE_DIR) + "assets"; };
-inline std::string shader_path(const std::string& name) {return std::string(PROJECT_SOURCE_DIR) + "/shaders/" + name;};
-inline std::string textures_path(const std::string& name) {return asset_path() + "/textures/" + std::string(name);};
-inline std::string audio_path(const std::string& name) {return asset_path() + "/audio/" + std::string(name);};
-inline std::string mesh_path(const std::string& name) {return asset_path() + "/meshes/" + std::string(name);};
+inline std::string shader_path(const std::string& name) { return std::string(PROJECT_SOURCE_DIR) + "/shaders/" + name; };
+inline std::string textures_path(const std::string& name) { return asset_path() + "/textures/" + std::string(name); };
+inline std::string audio_path(const std::string& name) { return asset_path() + "/audio/" + std::string(name); };
+inline std::string mesh_path(const std::string& name) { return asset_path() + "/meshes/" + std::string(name); };
 
 /*
 	Rendering constants and inlines
@@ -45,7 +45,7 @@ const int WINDOW_HEIGHT_PX = 600;
 const int GRID_CELL_WIDTH_PX = 60;
 const int GRID_CELL_HEIGHT_PX = 60;
 const int GRID_LINE_WIDTH_PX = 2;
-
+const int PLAYER_SPEED = 10.0f;
 // towers
 const int MAX_TOWERS_START = 5;
 const float TOWER_TIMER_MS = 1000.0f;	// number of milliseconds between tower shots

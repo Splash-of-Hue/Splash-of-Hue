@@ -8,8 +8,6 @@ Entity createGridLine(vec2 start_pos, vec2 end_pos)
 
 	registry.gridLines.insert(entity, { start_pos, end_pos });
 
-	// re-use the "DEBUG_LINE" renderRequest
-	
 	registry.renderRequests.insert(
 		entity,
 		{
@@ -17,9 +15,7 @@ Entity createGridLine(vec2 start_pos, vec2 end_pos)
 			GEOMETRY_BUFFER_ID::GRADIENT_CIRCLE
 		}
 	);
-	
 
-	// TODO A1: grid line color (choose your own color)
 	registry.colors.emplace(entity, vec4(1.0f, 0.0f, 0.0f, 1.0f));
 
 	return entity;
@@ -37,14 +33,6 @@ Entity createLine(vec2 position, vec2 scale)
 			GEOMETRY_BUFFER_ID::RECTANGLE
 		}
 	);
-
-	// Create motion
-	Motion& motion = registry.motions.emplace(entity);
-	motion.angle = 0.f;
-	motion.velocity = { 0, 0 };
-	motion.position = position;
-	motion.scale = scale;
-
 	registry.debugComponents.emplace(entity);
 	return entity;
 }
@@ -58,13 +46,17 @@ Entity createRectangle(vec2 position, float width, float height, vec4 color, boo
 	registry.sizes.insert(entity, size);
 	registry.rectangles.emplace(entity);
 	registry.colors.emplace(entity, color);
-	registry.inelasticCollisions.emplace(entity); // TODO: inelastic for rectangle, overlay for circle
+
+	Collidable& col = registry.collidables.emplace(entity);	
+	col.inelastic = true;
 	if (isColouredWall) {
 		registry.colouredWall.emplace(entity);
 		ColourState& csCW = registry.colourStates.emplace(entity);
 		csCW.curr_colour_state = COLOUR_STATE(state);
 		csCW.prev_colour_state = COLOUR_STATE(state);
 	}
+
+
 	registry.renderRequests.insert(
 		entity,
 		{
@@ -82,19 +74,23 @@ Entity createRectangle(vec2 top_left, vec2 bottom_right, vec4 color, bool isColo
 
 	auto rectangle_diagonal = (bottom_right - top_left);
 	Size size = { rectangle_diagonal.x, rectangle_diagonal.y };
-	//auto center = top_left + (rectangle_diagonal * vec2(0.5));
 	auto center = (bottom_right + top_left) * vec2(0.5);
 	registry.positions.insert(entity, center);
 	registry.sizes.insert(entity, size);
 	registry.rectangles.emplace(entity);
 	registry.colors.emplace(entity, color);
-	registry.inelasticCollisions.emplace(entity);
+
+	Collidable& col = registry.collidables.emplace(entity);
+	col.inelastic = true;
 	if (isColouredWall) {
 		registry.colouredWall.emplace(entity);
 		ColourState& csCW = registry.colourStates.emplace(entity);
 		csCW.curr_colour_state = COLOUR_STATE(state);
 		csCW.prev_colour_state = COLOUR_STATE(state);
 	}
+
+	//TODO: remove after testing
+
 	registry.renderRequests.insert(
 		entity,
 		{
@@ -116,7 +112,8 @@ Entity createCircle(vec2 position, float radius, vec4 color)
 	registry.circles.emplace(entity);
 	registry.colors.emplace(entity, color);
 
-	registry.overlayCollisions.emplace(entity);
+	Collidable& col = registry.collidables.emplace(entity);
+	col.overlay = true;
 	registry.renderRequests.insert(
 		entity,
 		{

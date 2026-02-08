@@ -1,5 +1,6 @@
 #include "loader_system.hpp"
 #include "world_init.hpp"
+#include <iostream>
 //////////////////////////////////////////////////
 ///// Meant to be replaced with LDtk varient /////
 //////////////////////////////////////////////////
@@ -24,7 +25,7 @@ const std::vector<M1TestData> m1_test_data = {
 		{ 100, 100 },
 		{
 			// Three creatures
-			{
+			/*{
 				{ 100, 100 }, // size
 				{ 400, 120 }, // position
 				{ 0.2f, 0.4f, 0, 1.0f } // color
@@ -38,7 +39,7 @@ const std::vector<M1TestData> m1_test_data = {
 				{ 50, 200 }, // size
 				{ 800, 320 }, // position
 				{ 0.4f, 0, 0.85f, 1.0f  } // color
-			},
+			},*/
 		},
 		{
 			// Two toggles
@@ -58,18 +59,15 @@ const std::vector<M1TestData> m1_test_data = {
 
 void LoaderSystem::load_level(int level_uid)
 {
+	std::cout << "hello!" << std::endl;
 	assert(level_uid == 0 && "For M1, we are using mock data, and the unique ID must be 0");
 	auto& level_data = m1_test_data[level_uid];
 	Entity level_entity;
 	registry.levels.insert(level_entity, { level_uid });
 
-	// For now, the player is a red circle of size 40
-	//auto& player_entity = createCircle(level_data.player_start_position, 40.0f, { 1.0f, 0, 0, 1.0f});
-	//registry.players.emplace(player_entity);
-	//// TODO SnB9A38K: Move to player controller
-	//registry.motions.emplace(player_entity);
-
-
+	auto& player_entity = createCircle(level_data.player_start_position, 40.0f, { 1.0f, 0, 0, 1.0f });
+	registry.players.emplace(player_entity);
+	
 	// Load each "creature", make a rectangle
 	for (auto& creature : level_data.creatures)
 	{
@@ -82,6 +80,9 @@ void LoaderSystem::load_level(int level_uid)
 	{
 		auto& toggle_entity = createCircle(toggle.position, toggle.size.width, toggle.color);
 		registry.toggles.emplace(toggle_entity);
+		ColourState& csT = registry.colourStates.emplace(toggle_entity);
+		csT.curr_colour_state = COLOUR_STATE::NEUTRAL;
+		csT.prev_colour_state = COLOUR_STATE::NEUTRAL;
 	}
 }
 
