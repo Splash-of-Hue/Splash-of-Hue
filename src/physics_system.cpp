@@ -71,6 +71,7 @@ bool collides(const Entity& entity1, const Entity& entity2)
 	}
 
 	if (registry.circles.has(entity1) || registry.circles.has(entity2)) {
+		
 		const Entity& eC = registry.circles.has(entity1) ? entity1 : entity2;
 		const Entity& eR = registry.circles.has(entity1) ? entity2 : entity1;
 
@@ -124,6 +125,15 @@ void PhysicsSystem::step(float elapsed_ms)
 			Entity& entity_j = collidables.entities[j];
 			if (collides(entity_i, entity_j))
 			{
+				vec2& posI = registry.positions.get(entity_i);
+				vec2& posJ = registry.positions.get(entity_j);
+
+				registry.list_all_components_of(entity_i);
+
+				//std::cout << posI.x << " " << posI.y << std::endl;
+				//registry.list_all_components_of(entity_j);
+				//std::cout << posJ.x << " " << posJ.y << std::endl;
+
 				//im wondering if its better to look at what type of creatures/entities we're dealing with BEFORE we look at their type
 				//of collision. Because walls will be changing between inelastic and no collision, so im not entirely sure which
 				//type of collision we want to put it in. For now, it will be its own thing. 
@@ -201,8 +211,9 @@ void PhysicsSystem::step(float elapsed_ms)
 				}
 
 			}
-			handle_movement();
+			
 		}
+		handle_movement();
 	}
 }
 void PhysicsSystem::handle_movement()
