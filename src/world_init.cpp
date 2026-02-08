@@ -57,6 +57,13 @@ Entity createRectangle(vec2 position, float width, float height, vec4 color, boo
 	}
 
 
+	//todo: remove when done testing
+	if (registry.toggles.entities.size() > 0) {
+		Entity& eTog = registry.toggles.entities[0];
+		Toggle& tTog = registry.toggles.get(eTog);
+		tTog.wallsToToggle.push_back(entity);
+	}
+
 	registry.renderRequests.insert(
 		entity,
 		{

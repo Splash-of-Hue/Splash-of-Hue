@@ -2,6 +2,7 @@
 #include "common.hpp"
 #include <bitset>
 #include <map>
+#include <vector>
 
 // Player component
 struct Player
@@ -155,7 +156,7 @@ struct Creature
 // TODO: Remove as we probably won't need this, this is just for M1 prototyping
 struct Toggle
 {
-
+	std::vector<Entity> wallsToToggle;
 };
 
 struct ColouredWall
