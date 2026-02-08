@@ -78,11 +78,6 @@ Entity createRectangle(vec2 top_left, vec2 bottom_right, vec4 color)
 	registry.velocities.insert(entity, velocity);
 	col.inelastic = true;
 
-	//TODO: remove after testing
-	registry.players.emplace(entity);
-	vec2 velocity = { 1.0, 1.0 };
-	registry.velocities.insert(entity, velocity);
-
 	registry.renderRequests.insert(
 		entity,
 		{
