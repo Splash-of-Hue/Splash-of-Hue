@@ -1,12 +1,54 @@
 #pragma once
 #include "common.hpp"
+#include <bitset>
+#include <map>
 
 // Player component
 struct Player
 {
+	float speed = PLAYER_SPEED;
+};
+
+enum class COLOUR_STATE {
+	NEUTRAL = 0,
+	BLUE = 1,
+	RED = 2
+};
+
+struct ColourPalette {
+	std::map<COLOUR_STATE, vec4> state_to_colour = {
+		{ COLOUR_STATE::NEUTRAL, vec4(0.5f, 0.5f, 0.5f, 1.0f)},
+		{ COLOUR_STATE::BLUE, vec4(0.0f, 0.0f, 1.0f, 1.0f)},
+		{ COLOUR_STATE::RED, vec4(1.0f, 0.0f, 0.0f, 1.0f)}
+	};
+};
+
+struct ColourState {
+	COLOUR_STATE curr_colour_state = COLOUR_STATE::NEUTRAL;
+	COLOUR_STATE prev_colour_state = COLOUR_STATE::NEUTRAL;
+};
+
+struct ColourWheel {
+	COLOUR_STATE prev_colour = COLOUR_STATE::NEUTRAL;
+	COLOUR_STATE curr_colour = COLOUR_STATE::NEUTRAL;
+};
+
+struct ColourMenuState {
+	bool is_curr_open = false;
+	bool just_closed = false; 
+};
+
+struct ColourMenuInput {
+	int direction = 0; 
+};
+
+struct Deadly
+{
 
 };
 
+
+//////////////////////////////////////////////////////////
 // Tower
 struct Tower {
 	float range;	// for vision / detection
@@ -23,11 +65,7 @@ struct Projectile {
 	int damage;
 };
 
-// used for Entities that cause damage
-struct Deadly
-{
 
-};
 
 // used for edible entities
 struct Eatable
@@ -35,18 +73,9 @@ struct Eatable
 
 };
 
-// All data relevant to the shape and motion of entities
-struct Motion {
-	// DEPRECATION: This will be removed in favour of the Position component
-	vec2  position = { 0, 0 };
-	// DEPRECATION: This will be removed in favour of the Angle component
-	float angle = 0;
-	vec2  velocity = { 0, 0 };
-	// DEPRECATION: This will be removed in favour of the Scale component
-	vec2  scale = { 10, 10 };
-};
 
 // Stucture to store collision information
+//no longer in use
 struct Collision
 {
 	// Note, the first object is stored in the ECS container.entities
@@ -54,13 +83,15 @@ struct Collision
 	Collision(Entity& other) { this->other = other; };
 };
 
-//entity is assigned a type of collision (when created) to determine how its collision is resolved
-struct OverlayCollision {
+//assigned to entities that need behaviour change
+struct ChangeBehaviour
+{
 
 };
-
-struct InelasticCollision {
-
+//entity is assigned a type of collision (when created) to determine how its collision is resolved
+struct Collidable {
+	bool overlay = false;
+	bool inelastic = false;
 };
 
 // Data structure for toggling debug mode
@@ -88,7 +119,6 @@ struct GridLine {
 	vec2 end_pos = { 10, 10 };	// default to diagonal line
 };
 
-// A timer that will be associated to dying chicken
 struct DeathTimer
 {
 	float counter_ms = 3000;
