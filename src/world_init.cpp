@@ -37,7 +37,7 @@ Entity createLine(vec2 position, vec2 scale)
 	return entity;
 }
 
-Entity createRectangle(vec2 position, float width, float height, vec4 color, bool isColouredWall, int state)
+Entity createRectangle(vec2 position, float width, float height, vec4 color)
 {
 	Entity entity = Entity();
 

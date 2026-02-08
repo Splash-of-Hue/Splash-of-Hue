@@ -1,11 +1,16 @@
+#include "ecs/registry.hpp"
 #include "loader_system.hpp"
+#include "map_builder/map_build_init.hpp"
 #include "world_init.hpp"
 #include <iostream>
+#include <map>
+#include <string>
+#include <vector>
 //////////////////////////////////////////////////
 ///// Meant to be replaced with LDtk varient /////
 //////////////////////////////////////////////////
 
-struct M1ShapeData
+struct M1CreatureData
 {
 	Size size;
 	vec2 position;
@@ -13,12 +18,28 @@ struct M1ShapeData
 	// TODO: Add AI behaviour for creatures
 };
 
+struct M1ToggleData
+{
+	Size size;
+	vec2 position;
+	COLOUR_STATE color_state;
+	std::vector<std::string> controlled_wall_ids;
+};
+
+struct M1WallData
+{
+	std::string id;
+	Size size;
+	vec2 position;
+	COLOUR_STATE color_state;
+};
+
 struct M1TestData
 {
-	vec2 player_start_position; 
-	std::vector<M1ShapeData> creatures;
-	std::vector<M1ShapeData> light_toggles;
-	std::vector<M1ShapeData> coloured_Walls;
+	vec2 player_start_position;
+	std::vector<M1CreatureData> creatures;
+	std::vector<M1ToggleData> light_toggles;
+	std::vector<M1WallData> coloured_Walls;
 };
 
 const std::vector<M1TestData> m1_test_data = {
@@ -47,39 +68,47 @@ const std::vector<M1TestData> m1_test_data = {
 			{
 				{ 50, 50 }, // size
 				{ 600, 50 }, // position
-				{ 0, 0, 0, 1.0f  } // color
+				COLOUR_STATE::BLUE, // state
+				{ "wall_1" } // controlled wall IDs
 			},
 			{
 				{ 100, 100 }, // size
 				{ 700, 400 }, // position
-				{ 0, 1.f, 0.f, 1.0f  } // color
+				COLOUR_STATE::RED, // state
+				{ "wall_2", "wall_3"} // controlled wall IDs
 			},
 		},
 		{
+			// Walls
 			{
-				{20, 100},
-				{600, 100},
-				{ 0.0f, 0, 0, 1.0f  } // color
-			}, 
-			{
-				{100, 20},
-				{640, 150},
-				{ 0.0f, 0, 0, 1.0f  } // color
+				"wall_1", // ID
+				{20, 100}, // size
+				{600, 100}, // position
+				COLOUR_STATE::BLUE // state
 			},
 			{
-				{20, 100},
-				{680, 210},
-				{ 0.0f, 0, 0, 1.0f  } // color
+				"wall_2", // ID
+				{100, 20}, // size
+				{640, 150}, // position
+				COLOUR_STATE::BLUE // state
 			},
 			{
-				{100, 20},
-				{640, 270},
-				{ 0.0f, 0, 0, 1.0f  } // color
+				"wall_3", // ID
+				{20, 100}, // size
+				{680, 210}, // position
+				COLOUR_STATE::BLUE // state
 			},
 			{
-				{20, 200},
-				{600, 370},
-				{ 0.0f, 0, 0, 1.0f  } // color
+				"wall_4", // ID
+				{100, 20}, // size
+				{640, 270}, // position
+				COLOUR_STATE::BLUE // state
+			},
+			{
+				"wall_5", // ID
+				{20, 200}, // size
+				{600, 370}, // position
+				COLOUR_STATE::BLUE // state
 			},
 		},
 	}
@@ -97,6 +126,10 @@ void LoaderSystem::load_level(int level_uid)
 	auto& player_position = registry.positions.get(player_entity);
 	player_position = level_data.player_start_position;
 
+	// As we make walls, store their entities in a vector as you can't store Entities in a map
+	std::vector<Entity> wall_entities = {};
+	std::map<std::string, int> wall_id_to_entity_map = {};
+
 	// Load each "creature", make a rectangle
 	for (auto& creature : level_data.creatures)
 	{
@@ -104,32 +137,26 @@ void LoaderSystem::load_level(int level_uid)
 		registry.creatures.emplace(creature_entity);
 	}
 
+	// Make walls and store their entities to use when making toggles
+	for (auto& wall : level_data.coloured_Walls)
+	{
+		auto& colored_wall_entity = createWall(wall.position, wall.size.width, wall.size.height, wall.color_state);
+
+		wall_entities.push_back(colored_wall_entity);
+		wall_id_to_entity_map[wall.id] = wall_entities.size() - 1;
+	}
+
 	// Load each "toggle", make a circle
 	for (auto& toggle : level_data.light_toggles)
 	{
-		auto& toggle_entity = createCircle(toggle.position, toggle.size.width, toggle.color);
-		registry.toggles.emplace(toggle_entity);
-		ColourState& csT = registry.colourStates.emplace(toggle_entity);
-		csT.curr_colour_state = COLOUR_STATE::NEUTRAL;
-		csT.prev_colour_state = COLOUR_STATE::NEUTRAL;
-	}
+		std::vector<Entity> walls_to_toggle = {};
 
-	for (auto& wall : level_data.coloured_Walls)
-	{
-		auto& colouredWall = createRectangle(wall.position, wall.size.width, wall.size.height, wall.color);
-
-		registry.colouredWall.emplace(colouredWall);
-		ColourState& csCW = registry.colourStates.emplace(colouredWall);
-		csCW.curr_colour_state = COLOUR_STATE::NEUTRAL;
-		csCW.prev_colour_state = COLOUR_STATE::NEUTRAL;
-
-
-		//todo: remove when done testing
-		if (registry.toggles.entities.size() > 0) {
-			Entity& eTog = registry.toggles.entities[0];
-			Toggle& tTog = registry.toggles.get(eTog);
-			tTog.wallsToToggle.push_back(colouredWall);
+		for (std::string wall_id : toggle.controlled_wall_ids)
+		{
+			walls_to_toggle.push_back(wall_entities[wall_id_to_entity_map[wall_id]]);
 		}
+
+		createToggle(toggle.position, toggle.size.width, toggle.color_state, walls_to_toggle);
 	}
 }
 
