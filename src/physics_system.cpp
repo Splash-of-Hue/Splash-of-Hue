@@ -110,7 +110,6 @@ bool collides(const Entity& entity1, const Entity& entity2)
 
 void PhysicsSystem::step(float elapsed_ms)
 {
-
 	// check for collisions between all positioned entities
     ComponentContainer<Collidable> &collidables = registry.collidables;
 	for(uint i = 0; i < collidables.components.size(); i++)
@@ -198,8 +197,5 @@ void PhysicsSystem::handle_movement()
 		if (pos.y < 0 || pos.y > WINDOW_HEIGHT_PX) {
 			vel.y *= -1;
 		}
-
-
 	}
 }
-

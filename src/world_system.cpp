@@ -185,8 +185,6 @@ bool WorldSystem::step(float elapsed_ms_since_last_update) {
 	}
 
 	registry.controls.clear();
-	// TODO SnB9A38K: Move to player controller
-	player_vel += (player_movement*player_speed);
 	assert(registry.screenStates.components.size() <= 1);
     ScreenState &screen = registry.screenStates.components[0];
 
@@ -204,11 +202,8 @@ void WorldSystem::restart_game() {
 	// Reset the game speed
 	current_speed = 1.f;
 
-	
-
 	// debugging for memory/component leaks
 	registry.list_all_components();
-
 	
 	while (registry.velocities.entities.size() > 0)
 		registry.remove_all_components_of(registry.velocities.entities.back());
@@ -233,36 +228,7 @@ void WorldSystem::restart_game() {
 			grid_lines.push_back(createGridLine(vec2(0, col * cell_height), vec2(2 * WINDOW_WIDTH_PX, grid_line_width)));
 		}
 	}
-	{
-		Entity player = Entity();
-
-		// mark entity as player
-		registry.players.emplace(player);
-
-		// motion
-		Motion& motion = registry.motions.emplace(player);
-		motion.position = vec2(WINDOW_WIDTH_PX * 0.5f, WINDOW_HEIGHT_PX * 0.5f);
-		motion.scale = vec2(20.0f, 20.0f);
-		motion.velocity = vec2(0.0f, 0.0f);
-		motion.angle = 0.0f;
-
-		// rendering so player is visible 
-		registry.positions.insert(player, motion.position);
-		registry.sizes.insert(player, Size{ motion.scale.x, motion.scale.y });
-		registry.circles.emplace(player);
-		registry.colors.emplace(player, vec4(0.0f, 1.0f, 0.0f, 1.0));
-		registry.renderRequests.insert(
-			player,
-			{
-				EFFECT_ASSET_ID::DEFAULT,
-				GEOMETRY_BUFFER_ID::CIRCLE
-			}
-		);
-
-		// Colour system 
-		registry.colourStates.emplace(player);
-		registry.colourStates.get(player).curr_colour_state = COLOUR_STATE::NEUTRAL;
-
+	
 	// TODO m1EAwQf4: This is only being used to make sure that the mouse rectangle isn't being destroyed on world_system reset so maybe don't need this.
 	// Recreate anything that may have been destroyed by world_system's restart_game function.
 	auto center_screen = vec2(WINDOW_WIDTH_PX / 2, WINDOW_HEIGHT_PX / 2);
@@ -271,10 +237,7 @@ void WorldSystem::restart_game() {
 	// Now only one rectangle is collidable TODO: remove after testing
 	Collidable& col = registry.collidables.emplace(mouse_shape_entity);
 	col.inelastic = true;
-	registry.players.emplace(mouse_shape_entity);
 	
-
-
 	// Load level
 	Entity load_request_entity;
 	registry.loadRequests.insert(load_request_entity, { LOAD_TYPE::LOAD_LEVEL, current_level_uid });
@@ -283,10 +246,12 @@ void WorldSystem::restart_game() {
 }
 
 // When entity collides with colour radius, it needs to have its behaviour change handled here
-void WorldSystem::handle_behaviour_change() {
+void WorldSystem::handle_behaviour_change()
+{
 
 	ComponentContainer<ChangeBehaviour>& changes = registry.change_behaviours;
-	for (uint i = 0; i < changes.components.size(); i++) {
+	for (uint i = 0; i < changes.components.size(); i++)
+	{
 		Entity& entity = changes.entities[i];
 		std::cout << "Entity has interacted with a colour radius! Entity: " << entity.id() << std::endl;
 
