@@ -8,40 +8,35 @@
 // Please see trello task: https://trello.com/c/dwbflQHN
 
 // For M1, no real fancy-schmancy AI pathfinding, just bare bones following 
-// SOPHIA NOTE: THIS CURRENTLY DOES NOT WORK, WAITING ON GEETIKA'S PHYSICS SYSTEM
-// WHICH WILL PROBABLY CAUSE THIS WHOLE THING TO CHANGE
 void CreatureBehaviourSystem::follow_player(float elapsed_ms, Entity& follower)
-{ /*
+{ 
 	assert(registry.pathfinders.has(follower) && "The follower creature isn't registered as a pathfinder");
 	Pathfinder& pathfinder_component = registry.pathfinders.get(follower);
 
 	assert(registry.players.entities.size() == 1 && "There's no player for the creature to follow!");
 	Entity& player = registry.players.entities[0];
 
-	assert(registry.motions.has(player) && "Player doesn't have a motion component, so there's nothing for the creature to follow");
-	assert(registry.motions.has(follower) && "Follower doesn't have a motion component!");
+	// TODO: REFACTOR as part of pathfinding tasks in later milestones SO THIS IS GENERAL FOR ANY "TARGET". Whatever entity's ColourComponent triggers it
+	assert(registry.positions.has(player) && "Player doesn't have a position");
+	assert(registry.positions.has(follower) && "Pathfinder doesn't have a position");
+	assert(registry.velocities.has(follower) && "Pathfinder doesn't have a velocity");
 
-	// TODO: REFACTOR SO THIS IS GENERAL FOR ANY "TARGET". Whatever entity's ColourComponent triggers it
-	// no trello task card yet because this will evolve with the dwbflQHN task
-	const Motion& player_motion_component = registry.motions.get(player);
-	Motion& follower_motion_component = registry.motions.get(follower);
-
-	const vec2 playerPosition = player_motion_component.position;
-	vec2& followerPosition = follower_motion_component.position;
-	followerPosition = follower_motion_component.position;
+	const vec2& playerPosition = registry.positions.get(player);
+	vec2& followerPosition = registry.positions.get(follower);
+	vec2& followerVelocity = registry.velocities.get(follower);
 
 	// Get the vector to the player
 	float dx = playerPosition.x - followerPosition.x;
 	float dy = playerPosition.y - followerPosition.y;
 
-	// cheaper to avoid sqrt
+	// Calculate and compare squares bec they're cheaper to avoid sqrt
 	float distance_squared = dx * dx + dy * dy;
 	float minDistToTarget_squared = pathfinder_component.minimumDistanceToTarget * pathfinder_component.minimumDistanceToTarget;
 
 	// If too close to the target, stop
 	if (distance_squared <= minDistToTarget_squared)
 	{
-		// followerVelocity = { 0.0f, 0.0f };
+		followerVelocity = { 0.0f, 0.0f };
 		return;
 	}
 
@@ -50,16 +45,14 @@ void CreatureBehaviourSystem::follow_player(float elapsed_ms, Entity& follower)
 	float norm_x = dx / distance;
 	float norm_y = dy / distance;
 
+	// Slow down when approaching the player so there isn't an abrupt stop
 	float slow_radius = pathfinder_component.minimumDistanceToTarget * 3.f;
 	float max_speed = pathfinder_component.max_speed;
-
 	if (distance < slow_radius) {
 		float t = (distance - pathfinder_component.minimumDistanceToTarget) / (slow_radius - pathfinder_component.minimumDistanceToTarget);
 		t = std::clamp(t, 0.f, 1.f);
 		max_speed = max_speed * t;
 	}  
-	// Should work but we have no velocity component right now
-	//followerVelocity = { norm_x * max_speed, norm_y * max_speed };
-	//std::cout << "follower velocity " << followerVelocity.x << ", " << followerVelocity.y << std::endl;
-	*/
+
+	followerVelocity = { norm_x * max_speed, norm_y * max_speed };	
 }

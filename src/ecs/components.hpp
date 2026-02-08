@@ -5,12 +5,6 @@
 #include "creature_behaviour_system/creature_constants.hpp"
 #include <map>
 
-// Player component
-struct Player
-{
-	float speed = PLAYER_SPEED;
-};
-
 enum class COLOUR_STATE {
 	NEUTRAL = 0,
 	BLUE = 1,

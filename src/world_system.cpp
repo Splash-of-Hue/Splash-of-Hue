@@ -105,40 +105,6 @@ bool WorldSystem::step(float elapsed_ms_since_last_update) {
 	{
 		Control& control = registry.controls.get(entity);
 
-		// TODO m1EAwQf4: Remove
-		if (control.type == CONTROL_TYPE::CHANGE_RECT_TEST_SIZE)
-		{
-			auto& size = registry.sizes.get( mouse_shape_entity);
-			size.width += control.value_2;
-		}
-
-		// TODO m1EAwQf4: Remove
-		if (control.type == CONTROL_TYPE::CHANGE_RECT_TEST_COLOR)
-		{
-			// Map numpad to increasing or decreasing the RGB value of rect on screen
-			auto rgb_index = control.value_1;
-			auto value_change = control.value_2;
-			auto& rect_color = registry.colors.get(mouse_shape_entity);
-			rect_color[rgb_index] += value_change;
-		}
-
-		// TODO m1EAwQf4: Remove
-		if (control.type == CONTROL_TYPE::MOVE_RECT_TEST)
-		{
-			auto& pos = registry.positions.get(mouse_shape_entity);
-			pos.x = control.value_1;
-			pos.y = control.value_2;
-		}
-
-		// TODO m1EAwQf4: Remove
-		if (control.type == CONTROL_TYPE::PLACE_RECT_TEST && control.phase == CONTROL_PHASE::START)
-		{
-			auto& pos = registry.positions.get(mouse_shape_entity);
-			auto& size = registry.sizes.get(mouse_shape_entity);
-			auto& color = registry.colors.get(mouse_shape_entity);
-			createRectangle(vec2(pos.x, pos.y), size.width, size.height, color);
-		}
-
 		// The rest only matter at the phase end
 		if (control.phase != CONTROL_PHASE::END)
 		{
@@ -209,12 +175,7 @@ void WorldSystem::restart_game() {
 			grid_lines.push_back(createGridLine(vec2(0, col * cell_height), vec2(2 * WINDOW_WIDTH_PX, grid_line_width)));
 		}
 	}
-	
-	// TODO m1EAwQf4: This is only being used to make sure that the mouse rectangle isn't being destroyed on world_system reset so maybe don't need this.
-	// Recreate anything that may have been destroyed by world_system's restart_game function.
-	auto center_screen = vec2(WINDOW_WIDTH_PX / 2, WINDOW_HEIGHT_PX / 2);
-	mouse_shape_entity = createRectangle(center_screen, center_screen + vec2(200));
-	
+
 	// Request a player be made
 	Entity player_create_request_entity;
 	registry.playerCreateRequests.emplace(player_create_request_entity);

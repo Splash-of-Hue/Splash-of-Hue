@@ -127,8 +127,6 @@ public:
 		registry_list.push_back(&pathfinders);
 		registry_list.push_back(&shrimps);
 		registry_list.push_back(&toggles);
-		registry_list.push_back(&inputs);
-		registry_list.push_back(&controls);
 	}
 
 	void clear_all_components()
