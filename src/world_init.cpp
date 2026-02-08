@@ -49,20 +49,7 @@ Entity createRectangle(vec2 position, float width, float height, vec4 color, boo
 
 	Collidable& col = registry.collidables.emplace(entity);	
 	col.inelastic = true;
-	if (isColouredWall) {
-		registry.colouredWall.emplace(entity);
-		ColourState& csCW = registry.colourStates.emplace(entity);
-		csCW.curr_colour_state = COLOUR_STATE(state);
-		csCW.prev_colour_state = COLOUR_STATE(state);
-	}
 
-
-	//todo: remove when done testing
-	if (registry.toggles.entities.size() > 0) {
-		Entity& eTog = registry.toggles.entities[0];
-		Toggle& tTog = registry.toggles.get(eTog);
-		tTog.wallsToToggle.push_back(entity);
-	}
 
 	registry.renderRequests.insert(
 		entity,

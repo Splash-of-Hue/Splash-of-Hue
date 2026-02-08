@@ -18,6 +18,7 @@ struct M1TestData
 	vec2 player_start_position; 
 	std::vector<M1ShapeData> creatures;
 	std::vector<M1ShapeData> light_toggles;
+	std::vector<M1ShapeData> coloured_Walls;
 };
 
 const std::vector<M1TestData> m1_test_data = {
@@ -44,14 +45,41 @@ const std::vector<M1TestData> m1_test_data = {
 		{
 			// Two toggles
 			{
-				{ 100, 100 }, // size
-				{ 600, 220 }, // position
-				{ 1.0f, 0, 0, 1.0f  } // color
+				{ 50, 50 }, // size
+				{ 600, 50 }, // position
+				{ 0, 0, 0, 1.0f  } // color
 			},
 			{
 				{ 100, 100 }, // size
-				{ 150, 500 }, // position
-				{ 0, 0, 1.0f, 1.0f  } // color
+				{ 700, 400 }, // position
+				{ 0, 1.f, 0.f, 1.0f  } // color
+			},
+		},
+		{
+			{
+				{20, 100},
+				{600, 100},
+				{ 0.0f, 0, 0, 1.0f  } // color
+			}, 
+			{
+				{100, 20},
+				{640, 150},
+				{ 0.0f, 0, 0, 1.0f  } // color
+			},
+			{
+				{20, 100},
+				{680, 210},
+				{ 0.0f, 0, 0, 1.0f  } // color
+			},
+			{
+				{100, 20},
+				{640, 270},
+				{ 0.0f, 0, 0, 1.0f  } // color
+			},
+			{
+				{20, 200},
+				{600, 370},
+				{ 0.0f, 0, 0, 1.0f  } // color
 			},
 		},
 	}
@@ -83,6 +111,24 @@ void LoaderSystem::load_level(int level_uid)
 		ColourState& csT = registry.colourStates.emplace(toggle_entity);
 		csT.curr_colour_state = COLOUR_STATE::NEUTRAL;
 		csT.prev_colour_state = COLOUR_STATE::NEUTRAL;
+	}
+
+	for (auto& wall : level_data.coloured_Walls)
+	{
+		auto& colouredWall = createRectangle(wall.position, wall.size.width, wall.size.height, wall.color);
+
+		registry.colouredWall.emplace(colouredWall);
+		ColourState& csCW = registry.colourStates.emplace(colouredWall);
+		csCW.curr_colour_state = COLOUR_STATE::NEUTRAL;
+		csCW.prev_colour_state = COLOUR_STATE::NEUTRAL;
+
+
+		//todo: remove when done testing
+		if (registry.toggles.entities.size() > 0) {
+			Entity& eTog = registry.toggles.entities[0];
+			Toggle& tTog = registry.toggles.get(eTog);
+			tTog.wallsToToggle.push_back(colouredWall);
+		}
 	}
 }
 
