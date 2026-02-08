@@ -74,33 +74,25 @@ void LoaderSystem::load_level(int level_uid)
 	auto& level_data = m1_test_data[level_uid];
 	Entity level_entity;
 	registry.levels.insert(level_entity, { level_uid });
+	// TODO SnB9A38K: Move to player creation
+	auto& player_entity = createCircle(level_data.player_start_position, 40.0f, { 1.0f, 0, 0, 1.0f});
+	registry.players.emplace(player_entity);
+	//TODO: remove after testing
+	vec2 velocity = { 0.0f, 0.0f };
+	registry.velocities.insert(player_entity, velocity);
+	// Colour system 
+	registry.colourStates.emplace(player_entity);
+	registry.colourStates.get(player_entity).curr_colour_state = COLOUR_STATE::NEUTRAL;
 
-	// For now, the player is a red circle of size 40
-	Entity& player_entity = createCircle(level_data.player_start_position, 40.0f, { 1.0f, 0, 0, 1.0f });
-
-	// Just for testing purposes, will be removed later 
-	if (registry.players.entities.size() == 0) {
-		registry.players.emplace(player_entity);
-	}
-	else
-	{
-		Entity& player_entity = registry.players.entities[0];
-	}
-	
-	// TODO SnB9A38K: Move to player controller
-	Motion& player_motion_component = registry.motions.emplace(player_entity);
-	player_motion_component.position = vec2(0.0f, 0.0f); // stick it in the middle
-	player_motion_component.velocity = vec2(0.0f, 0.0f);
 
 	// Load each "creature", make a rectangle
 	for (auto& creature : level_data.creatures)
 	{
+		// TODO: adjust after testing.
 		Entity& creature_entity = createRectangle(creature.position, creature.size.width, creature.size.height, creature.color);
 		Creature& creature_component = registry.creatures.emplace(creature_entity);
 		creature_component.creatureType = creature.creatureType;
-		Motion& motion_component = registry.motions.emplace(creature_entity);
-		motion_component.position = creature.position;
-		motion_component.velocity = creature.velocity;
+	
 	}
 
 	// Load each "toggle", make a circle

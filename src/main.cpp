@@ -15,6 +15,7 @@
 #include "physics_system.hpp"
 #include "renderer/render_system.hpp"
 #include "world_system.hpp"
+#include "sound/sound_system.hpp"
 #include "creature_behaviour_system/creature_behaviour_system.hpp"
 
 using Clock = std::chrono::high_resolution_clock;
@@ -27,6 +28,7 @@ int main()
 	WorldSystem   world_system;
 	RenderSystem  renderer_system;
 	PhysicsSystem physics_system;
+	SoundSystem   sound_system;
 	AnimationSystem animation_system;
 	InputSystem input_system;
 	LoaderSystem loader_system;
@@ -43,12 +45,13 @@ int main()
 		return EXIT_FAILURE;
 	}
 
-	if (!world_system.start_and_load_sounds()) {
+	if (!sound_system.start_and_load_sounds()) {
 		std::cerr << "ERROR: Failed to start or load sounds." << std::endl;
 	}
 
 
 	// initialize the main systems
+	sound_system.init();
 	input_system.init(window);
 	renderer_system.init(window);
 	world_system.init(&renderer_system);
@@ -76,7 +79,8 @@ int main()
 		creature_behaviour_system.step(elapsed_ms);
 		physics_system.step(elapsed_ms);
 		animation_system.step(elapsed_ms);
-		world_system.handle_collisions(); // Question from Sophia: should this not come right after physics_system.step? I would imagine we'd want collisions to be handled before animations?
+		world_system.handle_behaviour_change();
+
 
 		renderer_system.draw();
 	}
