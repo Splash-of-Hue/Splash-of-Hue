@@ -184,12 +184,6 @@ void PhysicsSystem::step(float elapsed_ms)
 					float x_depth = box1[3] < box2[3] ? box1[3] - box2[2] : box2[3] - box1[2];
 					float y_depth = box1[1] < box2[1] ? box1[1] - box2[0] : box2[1] - box1[0];
 
-					//if entity_i does not have a velocity, it should not be corrected
-					if (!registry.velocities.has(entity_i)) {
-						vec2& x = pos1;
-						pos1 = pos2;
-						pos2 = x;
-					}
 					if (x_depth < y_depth) {
 						if (pos1.x < pos2.x) {
 							pos1.x -= x_depth;

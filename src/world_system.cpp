@@ -269,6 +269,7 @@ void WorldSystem::restart_game() {
 		sizePlayer.width = 20.f;
 		registry.velocities.insert(player, vec2(0.0f, 0.0f));
 		registry.angles.emplace(player);
+		registry.collidables.insert(player, {false, true});
 
 		// rendering so player is visible 
 		registry.circles.emplace(player);
