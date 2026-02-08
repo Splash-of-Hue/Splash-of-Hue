@@ -11,6 +11,7 @@
 void ControlInputConversionSystem::step(float elapsed_ms)
 {
 	processed_types_this_frame.clear();
+	registry.controls.clear();
 
 	for (Entity& entity : registry.inputs.entities)
 	{

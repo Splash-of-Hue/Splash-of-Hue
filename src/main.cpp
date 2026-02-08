@@ -8,6 +8,7 @@
 // internal
 #include "ai_system.hpp"
 #include "animation/animation_system.hpp"
+#include "controllers/player_controller_system.hpp"
 #include "controls/control_input_conversion_system.hpp"
 #include "input/input_system.hpp"
 #include "loading/loader_system.hpp"
@@ -32,6 +33,7 @@ int main()
 	InputSystem input_system;
 	LoaderSystem loader_system;
 	ControlInputConversionSystem control_input_conversion_system;
+	PlayerControllerSystem player_controller_system;
 	ColourSystem colour_system;
 
 	// initialize window
@@ -70,6 +72,7 @@ int main()
 
 		// CK: be mindful of the order of your systems and rearrange this list only if necessary
 		control_input_conversion_system.step(elapsed_ms);
+		player_controller_system.step(elapsed_ms);
 		loader_system.step(elapsed_ms);
 		colour_system.step(elapsed_ms);
 		world_system.step(elapsed_ms);

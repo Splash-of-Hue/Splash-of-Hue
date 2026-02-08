@@ -26,7 +26,7 @@ const std::vector<M1TestData> m1_test_data = {
 		{ 100, 100 },
 		{
 			// Three creatures
-			/*{
+			{
 				{ 100, 100 }, // size
 				{ 400, 120 }, // position
 				{ 0.2f, 0.4f, 0, 1.0f } // color
@@ -40,7 +40,7 @@ const std::vector<M1TestData> m1_test_data = {
 				{ 50, 200 }, // size
 				{ 800, 320 }, // position
 				{ 0.4f, 0, 0.85f, 1.0f  } // color
-			},*/
+			},
 		},
 		{
 			// Two toggles
@@ -87,21 +87,15 @@ const std::vector<M1TestData> m1_test_data = {
 
 void LoaderSystem::load_level(int level_uid)
 {
-	std::cout << "hello!" << std::endl;
 	assert(level_uid == 0 && "For M1, we are using mock data, and the unique ID must be 0");
 	auto& level_data = m1_test_data[level_uid];
 	Entity level_entity;
 	registry.levels.insert(level_entity, { level_uid });
-	// TODO SnB9A38K: Move to player creation
-	auto& player_entity = createCircle(level_data.player_start_position, 40.0f, { 1.0f, 0, 0, 1.0f});
-	//TODO: remove after testing
-	vec2 velocity = { 0.0f, 0.0f };
-	registry.velocities.insert(player_entity, velocity);
-	// Colour system 
-	registry.colourStates.emplace(player_entity);
-	registry.colourStates.get(player_entity).curr_colour_state = COLOUR_STATE::NEUTRAL;
 
-
+	// For now, the player is a red circle of size 40
+	auto& player_entity = registry.players.entities[0];
+	auto& player_position = registry.positions.get(player_entity);
+	player_position = level_data.player_start_position;
 
 	// Load each "creature", make a rectangle
 	for (auto& creature : level_data.creatures)

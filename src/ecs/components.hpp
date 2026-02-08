@@ -4,12 +4,6 @@
 #include <map>
 #include <vector>
 
-// Player component
-struct Player
-{
-	float speed = PLAYER_SPEED;
-};
-
 enum class COLOUR_STATE {
 	NEUTRAL = 0,
 	BLUE = 1,

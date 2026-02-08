@@ -3,6 +3,7 @@
 
 #include "animation/animation_components.hpp"
 #include "components.hpp"
+#include "controllers/player_components.hpp"
 #include "controls/control_components.hpp"
 #include "input/input_components.hpp"
 #include "loading/loading_components.hpp"
@@ -56,6 +57,7 @@ public:
 	ComponentContainer<Size> sizes;
 	ComponentContainer<vec2> velocities;
 	// Player
+	ComponentContainer<PlayerCreateRequests> playerCreateRequests;
 	ComponentContainer<Player> players;
 	// Rendering
 	ComponentContainer<Mesh*> meshPtrs;
@@ -111,6 +113,7 @@ public:
 		registry_list.push_back(&sizes);
 		registry_list.push_back(&velocities);
 		// Player
+		registry_list.push_back(&playerCreateRequests);
 		registry_list.push_back(&players);
 		// Rendering
 		registry_list.push_back(&meshPtrs);
