@@ -123,8 +123,6 @@ public:
 		// Spawnables
 		registry_list.push_back(&creatures);
 		registry_list.push_back(&toggles);
-		registry_list.push_back(&inputs);
-		registry_list.push_back(&controls);
 	}
 
 	void clear_all_components()
