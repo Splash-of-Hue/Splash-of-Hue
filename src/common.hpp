@@ -45,7 +45,7 @@ const int WINDOW_HEIGHT_PX = 600;
 const int GRID_CELL_WIDTH_PX = 60;
 const int GRID_CELL_HEIGHT_PX = 60;
 const int GRID_LINE_WIDTH_PX = 2;
-
+const int PLAYER_SPEED = 10.0f;
 // towers
 const int MAX_TOWERS_START = 5;
 const float TOWER_TIMER_MS = 1000.0f;	// number of milliseconds between tower shots
@@ -66,6 +66,9 @@ const float INVADER_BB_HEIGHT = (float)GRID_CELL_HEIGHT_PX;
 // towers are 64x64 px, but cells are 60x60
 const float TOWER_BB_WIDTH = (float)GRID_CELL_WIDTH_PX;
 const float TOWER_BB_HEIGHT = (float)GRID_CELL_HEIGHT_PX;
+
+// colour system 
+const vec4 DEFAULT_COLOUR = vec4(1.0f, 1.0f, 1.0f, 1.0f);
 
 #ifndef M_PI
 #define M_PI 3.14159265358979323846f

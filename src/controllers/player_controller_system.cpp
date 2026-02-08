@@ -1,15 +1,17 @@
 #include "controllers/player_controller_system.hpp"
 #include "controls/control_constants.hpp"
 #include "ecs/registry.hpp"
+#include "world_init.hpp"
 #include <iostream>
 
 Entity PlayerControllerSystem::create_player()
 {
-	Entity player_entity;
-	registry.players.emplace(player_entity);
-	registry.motions.emplace(player_entity);
-	registry.positions.emplace(player_entity);
+	auto& player_entity = createCircle({ 0, 0 }, 40.0f, {1.0f, 0, 0, 1.0f});
+	vec2 velocity = { 0.0f, 0.0f };
 	player_movement = vec2(0);
+	registry.players.emplace(player_entity);
+	registry.velocities.insert(player_entity, velocity);
+	registry.colourStates.emplace(player_entity);
 
 	return player_entity;
 }
@@ -32,7 +34,7 @@ void PlayerControllerSystem::step(float elapsed_ms)
 
 	// Reset player velocity each step
 	auto& player_entity = registry.players.entities[0];
-	auto& player_velocity = registry.motions.get(player_entity).velocity;
+	auto& player_velocity = registry.velocities.get(player_entity);
 	player_velocity = vec2(0);
 
 	for (auto& entity : registry.controls.entities)
