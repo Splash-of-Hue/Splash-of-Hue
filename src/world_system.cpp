@@ -319,7 +319,6 @@ void WorldSystem::handle_behaviour_change() {
 	for (uint i = 0; i < changes.components.size(); i++) {
 		Entity& entity = changes.entities[i];
 		std::cout << "Entity has interacted with a colour radius! Entity: " << entity.id() << std::endl;
-
 	}
 	// Since behaviour change was handled, remove the entity
 	registry.change_behaviours.clear();

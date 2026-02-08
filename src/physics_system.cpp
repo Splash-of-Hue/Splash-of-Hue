@@ -128,8 +128,7 @@ void PhysicsSystem::step(float elapsed_ms)
 				vec2& posI = registry.positions.get(entity_i);
 				vec2& posJ = registry.positions.get(entity_j);
 
-				registry.list_all_components_of(entity_i);
-
+				//registry.list_all_components_of(entity_i);
 				//std::cout << posI.x << " " << posI.y << std::endl;
 				//registry.list_all_components_of(entity_j);
 				//std::cout << posJ.x << " " << posJ.y << std::endl;
@@ -161,28 +160,57 @@ void PhysicsSystem::step(float elapsed_ms)
 
 				}
 
-				if (registry.collidables.get(entity_i).overlay) {
-					//let world_systems handle it
-					//extra guard for potential errors
-					if (!registry.change_behaviours.has(entity_j)) {
-						registry.change_behaviours.emplace(entity_j);
-					}
-				}
-				if (registry.collidables.get(entity_j).overlay) {
-					if (!registry.change_behaviours.has(entity_i)) {
-						registry.change_behaviours.emplace(entity_i);
-					}
-				}
-				//must both be inelastic for this collision resolution to occur
-				if (registry.collidables.get(entity_i).inelastic && registry.collidables.get(entity_j).inelastic) {
-					//handle it here because using bounding box for correction (also it is a physics resolution)
-					vec2& pos1 = registry.positions.get(entity_i);
-					vec2& pos2 = registry.positions.get(entity_j);
-					vec4 box1 = get_bounding_box(entity_i);
-					vec4 box2 = get_bounding_box(entity_j);
+				//the button is a circle, is in an overlay? do we walk on top of the button?
+				//is it only our radius that affects the button?
+				//This assumed the button in a circle, and is an overlay, but since we send the rectangle
+				//to "change_behaviours," i need to implement this code
 
-					float x_depth = box1[3] < box2[3] ? box1[3] - box2[2] : box2[3] - box1[2];
-					float y_depth = box1[1] < box2[1] ? box1[1] - box2[0] : box2[1] - box1[0];
+				if (registry.toggles.has(entity_i) || registry.toggles.has(entity_j)) {
+					Entity& eT = registry.toggles.has(entity_i) ? entity_i : entity_j;
+					Entity& eO = registry.toggles.has(entity_j) ? entity_i : entity_j;
+
+					Toggle& tT = registry.toggles.get(eT);
+					if (registry.colourStates.has(eO)) {
+						ColourState& csO = registry.colourStates.get(eO);
+						ColourState& csT = registry.colourStates.get(eT);
+						if (csT.curr_colour_state != csO.curr_colour_state) {
+							vec4& colT = registry.colors.get(eT);
+							vec4& colO = registry.colors.get(eO);
+							colT = colO;
+							for (Entity& toggledEntity : tT.wallsToToggle) {
+								ColourState& csTE = registry.colourStates.get(toggledEntity);
+								csTE.prev_colour_state = csTE.curr_colour_state;
+								csTE.curr_colour_state = csO.curr_colour_state;
+								vec4& colTE = registry.colors.get(toggledEntity);
+								colTE = vec4{ colO.r, colO.g, colO.b, colO.a };
+							}
+						}
+					}
+					
+				}
+				else {
+					if (registry.collidables.get(entity_i).overlay) {
+						//let world_systems handle it
+						//extra guard for potential errors
+						if (!registry.change_behaviours.has(entity_j)) {
+							registry.change_behaviours.emplace(entity_j);
+						}
+					}
+					if (registry.collidables.get(entity_j).overlay) {
+						if (!registry.change_behaviours.has(entity_i)) {
+							registry.change_behaviours.emplace(entity_i);
+						}
+					}
+					//must both be inelastic for this collision resolution to occur
+					if (registry.collidables.get(entity_i).inelastic && registry.collidables.get(entity_j).inelastic) {
+						//handle it here because using bounding box for correction (also it is a physics resolution)
+						vec2& pos1 = registry.positions.get(entity_i);
+						vec2& pos2 = registry.positions.get(entity_j);
+						vec4 box1 = get_bounding_box(entity_i);
+						vec4 box2 = get_bounding_box(entity_j);
+
+						float x_depth = box1[3] < box2[3] ? box1[3] - box2[2] : box2[3] - box1[2];
+						float y_depth = box1[1] < box2[1] ? box1[1] - box2[0] : box2[1] - box1[0];
 
 					if (x_depth < y_depth) {
 						if (pos1.x < pos2.x) {
@@ -192,18 +220,18 @@ void PhysicsSystem::step(float elapsed_ms)
 							pos1.x += x_depth;
 						}
 
-					}
-					else {
-						if (pos1.y < pos2.y) {
-							pos1.y -= y_depth;
 						}
 						else {
-							pos1.y += y_depth;
+							if (pos1.y < pos2.y) {
+								pos1.y -= y_depth;
+							}
+							else {
+								pos1.y += y_depth;
+							}
 						}
+
 					}
-
 				}
-
 			}
 			
 		}
