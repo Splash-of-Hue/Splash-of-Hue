@@ -319,7 +319,19 @@ void WorldSystem::handle_behaviour_change() {
 	for (uint i = 0; i < changes.components.size(); i++) {
 		Entity& entity = changes.entities[i];
 		std::cout << "Entity has interacted with a colour radius! Entity: " << entity.id() << std::endl;
+		
+		assert(!registry.players.entities.empty() && "There must be one player");
+		Entity player = registry.players.entities[0];
+		assert(registry.colourStates.has(player) && "player entity must have a ColourState component");
+		COLOUR_STATE player_colour_state = registry.colourStates.get(player).curr_colour_state;
+
+		assert(registry.colourStates.has(entity) && "Entity that interacted with radius must have a ColourState component");
+		ColourState& entity_colour_state = registry.colourStates.get(entity);
+		entity_colour_state.prev_colour_state = entity_colour_state.curr_colour_state;
+		entity_colour_state.curr_colour_state = player_colour_state;
+		std::cout << "Entity's colour state changed to: " << int(entity_colour_state.curr_colour_state) << "from: " << int(entity_colour_state.prev_colour_state) << std::endl;
 	}
+
 	// Since behaviour change was handled, remove the entity
 	registry.change_behaviours.clear();
 }
