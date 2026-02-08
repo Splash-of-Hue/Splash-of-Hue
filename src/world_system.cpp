@@ -6,8 +6,6 @@
 #include <cassert>
 #include <sstream>
 #include <iostream>
-#include <map>
-#include <tuple>
 
 #include "physics_system.hpp"
 #include "loading/loading_constants.hpp"
@@ -103,45 +101,9 @@ bool WorldSystem::step(float elapsed_ms_since_last_update) {
 	while (registry.debugComponents.entities.size() > 0)
 	    registry.remove_all_components_of(registry.debugComponents.entities.back());
 
-	// TODO SnB9A38K: Move the player controller system
-	Entity& player_entity = registry.players.entities[0];
-	vec2& player_pos = registry.positions.get(player_entity);
-	vec2& player_vel = registry.velocities.get(player_entity);
-	float player_speed = registry.players.get(player_entity).speed;
-	player_vel = vec2(0);
-	
-	// TODO SnB9A38K: Move some of this to player controller and leave other parts for a window controller
-	for (Entity& entity : registry.controls.entities)
+	for (auto& entity : registry.controls.entities)
 	{
 		Control& control = registry.controls.get(entity);
-
-		//// exit game w/ ESC
-		if (control.type == CONTROL_TYPE::END_GAME)
-		{
-			close_window();
-		}
-
-		//// Resetting game
-		if (control.type == CONTROL_TYPE::RESTART && control.phase == CONTROL_PHASE::END)
-		{
-			int w, h;
-			glfwGetWindowSize(window, &w, &h);
-
-			restart_game();
-		}
-
-		//// Movement, on push sets the corresponding bitset value to true and on release sets it to false
-		if (control.type == CONTROL_TYPE::MOVE)
-		{
-			if (control.phase == CONTROL_PHASE::START)
-			{
-				player_movement += vec2(control.value_1, control.value_2);
-			}
-			else if (control.phase == CONTROL_PHASE::END)
-			{
-				player_movement -= vec2(control.value_1, control.value_2);
-			}
-		}
 
 		// TODO m1EAwQf4: Remove
 		if (control.type == CONTROL_TYPE::CHANGE_RECT_TEST_SIZE)
@@ -177,14 +139,33 @@ bool WorldSystem::step(float elapsed_ms_since_last_update) {
 			createRectangle(vec2(pos.x, pos.y), size.width, size.height, color);
 		}
 
-		if (control.type == CONTROL_TYPE::DEBUG && control.phase == CONTROL_PHASE::END)
+		// The rest only matter at the phase end
+		if (control.phase != CONTROL_PHASE::END)
+		{
+			continue;
+		}
+
+		if (control.type == CONTROL_TYPE::END_GAME)
+		{
+			close_window();
+		}
+
+		//// Resetting game
+		if (control.type == CONTROL_TYPE::RESTART)
+		{
+			int w, h;
+			glfwGetWindowSize(window, &w, &h);
+
+			restart_game();
+		}
+
+		if (control.type == CONTROL_TYPE::DEBUG)
 		{
 			// Toggle debug mode
 			debugging.in_debug_mode = !debugging.in_debug_mode;
 		}
 	}
 
-	registry.controls.clear();
 	assert(registry.screenStates.components.size() <= 1);
     ScreenState &screen = registry.screenStates.components[0];
 
@@ -233,16 +214,13 @@ void WorldSystem::restart_game() {
 	// Recreate anything that may have been destroyed by world_system's restart_game function.
 	auto center_screen = vec2(WINDOW_WIDTH_PX / 2, WINDOW_HEIGHT_PX / 2);
 	mouse_shape_entity = createRectangle(center_screen, center_screen + vec2(200));
-
-	// Now only one rectangle is collidable TODO: remove after testing
-	Collidable& col = registry.collidables.emplace(mouse_shape_entity);
-	col.inelastic = true;
 	
+	// Request a player be made
+	Entity player_create_request_entity;
+	registry.playerCreateRequests.emplace(player_create_request_entity);
 	// Load level
 	Entity load_request_entity;
 	registry.loadRequests.insert(load_request_entity, { LOAD_TYPE::LOAD_LEVEL, current_level_uid });
-
-	player_movement = vec2(0);
 }
 
 // When entity collides with colour radius, it needs to have its behaviour change handled here
