@@ -97,8 +97,6 @@ public:
 		registry_list.push_back(&colourPalettes);
 		registry_list.push_back(&colourMenuStates);
 		registry_list.push_back(&colourMenuInputs);
-		
-
 	}
 
 	void clear_all_components()
