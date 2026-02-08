@@ -58,7 +58,6 @@ Entity createRectangle(vec2 position, float width, float height, vec4 color)
 	registry.sizes.insert(entity, size);
 	registry.rectangles.emplace(entity);
 	registry.colors.emplace(entity, color);
-	registry.inelasticCollisions.emplace(entity); // TODO: inelastic for rectangle, overlay for circle
 	
 	registry.renderRequests.insert(
 		entity,
@@ -77,13 +76,11 @@ Entity createRectangle(vec2 top_left, vec2 bottom_right, vec4 color)
 
 	auto rectangle_diagonal = (bottom_right - top_left);
 	Size size = { rectangle_diagonal.x, rectangle_diagonal.y };
-	//auto center = top_left + (rectangle_diagonal * vec2(0.5));
 	auto center = (bottom_right + top_left) * vec2(0.5);
 	registry.positions.insert(entity, center);
 	registry.sizes.insert(entity, size);
 	registry.rectangles.emplace(entity);
 	registry.colors.emplace(entity, color);
-	registry.inelasticCollisions.emplace(entity);
 
 	registry.renderRequests.insert(
 		entity,
@@ -105,8 +102,7 @@ Entity createCircle(vec2 position, float radius, vec4 color)
 	registry.sizes.insert(entity, size);
 	registry.circles.emplace(entity);
 	registry.colors.emplace(entity, color);
-
-	registry.overlayCollisions.emplace(entity);
+	
 	registry.renderRequests.insert(
 		entity,
 		{

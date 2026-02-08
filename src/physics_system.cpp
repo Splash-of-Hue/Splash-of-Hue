@@ -44,15 +44,6 @@ void PhysicsSystem::step(float elapsed_ms)
 	// Move each entity that has motion (invaders, projectiles, and even towers [they have 0 for velocity])
 	// based on how much time has passed, this is to (partially) avoid
 	// having entities move at different speed based on the machine.
-	auto& motion_registry = registry.motions;
-	for(uint i = 0; i< motion_registry.size(); i++)
-	{
-		Motion& motion = motion_registry.components[i];
-		Entity entity = motion_registry.entities[i];
-		float step_seconds = elapsed_ms / 1000.f;
-
-		(void)elapsed_ms; // placeholder to silence unused warning until implemented
-	}
 
 	// check for collisions between all positioned entities
     ComponentContainer<vec2> &position_container = registry.positions;
@@ -73,7 +64,15 @@ void PhysicsSystem::step(float elapsed_ms)
 				// CK: why the duplication, except to allow searching by entity_id
 				if (registry.overlayCollisions.has(entity_i) || registry.overlayCollisions.has(entity_i)) {
 					//let world_systems handle it
-					registry.collisions.emplace(entity_i, entity_j);
+					//extra guard for potential errors
+					if (!registry.change_behaviours.has(entity_j)) {
+						registry.change_behaviours.emplace(entity_j);
+					}
+				}
+				if (registry.collidables.get(entity_j).overlay) {
+					if (!registry.change_behaviours.has(entity_i)) {
+						registry.change_behaviours.emplace(entity_i);
+					}
 				}
 				//must both be inelastic for this collision resolution to occur
 				if (registry.inelasticCollisions.has(entity_i) && registry.inelasticCollisions.has(entity_i)) {
@@ -113,16 +112,20 @@ void PhysicsSystem::step(float elapsed_ms)
 		}
 	}
 
-	handle_player_movement();
-}
-
-// TODO SnB9A38K: Move to a player controller system and remove input in favour of component
-void PhysicsSystem::handle_player_movement()
+void PhysicsSystem::handle_movement()
 {
-	auto &player_container = registry.players;
-	assert(player_container.size() == 1 && "Should only be 1 player.");
-	auto& player_entity = player_container.entities[0];
+	ComponentContainer<vec2>& moving_entities = registry.velocities;
 
-	auto& player_velocity = registry.motions.get(player_entity).velocity;
-	std::cout << "DEBUG: Moving x: " << player_velocity.x << ", y: " << player_velocity.y << std::endl;
+	for (int i = 0; i < moving_entities.size(); i++) {
+		vec2& pos = registry.positions.get(moving_entities.entities[i]);
+		vec2& vel = registry.velocities.get(moving_entities.entities[i]);
+		pos += vel;
+		//entities travel within screen, for testing
+		if (pos.x > WINDOW_WIDTH_PX || pos.x < 0) {
+			vel.x *= -1;
+		}
+		if (pos.y < 0 || pos.y > WINDOW_HEIGHT_PX) {
+			vel.y *= -1;
+		}
+	}
 }

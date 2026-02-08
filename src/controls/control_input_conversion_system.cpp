@@ -11,6 +11,7 @@
 void ControlInputConversionSystem::step(float elapsed_ms)
 {
 	processed_types_this_frame.clear();
+	registry.controls.clear();
 
 	for (Entity& entity : registry.inputs.entities)
 	{
@@ -144,7 +145,7 @@ Control& ControlInputConversionSystem::convert_mouse_button_input(const Input& i
 
 Control& ControlInputConversionSystem::convert_mouse_scroll_input(const Input& input)
 {
-	Control control = { CONTROL_TYPE::CHANGE_RECT_TEST_SIZE };
+	Control control = { CONTROL_TYPE::INVALID };
 	control.phase = CONTROL_PHASE::END;
 	control.value_1 = input.value_1;
 	control.value_2 = input.value_2;
@@ -154,7 +155,7 @@ Control& ControlInputConversionSystem::convert_mouse_scroll_input(const Input& i
 
 Control& ControlInputConversionSystem::convert_mouse_move_input(const Input& input)
 {
-	Control control = { CONTROL_TYPE::MOVE_RECT_TEST };
+	Control control = { CONTROL_TYPE::INVALID };
 	control.phase = CONTROL_PHASE::END;
 	control.value_1 = input.value_1;
 	control.value_2 = input.value_2;

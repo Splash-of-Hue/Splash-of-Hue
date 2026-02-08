@@ -6,8 +6,6 @@
 #include <cassert>
 #include <sstream>
 #include <iostream>
-#include <map>
-#include <tuple>
 
 #include "physics_system.hpp"
 #include "loading/loading_constants.hpp"
@@ -24,14 +22,6 @@ WorldSystem::WorldSystem() :
 }
 
 WorldSystem::~WorldSystem() {
-	// Destroy music components
-	if (background_music != nullptr)
-		Mix_FreeMusic(background_music);
-	if (invader_hit_sound != nullptr)
-		Mix_FreeChunk(invader_hit_sound);
-	if (tower_hit_sound != nullptr)
-		Mix_FreeChunk(tower_hit_sound);
-	Mix_CloseAudio();
 
 	// Destroy all created components
 	registry.clear_all_components();
@@ -90,42 +80,10 @@ GLFWwindow* WorldSystem::create_window() {
 	return window;
 }
 
-bool WorldSystem::start_and_load_sounds() {
-	
-	//////////////////////////////////////
-	// Loading music and sounds with SDL
-	if (SDL_Init(SDL_INIT_AUDIO) < 0) {
-		fprintf(stderr, "Failed to initialize SDL Audio");
-		return false;
-	}
-
-	if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048) == -1) {
-		fprintf(stderr, "Failed to open audio device");
-		return false;
-	}
-
-	background_music = Mix_LoadMUS(audio_path("music.wav").c_str());
-	invader_hit_sound = Mix_LoadWAV(audio_path("invader_hit.wav").c_str());
-	tower_hit_sound = Mix_LoadWAV(audio_path("tower_hit.wav").c_str());
-
-	if (background_music == nullptr || invader_hit_sound == nullptr || tower_hit_sound == nullptr) {
-		fprintf(stderr, "Failed to load sounds\n %s\n %s\n %s\n make sure the data directory is present",
-			audio_path("music.wav").c_str(),
-			audio_path("invader_hit.wav").c_str(),
-			audio_path("tower_hit.wav").c_str());
-		return false;
-	}
-
-	return true;
-}
-
 void WorldSystem::init(RenderSystem* renderer_arg) {
 
 	this->renderer = renderer_arg;
 
-	// start playing background music indefinitely
-	std::cout << "Starting music..." << std::endl;
-	Mix_PlayMusic(background_music, -1);
 
 	// Set all states to default
     restart_game();
@@ -143,39 +101,23 @@ bool WorldSystem::step(float elapsed_ms_since_last_update) {
 	while (registry.debugComponents.entities.size() > 0)
 	    registry.remove_all_components_of(registry.debugComponents.entities.back());
 
-	// Removing out of screen entities
-	auto& motions_registry = registry.motions;
-
-	// Remove entities that leave the screen on the left side
-	// Iterate backwards to be able to remove without interfering with the next object to visit
-	// (the containers exchange the last element with the current)
-	for (int i = (int)motions_registry.components.size()-1; i>=0; --i) {
-	    Motion& motion = motions_registry.components[i];
-		if (motion.position.x + abs(motion.scale.x) < 0.f) {
-			if(!registry.players.has(motions_registry.entities[i])) // don't remove the player
-				registry.remove_all_components_of(motions_registry.entities[i]);
-		}
-	}
-
-	// TODO SnB9A38K: Move the player controller system
-	// Reset player velocity each step
-	auto& player_entity = registry.players.entities[0];
-	auto& player_velocity = motions_registry.get(player_entity).velocity;
-	player_velocity = vec2(0);
-	
-	// TODO SnB9A38K: Move some of this to player controller and leave other parts for a window controller
 	for (auto& entity : registry.controls.entities)
 	{
-		auto& control = registry.controls.get(entity);
+		Control& control = registry.controls.get(entity);
 
-		//// exit game w/ ESC
+		// The rest only matter at the phase end
+		if (control.phase != CONTROL_PHASE::END)
+		{
+			continue;
+		}
+
 		if (control.type == CONTROL_TYPE::END_GAME)
 		{
 			close_window();
 		}
 
 		//// Resetting game
-		if (control.type == CONTROL_TYPE::RESTART && control.phase == CONTROL_PHASE::END)
+		if (control.type == CONTROL_TYPE::RESTART)
 		{
 			int w, h;
 			glfwGetWindowSize(window, &w, &h);
@@ -183,63 +125,12 @@ bool WorldSystem::step(float elapsed_ms_since_last_update) {
 			restart_game();
 		}
 
-		//// Movement, on push sets the corresponding bitset value to true and on release sets it to false
-		if (control.type == CONTROL_TYPE::MOVE)
-		{
-			if (control.phase == CONTROL_PHASE::START)
-			{
-				player_movement += vec2(control.value_1, control.value_2);
-			}
-			else if (control.phase == CONTROL_PHASE::END)
-			{
-				player_movement -= vec2(control.value_1, control.value_2);
-			}
-		}
-
-		// TODO m1EAwQf4: Remove
-		if (control.type == CONTROL_TYPE::CHANGE_RECT_TEST_SIZE)
-		{
-			auto& size = registry.sizes.get( mouse_shape_entity);
-			size.width += control.value_2;
-		}
-
-		// TODO m1EAwQf4: Remove
-		if (control.type == CONTROL_TYPE::CHANGE_RECT_TEST_COLOR)
-		{
-			// Map numpad to increasing or decreasing the RGB value of rect on screen
-			auto rgb_index = control.value_1;
-			auto value_change = control.value_2;
-			auto& rect_color = registry.colors.get(mouse_shape_entity);
-			rect_color[rgb_index] += value_change;
-		}
-
-		// TODO m1EAwQf4: Remove
-		if (control.type == CONTROL_TYPE::MOVE_RECT_TEST)
-		{
-			auto& pos = registry.positions.get(mouse_shape_entity);
-			pos.x = control.value_1;
-			pos.y = control.value_2;
-		}
-
-		// TODO m1EAwQf4: Remove
-		if (control.type == CONTROL_TYPE::PLACE_RECT_TEST && control.phase == CONTROL_PHASE::START)
-		{
-			auto& pos = registry.positions.get(mouse_shape_entity);
-			auto& size = registry.sizes.get(mouse_shape_entity);
-			auto& color = registry.colors.get(mouse_shape_entity);
-			createRectangle(vec2(pos.x, pos.y), size.width, size.height, color);
-		}
-
-		if (control.type == CONTROL_TYPE::DEBUG && control.phase == CONTROL_PHASE::END)
+		if (control.type == CONTROL_TYPE::DEBUG)
 		{
 			// Toggle debug mode
 			debugging.in_debug_mode = !debugging.in_debug_mode;
 		}
 	}
-
-	registry.controls.clear();
-	// TODO SnB9A38K: Move to player controller
-	player_velocity += player_movement;
 
 	assert(registry.screenStates.components.size() <= 1);
     ScreenState &screen = registry.screenStates.components[0];
@@ -258,15 +149,13 @@ void WorldSystem::restart_game() {
 	// Reset the game speed
 	current_speed = 1.f;
 
-	// Remove all entities that we created
-	// All that have a motion, we could also iterate over all bug, eagles, ... but that would be more cumbersome
-	while (registry.motions.entities.size() > 0)
-		registry.remove_all_components_of(registry.motions.entities.back());
-	while (registry.renderRequests.entities.size() > 0)
-		registry.remove_all_components_of(registry.renderRequests.entities.back());
-
 	// debugging for memory/component leaks
 	registry.list_all_components();
+	
+	while (registry.velocities.entities.size() > 0)
+		registry.remove_all_components_of(registry.velocities.entities.back());
+	while (registry.renderRequests.entities.size() > 0)
+		registry.remove_all_components_of(registry.renderRequests.entities.back());
 
 	int grid_line_width = GRID_LINE_WIDTH_PX;
 
@@ -286,62 +175,25 @@ void WorldSystem::restart_game() {
 			grid_lines.push_back(createGridLine(vec2(0, col * cell_height), vec2(2 * WINDOW_WIDTH_PX, grid_line_width)));
 		}
 	}
-	{
-		Entity player = Entity();
 
-		// mark entity as player
-		registry.players.emplace(player);
-
-		// motion
-		Motion& motion = registry.motions.emplace(player);
-		motion.position = vec2(WINDOW_WIDTH_PX * 0.5f, WINDOW_HEIGHT_PX * 0.5f);
-		motion.scale = vec2(20.0f, 20.0f);
-		motion.velocity = vec2(0.0f, 0.0f);
-		motion.angle = 0.0f;
-
-		// rendering so player is visible 
-		registry.positions.insert(player, motion.position);
-		registry.sizes.insert(player, Size{ motion.scale.x, motion.scale.y });
-		registry.circles.emplace(player);
-		registry.colors.emplace(player, vec4(0.0f, 1.0f, 0.0f, 1.0));
-		registry.renderRequests.insert(
-			player,
-			{
-				EFFECT_ASSET_ID::DEFAULT,
-				GEOMETRY_BUFFER_ID::CIRCLE
-			}
-		);
-
-		// Colour system 
-		registry.colourStates.emplace(player);
-		registry.colourStates.get(player).curr_colour_state = COLOUR_STATE::NEUTRAL;
-	}
-	// TODO m1EAwQf4: This is only being used to make sure that the mouse rectangle isn't being destroyed on world_system reset so maybe don't need this.
-	// Recreate anything that may have been destroyed by world_system's restart_game function.
-	auto center_screen = vec2(WINDOW_WIDTH_PX / 2, WINDOW_HEIGHT_PX / 2);
-	mouse_shape_entity = createRectangle(center_screen, center_screen + vec2(200));
-
+	// Request a player be made
+	Entity player_create_request_entity;
+	registry.playerCreateRequests.emplace(player_create_request_entity);
 	// Load level
 	Entity load_request_entity;
 	registry.loadRequests.insert(load_request_entity, { LOAD_TYPE::LOAD_LEVEL, current_level_uid });
-
-	player_movement = vec2(0);
 }
 
-// Compute collisions between entities
-void WorldSystem::handle_collisions() {
+// When entity collides with colour radius, it needs to have its behaviour change handled here
+void WorldSystem::handle_behaviour_change()
+{
 
-	ComponentContainer<Collision>& collision_container = registry.collisions;
-	for (uint i = 0; i < collision_container.components.size(); i++) {
-		Entity& entity = collision_container.entities[i];
-		Entity& other = collision_container.get(entity).other;
-		//if one entity has overlay collision, then behaviour change occurs here
-		if (registry.overlayCollisions.has(entity) || registry.overlayCollisions.has(other)) {
-			std::cout << "Overlay collision with entities: " << entity.id() << " " << other.id() << std::endl;
-		}
+	ComponentContainer<ChangeBehaviour>& changes = registry.change_behaviours;
+	for (uint i = 0; i < changes.components.size(); i++)
+	{
+		Entity& entity = changes.entities[i];
+		std::cout << "Entity has interacted with a colour radius! Entity: " << entity.id() << std::endl;
 
-		//inelastic collisions are handled in physics_system
-		
 	}
 
 	// Remove all collisions from this simulation step
