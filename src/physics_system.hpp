@@ -16,6 +16,6 @@ public:
 	}
 
 private:
-	void handle_player_movement();
+	void handle_movement();
 };
 
