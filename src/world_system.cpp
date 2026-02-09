@@ -80,9 +80,11 @@ GLFWwindow* WorldSystem::create_window() {
 	return window;
 }
 
-void WorldSystem::init(RenderSystem* renderer_arg) {
+void WorldSystem::init(RenderSystem* renderer_arg, InputSystem* input_system) {
 
 	this->renderer = renderer_arg;
+	// TODO bDKnCkH1: Remove
+	this->input = input_system;
 
 
 	// Set all states to default
@@ -91,6 +93,13 @@ void WorldSystem::init(RenderSystem* renderer_arg) {
 
 // Update our game world
 bool WorldSystem::step(float elapsed_ms_since_last_update) {
+
+	if (registry.players.entities.size() > 0) {
+		Entity& playerComp = registry.players.entities[0];
+		if (registry.deathTimers.has(playerComp)) {
+			restart_game();
+		}
+	}
 
 	// Updating window title with points
 	std::stringstream title_ss;
@@ -157,25 +166,7 @@ void WorldSystem::restart_game() {
 	while (registry.renderRequests.entities.size() > 0)
 		registry.remove_all_components_of(registry.renderRequests.entities.back());
 
-	int grid_line_width = GRID_LINE_WIDTH_PX;
-
-	// create grid lines if they do not already exist
-	if (grid_lines.size() == 0) {
-		// vertical lines
-		int cell_width = GRID_CELL_WIDTH_PX;
-		for (int col = 0; col < 14 + 1; col++) {
-			// width of 2 to make the grid easier to see
-			grid_lines.push_back(createGridLine(vec2(col * cell_width, 0), vec2(grid_line_width, 2 * WINDOW_HEIGHT_PX)));
-		}
-
-		// horizontal lines
-		int cell_height = GRID_CELL_HEIGHT_PX;
-		for (int col = 0; col < 10 + 1; col++) {
-			// width of 2 to make the grid easier to see
-			grid_lines.push_back(createGridLine(vec2(0, col * cell_height), vec2(2 * WINDOW_WIDTH_PX, grid_line_width)));
-		}
-	}
-
+	input->clear_keys();
 	// Request a player be made
 	Entity player_create_request_entity;
 	registry.playerCreateRequests.emplace(player_create_request_entity);

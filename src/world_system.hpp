@@ -12,6 +12,7 @@
 #include <SDL_mixer.h>
 
 #include "renderer/render_system.hpp"
+#include "input/input_system.hpp"
 
 // Container for all our entities and game logic.
 // Individual rendering / updates are deferred to the update() methods.
@@ -30,7 +31,7 @@ public:
 	void close_window();
 
 	// starts the game
-	void init(RenderSystem* renderer);
+	void init(RenderSystem* renderer, InputSystem* input_system);
 
 	// releases all associated resources
 	~WorldSystem();
@@ -65,6 +66,8 @@ private:
 	// Number of invaders stopped by the towers, displayed in the window title
 	unsigned int points;
 
+	// TODO bDKnCkH1: Remove
+	InputSystem* input;
 	// Game state
 	RenderSystem* renderer;
 	float current_speed;
