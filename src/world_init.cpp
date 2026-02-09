@@ -124,5 +124,3 @@ Entity createSawfish(vec2 position, float width, float height, vec4 color)
 	);
 	return sawfish;
 }
-
-

@@ -19,7 +19,6 @@ Entity PlayerControllerSystem::create_player()
 	registry.colors.emplace(player_entity, color_from_state);
 	registry.textured.emplace(player_entity);
 	registry.textured.get(player_entity).used_texture = TEXTURE_ASSET_ID::PLAYER_TEXTURE_01;
-
 	registry.renderRequests.insert(
 		player_entity,
 		{
