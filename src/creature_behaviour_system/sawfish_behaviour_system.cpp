@@ -5,12 +5,12 @@
 
 void CreatureBehaviourSystem::updateSawfish(float elapsed_ms, Entity& sawfish_entity)
 {
-	assert(registry.positions.has(sawfish_entity) && "sawfish does not have a motion component");
-
 	// Initialize components
 	if (!registry.pathfinders.has(sawfish_entity))
 	{
-		registry.pathfinders.emplace(sawfish_entity);
+		Pathfinder& pathfinder = registry.pathfinders.emplace(sawfish_entity);
+		pathfinder.minimumDistanceToTarget = pathfinderMinDistToTarget(SAWFISH);
+		pathfinder.max_speed = registry.velocities.get(sawfish_entity).x;
 	}
 
 	if (!registry.colourStates.has(sawfish_entity))
@@ -48,11 +48,11 @@ void CreatureBehaviourSystem::neutralSawfish(float elapsed_ms, Entity& sawfish_e
 void CreatureBehaviourSystem::blueSawfish(Entity& sawfish_entity)
 {
 	// stationary
+	registry.velocities.get(sawfish_entity) = { 0.0f, 0.0f };
 }
 
 void CreatureBehaviourSystem::redSawfish(float elapsed_ms, Entity& sawfish_entity)
 {
 	// charges after the player
 	follow_player(elapsed_ms, sawfish_entity);
-
 }

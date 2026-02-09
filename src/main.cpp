@@ -16,8 +16,8 @@
 #include "physics_system.hpp"
 #include "renderer/render_system.hpp"
 #include "world_system.hpp"
-#include "creature_behaviour_system/creature_behaviour_system.hpp"
 #include "sound/sound_system.hpp"
+#include "creature_behaviour_system/creature_behaviour_system.hpp"
 
 using Clock = std::chrono::high_resolution_clock;
 

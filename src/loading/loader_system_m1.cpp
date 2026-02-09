@@ -141,7 +141,10 @@ void LoaderSystem::load_level(int level_uid)
 	for (auto& creature : level_data.creatures)
 	{
 		auto& creature_entity = createRectangle(creature.position, creature.size.width, creature.size.height, creature.color);
-		registry.creatures.emplace(creature_entity);
+		// TODO: adjust after testing.
+		Creature& creature_component = registry.creatures.emplace(creature_entity);
+		creature_component.creatureType = creature.creatureType;
+		registry.velocities.emplace(creature_entity, creature.velocity);
 	}
 
 	// Make walls and store their entities to use when making toggles

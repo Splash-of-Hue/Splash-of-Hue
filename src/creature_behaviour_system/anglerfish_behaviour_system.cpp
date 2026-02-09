@@ -4,6 +4,14 @@
 
 void CreatureBehaviourSystem::updateAnglerfish(float elapsed_ms, Entity& anglerfish_entity)
 {
+	// Initialize components
+	if (!registry.pathfinders.has(anglerfish_entity))
+	{
+		Pathfinder& pathfinder = registry.pathfinders.emplace(anglerfish_entity);
+		pathfinder.minimumDistanceToTarget = pathfinderMinDistToTarget(ANGLERFISH);
+		pathfinder.max_speed = registry.velocities.get(anglerfish_entity).x;
+	}
+
 	if (!registry.colourStates.has(anglerfish_entity))
 	{
 		ColourState& anglerfishColourState = registry.colourStates.emplace(anglerfish_entity);
@@ -32,8 +40,7 @@ void CreatureBehaviourSystem::updateAnglerfish(float elapsed_ms, Entity& anglerf
 void CreatureBehaviourSystem::neutralAnglerfish(Entity& anglerfish_entity)
 {
 	// Stationary, with the initial light colour
-	// 
-	// TODO: VELOCITY = 0 once we have physics implemented 
+	registry.velocities.get(anglerfish_entity) = { 0.0f, 0.0f };
 }
 
 void CreatureBehaviourSystem::blueAnglerfish(float elapsed_ms, Entity& anglerfish_entity)

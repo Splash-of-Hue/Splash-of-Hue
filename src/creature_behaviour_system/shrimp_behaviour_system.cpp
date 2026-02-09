@@ -7,11 +7,20 @@ void CreatureBehaviourSystem::updateShrimp(Entity& shrimp_entity)
 {
 	if (!registry.colourStates.has(shrimp_entity))
 	{
+		// Initialize shrimp
 		ColourState& shrimpColourState = registry.colourStates.emplace(shrimp_entity);
 		shrimpColourState.curr_colour_state = COLOUR_STATE::NEUTRAL;
+		neutralShrimp(shrimp_entity);
+		return;
 	}
 
 	ColourState& shrimpColourState = registry.colourStates.get(shrimp_entity);
+
+	if (shrimpColourState.prev_colour_state == shrimpColourState.curr_colour_state)
+	{
+		// No need to change anything
+		return;
+	}
 
 	switch (shrimpColourState.curr_colour_state)
 	{
@@ -37,14 +46,12 @@ void CreatureBehaviourSystem::neutralShrimp(Entity& shrimp_entity)
 
 void CreatureBehaviourSystem::blueShrimp(Entity& shrimp_entity)
 {
-	// punches Up & Right
-	// switching depends on if it's touched again w blue
+	// create an arm that's not collidable above the shrimp 
 
-	// Up: should create an arm that's not collidable above the shrimp 
+
 }
 
 void CreatureBehaviourSystem::redShrimp(Entity& shrimp_entity)
 {
-	// punches left and down
-	// switching depends on if its touched again w red
+	// create an arm that's not collidable below the shrimp
 }

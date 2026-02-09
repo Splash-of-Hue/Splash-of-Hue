@@ -192,10 +192,12 @@ void WorldSystem::handle_behaviour_change()
 	{
 		Entity& entity = changes.entities[i];
 		std::cout << "Entity has interacted with a colour radius! Entity: " << entity.id() << std::endl;
-	}
 
-	// Remove all collisions from this simulation step
-	registry.collisions.clear();
+		//inelastic collisions are handled in physics_system
+		
+	}
+	// Since behaviour change was handled, remove the entity
+	registry.change_behaviours.clear();
 }
 
 // Should the game be over ?

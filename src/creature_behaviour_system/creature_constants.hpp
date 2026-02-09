@@ -15,7 +15,7 @@ enum CREATURETYPE
 
 // Creature specific constants
 struct Anglerfish
-{
+{ // could have a pointer to its ball of light?
 };
 
 struct Crab
@@ -23,7 +23,7 @@ struct Crab
 };
 
 struct Minnows
-{
+{ // could have a pointer to leader minnow
 };
 
 struct Sawfish
@@ -48,9 +48,9 @@ constexpr float pathfinderMinDistToTarget(CREATURETYPE creatureType) {
 	switch (creatureType)
 	{
 	case ANGLERFISH:
-		return 0.5f;
+		return 2.5f;
 	case SAWFISH:
-		return 0.0f;
+		return 1.0f;
 	default:
 		return 0.0f;
 	}
