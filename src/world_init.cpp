@@ -15,7 +15,7 @@ Entity createGridLine(vec2 start_pos, vec2 end_pos)
 			GEOMETRY_BUFFER_ID::GRADIENT_CIRCLE
 		}
 	);
-	
+
 	registry.colors.emplace(entity, vec4(1.0f, 0.0f, 0.0f, 1.0f));
 
 	return entity;
@@ -90,9 +90,6 @@ Entity createCircle(vec2 position, float radius, vec4 color)
 	registry.sizes.insert(entity, size);
 	registry.circles.emplace(entity);
 	registry.colors.emplace(entity, color);
-	
-	Collidable& col = registry.collidables.emplace(entity);
-	col.overlay = true;
 	registry.renderRequests.insert(
 		entity,
 		{
@@ -104,3 +101,26 @@ Entity createCircle(vec2 position, float radius, vec4 color)
 	return entity;
 }
 
+// TODO: 69 - move to creature creater 
+Entity createSawfish(vec2 position, float width, float height, vec4 color)
+{
+	Entity sawfish = Entity();
+	registry.positions.insert(sawfish, position);
+	registry.scales.insert(sawfish, vec2((float)2.0f * GRID_CELL_WIDTH_PX, (float)2.0f * GRID_CELL_HEIGHT_PX));
+	registry.angles.emplace(sawfish);
+	registry.angles.get(sawfish).degrees = 0.0f;
+	registry.sizes.insert(sawfish, Size{ width, height });
+	registry.colors.emplace(sawfish, color);
+
+	registry.textured.emplace(sawfish);
+	registry.textured.get(sawfish).used_texture = TEXTURE_ASSET_ID::SAWFISH_01;
+
+	registry.renderRequests.insert(
+		sawfish,
+		{
+			EFFECT_ASSET_ID::TEXTURED,
+			GEOMETRY_BUFFER_ID::SPRITE
+		}
+	);
+	return sawfish;
+}
