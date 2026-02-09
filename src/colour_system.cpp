@@ -159,6 +159,7 @@ void ColourSystem::applyColour(Entity entity, COLOUR_STATE colour) {
 	if (!registry.colourStates.has(entity)) {
 		registry.colourStates.emplace(entity);
 	}
+	registry.colourStates.get(entity).prev_colour_state = registry.colourStates.get(entity).curr_colour_state;
 	registry.colourStates.get(entity).curr_colour_state = colour;
 }
 
