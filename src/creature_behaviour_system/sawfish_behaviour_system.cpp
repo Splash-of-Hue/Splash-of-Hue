@@ -40,9 +40,7 @@ void CreatureBehaviourSystem::updateSawfish(float elapsed_ms, Entity& sawfish_en
 void CreatureBehaviourSystem::neutralSawfish(float elapsed_ms, Entity& sawfish_entity)
 {
 	// aimlessly pathfinding. For M1, stationary
-
-	// For testing only:
-	follow_player(elapsed_ms, sawfish_entity);
+	registry.velocities.get(sawfish_entity) = { 0.0f, 0.0f };
 }
 
 void CreatureBehaviourSystem::blueSawfish(Entity& sawfish_entity)

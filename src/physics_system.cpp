@@ -137,6 +137,53 @@ void PhysicsSystem::step(float elapsed_ms)
 				//registry.list_all_components_of(entity_j);
 				//std::cout << posJ.x << " " << posJ.y << std::endl;
 
+				// For now, this handles creature - player interaction
+				if (registry.colourStates.has(entity_i) && registry.colourStates.has(entity_j))
+				{
+					// TODO: Determine color giving priority
+
+					const bool i_is_player = registry.players.has(entity_i);
+					const bool j_is_player = registry.players.has(entity_j);
+
+					// For now, only a player can change states
+					if (!i_is_player && !j_is_player)
+					{
+						goto after_color_collision;
+					}
+
+					const auto& player_entity = i_is_player ? entity_i : entity_j;
+					const auto& other_entity = i_is_player ? entity_j : entity_i;
+
+					if (!registry.creatures.has(other_entity))
+					{
+						goto after_color_collision;
+					}
+
+					const auto& player_color_state = registry.colourStates.get(player_entity);
+
+					// A neutral player does not toggle anything
+					if (player_color_state.curr_colour_state == COLOUR_STATE::NEUTRAL)
+					{
+						goto after_color_collision;
+					}
+
+					auto& other_color_state = registry.colourStates.get(other_entity);
+
+					// If the states are the same, move on
+					if (player_color_state.curr_colour_state == other_color_state.curr_colour_state)
+					{
+						goto after_color_collision;
+					}
+
+					other_color_state.prev_colour_state = other_color_state.curr_colour_state;
+					other_color_state.curr_colour_state = player_color_state.curr_colour_state;
+					vec4& other_color = registry.colors.get(other_entity);
+					const auto& palette = registry.colourPalettes.components[0];
+					auto& color_from_state = palette.state_to_colour.at(other_color_state.curr_colour_state);
+					other_color = color_from_state;
+				}
+
+				after_color_collision:
 				//im wondering if its better to look at what type of creatures/entities we're dealing with BEFORE we look at their type
 				//of collision. Because walls will be changing between inelastic and no collision, so im not entirely sure which
 				//type of collision we want to put it in. For now, it will be its own thing.
