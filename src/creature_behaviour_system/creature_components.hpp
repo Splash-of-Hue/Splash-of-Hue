@@ -1,4 +1,5 @@
 #pragma once
+#include "creature_behaviour_system/creature_constants.hpp"
 
 struct Creature
 {

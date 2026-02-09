@@ -1,8 +1,5 @@
 #pragma once
 #include "common.hpp"
-#include "renderer/render_constants.hpp"
-#include "loading/loading_constants.hpp"
-#include "creature_behaviour_system/creature_constants.hpp"
 #include <map>
 #include <vector>
 

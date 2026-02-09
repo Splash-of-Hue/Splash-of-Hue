@@ -142,7 +142,6 @@ void PhysicsSystem::step(float elapsed_ms)
 
 				if (registry.colouredWall.has(entity_i) || registry.colouredWall.has(entity_j))
 				{
-
 					//find out which entity is which, since we need to find out if the other entity is a player
 					//although right now, im testing collisions between the hovering rectangle and a placed rectangle
 					//so that does not really apply here
@@ -156,7 +155,6 @@ void PhysicsSystem::step(float elapsed_ms)
 					//if colourStates are same, wall is no longer inelastic, so player can walk through
 					if (csCW.curr_colour_state == csO.curr_colour_state && csCW.curr_colour_state != COLOUR_STATE::NEUTRAL)
 					{
-
 						colCW.inelastic = false;
 					}
 					else
