@@ -129,8 +129,8 @@ struct Angle
 
 struct Size
 {
-	float width;
 	float height;
+	float width;
 };
 
 // Used for level entity
