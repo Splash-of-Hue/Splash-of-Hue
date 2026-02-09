@@ -6,13 +6,18 @@
 
 Entity PlayerControllerSystem::create_player()
 {
-	//auto& player_entity = createCircle({ 0, 0 }, 40.0f, {1.0f, 0, 0, 1.0f});
+	ColourState player_color_state;
+	const ColourPalette& palette = registry.colourPalettes.components[0];
+	auto& color_from_state = palette.state_to_colour.at(player_color_state.curr_colour_state);
 	auto& player_entity = createPlayer({ 0, 0 }, 40.0f, 40.0f, { 1.0f, 0, 0, 1.0f });
 	vec2 velocity = { 0.0f, 0.0f };
 	player_movement = vec2(0);
 	registry.players.emplace(player_entity);
 	registry.velocities.insert(player_entity, velocity);
-	registry.colourStates.emplace(player_entity);
+	registry.colourStates.emplace(player_entity, player_color_state);
+	auto& collidable = registry.collidables.emplace(player_entity);
+	collidable.inelastic = true;
+
 
 	return player_entity;
 }

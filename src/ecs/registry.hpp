@@ -8,6 +8,7 @@
 #include "input/input_components.hpp"
 #include "loading/loading_components.hpp"
 #include "renderer/render_components.hpp"
+#include "creature_behaviour_system/creature_components.hpp"
 
 class ECSRegistry
 {
@@ -25,6 +26,8 @@ public:
 	ComponentContainer<Invader> invaders; // TODO X4tDLE6K: remove
 	ComponentContainer<Projectile> projectiles; // TODO X4tDLE6K: remove
 	ComponentContainer<Tower> towers; // TODO X4tDLE6K: remove
+	// AI
+	ComponentContainer<Pathfinder> pathfinders;
 	// Animation
 	ComponentContainer<Animatable> animatables;
 	ComponentContainer<AnimationTrigger> animation_triggers;
@@ -32,6 +35,7 @@ public:
 	ComponentContainer<Textured> textured;
 	// Colour System
 	ComponentContainer<vec4> colors;
+	ComponentContainer<ColouredWall> colouredWall;
 	ComponentContainer<ColourState> colourStates;
 	ComponentContainer<ColourWheel> colourWheels;
 	ComponentContainer<ColourPalette> colourPalettes;
@@ -67,6 +71,7 @@ public:
 	ComponentContainer<Rect> rectangles; // TODO 1ch6Q0BE: Remove
 	// Spawnables
 	ComponentContainer<Creature> creatures;
+	ComponentContainer<Shrimp> shrimps;
 	ComponentContainer<Toggle> toggles;
 
 	// constructor that adds all containers for looping over them
@@ -80,6 +85,8 @@ public:
 		registry_list.push_back(&invaders); // TODO X4tDLE6K: remove
 		registry_list.push_back(&projectiles); // TODO X4tDLE6K: remove
 		registry_list.push_back(&towers); // TODO X4tDLE6K: remove
+		// AI
+		registry_list.push_back(&pathfinders);
 		// Animation
 		registry_list.push_back(&animatables);
 		registry_list.push_back(&animation_triggers);
@@ -87,6 +94,7 @@ public:
 		registry_list.push_back(&textured);
 		// Colour System
 		registry_list.push_back(&colors);
+		registry_list.push_back(&colouredWall);
 		registry_list.push_back(&colourStates);
 		registry_list.push_back(&colourWheels);
 		registry_list.push_back(&colourPalettes);
@@ -122,6 +130,7 @@ public:
 		registry_list.push_back(&rectangles); // TODO 1ch6Q0BE: Remove
 		// Spawnables
 		registry_list.push_back(&creatures);
+		registry_list.push_back(&shrimps);
 		registry_list.push_back(&toggles);
 	}
 

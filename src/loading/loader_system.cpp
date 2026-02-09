@@ -11,9 +11,9 @@ void LoaderSystem::step(float elapsed_ms)
 	}
 
 	// If there is a load request, check the type and act appropriately
-	for (auto& entity : loadRequestRegistry.entities)
+	for (Entity& entity : loadRequestRegistry.entities)
 	{
-		auto& load_request = loadRequestRegistry.get(entity);
+		LoadRequest& load_request = loadRequestRegistry.get(entity);
 
 		switch (load_request.load_type)
 		{

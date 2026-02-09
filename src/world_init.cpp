@@ -15,7 +15,7 @@ Entity createGridLine(vec2 start_pos, vec2 end_pos)
 			GEOMETRY_BUFFER_ID::GRADIENT_CIRCLE
 		}
 	);
-	
+
 	registry.colors.emplace(entity, vec4(1.0f, 0.0f, 0.0f, 1.0f));
 
 	return entity;
@@ -90,9 +90,6 @@ Entity createCircle(vec2 position, float radius, vec4 color)
 	registry.sizes.insert(entity, size);
 	registry.circles.emplace(entity);
 	registry.colors.emplace(entity, color);
-	
-	Collidable& col = registry.collidables.emplace(entity);
-	col.overlay = true;
 	registry.renderRequests.insert(
 		entity,
 		{

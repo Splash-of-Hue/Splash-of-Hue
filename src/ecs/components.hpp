@@ -1,7 +1,7 @@
 #pragma once
 #include "common.hpp"
-#include <bitset>
 #include <map>
+#include <vector>
 
 enum class COLOUR_STATE {
 	NEUTRAL = 0,
@@ -29,11 +29,11 @@ struct ColourWheel {
 
 struct ColourMenuState {
 	bool is_curr_open = false;
-	bool just_closed = false; 
+	bool just_closed = false;
 };
 
 struct ColourMenuInput {
-	int direction = 0; 
+	int direction = 0;
 };
 
 struct Deadly
@@ -69,7 +69,6 @@ struct Eatable
 
 
 // Stucture to store collision information
-//no longer in use
 struct Collision
 {
 	// Note, the first object is stored in the ECS container.entities
@@ -141,13 +140,13 @@ struct Level
 	int uid;
 };
 
-struct Creature
-{
-
-};
-
 // TODO: Remove as we probably won't need this, this is just for M1 prototyping
 struct Toggle
+{
+	std::vector<Entity> walls_to_toggle;
+};
+
+struct ColouredWall
 {
 
 };

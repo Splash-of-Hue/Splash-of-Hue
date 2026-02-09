@@ -17,6 +17,7 @@
 #include "renderer/render_system.hpp"
 #include "world_system.hpp"
 #include "sound/sound_system.hpp"
+#include "creature_behaviour_system/creature_behaviour_system.hpp"
 
 using Clock = std::chrono::high_resolution_clock;
 
@@ -35,6 +36,7 @@ int main()
 	ControlInputConversionSystem control_input_conversion_system;
 	PlayerControllerSystem player_controller_system;
 	ColourSystem colour_system;
+	CreatureBehaviourSystem creature_behaviour_system;
 
 	// initialize window
 	GLFWwindow* window = world_system.create_window();
@@ -77,10 +79,10 @@ int main()
 		colour_system.step(elapsed_ms);
 		world_system.step(elapsed_ms);
 		ai_system.step(elapsed_ms);
+		creature_behaviour_system.step(elapsed_ms);
 		physics_system.step(elapsed_ms);
 		animation_system.step(elapsed_ms);
 		world_system.handle_behaviour_change();
-
 
 		renderer_system.draw();
 	}
