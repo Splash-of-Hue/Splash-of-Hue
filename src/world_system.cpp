@@ -80,9 +80,11 @@ GLFWwindow* WorldSystem::create_window() {
 	return window;
 }
 
-void WorldSystem::init(RenderSystem* renderer_arg) {
+void WorldSystem::init(RenderSystem* renderer_arg, InputSystem* input_system) {
 
 	this->renderer = renderer_arg;
+	// TODO bDKnCkH1: Remove
+	this->input = input_system;
 
 
 	// Set all states to default
@@ -164,6 +166,7 @@ void WorldSystem::restart_game() {
 	while (registry.renderRequests.entities.size() > 0)
 		registry.remove_all_components_of(registry.renderRequests.entities.back());
 
+	input->clear_keys();
 	// Request a player be made
 	Entity player_create_request_entity;
 	registry.playerCreateRequests.emplace(player_create_request_entity);

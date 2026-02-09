@@ -2,15 +2,20 @@
 
 #include "common.hpp"
 #include "ecs/registry.hpp"
+#include <map>
 
 class InputSystem
 {
 public:
 	GLFWwindow* init(GLFWwindow* window);
+	// TODO bDKnCkH1: Remove for later
+	void clear_keys();
 
 private:
 	// Window handle
 	GLFWwindow* window;
+	// TODO bDKnCkH1: More robust way of clearing keys
+	std::map<int, bool> pressed_keys = {};
 
 	// input callback functions
 	void on_window_moved(int xpos, int ypos);
