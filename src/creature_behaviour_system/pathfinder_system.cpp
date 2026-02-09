@@ -4,6 +4,7 @@
 
 #include "common.hpp"
 #include "creature_behaviour_system/creature_behaviour_system.hpp"
+#include "creature_behaviour_system/creature_components.hpp"
 
 // Please see trello task: https://trello.com/c/dwbflQHN
 
@@ -18,21 +19,17 @@ void CreatureBehaviourSystem::follow_player(float elapsed_ms, Entity& follower)
 	assert(registry.players.entities.size() == 1 && "There's no player for the creature to follow!");
 	Entity& player = registry.players.entities[0];
 
-	assert(registry.motions.has(player) && "Player doesn't have a motion component, so there's nothing for the creature to follow");
-	assert(registry.motions.has(follower) && "Follower doesn't have a motion component!");
+	assert(registry.positions.has(player) && "Player doesn't have a motion component, so there's nothing for the creature to follow");
+	assert(registry.positions.has(follower) && "Follower doesn't have a motion component!");
 
 	// TODO: REFACTOR SO THIS IS GENERAL FOR ANY "TARGET". Whatever entity's ColourComponent triggers it
 	// no trello task card yet because this will evolve with the dwbflQHN task
-	const Motion& player_motion_component = registry.motions.get(player);
-	Motion& follower_motion_component = registry.motions.get(follower);
-
-	const vec2 playerPosition = player_motion_component.position;
-	vec2& followerPosition = follower_motion_component.position;
-	followerPosition = follower_motion_component.position;
+	const vec2& player_position = registry.positions.get(player);
+	vec2& follower_position = registry.positions.get(follower);
 
 	// Get the vector to the player
-	float dx = playerPosition.x - followerPosition.x;
-	float dy = playerPosition.y - followerPosition.y;
+	float dx = player_position.x - follower_position.x;
+	float dy = player_position.y - follower_position.y;
 
 	// cheaper to avoid sqrt
 	float distance_squared = dx * dx + dy * dy;

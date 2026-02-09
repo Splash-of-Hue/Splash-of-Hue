@@ -5,7 +5,7 @@
 
 void CreatureBehaviourSystem::updateSawfish(float elapsed_ms, Entity& sawfish_entity)
 {
-	assert(registry.motions.has(sawfish_entity) && "sawfish does not have a motion component");
+	assert(registry.positions.has(sawfish_entity) && "sawfish does not have a motion component");
 
 	// Initialize components
 	if (!registry.pathfinders.has(sawfish_entity))

@@ -13,12 +13,6 @@ enum CREATURETYPE
 	UNDEFINED = WHALE + 1
 };
 
-struct Creature
-{
-	CREATURETYPE creatureType = UNDEFINED;
-	// colour type here from Abby's colour system
-};
-
 // Creature specific constants
 struct Anglerfish
 {
@@ -44,12 +38,6 @@ enum DIRECTION
 	RIGHT = LEFT + 1
 };
 
-struct Shrimp
-{
-	// Tracks current direction shrimp is facing.
-	DIRECTION currDirect = UP;
-};
-
 struct Whale
 {
 };
@@ -67,9 +55,3 @@ constexpr float pathfinderMinDistToTarget(CREATURETYPE creatureType) {
 		return 0.0f;
 	}
 }
-
-struct Pathfinder
-{
-	float minimumDistanceToTarget = 0.0f;
-	float max_speed = 2.0f;
-};
