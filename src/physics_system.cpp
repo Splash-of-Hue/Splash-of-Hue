@@ -138,7 +138,7 @@ void PhysicsSystem::step(float elapsed_ms)
 
 				//im wondering if its better to look at what type of creatures/entities we're dealing with BEFORE we look at their type
 				//of collision. Because walls will be changing between inelastic and no collision, so im not entirely sure which
-				//type of collision we want to put it in. For now, it will be its own thing. 
+				//type of collision we want to put it in. For now, it will be its own thing.
 
 				if (registry.colouredWall.has(entity_i) || registry.colouredWall.has(entity_j))
 				{
@@ -186,8 +186,7 @@ void PhysicsSystem::step(float elapsed_ms)
 							vec4& colO = registry.colors.get(eO);
 							colT = colO;
 
-							for (Entity& toggledEntity : tT.wallsToToggle)
-							{
+							for (Entity& toggledEntity : tT.walls_to_toggle) {
 								ColourState& csTE = registry.colourStates.get(toggledEntity);
 								csTE.prev_colour_state = csTE.curr_colour_state;
 								csTE.curr_colour_state = csO.curr_colour_state;
