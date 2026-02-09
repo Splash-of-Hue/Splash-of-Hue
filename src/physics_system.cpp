@@ -218,6 +218,18 @@ void PhysicsSystem::step(float elapsed_ms)
 					}
 				}
 
+				//todo - change to sawfish once there are more creatures than sawfish
+				if (registry.players.has(entity_i) && registry.creatures.has(entity_j) || registry.players.has(entity_j) && registry.creatures.has(entity_i)) {
+					Entity& eP = registry.players.has(entity_i) ? entity_i : entity_j;
+					Entity& eS = registry.creatures.has(entity_i) ? entity_i : entity_j;
+					if (registry.colourStates.has(eS)) {
+						ColourState& csS = registry.colourStates.get(eS);
+						if (csS.curr_colour_state == COLOUR_STATE::RED) {
+							registry.deathTimers.emplace(eP);
+						}
+					}
+				}
+
 				//the button is a circle, is in an overlay? do we walk on top of the button?
 				//is it only our radius that affects the button?
 				//This assumed the button in a circle, and is an overlay, but since we send the rectangle
@@ -247,20 +259,17 @@ void PhysicsSystem::step(float elapsed_ms)
 
 						ColourState& csT = registry.colourStates.get(eT);
 
-						if (csT.curr_colour_state != csO.curr_colour_state)
-						{
-							vec4& colT = registry.colors.get(eT);
-							vec4& colO = registry.colors.get(eO);
-							colT = colO;
+						vec4& colT = registry.colors.get(eT);
+						vec4& colO = registry.colors.get(eO);
+						colT = colO;
 
-							for (Entity& toggledEntity : tT.walls_to_toggle)
-							{
-								ColourState& csTE = registry.colourStates.get(toggledEntity);
-								csTE.prev_colour_state = csTE.curr_colour_state;
-								csTE.curr_colour_state = csO.curr_colour_state;
-								vec4& colTE = registry.colors.get(toggledEntity);
-								colTE = vec4{ colO.r, colO.g, colO.b, colO.a };
-							}
+						for (Entity& toggledEntity : tT.walls_to_toggle)
+						{
+							ColourState& csTE = registry.colourStates.get(toggledEntity);
+							csTE.prev_colour_state = csTE.curr_colour_state;
+							csTE.curr_colour_state = csO.curr_colour_state;
+							vec4& colTE = registry.colors.get(toggledEntity);
+							colTE = vec4{ colO.r, colO.g, colO.b, colO.a };
 						}
 					}
 

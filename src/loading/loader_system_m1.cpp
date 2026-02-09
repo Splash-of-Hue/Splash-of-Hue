@@ -407,10 +407,12 @@ void LoaderSystem::load_level(int level_uid)
 	std::vector<Entity> wall_entities = {};
 	std::map<std::string, int> wall_id_to_entity_map = {};
 
+
 	// Load each "creature", make a rectangle
+	// Now made each "creature" a sawfish
 	for (auto& creature : level_data.creatures)
 	{
-		auto& creature_entity = createRectangle(creature.position, creature.size.width, creature.size.height, creature.color);
+		auto& creature_entity = createSawfish(creature.position, creature.size.width, creature.size.height, creature.color);
 		Creature& creature_component = registry.creatures.emplace(creature_entity);
 		creature_component.creatureType = creature.creatureType;
 		registry.velocities.emplace(creature_entity, creature.velocity);
