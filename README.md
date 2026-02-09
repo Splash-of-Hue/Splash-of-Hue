@@ -1,8 +1,8 @@
 # Team08
 # Game
-- Team Name: Splash of Hue
-- Game Name: Splash of Hue
-- Team members: Sophia, Abrielle, Clair/Celeste, Spencer, Geetika
+### Team Name: Splash of Hue
+### Game Name: Splash of Hue
+### Team members: Sophia, Abrielle, Clair/Celeste, Spencer, Geetika
 
 ## Concept
 Our game is a top-down puzzle based dungeon crawler where the player will find and collect colours that you will be able to emit and use to solve puzzles.
