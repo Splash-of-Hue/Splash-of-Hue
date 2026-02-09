@@ -209,6 +209,8 @@ void PhysicsSystem::step(float elapsed_ms)
 
 						float x_depth = box1[3] < box2[3] ? box1[3] - box2[2] : box2[3] - box1[2];
 						float y_depth = box1[1] < box2[1] ? box1[1] - box2[0] : box2[1] - box1[0];
+						x_depth = fmaxf(0, x_depth);
+						y_depth = fmaxf(0, y_depth);
 
 					if (x_depth < y_depth) {
 						if (pos1.x < pos2.x) {

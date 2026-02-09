@@ -13,8 +13,7 @@ Entity PlayerControllerSystem::create_player()
 	registry.velocities.insert(player_entity, velocity);
 	registry.colourStates.emplace(player_entity);
 	auto& collidable = registry.collidables.emplace(player_entity);
-	// TODO: BUG player gets stuck when touchign walls
-	// collidable.inelastic = true;
+	collidable.inelastic = true;
 
 	return player_entity;
 }
