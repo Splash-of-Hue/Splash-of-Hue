@@ -9,7 +9,7 @@ Our game is a top-down puzzle based dungeon crawler where the player will find a
 ## Setting
 A bioluminescent sea creature journeys up to the surface to return to the sun that it has heard legends of and believes it originates from. Along the way, this creature introduces colour and light to a world that has never experienced it before.
 ## Controls
-WASD for up, left, down, right movement. E to open up colour menu. Use arrow keys when colour menu pops up to toggle between different colours. Move and collide with other objects to change their colours. 
+WASD for up, left, down, right movement. E to open up colour menu. Use arrow keys when colour menu pops up to toggle between different colours and press E again to select colour. Move and collide with other objects to change their colours. 
 
 # Milestone 1
 ## Core Game Mechanics
