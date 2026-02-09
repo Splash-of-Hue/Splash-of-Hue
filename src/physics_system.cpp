@@ -48,10 +48,12 @@ bool isLineInRangeOfCircle(vec2 posC, float radiusC, vec2 point1, vec2 point2)
 	float l2 = pow(hypot(AB.x, AB.y), 2.f);
 
 	//If the points are at the same location, then you're only checking if the radius reaches this one point
-	if (l2 == 0.0f) {
+	if (l2 == 0.0f)
+	{
 		return (hypot(AP.x, AP.y) <= radiusC);
 	}
-	else {
+	else
+	{
 		float t = max(0.f, min(1.f, dot(AP, AB) / l2));
 		vec2 projection = point1 + t * (AB);
 
@@ -106,9 +108,9 @@ bool collides(const Entity& entity1, const Entity& entity2)
 
 	// This is the equivalent of (left1 > right2 OR right1 < left2) OR (bottom1 > top2 OR top1 < bottom2)
 	// Which is asking if any of the edges of the boxes do NOT overlap.
-	return ((box1[2] <= box2[3]) && 
-			(box2[2] <= box1[3]) && 
-			(box1[0] <= box2[1]) && 
+	return ((box1[2] <= box2[3]) &&
+			(box2[2] <= box1[3]) &&
+			(box1[0] <= box2[1]) &&
 			(box2[0] <= box1[1]));
 }
 
@@ -124,6 +126,7 @@ void PhysicsSystem::step(float elapsed_ms)
 		for (uint j = i + 1; j < collidables.components.size(); j++)
 		{
 			Entity& entity_j = collidables.entities[j];
+
 			if (collides(entity_i, entity_j))
 			{
 				vec2& posI = registry.positions.get(entity_i);
@@ -140,6 +143,7 @@ void PhysicsSystem::step(float elapsed_ms)
 
 				if (registry.colouredWall.has(entity_i) || registry.colouredWall.has(entity_j))
 				{
+
 					//find out which entity is which, since we need to find out if the other entity is a player
 					//although right now, im testing collisions between the hovering rectangle and a placed rectangle
 					//so that does not really apply here
@@ -153,13 +157,13 @@ void PhysicsSystem::step(float elapsed_ms)
 					//if colourStates are same, wall is no longer inelastic, so player can walk through
 					if (csCW.curr_colour_state == csO.curr_colour_state && csCW.curr_colour_state != COLOUR_STATE::NEUTRAL)
 					{
+
 						colCW.inelastic = false;
 					}
 					else
 					{
 						colCW.inelastic = true;
 					}
-
 				}
 
 				//the button is a circle, is in an overlay? do we walk on top of the button?
@@ -173,9 +177,22 @@ void PhysicsSystem::step(float elapsed_ms)
 					Entity& eO = registry.toggles.has(entity_j) ? entity_i : entity_j;
 					Toggle& tT = registry.toggles.get(eT);
 
+					// Only the player can toggle things
+					if (!registry.players.has(eO))
+					{
+						continue;
+					}
+
 					if (registry.colourStates.has(eO))
 					{
 						ColourState& csO = registry.colourStates.get(eO);
+
+						// A neutral object does not toggle anything
+						if (csO.curr_colour_state == COLOUR_STATE::NEUTRAL)
+						{
+							continue;
+						}
+
 						ColourState& csT = registry.colourStates.get(eT);
 
 						if (csT.curr_colour_state != csO.curr_colour_state)
@@ -184,7 +201,8 @@ void PhysicsSystem::step(float elapsed_ms)
 							vec4& colO = registry.colors.get(eO);
 							colT = colO;
 
-							for (Entity& toggledEntity : tT.walls_to_toggle) {
+							for (Entity& toggledEntity : tT.walls_to_toggle)
+							{
 								ColourState& csTE = registry.colourStates.get(toggledEntity);
 								csTE.prev_colour_state = csTE.curr_colour_state;
 								csTE.curr_colour_state = csO.curr_colour_state;
@@ -193,6 +211,7 @@ void PhysicsSystem::step(float elapsed_ms)
 							}
 						}
 					}
+
 				}
 				else
 				{
@@ -223,7 +242,6 @@ void PhysicsSystem::step(float elapsed_ms)
 
 						float x_depth = box1[3] < box2[3] ? box1[3] - box2[2] : box2[3] - box1[2];
 						float y_depth = box1[1] < box2[1] ? box1[1] - box2[0] : box2[1] - box1[0];
-						// Only care about positive penetration depth
 						x_depth = fmaxf(0, x_depth);
 						y_depth = fmaxf(0, y_depth);
 
@@ -237,6 +255,7 @@ void PhysicsSystem::step(float elapsed_ms)
 							{
 								pos1.x += x_depth;
 							}
+
 						}
 						else
 						{
@@ -253,6 +272,7 @@ void PhysicsSystem::step(float elapsed_ms)
 					}
 				}
 			}
+
 		}
 
 		handle_movement();
@@ -263,15 +283,18 @@ void PhysicsSystem::handle_movement()
 {
 	ComponentContainer<vec2>& moving_entities = registry.velocities;
 
-	for (int i = 0; i < moving_entities.size(); i++) {
+	for (int i = 0; i < moving_entities.size(); i++)
+	{
 		vec2& pos = registry.positions.get(moving_entities.entities[i]);
 		vec2& vel = registry.velocities.get(moving_entities.entities[i]);
 		pos += vel;
 		//entities travel within screen, for testing
-		if (pos.x > WINDOW_WIDTH_PX || pos.x < 0) {
+		if (pos.x > WINDOW_WIDTH_PX || pos.x < 0)
+		{
 			vel.x *= -1;
 		}
-		if (pos.y < 0 || pos.y > WINDOW_HEIGHT_PX) {
+		if (pos.y < 0 || pos.y > WINDOW_HEIGHT_PX)
+		{
 			vel.y *= -1;
 		}
 	}
