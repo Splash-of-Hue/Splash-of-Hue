@@ -101,30 +101,7 @@ Entity createCircle(vec2 position, float radius, vec4 color)
 	return entity;
 }
 
-Entity createPlayer(vec2 position, float width, float height, vec4 color)
-{
-	Entity player = Entity();
-	registry.positions.insert(player, position);
-	registry.scales.insert(player, vec2((float)2.0f*GRID_CELL_WIDTH_PX, (float)2.0f*GRID_CELL_HEIGHT_PX));
-	registry.angles.emplace(player);
-	registry.angles.get(player).degrees = 0.0f;
-	registry.sizes.insert(player, Size{ width, height });
-	registry.colors.emplace(player, color);
-
-	registry.textured.emplace(player);
-	registry.textured.get(player).used_texture = TEXTURE_ASSET_ID::PLAYER_TEXTURE_01;
-	
-	registry.renderRequests.insert(
-		player,
-		{
-			EFFECT_ASSET_ID::TEXTURED,
-			GEOMETRY_BUFFER_ID::SPRITE
-		}
-	);
-	return player;
-}
-
-
+// TODO: 69 - move to creature creater 
 Entity createSawfish(vec2 position, float width, float height, vec4 color)
 {
 	Entity sawfish = Entity();
