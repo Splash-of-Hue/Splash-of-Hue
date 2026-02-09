@@ -167,6 +167,12 @@ void PhysicsSystem::step(float elapsed_ms)
 					Entity& eO = registry.toggles.has(entity_j) ? entity_i : entity_j;
 					Toggle& tT = registry.toggles.get(eT);
 
+					// Only the player can toggle things
+					if (!registry.players.has(eO))
+					{
+						continue;
+					}
+
 					if (registry.colourStates.has(eO)) {
 						ColourState& csO = registry.colourStates.get(eO);
 						ColourState& csT = registry.colourStates.get(eT);
