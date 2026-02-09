@@ -36,6 +36,6 @@ The following screenshot is of a maze that the player can navigate by changing c
 
 # Docs
 
-- [Test Plan](./doc/proposal.pdf)
+- [Test Plan](./doc/test-plan.pdf)
 - [Game Proposal](./doc/proposal.pdf)
 
