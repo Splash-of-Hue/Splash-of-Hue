@@ -242,20 +242,17 @@ void PhysicsSystem::step(float elapsed_ms)
 
 						ColourState& csT = registry.colourStates.get(eT);
 
-						if (csT.curr_colour_state != csO.curr_colour_state)
-						{
-							vec4& colT = registry.colors.get(eT);
-							vec4& colO = registry.colors.get(eO);
-							colT = colO;
+						vec4& colT = registry.colors.get(eT);
+						vec4& colO = registry.colors.get(eO);
+						colT = colO;
 
-							for (Entity& toggledEntity : tT.walls_to_toggle)
-							{
-								ColourState& csTE = registry.colourStates.get(toggledEntity);
-								csTE.prev_colour_state = csTE.curr_colour_state;
-								csTE.curr_colour_state = csO.curr_colour_state;
-								vec4& colTE = registry.colors.get(toggledEntity);
-								colTE = vec4{ colO.r, colO.g, colO.b, colO.a };
-							}
+						for (Entity& toggledEntity : tT.walls_to_toggle)
+						{
+							ColourState& csTE = registry.colourStates.get(toggledEntity);
+							csTE.prev_colour_state = csTE.curr_colour_state;
+							csTE.curr_colour_state = csO.curr_colour_state;
+							vec4& colTE = registry.colors.get(toggledEntity);
+							colTE = vec4{ colO.r, colO.g, colO.b, colO.a };
 						}
 					}
 
