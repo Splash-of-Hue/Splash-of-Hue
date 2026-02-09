@@ -131,7 +131,7 @@ void PhysicsSystem::step(float elapsed_ms)
 
 				//im wondering if its better to look at what type of creatures/entities we're dealing with BEFORE we look at their type
 				//of collision. Because walls will be changing between inelastic and no collision, so im not entirely sure which
-				//type of collision we want to put it in. For now, it will be its own thing. 
+				//type of collision we want to put it in. For now, it will be its own thing.
 
 				if (registry.colouredWall.has(entity_i) || registry.colouredWall.has(entity_j)) {
 					
