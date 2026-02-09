@@ -56,7 +56,7 @@ private:
 
 	// OpenGL window handle
 	GLFWwindow* window;
-	
+
 	float next_invader_spawn;
 	float invader_spawn_rate_ms;	// see default value in common.hpp
 
@@ -68,9 +68,6 @@ private:
 	// Game state
 	RenderSystem* renderer;
 	float current_speed;
-
-	// TODO SnB9A38K: Move to player control system
-	vec2 player_movement;
 
 	// grid
 	std::vector<Entity> grid_lines;
