@@ -1,6 +1,5 @@
 #pragma once
 #include "common.hpp"
-#include <bitset>
 #include <map>
 #include <vector>
 
@@ -70,7 +69,6 @@ struct Eatable
 
 
 // Stucture to store collision information
-//no longer in use
 struct Collision
 {
 	// Note, the first object is stored in the ECS container.entities
@@ -140,11 +138,6 @@ struct Level
 {
 	// Unique ID for the room
 	int uid;
-};
-
-struct Creature
-{
-
 };
 
 // TODO: Remove as we probably won't need this, this is just for M1 prototyping

@@ -11,9 +11,11 @@
 
 struct M1CreatureData
 {
+	CREATURETYPE creatureType;
 	Size size;
 	vec2 position;
 	vec4 color;
+	vec2 velocity;
 	// TODO: Add AI behaviour for creatures
 };
 
@@ -47,19 +49,25 @@ const std::vector<M1TestData> m1_test_data = {
 		{
 			// Three creatures
 			{
+				SAWFISH,
 				{ 100, 100 }, // size
 				{ 400, 120 }, // position
-				{ 0.2f, 0.4f, 0, 1.0f } // color
+				{ 0.2f, 0.4f, 0, 1.0f }, // color
+				vec2( 0.2f, 0.2f ) // velocity
 			},
 			{
+				ANGLERFISH,
 				{ 80, 20 }, // size
 				{ 50, 20 }, // position
-				{ 0, 1.0f, 0.6f, 1.0f  } // color
+				{ 0, 1.0f, 0.6f, 1.0f  }, // color
+				vec2(0.0f, 0.0f) // velocity
 			},
 			{
+				SHRIMP,
 				{ 50, 200 }, // size
 				{ 800, 320 }, // position
-				{ 0.4f, 0, 0.85f, 1.0f  } // color
+				{ 0.4f, 0, 0.85f, 1.0f  }, // color
+				vec2(0.0f, 0.0f) // velocity
 			},
 		},
 		{
@@ -134,7 +142,11 @@ void LoaderSystem::load_level(int level_uid)
 	for (auto& creature : level_data.creatures)
 	{
 		auto& creature_entity = createRectangle(creature.position, creature.size.width, creature.size.height, creature.color);
-		registry.creatures.emplace(creature_entity);
+		Creature& creature_component = registry.creatures.emplace(creature_entity);
+		creature_component.creatureType = creature.creatureType;
+		registry.velocities.emplace(creature_entity, creature.velocity);
+		auto& creature_collidable = registry.collidables.emplace(creature_entity);
+		creature_collidable.inelastic = true;
 	}
 
 	// Make walls and store their entities to use when making toggles

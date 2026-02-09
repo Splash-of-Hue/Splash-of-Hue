@@ -187,7 +187,6 @@ void WorldSystem::restart_game() {
 // When entity collides with colour radius, it needs to have its behaviour change handled here
 void WorldSystem::handle_behaviour_change()
 {
-
 	ComponentContainer<ChangeBehaviour>& changes = registry.change_behaviours;
 	for (uint i = 0; i < changes.components.size(); i++)
 	{

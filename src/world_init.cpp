@@ -97,6 +97,6 @@ Entity createCircle(vec2 position, float radius, vec4 color)
 			GEOMETRY_BUFFER_ID::CIRCLE
 		}
 	);
-
+	
 	return entity;
 }
