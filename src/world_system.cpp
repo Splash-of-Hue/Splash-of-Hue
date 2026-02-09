@@ -92,6 +92,13 @@ void WorldSystem::init(RenderSystem* renderer_arg) {
 // Update our game world
 bool WorldSystem::step(float elapsed_ms_since_last_update) {
 
+	if (registry.players.entities.size() > 0) {
+		Entity& playerComp = registry.players.entities[0];
+		if (registry.deathTimers.has(playerComp)) {
+			restart_game();
+		}
+	}
+
 	// Updating window title with points
 	std::stringstream title_ss;
 	title_ss << "Splash of Hue";

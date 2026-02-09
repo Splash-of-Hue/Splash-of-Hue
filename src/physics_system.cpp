@@ -213,6 +213,18 @@ void PhysicsSystem::step(float elapsed_ms)
 					}
 				}
 
+				//todo - change to sawfish once there are more creatures than sawfish
+				if (registry.players.has(entity_i) && registry.creatures.has(entity_j) || registry.players.has(entity_j) && registry.creatures.has(entity_i)) {
+					Entity& eP = registry.players.has(entity_i) ? entity_i : entity_j;
+					Entity& eS = registry.creatures.has(entity_i) ? entity_i : entity_j;
+					if (registry.colourStates.has(eS)) {
+						ColourState& csS = registry.colourStates.get(eS);
+						if (csS.curr_colour_state == COLOUR_STATE::RED) {
+							registry.deathTimers.emplace(eP);
+						}
+					}
+				}
+
 				//the button is a circle, is in an overlay? do we walk on top of the button?
 				//is it only our radius that affects the button?
 				//This assumed the button in a circle, and is an overlay, but since we send the rectangle
