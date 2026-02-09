@@ -15,8 +15,8 @@ WASD for up, left, down, right movement. E to open up colour menu. Use arrow key
 ## Core Game Mechanics
 - Basic input driven responses via keyboard (WASD, E and arrow keys) for movement and colour menu.
 - Basic collision detection is between axis-aligned bounding boxes.
-- Event driven responses: collision between player and certain entities results in different behaviours. For instance, colliding with a circular toggle of a different colour will change both the toggles colour and walls associated with it. Colliding with walls of the same colour will allow the player to pass through them, whereas walls of different colour are impassable. Colliding with sawfish entities when the player is in colour state red will cause the sawfish to follow the player around. 
-
+- Event driven responses: collision between player and certain entities results in different behaviours. For instance, colliding with a circular toggle of a different colour will change both the toggles colour and walls associated with it. Colliding with walls of the same colour will allow the player to pass through them, whereas walls of different colour are impassable. Colliding with sawfish will cause game to restart.
+  
 ## Milestone Required Elements
 - Textured Geometry -> rendering rectangle and circle shapes with associated sprite assets.
 - 2D transformations -> translation of position of entities. 
