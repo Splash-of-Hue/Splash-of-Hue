@@ -31,8 +31,9 @@ WASD for up, left, down, right movement. E to open up colour menu. Use arrow key
 - [24] (basic) Basic integrated assets -> sprite assets and rendering implemented by Clair and Abby.
 
 ## Milestone Screenshots
-The following screenshot is of a maze that the player can navigate by changing colour and colliding with the circular toggles to change the colours of walls so that the player can pass through walls of the same colour. 
-![maze](https://github.students.cs.ubc.ca/user-attachments/assets/39fb26c5-1811-43e7-991e-0db038571c11)
+The following screenshot is of a maze that the player (in the top-left corner) can navigate by changing colour and colliding with the circular toggles to change the colours of walls so that the player can pass through walls of the same colour. If the sawfish touch the player, the game restarts with the player back in the top left hand corner of the maze. 
+![Screenshot 2026-02-08 231356](https://github.students.cs.ubc.ca/user-attachments/assets/ff51932d-7bb4-4d04-bc67-14e4f4bc1384)
+
 
 # Docs
 
