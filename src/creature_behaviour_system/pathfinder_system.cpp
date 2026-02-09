@@ -48,7 +48,7 @@ void CreatureBehaviourSystem::follow_player(float elapsed_ms, Entity& follower)
 
 	// Slow down when approaching the player so there isn't an abrupt stop
 	float slow_radius = pathfinder_component.minimumDistanceToTarget * 3.f;
-	float max_speed = pathfinder_component.max_speed;
+	float max_speed = pathfinder_component.max_speed * elapsed_ms * 0.01;
 	if (distance < slow_radius) {
 		float t = (distance - pathfinder_component.minimumDistanceToTarget) / (slow_radius - pathfinder_component.minimumDistanceToTarget);
 		t = std::clamp(t, 0.f, 1.f);
