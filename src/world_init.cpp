@@ -111,9 +111,6 @@ Entity createPlayer(vec2 position, float width, float height, vec4 color)
 	registry.sizes.insert(player, Size{ width, height });
 	registry.colors.emplace(player, color);
 
-	Collidable& col = registry.collidables.emplace(player);
-	col.overlay = true;
-
 	registry.textured.emplace(player);
 	registry.textured.get(player).used_texture = TEXTURE_ASSET_ID::PLAYER_TEXTURE_01;
 	
@@ -137,9 +134,6 @@ Entity createSawfish(vec2 position, float width, float height, vec4 color)
 	registry.angles.get(sawfish).degrees = 0.0f;
 	registry.sizes.insert(sawfish, Size{ width, height });
 	registry.colors.emplace(sawfish, color);
-
-	Collidable& col = registry.collidables.emplace(sawfish);
-	col.overlay = true;
 
 	registry.textured.emplace(sawfish);
 	registry.textured.get(sawfish).used_texture = TEXTURE_ASSET_ID::SAWFISH_01;
