@@ -40,3 +40,24 @@ Entity createRectangle(vec2 top_left, vec2 bottom_right, vec4 color = { 1.0, 1.0
 /// <param name="color">The color of the circle, defaults to white if not set.</param>
 /// <returns></returns>
 Entity createCircle(vec2 position, float radius, vec4 color = { 1.0, 1.0, 1.0, 1.0});
+
+/// <summary>
+/// Creates an entity associated with a sheap sprite and returns the entity
+/// </summary>
+/// <param name="position">The (x, y) coordinates of the center of the player.</param>
+/// <param name="width">The width of the player.</param>
+/// <param name="height">The height of the player.</param>
+/// <param name="color">The color of the player, defaults to white if not set.</param>
+/// <returns></returns>
+Entity createPlayer(vec2 position, float width, float height, vec4 color);
+
+
+/// <summary>
+/// Creates an entity associated with a sawfish sprite and returns the entity
+/// </summary>
+/// <param name="position">The (x, y) coordinates of the center of the sawfish.</param>
+/// <param name="width">The width of the sawfish.</param>
+/// <param name="height">The height of the sawfish.</param>
+/// <param name="color">The color of the sawfish, defaults to white if not set.</param>
+/// <returns></returns>
+Entity createSawfish(vec2 position, float width, float height, vec4 color);

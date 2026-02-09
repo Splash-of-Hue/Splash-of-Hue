@@ -69,9 +69,10 @@ void LoaderSystem::load_level(int level_uid)
 	player_position = level_data.player_start_position;
 
 	// Load each "creature", make a rectangle
+	// Now made each "creature" a sawfish
 	for (auto& creature : level_data.creatures)
 	{
-		auto& creature_entity = createRectangle(creature.position, creature.size.width, creature.size.height, creature.color);
+		auto& creature_entity = createSawfish(creature.position, creature.size.width, creature.size.height, creature.color);
 		registry.creatures.emplace(creature_entity);
 	}
 

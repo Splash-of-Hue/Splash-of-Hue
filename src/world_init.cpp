@@ -104,3 +104,57 @@ Entity createCircle(vec2 position, float radius, vec4 color)
 	return entity;
 }
 
+Entity createPlayer(vec2 position, float width, float height, vec4 color)
+{
+	Entity player = Entity();
+	registry.positions.insert(player, position);
+	registry.scales.insert(player, vec2((float)2.0f*GRID_CELL_WIDTH_PX, (float)2.0f*GRID_CELL_HEIGHT_PX));
+	registry.angles.emplace(player);
+	registry.angles.get(player).degrees = 0.0f;
+	registry.sizes.insert(player, Size{ width, height });
+	registry.colors.emplace(player, color);
+
+	Collidable& col = registry.collidables.emplace(player);
+	col.overlay = true;
+
+	registry.textured.emplace(player);
+	registry.textured.get(player).used_texture = TEXTURE_ASSET_ID::PLAYER_TEXTURE_01;
+	
+	registry.renderRequests.insert(
+		player,
+		{
+			EFFECT_ASSET_ID::TEXTURED,
+			GEOMETRY_BUFFER_ID::SPRITE
+		}
+	);
+	return player;
+}
+
+
+Entity createSawfish(vec2 position, float width, float height, vec4 color)
+{
+	Entity sawfish = Entity();
+	registry.positions.insert(sawfish, position);
+	registry.scales.insert(sawfish, vec2((float)2.0f * GRID_CELL_WIDTH_PX, (float)2.0f * GRID_CELL_HEIGHT_PX));
+	registry.angles.emplace(sawfish);
+	registry.angles.get(sawfish).degrees = 0.0f;
+	registry.sizes.insert(sawfish, Size{ width, height });
+	registry.colors.emplace(sawfish, color);
+
+	Collidable& col = registry.collidables.emplace(sawfish);
+	col.overlay = true;
+
+	registry.textured.emplace(sawfish);
+	registry.textured.get(sawfish).used_texture = TEXTURE_ASSET_ID::SAWFISH_01;
+
+	registry.renderRequests.insert(
+		sawfish,
+		{
+			EFFECT_ASSET_ID::TEXTURED,
+			GEOMETRY_BUFFER_ID::SPRITE
+		}
+	);
+	return sawfish;
+}
+
+

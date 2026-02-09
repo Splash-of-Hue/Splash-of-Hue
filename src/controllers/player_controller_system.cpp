@@ -6,7 +6,8 @@
 
 Entity PlayerControllerSystem::create_player()
 {
-	auto& player_entity = createCircle({ 0, 0 }, 40.0f, {1.0f, 0, 0, 1.0f});
+	//auto& player_entity = createCircle({ 0, 0 }, 40.0f, {1.0f, 0, 0, 1.0f});
+	auto& player_entity = createPlayer({ 0, 0 }, 40.0f, 40.0f, { 1.0f, 0, 0, 1.0f });
 	vec2 velocity = { 0.0f, 0.0f };
 	player_movement = vec2(0);
 	registry.players.emplace(player_entity);
