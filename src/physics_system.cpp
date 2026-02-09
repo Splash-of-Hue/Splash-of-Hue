@@ -16,13 +16,12 @@ vec4 get_bounding_box(const Entity& entity)
 	float top = pos[1] + half_height;
 	float left = pos[0] - half_width;
 	float right = pos[0] + half_width;
-	
+
 	return { bottom, top, left, right };
 }
 
 bool isCircleInRect(vec2 posC, float radiusC, vec2 point1, vec2 point2, vec2 point3) {
 	//math taken from https://stackoverflow.com/questions/2752725/finding-whether-a-point-lies-inside-a-rectangle-or-not
-		
 	vec2 AB = vec2{ point2.x - point1.x, point2.y - point1.y };
 	vec2 AP = vec2{ posC.x - point1.x, posC.y - point1.y };
 	vec2 BC = vec2{ point3.x - point2.x, point3.y - point2.y };
@@ -69,7 +68,7 @@ bool collides(const Entity& entity1, const Entity& entity2)
 	if (!registry.sizes.has(entity1) || !registry.sizes.has(entity2)) {
 		return false;
 	}
-	
+
 	if (registry.circles.has(entity1) || registry.circles.has(entity2)) {
 		const Entity& eC = registry.circles.has(entity1) ? entity1 : entity2;
 		const Entity& eR = registry.circles.has(entity1) ? entity2 : entity1;
@@ -110,51 +109,123 @@ bool collides(const Entity& entity1, const Entity& entity2)
 
 void PhysicsSystem::step(float elapsed_ms)
 {
-	// check for collisions between all positioned entities
-    ComponentContainer<Collidable> &collidables = registry.collidables;
-	for(uint i = 0; i < collidables.components.size(); i++)
+	// check for collisions between all collidable entities
+	ComponentContainer<Collidable>& collidables = registry.collidables;
+	for (uint i = 0; i < collidables.components.size(); i++)
 	{
-		
 		Entity& entity_i = collidables.entities[i];
-		
+
 		// note starting j at i+1 to compare all (i,j) pairs only once (and to not compare with itself)
-		for(uint j = i+1; j < collidables.components.size(); j++)
+		for (uint j = i + 1; j < collidables.components.size(); j++)
 		{
 			Entity& entity_j = collidables.entities[j];
+
 			if (collides(entity_i, entity_j))
 			{
-				// Create a collisions event
-				// We are abusing the ECS system a bit in that we potentially insert muliple collisions for the same entity
-				// CK: why the duplication, except to allow searching by entity_id
-				if (registry.collidables.get(entity_i).overlay) {
-					//let world_systems handle it
-					//extra guard for potential errors
-					if (!registry.change_behaviours.has(entity_j)) {
-						registry.change_behaviours.emplace(entity_j);
-					}
-				}
-				if (registry.collidables.get(entity_j).overlay) {
-					if (!registry.change_behaviours.has(entity_i)) {
-						registry.change_behaviours.emplace(entity_i);
-					}
-				}
-				//must both be inelastic for this collision resolution to occur
-				if (registry.collidables.get(entity_i).inelastic && registry.collidables.get(entity_j).inelastic) {
-					//handle it here because using bounding box for correction (also it is a physics resolution)
-					vec2& pos1 = registry.positions.get(entity_i);
-					vec2& pos2 = registry.positions.get(entity_j);
-					vec4 box1 = get_bounding_box(entity_i);
-					vec4 box2 = get_bounding_box(entity_j);
-					
-					float x_depth = box1[3] < box2[3] ? box1[3] - box2[2] : box2[3] - box1[2];
-					float y_depth = box1[1] < box2[1] ? box1[1] - box2[0] : box2[1] - box1[0];
+				vec2& posI = registry.positions.get(entity_i);
+				vec2& posJ = registry.positions.get(entity_j);
 
-					//if entity_i does not have a velocity, it should not be corrected
-					if (!registry.velocities.has(entity_i)) {
-						vec2& x = pos1;
-						pos1 = pos2;
-						pos2 = x;
+				//registry.list_all_components_of(entity_i);
+				//std::cout << posI.x << " " << posI.y << std::endl;
+				//registry.list_all_components_of(entity_j);
+				//std::cout << posJ.x << " " << posJ.y << std::endl;
+
+				//im wondering if its better to look at what type of creatures/entities we're dealing with BEFORE we look at their type
+				//of collision. Because walls will be changing between inelastic and no collision, so im not entirely sure which
+				//type of collision we want to put it in. For now, it will be its own thing.
+
+				if (registry.colouredWall.has(entity_i) || registry.colouredWall.has(entity_j)) {
+					
+					//find out which entity is which, since we need to find out if the other entity is a player
+					//although right now, im testing collisions between the hovering rectangle and a placed rectangle
+					//so that does not really apply here
+					Entity& eCW = registry.colouredWall.has(entity_i) ? entity_i : entity_j;
+					Entity& eO = registry.colouredWall.has(entity_j) ? entity_i : entity_j;
+
+					ColourState& csCW = registry.colourStates.get(eCW);
+					ColourState& csO = registry.colourStates.get(eO);
+					Collidable& colCW = registry.collidables.get(eCW);
+
+					//if colourStates are same, wall is no longer inelastic, so player can walk through
+					if (csCW.curr_colour_state == csO.curr_colour_state && csCW.curr_colour_state != COLOUR_STATE::NEUTRAL) {
+						
+						colCW.inelastic = false;
 					}
+					else {
+						colCW.inelastic = true;
+					}
+				}
+
+				//the button is a circle, is in an overlay? do we walk on top of the button?
+				//is it only our radius that affects the button?
+				//This assumed the button in a circle, and is an overlay, but since we send the rectangle
+				//to "change_behaviours," i need to implement this code
+
+				if (registry.toggles.has(entity_i) || registry.toggles.has(entity_j)) {
+					Entity& eT = registry.toggles.has(entity_i) ? entity_i : entity_j;
+					Entity& eO = registry.toggles.has(entity_j) ? entity_i : entity_j;
+					Toggle& tT = registry.toggles.get(eT);
+
+					// Only the player can toggle things
+					if (!registry.players.has(eO))
+					{
+						continue;
+					}
+
+					if (registry.colourStates.has(eO)) {
+						ColourState& csO = registry.colourStates.get(eO);
+
+						// A neutral object does not toggle anything
+						if (csO.curr_colour_state == COLOUR_STATE::NEUTRAL)
+						{
+							continue;
+						}
+
+						ColourState& csT = registry.colourStates.get(eT);
+
+						if (csT.curr_colour_state != csO.curr_colour_state) {
+							vec4& colT = registry.colors.get(eT);
+							vec4& colO = registry.colors.get(eO);
+							colT = colO;
+
+							for (Entity& toggledEntity : tT.walls_to_toggle) {
+								ColourState& csTE = registry.colourStates.get(toggledEntity);
+								csTE.prev_colour_state = csTE.curr_colour_state;
+								csTE.curr_colour_state = csO.curr_colour_state;
+								vec4& colTE = registry.colors.get(toggledEntity);
+								colTE = vec4{ colO.r, colO.g, colO.b, colO.a };
+							}
+						}
+					}
+					
+				}
+				else
+				{
+					if (registry.collidables.get(entity_i).overlay) {
+						//let world_systems handle it
+						//extra guard for potential errors
+						if (!registry.change_behaviours.has(entity_j)) {
+							registry.change_behaviours.emplace(entity_j);
+						}
+					}
+					if (registry.collidables.get(entity_j).overlay) {
+						if (!registry.change_behaviours.has(entity_i)) {
+							registry.change_behaviours.emplace(entity_i);
+						}
+					}
+					//must both be inelastic for this collision resolution to occur
+					if (registry.collidables.get(entity_i).inelastic && registry.collidables.get(entity_j).inelastic) {
+						//handle it here because using bounding box for correction (also it is a physics resolution)
+						vec2& pos1 = registry.positions.get(entity_i);
+						vec2& pos2 = registry.positions.get(entity_j);
+						vec4 box1 = get_bounding_box(entity_i);
+						vec4 box2 = get_bounding_box(entity_j);
+
+						float x_depth = box1[3] < box2[3] ? box1[3] - box2[2] : box2[3] - box1[2];
+						float y_depth = box1[1] < box2[1] ? box1[1] - box2[0] : box2[1] - box1[0];
+						x_depth = fmaxf(0, x_depth);
+						y_depth = fmaxf(0, y_depth);
+
 					if (x_depth < y_depth) {
 						if (pos1.x < pos2.x) {
 							pos1.x -= x_depth;
@@ -162,24 +233,25 @@ void PhysicsSystem::step(float elapsed_ms)
 						else {
 							pos1.x += x_depth;
 						}
-						
-					}
-					else {
-						if (pos1.y < pos2.y) {
-							pos1.y -= y_depth;
+
 						}
 						else {
-							pos1.y += y_depth;
+							if (pos1.y < pos2.y) {
+								pos1.y -= y_depth;
+							}
+							else {
+								pos1.y += y_depth;
+							}
 						}
-					}
-					
-				}
 
+					}
+				}
 			}
 			
 		}
+
+		handle_movement();
 	}
-	handle_movement();
 }
 
 void PhysicsSystem::handle_movement()

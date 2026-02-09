@@ -86,7 +86,7 @@ void WorldSystem::init(RenderSystem* renderer_arg) {
 
 
 	// Set all states to default
-    restart_game();
+	restart_game();
 }
 
 // Update our game world
@@ -193,7 +193,6 @@ void WorldSystem::handle_behaviour_change()
 	{
 		Entity& entity = changes.entities[i];
 		std::cout << "Entity has interacted with a colour radius! Entity: " << entity.id() << std::endl;
-
 	}
 	// Since behaviour change was handled, remove the entity
 	registry.change_behaviours.clear();
