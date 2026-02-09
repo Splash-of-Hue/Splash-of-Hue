@@ -129,6 +129,7 @@ void LoaderSystem::load_level(int level_uid)
 	std::vector<Entity> wall_entities = {};
 	std::map<std::string, int> wall_id_to_entity_map = {};
 
+
 	// Load each "creature", make a rectangle
 	for (auto& creature : level_data.creatures)
 	{

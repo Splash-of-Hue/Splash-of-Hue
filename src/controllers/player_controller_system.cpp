@@ -18,6 +18,7 @@ Entity PlayerControllerSystem::create_player()
 	auto& collidable = registry.collidables.emplace(player_entity);
 	collidable.inelastic = true;
 
+
 	return player_entity;
 }
 
