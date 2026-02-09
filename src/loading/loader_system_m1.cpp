@@ -144,6 +144,8 @@ void LoaderSystem::load_level(int level_uid)
 		Creature& creature_component = registry.creatures.emplace(creature_entity);
 		creature_component.creatureType = creature.creatureType;
 		registry.velocities.emplace(creature_entity, creature.velocity);
+		auto& creature_collidable = registry.collidables.emplace(creature_entity);
+		creature_collidable.inelastic = true;
 	}
 
 	// Make walls and store their entities to use when making toggles
