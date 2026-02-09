@@ -175,6 +175,13 @@ void PhysicsSystem::step(float elapsed_ms)
 
 					if (registry.colourStates.has(eO)) {
 						ColourState& csO = registry.colourStates.get(eO);
+
+						// A neutral object does not toggle anything
+						if (csO.curr_colour_state == COLOUR_STATE::NEUTRAL)
+						{
+							continue;
+						}
+
 						ColourState& csT = registry.colourStates.get(eT);
 
 						if (csT.curr_colour_state != csO.curr_colour_state) {
