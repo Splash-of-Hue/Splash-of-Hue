@@ -150,7 +150,7 @@ struct Creature
 // TODO: Remove as we probably won't need this, this is just for M1 prototyping
 struct Toggle
 {
-	std::vector<Entity> wallsToToggle;
+	std::vector<Entity> walls_to_toggle;
 };
 
 struct ColouredWall

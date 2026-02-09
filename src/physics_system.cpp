@@ -175,7 +175,7 @@ void PhysicsSystem::step(float elapsed_ms)
 							vec4& colO = registry.colors.get(eO);
 							colT = colO;
 
-							for (Entity& toggledEntity : tT.wallsToToggle) {
+							for (Entity& toggledEntity : tT.walls_to_toggle) {
 								ColourState& csTE = registry.colourStates.get(toggledEntity);
 								csTE.prev_colour_state = csTE.curr_colour_state;
 								csTE.curr_colour_state = csO.curr_colour_state;
