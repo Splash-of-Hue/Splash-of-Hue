@@ -97,13 +97,13 @@ const std::vector<M1TestData> m1_test_data = {
 				"wall_2", // ID
 				{100, 20}, // size
 				{640, 150}, // position
-				COLOUR_STATE::BLUE // state
+				COLOUR_STATE::RED // state
 			},
 			{
 				"wall_3", // ID
 				{20, 100}, // size
 				{680, 210}, // position
-				COLOUR_STATE::BLUE // state
+				COLOUR_STATE::RED // state
 			},
 			{
 				"wall_4", // ID
