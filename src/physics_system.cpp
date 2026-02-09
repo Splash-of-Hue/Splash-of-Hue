@@ -154,7 +154,6 @@ void PhysicsSystem::step(float elapsed_ms)
 					else {
 						colCW.inelastic = true;
 					}
-
 				}
 
 				//the button is a circle, is in an overlay? do we walk on top of the button?
