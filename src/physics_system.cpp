@@ -119,6 +119,7 @@ void PhysicsSystem::step(float elapsed_ms)
 		for (uint j = i + 1; j < collidables.components.size(); j++)
 		{
 			Entity& entity_j = collidables.entities[j];
+
 			if (collides(entity_i, entity_j))
 			{
 				vec2& posI = registry.positions.get(entity_i);
@@ -186,7 +187,8 @@ void PhysicsSystem::step(float elapsed_ms)
 					}
 					
 				}
-				else {
+				else
+				{
 					if (registry.collidables.get(entity_i).overlay) {
 						//let world_systems handle it
 						//extra guard for potential errors
@@ -235,9 +237,11 @@ void PhysicsSystem::step(float elapsed_ms)
 			}
 			
 		}
+
 		handle_movement();
 	}
 }
+
 void PhysicsSystem::handle_movement()
 {
 	ComponentContainer<vec2>& moving_entities = registry.velocities;
