@@ -26,9 +26,31 @@ GLFWwindow* InputSystem::init(GLFWwindow* window)
 	return window;
 }
 
+// TODO bDKnCkH1: Remove
+void InputSystem::clear_keys()
+{
+	pressed_keys.clear();
+}
+
 // on key callback
 void InputSystem::on_key(int key, int, int action, int mod)
 {
+	// TODO bDKnCkH1: Remove
+	if (pressed_keys.count(key) == 0 && action == GLFW_RELEASE)
+	{
+		return;
+	}
+
+	if (action == GLFW_PRESS)
+	{
+		pressed_keys[key] = true;
+	}
+
+	if (action == GLFW_RELEASE)
+	{
+		pressed_keys.erase(key);
+	}
+
 	Entity key_event_entity;
 	Input input = {
 		INPUT_TYPE::KEYBOARD,

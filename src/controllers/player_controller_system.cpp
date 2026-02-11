@@ -77,6 +77,7 @@ void PlayerControllerSystem::step(float elapsed_ms)
 	}
 
 	auto& player = registry.players.components[0];
-	player_velocity += player_movement * player.speed;
+	const float speed = elapsed_ms * player.speed * 0.01;
+	player_velocity += player_movement * speed;
 	std::cout << "DEBUG: Moving x: " << player_velocity.x << ", y: " << player_velocity.y << std::endl;
 }

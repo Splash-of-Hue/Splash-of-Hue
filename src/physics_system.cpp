@@ -140,6 +140,11 @@ void PhysicsSystem::step(float elapsed_ms)
 				// For now, this handles creature - player interaction
 				if (registry.colourStates.has(entity_i) && registry.colourStates.has(entity_j))
 				{
+					if (registry.colouredWall.has(entity_i) && registry.colouredWall.has(entity_j))
+					{
+						continue;
+					}
+
 					// TODO: Determine color giving priority
 
 					const bool i_is_player = registry.players.has(entity_i);
@@ -202,7 +207,7 @@ void PhysicsSystem::step(float elapsed_ms)
 					Collidable& colCW = registry.collidables.get(eCW);
 
 					//if colourStates are same, wall is no longer inelastic, so player can walk through
-					if (csCW.curr_colour_state == csO.curr_colour_state && csCW.curr_colour_state != COLOUR_STATE::NEUTRAL)
+					if (csCW.curr_colour_state == csO.curr_colour_state && csCW.curr_colour_state != COLOUR_STATE::NEUTRAL && registry.players.has(eO))
 					{
 
 						colCW.inelastic = false;
