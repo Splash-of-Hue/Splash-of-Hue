@@ -1,0 +1,38 @@
+#pragma once
+
+inline float ms_per_frame(int frame_rate) { return 1000.0f / frame_rate; }
+
+enum class ANIMATABLE_TYPE
+{
+	PLAYER = 0,
+	SAWFISH = PLAYER + 1,
+	WHALE = SAWFISH + 1,
+	PISTOL_SHRIMP = WHALE + 1,
+	MINNOW = PISTOL_SHRIMP + 1,
+	JAPANESE_PORCUPINE_CRAB = MINNOW + 1,
+	ANGLERFISH = JAPANESE_PORCUPINE_CRAB + 1,
+	CORAL_TREE = ANGLERFISH + 1,
+	ANIMATABLE_TYPE_COUNT = CORAL_TREE + 1,
+};
+
+const int animatable_type_count = (int)ANIMATABLE_TYPE::ANIMATABLE_TYPE_COUNT;
+
+enum class ANIMATION_TRIGGER
+{
+	IDLE = 0,
+	WALK = IDLE + 1,
+	DIE = WALK + 1,
+	ANIMATION_TRIGGER_COUNT = DIE + 1,
+};
+
+const int animation_trigger_count = (int)ANIMATION_TRIGGER::ANIMATION_TRIGGER_COUNT;
+
+enum class ANIMATION_BEHAVIOR
+{
+	PLAY_ONCE = 0,
+	LOOP = PLAY_ONCE + 1,
+	PING_PONG = LOOP + 1,
+	ANIMATION_BEHAVIOR_COUNT = PING_PONG + 1,
+};
+
+const int animation_behavior_count = (int)ANIMATION_BEHAVIOR::ANIMATION_BEHAVIOR_COUNT;

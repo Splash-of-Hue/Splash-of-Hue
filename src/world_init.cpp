@@ -2,28 +2,21 @@
 #include "ecs/registry.hpp"
 #include <iostream>
 
-// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-// !!! TODO A1: create grid lines
-// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 Entity createGridLine(vec2 start_pos, vec2 end_pos)
 {
 	Entity entity = Entity();
 
-	// TODO A1: create a gridLine component
+	registry.gridLines.insert(entity, { start_pos, end_pos });
 
-	// re-use the "DEBUG_LINE" renderRequest
-	/*
 	registry.renderRequests.insert(
 		entity,
 		{
-			TEXTURE_ASSET_ID::TEXTURE_COUNT,
-			EFFECT_ASSET_ID::EGG,
-			GEOMETRY_BUFFER_ID::DEBUG_LINE
+			EFFECT_ASSET_ID::DEFAULT,
+			GEOMETRY_BUFFER_ID::GRADIENT_CIRCLE
 		}
 	);
-	*/
 
-	// TODO A1: grid line color (choose your own color)
+	registry.colors.emplace(entity, vec4(1.0f, 0.0f, 0.0f, 1.0f));
 
 	return entity;
 }
@@ -36,28 +29,98 @@ Entity createLine(vec2 position, vec2 scale)
 	registry.renderRequests.insert(
 		entity,
 		{
-			// usage TEXTURE_COUNT when no texture is needed, i.e., an .obj or other vertices are used instead
-			TEXTURE_ASSET_ID::TEXTURE_COUNT,
 			EFFECT_ASSET_ID::EFFECT_COUNT,
-			GEOMETRY_BUFFER_ID::DEBUG_LINE
+			GEOMETRY_BUFFER_ID::RECTANGLE
 		}
 	);
-
-	// Create motion
-	Motion& motion = registry.motions.emplace(entity);
-	motion.angle = 0.f;
-	motion.velocity = { 0, 0 };
-	motion.position = position;
-	motion.scale = scale;
-
 	registry.debugComponents.emplace(entity);
 	return entity;
 }
 
-// LEGACY - for creating a chicken from geometry (i.e., not an image-based sprite)
-Entity createChicken(RenderSystem* renderer, vec2 pos)
+Entity createRectangle(vec2 position, float width, float height, vec4 color)
 {
-	auto entity = Entity();
+	Entity entity = Entity();
+
+	Size size = { width, height };
+	registry.positions.insert(entity, position);
+	registry.sizes.insert(entity, size);
+	registry.rectangles.emplace(entity);
+	registry.colors.emplace(entity, color);
+	
+	registry.renderRequests.insert(
+		entity,
+		{
+			EFFECT_ASSET_ID::DEFAULT,
+			GEOMETRY_BUFFER_ID::RECTANGLE
+		}
+	);
 
 	return entity;
+}
+
+Entity createRectangle(vec2 top_left, vec2 bottom_right, vec4 color)
+{
+	Entity entity = Entity();
+
+	auto rectangle_diagonal = (bottom_right - top_left);
+	Size size = { rectangle_diagonal.x, rectangle_diagonal.y };
+	auto center = (bottom_right + top_left) * vec2(0.5);
+	registry.positions.insert(entity, center);
+	registry.sizes.insert(entity, size);
+	registry.rectangles.emplace(entity);
+	registry.colors.emplace(entity, color);
+
+	registry.renderRequests.insert(
+		entity,
+		{
+			EFFECT_ASSET_ID::DEFAULT,
+			GEOMETRY_BUFFER_ID::RECTANGLE
+		}
+	);
+
+	return entity;
+}
+
+Entity createCircle(vec2 position, float radius, vec4 color)
+{
+	Entity entity = Entity();
+
+	Size size = { radius, radius };
+	registry.positions.insert(entity, position);
+	registry.sizes.insert(entity, size);
+	registry.circles.emplace(entity);
+	registry.colors.emplace(entity, color);
+	registry.renderRequests.insert(
+		entity,
+		{
+			EFFECT_ASSET_ID::DEFAULT,
+			GEOMETRY_BUFFER_ID::CIRCLE
+		}
+	);
+	
+	return entity;
+}
+
+// TODO: 69 - move to creature creater 
+Entity createSawfish(vec2 position, float width, float height, vec4 color)
+{
+	Entity sawfish = Entity();
+	registry.positions.insert(sawfish, position);
+	registry.scales.insert(sawfish, vec2((float)2.0f * GRID_CELL_WIDTH_PX, (float)2.0f * GRID_CELL_HEIGHT_PX));
+	registry.angles.emplace(sawfish);
+	registry.angles.get(sawfish).degrees = 0.0f;
+	registry.sizes.insert(sawfish, Size{ width, height });
+	registry.colors.emplace(sawfish, color);
+
+	registry.textured.emplace(sawfish);
+	registry.textured.get(sawfish).used_texture = TEXTURE_ASSET_ID::SAWFISH_01;
+
+	registry.renderRequests.insert(
+		sawfish,
+		{
+			EFFECT_ASSET_ID::TEXTURED,
+			GEOMETRY_BUFFER_ID::SPRITE
+		}
+	);
+	return sawfish;
 }

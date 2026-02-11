@@ -4,8 +4,98 @@
 #include <iostream>
 
 // internal
-#include "render_system.hpp"
+#include "common.hpp"
+#include "renderer/render_system.hpp"
 #include "ecs/registry.hpp"
+
+// TODO 1ch6Q0BE: Remove function
+void RenderSystem::drawShape(Entity entity,
+	const mat3& projection) {
+
+	auto& position = registry.positions.get(entity);
+	auto& size_component = registry.sizes.get(entity);
+
+	// Transformation code, see Rendering and Transformation in the template
+	// specification for more info Incrementally updates transformation matrix,
+	// thus ORDER IS IMPORTANT
+	Transform transform;
+	transform.translate(vec2(position.x, position.y));
+	transform.scale(vec2(size_component.width, size_component.height));
+
+	assert(registry.renderRequests.has(entity));
+	const RenderRequest& render_request = registry.renderRequests.get(entity);
+
+	const GLuint used_effect_enum = (GLuint)render_request.used_effect;
+	assert(used_effect_enum != (GLuint)EFFECT_ASSET_ID::EFFECT_COUNT);
+	const GLuint program = (GLuint)effects[used_effect_enum];
+
+	// setting shaders
+	glUseProgram(program);
+	gl_has_errors();
+
+	assert(render_request.used_geometry != GEOMETRY_BUFFER_ID::GEOMETRY_COUNT);
+	const GLuint vbo = vertex_buffers[(GLuint)render_request.used_geometry];
+	const GLuint ibo = index_buffers[(GLuint)render_request.used_geometry];
+
+	// Setting vertex and index buffers
+	glBindBuffer(GL_ARRAY_BUFFER, vbo);
+	gl_has_errors();
+
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo);
+	gl_has_errors();
+
+	if (render_request.used_effect == EFFECT_ASSET_ID::DEFAULT)
+	{
+		GLint in_position_loc = glGetAttribLocation(program, "in_position");
+		gl_has_errors();
+
+		GLint in_color_loc = glGetAttribLocation(program, "in_color");
+		gl_has_errors();
+
+		glEnableVertexAttribArray(in_position_loc);
+		glVertexAttribPointer(in_position_loc, 3, GL_FLOAT, GL_FALSE,
+			sizeof(ColoredVertex), (void*)0);
+		gl_has_errors();
+
+		glEnableVertexAttribArray(in_color_loc);
+		glVertexAttribPointer(in_color_loc, 3, GL_FLOAT, GL_FALSE,
+			sizeof(ColoredVertex), (void*)sizeof(vec3));
+		gl_has_errors();
+	}
+	else
+	{
+		assert(false && "Type of render request not supported");
+	}
+
+	// Getting uniform locations for glUniform* calls
+	GLint color_uloc = glGetUniformLocation(program, "fcolor");
+	const vec3 color = registry.colors.has(entity) ? registry.colors.get(entity) : vec3(1);
+	// CK: std::cout << "line color: " << color.r << ", " << color.g << ", " << color.b << std::endl;
+	glUniform3fv(color_uloc, 1, (float*)&color);
+	gl_has_errors();
+
+	// Get number of indices from index buffer, which has elements uint16_t
+	GLint size = 0;
+	glGetBufferParameteriv(GL_ELEMENT_ARRAY_BUFFER, GL_BUFFER_SIZE, &size);
+	gl_has_errors();
+
+	GLsizei num_indices = size / sizeof(uint16_t);
+
+	GLint currProgram;
+	glGetIntegerv(GL_CURRENT_PROGRAM, &currProgram);
+	// Setting uniform values to the currently bound program
+	GLuint transform_loc = glGetUniformLocation(currProgram, "transform");
+	glUniformMatrix3fv(transform_loc, 1, GL_FALSE, (float*)&transform.mat);
+	gl_has_errors();
+
+	GLuint projection_loc = glGetUniformLocation(currProgram, "projection");
+	glUniformMatrix3fv(projection_loc, 1, GL_FALSE, (float*)&projection);
+	gl_has_errors();
+
+	// Drawing of num_indices/3 triangles specified in the index buffer
+	glDrawElements(GL_TRIANGLES, num_indices, GL_UNSIGNED_SHORT, nullptr);
+	gl_has_errors();
+}
 
 void RenderSystem::drawGridLine(Entity entity,
 								const mat3& projection) {
@@ -97,14 +187,16 @@ void RenderSystem::drawGridLine(Entity entity,
 void RenderSystem::drawTexturedMesh(Entity entity,
 									const mat3 &projection)
 {
-	Motion &motion = registry.motions.get(entity);
+	auto &position = registry.positions.get(entity);
+	auto &scale = registry.scales.get(entity);
+	auto &angle = registry.angles.get(entity);
 	// Transformation code, see Rendering and Transformation in the template
 	// specification for more info Incrementally updates transformation matrix,
 	// thus ORDER IS IMPORTANT
 	Transform transform;
-	transform.translate(motion.position);
-	transform.scale(motion.scale);
-	transform.rotate(radians(motion.angle));
+	transform.translate(position);
+	transform.scale(scale);
+	transform.rotate(radians(angle.degrees));
 
 	assert(registry.renderRequests.has(entity));
 	const RenderRequest &render_request = registry.renderRequests.get(entity);
@@ -149,9 +241,9 @@ void RenderSystem::drawTexturedMesh(Entity entity,
 		glActiveTexture(GL_TEXTURE0);
 		gl_has_errors();
 
-		assert(registry.renderRequests.has(entity));
+		assert(registry.textured.has(entity));
 		GLuint texture_id =
-			texture_gl_handles[(GLuint)registry.renderRequests.get(entity).used_texture];
+			texture_gl_handles[(GLuint)registry.textured.get(entity).used_texture];
 
 		glBindTexture(GL_TEXTURE_2D, texture_id);
 		gl_has_errors();
@@ -180,8 +272,8 @@ void RenderSystem::drawTexturedMesh(Entity entity,
 
 	// Getting uniform locations for glUniform* calls
 	GLint color_uloc = glGetUniformLocation(program, "fcolor");
-	const vec3 color = registry.colors.has(entity) ? registry.colors.get(entity) : vec3(1);
-	glUniform3fv(color_uloc, 1, (float *)&color);
+	const vec4 color = registry.colors.has(entity) ? registry.colors.get(entity) : vec4(1);
+	glUniform4fv(color_uloc, 1, (float *)&color);
 	gl_has_errors();
 
 	// Get number of indices from index buffer, which has elements uint16_t
@@ -224,7 +316,7 @@ void RenderSystem::drawToScreen()
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 	glViewport(0, 0, w, h);
 	glDepthRange(0, 10);
-	glClearColor(1.f, 0, 0, 1.0);
+	glClearColor(CLEAR_SCREEN_COLOR.r, CLEAR_SCREEN_COLOR.g, CLEAR_SCREEN_COLOR.b, CLEAR_SCREEN_COLOR.a);
 	glClearDepth(1.f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	gl_has_errors();
@@ -310,14 +402,20 @@ void RenderSystem::draw()
 	for (Entity entity : registry.renderRequests.entities)
 	{
 		// filter to entities that have a motion component
-		if (registry.motions.has(entity)) {
+		if (registry.textured.has(entity))
+		{
 			// Note, its not very efficient to access elements indirectly via the entity
 			// albeit iterating through all Sprites in sequence. A good point to optimize
 			drawTexturedMesh(entity, projection_2D);
 		}
 		// draw grid lines separately, as they do not have motion but need to be rendered
-		else if (registry.gridLines.has(entity)) {
+		else if (registry.gridLines.has(entity))
+		{
 			drawGridLine(entity, projection_2D);
+		}
+		else if (registry.rectangles.has(entity) || registry.circles.has(entity))
+		{
+			drawShape(entity, projection_2D);
 		}
 	}
 
@@ -343,7 +441,8 @@ mat3 RenderSystem::createProjectionMatrix()
 	float tx = -(right + left) / (right - left);
 	float ty = -(top + bottom) / (top - bottom);
 
-	return {
+	return
+	{
 		{ sx, 0.f, 0.f},
 		{0.f,  sy, 0.f},
 		{ tx,  ty, 1.f}

@@ -1,33 +1,48 @@
 #pragma once
 #include "common.hpp"
+#include <map>
 #include <vector>
-#include <unordered_map>
-#include "../ext/stb_image/stb_image.h"
 
-// Component flags
-enum ComponentType
-{
-	Invalid = 0,
-	PlayerType = 1 << 1,
-	Moving = 1 << 2,
-	Position = 1 << 3,
+enum class COLOUR_STATE {
+	NEUTRAL = 0,
+	BLUE = 1,
+	RED = 2
 };
 
-inline ComponentType operator|(ComponentType a, ComponentType b)
-{
-	return static_cast<ComponentType>(static_cast<int>(a) | static_cast<int>(b));
-}
-inline ComponentType operator&(ComponentType a, ComponentType b)
-{
-	return static_cast<ComponentType>(static_cast<int>(a) & static_cast<int>(b));
-}
+struct ColourPalette {
+	std::map<COLOUR_STATE, vec4> state_to_colour = {
+		{ COLOUR_STATE::NEUTRAL, vec4(0.5f, 0.5f, 0.5f, 1.0f)},
+		{ COLOUR_STATE::BLUE, vec4(0.0f, 0.0f, 1.0f, 1.0f)},
+		{ COLOUR_STATE::RED, vec4(1.0f, 0.0f, 0.0f, 1.0f)}
+	};
+};
 
-// Player component
-struct Player
+struct ColourState {
+	COLOUR_STATE curr_colour_state = COLOUR_STATE::NEUTRAL;
+	COLOUR_STATE prev_colour_state = COLOUR_STATE::NEUTRAL;
+};
+
+struct ColourWheel {
+	COLOUR_STATE prev_colour = COLOUR_STATE::NEUTRAL;
+	COLOUR_STATE curr_colour = COLOUR_STATE::NEUTRAL;
+};
+
+struct ColourMenuState {
+	bool is_curr_open = false;
+	bool just_closed = false;
+};
+
+struct ColourMenuInput {
+	int direction = 0;
+};
+
+struct Deadly
 {
 
 };
 
+
+//////////////////////////////////////////////////////////
 // Tower
 struct Tower {
 	float range;	// for vision / detection
@@ -44,11 +59,7 @@ struct Projectile {
 	int damage;
 };
 
-// used for Entities that cause damage
-struct Deadly
-{
 
-};
 
 // used for edible entities
 struct Eatable
@@ -56,13 +67,6 @@ struct Eatable
 
 };
 
-// All data relevant to the shape and motion of entities
-struct Motion {
-	vec2  position = { 0, 0 };
-	float angle = 0;
-	vec2  velocity = { 0, 0 };
-	vec2  scale = { 10, 10 };
-};
 
 // Stucture to store collision information
 struct Collision
@@ -70,6 +74,17 @@ struct Collision
 	// Note, the first object is stored in the ECS container.entities
 	Entity other; // the second object involved in the collision
 	Collision(Entity& other) { this->other = other; };
+};
+
+//assigned to entities that need behaviour change
+struct ChangeBehaviour
+{
+
+};
+//entity is assigned a type of collision (when created) to determine how its collision is resolved
+struct Collidable {
+	bool overlay = false;
+	bool inelastic = false;
 };
 
 // Data structure for toggling debug mode
@@ -97,87 +112,41 @@ struct GridLine {
 	vec2 end_pos = { 10, 10 };	// default to diagonal line
 };
 
-// A timer that will be associated to dying chicken
 struct DeathTimer
 {
 	float counter_ms = 3000;
 };
 
-// Single Vertex Buffer element for non-textured meshes (coloured.vs.glsl & chicken.vs.glsl)
-struct ColoredVertex
+// TODO 1ch6Q0BE: Remove in favour of robust rendering engine
+// An entity that is drawn as a rectangle on screen
+struct Rect {};
+struct Circle {};
+
+struct Angle
 {
-	vec3 position;
-	vec3 color;
+	float degrees;
 };
 
-// Single Vertex Buffer element for textured sprites (textured.vs.glsl)
-struct TexturedVertex
+struct Size
 {
-	vec3 position;
-	vec2 texcoord;
+	float height;
+	float width;
 };
 
-// Mesh datastructure for storing vertex and index buffers
-struct Mesh
+// Used for level entity
+struct Level
 {
-	static bool loadFromOBJFile(std::string obj_path, std::vector<ColoredVertex>& out_vertices, std::vector<uint16_t>& out_vertex_indices, vec2& out_size);
-	vec2 original_size = { 1,1 };
-	std::vector<ColoredVertex> vertices;
-	std::vector<uint16_t> vertex_indices;
+	// Unique ID for the room
+	int uid;
 };
 
-/**
- * The following enumerators represent global identifiers refering to graphic
- * assets. For example TEXTURE_ASSET_ID are the identifiers of each texture
- * currently supported by the system.
- *
- * So, instead of referring to a game asset directly, the game logic just
- * uses these enumerators and the RenderRequest struct to inform the renderer
- * how to structure the next draw command.
- *
- * There are 2 reasons for this:
- *
- * First, game assets such as textures and meshes are large and should not be
- * copied around as this wastes memory and runtime. Thus separating the data
- * from its representation makes the system faster.
- *
- * Second, it is good practice to decouple the game logic from the render logic.
- * Imagine, for example, changing from OpenGL to Vulkan, if the game logic
- * depends on OpenGL semantics it will be much harder to do the switch than if
- * the renderer encapsulates all asset data and the game logic is agnostic to it.
- *
- * The final value in each enumeration is both a way to keep track of how many
- * enums there are, and as a default value to represent uninitialized fields.
- */
-
-enum class TEXTURE_ASSET_ID {
-	PLAYER_TEXTURE_1 = 0,
-	MAP_TEXTURE_1 = PLAYER_TEXTURE_1 + 1,
-	TEXTURE_COUNT = MAP_TEXTURE_1 + 1
-};
-const int texture_count = (int)TEXTURE_ASSET_ID::TEXTURE_COUNT;
-
-enum class EFFECT_ASSET_ID {
-	DEFAULT = 0,
-	COLOURED = DEFAULT + 1,
-	TEXTURED = COLOURED + 1,
-	VIGNETTE = TEXTURED + 1,
-	EFFECT_COUNT = VIGNETTE + 1
-};
-const int effect_count = (int)EFFECT_ASSET_ID::EFFECT_COUNT;
-
-enum class GEOMETRY_BUFFER_ID {
-	DEFAULT = 0,
-	SPRITE = DEFAULT + 1,
-	DEBUG_LINE = SPRITE + 1,
-	SCREEN_TRIANGLE = DEBUG_LINE + 1,
-	GEOMETRY_COUNT = SCREEN_TRIANGLE + 1
-};
-const int geometry_count = (int)GEOMETRY_BUFFER_ID::GEOMETRY_COUNT;
-
-struct RenderRequest {
-	TEXTURE_ASSET_ID   used_texture = TEXTURE_ASSET_ID::TEXTURE_COUNT;
-	EFFECT_ASSET_ID    used_effect = EFFECT_ASSET_ID::EFFECT_COUNT;
-	GEOMETRY_BUFFER_ID used_geometry = GEOMETRY_BUFFER_ID::GEOMETRY_COUNT;
+// TODO: Remove as we probably won't need this, this is just for M1 prototyping
+struct Toggle
+{
+	std::vector<Entity> walls_to_toggle;
 };
 
+struct ColouredWall
+{
+
+};

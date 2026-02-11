@@ -8,6 +8,7 @@
 #include <iostream>
 
 #include "physics_system.hpp"
+#include "loading/loading_constants.hpp"
 
 // create the world
 WorldSystem::WorldSystem() :
@@ -21,14 +22,6 @@ WorldSystem::WorldSystem() :
 }
 
 WorldSystem::~WorldSystem() {
-	// Destroy music components
-	if (background_music != nullptr)
-		Mix_FreeMusic(background_music);
-	if (invader_hit_sound != nullptr)
-		Mix_FreeChunk(invader_hit_sound);
-	if (tower_hit_sound != nullptr)
-		Mix_FreeChunk(tower_hit_sound);
-	Mix_CloseAudio();
 
 	// Destroy all created components
 	registry.clear_all_components();
@@ -84,64 +77,29 @@ GLFWwindow* WorldSystem::create_window() {
 		return nullptr;
 	}
 
-	// Setting callbacks to member functions (that's why the redirect is needed)
-	// Input is handled using GLFW, for more info see
-	// http://www.glfw.org/docs/latest/input_guide.html
-	glfwSetWindowUserPointer(window, this);
-	auto key_redirect = [](GLFWwindow* wnd, int _0, int _1, int _2, int _3) { ((WorldSystem*)glfwGetWindowUserPointer(wnd))->on_key(_0, _1, _2, _3); };
-	auto cursor_pos_redirect = [](GLFWwindow* wnd, double _0, double _1) { ((WorldSystem*)glfwGetWindowUserPointer(wnd))->on_mouse_move({ _0, _1 }); };
-	auto mouse_button_pressed_redirect = [](GLFWwindow* wnd, int _button, int _action, int _mods) { ((WorldSystem*)glfwGetWindowUserPointer(wnd))->on_mouse_button_pressed(_button, _action, _mods); };
-	
-	glfwSetKeyCallback(window, key_redirect);
-	glfwSetCursorPosCallback(window, cursor_pos_redirect);
-	glfwSetMouseButtonCallback(window, mouse_button_pressed_redirect);
-
 	return window;
 }
 
-bool WorldSystem::start_and_load_sounds() {
-	
-	//////////////////////////////////////
-	// Loading music and sounds with SDL
-	if (SDL_Init(SDL_INIT_AUDIO) < 0) {
-		fprintf(stderr, "Failed to initialize SDL Audio");
-		return false;
-	}
-
-	if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048) == -1) {
-		fprintf(stderr, "Failed to open audio device");
-		return false;
-	}
-
-	background_music = Mix_LoadMUS(audio_path("music.wav").c_str());
-	invader_hit_sound = Mix_LoadWAV(audio_path("invader_hit.wav").c_str());
-	tower_hit_sound = Mix_LoadWAV(audio_path("tower_hit.wav").c_str());
-
-	if (background_music == nullptr || invader_hit_sound == nullptr || tower_hit_sound == nullptr) {
-		fprintf(stderr, "Failed to load sounds\n %s\n %s\n %s\n make sure the data directory is present",
-			audio_path("music.wav").c_str(),
-			audio_path("invader_hit.wav").c_str(),
-			audio_path("tower_hit.wav").c_str());
-		return false;
-	}
-
-	return true;
-}
-
-void WorldSystem::init(RenderSystem* renderer_arg) {
+void WorldSystem::init(RenderSystem* renderer_arg, InputSystem* input_system) {
 
 	this->renderer = renderer_arg;
+	// TODO bDKnCkH1: Remove
+	this->input = input_system;
 
-	// start playing background music indefinitely
-	std::cout << "Starting music..." << std::endl;
-	Mix_PlayMusic(background_music, -1);
 
 	// Set all states to default
-    restart_game();
+	restart_game();
 }
 
 // Update our game world
 bool WorldSystem::step(float elapsed_ms_since_last_update) {
+
+	if (registry.players.entities.size() > 0) {
+		Entity& playerComp = registry.players.entities[0];
+		if (registry.deathTimers.has(playerComp)) {
+			restart_game();
+		}
+	}
 
 	// Updating window title with points
 	std::stringstream title_ss;
@@ -152,17 +110,34 @@ bool WorldSystem::step(float elapsed_ms_since_last_update) {
 	while (registry.debugComponents.entities.size() > 0)
 	    registry.remove_all_components_of(registry.debugComponents.entities.back());
 
-	// Removing out of screen entities
-	auto& motions_registry = registry.motions;
+	for (auto& entity : registry.controls.entities)
+	{
+		Control& control = registry.controls.get(entity);
 
-	// Remove entities that leave the screen on the left side
-	// Iterate backwards to be able to remove without interfering with the next object to visit
-	// (the containers exchange the last element with the current)
-	for (int i = (int)motions_registry.components.size()-1; i>=0; --i) {
-	    Motion& motion = motions_registry.components[i];
-		if (motion.position.x + abs(motion.scale.x) < 0.f) {
-			if(!registry.players.has(motions_registry.entities[i])) // don't remove the player
-				registry.remove_all_components_of(motions_registry.entities[i]);
+		// The rest only matter at the phase end
+		if (control.phase != CONTROL_PHASE::END)
+		{
+			continue;
+		}
+
+		if (control.type == CONTROL_TYPE::END_GAME)
+		{
+			close_window();
+		}
+
+		//// Resetting game
+		if (control.type == CONTROL_TYPE::RESTART)
+		{
+			int w, h;
+			glfwGetWindowSize(window, &w, &h);
+
+			restart_game();
+		}
+
+		if (control.type == CONTROL_TYPE::DEBUG)
+		{
+			// Toggle debug mode
+			debugging.in_debug_mode = !debugging.in_debug_mode;
 		}
 	}
 
@@ -183,117 +158,37 @@ void WorldSystem::restart_game() {
 	// Reset the game speed
 	current_speed = 1.f;
 
-	// Remove all entities that we created
-	// All that have a motion, we could also iterate over all bug, eagles, ... but that would be more cumbersome
-	while (registry.motions.entities.size() > 0)
-	    registry.remove_all_components_of(registry.motions.entities.back());
-
 	// debugging for memory/component leaks
 	registry.list_all_components();
+	
+	while (registry.velocities.entities.size() > 0)
+		registry.remove_all_components_of(registry.velocities.entities.back());
+	while (registry.renderRequests.entities.size() > 0)
+		registry.remove_all_components_of(registry.renderRequests.entities.back());
 
-	int grid_line_width = GRID_LINE_WIDTH_PX;
-
-	// create grid lines if they do not already exist
-	if (grid_lines.size() == 0) {
-		// vertical lines
-		int cell_width = GRID_CELL_WIDTH_PX;
-		for (int col = 0; col < 14 + 1; col++) {
-			// width of 2 to make the grid easier to see
-			grid_lines.push_back(createGridLine(vec2(col * cell_width, 0), vec2(grid_line_width, 2 * WINDOW_HEIGHT_PX)));
-		}
-
-		// horizontal lines
-		int cell_height = GRID_CELL_HEIGHT_PX;
-		for (int col = 0; col < 10 + 1; col++) {
-			// width of 2 to make the grid easier to see
-			grid_lines.push_back(createGridLine(vec2(0, col * cell_height), vec2(2 * WINDOW_WIDTH_PX, grid_line_width)));
-		}
-	}
+	input->clear_keys();
+	// Request a player be made
+	Entity player_create_request_entity;
+	registry.playerCreateRequests.emplace(player_create_request_entity);
+	// Load level
+	Entity load_request_entity;
+	registry.loadRequests.insert(load_request_entity, { LOAD_TYPE::LOAD_LEVEL, current_level_uid });
 }
 
-// Compute collisions between entities
-void WorldSystem::handle_collisions() {
-
-	ComponentContainer<Collision>& collision_container = registry.collisions;
-	for (uint i = 0; i < collision_container.components.size(); i++) {
-
+// When entity collides with colour radius, it needs to have its behaviour change handled here
+void WorldSystem::handle_behaviour_change()
+{
+	ComponentContainer<ChangeBehaviour>& changes = registry.change_behaviours;
+	for (uint i = 0; i < changes.components.size(); i++)
+	{
+		Entity& entity = changes.entities[i];
+		std::cout << "Entity has interacted with a colour radius! Entity: " << entity.id() << std::endl;
 	}
-
-	// Remove all collisions from this simulation step
-	registry.collisions.clear();
+	// Since behaviour change was handled, remove the entity
+	registry.change_behaviours.clear();
 }
 
 // Should the game be over ?
 bool WorldSystem::is_over() const {
 	return bool(glfwWindowShouldClose(window));
-}
-
-// on key callback
-void WorldSystem::on_key(int key, int, int action, int mod) {
-
-	// exit game w/ ESC
-	if (action == GLFW_RELEASE && key == GLFW_KEY_ESCAPE) {
-		close_window();
-	}
-
-	// Resetting game
-	if (action == GLFW_RELEASE && key == GLFW_KEY_R) {
-		int w, h;
-		glfwGetWindowSize(window, &w, &h);
-
-        restart_game();
-	}
-
-	// Debugging - not used in A1, but left intact for the debug lines
-	if (key == GLFW_KEY_D) {
-		if (action == GLFW_RELEASE) {
-			if (debugging.in_debug_mode) {
-				debugging.in_debug_mode = false;
-			}
-			else {
-				debugging.in_debug_mode = true;
-			}
-		}
-	}
-}
-
-void WorldSystem::on_mouse_move(vec2 mouse_position) {
-
-	// record the current mouse position
-	mouse_pos_x = mouse_position.x;
-	mouse_pos_y = mouse_position.y;
-}
-
-void WorldSystem::on_mouse_button_pressed(int button, int action, int mods) {
-
-	// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-	// TODO A1: Handle mouse clicking for invader and tower placement.
-	// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-
-	// on button press
-	if (action == GLFW_PRESS) {
-
-		int tile_x = (int)(mouse_pos_x / GRID_CELL_WIDTH_PX);
-		int tile_y = (int)(mouse_pos_y / GRID_CELL_HEIGHT_PX);
-
-		std::cout << "mouse position: " << mouse_pos_x << ", " << mouse_pos_y << std::endl;
-		std::cout << "mouse tile position: " << tile_x << ", " << tile_y << std::endl;
-
-		// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-		// TODO A1: place invaders on the left, except top left spot
-		// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-
-		// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-		// TODO A1: place a tower on the right, except top right spot
-		// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-		
-			// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-			// TODO A1: right-click removes towers
-			// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-			
-			// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-			// TODO A1: left-click adds new tower (removing any existing towers), up to max_towers
-			// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-
-	}
 }
