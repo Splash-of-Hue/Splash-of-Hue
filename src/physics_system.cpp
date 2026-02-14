@@ -352,11 +352,11 @@ void PhysicsSystem::handle_movement()
 		//entities travel within screen, for testing
 		if (pos.x > WINDOW_WIDTH_PX || pos.x < 0)
 		{
-			vel.x *= -1;
+			pos.x = pos.x > WINDOW_WIDTH_PX ? WINDOW_WIDTH_PX : 0;
 		}
 		if (pos.y < 0 || pos.y > WINDOW_HEIGHT_PX)
 		{
-			vel.y *= -1;
+			pos.y = pos.y > WINDOW_HEIGHT_PX ? WINDOW_HEIGHT_PX : 0;
 		}
 	}
 }
