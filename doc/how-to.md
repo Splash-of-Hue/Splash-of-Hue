@@ -74,7 +74,6 @@ enum class CONTROL_TYPE
 	...
 };
 
-
 const std::map<int, std::pair<CONTROL_TYPE, std::vector<float>>> keyboard_control_map = {
 	...
 	{ GLFW_KEY_H, { CONTROL_TYPE::NEW_CONTROL_TYPE, {  0.0f, 1.0f } } },
