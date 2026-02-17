@@ -73,5 +73,4 @@ void InputSystem::step_joysticks(float elapsed_ms)
 			registry.inputs.insert(joystick_entity, input);
 		}
 	}
-
 }
