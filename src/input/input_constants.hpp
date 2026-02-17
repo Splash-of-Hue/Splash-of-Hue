@@ -25,6 +25,6 @@ enum class INPUT_TYPE
 #define SOH_JOYSTICK_BUTTON_R_SHOULDER 4
 
 // How many milliseconds pass before requesting the next state check on joysticks
-const float JOYSTICK_POLLING_RATE_MS = 10.0f;
+const float INPUT_POLLING_RATE_MS = 10.0f;
 // The deadzone for joystick and gamepad sticks
-const float JOYSTING_DEADZONE_SIZE = 0.1f;
+const float INPUT_DEADZONE_SIZE = 0.1f;

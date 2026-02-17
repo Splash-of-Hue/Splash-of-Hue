@@ -89,7 +89,7 @@ public:
 
 		polling_time += elapsed_ms;
 
-		if (polling_time < JOYSTICK_POLLING_RATE_MS)
+		if (polling_time < INPUT_POLLING_RATE_MS)
 		{
 			return;
 		}

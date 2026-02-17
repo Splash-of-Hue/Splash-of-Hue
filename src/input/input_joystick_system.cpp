@@ -21,7 +21,7 @@ void InputSystem::step_joysticks(float elapsed_ms)
 			axis = (i % 2 == 0) ? usb_gamecube_correction_x(axis) : usb_gamecube_correction_y(-axis);
 
 			// If it's a stick and not a trigger, check if it passes the deadzone
-			if (abs(axis) < JOYSTING_DEADZONE_SIZE)
+			if (abs(axis) < INPUT_DEADZONE_SIZE)
 			{
 				continue;
 			}

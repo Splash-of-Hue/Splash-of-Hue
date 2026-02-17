@@ -28,7 +28,7 @@ void InputSystem::step_gamepads(float elapsed_ms)
 			}
 
 			// If it's a stick and not a trigger, check if it passes the deadzone
-			if (!is_trigger && abs(axis) < JOYSTING_DEADZONE_SIZE)
+			if (!is_trigger && abs(axis) < INPUT_DEADZONE_SIZE)
 			{
 				continue;
 			}
