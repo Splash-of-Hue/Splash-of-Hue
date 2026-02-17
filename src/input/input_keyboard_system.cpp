@@ -31,7 +31,6 @@ void InputSystem::on_key(int key, int, int action, int mod)
 	if (action == GLFW_PRESS || action == GLFW_REPEAT)
 	{
 		pressed_keys[key] = { action, mod };
-		//pressed_keys.insert(key);
 	}
 
 	if (action == GLFW_RELEASE)
