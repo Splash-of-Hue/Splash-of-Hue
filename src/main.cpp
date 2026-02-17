@@ -57,7 +57,7 @@ int main()
 	input_system.init(window);
 	renderer_system.init(window);
 	// TODO bDKnCkH1: Don't put input system in init
-	world_system.init(&renderer_system, &input_system);
+	world_system.init(&renderer_system);
 	animation_system.init();
 	colour_system.initialize_palette();
 	// variable timestep loop
@@ -74,6 +74,7 @@ int main()
 		t = now;
 
 		// CK: be mindful of the order of your systems and rearrange this list only if necessary
+		input_system.step(elapsed_ms);
 		control_input_conversion_system.step(elapsed_ms);
 		player_controller_system.step(elapsed_ms);
 		loader_system.step(elapsed_ms);

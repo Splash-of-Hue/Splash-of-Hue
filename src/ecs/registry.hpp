@@ -44,6 +44,7 @@ public:
 	// Controls
 	ComponentContainer<Control> controls;
 	ComponentContainer<Input> inputs;
+	ComponentContainer<InputClearRequest> inputClearRequests;
 	// Debug
 	ComponentContainer<DebugComponent> debugComponents;
 	// Loader
@@ -103,6 +104,7 @@ public:
 		// Controls
 		registry_list.push_back(&controls);
 		registry_list.push_back(&inputs);
+		registry_list.push_back(&inputClearRequests);
 		// Debug
 		registry_list.push_back(&debugComponents);
 		// Loader

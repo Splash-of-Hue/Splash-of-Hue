@@ -3,6 +3,7 @@
 #include <map>
 #include <utility>
 #include <vector>
+#include <input/input_constants.hpp>
 
 enum class CONTROL_TYPE
 {
@@ -48,4 +49,19 @@ const std::map<int, std::pair<CONTROL_TYPE, std::vector<float>>> mouse_control_m
 
 // This is for any mouse inputs with modifiers (i.e. Shift, Alt, Control)
 const std::map<int, std::map<int, std::pair<CONTROL_TYPE, std::vector<float>>>> mouse_modified_control_map = {
+};
+
+const std::map<int, std::pair<CONTROL_TYPE, std::vector<float>>> joystick_control_map = {
+	{ SOH_AXIS_INPUT_TYPE, {CONTROL_TYPE::MOVE, { } } },
+	{ SOH_JOYSTICK_BUTTON_Y, { CONTROL_TYPE::TOGGLE_COLOUR_MENU, { } } },
+	{ SOH_JOYSTICK_BUTTON_L_SHOULDER, { CONTROL_TYPE::CHANGE_COLOUR_MENU_SELECTION, { -1 } } },
+	{ SOH_JOYSTICK_BUTTON_R_SHOULDER, { CONTROL_TYPE::CHANGE_COLOUR_MENU_SELECTION, { 1 } } },
+};
+
+const std::map<int, std::pair<CONTROL_TYPE, std::vector<float>>> gamepad_control_map = {
+	{ GLFW_GAMEPAD_AXIS_LEFT_X, {CONTROL_TYPE::MOVE, { 1, 0 } } },
+	{ GLFW_GAMEPAD_AXIS_LEFT_Y, {CONTROL_TYPE::MOVE, { 0, 1 } } },
+	{ GLFW_GAMEPAD_BUTTON_Y, { CONTROL_TYPE::TOGGLE_COLOUR_MENU, { } } },
+	{ GLFW_GAMEPAD_AXIS_LEFT_TRIGGER, { CONTROL_TYPE::CHANGE_COLOUR_MENU_SELECTION, { -1 } } },
+	{ GLFW_GAMEPAD_AXIS_RIGHT_TRIGGER, { CONTROL_TYPE::CHANGE_COLOUR_MENU_SELECTION, { 1 } } },
 };
