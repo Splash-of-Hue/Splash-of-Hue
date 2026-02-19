@@ -54,7 +54,7 @@ const std::vector<M1TestData> m1_test_data = {
 				{ 60, 60 }, // size
 				{ 50, 420 }, // position
 				{ 0.2f, 0.4f, 0, 1.0f }, // color
-				vec2(0.2f, 0.2f), // velocity
+				vec2(1000.f, 1000.f), // velocity
 				COLOUR_STATE::RED,
 			},
 			{
@@ -62,7 +62,7 @@ const std::vector<M1TestData> m1_test_data = {
 				{ 60, 60 }, // size
 				{ 280, 50 }, // position
 				{ 0.2f, 0.4f, 0, 1.0f }, // color
-				vec2(0.2f, 0.2f), // velocity
+				vec2(1000.f, 1000.f), // velocity
 				COLOUR_STATE::RED,
 			},
 			{
@@ -70,7 +70,7 @@ const std::vector<M1TestData> m1_test_data = {
 				{ 60, 60 }, // size
 				{ 340, 350 }, // position
 				{ 0.2f, 0.4f, 0, 1.0f }, // color
-				vec2(0.2f, 0.2f), // velocity
+				vec2(1000.f, 1000.f), // velocity
 				COLOUR_STATE::RED,
 			},
 			{
@@ -78,7 +78,7 @@ const std::vector<M1TestData> m1_test_data = {
 				{ 60, 60 }, // size
 				{ 340, 450 }, // position
 				{ 0.2f, 0.4f, 0, 1.0f }, // color
-				vec2(0.2f, 0.2f), // velocity
+				vec2(1000.f, 1000.f), // velocity
 				COLOUR_STATE::RED,
 			},
 			{
@@ -86,7 +86,7 @@ const std::vector<M1TestData> m1_test_data = {
 				{ 60, 60 }, // size
 				{ 340, 550 }, // position
 				{ 0.2f, 0.4f, 0, 1.0f }, // color
-				vec2(0.2f, 0.2f), // velocity
+				vec2(1000.f, 1000.f), // velocity
 				COLOUR_STATE::RED,
 			},
 			{
@@ -94,7 +94,7 @@ const std::vector<M1TestData> m1_test_data = {
 				{ 60, 60 }, // size
 				{ 340, 650 }, // position
 				{ 0.2f, 0.4f, 0, 1.0f }, // color
-				vec2(0.2f, 0.2f), // velocity
+				vec2(1000.f, 1000.f), // velocity
 				COLOUR_STATE::RED,
 			},
 			{
@@ -102,7 +102,7 @@ const std::vector<M1TestData> m1_test_data = {
 				{ 60, 60 }, // size
 				{ 700, 150 }, // position
 				{ 0.2f, 0.4f, 0, 1.0f }, // color
-				vec2(0.2f, 0.2f), // velocity
+				vec2(1000.f, 1000.f), // velocity
 				COLOUR_STATE::RED,
 			},
 		},

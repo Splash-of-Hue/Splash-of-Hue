@@ -34,7 +34,7 @@ inline std::string mesh_path(const std::string& name) {return asset_path() + "/m
 	Rendering constants and inlines
 */
 const vec4 CLEAR_SCREEN_COLOR = vec4(vec3(0.0f), 1.0f);
-
+const float DT = 10.f;
 
 //
 // game constants
@@ -45,7 +45,7 @@ const int WINDOW_HEIGHT_PX = 720;
 const int GRID_CELL_WIDTH_PX = 60;
 const int GRID_CELL_HEIGHT_PX = 60;
 const int GRID_LINE_WIDTH_PX = 2;
-const float PLAYER_SPEED = 1.0f;
+const float PLAYER_SPEED = 1100.0f;
 // towers
 const int MAX_TOWERS_START = 5;
 const float TOWER_TIMER_MS = 1000.0f;	// number of milliseconds between tower shots
