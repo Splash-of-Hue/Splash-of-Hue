@@ -100,7 +100,6 @@ Control ControlInputConversionSystem::convert_mouse_move_input(const Input& inpu
 	return control;
 }
 
-
 Control ControlInputConversionSystem::convert_joystick_input(const Input& input)
 {
 	int type = input.value_1;
@@ -119,7 +118,6 @@ Control ControlInputConversionSystem::convert_joystick_input(const Input& input)
 
 	return control;
 }
-
 
 Control ControlInputConversionSystem::convert_gamepad_input(const Input& input)
 {
