@@ -19,8 +19,7 @@ private:
 	void AnimationSystem::generate_animation(
 		ANIMATABLE_TYPE type,
 		ANIMATION_TRIGGER trigger,
-		std::vector<std::pair<TEXTURE_ASSET_ID,
-		RenderSourceRect>> texture_pairs,
+		std::vector<std::pair<TEXTURE_ASSET_ID, RenderSourceRect>> texture_pairs,
 		ANIMATION_TRIGGER end_trigger = ANIMATION_TRIGGER::ANIMATION_TRIGGER_COUNT
 	);
 
