@@ -44,6 +44,7 @@ public:
 	// Controls
 	ComponentContainer<Control> controls;
 	ComponentContainer<Input> inputs;
+	ComponentContainer<InputClearRequest> inputClearRequests;
 	// Debug
 	ComponentContainer<DebugComponent> debugComponents;
 	// Loader
@@ -65,6 +66,7 @@ public:
 	// Rendering
 	ComponentContainer<Mesh*> meshPtrs;
 	ComponentContainer<RenderRequest> renderRequests;
+	ComponentContainer<RenderSourceRect> renderSourceRects;
 	ComponentContainer<ScreenState> screenStates;
 	// Shapes
 	ComponentContainer<Circle> circles; // TODO 1ch6Q0BE: Remove
@@ -103,6 +105,7 @@ public:
 		// Controls
 		registry_list.push_back(&controls);
 		registry_list.push_back(&inputs);
+		registry_list.push_back(&inputClearRequests);
 		// Debug
 		registry_list.push_back(&debugComponents);
 		// Loader
@@ -124,6 +127,7 @@ public:
 		// Rendering
 		registry_list.push_back(&meshPtrs);
 		registry_list.push_back(&renderRequests);
+		registry_list.push_back(&renderSourceRects);
 		registry_list.push_back(&screenStates);
 		// Shapes
 		registry_list.push_back(&circles); // TODO 1ch6Q0BE: Remove;

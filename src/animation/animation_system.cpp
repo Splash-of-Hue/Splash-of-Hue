@@ -11,6 +11,7 @@ void AnimationSystem::step(float elapsed_ms)
 	auto& animation_trigger_registry = registry.animation_triggers;
 	auto& textured_registry = registry.textured;
 	auto& render_request_registry = registry.renderRequests;
+	auto& render_source_rect_registry = registry.renderSourceRects;
 
 	for (Entity entity : animation_trigger_registry.entities)
 	{
@@ -49,6 +50,7 @@ void AnimationSystem::step(float elapsed_ms)
 		auto animation_entity = get_animation_entity(animatable.type, animatable.current_trigger);
 		auto& animation = registry.animations.get(animation_entity);
 		auto& animation_texture_ids = animation.texture_ids;
+		auto& animation_texture_source_rect = animation.texture_source_rects;
 
 		// If this should only play once, check if it should trigger the next animation and then keep going if it does
 		if (animatable.finished && animatable.behavior == ANIMATION_BEHAVIOR::PLAY_ONCE)
@@ -68,14 +70,22 @@ void AnimationSystem::step(float elapsed_ms)
 			continue;
 		}
 
+		if (!render_source_rect_registry.has(entity))
+		{
+			render_source_rect_registry.emplace(entity, animation.texture_source_rects[animatable.current_frame]);
+		}
+
 		// The next frame will depend on the behavior, use a helper function
 		int next_frame = get_next_frame(animatable, (int)animation_texture_ids.size());
 		TEXTURE_ASSET_ID texture_asset_id = animation_texture_ids[next_frame];
+		RenderSourceRect texture_source_rect = animation_texture_source_rect[next_frame];
 		auto& textured = textured_registry.get(entity);
 		// Update both components
 		textured.used_texture = texture_asset_id;
 		animatable.current_frame = next_frame;
 		animatable.time_on_current_frame = 0;
+		RenderSourceRect& render_source_rect = render_source_rect_registry.get(entity);
+		render_source_rect = texture_source_rect;
 		//std::cout << "ANIMATION: Using texture  ID: " << (int)texture_asset_id << " for entity ID: " << (int)entity.id() << ", time spent on this frame: " << animatable.time_on_current_frame << std::endl;
 	}
 
