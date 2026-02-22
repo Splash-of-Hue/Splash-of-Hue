@@ -18,7 +18,9 @@ void AnimationSystem::init()
 	generate_animation(
 		ANIMATABLE_TYPE::PLAYER,
 		ANIMATION_TRIGGER::IDLE,
-		{ TEXTURE_ASSET_ID::PLAYER_TEXTURE_01 }
+		{
+				{ TEXTURE_ASSET_ID::PLAYER_TEXTURE_01, RenderSourceRect() }
+		}
 	);
 
 	/*
@@ -27,50 +29,74 @@ void AnimationSystem::init()
 	generate_animation(
 		ANIMATABLE_TYPE::SAWFISH,
 		ANIMATION_TRIGGER::IDLE,
-		{ TEXTURE_ASSET_ID::SAWFISH_01 }
+		{
+				{ TEXTURE_ASSET_ID::SAWFISH_01, RenderSourceRect() }
+		}
 	);
 	generate_animation(
 		ANIMATABLE_TYPE::WHALE,
 		ANIMATION_TRIGGER::IDLE,
-		{ TEXTURE_ASSET_ID::WHALE_01 }
+		{
+				{ TEXTURE_ASSET_ID::WHALE_01, RenderSourceRect() }
+		}
 	);
 	generate_animation(
 		ANIMATABLE_TYPE::PISTOL_SHRIMP,
 		ANIMATION_TRIGGER::IDLE,
-		{ TEXTURE_ASSET_ID::PISTOL_SHRIMP_01 }
+		{
+				{ TEXTURE_ASSET_ID::PISTOL_SHRIMP_01, RenderSourceRect() }
+		}
 	);
 	generate_animation(
 		ANIMATABLE_TYPE::MINNOW,
 		ANIMATION_TRIGGER::IDLE,
-		{ TEXTURE_ASSET_ID::MINNOW_01 }
+		{
+				{ TEXTURE_ASSET_ID::MINNOW_01, RenderSourceRect() }
+		}
 	);
 	generate_animation(
 		ANIMATABLE_TYPE::JAPANESE_PORCUPINE_CRAB,
 		ANIMATION_TRIGGER::IDLE,
-		{ TEXTURE_ASSET_ID::JAPANESE_PORCUPINE_CRAB_01 }
+		{
+				{ TEXTURE_ASSET_ID::CREATURES, RenderSourceRect { vec2(0), vec2(0.125) }},
+				{ TEXTURE_ASSET_ID::CREATURES, RenderSourceRect { vec2(0.125, 0), vec2(0.125) }}
+		}
 	);
 	generate_animation(
 		ANIMATABLE_TYPE::ANGLERFISH,
 		ANIMATION_TRIGGER::IDLE,
-		{ TEXTURE_ASSET_ID::ANGLERFISH_01 }
+		{
+				{ TEXTURE_ASSET_ID::ANGLERFISH_01, RenderSourceRect() }
+		}
 	);
 	generate_animation(
 		ANIMATABLE_TYPE::CORAL_TREE,
 		ANIMATION_TRIGGER::IDLE,
-		{ TEXTURE_ASSET_ID::CORAL_TREE_01 }
+		{
+				{ TEXTURE_ASSET_ID::CORAL_TREE_01, RenderSourceRect() }
+		}
 	);
 }
 
 void AnimationSystem::generate_animation(
 	ANIMATABLE_TYPE type,
 	ANIMATION_TRIGGER trigger,
-	std::vector<TEXTURE_ASSET_ID> textures,
+	std::vector<std::pair<TEXTURE_ASSET_ID, RenderSourceRect>> texture_pairs,
 	ANIMATION_TRIGGER end_trigger
 )
 {
 	Entity entity;
 	animation_entity_map[type][trigger] = track_entity(entity);
-	Animation animation = { textures, end_trigger };
+	std::vector<TEXTURE_ASSET_ID> textures;
+	std::vector<RenderSourceRect> texture_source_rects;
+
+	for (auto& texture_pair : texture_pairs)
+	{
+		textures.push_back(texture_pair.first);
+		texture_source_rects.push_back(texture_pair.second);
+	}
+
+	Animation animation = { textures, end_trigger, texture_source_rects };
 	registry.animations.emplace(entity, animation);
 }
 

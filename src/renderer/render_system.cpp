@@ -276,6 +276,11 @@ void RenderSystem::drawTexturedMesh(Entity entity,
 	glUniform4fv(color_uloc, 1, (float *)&color);
 	gl_has_errors();
 
+	// Getting the size and area to drawn from the source
+	GLint source_rect_uloc = glGetUniformLocation(program, "source_rect");
+	const RenderSourceRect& render_source_rect = registry.renderSourceRects.has(entity) ? registry.renderSourceRects.get(entity) : RenderSourceRect();
+	glUniform4fv(source_rect_uloc, 1, (float*)&render_source_rect);
+
 	// Get number of indices from index buffer, which has elements uint16_t
 	GLint size = 0;
 	glGetBufferParameteriv(GL_ELEMENT_ARRAY_BUFFER, GL_BUFFER_SIZE, &size);

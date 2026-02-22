@@ -18,6 +18,23 @@ struct RenderRequest
 	GEOMETRY_BUFFER_ID used_geometry = GEOMETRY_BUFFER_ID::GEOMETRY_COUNT;
 };
 
+/// <summary>
+/// The source of the rendered texture to pull from.
+/// Useful for rendering from sprite sheets.
+/// <para> [NOTE] The attributes coord and size both range from 0 to 1 as percentages. </para>
+/// </summary>
+struct RenderSourceRect
+{
+	/// <summary>
+	/// The starting coordinate on the source (i.e. texture) to render. Ranges from 0 to 1.
+	/// </summary>
+	vec2 coord = vec2(0);
+	/// <summary>
+	/// The percentage size of the source to render. Ranges from 0 to 1.
+	/// </summary>
+	vec2 size = vec2(1);
+};
+
 // Single Vertex Buffer element for textured sprites (textured.vs.glsl)
 struct TexturedVertex
 {
