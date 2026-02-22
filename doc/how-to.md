@@ -25,14 +25,31 @@ For example, the animation type might be `PLAYER` and you need to add a new anim
 
 ### 4. Define the animation
 In the [`animation_system_init.hpp`](../src/animations/animation_system_init.hpp) file, define a new animation by using the type, trigger,
-and files. It will look something like this:
+and files. For each file, the portion of the file should be defined in terms of percentages.
+
+It will look something like this:
 
 ```
-	generate_animation(
-		ANIMATABLE_TYPE::PLAYER,
-		ANIMATION_TRIGGER::IDLE,
-		{ TEXTURE_ASSET_ID::PLAYER_IDLE_01, TEXTURE_ASSET_ID::PLAYER_IDLE_02, TEXTURE_ASSET_ID::PLAYER_IDLE_03 }
-	);
+// Using multiple files
+generate_animation(
+	ANIMATABLE_TYPE::PLAYER,
+	ANIMATION_TRIGGER::IDLE,
+	{
+		{ TEXTURE_ASSET_ID::PLAYER_IDLE_01, RenderSourceRect()},
+		{ TEXTURE_ASSET_ID::PLAYER_IDLE_02, RenderSourceRect()},
+		{ TEXTURE_ASSET_ID::PLAYER_IDLE_03, RenderSourceRect() }
+	}
+);
+// Using a sprite sheet where the sheet is 256x256 and each frame is 64x128
+generate_animation(
+	ANIMATABLE_TYPE::PLAYER,
+	ANIMATION_TRIGGER::IDLE,
+	{
+		{ TEXTURE_ASSET_ID::PLAYER_IDLE, RenderSourceRect { vec2(0), vec2(0.25, 0.5) } },
+		{ TEXTURE_ASSET_ID::PLAYER_IDLE, RenderSourceRect { vec2(0.25, 0), vec2(0.25, 0.5) } },
+		{ TEXTURE_ASSET_ID::PLAYER_IDLE, RenderSourceRect { vec2(0.5,  0), vec2(0.25, 0.5) } }
+	}
+);
 ```
 
 This creates an idle animation for the player using 3 images (or textures).

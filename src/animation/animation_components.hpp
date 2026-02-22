@@ -1,5 +1,6 @@
 #pragma once
 #include "animation_constants.hpp"
+#include <renderer/render_components.hpp>
 #include <renderer/render_constants.hpp>
 #include <vector>
 
@@ -32,10 +33,13 @@ This animation will be reused for everything of the same type doing the same thi
 */
 struct Animation
 {
-	// A list of texture IDs in order
+	// A list of texture IDs in order, they might be the same ID if a spritesheet is used
 	std::vector<TEXTURE_ASSET_ID> texture_ids;
 	// This is the trigger for the next animation, if the behavior is to only play once
 	ANIMATION_TRIGGER next_animation_trigger;
+	// A list of source rectangles in order. The default is the whole texture.
+	std::vector<RenderSourceRect> texture_source_rects;
+	// TODO QIH3kBxS: Add origin to allow for defining the center point of each sprite in the animation
 };
 
 // This is so any system can trigger an action for an entity
