@@ -1,8 +1,4 @@
 #pragma once
-#include <algorithm>
-#include <array>
-#include <common.hpp>
-#include <string>
 
 /**
  * The following enumerators represent global identifiers refering to graphic
