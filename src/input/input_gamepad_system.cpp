@@ -13,9 +13,6 @@ void InputSystem::step_gamepads(float elapsed_ms)
 			continue;
 		}
 
-		//std::cout << "Gamepad buttons: " << gamepad_state.buttons << std::endl;
-		//std::cout << "Gamepad axes: " << gamepad_state.axes << std::endl;
-
 		// Look at each axis, including the triggers
 		for (auto i = 0; i <= GLFW_GAMEPAD_AXIS_LAST; i++)
 		{
