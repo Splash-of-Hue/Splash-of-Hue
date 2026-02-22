@@ -1,5 +1,6 @@
 #include "ecs/registry.hpp"
 #include "map_builder/map_build_init.hpp"
+#include "map_components.hpp"
 #include "world_init.hpp"
 
 static void add_wall_components(Entity entity, COLOUR_STATE color_state)
@@ -45,4 +46,24 @@ Entity createToggle(vec2 position, float radius, COLOUR_STATE color_state, std::
 	col.inelastic = true;
 
 	return toggle_entity;
+}
+
+Entity createMapTile(int tile_id, TEXTURE_ASSET_ID texture_id, ivec2 tile_position, vec4 dest_rect, vec4 source_rect)
+{
+	Entity map_tile_entity;
+	MapTile map_tile = { tile_id, tile_position };
+	registry.positions.insert(map_tile_entity, { dest_rect.x, dest_rect.y });
+	registry.scales.insert(map_tile_entity, { dest_rect.p, dest_rect.q });
+	registry.angles.insert(map_tile_entity, { 0 });
+	registry.renderSourceRects.insert(map_tile_entity, { vec2(source_rect.x, source_rect.y), vec2(source_rect.p, source_rect.q) });
+	registry.textured.insert(map_tile_entity, { texture_id });
+	registry.renderRequests.insert(
+		map_tile_entity,
+		{
+			EFFECT_ASSET_ID::TEXTURED,
+			GEOMETRY_BUFFER_ID::SPRITE
+		}
+	);
+
+	return map_tile_entity;
 }

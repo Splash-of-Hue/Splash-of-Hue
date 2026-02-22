@@ -1,4 +1,8 @@
 #pragma once
+#include <algorithm>
+#include <array>
+#include <common.hpp>
+#include <string>
 
 /**
  * The following enumerators represent global identifiers refering to graphic
@@ -34,7 +38,8 @@ enum class TEXTURE_ASSET_ID
 	MINNOW_01 = PISTOL_SHRIMP_01 + 1,
 	ANGLERFISH_01 = MINNOW_01 + 1,
 	CORAL_TREE_01 = ANGLERFISH_01 + 1,
-	TEXTURE_COUNT = CORAL_TREE_01 + 1
+	ROOMS = CORAL_TREE_01 + 1,
+	TEXTURE_COUNT = ROOMS + 1
 };
 const int texture_count = (int)TEXTURE_ASSET_ID::TEXTURE_COUNT;
 
