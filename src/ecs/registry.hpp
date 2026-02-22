@@ -2,14 +2,15 @@
 #include <vector>
 
 #include "animation/animation_components.hpp"
+#include "camera/camera_components.hpp"
 #include "components.hpp"
 #include "controllers/player_components.hpp"
 #include "controls/control_components.hpp"
+#include "creature_behaviour_system/creature_components.hpp"
 #include "input/input_components.hpp"
 #include "loading/loading_components.hpp"
+#include "map_builder/map_components.hpp"
 #include "renderer/render_components.hpp"
-#include "creature_behaviour_system/creature_components.hpp"
-#include <camera/camera_components.hpp>
 
 class ECSRegistry
 {
@@ -51,6 +52,8 @@ public:
 	// Loader
 	ComponentContainer<Level> levels;
 	ComponentContainer<LoadRequest> loadRequests;
+	// Map
+	ComponentContainer<MapTile> mapTiles;
 	// Physics - Collisions
 	ComponentContainer<ChangeBehaviour> change_behaviours;
 	ComponentContainer<Collidable> collidables;
@@ -115,6 +118,8 @@ public:
 		// Loader
 		registry_list.push_back(&levels);
 		registry_list.push_back(&loadRequests);
+		// Map
+		registry_list.push_back(&mapTiles);
 		// Physics - Collisions
 		registry_list.push_back(&change_behaviours);
 		registry_list.push_back(&collidables);
