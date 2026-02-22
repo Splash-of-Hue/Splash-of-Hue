@@ -65,6 +65,7 @@ public:
 	// Rendering
 	ComponentContainer<Mesh*> meshPtrs;
 	ComponentContainer<RenderRequest> renderRequests;
+	ComponentContainer<RenderSourceRect> renderSourceRects;
 	ComponentContainer<ScreenState> screenStates;
 	// Shapes
 	ComponentContainer<Circle> circles; // TODO 1ch6Q0BE: Remove
@@ -124,6 +125,7 @@ public:
 		// Rendering
 		registry_list.push_back(&meshPtrs);
 		registry_list.push_back(&renderRequests);
+		registry_list.push_back(&renderSourceRects);
 		registry_list.push_back(&screenStates);
 		// Shapes
 		registry_list.push_back(&circles); // TODO 1ch6Q0BE: Remove;
