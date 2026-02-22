@@ -1,9 +1,14 @@
 #include "loader_system.hpp"
 #include "loading_constants.hpp"
 #include "map_builder/map_build_init.hpp"
+#include "common.hpp"
+#include "ecs/entity.hpp"
 #include <iostream>
 #include <LDtkLoader/DataTypes.hpp>
+#include <LDtkLoader/Layer.hpp>
 #include <LDtkLoader/Project.hpp>
+#include <LDtkLoader/Tileset.hpp>
+#include <renderer/render_constants.hpp>
 #include <string>
 
 static bool project_loaded = false;
@@ -11,19 +16,19 @@ static ldtk::Project ldtk_project;
 
 void load_tile_layer(const ldtk::Layer& layer)
 {
-	auto& level_size = layer.level->size;
-	auto& layer_tileset = layer.getTileset();
-	auto& tileset_texture_size = layer_tileset.texture_size;
-	auto& tile_size = layer_tileset.tile_size;
-	auto level_scale_x = WINDOW_WIDTH_PX / (float)level_size.x;
-	auto level_scale_y = WINDOW_HEIGHT_PX / (float)level_size.y;
+	const ldtk::IntPoint& level_size = layer.level->size;
+	const ldtk::Tileset& layer_tileset = layer.getTileset();
+	const ldtk::IntPoint& tileset_texture_size = layer_tileset.texture_size;
+	const int& tile_size = layer_tileset.tile_size;
+	const float level_scale_x = WINDOW_WIDTH_PX / (float)level_size.x;
+	const float level_scale_y = WINDOW_HEIGHT_PX / (float)level_size.y;
 
 	// iterate on the tiles of the layer
 	for (const auto& tile : layer.allTiles())
 	{
-		auto& tile_position = tile.getPosition();
-		auto& tile_world_position = tile.getWorldPosition();
-		auto& tile_texture_rect = tile.getTextureRect();
+		const ldtk::IntPoint& tile_position = tile.getPosition();
+		const ldtk::IntPoint& tile_world_position = tile.getWorldPosition();
+		const ldtk::IntRect& tile_texture_rect = tile.getTextureRect();
 		vec4 destination_rect = {
 			(tile_world_position.x + tile_size / 2) * level_scale_x,
 			(tile_world_position.y + tile_size / 2) * level_scale_y,
@@ -36,9 +41,9 @@ void load_tile_layer(const ldtk::Layer& layer)
 			tile_size / (float)tileset_texture_size.x,
 			tile_size / (float)tileset_texture_size.y
 		};
-		
+
 		// TODO mgydr9IJ: Get texture ID dynamically instead of always using ROOMS
-		auto& tile_entity = createMapTile(tile.tileId, TEXTURE_ASSET_ID::ROOMS, ivec2(tile_position.x, tile_position.y), destination_rect, source_rect);
+		Entity& tile_entity = createMapTile(tile.tileId, TEXTURE_ASSET_ID::ROOMS, ivec2(tile_position.x, tile_position.y), destination_rect, source_rect);
 	}
 }
 
