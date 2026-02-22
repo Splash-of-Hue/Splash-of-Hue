@@ -186,7 +186,7 @@ void ColourSystem::step(float elapsed_ms)
 			pollMenuState();
 		}
 		if (control.type == CONTROL_TYPE::CHANGE_COLOUR_MENU_SELECTION &&
-			(control.phase == CONTROL_PHASE::START || control.phase == CONTROL_PHASE::SUSTAIN))
+			control.phase == CONTROL_PHASE::END)
 		{
 			pollColourMenuInput(control);
 		}

@@ -56,6 +56,7 @@ void PlayerControllerSystem::step(float elapsed_ms)
 	// Reset player velocity each step
 	auto& player_entity = registry.players.entities[0];
 	auto& player_velocity = registry.velocities.get(player_entity);
+	player_movement = vec2(0);
 	player_velocity = vec2(0);
 
 	for (auto& entity : registry.controls.entities)
@@ -65,13 +66,9 @@ void PlayerControllerSystem::step(float elapsed_ms)
 		//// Movement, on push sets the corresponding bitset value to true and on release sets it to false
 		if (control.type == CONTROL_TYPE::MOVE)
 		{
-			if (control.phase == CONTROL_PHASE::START)
+			if (control.phase != CONTROL_PHASE::END)
 			{
 				player_movement += vec2(control.value_1, control.value_2);
-			}
-			else if (control.phase == CONTROL_PHASE::END)
-			{
-				player_movement -= vec2(control.value_1, control.value_2);
 			}
 		}
 	}
@@ -79,5 +76,5 @@ void PlayerControllerSystem::step(float elapsed_ms)
 	auto& player = registry.players.components[0];
 	const float speed = elapsed_ms * player.speed * 0.01;
 	player_velocity += player_movement * speed;
-	std::cout << "DEBUG: Moving x: " << player_velocity.x << ", y: " << player_velocity.y << std::endl;
+	//std::cout << "DEBUG: Moving x: " << player_velocity.x << ", y: " << player_velocity.y << std::endl;
 }
