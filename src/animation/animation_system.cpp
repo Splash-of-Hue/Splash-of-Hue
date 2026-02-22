@@ -13,7 +13,7 @@ void AnimationSystem::step(float elapsed_ms)
 	ComponentContainer<RenderRequest>& render_request_registry = registry.renderRequests;
 	ComponentContainer<RenderSourceRect>& render_source_rect_registry = registry.renderSourceRects;
 
-	for (Entity entity : animation_trigger_registry.entities)
+	for (Entity& entity : animation_trigger_registry.entities)
 	{
 		// For each active trigger, queue it
 		AnimationTrigger& c = animation_trigger_registry.get(entity);
@@ -47,7 +47,7 @@ void AnimationSystem::step(float elapsed_ms)
 		}
 
 		// We now want to update to the next frame with the current animation and know there is a render request
-		Entity animation_entity = get_animation_entity(animatable.type, animatable.current_trigger);
+		Entity& animation_entity = get_animation_entity(animatable.type, animatable.current_trigger);
 		Animation& animation = registry.animations.get(animation_entity);
 		std::vector<TEXTURE_ASSET_ID>& animation_texture_ids = animation.texture_ids;
 		std::vector<RenderSourceRect>& animation_texture_source_rect = animation.texture_source_rects;
@@ -92,7 +92,7 @@ void AnimationSystem::step(float elapsed_ms)
 	return;
 }
 
-bool AnimationSystem::trigger_animation(Entity entity, ANIMATION_TRIGGER trigger)
+bool AnimationSystem::trigger_animation(Entity& entity, ANIMATION_TRIGGER trigger)
 {
 	ComponentContainer<Animatable>& animatable_registry = registry.animatables;
 
