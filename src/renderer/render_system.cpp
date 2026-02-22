@@ -198,6 +198,12 @@ void RenderSystem::drawTexturedMesh(Entity entity,
 	transform.scale(scale);
 	transform.rotate(radians(angle.degrees));
 
+	if (!registry.ignoredByCamera.has(entity))
+	{
+		const auto& camera_position = registry.positions.get(registry.cameras.entities[0]);
+		transform.translate(camera_position);
+	}
+
 	assert(registry.renderRequests.has(entity));
 	const RenderRequest &render_request = registry.renderRequests.get(entity);
 
@@ -314,7 +320,7 @@ void RenderSystem::drawToScreen()
 	// get the vignette texture, sprite mesh, and program
 	glUseProgram(effects[(GLuint)EFFECT_ASSET_ID::VIGNETTE]);
 	gl_has_errors();
-
+	
 	// Clearing backbuffer
 	int w, h;
 	glfwGetFramebufferSize(window, &w, &h); // Note, this will be 2x the resolution given to glfwCreateWindow on retina displays

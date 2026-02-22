@@ -9,6 +9,7 @@
 #include "loading/loading_components.hpp"
 #include "renderer/render_components.hpp"
 #include "creature_behaviour_system/creature_components.hpp"
+#include <camera/camera_components.hpp>
 
 class ECSRegistry
 {
@@ -64,6 +65,9 @@ public:
 	ComponentContainer<PlayerCreateRequests> playerCreateRequests;
 	ComponentContainer<Player> players;
 	// Rendering
+	ComponentContainer<Camera> cameras;
+	ComponentContainer<ChangeCameraTargetRequest> changeCameraTargetRequests;
+	ComponentContainer<IgnoresCamera> ignoredByCamera;
 	ComponentContainer<Mesh*> meshPtrs;
 	ComponentContainer<RenderRequest> renderRequests;
 	ComponentContainer<RenderSourceRect> renderSourceRects;
@@ -125,6 +129,9 @@ public:
 		registry_list.push_back(&playerCreateRequests);
 		registry_list.push_back(&players);
 		// Rendering
+		registry_list.push_back(&cameras);
+		registry_list.push_back(&changeCameraTargetRequests);
+		registry_list.push_back(&ignoredByCamera);
 		registry_list.push_back(&meshPtrs);
 		registry_list.push_back(&renderRequests);
 		registry_list.push_back(&renderSourceRects);
