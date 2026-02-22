@@ -66,6 +66,6 @@ void LoaderSystem::load_level(int level_uid)
 
 void LoaderSystem::unload_level(int level_uid)
 {
-	// Do nothing, this will be implemented later.
+	// TODO Mh0WEPiT: Do nothing, this will be implemented later.
 	// Later we will want to remove things from memory and registry.
 }
