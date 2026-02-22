@@ -6,8 +6,8 @@
 // Disconnecting clears the pointer as well
 void InputSystem::on_joystick_connection_changed(int jid, int event)
 {
-	const auto joystick_is_gamepad = glfwJoystickIsGamepad(jid);
-	const auto& name = get_connected_controller_name(jid, joystick_is_gamepad);
+	const int joystick_is_gamepad = glfwJoystickIsGamepad(jid);
+	const std::string& name = get_connected_controller_name(jid, joystick_is_gamepad);
 	const auto connected_set = joystick_is_gamepad ? &connected_gamepads : &connected_joysticks;
 	const auto& type_string = joystick_is_gamepad ? "Gamepad " : "Joystick ";
 
@@ -35,7 +35,7 @@ const std::string InputSystem::get_connected_controller_name(int jid, bool is_ga
 		return controller_names[jid];
 	}
 
-	auto present = glfwJoystickPresent(jid);
+	int present = glfwJoystickPresent(jid);
 
 	if (present == GLFW_FALSE)
 	{

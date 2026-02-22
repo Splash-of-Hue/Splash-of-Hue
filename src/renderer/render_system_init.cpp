@@ -166,8 +166,8 @@ void RenderSystem::initializeGlGeometryBuffers()
 	constexpr float z = -0.1f;
 	constexpr vec3 white_color = vec3(1);
 	constexpr vec3 light_grey_color = white_color - vec3(0.2);
-	auto circle_vertices = getCircleVertices(CIRCLE_NUM_TRIANGLES, z, white_color, white_color);
-	auto circle_indices = getCircleIndices(CIRCLE_NUM_TRIANGLES);
+	std::vector<ColoredVertex> circle_vertices = getCircleVertices(CIRCLE_NUM_TRIANGLES, z, white_color, white_color);
+	std::vector<uint16_t> circle_indices = getCircleIndices(CIRCLE_NUM_TRIANGLES);
 	int geom_index = (int)GEOMETRY_BUFFER_ID::CIRCLE;
 	meshes[geom_index].vertices = circle_vertices;
 	meshes[geom_index].vertex_indices = circle_indices;
@@ -176,8 +176,8 @@ void RenderSystem::initializeGlGeometryBuffers()
 	////////////////////////
 	// Initialize gradient circle
 	constexpr int GRAD_CIRCLE_NUM_TRIANGLES = 62;
-	auto grad_circle_vertices = getCircleVertices(GRAD_CIRCLE_NUM_TRIANGLES, z, light_grey_color, white_color);
-	auto grad_circle_indices = getCircleIndices(GRAD_CIRCLE_NUM_TRIANGLES);
+	std::vector<ColoredVertex> grad_circle_vertices = getCircleVertices(GRAD_CIRCLE_NUM_TRIANGLES, z, light_grey_color, white_color);
+	std::vector<uint16_t> grad_circle_indices = getCircleIndices(GRAD_CIRCLE_NUM_TRIANGLES);
 	geom_index = (int)GEOMETRY_BUFFER_ID::GRADIENT_CIRCLE;
 	meshes[geom_index].vertices = grad_circle_vertices;
 	meshes[geom_index].vertex_indices = grad_circle_indices;
