@@ -33,7 +33,6 @@ Entity createWall(vec2 top_left, vec2 bottom_right, COLOUR_STATE color_state = C
 /// <returns>The entity of the toggle.</returns>
 Entity createToggle(vec2 position, float radius, COLOUR_STATE color_state, std::vector<Entity> controlled_walls);
 
-
 /// <summary>
 /// Creates a toggle and returns the entity
 /// </summary>
