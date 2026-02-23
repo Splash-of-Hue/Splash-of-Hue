@@ -7,16 +7,16 @@
 
 void AnimationSystem::step(float elapsed_ms)
 {
-	auto& animatable_registry = registry.animatables;
-	auto& animation_trigger_registry = registry.animation_triggers;
-	auto& textured_registry = registry.textured;
-	auto& render_request_registry = registry.renderRequests;
-	auto& render_source_rect_registry = registry.renderSourceRects;
+	ComponentContainer<Animatable>& animatable_registry = registry.animatables;
+	ComponentContainer<AnimationTrigger>& animation_trigger_registry = registry.animation_triggers;
+	ComponentContainer<Textured>& textured_registry = registry.textured;
+	ComponentContainer<RenderRequest>& render_request_registry = registry.renderRequests;
+	ComponentContainer<RenderSourceRect>& render_source_rect_registry = registry.renderSourceRects;
 
-	for (Entity entity : animation_trigger_registry.entities)
+	for (Entity& entity : animation_trigger_registry.entities)
 	{
 		// For each active trigger, queue it
-		auto& c = animation_trigger_registry.get(entity);
+		AnimationTrigger& c = animation_trigger_registry.get(entity);
 		trigger_animation(entity, c.animation_trigger);
 	}
 
@@ -31,7 +31,7 @@ void AnimationSystem::step(float elapsed_ms)
 			continue;
 		}
 
-		auto& animatable = animatable_registry.get(entity);
+		Animatable& animatable = animatable_registry.get(entity);
 		animatable.time_on_current_frame += elapsed_ms;
 
 		// If we should remain on the current frame, we are done
@@ -47,10 +47,10 @@ void AnimationSystem::step(float elapsed_ms)
 		}
 
 		// We now want to update to the next frame with the current animation and know there is a render request
-		auto animation_entity = get_animation_entity(animatable.type, animatable.current_trigger);
-		auto& animation = registry.animations.get(animation_entity);
-		auto& animation_texture_ids = animation.texture_ids;
-		auto& animation_texture_source_rect = animation.texture_source_rects;
+		Entity& animation_entity = get_animation_entity(animatable.type, animatable.current_trigger);
+		Animation& animation = registry.animations.get(animation_entity);
+		std::vector<TEXTURE_ASSET_ID>& animation_texture_ids = animation.texture_ids;
+		std::vector<RenderSourceRect>& animation_texture_source_rect = animation.texture_source_rects;
 
 		// If this should only play once, check if it should trigger the next animation and then keep going if it does
 		if (animatable.finished && animatable.behavior == ANIMATION_BEHAVIOR::PLAY_ONCE)
@@ -79,7 +79,7 @@ void AnimationSystem::step(float elapsed_ms)
 		int next_frame = get_next_frame(animatable, (int)animation_texture_ids.size());
 		TEXTURE_ASSET_ID texture_asset_id = animation_texture_ids[next_frame];
 		RenderSourceRect texture_source_rect = animation_texture_source_rect[next_frame];
-		auto& textured = textured_registry.get(entity);
+		Textured& textured = textured_registry.get(entity);
 		// Update both components
 		textured.used_texture = texture_asset_id;
 		animatable.current_frame = next_frame;
@@ -92,9 +92,9 @@ void AnimationSystem::step(float elapsed_ms)
 	return;
 }
 
-bool AnimationSystem::trigger_animation(Entity entity, ANIMATION_TRIGGER trigger)
+bool AnimationSystem::trigger_animation(Entity& entity, ANIMATION_TRIGGER trigger)
 {
-	auto& animatable_registry = registry.animatables;
+	ComponentContainer<Animatable>& animatable_registry = registry.animatables;
 
 	// If this entity isn't animatable, ignore but print
 	if (!animatable_registry.has(entity))
@@ -103,7 +103,7 @@ bool AnimationSystem::trigger_animation(Entity entity, ANIMATION_TRIGGER trigger
 		return false;
 	}
 
-	auto& animatable = animatable_registry.get(entity);
+	Animatable& animatable = animatable_registry.get(entity);
 
 	if (!has_animation_entity(animatable.type, animatable.current_trigger))
 	{
@@ -182,6 +182,6 @@ bool AnimationSystem::has_animation_entity(ANIMATABLE_TYPE type, ANIMATION_TRIGG
 */
 Entity AnimationSystem::get_animation_entity(ANIMATABLE_TYPE type, ANIMATION_TRIGGER trigger)
 {
-	auto animation_entity_index = animation_entity_map[type][trigger];
+	unsigned int animation_entity_index = animation_entity_map[type][trigger];
 	return animation_entities[animation_entity_index];
 }

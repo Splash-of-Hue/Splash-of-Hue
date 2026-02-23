@@ -26,5 +26,5 @@ private:
 public:
 	void init();
 	void step(float elapsed_ms);
-	bool trigger_animation(Entity entity, ANIMATION_TRIGGER trigger);
+	bool trigger_animation(Entity& entity, ANIMATION_TRIGGER trigger);
 };

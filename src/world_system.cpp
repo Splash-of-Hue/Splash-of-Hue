@@ -107,7 +107,7 @@ bool WorldSystem::step(float elapsed_ms_since_last_update) {
 	while (registry.debugComponents.entities.size() > 0)
 	    registry.remove_all_components_of(registry.debugComponents.entities.back());
 
-	for (auto& entity : registry.controls.entities)
+	for (Entity& entity : registry.controls.entities)
 	{
 		Control& control = registry.controls.get(entity);
 

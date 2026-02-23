@@ -12,8 +12,8 @@
 void RenderSystem::drawShape(Entity entity,
 	const mat3& projection) {
 
-	auto& position = registry.positions.get(entity);
-	auto& size_component = registry.sizes.get(entity);
+	vec2& position = registry.positions.get(entity);
+	Size& size_component = registry.sizes.get(entity);
 
 	// Transformation code, see Rendering and Transformation in the template
 	// specification for more info Incrementally updates transformation matrix,
@@ -187,9 +187,9 @@ void RenderSystem::drawGridLine(Entity entity,
 void RenderSystem::drawTexturedMesh(Entity entity,
 									const mat3 &projection)
 {
-	auto &position = registry.positions.get(entity);
-	auto &scale = registry.scales.get(entity);
-	auto &angle = registry.angles.get(entity);
+	vec2& position = registry.positions.get(entity);
+	vec2& scale = registry.scales.get(entity);
+	Angle& angle = registry.angles.get(entity);
 	// Transformation code, see Rendering and Transformation in the template
 	// specification for more info Incrementally updates transformation matrix,
 	// thus ORDER IS IMPORTANT

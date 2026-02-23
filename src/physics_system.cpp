@@ -156,15 +156,15 @@ void PhysicsSystem::step(float elapsed_ms)
 						goto after_color_collision;
 					}
 
-					const auto& player_entity = i_is_player ? entity_i : entity_j;
-					const auto& other_entity = i_is_player ? entity_j : entity_i;
+					const Entity& player_entity = i_is_player ? entity_i : entity_j;
+					const Entity& other_entity = i_is_player ? entity_j : entity_i;
 
 					if (!registry.creatures.has(other_entity))
 					{
 						goto after_color_collision;
 					}
 
-					const auto& player_color_state = registry.colourStates.get(player_entity);
+					const ColourState& player_color_state = registry.colourStates.get(player_entity);
 
 					// A neutral player does not toggle anything
 					if (player_color_state.curr_colour_state == COLOUR_STATE::NEUTRAL)
@@ -172,7 +172,7 @@ void PhysicsSystem::step(float elapsed_ms)
 						goto after_color_collision;
 					}
 
-					auto& other_color_state = registry.colourStates.get(other_entity);
+					ColourState& other_color_state = registry.colourStates.get(other_entity);
 
 					// If the states are the same, move on
 					if (player_color_state.curr_colour_state == other_color_state.curr_colour_state)
@@ -183,7 +183,7 @@ void PhysicsSystem::step(float elapsed_ms)
 					other_color_state.prev_colour_state = other_color_state.curr_colour_state;
 					other_color_state.curr_colour_state = player_color_state.curr_colour_state;
 					vec4& other_color = registry.colors.get(other_entity);
-					const auto& palette = registry.colourPalettes.components[0];
+					const ColourPalette& palette = registry.colourPalettes.components[0];
 					auto& color_from_state = palette.state_to_colour.at(other_color_state.curr_colour_state);
 					other_color = color_from_state;
 				}

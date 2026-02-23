@@ -25,7 +25,7 @@ void ColourSystem::initialize_palette()
 	if (registry.colourMenuStates.entities.empty()) {
 		Entity ctrl = Entity();
 		registry.colourMenuStates.emplace(ctrl);
-		auto& state = registry.colourMenuStates.get(ctrl);
+		ColourMenuState& state = registry.colourMenuStates.get(ctrl);
 		// defaults already set by component, but be explicit
 		state.is_curr_open = false;
 		state.just_closed = false;
@@ -177,7 +177,7 @@ void ColourSystem::step(float elapsed_ms)
 	(void)elapsed_ms; // unused for now
 
 	std::vector<Entity> to_remove;
-	for (auto& entity : registry.controls.entities)
+	for (Entity& entity : registry.controls.entities)
 	{
 		Control control = registry.controls.get(entity);
 
