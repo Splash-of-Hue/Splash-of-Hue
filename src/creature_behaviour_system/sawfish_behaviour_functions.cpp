@@ -1,9 +1,11 @@
 // internal
 #include "common.hpp"
-#include "creature_behaviour_system/creature_behaviour_system.hpp"
+#include "creature_behaviour_system/creature_behaviour_functions.hpp"
 #include "world_init.hpp" // For testing = using createrectangle
 
-void CreatureBehaviourSystem::updateSawfish(float elapsed_ms, Entity& sawfish_entity)
+// TODO: clean up as part of 2th9Sai1
+
+void updateSawfish(float elapsed_ms, Entity& sawfish_entity)
 {
 	// Initialize components
 	if (!registry.pathfinders.has(sawfish_entity))
@@ -37,19 +39,19 @@ void CreatureBehaviourSystem::updateSawfish(float elapsed_ms, Entity& sawfish_en
 	}
 }
 
-void CreatureBehaviourSystem::neutralSawfish(float elapsed_ms, Entity& sawfish_entity)
+void neutralSawfish(float elapsed_ms, Entity& sawfish_entity)
 {
 	// aimlessly pathfinding. For M1, stationary
 	registry.velocities.get(sawfish_entity) = { 0.0f, 0.0f };
 }
 
-void CreatureBehaviourSystem::blueSawfish(Entity& sawfish_entity)
+void blueSawfish(Entity& sawfish_entity)
 {
 	// stationary
 	registry.velocities.get(sawfish_entity) = { 0.0f, 0.0f };
 }
 
-void CreatureBehaviourSystem::redSawfish(float elapsed_ms, Entity& sawfish_entity)
+void redSawfish(float elapsed_ms, Entity& sawfish_entity)
 {
 	// charges after the player
 	follow_player(elapsed_ms, sawfish_entity);

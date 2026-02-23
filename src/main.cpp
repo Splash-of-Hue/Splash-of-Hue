@@ -82,7 +82,7 @@ int main()
 		colour_system.step(elapsed_ms);
 		world_system.step(elapsed_ms);
 		ai_system.step(elapsed_ms);
-		creature_behaviour_system.step(elapsed_ms);
+		creature_behaviour_system.update(elapsed_ms);
 		physics_system.step(elapsed_ms);
 		animation_system.step(elapsed_ms);
 		world_system.handle_behaviour_change();

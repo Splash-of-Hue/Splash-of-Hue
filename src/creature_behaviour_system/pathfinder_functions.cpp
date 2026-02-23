@@ -3,13 +3,35 @@
 #include <sstream>
 
 #include "common.hpp"
+#include "creature_behaviour_system/creature_behaviour_functions.hpp"
 #include "creature_behaviour_system/creature_behaviour_system.hpp"
 #include "creature_behaviour_system/creature_components.hpp"
 
-// Please see trello task: https://trello.com/c/dwbflQHN
+// todo: https://trello.com/c/Qj457xrS/105-2-creature-behaviour-system-a-pathfinding
+BEHAVIOUR_TREE_STATUS aStarFollowTarget(Entity& follower, float elapsed_ms)
+{
+	// DEBUGGING std::cout << "aStarFollowTarget" << std::endl;
+	if (follow_player(elapsed_ms, follower))
+	{
+		return BEHAVIOUR_TREE_STATUS::FAILURE;
+	}
 
+	// DEBUGGING std::cout << "aStarFollowTarget RUNNING" << std::endl;
+
+	return BEHAVIOUR_TREE_STATUS::RUNNING;
+}
+
+// todo: https://trello.com/c/D5ie5Ml8/120-task-score-task-template
+BEHAVIOUR_TREE_STATUS chargeAtTarget(Entity& charger, float elapsed_ms)
+{
+	// DEBUGGING std::cout << "chargeAtTarget" << std::endl;
+
+	return BEHAVIOUR_TREE_STATUS::FAILURE;
+}
+
+// TODO: REMOVE AS PART OF THE ASTAR TASK 
 // For M1, no real fancy-schmancy AI pathfinding, just bare bones following 
-void CreatureBehaviourSystem::follow_player(float elapsed_ms, Entity& follower)
+bool follow_player(float elapsed_ms, Entity& follower)
 { 
 	assert(registry.pathfinders.has(follower) && "The follower creature isn't registered as a pathfinder");
 	Pathfinder& pathfinder_component = registry.pathfinders.get(follower);
@@ -38,7 +60,7 @@ void CreatureBehaviourSystem::follow_player(float elapsed_ms, Entity& follower)
 	if (distance_squared <= minDistToTarget_squared)
 	{
 		follower_velocity = { 0.0f, 0.0f };
-		return;
+		return true;
 	}
 
 	// Sqrt only when moving for normalization
@@ -56,4 +78,5 @@ void CreatureBehaviourSystem::follow_player(float elapsed_ms, Entity& follower)
 	}  
 
 	follower_velocity = { norm_x * max_speed, norm_y * max_speed };	
+	return false;
 }
