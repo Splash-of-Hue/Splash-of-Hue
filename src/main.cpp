@@ -18,6 +18,7 @@
 #include "world_system.hpp"
 #include "sound/sound_system.hpp"
 #include "creature_behaviour_system/creature_behaviour_system.hpp"
+#include "camera/camera_system.hpp"
 
 using Clock = std::chrono::high_resolution_clock;
 
@@ -37,6 +38,7 @@ int main()
 	PlayerControllerSystem player_controller_system;
 	ColourSystem colour_system;
 	CreatureBehaviourSystem creature_behaviour_system;
+	CameraSystem camera_system;
 
 	// initialize window
 	GLFWwindow* window = world_system.create_window();
@@ -50,7 +52,6 @@ int main()
 	if (!sound_system.start_and_load_sounds()) {
 		std::cerr << "ERROR: Failed to start or load sounds." << std::endl;
 	}
-
 
 	// initialize the main systems
 	sound_system.init();
@@ -73,6 +74,7 @@ int main()
 		t = now;
 
 		// CK: be mindful of the order of your systems and rearrange this list only if necessary
+		camera_system.step(elapsed_ms);
 		input_system.step(elapsed_ms);
 		control_input_conversion_system.step(elapsed_ms);
 		player_controller_system.step(elapsed_ms);
