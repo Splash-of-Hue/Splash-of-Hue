@@ -10,7 +10,7 @@ struct Creature
 
 struct CreatureBehaviour
 {
-	BehaviourTree* behaviour_tree;
+	BehaviourTree behaviour_tree;
 	std::unordered_map<int, int> currentChildNode;
 };
 
@@ -34,6 +34,6 @@ struct Shrimp
 
 struct Pathfinder
 {
-	float minimumDistanceToTarget = 0.0f;
+	float minimumDistanceToTarget = 70.0f;
 	float max_speed = 2.0f;
 };

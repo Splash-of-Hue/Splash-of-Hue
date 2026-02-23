@@ -3,9 +3,13 @@
 #include "common.hpp"
 #include "creature_behaviour_system/creature_behaviour_functions.hpp"
 
+#include <iostream>
+
 BEHAVIOUR_TREE_STATUS isInBlueState(Entity& creature, float elapsed_ms)
 {
 	ColourState& colourState = registry.colourStates.get(creature);
+	// DEBUGGING std::cout << "isInBlueState Current colour state: " << static_cast<int>(colourState.curr_colour_state) << std::endl;
+
 	if (colourState.curr_colour_state == COLOUR_STATE::BLUE)
 		return BEHAVIOUR_TREE_STATUS::SUCCESS;
 	else
@@ -15,6 +19,8 @@ BEHAVIOUR_TREE_STATUS isInBlueState(Entity& creature, float elapsed_ms)
 BEHAVIOUR_TREE_STATUS isInRedState(Entity& creature, float elapsed_ms)
 {
 	ColourState& colourState = registry.colourStates.get(creature);
+	// DEBUGGING std::cout << "isInRedState Current colour state: " << static_cast<int>(colourState.curr_colour_state) << std::endl;
+
 	if (colourState.curr_colour_state == COLOUR_STATE::RED)
 		return BEHAVIOUR_TREE_STATUS::SUCCESS;
 	else
@@ -24,6 +30,8 @@ BEHAVIOUR_TREE_STATUS isInRedState(Entity& creature, float elapsed_ms)
 BEHAVIOUR_TREE_STATUS isInNeutralState(Entity& creature, float elapsed_ms)
 {
 	ColourState& colourState = registry.colourStates.get(creature);
+	// DEBUGGING std::cout << "isInNeutralState Current colour state: " << static_cast<int>(colourState.curr_colour_state) << std::endl;
+
 	if (colourState.curr_colour_state == COLOUR_STATE::NEUTRAL)
 		return BEHAVIOUR_TREE_STATUS::SUCCESS;
 	else

@@ -3,6 +3,8 @@
 #include "creature_behaviour_system/creature_behaviour_functions.hpp"
 #include "world_init.hpp" // For testing = using createrectangle
 
+// TODO: clean up as part of 2th9Sai1
+
 void updateSawfish(float elapsed_ms, Entity& sawfish_entity)
 {
 	// Initialize components

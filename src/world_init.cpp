@@ -2,6 +2,9 @@
 #include "ecs/registry.hpp"
 #include <iostream>
 
+#include "creature_behaviour_system/creature_behaviour_tree_builder.hpp" // TODO: Wz93JS5m delete once createSawfish is moved to creature creator
+
+
 Entity createGridLine(vec2 start_pos, vec2 end_pos)
 {
 	Entity entity = Entity();
@@ -101,7 +104,7 @@ Entity createCircle(vec2 position, float radius, vec4 color)
 	return entity;
 }
 
-// TODO: 69 - move to creature creater 
+// TODO: Wz93JS5m - move to creature creater 
 Entity createSawfish(vec2 position, float width, float height, COLOUR_STATE color_state)
 {
 	Entity sawfish = Entity();
@@ -120,6 +123,14 @@ Entity createSawfish(vec2 position, float width, float height, COLOUR_STATE colo
 	textured.used_texture = TEXTURE_ASSET_ID::SAWFISH_01;
 	Collidable& collidable = registry.collidables.emplace(sawfish);
 	collidable.inelastic = true;
+
+	registry.pathfinders.emplace(sawfish);
+
+	CreatureBehaviour &creatureBehaviour = registry.creatureBehaviours.emplace(sawfish);
+
+	// TODO: Wz93JS5m delete instance of builder once this is moved to creature creator, and just use buildSawfishTree();
+	CreatureBehaviourTreeBuilder builder;
+	creatureBehaviour.behaviour_tree = builder.buildSawfishTree();
 
 	registry.renderRequests.insert(
 		sawfish,

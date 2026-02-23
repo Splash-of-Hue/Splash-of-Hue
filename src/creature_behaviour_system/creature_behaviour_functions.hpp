@@ -8,7 +8,6 @@
 // System responsible for handling creature behaviours. 
 void updateAnglerfish(float elapsed_ms, Entity& anglerfish_entity);
 void updateCrab(Entity& crab_entity);
-void updateCreature(Entity& creature_entity);
 void updateMinnows(float elapsed_ms, Entity& minnow_entity);
 void updateSawfish(float elapsed_ms, Entity& sawfish_entity);
 void updateShrimp(Entity& shrimp_entity);
@@ -16,7 +15,7 @@ void updateWhale(Entity& whale_entity);
 
 // Coloured behaviours for each creature.
 
-// ===== Action Node Functions =====
+// ===== to be converted =====
 void neutralAnglerfish(Entity& anglerfish_entity);
 void blueAnglerfish(float elapsed_ms, Entity& anglerfish_entity);
 void redAnglerfish(float elapsed_ms, Entity& anglerfish_entity);
@@ -24,10 +23,6 @@ void redAnglerfish(float elapsed_ms, Entity& anglerfish_entity);
 void neutralCrab(Entity& crab_entity);
 void blueCrab(Entity& crab_entity);
 void redCrab(Entity& crab_entity);
-
-void neutralCreature(Entity& creature_entity);
-void blueCreature(Entity& creature_entity);
-void redCreature(Entity& creature_entity);
 
 void neutralMinnows(Entity& minnow_entity);
 void blueMinnows(Entity& minnow_entity);
@@ -46,7 +41,13 @@ void blueWhale(Entity& whale_entity);
 void redWhale(Entity& whale_entity);
 
 // Pathfinder
-void follow_player(float elapsed_ms, Entity& follower);
+bool follow_player(float elapsed_ms, Entity& follower);
+
+// ===== Action Node Functions =====
+BEHAVIOUR_TREE_STATUS aStarFollowTarget(Entity& follower, float elapsed_ms);
+BEHAVIOUR_TREE_STATUS chargeAtTarget(Entity& charger, float elapsed_ms);
+
+BEHAVIOUR_TREE_STATUS stopCreatureMovement(Entity& creature, float elapsed_ms);
 
 // ===== Decorator Node Functions =====
 BEHAVIOUR_TREE_STATUS isInBlueState(Entity& creature, float elapsed_ms);

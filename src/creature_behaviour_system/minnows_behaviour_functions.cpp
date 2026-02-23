@@ -2,6 +2,8 @@
 #include "common.hpp"
 #include "creature_behaviour_system/creature_behaviour_functions.hpp"
 
+// TODO: clean up as part of 2th9Sai1
+
 // Sophia note:
 /*
 	It might make more sense for just the leader minnow to have the creature component
