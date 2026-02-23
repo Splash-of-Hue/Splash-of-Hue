@@ -8,7 +8,6 @@
 #include <LDtkLoader/Layer.hpp>
 #include <LDtkLoader/Project.hpp>
 #include <LDtkLoader/Tileset.hpp>
-#include <map_builder/map_build_init.hpp>
 #include <renderer/render_constants.hpp>
 #include <string>
 
