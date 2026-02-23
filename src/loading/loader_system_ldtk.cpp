@@ -1,8 +1,8 @@
+#include "common.hpp"
+#include "ecs/entity.hpp"
 #include "loader_system.hpp"
 #include "loading_constants.hpp"
 #include "map_builder/map_build_init.hpp"
-#include "common.hpp"
-#include "ecs/entity.hpp"
 #include <iostream>
 #include <LDtkLoader/DataTypes.hpp>
 #include <LDtkLoader/Layer.hpp>
