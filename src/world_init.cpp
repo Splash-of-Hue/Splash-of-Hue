@@ -102,9 +102,11 @@ Entity createCircle(vec2 position, float radius, vec4 color)
 }
 
 // TODO: 69 - move to creature creater 
-Entity createSawfish(vec2 position, float width, float height, vec4 color)
+Entity createSawfish(vec2 position, float width, float height, COLOUR_STATE color_state)
 {
 	Entity sawfish = Entity();
+	const ColourPalette& palette = registry.colourPalettes.components[0];
+	vec4 color = palette.state_to_colour.at(color_state);
 	registry.positions.insert(sawfish, position);
 	registry.scales.insert(sawfish, vec2((float)2.0f * GRID_CELL_WIDTH_PX, (float)2.0f * GRID_CELL_HEIGHT_PX));
 	registry.angles.emplace(sawfish);
