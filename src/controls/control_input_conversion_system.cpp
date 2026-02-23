@@ -64,7 +64,7 @@ Control ControlInputConversionSystem::convert_keyboard_input(const Input& input)
 	int key = input.value_1;
 	int action = input.value_2;
 	int mods = input.value_3;
-	auto error_message = "Pressed invalid keyboard input: " + std::to_string(key) + ", with modifier: " + std::to_string(mods);
+	std::string error_message = "Pressed invalid keyboard input: " + std::to_string(key) + ", with modifier: " + std::to_string(mods);
 
 	return generate_control(keyboard_control_map, keyboard_modified_control_map, key, action, mods, error_message);
 }
@@ -75,7 +75,7 @@ Control ControlInputConversionSystem::convert_mouse_button_input(const Input& in
 	int button = input.value_1;
 	int action = input.value_2;
 	int mods = input.value_3;
-	auto error_message = "Pressed invalid mouse input: " + std::to_string(button);
+	std::string error_message = "Pressed invalid mouse input: " + std::to_string(button);
 
 	return generate_control(mouse_control_map, mouse_modified_control_map, button, action, mods, error_message);
 }
@@ -106,7 +106,7 @@ Control ControlInputConversionSystem::convert_joystick_input(const Input& input)
 	bool is_axis_input = type == SOH_AXIS_INPUT_TYPE;
 	int button = is_axis_input ? type : input.value_2;
 	int action = is_axis_input ? GLFW_PRESS : input.value_3;
-	auto error_message = "Pressed invalid joystick input: " + std::to_string(button);
+	std::string error_message = "Pressed invalid joystick input: " + std::to_string(button);
 	Control& control = generate_control(joystick_control_map, button, action, error_message);
 
 	if (is_axis_input)
@@ -125,7 +125,7 @@ Control ControlInputConversionSystem::convert_gamepad_input(const Input& input)
 	bool is_axis_input = type == SOH_AXIS_INPUT_TYPE;
 	int button = input.value_2;
 	int action = is_axis_input ? GLFW_PRESS : input.value_3;
-	auto error_message = "Pressed invalid joystick input: " + std::to_string(button);
+	std::string error_message = "Pressed invalid joystick input: " + std::to_string(button);
 	Control& control = generate_control(gamepad_control_map, button, action, error_message);
 
 	if (is_axis_input)
@@ -169,7 +169,7 @@ Control ControlInputConversionSystem::generate_control
 	control.type = control_map_values.first;
 	control.phase = action == GLFW_PRESS ? CONTROL_PHASE::START
 		: action == GLFW_RELEASE ? CONTROL_PHASE::END : CONTROL_PHASE::SUSTAIN;
-	auto& control_values = control_map_values.second;
+	std::vector<float>& control_values = control_map_values.second;
 
 	if (control_values.size() > 0)
 	{
