@@ -113,9 +113,13 @@ Entity createSawfish(vec2 position, float width, float height, COLOUR_STATE colo
 	registry.angles.get(sawfish).degrees = 0.0f;
 	registry.sizes.insert(sawfish, Size{ width, height });
 	registry.colors.emplace(sawfish, color);
-
-	registry.textured.emplace(sawfish);
-	registry.textured.get(sawfish).used_texture = TEXTURE_ASSET_ID::SAWFISH_01;
+	registry.creatures.insert(sawfish, { CREATURETYPE::SAWFISH });
+	registry.velocities.emplace(sawfish);
+	registry.colourStates.insert(sawfish, { color_state });
+	Textured& textured = registry.textured.emplace(sawfish);
+	textured.used_texture = TEXTURE_ASSET_ID::SAWFISH_01;
+	Collidable& collidable = registry.collidables.emplace(sawfish);
+	collidable.inelastic = true;
 
 	registry.renderRequests.insert(
 		sawfish,
