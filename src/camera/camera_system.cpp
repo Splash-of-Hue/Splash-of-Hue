@@ -1,7 +1,7 @@
+#include "camera_components.hpp"
 #include "camera_system.hpp"
 #include "common.hpp"
 #include "ecs/registry.hpp"
-#include <iostream>
 
 void CameraSystem::step(float elapsed_ms)
 {
@@ -19,8 +19,7 @@ void CameraSystem::step(float elapsed_ms)
 	}
 
 	// Take only the most recent camera change request
-	auto most_recent_request_entity_pointer = registry.changeCameraTargetRequests.entities.rbegin();
-	const Entity& most_recent_request_entity = *most_recent_request_entity_pointer;
+	const Entity& most_recent_request_entity = registry.changeCameraTargetRequests.entities.back();
 	const ChangeCameraTargetRequest& change_request = registry.changeCameraTargetRequests.get(most_recent_request_entity);
 	assert(registry.cameras.size() == 1);
 	const Entity& camera_entity = registry.cameras.entities[0];
@@ -49,7 +48,7 @@ void CameraSystem::step(float elapsed_ms)
 		{
 			const unsigned long long& next_remove_index = registry.changeCameraTargetRequests.size() - 2;
 			const Entity& second_last_request_entity = registry.changeCameraTargetRequests.entities[next_remove_index];
-			
+
 			registry.changeCameraTargetRequests.remove(second_last_request_entity);
 		}
 	}
