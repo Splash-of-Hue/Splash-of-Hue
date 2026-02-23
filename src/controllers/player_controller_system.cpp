@@ -31,7 +31,7 @@ Entity PlayerControllerSystem::create_player()
 	registry.players.emplace(player_entity);
 	registry.velocities.insert(player_entity, velocity);
 	registry.colourStates.emplace(player_entity, player_color_state);
-	auto& collidable = registry.collidables.emplace(player_entity);
+	Collidable& collidable = registry.collidables.emplace(player_entity);
 	collidable.inelastic = true;
 
 	return player_entity;
@@ -54,14 +54,14 @@ void PlayerControllerSystem::step(float elapsed_ms)
 	}
 
 	// Reset player velocity each step
-	auto& player_entity = registry.players.entities[0];
-	auto& player_velocity = registry.velocities.get(player_entity);
+	Entity& player_entity = registry.players.entities[0];
+	vec2& player_velocity = registry.velocities.get(player_entity);
 	player_movement = vec2(0);
 	player_velocity = vec2(0);
 
-	for (auto& entity : registry.controls.entities)
+	for (Entity& entity : registry.controls.entities)
 	{
-		auto& control = registry.controls.get(entity);
+		Control& control = registry.controls.get(entity);
 
 		//// Movement, on push sets the corresponding bitset value to true and on release sets it to false
 		if (control.type == CONTROL_TYPE::MOVE)
@@ -73,7 +73,7 @@ void PlayerControllerSystem::step(float elapsed_ms)
 		}
 	}
 
-	auto& player = registry.players.components[0];
+	Player& player = registry.players.components[0];
 	const float speed = elapsed_ms * player.speed * 0.01;
 	player_velocity += player_movement * speed;
 	//std::cout << "DEBUG: Moving x: " << player_velocity.x << ", y: " << player_velocity.y << std::endl;

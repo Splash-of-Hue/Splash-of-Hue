@@ -9,14 +9,14 @@ inline float usb_gamecube_correction_y(const float& value) { return (value + 0.0
 
 void InputSystem::step_joysticks(float elapsed_ms)
 {
-	for (auto joystick_id : connected_joysticks)
+	for (int joystick_id : connected_joysticks)
 	{
 		int axis_count;
 		const float* axes = glfwGetJoystickAxes(joystick_id, &axis_count);
 
-		for (auto i = 0; i < axis_count; i++)
+		for (int i = 0; i < axis_count; i++)
 		{
-			auto axis = axes[i];
+			float axis = axes[i];
 			// Correction for inverted Y axes, and gamecube specifically
 			axis = (i % 2 == 0) ? usb_gamecube_correction_x(axis) : usb_gamecube_correction_y(-axis);
 
@@ -38,10 +38,10 @@ void InputSystem::step_joysticks(float elapsed_ms)
 		int button_count;
 		const unsigned char* buttons = glfwGetJoystickButtons(joystick_id, &button_count);
 
-		for (auto i = 0; i < button_count; i++)
+		for (int i = 0; i < button_count; i++)
 		{
 			auto is_pressed = buttons[i];
-			auto was_pressed = pressed_controller_buttons[joystick_id].count(i) > 0;
+			bool was_pressed = pressed_controller_buttons[joystick_id].count(i) > 0;
 
 			// If it remains pressed, don't send any new inputs
 			if (is_pressed && was_pressed)
