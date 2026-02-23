@@ -11,7 +11,6 @@
 BEHAVIOUR_TREE_STATUS aStarFollowTarget(Entity& follower, float elapsed_ms)
 {
 	// DEBUGGING std::cout << "aStarFollowTarget" << std::endl;
-	//temp
 	if (follow_player(elapsed_ms, follower))
 	{
 		return BEHAVIOUR_TREE_STATUS::FAILURE;
