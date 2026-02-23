@@ -198,7 +198,7 @@ void RenderSystem::drawTexturedMesh(Entity entity,
 
 	if (!registry.ignoredByCamera.has(entity))
 	{
-		const auto& camera_position = registry.positions.get(registry.cameras.entities[0]);
+		const vec2& camera_position = registry.positions.get(registry.cameras.entities[0]);
 		transform.translate(window_center()-camera_position);
 	}
 
