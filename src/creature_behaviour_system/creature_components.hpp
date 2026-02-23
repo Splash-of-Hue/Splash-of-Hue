@@ -8,6 +8,24 @@ struct Creature
 	// colour type here from Abby's colour system
 };
 
+struct CreatureBehaviour
+{
+	BehaviourTree* behaviour_tree;
+	std::unordered_map<int, int> currentChildNode;
+};
+
+struct CreatureBehaviourCooldown
+{
+	float cooldown = COOLDOWN_TIMER_DEFAULT;
+	float cooldown_default = cooldown;
+};
+
+struct CreatureBehaviourTimer
+{
+	float timer = TIMELIMIT_TIMER_DEFAULT;
+	float timer_default = 0;
+};
+
 struct Shrimp
 {
 	// Tracks current direction shrimp is facing.
@@ -18,10 +36,4 @@ struct Pathfinder
 {
 	float minimumDistanceToTarget = 0.0f;
 	float max_speed = 2.0f;
-};
-
-struct CreatureBehaviour
-{
-	BehaviourTree* behaviour_tree;
-	std::unordered_map<int, int> currentChildNode;
 };

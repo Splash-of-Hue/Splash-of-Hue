@@ -15,6 +15,8 @@ void updateShrimp(Entity& shrimp_entity);
 void updateWhale(Entity& whale_entity);
 
 // Coloured behaviours for each creature.
+
+// ===== Action Node Functions =====
 void neutralAnglerfish(Entity& anglerfish_entity);
 void blueAnglerfish(float elapsed_ms, Entity& anglerfish_entity);
 void redAnglerfish(float elapsed_ms, Entity& anglerfish_entity);
@@ -45,3 +47,12 @@ void redWhale(Entity& whale_entity);
 
 // Pathfinder
 void follow_player(float elapsed_ms, Entity& follower);
+
+// ===== Decorator Node Functions =====
+BEHAVIOUR_TREE_STATUS isInBlueState(Entity& creature, float elapsed_ms);
+BEHAVIOUR_TREE_STATUS isInRedState(Entity& creature, float elapsed_ms);
+BEHAVIOUR_TREE_STATUS isInNeutralState(Entity& creature, float elapsed_ms);
+BEHAVIOUR_TREE_STATUS isCooldownComplete(Entity& creature, float elapsed_ms);
+BEHAVIOUR_TREE_STATUS isTimerComplete(Entity& creature, float elapsed_ms);
+BEHAVIOUR_TREE_STATUS isCreatureWithinColourRadius(Entity& creature, float elapsed_ms);
+BEHAVIOUR_TREE_STATUS hasCreatureCollided(Entity& creature, float elapsed_ms);
