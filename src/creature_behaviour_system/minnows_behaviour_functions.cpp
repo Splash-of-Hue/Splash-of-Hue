@@ -1,6 +1,6 @@
 // internal
 #include "common.hpp"
-#include "creature_behaviour_system/creature_behaviour_system.hpp"
+#include "creature_behaviour_system/creature_behaviour_functions.hpp"
 
 // Sophia note:
 /*
@@ -10,7 +10,7 @@
 
 	this way we don't have a bajillion creature components for all of the minnows
 */
-void CreatureBehaviourSystem::updateMinnows(float elapsed_ms, Entity& minnow_entity)
+void updateMinnows(float elapsed_ms, Entity& minnow_entity)
 {
 	if (!registry.colourStates.has(minnow_entity))
 	{
@@ -36,17 +36,17 @@ void CreatureBehaviourSystem::updateMinnows(float elapsed_ms, Entity& minnow_ent
 	}
 }
 
-void CreatureBehaviourSystem::neutralMinnows(Entity& minnow_entity)
+void neutralMinnows(Entity& minnow_entity)
 {
 
 }
 
-void CreatureBehaviourSystem::blueMinnows(Entity& minnow_entity)
+void blueMinnows(Entity& minnow_entity)
 {
 	// swarms light source
 }
 
-void CreatureBehaviourSystem::redMinnows(Entity& minnow_entity)
+void redMinnows(Entity& minnow_entity)
 {
 	// shoots at light source
 }

@@ -1,8 +1,8 @@
 // internal
 #include "common.hpp"
-#include "creature_behaviour_system/creature_behaviour_system.hpp"
+#include "creature_behaviour_system/creature_behaviour_functions.hpp"
 
-void CreatureBehaviourSystem::updateAnglerfish(float elapsed_ms, Entity& anglerfish_entity)
+void updateAnglerfish(float elapsed_ms, Entity& anglerfish_entity)
 {
 	// Initialize components
 	if (!registry.pathfinders.has(anglerfish_entity))
@@ -37,19 +37,19 @@ void CreatureBehaviourSystem::updateAnglerfish(float elapsed_ms, Entity& anglerf
 }
 
 // For the Anglerfish, the neutral state is just the initial state
-void CreatureBehaviourSystem::neutralAnglerfish(Entity& anglerfish_entity)
+void neutralAnglerfish(Entity& anglerfish_entity)
 {
 	// Stationary, with the initial light colour
 	registry.velocities.get(anglerfish_entity) = { 0.0f, 0.0f };
 }
 
-void CreatureBehaviourSystem::blueAnglerfish(float elapsed_ms, Entity& anglerfish_entity)
+void blueAnglerfish(float elapsed_ms, Entity& anglerfish_entity)
 {
 	// Lights radius around it in blue, pathfinds to player
 	follow_player(elapsed_ms, anglerfish_entity);
 }
 
-void CreatureBehaviourSystem::redAnglerfish(float elapsed_ms, Entity& anglerfish_entity)
+void redAnglerfish(float elapsed_ms, Entity& anglerfish_entity)
 {
 	// lights radius around it in red, pathfinds to player
 	follow_player(elapsed_ms, anglerfish_entity);

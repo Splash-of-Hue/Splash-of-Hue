@@ -20,7 +20,7 @@ struct Node
 {
 	NODETYPE nodeType;
 	std::vector<int> children_indicies;
-	BEHAVIOUR_TREE_STATUS(*node_function)(Entity& entity);
+	BEHAVIOUR_TREE_STATUS(*node_function)(Entity& entity, float elapsed_ms);
 };
 
 struct BehaviourTree
