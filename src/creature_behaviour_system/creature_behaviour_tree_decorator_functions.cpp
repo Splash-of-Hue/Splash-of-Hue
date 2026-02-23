@@ -81,4 +81,3 @@ BEHAVIOUR_TREE_STATUS hasCreatureCollided(Entity& creature, float elapsed_ms)
 {
 	return BEHAVIOUR_TREE_STATUS::SUCCESS;
 }
-
