@@ -61,15 +61,13 @@ void load_creatures(const ldtk::Layer& layer)
 	// iterate on Enemy entities
 	for (const ldtk::Entity& creature_entity : layer.allEntities())
 	{
-		const ldtk::Field<ldtk::Enum>& creature_enum_type = creature_entity.getField<ldtk::Enum>("CreatureType");
+		const ldtk::Field<ldtk::EnumValue>& creature_enum_type = creature_entity.getField<ldtk::EnumValue>("CreatureType");
 		const CREATURETYPE& creature_type = creature_type_from_string(creature_enum_type.value().name);
-		const ldtk::Field<ldtk::Enum>& color_state_enum_type = creature_entity.getField<ldtk::Enum>("ColorState");
+		const ldtk::Field<ldtk::EnumValue>& color_state_enum_type = creature_entity.getField<ldtk::EnumValue>("ColorState");
 		const COLOUR_STATE& color_state = color_state_from_string(color_state_enum_type.value().name);
 		const ldtk::IntPoint& creature_world_position = creature_entity.getWorldPosition();
 		const ldtk::IntPoint& creature_size = creature_entity.getSize();
 		const vec2 position = vec2(creature_world_position.x * level_scale_x, creature_world_position.y * level_scale_y);
-
-		COLOUR_STATE color_state;
 
 		switch (creature_type)
 		{
