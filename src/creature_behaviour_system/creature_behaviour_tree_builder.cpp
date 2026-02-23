@@ -5,30 +5,35 @@
 
 BehaviourTree CreatureBehaviourTreeBuilder::buildAnglerfishTree()
 {
-
+	return BehaviourTree();
 }
 
 BehaviourTree CreatureBehaviourTreeBuilder::buildCrabTree()
 {
+	return BehaviourTree();
 
 }
 
 BehaviourTree CreatureBehaviourTreeBuilder::buildMinnowTree()
 {
+	return BehaviourTree();
 
 }
 
 BehaviourTree CreatureBehaviourTreeBuilder::buildSawfishTree()
 {
+	return BehaviourTree();
 
 }
 
 BehaviourTree CreatureBehaviourTreeBuilder::buildShrimpTree()
 {
+	return BehaviourTree();
 
 }
 
 BehaviourTree CreatureBehaviourTreeBuilder::buildWhaleTree()
 {
+	return BehaviourTree();
 
 }

@@ -1,8 +1,8 @@
 // internal
 #include "common.hpp"
-#include "creature_behaviour_system/creature_behaviour_system.hpp"
+#include "creature_behaviour_system/creature_behaviour_functions.hpp"
 
-void CreatureBehaviourSystem::updateWhale(Entity& whale_entity)
+void updateWhale(Entity& whale_entity)
 {
 	if (!registry.colourStates.has(whale_entity))
 	{
@@ -28,17 +28,17 @@ void CreatureBehaviourSystem::updateWhale(Entity& whale_entity)
 	}
 }
 
-void CreatureBehaviourSystem::neutralWhale(Entity& whale_entity)
+void neutralWhale(Entity& whale_entity)
 {
 
 }
 
-void CreatureBehaviourSystem::blueWhale(Entity& whale_entity)
+void blueWhale(Entity& whale_entity)
 {
 	// cries to fill room above
 }
 
-void CreatureBehaviourSystem::redWhale(Entity& whale_entity)
+void redWhale(Entity& whale_entity)
 {
 	// cries to fill room below
 }

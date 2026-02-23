@@ -3,13 +3,19 @@
 #include <sstream>
 
 #include "common.hpp"
+#include "creature_behaviour_system/creature_behaviour_functions.hpp"
 #include "creature_behaviour_system/creature_behaviour_system.hpp"
 #include "creature_behaviour_system/creature_components.hpp"
 
-// Please see trello task: https://trello.com/c/dwbflQHN
+// todo: https://trello.com/c/Qj457xrS/105-2-creature-behaviour-system-a-pathfinding
+void aStarFollowTarget(float elapsed_ms, Entity& follower, Entity& target)
+{
 
+}
+
+// TODO: REMOVE AS PART OF THE ASTAR TASK 
 // For M1, no real fancy-schmancy AI pathfinding, just bare bones following 
-void CreatureBehaviourSystem::follow_player(float elapsed_ms, Entity& follower)
+void follow_player(float elapsed_ms, Entity& follower)
 { 
 	assert(registry.pathfinders.has(follower) && "The follower creature isn't registered as a pathfinder");
 	Pathfinder& pathfinder_component = registry.pathfinders.get(follower);
