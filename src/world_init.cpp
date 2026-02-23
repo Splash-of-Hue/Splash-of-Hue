@@ -4,7 +4,6 @@
 
 #include "creature_behaviour_system/creature_behaviour_tree_builder.hpp" // TODO: Wz93JS5m delete once createSawfish is moved to creature creator
 
-
 Entity createGridLine(vec2 start_pos, vec2 end_pos)
 {
 	Entity entity = Entity();
