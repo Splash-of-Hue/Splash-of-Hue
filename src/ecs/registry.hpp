@@ -29,6 +29,7 @@ public:
 	ComponentContainer<Tower> towers; // TODO X4tDLE6K: remove
 	// AI
 	ComponentContainer<Pathfinder> pathfinders;
+	ComponentContainer<CreatureBehaviour> creatureBehaviours;
 	// Animation
 	ComponentContainer<Animatable> animatables;
 	ComponentContainer<AnimationTrigger> animation_triggers;
