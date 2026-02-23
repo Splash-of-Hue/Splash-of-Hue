@@ -33,7 +33,6 @@ public:
 	ComponentContainer<CreatureBehaviourCooldown> creatureBehaviourCooldowns;
 	ComponentContainer<CreatureBehaviourTimer> creatureBehaviourTimers;
 	ComponentContainer<Pathfinder> pathfinders;
-
 	// Animation
 	ComponentContainer<Animatable> animatables;
 	ComponentContainer<AnimationTrigger> animation_triggers;
