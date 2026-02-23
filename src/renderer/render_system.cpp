@@ -195,14 +195,15 @@ void RenderSystem::drawTexturedMesh(Entity entity,
 	// thus ORDER IS IMPORTANT
 	Transform transform;
 	transform.translate(position);
-	transform.scale(scale);
-	transform.rotate(radians(angle.degrees));
 
 	if (!registry.ignoredByCamera.has(entity))
 	{
 		const auto& camera_position = registry.positions.get(registry.cameras.entities[0]);
-		transform.translate(camera_position);
+		transform.translate(window_center()-camera_position);
 	}
+
+	transform.scale(scale);
+	transform.rotate(radians(angle.degrees));
 
 	assert(registry.renderRequests.has(entity));
 	const RenderRequest &render_request = registry.renderRequests.get(entity);

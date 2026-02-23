@@ -26,11 +26,13 @@ void CameraSystem::step(float elapsed_ms)
 	assert(registry.cameras.size() == 1);
 	const auto& camera_entity = registry.cameras.entities[0];
 	const auto& camera_position = registry.positions.get(camera_entity);
+	auto& camera_velocity = registry.velocities.get(camera_entity);
 
 	if (camera_position == change_request.target)
 	{
 		// We have arrived, clear all requests and finish
 		registry.changeCameraTargetRequests.clear();
+		camera_velocity = vec2(0);
 		return;
 	}
 
@@ -38,7 +40,6 @@ void CameraSystem::step(float elapsed_ms)
 	const auto& camera_move_direction = normalize(request_position_difference);
 	// Only go part of the way if we have less than the speed to get there
 	const auto& move_velocity = fminf(change_request.speed, length(request_position_difference)) * camera_move_direction;
-	auto& camera_velocity = registry.velocities.get(camera_entity);
 	camera_velocity = move_velocity;
 
 	// If multiple camera changes are requested, we only care about the most recent one

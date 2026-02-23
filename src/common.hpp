@@ -41,6 +41,7 @@ const vec4 CLEAR_SCREEN_COLOR = vec4(vec3(0.0f), 1.0f);
 //
 const int WINDOW_WIDTH_PX = 1280;
 const int WINDOW_HEIGHT_PX = 720;
+inline vec2 window_center() { return vec2(WINDOW_WIDTH_PX, WINDOW_HEIGHT_PX) * 0.5f; };
 
 const int GRID_CELL_WIDTH_PX = 60;
 const int GRID_CELL_HEIGHT_PX = 60;
