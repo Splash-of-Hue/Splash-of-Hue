@@ -10,13 +10,10 @@
 // todo: https://trello.com/c/Qj457xrS/105-2-creature-behaviour-system-a-pathfinding
 BEHAVIOUR_TREE_STATUS aStarFollowTarget(Entity& follower, float elapsed_ms)
 {
-	// DEBUGGING std::cout << "aStarFollowTarget" << std::endl;
 	if (follow_player(elapsed_ms, follower))
 	{
 		return BEHAVIOUR_TREE_STATUS::FAILURE;
 	}
-
-	// DEBUGGING std::cout << "aStarFollowTarget RUNNING" << std::endl;
 
 	return BEHAVIOUR_TREE_STATUS::RUNNING;
 }

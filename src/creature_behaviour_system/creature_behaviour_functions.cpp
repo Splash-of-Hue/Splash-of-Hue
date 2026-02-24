@@ -6,7 +6,6 @@
 
 BEHAVIOUR_TREE_STATUS stopCreatureMovement(Entity& creature, float elapsed_ms)
 {
-	// DEBUGGING std::cout << "stop creature movement" << std::endl;
 	if (!registry.velocities.has(creature))
 		return BEHAVIOUR_TREE_STATUS::FAILURE;
 
