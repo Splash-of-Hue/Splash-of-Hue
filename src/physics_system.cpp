@@ -347,7 +347,6 @@ void PhysicsSystem::step(float elapsed_ms)
 void PhysicsSystem::handle_movement(float elapsed_ms)
 {
 	ComponentContainer<vec2>& moving_entities = registry.velocities;
-	//elapsed_ms = std::min(elapsed_ms, 0.05f);
 	for (int i = 0; i < moving_entities.size(); i++)
 	{
 		vec2& pos = registry.positions.get(moving_entities.entities[i]);
