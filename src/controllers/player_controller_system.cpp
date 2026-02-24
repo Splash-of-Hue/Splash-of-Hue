@@ -77,9 +77,5 @@ void PlayerControllerSystem::step(float elapsed_ms)
 	const float speed = elapsed_ms * player.speed ;
 	player_velocity += player_movement * player.speed;
 	//std::cout << "DEBUG: Moving x: " << player_velocity.x << ", y: " << player_velocity.y << std::endl;
-	if (abs(player_velocity.x) + abs(player_velocity.y) > 0)
-	{
-		Entity change_camera_request;
-		registry.changeCameraTargetRequests.insert(change_camera_request, { registry.positions.get(player_entity), PLAYER_SPEED });
-	}
+	
 }
