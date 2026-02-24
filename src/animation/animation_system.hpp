@@ -16,10 +16,15 @@ private:
 	bool AnimationSystem::has_animation_entity(ANIMATABLE_TYPE type, ANIMATION_TRIGGER trigger);
 	Entity AnimationSystem::get_animation_entity(ANIMATABLE_TYPE type, ANIMATION_TRIGGER trigger);
 	unsigned int AnimationSystem::track_entity(Entity entity);
-	void AnimationSystem::generate_animation(ANIMATABLE_TYPE type, ANIMATION_TRIGGER trigger, std::vector<TEXTURE_ASSET_ID> textures, ANIMATION_TRIGGER end_trigger = ANIMATION_TRIGGER::ANIMATION_TRIGGER_COUNT);
+	void AnimationSystem::generate_animation(
+		ANIMATABLE_TYPE type,
+		ANIMATION_TRIGGER trigger,
+		std::vector<std::pair<TEXTURE_ASSET_ID, RenderSourceRect>> texture_pairs,
+		ANIMATION_TRIGGER end_trigger = ANIMATION_TRIGGER::ANIMATION_TRIGGER_COUNT
+	);
 
 public:
 	void init();
 	void step(float elapsed_ms);
-	bool trigger_animation(Entity entity, ANIMATION_TRIGGER trigger);
+	bool trigger_animation(Entity& entity, ANIMATION_TRIGGER trigger);
 };

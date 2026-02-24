@@ -47,6 +47,26 @@ set_target_properties(${PROJECT_NAME} PROPERTIES ENABLE_EXPORTS 0)
 target_include_directories(${PROJECT_NAME} PUBLIC ext/stb_image/)
 target_include_directories(${PROJECT_NAME} PUBLIC ext/gl3w)
 
+# Find LDtk Loader
+# TODO nu365FN9: Remove this for a locally compiled version
+include(FetchContent)
+function(add_git_dependency libName gitURL gitTag)
+    FetchContent_Declare(${libName}
+        GIT_REPOSITORY ${gitURL}
+        GIT_TAG        ${gitTag}
+        GIT_SHALLOW    TRUE
+        GIT_PROGRESS   TRUE
+    )
+    FetchContent_MakeAvailable(${libName})
+    target_compile_options(${libName} PUBLIC "-w")
+endfunction()
+
+add_git_dependency(
+    LDtkLoader
+    https://github.com/Madour/LDtkLoader.git
+    1.5.3.1
+)
+
 # Find OpenGL
 find_package(OpenGL REQUIRED)
 
@@ -141,7 +161,7 @@ endif()
 target_include_directories(${PROJECT_NAME} PUBLIC ${GLFW_INCLUDE_DIRS})
 target_include_directories(${PROJECT_NAME} PUBLIC ${SDL2_INCLUDE_DIRS})
 
-target_link_libraries(${PROJECT_NAME} PUBLIC ${GLFW_LIBRARIES} ${SDL2_LIBRARIES} ${SDL2MIXER_LIBRARIES} glm::glm)
+target_link_libraries(${PROJECT_NAME} PUBLIC ${GLFW_LIBRARIES} ${SDL2_LIBRARIES} ${SDL2MIXER_LIBRARIES} LDtkLoader::LDtkLoader glm::glm)
 
 # needed to add this for Linux
 if(IS_OS_LINUX)

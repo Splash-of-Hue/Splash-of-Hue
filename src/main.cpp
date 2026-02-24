@@ -18,6 +18,8 @@
 #include "world_system.hpp"
 #include "sound/sound_system.hpp"
 #include "creature_behaviour_system/creature_behaviour_system.hpp"
+#include "camera/camera_system.hpp"
+
 #include "common.hpp"
 using Clock = std::chrono::high_resolution_clock;
 
@@ -37,6 +39,7 @@ int main()
 	PlayerControllerSystem player_controller_system;
 	ColourSystem colour_system;
 	CreatureBehaviourSystem creature_behaviour_system;
+	CameraSystem camera_system;
 
 	// initialize window
 	GLFWwindow* window = world_system.create_window();
@@ -51,13 +54,11 @@ int main()
 		std::cerr << "ERROR: Failed to start or load sounds." << std::endl;
 	}
 
-
 	// initialize the main systems
 	sound_system.init();
 	input_system.init(window);
 	renderer_system.init(window);
-	// TODO bDKnCkH1: Don't put input system in init
-	world_system.init(&renderer_system, &input_system);
+	world_system.init(&renderer_system);
 	animation_system.init();
 	colour_system.initialize_palette();
 	// variable timestep loop
@@ -76,6 +77,8 @@ int main()
 		elapsed_ms = std::min(elapsed_ms, 50.f);
 		accumulator += elapsed_ms;
 		// CK: be mindful of the order of your systems and rearrange this list only if necessary
+		camera_system.step(elapsed_ms);
+		input_system.step(elapsed_ms);
 		control_input_conversion_system.step(elapsed_ms);
 		player_controller_system.step(elapsed_ms);
 		loader_system.step(elapsed_ms);
@@ -88,6 +91,8 @@ int main()
 			accumulator -= DT;
 		}
 		
+		creature_behaviour_system.update(elapsed_ms);
+		physics_system.step(elapsed_ms);
 		animation_system.step(elapsed_ms);
 		world_system.handle_behaviour_change();
 

@@ -80,12 +80,9 @@ GLFWwindow* WorldSystem::create_window() {
 	return window;
 }
 
-void WorldSystem::init(RenderSystem* renderer_arg, InputSystem* input_system) {
+void WorldSystem::init(RenderSystem* renderer_arg) {
 
 	this->renderer = renderer_arg;
-	// TODO bDKnCkH1: Remove
-	this->input = input_system;
-
 
 	// Set all states to default
 	restart_game();
@@ -110,7 +107,7 @@ bool WorldSystem::step(float elapsed_ms_since_last_update) {
 	while (registry.debugComponents.entities.size() > 0)
 	    registry.remove_all_components_of(registry.debugComponents.entities.back());
 
-	for (auto& entity : registry.controls.entities)
+	for (Entity& entity : registry.controls.entities)
 	{
 		Control& control = registry.controls.get(entity);
 
@@ -166,7 +163,8 @@ void WorldSystem::restart_game() {
 	while (registry.renderRequests.entities.size() > 0)
 		registry.remove_all_components_of(registry.renderRequests.entities.back());
 
-	input->clear_keys();
+	Entity input_clear_request_entity;
+	registry.inputClearRequests.emplace(input_clear_request_entity);
 	// Request a player be made
 	Entity player_create_request_entity;
 	registry.playerCreateRequests.emplace(player_create_request_entity);

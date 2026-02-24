@@ -2,13 +2,15 @@
 #include <vector>
 
 #include "animation/animation_components.hpp"
+#include "camera/camera_components.hpp"
 #include "components.hpp"
 #include "controllers/player_components.hpp"
 #include "controls/control_components.hpp"
+#include "creature_behaviour_system/creature_components.hpp"
 #include "input/input_components.hpp"
 #include "loading/loading_components.hpp"
+#include "map_builder/map_components.hpp"
 #include "renderer/render_components.hpp"
-#include "creature_behaviour_system/creature_components.hpp"
 
 class ECSRegistry
 {
@@ -27,6 +29,9 @@ public:
 	ComponentContainer<Projectile> projectiles; // TODO X4tDLE6K: remove
 	ComponentContainer<Tower> towers; // TODO X4tDLE6K: remove
 	// AI
+	ComponentContainer<CreatureBehaviour> creatureBehaviours;
+	ComponentContainer<CreatureBehaviourCooldown> creatureBehaviourCooldowns;
+	ComponentContainer<CreatureBehaviourTimer> creatureBehaviourTimers;
 	ComponentContainer<Pathfinder> pathfinders;
 	// Animation
 	ComponentContainer<Animatable> animatables;
@@ -44,11 +49,14 @@ public:
 	// Controls
 	ComponentContainer<Control> controls;
 	ComponentContainer<Input> inputs;
+	ComponentContainer<InputClearRequest> inputClearRequests;
 	// Debug
 	ComponentContainer<DebugComponent> debugComponents;
 	// Loader
 	ComponentContainer<Level> levels;
 	ComponentContainer<LoadRequest> loadRequests;
+	// Map
+	ComponentContainer<MapTile> mapTiles;
 	// Physics - Collisions
 	ComponentContainer<ChangeBehaviour> change_behaviours;
 	ComponentContainer<Collidable> collidables;
@@ -63,8 +71,12 @@ public:
 	ComponentContainer<PlayerCreateRequests> playerCreateRequests;
 	ComponentContainer<Player> players;
 	// Rendering
+	ComponentContainer<Camera> cameras;
+	ComponentContainer<ChangeCameraTargetRequest> changeCameraTargetRequests;
+	ComponentContainer<IgnoresCamera> ignoredByCamera;
 	ComponentContainer<Mesh*> meshPtrs;
 	ComponentContainer<RenderRequest> renderRequests;
+	ComponentContainer<RenderSourceRect> renderSourceRects;
 	ComponentContainer<ScreenState> screenStates;
 	// Shapes
 	ComponentContainer<Circle> circles; // TODO 1ch6Q0BE: Remove
@@ -86,6 +98,9 @@ public:
 		registry_list.push_back(&projectiles); // TODO X4tDLE6K: remove
 		registry_list.push_back(&towers); // TODO X4tDLE6K: remove
 		// AI
+		registry_list.push_back(&creatureBehaviours);
+		registry_list.push_back(&creatureBehaviourCooldowns);
+		registry_list.push_back(&creatureBehaviourTimers);
 		registry_list.push_back(&pathfinders);
 		// Animation
 		registry_list.push_back(&animatables);
@@ -103,11 +118,14 @@ public:
 		// Controls
 		registry_list.push_back(&controls);
 		registry_list.push_back(&inputs);
+		registry_list.push_back(&inputClearRequests);
 		// Debug
 		registry_list.push_back(&debugComponents);
 		// Loader
 		registry_list.push_back(&levels);
 		registry_list.push_back(&loadRequests);
+		// Map
+		registry_list.push_back(&mapTiles);
 		// Physics - Collisions
 		registry_list.push_back(&change_behaviours);
 		registry_list.push_back(&collidables);
@@ -122,8 +140,12 @@ public:
 		registry_list.push_back(&playerCreateRequests);
 		registry_list.push_back(&players);
 		// Rendering
+		registry_list.push_back(&cameras);
+		registry_list.push_back(&changeCameraTargetRequests);
+		registry_list.push_back(&ignoredByCamera);
 		registry_list.push_back(&meshPtrs);
 		registry_list.push_back(&renderRequests);
+		registry_list.push_back(&renderSourceRects);
 		registry_list.push_back(&screenStates);
 		// Shapes
 		registry_list.push_back(&circles); // TODO 1ch6Q0BE: Remove;

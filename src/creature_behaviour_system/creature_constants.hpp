@@ -42,7 +42,6 @@ struct Whale
 {
 };
 
-
 // for creatures that pathfind. TODO, edit based on experiments with how close each creature should be
 constexpr float pathfinderMinDistToTarget(CREATURETYPE creatureType) {
 	switch (creatureType)
@@ -55,3 +54,6 @@ constexpr float pathfinderMinDistToTarget(CREATURETYPE creatureType) {
 		return 0.0f;
 	}
 }
+
+const float COOLDOWN_TIMER_DEFAULT = 3000.0f;
+const float TIMELIMIT_TIMER_DEFAULT = 3000.0f;

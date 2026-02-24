@@ -12,8 +12,8 @@
 void RenderSystem::drawShape(Entity entity,
 	const mat3& projection) {
 
-	auto& position = registry.positions.get(entity);
-	auto& size_component = registry.sizes.get(entity);
+	vec2& position = registry.positions.get(entity);
+	Size& size_component = registry.sizes.get(entity);
 
 	// Transformation code, see Rendering and Transformation in the template
 	// specification for more info Incrementally updates transformation matrix,
@@ -187,14 +187,21 @@ void RenderSystem::drawGridLine(Entity entity,
 void RenderSystem::drawTexturedMesh(Entity entity,
 									const mat3 &projection)
 {
-	auto &position = registry.positions.get(entity);
-	auto &scale = registry.scales.get(entity);
-	auto &angle = registry.angles.get(entity);
+	vec2& position = registry.positions.get(entity);
+	vec2& scale = registry.scales.get(entity);
+	Angle& angle = registry.angles.get(entity);
 	// Transformation code, see Rendering and Transformation in the template
 	// specification for more info Incrementally updates transformation matrix,
 	// thus ORDER IS IMPORTANT
 	Transform transform;
 	transform.translate(position);
+
+	if (!registry.ignoredByCamera.has(entity))
+	{
+		const vec2& camera_position = registry.positions.get(registry.cameras.entities[0]);
+		transform.translate(window_center()-camera_position);
+	}
+
 	transform.scale(scale);
 	transform.rotate(radians(angle.degrees));
 
@@ -276,6 +283,11 @@ void RenderSystem::drawTexturedMesh(Entity entity,
 	glUniform4fv(color_uloc, 1, (float *)&color);
 	gl_has_errors();
 
+	// Getting the size and area to drawn from the source
+	GLint source_rect_uloc = glGetUniformLocation(program, "source_rect");
+	const RenderSourceRect& render_source_rect = registry.renderSourceRects.has(entity) ? registry.renderSourceRects.get(entity) : RenderSourceRect();
+	glUniform4fv(source_rect_uloc, 1, (float*)&render_source_rect);
+
 	// Get number of indices from index buffer, which has elements uint16_t
 	GLint size = 0;
 	glGetBufferParameteriv(GL_ELEMENT_ARRAY_BUFFER, GL_BUFFER_SIZE, &size);
@@ -309,7 +321,7 @@ void RenderSystem::drawToScreen()
 	// get the vignette texture, sprite mesh, and program
 	glUseProgram(effects[(GLuint)EFFECT_ASSET_ID::VIGNETTE]);
 	gl_has_errors();
-
+	
 	// Clearing backbuffer
 	int w, h;
 	glfwGetFramebufferSize(window, &w, &h); // Note, this will be 2x the resolution given to glfwCreateWindow on retina displays
