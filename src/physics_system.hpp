@@ -16,5 +16,5 @@ public:
 	}
 
 private:
-	void handle_movement();
+	void handle_movement(float elapsed_ms);
 };
