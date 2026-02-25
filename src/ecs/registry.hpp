@@ -47,6 +47,7 @@ public:
 	ComponentContainer<ColourPalette> colourPalettes;
 	ComponentContainer<ColourMenuState> colourMenuStates;
 	ComponentContainer<ColourMenuInput> colourMenuInputs;
+	ComponentContainer<EmittingCircle> emittingCircles;
 	
 	// Controls
 	ComponentContainer<Control> controls;
@@ -118,6 +119,7 @@ public:
 		registry_list.push_back(&colourPalettes);
 		registry_list.push_back(&colourMenuStates);
 		registry_list.push_back(&colourMenuInputs);
+		registry_list.push_back(&emittingCircles);
 		// Controls
 		registry_list.push_back(&controls);
 		registry_list.push_back(&inputs);

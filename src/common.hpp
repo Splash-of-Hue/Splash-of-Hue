@@ -70,7 +70,7 @@ const float TOWER_BB_HEIGHT = (float)GRID_CELL_HEIGHT_PX;
 
 // colour system 
 const vec4 DEFAULT_COLOUR = vec4(1.0f, 1.0f, 1.0f, 1.0f);
-const float timeForColourRadiusToGrow = 1000.f; //in ms
+const float TIME_FOR_CIRCLE_TO_GROW = 1000.f; //in ms
 
 #ifndef M_PI
 #define M_PI 3.14159265358979323846f

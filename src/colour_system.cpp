@@ -89,9 +89,9 @@ void ColourSystem::closeColourMenu()
 		registry.colourStates.emplace(player);
 	}
 
-	ColourState& playerCC = registry.colourStates.get(player);
-	playerCC.prev_colour_state = playerCC.curr_colour_state;
-	playerCC.curr_colour_state = chosen;
+	ColourState& player_colour_state = registry.colourStates.get(player);
+	player_colour_state.prev_colour_state = player_colour_state.curr_colour_state;
+	player_colour_state.curr_colour_state = chosen;
 
 	setEntityVisualColour(player, chosen);
 	
@@ -99,14 +99,33 @@ void ColourSystem::closeColourMenu()
 
 	//creating coloured circle. The if state is needed so the circle doesnt animate
 	//if colours are same as before
-	if (playerCC.curr_colour_state != playerCC.prev_colour_state) {
-		registry.remove_all_components_of(colour_circle_entity);
-		if (chosen != COLOUR_STATE::NEUTRAL) {
-			vec2& playerPos = registry.positions.get(player);
-			colour_circle_entity = createCircle(playerPos, 1.f, vec4(0.f, 0.f, 0.f, 0.3f));
-			setEntityVisualColour(colour_circle_entity, chosen);
-			ColourCircle& cc = registry.colourCircles.emplace(colour_circle_entity);
-			cc.associatingEntity = player;
+	if (player_colour_state.curr_colour_state != player_colour_state.prev_colour_state) 
+	{
+		if (chosen != COLOUR_STATE::NEUTRAL)
+		{
+			if (registry.emittingCircles.has(player))
+			{
+				EmittingCircle& player_emitting_component = registry.emittingCircles.get(player);
+				players_colour_circle = player_emitting_component.colourCircleEntity;
+				Size& colour_circle_size = registry.sizes.get(players_colour_circle);
+				colour_circle_size.width = 0;
+				colour_circle_size.height = 0;
+			}
+			else {
+				vec2& player_position = registry.positions.get(player);
+				players_colour_circle = createCircle(player_position, 1.f, vec4(0.f, 0.f, 0.f, 0.3f));
+				ColourCircle& colour_circle_component = registry.colourCircles.emplace(players_colour_circle);
+				colour_circle_component.sourceEntity = player;
+				EmittingCircle& player_emitting_component = registry.emittingCircles.emplace(player);
+				player_emitting_component.colourCircleEntity = players_colour_circle;
+
+			}
+			setEntityVisualColour(players_colour_circle, chosen);
+
+		}
+		else {
+			registry.emittingCircles.remove(player);
+			registry.remove_all_components_of(players_colour_circle);
 		}
 	}
 }
@@ -216,21 +235,20 @@ void ColourSystem::step(float elapsed_ms)
 
 void ColourSystem::updateCircles(float elapsed_ms) 
 {
-	for (Entity& ccEntity : registry.colourCircles.entities)
+	for (Entity& colour_circle_entity : registry.colourCircles.entities)
 	{
 		//circle updates to location of whatever its attached to
-		vec2& ccPos = registry.positions.get(ccEntity);
-		ColourCircle& cc = registry.colourCircles.get(ccEntity);
-		Entity& mainEntity = cc.associatingEntity;
-		vec2& mainPos = registry.positions.get(mainEntity);
-		ccPos = mainPos;
+		vec2& colour_circle_position = registry.positions.get(colour_circle_entity);
+		ColourCircle& colour_circle_component = registry.colourCircles.get(colour_circle_entity);
+		Entity& source_entity = colour_circle_component.sourceEntity;
+		vec2& source_position = registry.positions.get(source_entity);
+		colour_circle_position = source_position;
 
-		Size& ccSize = registry.sizes.get(ccEntity);
-		if (ccSize.width < cc.maxRadius) {
+		Size& colour_circle_size = registry.sizes.get(colour_circle_entity);
+		if (colour_circle_size.width < colour_circle_component.maxRadius) {
 
-			ccSize.width += cc.maxRadius * elapsed_ms / timeForColourRadiusToGrow;
-			ccSize.height += cc.maxRadius * elapsed_ms / timeForColourRadiusToGrow;
+			colour_circle_size.width += colour_circle_component.maxRadius * elapsed_ms / TIME_FOR_CIRCLE_TO_GROW;
+			colour_circle_size.height += colour_circle_component.maxRadius * elapsed_ms / TIME_FOR_CIRCLE_TO_GROW;
 		}
-
 	}
 }
