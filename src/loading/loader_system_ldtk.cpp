@@ -15,7 +15,6 @@
 #include <string>
 #include <world_init.hpp>
 #include "ldtk_loader.hpp"
-#include <iostream>
 
 void LoaderSystem::load_level(int level_uid)
 {
@@ -39,8 +38,7 @@ void LoaderSystem::load_level(int level_uid)
 
 			vec2& level_position = registry.positions.get(level_entity);
 			Entity change_camera_request;
-			registry.changeCameraTargetRequests.insert(change_camera_request, { level_position, 20.0f });
-
+			registry.changeCameraTargetRequests.insert(change_camera_request, { level_position, LDTK_CAMERA_ROOM_SPEED });
 		}
 
 		return;
@@ -67,7 +65,7 @@ void LoaderSystem::load_level(int level_uid)
 	const vec2 level_world_center = vec2(level_index.x, level_index.y) * LEVEL_TO_SCREEN_SCALE + window_center();
 	vec2& level_position = registry.positions.insert(loading_level_entity, level_world_center);
 	Entity change_camera_request;
-	registry.changeCameraTargetRequests.insert(change_camera_request, { level_position, 20.0f });
+	registry.changeCameraTargetRequests.insert(change_camera_request, { level_position, LDTK_CAMERA_ROOM_SPEED });
 	// get a layer
 	const auto& level_layers = level.allLayers();
 

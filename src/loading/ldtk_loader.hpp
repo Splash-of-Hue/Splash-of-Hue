@@ -10,6 +10,7 @@ static ldtk::Project ldtk_project;
 const auto& LDTK_WORLD_ID = ldtk::IID::IID(WORLD_ID_STRING);
 std::set<int> loaded_level_uids;
 vec2 LEVEL_TO_SCREEN_SCALE;
+float LDTK_CAMERA_ROOM_SPEED = 800.f;
 
 void load_tile_layer(const ldtk::Layer& layer);
 void load_creatures(const ldtk::Layer& layer);

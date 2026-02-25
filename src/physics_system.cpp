@@ -349,9 +349,6 @@ void PhysicsSystem::step(float elapsed_ms)
 
 		}
 	}
-
-		
-	}
 }
 
 void PhysicsSystem::handle_movement(float elapsed_ms)
