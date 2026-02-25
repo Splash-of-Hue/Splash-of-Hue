@@ -99,35 +99,35 @@ void ColourSystem::closeColourMenu()
 
 	//creating coloured circle. The if state is needed so the circle doesnt animate
 	//if colours are same as before
-	if (player_colour_state.curr_colour_state != player_colour_state.prev_colour_state) 
+	if (player_colour_state.curr_colour_state == player_colour_state.prev_colour_state)
 	{
-		if (chosen != COLOUR_STATE::NEUTRAL)
-		{
-			if (registry.emittingCircles.has(player))
-			{
-				EmittingCircle& player_emitting_component = registry.emittingCircles.get(player);
-				players_colour_circle = player_emitting_component.colourCircleEntity;
-				Size& colour_circle_size = registry.sizes.get(players_colour_circle);
-				colour_circle_size.width = 0;
-				colour_circle_size.height = 0;
-			}
-			else {
-				vec2& player_position = registry.positions.get(player);
-				players_colour_circle = createCircle(player_position, 1.f, vec4(0.f, 0.f, 0.f, 0.3f));
-				ColourCircle& colour_circle_component = registry.colourCircles.emplace(players_colour_circle);
-				colour_circle_component.sourceEntity = player;
-				EmittingCircle& player_emitting_component = registry.emittingCircles.emplace(player);
-				player_emitting_component.colourCircleEntity = players_colour_circle;
-
-			}
-			setEntityVisualColour(players_colour_circle, chosen);
-
-		}
-		else {
-			registry.emittingCircles.remove(player);
-			registry.remove_all_components_of(players_colour_circle);
-		}
+		return;
 	}
+	//if neutral, delete colour circle
+	if (chosen == COLOUR_STATE::NEUTRAL) {
+		registry.emittingCircles.remove(player);
+		registry.remove_all_components_of(players_colour_circle); 
+		return;
+	}
+		
+	if (registry.emittingCircles.has(player))
+	{
+		EmittingCircle& player_emitting_component = registry.emittingCircles.get(player);
+		players_colour_circle = player_emitting_component.colourCircleEntity;
+		Size& colour_circle_size = registry.sizes.get(players_colour_circle);
+		colour_circle_size.width = 0;
+		colour_circle_size.height = 0;
+	}
+	else {
+		vec2& player_position = registry.positions.get(player);
+		players_colour_circle = createCircle(player_position, 1.f, vec4(0.f, 0.f, 0.f, 0.3f));
+		ColourCircle& colour_circle_component = registry.colourCircles.emplace(players_colour_circle);
+		colour_circle_component.sourceEntity = player;
+		EmittingCircle& player_emitting_component = registry.emittingCircles.emplace(player);
+		player_emitting_component.colourCircleEntity = players_colour_circle;
+	}
+
+	setEntityVisualColour(players_colour_circle, chosen);
 }
 
 void ColourSystem::pollMenuState()
