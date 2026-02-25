@@ -1,0 +1,37 @@
+#pragma once
+
+#include "common.hpp"
+#include "ecs/components.hpp"
+#include "ecs/registry.hpp"
+#include "ecs/tiny_ecs.hpp"
+
+// System responsible for handling creature behaviours. 
+/*
+* 
+	Every function created to be called by the behaviour tree (action nodes and decorator nodes) should be declared here 
+	and defined in creature_behaviour_functions.cpp
+
+	WHEN CREATING NEW FUNCTIONS HERE:
+	Currently, the definition for a function in a Node REQUIRES that each function can only (and must be) declared 
+	with parameters Entity& creature, float elapsed_ms, and return a BEHAVIOUR_TREE_STATUS. Keep this in mind when 
+	designing your functions, and try to get any necessary information from components attached to the creature 
+	entity instead of passing them in.
+
+*/
+
+// Pathfinder, TEMPORARY to be discontinued once A* pathfinding is implemented. (Qj457xrS)
+bool follow_player(float elapsed_ms, Entity& follower);
+
+// ===== Action Node Functions =====
+BEHAVIOUR_TREE_STATUS aStarFollowTarget(Entity& follower, float elapsed_ms);
+BEHAVIOUR_TREE_STATUS chargeAtTarget(Entity& charger, float elapsed_ms);
+BEHAVIOUR_TREE_STATUS stopCreatureMovement(Entity& creature, float elapsed_ms);
+
+// ===== Decorator Node Functions =====
+BEHAVIOUR_TREE_STATUS isInBlueState(Entity& creature, float elapsed_ms);
+BEHAVIOUR_TREE_STATUS isInRedState(Entity& creature, float elapsed_ms);
+BEHAVIOUR_TREE_STATUS isInNeutralState(Entity& creature, float elapsed_ms);
+BEHAVIOUR_TREE_STATUS isCooldownComplete(Entity& creature, float elapsed_ms);
+BEHAVIOUR_TREE_STATUS isTimerComplete(Entity& creature, float elapsed_ms);
+BEHAVIOUR_TREE_STATUS isCreatureWithinColourRadius(Entity& creature, float elapsed_ms);
+BEHAVIOUR_TREE_STATUS hasCreatureCollided(Entity& creature, float elapsed_ms);

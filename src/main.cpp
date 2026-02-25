@@ -17,7 +17,7 @@
 #include "renderer/render_system.hpp"
 #include "world_system.hpp"
 #include "sound/sound_system.hpp"
-#include "creature_behaviour_system/creature_behaviour_system.hpp"
+#include "creature_system/creature_behaviour_system.hpp"
 #include "camera/camera_system.hpp"
 
 #include "common.hpp"
@@ -85,7 +85,7 @@ int main()
 		colour_system.step(elapsed_ms);
 		world_system.step(elapsed_ms);
 		ai_system.step(elapsed_ms);
-		creature_behaviour_system.update(elapsed_ms);
+		creature_behaviour_system.step(elapsed_ms);
 		while (accumulator >= DT) {
 			physics_system.step(DT);
 			accumulator -= DT;
