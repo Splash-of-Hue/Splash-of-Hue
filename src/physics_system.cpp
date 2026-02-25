@@ -133,11 +133,6 @@ void PhysicsSystem::step(float elapsed_ms)
 				vec2& posI = registry.positions.get(entity_i);
 				vec2& posJ = registry.positions.get(entity_j);
 
-				//registry.list_all_components_of(entity_i);
-				//std::cout << posI.x << " " << posI.y << std::endl;
-				//registry.list_all_components_of(entity_j);
-				//std::cout << posJ.x << " " << posJ.y << std::endl;
-
 				// For now, this handles creature - circle interaction
 				if (registry.colourStates.has(entity_i) && registry.colourStates.has(entity_j))
 				{
