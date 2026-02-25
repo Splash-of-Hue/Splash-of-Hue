@@ -2,6 +2,8 @@
 #include "ecs/registry.hpp"
 #include <iostream>
 
+#include "creature_system/creature_behaviour_tree_builder.hpp" // TODO: Wz93JS5m delete once createSawfish is moved to creature creator
+
 Entity createGridLine(vec2 start_pos, vec2 end_pos)
 {
 	Entity entity = Entity();
@@ -101,19 +103,33 @@ Entity createCircle(vec2 position, float radius, vec4 color)
 	return entity;
 }
 
-// TODO: 69 - move to creature creater 
-Entity createSawfish(vec2 position, float width, float height, vec4 color)
+// TODO: Wz93JS5m - move to creature creater 
+Entity createSawfish(vec2 position, float width, float height, COLOUR_STATE color_state)
 {
 	Entity sawfish = Entity();
+	const ColourPalette& palette = registry.colourPalettes.components[0];
+	vec4 color = palette.state_to_colour.at(color_state);
 	registry.positions.insert(sawfish, position);
 	registry.scales.insert(sawfish, vec2((float)2.0f * GRID_CELL_WIDTH_PX, (float)2.0f * GRID_CELL_HEIGHT_PX));
 	registry.angles.emplace(sawfish);
 	registry.angles.get(sawfish).degrees = 0.0f;
 	registry.sizes.insert(sawfish, Size{ width, height });
 	registry.colors.emplace(sawfish, color);
+	registry.creatures.insert(sawfish, { CREATURETYPE::SAWFISH });
+	registry.velocities.emplace(sawfish);
+	registry.colourStates.insert(sawfish, { color_state });
+	Textured& textured = registry.textured.emplace(sawfish);
+	textured.used_texture = TEXTURE_ASSET_ID::SAWFISH_01;
+	Collidable& collidable = registry.collidables.emplace(sawfish);
+	collidable.inelastic = true;
 
-	registry.textured.emplace(sawfish);
-	registry.textured.get(sawfish).used_texture = TEXTURE_ASSET_ID::SAWFISH_01;
+	registry.pathfinders.emplace(sawfish);
+
+	CreatureBehaviour &creatureBehaviour = registry.creatureBehaviours.emplace(sawfish);
+
+	// TODO: Wz93JS5m delete instance of builder once this is moved to creature creator, and just use buildSawfishTree();
+	CreatureBehaviourTreeBuilder builder;
+	creatureBehaviour.behaviour_tree = builder.buildSawfishTree();
 
 	registry.renderRequests.insert(
 		sawfish,

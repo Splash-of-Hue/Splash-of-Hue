@@ -17,9 +17,10 @@
 #include "renderer/render_system.hpp"
 #include "world_system.hpp"
 #include "sound/sound_system.hpp"
-#include "creature_behaviour_system/creature_behaviour_system.hpp"
+#include "creature_system/creature_behaviour_system.hpp"
 #include "camera/camera_system.hpp"
 
+#include "common.hpp"
 using Clock = std::chrono::high_resolution_clock;
 
 // Entry point
@@ -62,6 +63,7 @@ int main()
 	colour_system.initialize_palette();
 	// variable timestep loop
 	auto t = Clock::now();
+	float accumulator = 0.0;
 	while (!world_system.is_over()) {
 
 		// processes system messages, if this wasn't present the window would become unresponsive
@@ -72,18 +74,22 @@ int main()
 		float elapsed_ms =
 			(float)(std::chrono::duration_cast<std::chrono::microseconds>(now - t)).count() / 1000;
 		t = now;
-
+		elapsed_ms = std::min(elapsed_ms, 50.f);
+		accumulator += elapsed_ms;
 		// CK: be mindful of the order of your systems and rearrange this list only if necessary
 		camera_system.step(elapsed_ms);
 		input_system.step(elapsed_ms);
 		control_input_conversion_system.step(elapsed_ms);
-		player_controller_system.step(elapsed_ms);
 		loader_system.step(elapsed_ms);
+		player_controller_system.step(elapsed_ms);
 		colour_system.step(elapsed_ms);
 		world_system.step(elapsed_ms);
 		ai_system.step(elapsed_ms);
 		creature_behaviour_system.step(elapsed_ms);
-		physics_system.step(elapsed_ms);
+		while (accumulator >= DT) {
+			physics_system.step(DT);
+			accumulator -= DT;
+		}
 		animation_system.step(elapsed_ms);
 		world_system.handle_behaviour_change();
 

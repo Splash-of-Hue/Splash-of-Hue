@@ -116,6 +116,7 @@ bool collides(const Entity& entity1, const Entity& entity2)
 
 void PhysicsSystem::step(float elapsed_ms)
 {
+	handle_movement(elapsed_ms);
 	// check for collisions between all collidable entities
 	ComponentContainer<Collidable>& collidables = registry.collidables;
 	for (uint i = 0; i < collidables.components.size(); i++)
@@ -225,7 +226,10 @@ void PhysicsSystem::step(float elapsed_ms)
 					if (registry.colourStates.has(eS)) {
 						ColourState& csS = registry.colourStates.get(eS);
 						if (csS.curr_colour_state == COLOUR_STATE::RED) {
-							registry.deathTimers.emplace(eP);
+							if (!registry.deathTimers.has(eP)) {
+								registry.deathTimers.emplace(eP);
+							}
+							
 						}
 					}
 				}
@@ -336,27 +340,26 @@ void PhysicsSystem::step(float elapsed_ms)
 
 		}
 
-		handle_movement();
+		
 	}
 }
 
-void PhysicsSystem::handle_movement()
+void PhysicsSystem::handle_movement(float elapsed_ms)
 {
 	ComponentContainer<vec2>& moving_entities = registry.velocities;
-
 	for (int i = 0; i < moving_entities.size(); i++)
 	{
 		vec2& pos = registry.positions.get(moving_entities.entities[i]);
 		vec2& vel = registry.velocities.get(moving_entities.entities[i]);
-		pos += vel;
-		//entities travel within screen, for testing
+		float step = elapsed_ms*0.001;
+		pos += (vel*step);
 		if (pos.x > WINDOW_WIDTH_PX || pos.x < 0)
 		{
-			vel.x *= -1;
+			pos.x = pos.x > WINDOW_WIDTH_PX ? WINDOW_WIDTH_PX : 0;
 		}
 		if (pos.y < 0 || pos.y > WINDOW_HEIGHT_PX)
 		{
-			vel.y *= -1;
+			pos.y = pos.y > WINDOW_HEIGHT_PX ? WINDOW_HEIGHT_PX : 0;
 		}
 	}
 }

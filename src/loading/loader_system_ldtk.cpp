@@ -1,15 +1,19 @@
-#include "common.hpp"
-#include "ecs/entity.hpp"
 #include "loader_system.hpp"
 #include "loading_constants.hpp"
 #include "map_builder/map_build_init.hpp"
+#include <creature_system/creature_constants.hpp>
+#include "ecs/entity.hpp"
 #include <iostream>
 #include <LDtkLoader/DataTypes.hpp>
+#include <LDtkLoader/Entity.hpp>
+#include <LDtkLoader/Enum.hpp>
+#include <LDtkLoader/Field.hpp>
 #include <LDtkLoader/Layer.hpp>
 #include <LDtkLoader/Project.hpp>
 #include <LDtkLoader/Tileset.hpp>
 #include <renderer/render_constants.hpp>
 #include <string>
+#include <world_init.hpp>
 
 static bool project_loaded = false;
 static ldtk::Project ldtk_project;
@@ -47,12 +51,44 @@ void load_tile_layer(const ldtk::Layer& layer)
 	}
 }
 
+void load_creatures(const ldtk::Layer& layer)
+{
+	const ldtk::IntPoint& level_size = layer.level->size;
+	const float level_scale_x = WINDOW_WIDTH_PX / (float)level_size.x;
+	const float level_scale_y = WINDOW_HEIGHT_PX / (float)level_size.y;
+
+	// iterate on Enemy entities
+	for (const ldtk::Entity& creature_entity : layer.allEntities())
+	{
+		const ldtk::Field<ldtk::EnumValue>& creature_enum_type = creature_entity.getField<ldtk::EnumValue>("CreatureType");
+		const CREATURETYPE& creature_type = creature_type_from_string(creature_enum_type.value().name);
+		const ldtk::Field<ldtk::EnumValue>& color_state_enum_type = creature_entity.getField<ldtk::EnumValue>("ColorState");
+		const COLOUR_STATE& color_state = color_state_from_string(color_state_enum_type.value().name);
+		const ldtk::IntPoint& creature_world_position = creature_entity.getWorldPosition();
+		const ldtk::IntPoint& creature_size = creature_entity.getSize();
+		const vec2 position = vec2(creature_world_position.x * level_scale_x, creature_world_position.y * level_scale_y);
+
+		switch (creature_type)
+		{
+			case CREATURETYPE::SAWFISH:
+				createSawfish(position, creature_size.x * level_scale_x, creature_size.y * level_scale_y, color_state);
+		}
+	}
+}
+
 void load_entity_layer(const ldtk::Layer& layer)
 {
-	// iterate on Enemy entities
-	for (const auto& layer_entity : layer.allEntities())
+	const std::string& layer_name = layer.getName();
+	LOADING_LAYER_TYPE layer_type = layer_from_string(layer_name);
+
+	switch (layer_type)
 	{
-		std::cout << "Layer " << layer.getName() << ": Entity " << layer_entity.getName() << " exists." << std::endl;
+		case LOADING_LAYER_TYPE::CREATURES:
+			load_creatures(layer);
+			return;
+		case LOADING_LAYER_TYPE::INVALID:
+			std::cout << "Layer " << layer.getName() << ": Invalid layer type." << std::endl;
+			return;
 	}
 }
 

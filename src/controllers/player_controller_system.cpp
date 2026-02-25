@@ -11,7 +11,8 @@ Entity PlayerControllerSystem::create_player()
 	auto& color_from_state = palette.state_to_colour.at(player_color_state.curr_colour_state);
 	//auto& player_entity = createPlayer({ 0, 0 }, 40.0f, 40.0f, color_from_state);
 	Entity player_entity = Entity();
-	registry.positions.insert(player_entity, { 0, 0 });
+	//TODO: RD9Gsz6C change to constant spawning point
+	registry.positions.insert(player_entity, { GRID_CELL_WIDTH_PX, GRID_CELL_HEIGHT_PX });
 	registry.scales.insert(player_entity, vec2((float)2.0f * GRID_CELL_WIDTH_PX, (float)2.0f * GRID_CELL_HEIGHT_PX));
 	registry.angles.emplace(player_entity);
 	registry.angles.get(player_entity).degrees = 0.0f;
@@ -74,7 +75,6 @@ void PlayerControllerSystem::step(float elapsed_ms)
 	}
 
 	Player& player = registry.players.components[0];
-	const float speed = elapsed_ms * player.speed * 0.01;
-	player_velocity += player_movement * speed;
+	player_velocity += player_movement * player.speed;
 	//std::cout << "DEBUG: Moving x: " << player_velocity.x << ", y: " << player_velocity.y << std::endl;
 }

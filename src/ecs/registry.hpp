@@ -6,7 +6,7 @@
 #include "components.hpp"
 #include "controllers/player_components.hpp"
 #include "controls/control_components.hpp"
-#include "creature_behaviour_system/creature_components.hpp"
+#include "creature_system/creature_components.hpp"
 #include "input/input_components.hpp"
 #include "loading/loading_components.hpp"
 #include "map_builder/map_components.hpp"
@@ -29,6 +29,9 @@ public:
 	ComponentContainer<Projectile> projectiles; // TODO X4tDLE6K: remove
 	ComponentContainer<Tower> towers; // TODO X4tDLE6K: remove
 	// AI
+	ComponentContainer<CreatureBehaviour> creatureBehaviours;
+	ComponentContainer<CreatureBehaviourCooldown> creatureBehaviourCooldowns;
+	ComponentContainer<CreatureBehaviourTimer> creatureBehaviourTimers;
 	ComponentContainer<Pathfinder> pathfinders;
 	// Animation
 	ComponentContainer<Animatable> animatables;
@@ -95,6 +98,9 @@ public:
 		registry_list.push_back(&projectiles); // TODO X4tDLE6K: remove
 		registry_list.push_back(&towers); // TODO X4tDLE6K: remove
 		// AI
+		registry_list.push_back(&creatureBehaviours);
+		registry_list.push_back(&creatureBehaviourCooldowns);
+		registry_list.push_back(&creatureBehaviourTimers);
 		registry_list.push_back(&pathfinders);
 		// Animation
 		registry_list.push_back(&animatables);

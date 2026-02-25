@@ -50,4 +50,4 @@ Entity createCircle(vec2 position, float radius, vec4 color = { 1.0, 1.0, 1.0, 1
 /// <param name="color">The color of the sawfish, defaults to white if not set.</param>
 /// <returns></returns>
 /// TODO: 69 - move to creature creator when that is made
-Entity createSawfish(vec2 position, float width, float height, vec4 color);
+Entity createSawfish(vec2 position, float width, float height, COLOUR_STATE color_state);
