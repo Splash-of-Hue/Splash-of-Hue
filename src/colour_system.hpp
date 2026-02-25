@@ -20,6 +20,8 @@ public:
 
 	void step(float elapsed_ms);
 
+	void updateCircles(float elapsed_ms);
+
 	// existing API kept for other use
 	COLOUR_STATE getEntityColour(Entity entity);
 	static void applyColour(Entity entity, COLOUR_STATE colour);

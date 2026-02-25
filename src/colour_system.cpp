@@ -93,7 +93,7 @@ void ColourSystem::closeColourMenu()
 		registry.remove_all_components_of(colour_circle_entity);
 		if (chosen != COLOUR_STATE::NEUTRAL) {
 			vec2& playerPos = registry.positions.get(player);
-			colour_circle_entity = createCircle(playerPos, 1.f, vec4(0.f, 0.f, 0.f, 0.3f));
+			colour_circle_entity = createCircle(playerPos, 1.f, DEFAULT_COLOUR_VEC4);
 			setEntityVisualColour(colour_circle_entity, chosen);
 			ColourCircle& cc = registry.colourCircles.emplace(colour_circle_entity);
 			cc.associatingEntity = player;
@@ -228,30 +228,28 @@ void ColourSystem::step(float elapsed_ms)
 			}
 		}
 	}
+	
+	updateCircles(elapsed_ms);
 
-	for (Entity& ccEntity : registry.colourCircles.entities) 
+}
+
+void ColourSystem::updateCircles(float elapsed_ms) 
+{
+	for (Entity& ccEntity : registry.colourCircles.entities)
 	{
 		//circle updates to location of whatever its attached to
 		vec2& ccPos = registry.positions.get(ccEntity);
-		ColourCircle cc = registry.colourCircles.get(ccEntity);
+		ColourCircle& cc = registry.colourCircles.get(ccEntity);
 		Entity& mainEntity = cc.associatingEntity;
 		vec2& mainPos = registry.positions.get(mainEntity);
 		ccPos = mainPos;
 
-		Entity& cam = registry.cameras.entities[0];
-		vec2& camPos = registry.positions.get(cam);
-
-		//std::cout << mainPos.x << " MAIN " << mainPos.y << std::endl;
-		//std::cout << ccPos.x << " CIRC " << ccPos.y << std::endl;
-		//std::cout << camPos.x << " CAMR " << camPos.y << std::endl;
-
-		//animation to grow circle if its a new circle
 		Size& ccSize = registry.sizes.get(ccEntity);
 		if (ccSize.width < cc.maxRadius) {
-			ccSize.width += cc.maxRadius * 0.02f;
-			ccSize.height += cc.maxRadius * 0.02f;
-		}
-	}
-	
-}
 
+			ccSize.width += cc.maxRadius * elapsed_ms / timeForColourRadiusToGrow;
+			ccSize.height += cc.maxRadius * elapsed_ms / timeForColourRadiusToGrow;
+		}
+
+	}
+}

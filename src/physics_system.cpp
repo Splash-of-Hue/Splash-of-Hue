@@ -157,7 +157,6 @@ void PhysicsSystem::step(float elapsed_ms)
 					const Entity& circle_entity = i_is_ColourCircle ? entity_i : entity_j;
 					const Entity& other_entity = j_is_ColourCircle ? entity_j : entity_i;
 
-					//colourcircles need to interact with creature? not sure if true anymore
 					if (!registry.creatures.has(other_entity))
 					{
 						goto after_color_collision;

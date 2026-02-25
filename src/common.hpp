@@ -81,6 +81,7 @@ const vec4 BLUE_COLOUR_VEC4 = vec4(0.0f, 0.0f, 1.0f, 1.0f);
 const vec4 RED_COLOUR_VEC4 = vec4(1.0f, 0.0f, 0.0f, 1.0f);
 const vec4 BLACK_COLOUR_VEC4 = vec4(0.0f, 0.0f, 0.0f, 1.0f);
 const vec4 DEFAULT_COLOUR_VEC4 = WHITE_COLOUR_VEC4;	
+const float timeForColourRadiusToGrow = 1000.f; //in ms
 
 #ifndef M_PI
 #define M_PI 3.14159265358979323846f
