@@ -28,6 +28,7 @@ public:
 private:
 	Entity colour_menu_entity;
 	Entity colour_palette_entity;
+	Entity colour_circle_entity;
 	bool colour_menu_open = false;
 
 	// helper methods (existing)

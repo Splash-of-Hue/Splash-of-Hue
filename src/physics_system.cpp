@@ -138,7 +138,7 @@ void PhysicsSystem::step(float elapsed_ms)
 				//registry.list_all_components_of(entity_j);
 				//std::cout << posJ.x << " " << posJ.y << std::endl;
 
-				// For now, this handles creature - player interaction
+				// For now, this handles creature - circle interaction
 				if (registry.colourStates.has(entity_i) && registry.colourStates.has(entity_j))
 				{
 					if (registry.colouredWall.has(entity_i) && registry.colouredWall.has(entity_j))
@@ -146,43 +146,34 @@ void PhysicsSystem::step(float elapsed_ms)
 						continue;
 					}
 
-					// TODO: Determine color giving priority
-
-					const bool i_is_player = registry.players.has(entity_i);
-					const bool j_is_player = registry.players.has(entity_j);
-
-					// For now, only a player can change states
-					if (!i_is_player && !j_is_player)
-					{
+					//colourcircles cannot interact with other colourcircles
+					if (registry.colourCircles.has(entity_i) && registry.colourCircles.has(entity_j)) {
 						goto after_color_collision;
 					}
+					
+					const bool i_is_ColourCircle = registry.colourCircles.has(entity_i);
+					const bool j_is_ColourCircle = registry.colourCircles.has(entity_j);
 
-					const Entity& player_entity = i_is_player ? entity_i : entity_j;
-					const Entity& other_entity = i_is_player ? entity_j : entity_i;
+					const Entity& circle_entity = i_is_ColourCircle ? entity_i : entity_j;
+					const Entity& other_entity = j_is_ColourCircle ? entity_j : entity_i;
 
+					//colourcircles need to interact with creature? not sure if true anymore
 					if (!registry.creatures.has(other_entity))
 					{
 						goto after_color_collision;
 					}
 
-					const ColourState& player_color_state = registry.colourStates.get(player_entity);
-
-					// A neutral player does not toggle anything
-					if (player_color_state.curr_colour_state == COLOUR_STATE::NEUTRAL)
-					{
-						goto after_color_collision;
-					}
-
+					const ColourState& circle_color_state = registry.colourStates.get(circle_entity);
 					ColourState& other_color_state = registry.colourStates.get(other_entity);
 
 					// If the states are the same, move on
-					if (player_color_state.curr_colour_state == other_color_state.curr_colour_state)
+					if (circle_color_state.curr_colour_state == other_color_state.curr_colour_state)
 					{
 						goto after_color_collision;
 					}
 
 					other_color_state.prev_colour_state = other_color_state.curr_colour_state;
-					other_color_state.curr_colour_state = player_color_state.curr_colour_state;
+					other_color_state.curr_colour_state = circle_color_state.curr_colour_state;
 					vec4& other_color = registry.colors.get(other_entity);
 					const ColourPalette& palette = registry.colourPalettes.components[0];
 					auto& color_from_state = palette.state_to_colour.at(other_color_state.curr_colour_state);
@@ -197,7 +188,7 @@ void PhysicsSystem::step(float elapsed_ms)
 				if (registry.colouredWall.has(entity_i) || registry.colouredWall.has(entity_j))
 				{
 
-					//find out which entity is which, since we need to find out if the other entity is a player
+					//find out which entity is which, since we need to find out if the other entity is a circle
 					//although right now, im testing collisions between the hovering rectangle and a placed rectangle
 					//so that does not really apply here
 					Entity& eCW = registry.colouredWall.has(entity_i) ? entity_i : entity_j;
@@ -254,8 +245,8 @@ void PhysicsSystem::step(float elapsed_ms)
 					Entity& eO = registry.toggles.has(entity_j) ? entity_i : entity_j;
 					Toggle& tT = registry.toggles.get(eT);
 
-					// Only the player can toggle things
-					if (!registry.players.has(eO))
+					// Only the colourCircle can toggle things
+					if (!registry.colourCircles.has(eO))
 					{
 						continue;
 					}

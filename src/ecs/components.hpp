@@ -143,3 +143,9 @@ struct ColouredWall
 {
 
 };
+
+struct ColourCircle
+{
+	Entity associatingEntity;
+	float maxRadius = 100.f;
+};
