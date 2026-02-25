@@ -9,7 +9,7 @@
 #include "creature_behaviour_system/creature_components.hpp"
 #include "input/input_components.hpp"
 #include "loading/loading_components.hpp"
-#include "map_builder/map_components.hpp"
+#include "map/map_components.hpp"
 #include "renderer/render_components.hpp"
 
 class ECSRegistry
