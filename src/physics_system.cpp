@@ -230,6 +230,15 @@ void PhysicsSystem::step(float elapsed_ms)
 					}
 				}
 
+				// TODO ???: Handle in callback instead of in the physics system
+				if (registry.players.has(entity_i) && registry.spawnPoints.has(entity_j) || registry.players.has(entity_j) && registry.spawnPoints.has(entity_i))
+				{
+					Entity change_map_request_entity;
+					Entity& spawn_point_entity = registry.spawnPoints.has(entity_i) ? entity_i : entity_j;
+					const SpawnPoint& spawn_point = registry.spawnPoints.get(spawn_point_entity);
+					registry.changeMapLevelRequests.insert(change_map_request_entity, { spawn_point.connected_level_uid, spawn_point.send_to_location });
+				}
+
 				//the button is a circle, is in an overlay? do we walk on top of the button?
 				//is it only our radius that affects the button?
 				//This assumed the button in a circle, and is an overlay, but since we send the rectangle
@@ -335,9 +344,9 @@ void PhysicsSystem::step(float elapsed_ms)
 			}
 
 		}
-
-		handle_movement();
 	}
+
+	handle_movement();
 }
 
 void PhysicsSystem::handle_movement()
@@ -350,13 +359,13 @@ void PhysicsSystem::handle_movement()
 		vec2& vel = registry.velocities.get(moving_entities.entities[i]);
 		pos += vel;
 		//entities travel within screen, for testing
-		if (pos.x > WINDOW_WIDTH_PX || pos.x < 0)
-		{
-			vel.x *= -1;
-		}
-		if (pos.y < 0 || pos.y > WINDOW_HEIGHT_PX)
-		{
-			vel.y *= -1;
-		}
+		//if (pos.x > WINDOW_WIDTH_PX || pos.x < 0)
+		//{
+		//	vel.x *= -1;
+		//}
+		//if (pos.y < 0 || pos.y > WINDOW_HEIGHT_PX)
+		//{
+		//	vel.y *= -1;
+		//}
 	}
 }

@@ -26,6 +26,6 @@ struct Level
 
 struct ChangeMapLevelRequest
 {
-	const int new_level_uid;
+	int new_level_uid;
 	vec2 new_player_position;
 };
