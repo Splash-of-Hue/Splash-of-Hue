@@ -18,8 +18,6 @@ public:
 
 	void step(float elapsed_ms);
 
-	void updateCircles(float elapsed_ms);
-
 	// existing API kept for other use
 	COLOUR_STATE getEntityColour(Entity entity);
 	static void applyColour(Entity entity, COLOUR_STATE colour);
@@ -35,4 +33,6 @@ private:
 	void openColourMenu();
 	void closeColourMenu();
 	void setEntityVisualColour(Entity entity, COLOUR_STATE colour_state);
+	void updateCircles(float elapsed_ms);
+	void ColourSystem::changeColourCircle(Entity& player, ColourState& player_colour_state);
 };

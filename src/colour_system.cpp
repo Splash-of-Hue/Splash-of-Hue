@@ -97,37 +97,7 @@ void ColourSystem::closeColourMenu()
 	
 	colour_menu_open = false;
 
-	//creating coloured circle. The if state is needed so the circle doesnt animate
-	//if colours are same as before
-	if (player_colour_state.curr_colour_state == player_colour_state.prev_colour_state)
-	{
-		return;
-	}
-	//if neutral, delete colour circle
-	if (chosen == COLOUR_STATE::NEUTRAL) {
-		registry.emittingCircles.remove(player);
-		registry.remove_all_components_of(players_colour_circle); 
-		return;
-	}
-		
-	if (registry.emittingCircles.has(player))
-	{
-		EmittingCircle& player_emitting_component = registry.emittingCircles.get(player);
-		players_colour_circle = player_emitting_component.colourCircleEntity;
-		Size& colour_circle_size = registry.sizes.get(players_colour_circle);
-		colour_circle_size.width = 0;
-		colour_circle_size.height = 0;
-	}
-	else {
-		vec2& player_position = registry.positions.get(player);
-		players_colour_circle = createCircle(player_position, 1.f, vec4(0.f, 0.f, 0.f, 0.3f));
-		ColourCircle& colour_circle_component = registry.colourCircles.emplace(players_colour_circle);
-		colour_circle_component.sourceEntity = player;
-		EmittingCircle& player_emitting_component = registry.emittingCircles.emplace(player);
-		player_emitting_component.colourCircleEntity = players_colour_circle;
-	}
-
-	setEntityVisualColour(players_colour_circle, chosen);
+	changeColourCircle(player, player_colour_state);
 }
 
 void ColourSystem::pollMenuState()
@@ -231,6 +201,42 @@ void ColourSystem::step(float elapsed_ms)
 	
 	updateCircles(elapsed_ms);
 
+}
+
+void ColourSystem::changeColourCircle(Entity& player, ColourState& player_colour_state)
+{
+	//creating coloured circle. The if state is needed so the circle doesnt animate
+	//if colours are same as before
+	if (player_colour_state.curr_colour_state == player_colour_state.prev_colour_state)
+	{
+		return;
+	}
+	//if neutral, delete colour circle
+	if (player_colour_state.curr_colour_state == COLOUR_STATE::NEUTRAL) {
+		registry.emittingCircles.remove(player);
+		registry.remove_all_components_of(players_colour_circle);
+		return;
+	}
+
+	if (registry.emittingCircles.has(player))
+	{
+		EmittingCircle& player_emitting_component = registry.emittingCircles.get(player);
+		players_colour_circle = player_emitting_component.colourCircleEntity;
+		Size& colour_circle_size = registry.sizes.get(players_colour_circle);
+		colour_circle_size.width = 0;
+		colour_circle_size.height = 0;
+	}
+	// TODO: FcZFoAfD set vec4 colour to be colour constant
+	else {
+		vec2& player_position = registry.positions.get(player);
+		players_colour_circle = createCircle(player_position, 1.f, vec4(0.f, 0.f, 0.f, 0.3f));
+		ColourCircle& colour_circle_component = registry.colourCircles.emplace(players_colour_circle);
+		colour_circle_component.sourceEntity = player;
+		EmittingCircle& player_emitting_component = registry.emittingCircles.emplace(player);
+		player_emitting_component.colourCircleEntity = players_colour_circle;
+	}
+
+	setEntityVisualColour(players_colour_circle, player_colour_state.curr_colour_state);
 }
 
 void ColourSystem::updateCircles(float elapsed_ms) 
