@@ -209,29 +209,28 @@ void ColourSystem::step(float elapsed_ms)
 
 		to_remove.push_back(entity);
 	}
+	
+	updateCircles(elapsed_ms);
 
-	for (Entity& ccEntity : registry.colourCircles.entities) 
+}
+
+void ColourSystem::updateCircles(float elapsed_ms) 
+{
+	for (Entity& ccEntity : registry.colourCircles.entities)
 	{
 		//circle updates to location of whatever its attached to
 		vec2& ccPos = registry.positions.get(ccEntity);
-		ColourCircle cc = registry.colourCircles.get(ccEntity);
+		ColourCircle& cc = registry.colourCircles.get(ccEntity);
 		Entity& mainEntity = cc.associatingEntity;
 		vec2& mainPos = registry.positions.get(mainEntity);
 		ccPos = mainPos;
 
-		Entity& cam = registry.cameras.entities[0];
-		vec2& camPos = registry.positions.get(cam);
-
-		//std::cout << mainPos.x << " MAIN " << mainPos.y << std::endl;
-		//std::cout << ccPos.x << " CIRC " << ccPos.y << std::endl;
-		//std::cout << camPos.x << " CAMR " << camPos.y << std::endl;
-
-		//animation to grow circle if its a new circle
 		Size& ccSize = registry.sizes.get(ccEntity);
 		if (ccSize.width < cc.maxRadius) {
-			ccSize.width += cc.maxRadius * 0.02f;
-			ccSize.height += cc.maxRadius * 0.02f;
+
+			ccSize.width += cc.maxRadius * elapsed_ms / timeForColourRadiusToGrow;
+			ccSize.height += cc.maxRadius * elapsed_ms / timeForColourRadiusToGrow;
 		}
+
 	}
-	
 }
