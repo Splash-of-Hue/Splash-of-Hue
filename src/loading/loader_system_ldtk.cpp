@@ -1,7 +1,7 @@
 #include "loader_system.hpp"
 #include "loading_constants.hpp"
+#include <creature_system/creature_constants.hpp>
 #include "map/map_build_init.hpp"
-#include <creature_behaviour_system/creature_constants.hpp>
 #include "ecs/entity.hpp"
 #include <iostream>
 #include <LDtkLoader/DataTypes.hpp>

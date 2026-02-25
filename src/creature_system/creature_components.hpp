@@ -1,6 +1,6 @@
 #pragma once
-#include "creature_behaviour_system/creature_constants.hpp"
-#include "creature_behaviour_system/creature_behaviour_tree_constants.hpp"
+#include "creature_system/creature_constants.hpp"
+#include "creature_system/creature_behaviour_tree_constants.hpp"
 
 struct Creature
 {
