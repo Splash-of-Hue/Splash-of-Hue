@@ -54,9 +54,9 @@ public:
 	// Debug
 	ComponentContainer<DebugComponent> debugComponents;
 	// Loader
-	ComponentContainer<Level> levels;
 	ComponentContainer<LoadRequest> loadRequests;
 	// Map
+	ComponentContainer<Level> levels;
 	ComponentContainer<MapTile> mapTiles;
 	// Physics - Collisions
 	ComponentContainer<ChangeBehaviour> change_behaviours;
@@ -126,6 +126,7 @@ public:
 		registry_list.push_back(&levels);
 		registry_list.push_back(&loadRequests);
 		// Map
+		registry_list.push_back(&levels);
 		registry_list.push_back(&mapTiles);
 		// Physics - Collisions
 		registry_list.push_back(&change_behaviours);

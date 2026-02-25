@@ -133,13 +133,6 @@ struct Size
 	float width;
 };
 
-// Used for level entity
-struct Level
-{
-	// Unique ID for the room
-	int uid;
-};
-
 // TODO: Remove as we probably won't need this, this is just for M1 prototyping
 struct Toggle
 {

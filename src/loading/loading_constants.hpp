@@ -15,16 +15,37 @@ enum class LOAD_TYPE
 enum class LOADING_LAYER_TYPE
 {
 	INVALID,
-	CREATURES
+	CREATURES,
+	FLOOR_INTERACTABLE,
+	EXTRA_ENTITIES
+};
+
+enum class ENTITY_TYPE
+{
+	INVALID,
+	SPAWN_POINT,
+	INITIAL_POSITION
 };
 
 const std::map<std::string, LOADING_LAYER_TYPE> layer_string_to_enum_map = {
 	{ "Creatures", LOADING_LAYER_TYPE::CREATURES },
+	{ "Floor_Interactables", LOADING_LAYER_TYPE::FLOOR_INTERACTABLE },
+	{ "Extra_Entities", LOADING_LAYER_TYPE::EXTRA_ENTITIES },
 };
 inline LOADING_LAYER_TYPE layer_from_string(const std::string layer_string)
 {
 	const auto& search = layer_string_to_enum_map.find(layer_string);
 	return search != layer_string_to_enum_map.end() ? search->second : LOADING_LAYER_TYPE::INVALID;
+};
+
+const std::map<std::string, ENTITY_TYPE> entity_type_string_to_enum_map = {
+	{ "Spawn_Point", ENTITY_TYPE::SPAWN_POINT },
+	{ "Initial_Position", ENTITY_TYPE::INITIAL_POSITION },
+};
+inline ENTITY_TYPE entity_type_from_string(const std::string entity_string)
+{
+	const auto& search = entity_type_string_to_enum_map.find(entity_string);
+	return search != entity_type_string_to_enum_map.end() ? search->second : ENTITY_TYPE::INVALID;
 };
 
 const std::map<std::string, CREATURETYPE> creature_string_enum_map = {
