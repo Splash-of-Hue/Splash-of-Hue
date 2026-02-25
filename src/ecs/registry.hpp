@@ -46,6 +46,7 @@ public:
 	ComponentContainer<ColourPalette> colourPalettes;
 	ComponentContainer<ColourMenuState> colourMenuStates;
 	ComponentContainer<ColourMenuInput> colourMenuInputs;
+	ComponentContainer<ColourCircle> colourCircles;
 	// Controls
 	ComponentContainer<Control> controls;
 	ComponentContainer<Input> inputs;
@@ -115,6 +116,7 @@ public:
 		registry_list.push_back(&colourPalettes);
 		registry_list.push_back(&colourMenuStates);
 		registry_list.push_back(&colourMenuInputs);
+		registry_list.push_back(&colourCircles);
 		// Controls
 		registry_list.push_back(&controls);
 		registry_list.push_back(&inputs);
