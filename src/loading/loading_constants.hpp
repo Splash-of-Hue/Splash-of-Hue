@@ -1,6 +1,6 @@
 #pragma once
 #include <common.hpp>
-#include <creature_behaviour_system/creature_constants.hpp>
+#include <creature_system/creature_constants.hpp>
 #include <ecs/components.hpp>
 #include <map>
 #include <string>

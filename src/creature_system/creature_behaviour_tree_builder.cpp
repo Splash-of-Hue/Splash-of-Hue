@@ -1,7 +1,7 @@
 #pragma once
 
 #include "common.hpp"
-#include "creature_behaviour_system/creature_behaviour_tree_builder.hpp"
+#include "creature_system/creature_behaviour_tree_builder.hpp"
 
 #include <iostream>
 

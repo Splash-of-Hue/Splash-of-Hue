@@ -17,7 +17,7 @@
 #include "renderer/render_system.hpp"
 #include "world_system.hpp"
 #include "sound/sound_system.hpp"
-#include "creature_behaviour_system/creature_behaviour_system.hpp"
+#include "creature_system/creature_behaviour_system.hpp"
 #include "camera/camera_system.hpp"
 
 #include "common.hpp"

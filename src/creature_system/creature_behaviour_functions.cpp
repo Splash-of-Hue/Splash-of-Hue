@@ -1,6 +1,6 @@
 // internal
 #include "common.hpp"
-#include "creature_behaviour_system/creature_behaviour_system.hpp"
+#include "creature_system/creature_behaviour_system.hpp"
 
 #include <iostream>
 

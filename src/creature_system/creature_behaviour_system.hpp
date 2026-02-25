@@ -5,8 +5,8 @@
 #include "ecs/registry.hpp"
 #include "ecs/tiny_ecs.hpp"
 
-#include "creature_behaviour_system/creature_behaviour_functions.hpp"
-#include "creature_behaviour_system/creature_behaviour_tree_constants.hpp"
+#include "creature_system/creature_behaviour_functions.hpp"
+#include "creature_system/creature_behaviour_tree_constants.hpp"
 
 class CreatureBehaviourSystem
 {

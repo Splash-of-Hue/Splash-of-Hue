@@ -3,9 +3,9 @@
 #include <sstream>
 
 #include "common.hpp"
-#include "creature_behaviour_system/creature_behaviour_functions.hpp"
-#include "creature_behaviour_system/creature_behaviour_system.hpp"
-#include "creature_behaviour_system/creature_components.hpp"
+#include "creature_system/creature_behaviour_functions.hpp"
+#include "creature_system/creature_behaviour_system.hpp"
+#include "creature_system/creature_components.hpp"
 
 // todo: https://trello.com/c/Qj457xrS/105-2-creature-behaviour-system-a-pathfinding
 BEHAVIOUR_TREE_STATUS aStarFollowTarget(Entity& follower, float elapsed_ms)
