@@ -1,5 +1,6 @@
 #include "loader_system.hpp"
 #include "loading_constants.hpp"
+#include "creature_system/creature_creator.hpp"
 #include <creature_system/creature_constants.hpp>
 #include "map/map_build_init.hpp"
 #include "ecs/entity.hpp"
@@ -69,7 +70,7 @@ void LoaderSystem::load_level(int level_uid)
 	// get a layer
 	const auto& level_layers = level.allLayers();
 
-	for (const auto& layer : level_layers)
+	for (const ldtk::Layer& layer : level_layers)
 	{
 		switch (layer.getType())
 		{
@@ -178,11 +179,32 @@ void load_creatures(const ldtk::Layer& layer)
 		const ldtk::IntPoint& creature_world_position = creature_entity.getWorldPosition();
 		const ldtk::IntPoint& creature_size = creature_entity.getSize();
 		const vec2 position = vec2(creature_world_position.x * LEVEL_TO_SCREEN_SCALE.x, creature_world_position.y * LEVEL_TO_SCREEN_SCALE.y);
+		float width = creature_size.x * LEVEL_TO_SCREEN_SCALE.x;
+		float height = creature_size.y * LEVEL_TO_SCREEN_SCALE.y;
 
 		switch (creature_type)
 		{
+			case CREATURETYPE::ANGLERFISH:
+				createAnglerfish(position, width, height, color_state);
+				break;
+			case CREATURETYPE::CRAB:
+				createCrab(position, width, height, color_state);
+				break;
+			case CREATURETYPE::MINNOWS:
+				createMinnows(position, width, height, color_state);
+				break;
 			case CREATURETYPE::SAWFISH:
-				createSawfish(position, creature_size.x * LEVEL_TO_SCREEN_SCALE.x, creature_size.y * LEVEL_TO_SCREEN_SCALE.y, color_state);
+				createSawfish(position, width, height, color_state);
+				break;
+			case CREATURETYPE::SHRIMP:
+				createShrimp(position, width, height, color_state);
+				break;
+			case CREATURETYPE::WHALE:
+				createWhale(position, width, height, color_state);
+				break;
+			default:
+				std::cerr << "WARNING: unknown creature type, skipping." << std::endl;
+				break;
 		}
 	}
 }

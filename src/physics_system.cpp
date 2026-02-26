@@ -163,13 +163,19 @@ void PhysicsSystem::step(float elapsed_ms)
 					}
 				}
 
-				// TODO UurbFK4Z: Handle in callback instead of in the physics system
-				if (registry.players.has(entity_i) && registry.spawnPoints.has(entity_j) || registry.players.has(entity_j) && registry.spawnPoints.has(entity_i))
-				{
-					Entity change_map_request_entity;
-					Entity& spawn_point_entity = registry.spawnPoints.has(entity_i) ? entity_i : entity_j;
-					const SpawnPoint& spawn_point = registry.spawnPoints.get(spawn_point_entity);
-					registry.changeMapLevelRequests.insert(change_map_request_entity, { spawn_point.connected_level_uid, spawn_point.send_to_location });
+				//todo - change to sawfish once there are more creatures than sawfish
+				if (registry.players.has(entity_i) && registry.creatures.has(entity_j) || registry.players.has(entity_j) && registry.creatures.has(entity_i)) {
+					Entity& eP = registry.players.has(entity_i) ? entity_i : entity_j;
+					Entity& eS = registry.creatures.has(entity_i) ? entity_i : entity_j;
+					if (registry.colourStates.has(eS)) {
+						ColourState& csS = registry.colourStates.get(eS);
+						if (csS.curr_colour_state == COLOUR_STATE::RED) {
+							if (!registry.deathTimers.has(eP)) {
+								registry.deathTimers.emplace(eP);
+							}
+							
+						}
+					}
 				}
 
 				// TODO UurbFK4Z: Handle in callback instead of in the physics system
@@ -280,7 +286,7 @@ void PhysicsSystem::handle_movement(float elapsed_ms)
 	{
 		vec2& pos = registry.positions.get(moving_entities.entities[i]);
 		vec2& vel = registry.velocities.get(moving_entities.entities[i]);
-		float step = elapsed_ms*ONE_THOUSANDTH;
+		float step = elapsed_ms * ONE_THOUSANDTH;
 		pos += (vel*step);
 	}
 }

@@ -16,6 +16,8 @@ public:
 
 	void pollColourMenuInput(Control control);
 
+	void applyColorToPlayer(COLOUR_STATE colour);
+
 	void step(float elapsed_ms);
 
 	// existing API kept for other use
@@ -36,3 +38,4 @@ private:
 	void updateCircles(float elapsed_ms);
 	void ColourSystem::changeColourCircle(Entity& player, int player_colour_state);
 };
+
