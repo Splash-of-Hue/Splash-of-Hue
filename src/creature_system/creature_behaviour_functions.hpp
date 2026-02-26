@@ -29,6 +29,7 @@ BEHAVIOUR_TREE_STATUS stopCreatureMovement(Entity& creature, float elapsed_ms);
 BEHAVIOUR_TREE_STATUS makeRed(Entity& creature, float elapsed_ms);
 BEHAVIOUR_TREE_STATUS makeBlue(Entity& creature, float elapsed_ms);
 BEHAVIOUR_TREE_STATUS makeNeutral(Entity& creature, float elapsed_ms);
+void makeColour(Entity& creature,COLOUR_STATE colour_state);
 BEHAVIOUR_TREE_STATUS stopColliding(Entity& creature, float elapsed_ms);
 
 // ===== Decorator Node Functions =====
@@ -42,3 +43,5 @@ BEHAVIOUR_TREE_STATUS hasCreatureCollided(Entity& creature, float elapsed_ms);
 BEHAVIOUR_TREE_STATUS isCreatureWithinPlayerColourRadius(Entity& creature, float elapsed_ms);
 BEHAVIOUR_TREE_STATUS isCreatureWithinCreatureColourRadius(Entity& creature, float elapsed_ms);
 BEHAVIOUR_TREE_STATUS isCreatureWithinInteractableColourRadius(Entity& creature, float elapsed_ms);
+BEHAVIOUR_TREE_STATUS isCreatureInBlueRadius(Entity& creature, float elapsed_ms);
+BEHAVIOUR_TREE_STATUS isCreatureInRedRadius(Entity& creature, float elapsed_ms);

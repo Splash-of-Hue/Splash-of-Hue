@@ -247,12 +247,11 @@ void ColourSystem::changeColourCircle(Entity& player, int player_colour_state)
 		Size& colour_circle_size = registry.sizes.get(players_colour_circle);
 		colour_circle_size.width = 0;
 		colour_circle_size.height = 0;
-
 	}
 	// TODO: FcZFoAfD set vec4 colour to be colour constant
 	else {
 		vec2& player_position = registry.positions.get(player);
-		players_colour_circle = createCircle(player_position, 1.f, vec4(0.f, 0.f, 0.f, 0.0f));
+		players_colour_circle = createCircle(player_position, 1.f, DEFAULT_COLOUR_VEC4);
 		ColourCircle& colour_circle_component = registry.colourCircles.emplace(players_colour_circle);
 
 		Collidable& colour_circle_collidable_component = registry.collidables.emplace(players_colour_circle);

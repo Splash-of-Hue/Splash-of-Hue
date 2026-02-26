@@ -154,3 +154,49 @@ BEHAVIOUR_TREE_STATUS isCreatureWithinInteractableColourRadius(Entity& creature,
 
 	return BEHAVIOUR_TREE_STATUS::FAILURE;
 }
+
+
+BEHAVIOUR_TREE_STATUS isCreatureInBlueRadius(Entity& creature, float elapsed_ms)
+{
+	
+	if (registry.collisions.has(creature))
+	{
+		Collision& creature_collision_component = registry.collisions.get(creature);
+		Entity& circle_entity = creature_collision_component.other;
+		if (registry.colourStates.has(circle_entity))
+		{
+			ColourState& circle_colour_state = registry.colourStates.get(circle_entity);
+			if (circle_colour_state.curr_colour_state == COLOUR_STATE::BLUE) {
+				
+				registry.collisions.remove(circle_entity);
+				registry.collisions.remove(creature);
+
+				return BEHAVIOUR_TREE_STATUS::SUCCESS;
+			}
+		}
+	}
+
+	return BEHAVIOUR_TREE_STATUS::FAILURE;
+}
+
+BEHAVIOUR_TREE_STATUS isCreatureInRedRadius(Entity& creature, float elapsed_ms)
+{
+	if (registry.collisions.has(creature))
+	{
+		Collision& creature_collision_component = registry.collisions.get(creature);
+		Entity& circle_entity = creature_collision_component.other;
+		if (registry.colourStates.has(circle_entity))
+		{
+			ColourState& circle_colour_state = registry.colourStates.get(circle_entity);
+			if (circle_colour_state.curr_colour_state == COLOUR_STATE::RED) {
+
+				registry.collisions.remove(circle_entity);
+				registry.collisions.remove(creature);
+
+				return BEHAVIOUR_TREE_STATUS::SUCCESS;
+			}
+		}
+	}
+
+	return BEHAVIOUR_TREE_STATUS::FAILURE;
+}
