@@ -130,36 +130,13 @@ void PhysicsSystem::step(float elapsed_ms)
 
 			if (collides(entity_i, entity_j))
 			{
-				if (registry.colourCircles.has(entity_i) != registry.colourCircles.has(entity_j))
-				{
-					const bool i_is_ColourCircle = registry.colourCircles.has(entity_i);
-					const bool j_is_ColourCircle = registry.colourCircles.has(entity_j);
-
-					const Entity& circle_entity = i_is_ColourCircle ? entity_i : entity_j;
-					const Entity& other_entity = j_is_ColourCircle ? entity_i : entity_j;
-					
-					//registry.list_all_components_of(circle_entity);
-					//registry.list_all_components_of(other_entity);
-					if (!registry.players.has(other_entity)) {
-						if (registry.colourStates.has(circle_entity) && registry.colourStates.has(other_entity)) {
-							
-							ColourState& colour_circle_colour_state = registry.colourStates.get(circle_entity);
-							ColourState& other_colour_state = registry.colourStates.get(other_entity);
-
-							if (colour_circle_colour_state.curr_colour_state != other_colour_state.curr_colour_state)
-							{
-								other_colour_state.prev_colour_state = other_colour_state.curr_colour_state;
-								other_colour_state.curr_colour_state = colour_circle_colour_state.curr_colour_state;
-							}
-						}
-						
-					}
+				if (!registry.collisions.has(entity_i)) {
+					Collision& i_collision = registry.collisions.emplace(entity_i, entity_j);
 				}
-
-				after_color_collision:
-				//im wondering if its better to look at what type of creatures/entities we're dealing with BEFORE we look at their type
-				//of collision. Because walls will be changing between inelastic and no collision, so im not entirely sure which
-				//type of collision we want to put it in. For now, it will be its own thing.
+				if (!registry.collisions.has(entity_j)) {
+					Collision& j_collision = registry.collisions.emplace(entity_j, entity_i);
+					j_collision.other = entity_i;
+				}
 
 				if (registry.colouredWall.has(entity_i) || registry.colouredWall.has(entity_j))
 				{
@@ -183,21 +160,6 @@ void PhysicsSystem::step(float elapsed_ms)
 					else
 					{
 						colCW.inelastic = true;
-					}
-				}
-
-				//todo - change to sawfish once there are more creatures than sawfish
-				if (registry.players.has(entity_i) && registry.creatures.has(entity_j) || registry.players.has(entity_j) && registry.creatures.has(entity_i)) {
-					Entity& eP = registry.players.has(entity_i) ? entity_i : entity_j;
-					Entity& eS = registry.creatures.has(entity_i) ? entity_i : entity_j;
-					if (registry.colourStates.has(eS)) {
-						ColourState& csS = registry.colourStates.get(eS);
-						if (csS.curr_colour_state == COLOUR_STATE::RED) {
-							if (!registry.deathTimers.has(eP)) {
-								registry.deathTimers.emplace(eP);
-							}
-							
-						}
 					}
 				}
 
@@ -256,22 +218,6 @@ void PhysicsSystem::step(float elapsed_ms)
 				}
 				else
 				{
-					if (registry.collidables.get(entity_i).overlay)
-					{
-						//let world_systems handle it
-						//extra guard for potential errors
-						if (!registry.change_behaviours.has(entity_j))
-						{
-							registry.change_behaviours.emplace(entity_j);
-						}
-					}
-					if (registry.collidables.get(entity_j).overlay)
-					{
-						if (!registry.change_behaviours.has(entity_i))
-						{
-							registry.change_behaviours.emplace(entity_i);
-						}
-					}
 					//must both be inelastic for this collision resolution to occur
 					if (registry.collidables.get(entity_i).inelastic && registry.collidables.get(entity_j).inelastic)
 					{

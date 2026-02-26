@@ -70,12 +70,81 @@ BEHAVIOUR_TREE_STATUS isTimerComplete(Entity& creature, float elapsed_ms)
 // TODO: https://trello.com/c/9KLJ5MXH/118-2-creature-behaviour-system-iscreaturewithincolourradius
 BEHAVIOUR_TREE_STATUS isCreatureWithinColourRadius(Entity& creature, float elapsed_ms)
 {
-
-	return BEHAVIOUR_TREE_STATUS::SUCCESS;
+	if (registry.collisions.has(creature))
+	{
+		Collision& creature_collision_component = registry.collisions.get(creature);
+		Entity& circle_entity = creature_collision_component.other;
+		if (registry.colourCircles.has(circle_entity))
+		{
+			return BEHAVIOUR_TREE_STATUS::SUCCESS;
+		}
+	}
+	return BEHAVIOUR_TREE_STATUS::FAILURE;
 }
 
 // TODO: https://trello.com/c/DMWehWpC/119-2-creaturebehavioursystem-hascreaturecollided
 BEHAVIOUR_TREE_STATUS hasCreatureCollided(Entity& creature, float elapsed_ms)
 {
-	return BEHAVIOUR_TREE_STATUS::SUCCESS;
+	if (registry.collisions.has(creature)) 
+	{
+		return BEHAVIOUR_TREE_STATUS::SUCCESS;
+	}
+	return BEHAVIOUR_TREE_STATUS::FAILURE;
+}
+
+BEHAVIOUR_TREE_STATUS isCreatureWithinPlayerColourRadius(Entity& creature, float elapsed_ms)
+{
+	if (registry.collisions.has(creature)) 
+	{
+		Collision& creature_collision_component = registry.collisions.get(creature);
+		Entity& circle_entity = creature_collision_component.other;
+		if (registry.colourCircles.has(circle_entity))
+		{
+			ColourCircle& circle_component = registry.colourCircles.get(circle_entity);
+			Entity& source_entity = circle_component.sourceEntity;
+			
+			if (registry.players.has(source_entity)) {
+				return BEHAVIOUR_TREE_STATUS::SUCCESS;
+			}
+		}
+	}
+	return BEHAVIOUR_TREE_STATUS::FAILURE;
+}
+
+BEHAVIOUR_TREE_STATUS isCreatureWithinCreatureColourRadius(Entity& creature, float elapsed_ms)
+{
+	if (registry.collisions.has(creature))
+	{
+		Collision& creature_collision_component = registry.collisions.get(creature);
+		Entity& circle_entity = creature_collision_component.other;
+		if (registry.colourCircles.has(circle_entity))
+		{
+			ColourCircle& circle_component = registry.colourCircles.get(circle_entity);
+			Entity& source_entity = circle_component.sourceEntity;
+
+			if (registry.creatures.has(source_entity)) {
+				return BEHAVIOUR_TREE_STATUS::SUCCESS;
+			}
+		}
+	}
+	return BEHAVIOUR_TREE_STATUS::FAILURE;
+}
+
+BEHAVIOUR_TREE_STATUS isCreatureWithinInteractableColourRadius(Entity& creature, float elapsed_ms)
+{
+	if (registry.collisions.has(creature))
+	{
+		Collision& creature_collision_component = registry.collisions.get(creature);
+		Entity& circle_entity = creature_collision_component.other;
+		if (registry.colourCircles.has(circle_entity))
+		{
+			ColourCircle& circle_component = registry.colourCircles.get(circle_entity);
+			Entity& source_entity = circle_component.sourceEntity;
+
+			if (registry.interactables.has(source_entity)) {
+				return BEHAVIOUR_TREE_STATUS::SUCCESS;
+			}
+		}
+	}
+	return BEHAVIOUR_TREE_STATUS::FAILURE;
 }

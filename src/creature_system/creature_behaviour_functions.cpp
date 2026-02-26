@@ -14,3 +14,39 @@ BEHAVIOUR_TREE_STATUS stopCreatureMovement(Entity& creature, float elapsed_ms)
 
 	return BEHAVIOUR_TREE_STATUS::SUCCESS;
 }
+
+BEHAVIOUR_TREE_STATUS makeRed(Entity& creature, float elapsed_ms)
+{
+	if (!registry.colourStates.has(creature))
+		return BEHAVIOUR_TREE_STATUS::FAILURE;
+
+	ColourState& creature_colour_state = registry.colourStates.get(creature);
+	creature_colour_state.prev_colour_state = creature_colour_state.curr_colour_state;
+	creature_colour_state.curr_colour_state = COLOUR_STATE::RED;
+
+	return BEHAVIOUR_TREE_STATUS::SUCCESS;
+}
+
+BEHAVIOUR_TREE_STATUS makeBlue(Entity& creature, float elapsed_ms)
+{
+	if (!registry.colourStates.has(creature))
+		return BEHAVIOUR_TREE_STATUS::FAILURE;
+
+	ColourState& creature_colour_state = registry.colourStates.get(creature);
+	creature_colour_state.prev_colour_state = creature_colour_state.curr_colour_state;
+	creature_colour_state.curr_colour_state = COLOUR_STATE::BLUE;
+
+	return BEHAVIOUR_TREE_STATUS::SUCCESS;
+}
+
+BEHAVIOUR_TREE_STATUS makeNeutral(Entity& creature, float elapsed_ms)
+{
+	if (!registry.colourStates.has(creature))
+		return BEHAVIOUR_TREE_STATUS::FAILURE;
+
+	ColourState& creature_colour_state = registry.colourStates.get(creature);
+	creature_colour_state.prev_colour_state = creature_colour_state.curr_colour_state;
+	creature_colour_state.curr_colour_state = COLOUR_STATE::NEUTRAL;
+
+	return BEHAVIOUR_TREE_STATUS::SUCCESS;
+}

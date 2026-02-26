@@ -88,6 +88,7 @@ public:
 	ComponentContainer<Rect> rectangles; // TODO 1ch6Q0BE: Remove
 	// Spawnables
 	ComponentContainer<Creature> creatures;
+	ComponentContainer<Interactable> interactables;
 	ComponentContainer<Shrimp> shrimps;
 	ComponentContainer<Toggle> toggles;
 
@@ -161,6 +162,7 @@ public:
 		registry_list.push_back(&rectangles); // TODO 1ch6Q0BE: Remove
 		// Spawnables
 		registry_list.push_back(&creatures);
+		registry_list.push_back(&interactables);
 		registry_list.push_back(&shrimps);
 		registry_list.push_back(&toggles);
 	}

@@ -154,3 +154,8 @@ struct EmittingCircle
 {
 	Entity colourCircleEntity;
 };
+
+struct Interactable
+{
+	
+};
