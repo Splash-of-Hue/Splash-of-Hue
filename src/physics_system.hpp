@@ -16,5 +16,6 @@ public:
 	}
 
 private:
+	std::unordered_map<uint64_t, std::vector<Entity>> grid;
 	void handle_movement(float elapsed_ms);
 };
