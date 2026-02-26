@@ -64,10 +64,7 @@ BEHAVIOUR_TREE_STATUS stopColliding(Entity& creature, float elapsed_ms)
 		}
 		registry.collisions.remove(other_entity);
 		return BEHAVIOUR_TREE_STATUS::SUCCESS;
-		
 	}
-		
-
-
+	
 	return BEHAVIOUR_TREE_STATUS::FAILURE;
 }

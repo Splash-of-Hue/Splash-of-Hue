@@ -96,8 +96,13 @@ void ColourSystem::closeColourMenu()
 	setEntityVisualColour(player, chosen);
 	
 	colour_menu_open = false;
-
-	changeColourCircle(player, player_colour_state);
+	
+	if (player_colour_state.curr_colour_state != player_colour_state.prev_colour_state) 
+	{
+		//sending the colour state as an int because sending the reference to the colour state creates issues
+		changeColourCircle(player, (int)player_colour_state.curr_colour_state);
+	}
+	
 }
 
 void ColourSystem::pollMenuState()
@@ -200,19 +205,15 @@ void ColourSystem::step(float elapsed_ms)
 	}
 	
 	updateCircles(elapsed_ms);
-
 }
 
-void ColourSystem::changeColourCircle(Entity& player, ColourState& player_colour_state)
+void ColourSystem::changeColourCircle(Entity& player, int player_colour_state)
 {
 	//creating coloured circle. The if state is needed so the circle doesnt animate
 	//if colours are same as before
-	if (player_colour_state.curr_colour_state == player_colour_state.prev_colour_state)
-	{
-		return;
-	}
+
 	//if neutral, delete colour circle
-	if (player_colour_state.curr_colour_state == COLOUR_STATE::NEUTRAL) {
+	if (player_colour_state == (int)COLOUR_STATE::NEUTRAL) {
 		registry.emittingCircles.remove(player);
 		registry.remove_all_components_of(players_colour_circle);
 		return;
@@ -246,8 +247,8 @@ void ColourSystem::changeColourCircle(Entity& player, ColourState& player_colour
 
 	ColourState& colour_circle_colour_state = registry.colourStates.get(players_colour_circle);
 	colour_circle_colour_state.prev_colour_state = colour_circle_colour_state.curr_colour_state;
-	colour_circle_colour_state.curr_colour_state = player_colour_state.curr_colour_state;
-	setEntityVisualColour(players_colour_circle, player_colour_state.curr_colour_state);
+	colour_circle_colour_state.curr_colour_state = COLOUR_STATE(player_colour_state);
+	setEntityVisualColour(players_colour_circle, COLOUR_STATE(player_colour_state));
 }
 
 void ColourSystem::updateCircles(float elapsed_ms) 

@@ -48,7 +48,6 @@ public:
 	ComponentContainer<ColourMenuState> colourMenuStates;
 	ComponentContainer<ColourMenuInput> colourMenuInputs;
 	ComponentContainer<EmittingCircle> emittingCircles;
-	
 	// Controls
 	ComponentContainer<Control> controls;
 	ComponentContainer<Input> inputs;

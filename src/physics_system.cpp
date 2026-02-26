@@ -280,7 +280,7 @@ void PhysicsSystem::handle_movement(float elapsed_ms)
 	{
 		vec2& pos = registry.positions.get(moving_entities.entities[i]);
 		vec2& vel = registry.velocities.get(moving_entities.entities[i]);
-		float step = elapsed_ms*0.001;
+		float step = elapsed_ms*ONE_THOUSANDTH;
 		pos += (vel*step);
 	}
 }
