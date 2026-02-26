@@ -27,7 +27,7 @@ void LoaderSystem::load_level(int level_uid)
 	// If the level is already loaded, do nothing except change camera
 	if (loaded_level_uids.count(level_uid) > 0)
 	{
-		for (auto& level_entity : registry.levels.entities)
+		for (Entity& level_entity : registry.levels.entities)
 		{
 			Level& level = registry.levels.get(level_entity);
 
@@ -48,7 +48,7 @@ void LoaderSystem::load_level(int level_uid)
 	const auto& world = ldtk_project.getWorld(LDTK_WORLD_ID);
 
 	// get a level
-	const auto& level = world.getLevel(level_uid);
+	const Level& level = world.getLevel(level_uid);
 	loaded_level_uids.insert(level.uid);
 	const ldtk::IntPoint& level_index = level.position;
 	Entity loading_level_entity;
