@@ -29,9 +29,9 @@ void LoaderSystem::load_level(int level_uid)
 	{
 		for (Entity& level_entity : registry.levels.entities)
 		{
-			Level& level = registry.levels.get(level_entity);
+			Level& level_component = registry.levels.get(level_entity);
 
-			if (level.uid != level_uid)
+			if (level_component.uid != level_uid)
 			{
 				continue;
 			}
