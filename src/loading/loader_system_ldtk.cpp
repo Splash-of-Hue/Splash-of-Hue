@@ -179,28 +179,28 @@ void load_creatures(const ldtk::Layer& layer)
 		const ldtk::IntPoint& creature_world_position = creature_entity.getWorldPosition();
 		const ldtk::IntPoint& creature_size = creature_entity.getSize();
 		const vec2 position = vec2(creature_world_position.x * LEVEL_TO_SCREEN_SCALE.x, creature_world_position.y * LEVEL_TO_SCREEN_SCALE.y);
+		float width = creature_size.x * LEVEL_TO_SCREEN_SCALE.x;
+		float height = creature_size.y * LEVEL_TO_SCREEN_SCALE.y;
 
 		switch (creature_type)
 		{
-			case CREATURETYPE::SAWFISH:
-				createSawfish(position, creature_size.x * LEVEL_TO_SCREEN_SCALE.x, creature_size.y * LEVEL_TO_SCREEN_SCALE.y, color_state);
 			case CREATURETYPE::ANGLERFISH:
-				createAnglerfish(position, creature_size.x * level_scale_x, creature_size.y * level_scale_y, color_state);
+				createAnglerfish(position, width, height, color_state);
 				break;
 			case CREATURETYPE::CRAB:
-				createCrab(position, creature_size.x * level_scale_x, creature_size.y * level_scale_y, color_state);
+				createCrab(position, width, height, color_state);
 				break;
 			case CREATURETYPE::MINNOWS:
-				createMinnows(position, creature_size.x * level_scale_x, creature_size.y * level_scale_y, color_state);
+				createMinnows(position, width, height, color_state);
 				break;
 			case CREATURETYPE::SAWFISH:
-				createSawfish(position, creature_size.x * level_scale_x, creature_size.y * level_scale_y, color_state);
+				createSawfish(position, width, height, color_state);
 				break;
 			case CREATURETYPE::SHRIMP:
-				createShrimp(position, creature_size.x * level_scale_x, creature_size.y * level_scale_y, color_state);
+				createShrimp(position, width, height, color_state);
 				break;
 			case CREATURETYPE::WHALE:
-				createWhale(position, creature_size.x * level_scale_x, creature_size.y * level_scale_y, color_state);
+				createWhale(position, width, height, color_state);
 				break;
 			default:
 				std::cerr << "WARNING: unknown creature type, skipping." << std::endl;
