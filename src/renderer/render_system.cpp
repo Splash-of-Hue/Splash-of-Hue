@@ -20,6 +20,13 @@ void RenderSystem::drawShape(Entity entity,
 	// thus ORDER IS IMPORTANT
 	Transform transform;
 	transform.translate(vec2(position.x, position.y));
+
+	if (!registry.ignoredByCamera.has(entity))
+	{
+		const vec2& camera_position = registry.positions.get(registry.cameras.entities[0]);
+		transform.translate(window_center() - camera_position);
+	}
+
 	transform.scale(vec2(size_component.width, size_component.height));
 
 	assert(registry.renderRequests.has(entity));

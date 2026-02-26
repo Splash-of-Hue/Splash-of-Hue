@@ -85,7 +85,7 @@ bool collides(const Entity& entity1, const Entity& entity2)
 
 		const Size& sC = registry.sizes.get(eC);
 		const Size& sR = registry.sizes.get(eR);
-		float radiusC = sR.width * 0.5f;
+		float radiusC = sC.width * 0.5f;
 
 		float rectR = posR.x + sR.width * 0.5f;    //we're going to be doing a lot of comparing between
 		float rectL = posR.x - sR.width * 0.5f;    //point on a circle, line on a rectangle, and radius of the circle
@@ -116,6 +116,7 @@ bool collides(const Entity& entity1, const Entity& entity2)
 
 void PhysicsSystem::step(float elapsed_ms)
 {
+	handle_movement(elapsed_ms);
 	// check for collisions between all collidable entities
 	ComponentContainer<Collidable>& collidables = registry.collidables;
 	for (uint i = 0; i < collidables.components.size(); i++)
@@ -129,48 +130,34 @@ void PhysicsSystem::step(float elapsed_ms)
 
 			if (collides(entity_i, entity_j))
 			{
-				vec2& posI = registry.positions.get(entity_i);
-				vec2& posJ = registry.positions.get(entity_j);
-
-				// For now, this handles creature - circle interaction
-				if (registry.colourStates.has(entity_i) && registry.colourStates.has(entity_j))
+				if (registry.colourCircles.has(entity_i) != registry.colourCircles.has(entity_j))
 				{
-					if (registry.colouredWall.has(entity_i) && registry.colouredWall.has(entity_j))
-					{
-						continue;
-					}
-
-					//colourcircles cannot interact with other colourcircles
-					if (registry.colourCircles.has(entity_i) && registry.colourCircles.has(entity_j)) {
-						goto after_color_collision;
-					}
-					
 					const bool i_is_ColourCircle = registry.colourCircles.has(entity_i);
 					const bool j_is_ColourCircle = registry.colourCircles.has(entity_j);
 
 					const Entity& circle_entity = i_is_ColourCircle ? entity_i : entity_j;
-					const Entity& other_entity = j_is_ColourCircle ? entity_j : entity_i;
+					const Entity& other_entity = j_is_ColourCircle ? entity_i : entity_j;
+					
+					//registry.list_all_components_of(circle_entity);
+					//registry.list_all_components_of(other_entity);
+					if (!registry.players.has(other_entity)) {
+						if (registry.colourStates.has(circle_entity) && registry.colourStates.has(other_entity)) {
+							
+							ColourState& colour_circle_colour_state = registry.colourStates.get(circle_entity);
+							ColourState& other_colour_state = registry.colourStates.get(other_entity);
 
-					if (!registry.creatures.has(other_entity))
-					{
-						goto after_color_collision;
+							std::cout << (int)colour_circle_colour_state.curr_colour_state << " circle" << std::endl;
+							std::cout << (int)other_colour_state.curr_colour_state << " sawfish" << std::endl;
+
+							if (colour_circle_colour_state.curr_colour_state != other_colour_state.curr_colour_state)
+							{
+								std::cout << "here!" << std::endl;
+								other_colour_state.prev_colour_state = other_colour_state.curr_colour_state;
+								other_colour_state.curr_colour_state = colour_circle_colour_state.curr_colour_state;
+							}
+						}
+						
 					}
-
-					const ColourState& circle_color_state = registry.colourStates.get(circle_entity);
-					ColourState& other_color_state = registry.colourStates.get(other_entity);
-
-					// If the states are the same, move on
-					if (circle_color_state.curr_colour_state == other_color_state.curr_colour_state)
-					{
-						goto after_color_collision;
-					}
-
-					other_color_state.prev_colour_state = other_color_state.curr_colour_state;
-					other_color_state.curr_colour_state = circle_color_state.curr_colour_state;
-					vec4& other_color = registry.colors.get(other_entity);
-					const ColourPalette& palette = registry.colourPalettes.components[0];
-					auto& color_from_state = palette.state_to_colour.at(other_color_state.curr_colour_state);
-					other_color = color_from_state;
 				}
 
 				after_color_collision:
@@ -210,9 +197,21 @@ void PhysicsSystem::step(float elapsed_ms)
 					if (registry.colourStates.has(eS)) {
 						ColourState& csS = registry.colourStates.get(eS);
 						if (csS.curr_colour_state == COLOUR_STATE::RED) {
-							registry.deathTimers.emplace(eP);
+							if (!registry.deathTimers.has(eP)) {
+								registry.deathTimers.emplace(eP);
+							}
+							
 						}
 					}
+				}
+
+				// TODO UurbFK4Z: Handle in callback instead of in the physics system
+				if (registry.players.has(entity_i) && registry.spawnPoints.has(entity_j) || registry.players.has(entity_j) && registry.spawnPoints.has(entity_i))
+				{
+					Entity change_map_request_entity;
+					Entity& spawn_point_entity = registry.spawnPoints.has(entity_i) ? entity_i : entity_j;
+					const SpawnPoint& spawn_point = registry.spawnPoints.get(spawn_point_entity);
+					registry.changeMapLevelRequests.insert(change_map_request_entity, { spawn_point.connected_level_uid, spawn_point.send_to_location });
 				}
 
 				//the button is a circle, is in an overlay? do we walk on top of the button?
@@ -320,28 +319,17 @@ void PhysicsSystem::step(float elapsed_ms)
 			}
 
 		}
-
-		handle_movement();
 	}
 }
 
-void PhysicsSystem::handle_movement()
+void PhysicsSystem::handle_movement(float elapsed_ms)
 {
 	ComponentContainer<vec2>& moving_entities = registry.velocities;
-
 	for (int i = 0; i < moving_entities.size(); i++)
 	{
 		vec2& pos = registry.positions.get(moving_entities.entities[i]);
 		vec2& vel = registry.velocities.get(moving_entities.entities[i]);
-		pos += vel;
-		//entities travel within screen, for testing
-		if (pos.x > WINDOW_WIDTH_PX || pos.x < 0)
-		{
-			vel.x *= -1;
-		}
-		if (pos.y < 0 || pos.y > WINDOW_HEIGHT_PX)
-		{
-			vel.y *= -1;
-		}
+		float step = elapsed_ms*0.001;
+		pos += (vel*step);
 	}
 }

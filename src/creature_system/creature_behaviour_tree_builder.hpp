@@ -5,7 +5,7 @@
 #include "ecs/registry.hpp"
 #include "ecs/tiny_ecs.hpp"
 
-#include "creature_behaviour_functions.hpp"
+#include "creature_system/creature_behaviour_functions.hpp"
 
 /* This is where all of the behaviour trees for each creature type can be built! */
 

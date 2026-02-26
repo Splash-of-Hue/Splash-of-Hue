@@ -217,7 +217,7 @@ void ColourSystem::changeColourCircle(Entity& player, ColourState& player_colour
 		registry.remove_all_components_of(players_colour_circle);
 		return;
 	}
-
+	
 	if (registry.emittingCircles.has(player))
 	{
 		EmittingCircle& player_emitting_component = registry.emittingCircles.get(player);
@@ -225,17 +225,28 @@ void ColourSystem::changeColourCircle(Entity& player, ColourState& player_colour
 		Size& colour_circle_size = registry.sizes.get(players_colour_circle);
 		colour_circle_size.width = 0;
 		colour_circle_size.height = 0;
+
 	}
 	// TODO: FcZFoAfD set vec4 colour to be colour constant
 	else {
 		vec2& player_position = registry.positions.get(player);
-		players_colour_circle = createCircle(player_position, 1.f, vec4(0.f, 0.f, 0.f, 0.3f));
+		players_colour_circle = createCircle(player_position, 1.f, vec4(0.f, 0.f, 0.f, 0.0f));
 		ColourCircle& colour_circle_component = registry.colourCircles.emplace(players_colour_circle);
+
+		Collidable& colour_circle_collidable_component = registry.collidables.emplace(players_colour_circle);
+		colour_circle_collidable_component.overlay = true;
+		colour_circle_collidable_component.inelastic = false;
+
+		ColourState& colour_circle_colour_state = registry.colourStates.emplace(players_colour_circle);
+
 		colour_circle_component.sourceEntity = player;
 		EmittingCircle& player_emitting_component = registry.emittingCircles.emplace(player);
 		player_emitting_component.colourCircleEntity = players_colour_circle;
 	}
 
+	ColourState& colour_circle_colour_state = registry.colourStates.get(players_colour_circle);
+	colour_circle_colour_state.prev_colour_state = colour_circle_colour_state.curr_colour_state;
+	colour_circle_colour_state.curr_colour_state = player_colour_state.curr_colour_state;
 	setEntityVisualColour(players_colour_circle, player_colour_state.curr_colour_state);
 }
 

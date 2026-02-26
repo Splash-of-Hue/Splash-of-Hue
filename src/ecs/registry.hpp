@@ -6,10 +6,10 @@
 #include "components.hpp"
 #include "controllers/player_components.hpp"
 #include "controls/control_components.hpp"
-#include "creature_behaviour_system/creature_components.hpp"
+#include "creature_system/creature_components.hpp"
 #include "input/input_components.hpp"
 #include "loading/loading_components.hpp"
-#include "map_builder/map_components.hpp"
+#include "map/map_components.hpp"
 #include "renderer/render_components.hpp"
 
 class ECSRegistry
@@ -56,10 +56,12 @@ public:
 	// Debug
 	ComponentContainer<DebugComponent> debugComponents;
 	// Loader
-	ComponentContainer<Level> levels;
 	ComponentContainer<LoadRequest> loadRequests;
 	// Map
+	ComponentContainer<ChangeMapLevelRequest> changeMapLevelRequests;
+	ComponentContainer<Level> levels;
 	ComponentContainer<MapTile> mapTiles;
+	ComponentContainer<SpawnPoint> spawnPoints;
 	// Physics - Collisions
 	ComponentContainer<ChangeBehaviour> change_behaviours;
 	ComponentContainer<Collidable> collidables;
@@ -127,10 +129,12 @@ public:
 		// Debug
 		registry_list.push_back(&debugComponents);
 		// Loader
-		registry_list.push_back(&levels);
 		registry_list.push_back(&loadRequests);
 		// Map
+		registry_list.push_back(&changeMapLevelRequests);
+		registry_list.push_back(&levels);
 		registry_list.push_back(&mapTiles);
+		registry_list.push_back(&spawnPoints);
 		// Physics - Collisions
 		registry_list.push_back(&change_behaviours);
 		registry_list.push_back(&collidables);
