@@ -48,7 +48,7 @@ void LoaderSystem::load_level(int level_uid)
 	const auto& world = ldtk_project.getWorld(LDTK_WORLD_ID);
 
 	// get a level
-	const Level& level = world.getLevel(level_uid);
+	const ldtk::Level& level = world.getLevel(level_uid);
 	loaded_level_uids.insert(level.uid);
 	const ldtk::IntPoint& level_index = level.position;
 	Entity loading_level_entity;
