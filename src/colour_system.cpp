@@ -194,20 +194,22 @@ void ColourSystem::step(float elapsed_ms)
 			continue;
 		}
 
-		COLOUR_CONTROL_VALUE colour_value = static_cast<COLOUR_CONTROL_VALUE>((int)control.value_1);
-		switch (colour_value)
-		{
-			case COLOUR_CONTROL_VALUE::BLUE:    
-				applyColorToPlayer(COLOUR_STATE::BLUE);    
+		if (control.type == CONTROL_TYPE::SET_COLOUR) {
+			COLOUR_CONTROL_VALUE colour_value = static_cast<COLOUR_CONTROL_VALUE>((int)control.value_1);
+			switch (colour_value)
+			{
+			case COLOUR_CONTROL_VALUE::BLUE:
+				applyColorToPlayer(COLOUR_STATE::BLUE);
 				break;
-			case COLOUR_CONTROL_VALUE::RED:     
-				applyColorToPlayer(COLOUR_STATE::RED);     
+			case COLOUR_CONTROL_VALUE::RED:
+				applyColorToPlayer(COLOUR_STATE::RED);
 				break;
-			case COLOUR_CONTROL_VALUE::NEUTRAL: 
-				applyColorToPlayer(COLOUR_STATE::NEUTRAL); 
+			case COLOUR_CONTROL_VALUE::NEUTRAL:
+				applyColorToPlayer(COLOUR_STATE::NEUTRAL);
 				break;
-			default: 
+			default:
 				break;
+			}
 		}
 	}
 }
