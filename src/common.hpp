@@ -35,6 +35,7 @@ inline std::string mesh_path(const std::string& name) {return asset_path() + "/m
 */
 const vec4 CLEAR_SCREEN_COLOR = vec4(vec3(0.0f), 1.0f);
 const float DT = 16.667f;
+const float ONE_THOUSANDTH = 0.001;
 
 //
 // game constants

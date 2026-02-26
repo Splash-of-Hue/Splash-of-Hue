@@ -76,8 +76,8 @@ BEHAVIOUR_TREE_STATUS isCreatureWithinColourRadius(Entity& creature, float elaps
 		Entity& circle_entity = creature_collision_component.other;
 		if (registry.colourCircles.has(circle_entity))
 		{
-			return BEHAVIOUR_TREE_STATUS::SUCCESS;
-		}
+	return BEHAVIOUR_TREE_STATUS::SUCCESS;
+}
 	}
 	return BEHAVIOUR_TREE_STATUS::FAILURE;
 }
@@ -123,8 +123,8 @@ BEHAVIOUR_TREE_STATUS isCreatureWithinCreatureColourRadius(Entity& creature, flo
 			Entity& source_entity = circle_component.sourceEntity;
 
 			if (registry.creatures.has(source_entity)) {
-				return BEHAVIOUR_TREE_STATUS::SUCCESS;
-			}
+	return BEHAVIOUR_TREE_STATUS::SUCCESS;
+}
 		}
 	}
 	return BEHAVIOUR_TREE_STATUS::FAILURE;
