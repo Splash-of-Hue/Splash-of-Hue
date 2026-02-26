@@ -32,6 +32,7 @@ const std::map<std::string, LOADING_LAYER_TYPE> layer_string_to_enum_map = {
 	{ "Floor_Interactables", LOADING_LAYER_TYPE::FLOOR_INTERACTABLE },
 	{ "Extra_Entities", LOADING_LAYER_TYPE::EXTRA_ENTITIES },
 };
+
 inline LOADING_LAYER_TYPE layer_from_string(const std::string layer_string)
 {
 	const auto& search = layer_string_to_enum_map.find(layer_string);
@@ -42,6 +43,7 @@ const std::map<std::string, ENTITY_TYPE> entity_type_string_to_enum_map = {
 	{ "Spawn_Point", ENTITY_TYPE::SPAWN_POINT },
 	{ "Initial_Position", ENTITY_TYPE::INITIAL_POSITION },
 };
+
 inline ENTITY_TYPE entity_type_from_string(const std::string entity_string)
 {
 	const auto& search = entity_type_string_to_enum_map.find(entity_string);
@@ -56,6 +58,7 @@ const std::map<std::string, CREATURETYPE> creature_string_enum_map = {
 	{ "PShrimp", CREATURETYPE::SHRIMP },
 	{ "Whale", CREATURETYPE::WHALE },
 };
+
 inline CREATURETYPE creature_type_from_string(const std::string creature_string)
 {
 	const auto& search = creature_string_enum_map.find(creature_string);
@@ -67,6 +70,7 @@ const std::map<std::string, COLOUR_STATE> color_state_string_enum_map = {
 	{ "Blue", COLOUR_STATE::BLUE },
 	{ "Red", COLOUR_STATE::RED },
 };
+
 inline COLOUR_STATE color_state_from_string(const std::string color_string)
 {
 	const auto& search = color_state_string_enum_map.find(color_string);
