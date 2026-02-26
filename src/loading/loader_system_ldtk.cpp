@@ -70,7 +70,7 @@ void LoaderSystem::load_level(int level_uid)
 	// get a layer
 	const auto& level_layers = level.allLayers();
 
-	for (const auto& layer : level_layers)
+	for (const ldtk::Layer& layer : level_layers)
 	{
 		switch (layer.getType())
 		{
