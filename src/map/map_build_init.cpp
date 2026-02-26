@@ -57,7 +57,7 @@ Entity createMapTile(int tile_id, TEXTURE_ASSET_ID texture_id, ivec2 tile_positi
 	registry.angles.insert(map_tile_entity, { 0 });
 	registry.renderSourceRects.insert(map_tile_entity, { vec2(source_rect.x, source_rect.y), vec2(source_rect.p, source_rect.q) });
 	registry.textured.insert(map_tile_entity, { texture_id });
-	registry.colors.insert(map_tile_entity, { DEFAULT_COLOUR.xyz, 0.5f });
+	registry.colors.insert(map_tile_entity, { vec3(DEFAULT_COLOUR), 0.5f });
 	registry.renderRequests.insert(
 		map_tile_entity,
 		{
