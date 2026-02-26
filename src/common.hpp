@@ -69,7 +69,17 @@ const float TOWER_BB_WIDTH = (float)GRID_CELL_WIDTH_PX;
 const float TOWER_BB_HEIGHT = (float)GRID_CELL_HEIGHT_PX;
 
 // colour system 
-const vec4 DEFAULT_COLOUR = vec4(1.0f, 1.0f, 1.0f, 1.0f);
+const vec3 WHITE_COLOUR = vec3(1.0f, 1.0f, 1.0f);
+const vec3 BLUE_COLOUR = vec3(0.0f, 0.0f, 1.0f);
+const vec3 RED_COLOUR = vec3(1.0f, 0.0f, 0.0f);
+const vec3 BLACK_COLOUR = vec3(0.0f, 0.0f, 0.0f);
+const vec3 DEFAULT_COLOUR = WHITE_COLOUR;
+
+const vec4 WHITE_COLOUR_VEC4 = vec4(1.0f, 1.0f, 1.0f, 1.0f);
+const vec4 BLUE_COLOUR_VEC4 = vec4(0.0f, 0.0f, 1.0f, 1.0f);
+const vec4 RED_COLOUR_VEC4 = vec4(1.0f, 0.0f, 0.0f, 1.0f);
+const vec4 BLACK_COLOUR_VEC4 = vec4(0.0f, 0.0f, 0.0f, 1.0f);
+const vec4 DEFAULT_COLOUR_VEC4 = WHITE_COLOUR_VEC4;	
 
 #ifndef M_PI
 #define M_PI 3.14159265358979323846f
