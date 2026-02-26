@@ -90,7 +90,7 @@ void ColourSystem::closeColourMenu()
 	if (player_colour_state.curr_colour_state != player_colour_state.prev_colour_state) 
 	{
 		//sending the colour state as an int because sending the reference to the colour state creates issues
-		changeColourCircle(player, (int)player_colour_state.curr_colour_state);
+		changeColourCircle(player, static_cast<int>(player_colour_state.curr_colour_state));
 	}
 	
 }
@@ -188,7 +188,7 @@ void ColourSystem::applyColorToPlayer(COLOUR_STATE colour)
 	//TODO: https://trello.com/c/XWeiA55L/149-1-colour-menu-ui-always-visible
 	setEntityVisualColour(player, colour);
 
-	changeColourCircle(player, (int)colour);
+	changeColourCircle(player, static_cast<int>(colour));
 
 	std::cout << "Player colour set to: " << static_cast<int>(colour) << std::endl;
 }
@@ -234,7 +234,7 @@ void ColourSystem::changeColourCircle(Entity& player, int player_colour_state)
 	//if colours are same as before
 
 	//if neutral, delete colour circle
-	if (player_colour_state == (int)COLOUR_STATE::NEUTRAL) {
+	if (player_colour_state == static_cast<int>(COLOUR_STATE::NEUTRAL)) {
 		registry.emittingCircles.remove(player);
 		registry.remove_all_components_of(players_colour_circle);
 		return;

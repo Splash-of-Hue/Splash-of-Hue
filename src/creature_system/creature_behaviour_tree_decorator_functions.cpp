@@ -107,6 +107,10 @@ BEHAVIOUR_TREE_STATUS isCreatureWithinPlayerColourRadius(Entity& creature, float
 			Entity& source_entity = circle_component.sourceEntity;
 			
 			if (registry.players.has(source_entity)) {
+
+				registry.collisions.remove(circle_entity);
+				registry.collisions.remove(creature);
+
 				return BEHAVIOUR_TREE_STATUS::SUCCESS;
 			}
 		}
@@ -127,6 +131,10 @@ BEHAVIOUR_TREE_STATUS isCreatureWithinCreatureColourRadius(Entity& creature, flo
 			Entity& source_entity = circle_component.sourceEntity;
 
 			if (registry.creatures.has(source_entity)) {
+
+				registry.collisions.remove(circle_entity);
+				registry.collisions.remove(creature);
+
 				return BEHAVIOUR_TREE_STATUS::SUCCESS;
 			}
 		}
@@ -147,6 +155,10 @@ BEHAVIOUR_TREE_STATUS isCreatureWithinInteractableColourRadius(Entity& creature,
 			Entity& source_entity = circle_component.sourceEntity;
 
 			if (registry.interactables.has(source_entity)) {
+
+				registry.collisions.remove(circle_entity);
+				registry.collisions.remove(creature);
+
 				return BEHAVIOUR_TREE_STATUS::SUCCESS;
 			}
 		}

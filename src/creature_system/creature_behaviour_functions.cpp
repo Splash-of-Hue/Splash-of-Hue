@@ -19,7 +19,7 @@ BEHAVIOUR_TREE_STATUS makeRed(Entity& creature, float elapsed_ms)
 {
 	if (!registry.colourStates.has(creature))
 		return BEHAVIOUR_TREE_STATUS::FAILURE;
-
+	std::cout << "Creature is Turning Red!"
 	ColourState& creature_colour_state = registry.colourStates.get(creature);
 	creature_colour_state.prev_colour_state = creature_colour_state.curr_colour_state;
 	creature_colour_state.curr_colour_state = COLOUR_STATE::RED;
@@ -31,7 +31,7 @@ BEHAVIOUR_TREE_STATUS makeBlue(Entity& creature, float elapsed_ms)
 {
 	if (!registry.colourStates.has(creature))
 		return BEHAVIOUR_TREE_STATUS::FAILURE;
-
+	std::cout << "Creature is turning Blue!" << std::endl;
 	ColourState& creature_colour_state = registry.colourStates.get(creature);
 	creature_colour_state.prev_colour_state = creature_colour_state.curr_colour_state;
 	creature_colour_state.curr_colour_state = COLOUR_STATE::BLUE;
@@ -43,7 +43,7 @@ BEHAVIOUR_TREE_STATUS makeNeutral(Entity& creature, float elapsed_ms)
 {
 	if (!registry.colourStates.has(creature))
 		return BEHAVIOUR_TREE_STATUS::FAILURE;
-
+	std::cout << "Creature is turning Blue!" << std::endl;
 	ColourState& creature_colour_state = registry.colourStates.get(creature);
 	creature_colour_state.prev_colour_state = creature_colour_state.curr_colour_state;
 	creature_colour_state.curr_colour_state = COLOUR_STATE::NEUTRAL;
