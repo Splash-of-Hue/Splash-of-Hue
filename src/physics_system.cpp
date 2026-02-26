@@ -6,7 +6,7 @@
 #include <numeric>
 
 
-std::unordered_map<uint64_t, std::vector<Entity>> grid;
+
 // Returns the local bounding coordinates scaled by the current size of the entity
 vec4 get_bounding_box(const Entity& entity)
 {
