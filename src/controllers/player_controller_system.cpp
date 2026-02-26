@@ -13,7 +13,7 @@ Entity PlayerControllerSystem::create_player()
 	Entity player_entity = Entity();
 	//TODO: RD9Gsz6C change to constant spawning point
 	registry.positions.insert(player_entity, { GRID_CELL_WIDTH_PX, GRID_CELL_HEIGHT_PX });
-	registry.scales.insert(player_entity, vec2((float)2.0f * GRID_CELL_WIDTH_PX, (float)2.0f * GRID_CELL_HEIGHT_PX));
+	registry.scales.insert(player_entity, vec2((float)0.9f * GRID_CELL_WIDTH_PX, (float)0.9 * GRID_CELL_HEIGHT_PX));
 	registry.angles.emplace(player_entity);
 	registry.angles.get(player_entity).degrees = 0.0f;
 	registry.sizes.insert(player_entity, Size{ 40.0f, 40.0f });

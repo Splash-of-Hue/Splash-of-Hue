@@ -26,4 +26,8 @@ public:
     operator unsigned int() { return m_id; } // enables automatic casting to int
 
     unsigned int id() { return m_id; }
+
+    bool operator==(const Entity& other) const {
+        return m_id == other.m_id;
+    }
 };

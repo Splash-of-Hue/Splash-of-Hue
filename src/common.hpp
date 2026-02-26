@@ -43,8 +43,10 @@ const int WINDOW_WIDTH_PX = 1280;
 const int WINDOW_HEIGHT_PX = 720;
 inline vec2 window_center() { return vec2(WINDOW_WIDTH_PX, WINDOW_HEIGHT_PX) * 0.5f; };
 
-const int GRID_CELL_WIDTH_PX = 60;
-const int GRID_CELL_HEIGHT_PX = 60;
+//divide window into 8 x 6 subsections for spatial subdivsion
+// if an entity is larger than one of these values, then need to increase the grid size
+const int GRID_CELL_WIDTH_PX = 160;
+const int GRID_CELL_HEIGHT_PX = 120;
 const int GRID_LINE_WIDTH_PX = 2;
 const float PLAYER_SPEED = 300.0f;
 // towers
