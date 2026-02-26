@@ -146,12 +146,8 @@ void PhysicsSystem::step(float elapsed_ms)
 							ColourState& colour_circle_colour_state = registry.colourStates.get(circle_entity);
 							ColourState& other_colour_state = registry.colourStates.get(other_entity);
 
-							std::cout << (int)colour_circle_colour_state.curr_colour_state << " circle" << std::endl;
-							std::cout << (int)other_colour_state.curr_colour_state << " sawfish" << std::endl;
-
 							if (colour_circle_colour_state.curr_colour_state != other_colour_state.curr_colour_state)
 							{
-								std::cout << "here!" << std::endl;
 								other_colour_state.prev_colour_state = other_colour_state.curr_colour_state;
 								other_colour_state.curr_colour_state = colour_circle_colour_state.curr_colour_state;
 							}

@@ -147,7 +147,7 @@ struct ColouredWall
 struct ColourCircle
 {
 	Entity sourceEntity;
-	float maxRadius = 400.f;
+	float maxRadius = 150.f;
 };
 
 struct EmittingCircle
