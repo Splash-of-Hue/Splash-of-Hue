@@ -29,6 +29,7 @@ BEHAVIOUR_TREE_STATUS stopCreatureMovement(Entity& creature, float elapsed_ms);
 BEHAVIOUR_TREE_STATUS makeRed(Entity& creature, float elapsed_ms);
 BEHAVIOUR_TREE_STATUS makeBlue(Entity& creature, float elapsed_ms);
 BEHAVIOUR_TREE_STATUS makeNeutral(Entity& creature, float elapsed_ms);
+BEHAVIOUR_TREE_STATUS stopColliding(Entity& creature, float elapsed_ms);
 
 // ===== Decorator Node Functions =====
 BEHAVIOUR_TREE_STATUS isInBlueState(Entity& creature, float elapsed_ms);

@@ -50,3 +50,24 @@ BEHAVIOUR_TREE_STATUS makeNeutral(Entity& creature, float elapsed_ms)
 
 	return BEHAVIOUR_TREE_STATUS::SUCCESS;
 }
+
+BEHAVIOUR_TREE_STATUS stopColliding(Entity& creature, float elapsed_ms)
+{
+	if (registry.collisions.has(creature)) {
+		Collision& creature_collision_component = registry.collisions.get(creature);
+		Entity& other_entity = creature_collision_component.other;
+		
+		if (registry.collisions.has(other_entity))
+		{
+			registry.collisions.remove(other_entity);
+			
+		}
+		registry.collisions.remove(other_entity);
+		return BEHAVIOUR_TREE_STATUS::SUCCESS;
+		
+	}
+		
+
+
+	return BEHAVIOUR_TREE_STATUS::FAILURE;
+}
