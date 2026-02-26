@@ -43,3 +43,13 @@ Entity createToggle(vec2 position, float radius, COLOUR_STATE color_state, std::
 /// <param name="source_rect">The (x, y, width, height) rectangle to use as the source on the texture for the tile.</param>
 /// <returns>The entity of the map tile.</returns>
 Entity createMapTile(int tile_id, TEXTURE_ASSET_ID texture_id, ivec2 tile_position, vec4 dest_rect, vec4 source_rect);
+
+/// <summary>
+/// Creates a spawn point, that if the player steps on, they are sent somewhere else
+/// </summary>
+/// <param name="level_uid">The unique ID of the level that the spawn point is in.</param>
+/// <param name="connected_level_uid">The unique ID of the level that the spawn point points to.</param>
+/// <param name="position">The position of the spawn point in the world.</param>
+/// <param name="connected_position">The place in the world to be sent to once stepped on.</param>
+/// <returns>The entity of the spawn point.</returns>
+Entity createSpawnPoint(const int level_uid, const int connected_level_uid, vec2 position, vec2 connected_position);
