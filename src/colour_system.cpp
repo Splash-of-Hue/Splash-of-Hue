@@ -159,7 +159,7 @@ vec4 ColourSystem::getPaletteColour(COLOUR_STATE state) {
 
 	return palette.state_to_colour.count(state) > 0
 		? palette.state_to_colour.at(state)
-		: DEFAULT_COLOUR; 
+		: DEFAULT_COLOUR_VEC4; 
 }
 
 void ColourSystem::applyColorToPlayer(COLOUR_STATE colour)

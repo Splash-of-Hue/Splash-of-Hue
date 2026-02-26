@@ -1,6 +1,7 @@
 #include "loader_system.hpp"
 #include "loading_constants.hpp"
 #include "map_builder/map_build_init.hpp"
+#include "creature_system/creature_creator.hpp"
 #include <creature_system/creature_constants.hpp>
 #include "ecs/entity.hpp"
 #include <iostream>
@@ -70,8 +71,27 @@ void load_creatures(const ldtk::Layer& layer)
 
 		switch (creature_type)
 		{
+			case CREATURETYPE::ANGLERFISH:
+				createAnglerfish(position, creature_size.x * level_scale_x, creature_size.y * level_scale_y, color_state);
+				break;
+			case CREATURETYPE::CRAB:
+				createCrab(position, creature_size.x * level_scale_x, creature_size.y * level_scale_y, color_state);
+				break;
+			case CREATURETYPE::MINNOWS:
+				createMinnows(position, creature_size.x * level_scale_x, creature_size.y * level_scale_y, color_state);
+				break;
 			case CREATURETYPE::SAWFISH:
 				createSawfish(position, creature_size.x * level_scale_x, creature_size.y * level_scale_y, color_state);
+				break;
+			case CREATURETYPE::SHRIMP:
+				createShrimp(position, creature_size.x * level_scale_x, creature_size.y * level_scale_y, color_state);
+				break;
+			case CREATURETYPE::WHALE:
+				createWhale(position, creature_size.x * level_scale_x, creature_size.y * level_scale_y, color_state);
+				break;
+			default:
+				std::cerr << "WARNING: unknown creature type, skipping." << std::endl;
+				break;
 		}
 	}
 }
