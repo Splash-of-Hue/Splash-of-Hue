@@ -16,6 +16,8 @@ public:
 
 	void pollColourMenuInput(Control control);
 
+	void applyColorToPlayer(COLOUR_STATE colour);
+
 	void step(float elapsed_ms);
 
 	// existing API kept for other use
@@ -33,3 +35,4 @@ private:
 	void closeColourMenu();
 	void setEntityVisualColour(Entity entity, COLOUR_STATE colour_state);
 };
+

@@ -20,16 +20,6 @@ void ColourSystem::initialize_palette()
 		colour_palette_entity = Entity();
 		registry.colourPalettes.emplace(colour_palette_entity);
 	}
-
-	// create menu state if missing
-	if (registry.colourMenuStates.entities.empty()) {
-		Entity ctrl = Entity();
-		registry.colourMenuStates.emplace(ctrl);
-		ColourMenuState& state = registry.colourMenuStates.get(ctrl);
-		// defaults already set by component, but be explicit
-		state.is_curr_open = false;
-		state.just_closed = false;
-	}
 }
 void ColourSystem::setEntityVisualColour(Entity entity, COLOUR_STATE colour_state) {
 	assert(!registry.colourPalettes.entities.empty() && "Colour palette should be initialized");
@@ -169,7 +159,26 @@ vec4 ColourSystem::getPaletteColour(COLOUR_STATE state) {
 
 	return palette.state_to_colour.count(state) > 0
 		? palette.state_to_colour.at(state)
-		: DEFAULT_COLOUR; 
+		: DEFAULT_COLOUR_VEC4; 
+}
+
+void ColourSystem::applyColorToPlayer(COLOUR_STATE colour)
+{
+	if (registry.players.entities.empty()) {
+		return;
+	}
+
+	Entity& player = registry.players.entities[0];
+
+	if (!registry.colourStates.has(player)) {
+		registry.colourStates.emplace(player);
+	}
+	registry.colourStates.get(player).curr_colour_state = colour;
+
+	//TODO: https://trello.com/c/XWeiA55L/149-1-colour-menu-ui-always-visible
+	setEntityVisualColour(player, colour);
+
+	std::cout << "Player colour set to: " << static_cast<int>(colour) << std::endl;
 }
 
 void ColourSystem::step(float elapsed_ms)
@@ -181,16 +190,25 @@ void ColourSystem::step(float elapsed_ms)
 	{
 		Control control = registry.controls.get(entity);
 
-		if (control.type == CONTROL_TYPE::TOGGLE_COLOUR_MENU && control.phase == CONTROL_PHASE::END)
-		{
-			pollMenuState();
-		}
-		if (control.type == CONTROL_TYPE::CHANGE_COLOUR_MENU_SELECTION &&
-			control.phase == CONTROL_PHASE::END)
-		{
-			pollColourMenuInput(control);
+		if (control.phase != CONTROL_PHASE::START) {
+			continue;
 		}
 
-		to_remove.push_back(entity);
+		COLOUR_CONTROL_VALUE colour_value = static_cast<COLOUR_CONTROL_VALUE>((int)control.value_1);
+		switch (colour_value)
+		{
+			case COLOUR_CONTROL_VALUE::BLUE:    
+				applyColorToPlayer(COLOUR_STATE::BLUE);    
+				break;
+			case COLOUR_CONTROL_VALUE::RED:     
+				applyColorToPlayer(COLOUR_STATE::RED);     
+				break;
+			case COLOUR_CONTROL_VALUE::NEUTRAL: 
+				applyColorToPlayer(COLOUR_STATE::NEUTRAL); 
+				break;
+			default: 
+				break;
+		}
 	}
 }
+
