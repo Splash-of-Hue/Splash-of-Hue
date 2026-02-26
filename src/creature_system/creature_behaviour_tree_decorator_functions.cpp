@@ -76,9 +76,10 @@ BEHAVIOUR_TREE_STATUS isCreatureWithinColourRadius(Entity& creature, float elaps
 		Entity& circle_entity = creature_collision_component.other;
 		if (registry.colourCircles.has(circle_entity))
 		{
-	return BEHAVIOUR_TREE_STATUS::SUCCESS;
-}
+			return BEHAVIOUR_TREE_STATUS::SUCCESS;
+		}
 	}
+
 	return BEHAVIOUR_TREE_STATUS::FAILURE;
 }
 
@@ -89,6 +90,7 @@ BEHAVIOUR_TREE_STATUS hasCreatureCollided(Entity& creature, float elapsed_ms)
 	{
 		return BEHAVIOUR_TREE_STATUS::SUCCESS;
 	}
+
 	return BEHAVIOUR_TREE_STATUS::FAILURE;
 }
 
@@ -98,6 +100,7 @@ BEHAVIOUR_TREE_STATUS isCreatureWithinPlayerColourRadius(Entity& creature, float
 	{
 		Collision& creature_collision_component = registry.collisions.get(creature);
 		Entity& circle_entity = creature_collision_component.other;
+
 		if (registry.colourCircles.has(circle_entity))
 		{
 			ColourCircle& circle_component = registry.colourCircles.get(circle_entity);
@@ -108,6 +111,7 @@ BEHAVIOUR_TREE_STATUS isCreatureWithinPlayerColourRadius(Entity& creature, float
 			}
 		}
 	}
+
 	return BEHAVIOUR_TREE_STATUS::FAILURE;
 }
 
@@ -127,6 +131,7 @@ BEHAVIOUR_TREE_STATUS isCreatureWithinCreatureColourRadius(Entity& creature, flo
 			}
 		}
 	}
+
 	return BEHAVIOUR_TREE_STATUS::FAILURE;
 }
 
@@ -146,5 +151,6 @@ BEHAVIOUR_TREE_STATUS isCreatureWithinInteractableColourRadius(Entity& creature,
 			}
 		}
 	}
+
 	return BEHAVIOUR_TREE_STATUS::FAILURE;
 }
