@@ -30,6 +30,8 @@ struct Shrimp
 {
 	// Tracks current direction shrimp is facing.
 	DIRECTION currDirect = UP;
+	int num_arms = 2; // in the future, shrimp will be able to be initialized for 1, 2, or 3 arms. No trello yet but don't worry about it
+	std::unordered_map<SHRIMP_ARM_COLOUR, std::vector<Entity>> shrimp_arms;
 };
 
 struct Pathfinder

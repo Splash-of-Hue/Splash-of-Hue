@@ -38,6 +38,16 @@ enum DIRECTION
 	RIGHT = LEFT + 1
 };
 
+enum SHRIMP_ARM_COLOUR
+{
+	NEUTRAL = 0,
+	BLUE = NEUTRAL + 1,
+	RED = BLUE + 1
+};
+
+const float SHRIMP_ARM_TRANSLATION_X = 4.0f; // How much to translate the shrimp arm away from the body on the x axis
+const float SHRIMP_ARM_TRANSLATION_Y = 4.0f; // How much to translate the shrimp arm away from the body on the y axis
+
 struct Whale
 {
 };

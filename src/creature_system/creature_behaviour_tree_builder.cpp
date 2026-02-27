@@ -40,17 +40,17 @@ BehaviourTree CreatureBehaviourTreeBuilder::buildSawfishTree()
 	int root_index =
 		Root(builder,
 			Selector(builder,
-				Decorator(builder, isInBlueState,
+				Decorator(builder, creatureBehaviourFunctions.isInBlueState,
 					Selector(builder,
-						Action(builder, aStarFollowTarget),
-						Action(builder, stopCreatureMovement)
+						Action(builder, creatureBehaviourFunctions.aStarFollowTarget),
+						Action(builder, creatureBehaviourFunctions.stopCreatureMovement)
 					)
 				),
-				Decorator(builder, isInRedState,
-					Action(builder, chargeAtTarget)
+				Decorator(builder, creatureBehaviourFunctions.isInRedState,
+					Action(builder, creatureBehaviourFunctions.chargeAtTarget)
 				),
-				Decorator(builder, isInNeutralState,
-					Action(builder, stopCreatureMovement)
+				Decorator(builder, creatureBehaviourFunctions.isInNeutralState,
+					Action(builder, creatureBehaviourFunctions.stopCreatureMovement)
 				)
 			)
 		);
@@ -60,7 +60,49 @@ BehaviourTree CreatureBehaviourTreeBuilder::buildSawfishTree()
 
 BehaviourTree CreatureBehaviourTreeBuilder::buildShrimpTree()
 {
-	return BehaviourTree();
+	/*
+	
+		Shrimp prioritizes creature light over player light.
+		Unsure what to do about the duplicated code here
+	
+	*/
+
+	BehaviourTreeBuilder builder;
+	int root_index =
+		Root(builder,
+			Selector(builder,
+				Decorator(builder, creatureBehaviourFunctions.isCreatureWithinCreatureColourRadius,
+					Selector(builder,
+						Decorator(builder, creatureBehaviourFunctions.isInRedState,
+							Action(builder, creatureBehaviourFunctions.redArms)),
+						Decorator(builder, creatureBehaviourFunctions.isInBlueState,
+							Action(builder, creatureBehaviourFunctions.blueArms)),
+						Action(builder, creatureBehaviourFunctions.neutralArms))
+				),
+
+				Decorator(builder, creatureBehaviourFunctions.isCreatureWithinPlayerColourRadius,
+					Selector(builder,
+						Decorator(builder, creatureBehaviourFunctions.isInRedState,
+							Action(builder, creatureBehaviourFunctions.redArms)),
+						Decorator(builder, creatureBehaviourFunctions.isInBlueState,
+							Action(builder, creatureBehaviourFunctions.blueArms)),
+						Action(builder, creatureBehaviourFunctions.neutralArms))
+				),
+
+				Decorator(builder, creatureBehaviourFunctions.isCreatureWithinInteractableColourRadius,
+					Selector(builder,
+						Decorator(builder, creatureBehaviourFunctions.isInRedState,
+							Action(builder, creatureBehaviourFunctions.redArms)),
+						Decorator(builder, creatureBehaviourFunctions.isInBlueState,
+							Action(builder, creatureBehaviourFunctions.blueArms)),
+						Action(builder, creatureBehaviourFunctions.neutralArms))
+				),
+
+				Action(builder, creatureBehaviourFunctions.neutralArms))
+		);
+
+
+	return builder.build(root_index);
 }
 
 BehaviourTree CreatureBehaviourTreeBuilder::buildWhaleTree()
