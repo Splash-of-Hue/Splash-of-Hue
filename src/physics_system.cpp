@@ -176,7 +176,8 @@ void PhysicsSystem::step(float elapsed_ms)
 
 				//loops over entities within that grid, which is considerably smaller amount than all existing entities
 				for (Entity& entity_j : tile->second) {
-					if (entity_j <= entity_i) continue; // avoid duplicates
+					if (entity_j <= entity_i) 
+					   continue; // avoid duplicates
 					if (collides(entity_i, entity_j))
 					{
 						if (registry.collidables.get(entity_i).inelastic && registry.collidables.get(entity_j).inelastic)
