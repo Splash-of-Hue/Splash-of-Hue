@@ -40,21 +40,26 @@ BehaviourTree CreatureBehaviourTreeBuilder::buildSawfishTree()
 	int root_index =
 		Root(builder,
 			Selector(builder,
-				Decorator(builder, isInBlueState,
+				Decorator(builder, isCreatureWithinPlayerColourRadius,
 					Selector(builder,
-						Action(builder, aStarFollowTarget),
-						Action(builder, stopCreatureMovement)
+						Decorator(builder, isCreatureInBlueRadius,
+							Sequence(builder,
+								Action(builder, makeBlue),
+								Action(builder, stopColliding)
+							)
+						),
+						Decorator(builder, isCreatureInRedRadius,
+							Sequence(builder,
+								Action(builder, makeRed),
+								Action(builder, stopColliding)
+							)
+						),
+						Action(builder, makeNeutral)
 					)
-				),
-				Decorator(builder, isInRedState,
-					Action(builder, chargeAtTarget)
-				),
-				Decorator(builder, isInNeutralState,
-					Action(builder, stopCreatureMovement)
 				)
 			)
 		);
-
+	
 	return builder.build(root_index);
 }
 

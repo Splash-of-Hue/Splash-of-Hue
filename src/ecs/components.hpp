@@ -72,8 +72,7 @@ struct Eatable
 struct Collision
 {
 	// Note, the first object is stored in the ECS container.entities
-	Entity other; // the second object involved in the collision
-	Collision(Entity& other) { this->other = other; };
+	std::map<unsigned int, Entity> collisionList;
 };
 
 //assigned to entities that need behaviour change
@@ -158,4 +157,9 @@ struct EmittingCircle
 struct Interactable
 {
 	
+};
+
+struct EntityToLookAt
+{
+	Entity entity;
 };

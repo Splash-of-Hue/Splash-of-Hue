@@ -17,4 +17,6 @@ public:
 
 private:
 	void handle_movement(float elapsed_ms);
+	void deleteEmptyCollisions();
+	void checkCollisionCounts();
 };

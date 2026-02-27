@@ -8,7 +8,6 @@
 #include "world_init.hpp"
 #include <iostream>
 #include <vector>
-
 ColourSystem::ColourSystem()
 {
 }
@@ -236,6 +235,20 @@ void ColourSystem::changeColourCircle(Entity& player, int player_colour_state)
 	//if neutral, delete colour circle
 	if (player_colour_state == static_cast<int>(COLOUR_STATE::NEUTRAL)) {
 		registry.emittingCircles.remove(player);
+		
+		//This loop erases any collision instance that contains the colour circle.
+		//This is to avoid situations where the other object keeps a collision in its map, even if the object doesnt exist anymore
+		if (registry.collisions.has(players_colour_circle))
+		{
+			Collision& circle_collision = registry.collisions.get(players_colour_circle);
+
+			for (auto it = circle_collision.collisionList.begin(); it != circle_collision.collisionList.end(); ++it)
+			{
+				Collision& other_collision = registry.collisions.get(it->second);
+				other_collision.collisionList.erase(players_colour_circle.id());
+			}
+
+		}
 		registry.remove_all_components_of(players_colour_circle);
 		return;
 	}
@@ -247,12 +260,11 @@ void ColourSystem::changeColourCircle(Entity& player, int player_colour_state)
 		Size& colour_circle_size = registry.sizes.get(players_colour_circle);
 		colour_circle_size.width = 0;
 		colour_circle_size.height = 0;
-
 	}
 	// TODO: FcZFoAfD set vec4 colour to be colour constant
 	else {
 		vec2& player_position = registry.positions.get(player);
-		players_colour_circle = createCircle(player_position, 1.f, vec4(0.f, 0.f, 0.f, 0.0f));
+		players_colour_circle = createCircle(player_position, 1.f, DEFAULT_COLOUR_VEC4);
 		ColourCircle& colour_circle_component = registry.colourCircles.emplace(players_colour_circle);
 
 		Collidable& colour_circle_collidable_component = registry.collidables.emplace(players_colour_circle);

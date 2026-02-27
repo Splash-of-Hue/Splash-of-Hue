@@ -33,8 +33,8 @@ Entity PlayerControllerSystem::create_player()
 	registry.velocities.insert(player_entity, velocity);
 	registry.colourStates.emplace(player_entity, player_color_state);
 	//TODO: K32pFGdy add this back once we fix multiple collisions at once
-	//Collidable& collidable = registry.collidables.emplace(player_entity);
-	//collidable.inelastic = true;
+	Collidable& collidable = registry.collidables.emplace(player_entity);
+	collidable.inelastic = true;
 
 	return player_entity;
 }

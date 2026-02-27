@@ -32,6 +32,7 @@ public:
 	ComponentContainer<CreatureBehaviour> creatureBehaviours;
 	ComponentContainer<CreatureBehaviourCooldown> creatureBehaviourCooldowns;
 	ComponentContainer<CreatureBehaviourTimer> creatureBehaviourTimers;
+	ComponentContainer<EntityToLookAt> entitiesToLookAt;
 	ComponentContainer<Pathfinder> pathfinders;
 	// Animation
 	ComponentContainer<Animatable> animatables;
@@ -106,6 +107,7 @@ public:
 		registry_list.push_back(&creatureBehaviours);
 		registry_list.push_back(&creatureBehaviourCooldowns);
 		registry_list.push_back(&creatureBehaviourTimers);
+		registry_list.push_back(&entitiesToLookAt);
 		registry_list.push_back(&pathfinders);
 		// Animation
 		registry_list.push_back(&animatables);

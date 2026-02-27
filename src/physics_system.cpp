@@ -116,6 +116,7 @@ bool collides(const Entity& entity1, const Entity& entity2)
 
 void PhysicsSystem::step(float elapsed_ms)
 {
+	deleteEmptyCollisions();
 	handle_movement(elapsed_ms);
 	// check for collisions between all collidable entities
 	ComponentContainer<Collidable>& collidables = registry.collidables;
@@ -131,11 +132,26 @@ void PhysicsSystem::step(float elapsed_ms)
 			if (collides(entity_i, entity_j))
 			{
 				if (!registry.collisions.has(entity_i)) {
-					Collision& i_collision = registry.collisions.emplace(entity_i, entity_j);
+					registry.collisions.emplace(entity_i);
 				}
+
 				if (!registry.collisions.has(entity_j)) {
-					Collision& j_collision = registry.collisions.emplace(entity_j, entity_i);
-					j_collision.other = entity_i;
+					registry.collisions.emplace(entity_j);
+				}
+
+				Collision& i_collision = registry.collisions.get(entity_i);
+				Collision& j_collision = registry.collisions.get(entity_j);
+
+				if (!i_collision.collisionList.count(entity_j.id()))
+				{
+					checkCollisionCounts();
+					i_collision.collisionList[entity_j.id()] = entity_j;
+				}
+
+				if (!j_collision.collisionList.count(entity_i.id()))
+				{
+					checkCollisionCounts();
+					j_collision.collisionList[entity_i.id()] = entity_i;
 				}
 
 				if (registry.colouredWall.has(entity_i) || registry.colouredWall.has(entity_j))
@@ -288,5 +304,26 @@ void PhysicsSystem::handle_movement(float elapsed_ms)
 		vec2& vel = registry.velocities.get(moving_entities.entities[i]);
 		float step = elapsed_ms * ONE_THOUSANDTH;
 		pos += (vel*step);
+	}
+}
+
+void PhysicsSystem::deleteEmptyCollisions()
+{
+	for (Entity& entity : registry.collisions.entities) 
+	{
+		Collision& collision = registry.collisions.get(entity);
+		if (collision.collisionList.size() == 0)
+		{
+			registry.collisions.remove(entity);
+		}
+	}
+}
+
+void PhysicsSystem::checkCollisionCounts()
+{
+	for (Entity& entity : registry.collisions.entities)
+	{
+		Collision& collision = registry.collisions.get(entity);
+		std::cout << collision.collisionList.size() << std::endl;
 	}
 }
