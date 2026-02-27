@@ -179,7 +179,7 @@ vec3 collides(const Entity& entity1, const Entity& entity2)
 	//create polygon either returns rectangle or predefined polygon of entity
 	ConvexPolygon& a = createPolygon(entity1);
 	ConvexPolygon& b = createPolygon(entity2);
-	std::cout << "a vertices: " << a.vertices.size() << " b vertices: " << b.vertices.size() << std::endl;
+	//std::cout << "a vertices: " << a.vertices.size() << " b vertices: " << b.vertices.size() << std::endl;
 	return (axisCollision(a, b));
 }
 void handle_inelastic_collision(Entity entity_i, Entity entity_j, vec3 penetration) {

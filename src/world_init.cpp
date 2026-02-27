@@ -119,11 +119,13 @@ ConvexPolygon createPolygon(const Entity& e) {
 	vec2& pos = registry.positions.get(e);
 	Size& size = registry.sizes.get(e);
 	polygon.centre = pos;
-	polygon.vertices.push_back(vec2(pos.x - size.width * 0.5f, pos.y - size.height * 0.5f)); // bottom left
-	polygon.vertices.push_back(vec2(pos.x + size.width * 0.5f, pos.y - size.height * 0.5f)); // bottom right
-	polygon.vertices.push_back(vec2(pos.x + size.width * 0.5f, pos.y + size.height * 0.5f)); // top right
-	polygon.vertices.push_back(vec2(pos.x - size.width * 0.5f, pos.y + size.height * 0.5f)); // top left
-
+	//Entity heights are too large, this is a temp fix
+	//TODO: DMdDb4NW
+	polygon.vertices.push_back(vec2(pos.x - size.width * 0.5f, pos.y - size.height * 0.15f)); // bottom left
+	polygon.vertices.push_back(vec2(pos.x + size.width * 0.5f, pos.y - size.height * 0.15f)); // bottom right
+	polygon.vertices.push_back(vec2(pos.x + size.width * 0.5f, pos.y + size.height * 0.15f)); // top right
+	polygon.vertices.push_back(vec2(pos.x - size.width * 0.5f, pos.y + size.height * 0.15f)); // top left
+	
 	return polygon;
 
 }
