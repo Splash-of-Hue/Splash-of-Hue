@@ -164,8 +164,8 @@ void PhysicsSystem::step(float elapsed_ms)
 	{
 		Entity& entity_i = collidables.entities[i];
 		vec2& pos = registry.positions.get(entity_i);
-		int tx = (int)(pos.x / GRID_CELL_WIDTH_PX);
-		int ty = (int)(pos.y / GRID_CELL_HEIGHT_PX);
+		int tx = static_cast<int>(pos.x / GRID_CELL_WIDTH_PX);
+		int ty = static_cast<int>(pos.y / GRID_CELL_HEIGHT_PX);
 
 		//this loops over neighbouring grids for each entity, so the max amount of loops would be 9
 		for (int i = -1; i <= 1; i++)
