@@ -214,12 +214,25 @@ uint64_t hash_key(int tx, int ty) {
 	//pack the tile x and y position into one 64 bit int for the key
 	return  ((uint64_t)(uint32_t)tx) << 32 | (uint32_t)ty;
 }
+void PhysicsSystem::init() {
+	grid.clear();
+
+	int tx = WINDOW_WIDTH_PX / GRID_CELL_WIDTH_PX;
+	int ty = WINDOW_HEIGHT_PX / GRID_CELL_HEIGHT_PX;
+	for (int i = 0; i < tx; i++) {
+		for (int j = 0; j < ty; j++) {
+			//initialize grid to empty vector list
+			grid[hash_key(i, j)] = std::vector<Entity>();
+		}
+	}
+}
 void PhysicsSystem::step(float elapsed_ms)
 {
-	if (!registry.changeMapLevelRequests.entities.empty())
+	if (!registry.changeMapLevelRequests.entities.empty()) {
 		return;
+	}
 	handle_movement(elapsed_ms);
-	std::set<std::pair<int, int>> checked;
+	std::set<uint64_t> checked;
 
 	ComponentContainer<Collidable>& collidables = registry.collidables;
 	for (int i = 0; i < collidables.components.size(); i++)
@@ -244,7 +257,7 @@ void PhysicsSystem::step(float elapsed_ms)
 					   continue; // avoid self 
 
 					//avoid duplicates:
-					std::pair<int, int> pair = std::make_pair(std::min(entity_i.id(), entity_j.id()),std::max(entity_i.id(), entity_j.id()));
+					uint64_t pair = hash_key(entity_i.id(), entity_j.id());
 					if (checked.count(pair)) 
 						continue;
 					checked.insert(pair);
@@ -354,14 +367,13 @@ void PhysicsSystem::step(float elapsed_ms)
 						// TODO UurbFK4Z: Handle in callback instead of in the physics system
 						if (registry.players.has(entity_i) && registry.spawnPoints.has(entity_j) || registry.players.has(entity_j) && registry.spawnPoints.has(entity_i))
 						{
-							if (registry.changeMapLevelRequests.entities.size() > 0) {
-								continue;
-							}
 							
 							Entity change_map_request_entity;
 							Entity& spawn_point_entity = registry.spawnPoints.has(entity_i) ? entity_i : entity_j;
 							const SpawnPoint& spawn_point = registry.spawnPoints.get(spawn_point_entity);
 							registry.changeMapLevelRequests.insert(change_map_request_entity, { spawn_point.connected_level_uid, spawn_point.send_to_location });
+							init();
+							return;
 						}
 
 						//the button is a circle, is in an overlay? do we walk on top of the button?
@@ -410,22 +422,22 @@ void PhysicsSystem::step(float elapsed_ms)
 						}
 						else
 						{
-							if (registry.collidables.get(entity_i).overlay)
-							{
-								//let world_systems handle it
-								//extra guard for potential errors
-								if (!registry.change_behaviours.has(entity_j))
-								{
-									registry.change_behaviours.emplace(entity_j);
-								}
-							}
-							if (registry.collidables.get(entity_j).overlay)
-							{
-								if (!registry.change_behaviours.has(entity_i))
-								{
-									registry.change_behaviours.emplace(entity_i);
-								}
-							}
+							//if (registry.collidables.get(entity_i).overlay)
+							//{
+							//	//let world_systems handle it
+							//	//extra guard for potential errors
+							//	if (!registry.change_behaviours.has(entity_j))
+							//	{
+							//		registry.change_behaviours.emplace(entity_j);
+							//	}
+							//}
+							//if (registry.collidables.get(entity_j).overlay)
+							//{
+							//	if (!registry.change_behaviours.has(entity_i))
+							//	{
+							//		registry.change_behaviours.emplace(entity_i);
+							//	}
+							//}
 						}
 
 						if (registry.collidables.get(entity_i).inelastic && registry.collidables.get(entity_j).inelastic)
@@ -473,10 +485,10 @@ void PhysicsSystem::handle_movement(float elapsed_ms)
 		}
 
 		//remove entity from other tile
-		std::vector<Entity>& old_tile = grid[hash_key(old_tx, old_ty)];
+		std::vector<Entity>& old_tile = grid.at(hash_key(old_tx, old_ty));
 		old_tile.erase(std::remove(old_tile.begin(), old_tile.end(), e), old_tile.end());
 
 		//push entity into the vector of the tile it is in
-		grid[hash_key(tx, ty)].push_back(e);
+		grid.at(hash_key(tx, ty)).push_back(e);
 	}
 }

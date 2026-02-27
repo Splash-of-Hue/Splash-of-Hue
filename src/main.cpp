@@ -63,6 +63,7 @@ int main()
 	colour_system.initialize_palette();
 	world_system.init(&renderer_system);
 	animation_system.init();
+	physics_system.init();
 	// variable timestep loop
 	auto t = Clock::now();
 	while (!world_system.is_over()) {
@@ -89,7 +90,7 @@ int main()
 		physics_system.step(DT);
 		animation_system.step(elapsed_ms);
 		world_system.handle_behaviour_change();
-
+		std::cout << elapsed_ms << std::endl;
 		renderer_system.draw();
 	}
 
