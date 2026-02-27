@@ -78,8 +78,43 @@ vec2 projection(ConvexPolygon& p, vec2 normal)
 	}
 	return vec2(min, max);
 }
+std::vector<vec2> getNormals(ConvexPolygon& p) {
+	std::vector<vec2> normals;
+	//get first edge
+	vec2 edge = p.vertices[0] - p.vertices[p.vertices.size() - 1];
+	normalize(edge);
+	normals.push_back(edge);
+	for (int i = 1; i < p.vertices.size(); i++) {
+		edge = p.vertices[i] - p.vertices[i - 1];
+		normalize(edge);
+		normals.push_back(edge);
+	}
+	return normals;
+}
 bool axisCollision(ConvexPolygon& a, ConvexPolygon& b) {
-	return false;
+	
+	std::vector<vec2> a_normals = getNormals(a);
+	for (int i = 0; i < a_normals.size(); i++) {
+		//project along each normal and if there is a gap, no collision
+		vec2 proj_a = projection(a, a_normals[i]);
+		vec2 proj_b = projection(b, a_normals[i]);
+
+		//check if one projections max is less than the others min
+		//if true, there is a gap
+		if (proj_a.y < proj_b.x || proj_b.y < proj_a.x) {
+			return false;
+		}
+	}
+	std::vector<vec2> b_normals = getNormals(b);
+	for (int i = 0; i < b_normals.size(); i++) {
+		vec2 proj_a = projection(a, b_normals[i]);
+		vec2 proj_b = projection(b, b_normals[i]);
+
+		if (proj_a.y < proj_b.x || proj_b.y < proj_a.x) {
+			return false;
+		}
+	}
+	return true;
 }
 
 bool collides(const Entity& entity1, const Entity& entity2)
@@ -93,43 +128,55 @@ bool collides(const Entity& entity1, const Entity& entity2)
 		return false;
 	}
 
-	if (registry.circles.has(entity1) || registry.circles.has(entity2))
-	{
-		const Entity& eC = registry.circles.has(entity1) ? entity1 : entity2;
-		const Entity& eR = registry.circles.has(entity1) ? entity2 : entity1;
+	//if (registry.circles.has(entity1) || registry.circles.has(entity2))
+	//{
+	//	const Entity& eC = registry.circles.has(entity1) ? entity1 : entity2;
+	//	const Entity& eR = registry.circles.has(entity1) ? entity2 : entity1;
 
-		const vec2& posC = registry.positions.get(eC);
-		const vec2& posR = registry.positions.get(eR);
+	//	const vec2& posC = registry.positions.get(eC);
+	//	const vec2& posR = registry.positions.get(eR);
 
-		const Size& sC = registry.sizes.get(eC);
-		const Size& sR = registry.sizes.get(eR);
-		float radiusC = sR.width * 0.5f;
+	//	const Size& sC = registry.sizes.get(eC);
+	//	const Size& sR = registry.sizes.get(eR);
+	//	float radiusC = sR.width * 0.5f;
 
-		float rectR = posR.x + sR.width * 0.5f;    //we're going to be doing a lot of comparing between
-		float rectL = posR.x - sR.width * 0.5f;    //point on a circle, line on a rectangle, and radius of the circle
-		float rectT = posR.y + sR.height * 0.5f;   //so this is just me creating variables to avoid calling things as much as possible
-		float rectB = posR.y - sR.height * 0.5f;
+	//	float rectR = posR.x + sR.width * 0.5f;    //we're going to be doing a lot of comparing between
+	//	float rectL = posR.x - sR.width * 0.5f;    //point on a circle, line on a rectangle, and radius of the circle
+	//	float rectT = posR.y + sR.height * 0.5f;   //so this is just me creating variables to avoid calling things as much as possible
+	//	float rectB = posR.y - sR.height * 0.5f;
 
-		vec2 vertexTopLeft = { rectL, rectT };
-		vec2 vertexTopRight = { rectR, rectT };
-		vec2 vertexBottomLeft = { rectL, rectB };
-		vec2 vertexBottomRight = { rectR, rectB };
+	//	vec2 vertexTopLeft = { rectL, rectT };
+	//	vec2 vertexTopRight = { rectR, rectT };
+	//	vec2 vertexBottomLeft = { rectL, rectB };
+	//	vec2 vertexBottomRight = { rectR, rectB };
 
-		return (isCircleInRect(posC, radiusC, vertexTopLeft, vertexTopRight, vertexBottomRight) ||
-				isLineInRangeOfCircle(posC, radiusC, vertexTopLeft, vertexTopRight) ||
-				isLineInRangeOfCircle(posC, radiusC, vertexTopRight, vertexBottomRight) ||
-				isLineInRangeOfCircle(posC, radiusC, vertexBottomRight, vertexBottomLeft) ||
-				isLineInRangeOfCircle(posC, radiusC, vertexBottomLeft, vertexTopLeft));
-	}
-	vec4 box1 = get_bounding_box(entity1);
-	vec4 box2 = get_bounding_box(entity2);
+	//	return (isCircleInRect(posC, radiusC, vertexTopLeft, vertexTopRight, vertexBottomRight) ||
+	//			isLineInRangeOfCircle(posC, radiusC, vertexTopLeft, vertexTopRight) ||
+	//			isLineInRangeOfCircle(posC, radiusC, vertexTopRight, vertexBottomRight) ||
+	//			isLineInRangeOfCircle(posC, radiusC, vertexBottomRight, vertexBottomLeft) ||
+	//			isLineInRangeOfCircle(posC, radiusC, vertexBottomLeft, vertexTopLeft));
+	//}
+	//vec4 box1 = get_bounding_box(entity1);
+	//vec4 box2 = get_bounding_box(entity2);
+	vec2& pos = registry.positions.get(entity1);
+	Size& size = registry.sizes.get(entity1);
+	ConvexPolygon a;
+	a.vertices.push_back(vec2(pos.x - size.width * 0.5, pos.y - size.height * 0.5));
+	a.vertices.push_back(vec2(pos.x + size.width * 0.5, pos.y - size.height * 0.5));
+	a.vertices.push_back(vec2(pos.x - size.width * 0.5, pos.y + size.height * 0.5));
+	a.vertices.push_back(vec2(pos.x + size.width * 0.5, pos.y + size.height * 0.5));
+
+	vec2& pos_b = registry.positions.get(entity2);
+	Size& size_b = registry.sizes.get(entity2);
+	ConvexPolygon b;
+	b.vertices.push_back(vec2(pos_b.x - size_b.width * 0.5, pos_b.y - size_b.height * 0.5));
+	b.vertices.push_back(vec2(pos_b.x + size_b.width * 0.5, pos_b.y - size_b.height * 0.5));
+	b.vertices.push_back(vec2(pos_b.x - size_b.width * 0.5, pos_b.y + size_b.height * 0.5));
+	b.vertices.push_back(vec2(pos_b.x + size_b.width * 0.5, pos_b.y + size_b.height * 0.5));
 
 	// This is the equivalent of (left1 > right2 OR right1 < left2) OR (bottom1 > top2 OR top1 < bottom2)
 	// Which is asking if any of the edges of the boxes do NOT overlap.
-	return ((box1[2] <= box2[3]) &&
-			(box2[2] <= box1[3]) &&
-			(box1[0] <= box2[1]) &&
-			(box2[0] <= box1[1]));
+	return (axisCollision(a, b));
 }
 void handle_inelastic_collision(Entity entity_i, Entity entity_j) {
 	vec2& pos1 = registry.positions.get(entity_i);
