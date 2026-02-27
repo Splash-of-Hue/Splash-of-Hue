@@ -180,19 +180,22 @@ void PhysicsSystem::step(float elapsed_ms)
 	{
 		Entity& entity_i = collidables.entities[i];
 		vec2& pos = registry.positions.get(entity_i);
-		int tx = (int)(pos.x / GRID_CELL_WIDTH_PX);
-		int ty = (int)(pos.y / GRID_CELL_HEIGHT_PX);
+		int tx = static_cast<int>(pos.x / GRID_CELL_WIDTH_PX);
+		int ty = static_cast<int>(pos.y / GRID_CELL_HEIGHT_PX);
 
 		//this loops over neighbouring grids for each entity, so the max amount of loops would be 9
 		for (int i = -1; i <= 1; i++)
 		{
 			for (int j = -1; j <= 1; j++) {
-				auto tile = grid.find(hash_key(tx + i, ty + j));
-				if (tile == grid.end()) continue;
+				std::unordered_map<uint64_t, std::vector<Entity>>::iterator tile = grid.find(hash_key(tx + i, ty + j)); tile = grid.find(hash_key(tx + i, ty + j));
+				if (tile == grid.end()) {
+					continue;
+				}
 
 				//loops over entities within that grid, which is considerably smaller amount than all existing entities
 				for (Entity& entity_j : tile->second) {
-					if (entity_j <= entity_i) continue; // avoid duplicates
+					if (entity_j <= entity_i) 
+					   continue; // avoid duplicates
 					if (collides(entity_i, entity_j))
 					{
 						if (registry.collidables.get(entity_i).inelastic && registry.collidables.get(entity_j).inelastic)
@@ -215,11 +218,11 @@ void PhysicsSystem::handle_movement(float elapsed_ms)
 		Entity& e = moving_entities.entities[i];
 		vec2& pos = registry.positions.get(e);
 
-		int old_tx = (int)(pos.x / GRID_CELL_WIDTH_PX);
-		int old_ty = (int)(pos.y / GRID_CELL_HEIGHT_PX);
+		int old_tx = static_cast<int>(pos.x / GRID_CELL_WIDTH_PX);
+		int old_ty = static_cast<int>(pos.y / GRID_CELL_HEIGHT_PX);
 
 		vec2& vel = registry.velocities.get(e);
-		float step = elapsed_ms*0.001;
+		float step = elapsed_ms*ONE_THOUSANDTH;
 		pos += (vel*step);
 
 		if (pos.x > WINDOW_WIDTH_PX || pos.x < 0)
@@ -231,9 +234,9 @@ void PhysicsSystem::handle_movement(float elapsed_ms)
 			pos.y = pos.y > WINDOW_HEIGHT_PX ? WINDOW_HEIGHT_PX : 0;
 		}
 
-		int tx = (int)(pos.x / GRID_CELL_WIDTH_PX);
-		int ty = (int)(pos.y / GRID_CELL_HEIGHT_PX);
-		
+		int tx = static_cast<int>(pos.x / GRID_CELL_WIDTH_PX);
+		int ty = static_cast<int>(pos.y / GRID_CELL_HEIGHT_PX);
+
 		//update the grid position of entity if it changed
 		if (tx == old_tx && ty == old_ty) {
 			continue;
