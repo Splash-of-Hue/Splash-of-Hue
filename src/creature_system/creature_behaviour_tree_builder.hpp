@@ -35,10 +35,10 @@ public:
 		}
 	}
 
-	BehaviourTree buildAnglerfishTree();
-	BehaviourTree buildCrabTree();
-	BehaviourTree buildMinnowTree();
-	BehaviourTree buildSawfishTree();
-	BehaviourTree buildShrimpTree();
-	BehaviourTree buildWhaleTree();
+	static BehaviourTree buildAnglerfishTree();
+	static BehaviourTree buildCrabTree();
+	static BehaviourTree buildMinnowTree();
+	static BehaviourTree buildSawfishTree();
+	static BehaviourTree buildShrimpTree();
+	static BehaviourTree buildWhaleTree();
 };

@@ -19,7 +19,7 @@ Entity createLine(vec2 position, vec2 size);
 /// <param name="height">The size of the rectangle along the y-axis.</param>
 /// <param name="color">The color of the rectangle, defaults to white if not set.</param>
 /// <returns></returns>
-Entity createRectangle(vec2 position, float width, float height, vec4 color = { 1.0, 1.0, 1.0, 1.0 });
+Entity createRectangle(vec2 position, float width, float height, vec4 color = DEFAULT_COLOUR_VEC4);
 
 /// <summary>
 /// Creates an entity associated with a rectangle and returns the entity
@@ -29,8 +29,7 @@ Entity createRectangle(vec2 position, float width, float height, vec4 color = { 
 /// <param name="bottom_right">The (x, y) coordinates of the bottom-right.</param>
 /// <param name="color">The color of the rectangle, defaults to white if not set.</param>
 /// <returns></returns>
-Entity createRectangle(vec2 top_left, vec2 bottom_right, vec4 color = { 1.0, 1.0, 1.0, 1.0 });
-
+Entity createRectangle(vec2 top_left, vec2 bottom_right, vec4 color = DEFAULT_COLOUR_VEC4);
 /// <summary>
 /// Creates an entity associated with a circle and returns the entity
 /// Should have Circle component when returned.
@@ -39,15 +38,4 @@ Entity createRectangle(vec2 top_left, vec2 bottom_right, vec4 color = { 1.0, 1.0
 /// <param name="radius">The size of the circle's radius.</param>
 /// <param name="color">The color of the circle, defaults to white if not set.</param>
 /// <returns></returns>
-Entity createCircle(vec2 position, float radius, vec4 color = { 1.0, 1.0, 1.0, 1.0});
-
-/// <summary>
-/// Creates an entity associated with a sawfish sprite and returns the entity
-/// </summary>
-/// <param name="position">The (x, y) coordinates of the center of the sawfish.</param>
-/// <param name="width">The width of the sawfish.</param>
-/// <param name="height">The height of the sawfish.</param>
-/// <param name="color">The color of the sawfish, defaults to white if not set.</param>
-/// <returns></returns>
-/// TODO: 69 - move to creature creator when that is made
-Entity createSawfish(vec2 position, float width, float height, COLOUR_STATE color_state);
+Entity createCircle(vec2 position, float radius, vec4 color = DEFAULT_COLOUR_VEC4);
