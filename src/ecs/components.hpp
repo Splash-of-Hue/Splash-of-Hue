@@ -143,3 +143,7 @@ struct ColouredWall
 {
 
 };
+
+struct ConvexPolygon {
+	std::vector<glm::vec2> vertices;
+};
