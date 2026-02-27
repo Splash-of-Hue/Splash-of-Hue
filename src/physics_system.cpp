@@ -204,7 +204,7 @@ void PhysicsSystem::handle_movement(float elapsed_ms)
 		int old_ty = static_cast<int>(pos.y / GRID_CELL_HEIGHT_PX);
 
 		vec2& vel = registry.velocities.get(e);
-		float step = elapsed_ms*0.001;
+		float step = elapsed_ms*ONE_THOUSANDTH;
 		pos += (vel*step);
 
 		if (pos.x > WINDOW_WIDTH_PX || pos.x < 0)
