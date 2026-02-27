@@ -141,28 +141,38 @@ void handle_inelastic_collision(Entity entity_i, Entity entity_j) {
 	float y_depth = box1[1] < box2[1] ? box1[1] - box2[0] : box2[1] - box1[0];
 	x_depth = fmaxf(0, x_depth);
 	y_depth = fmaxf(0, y_depth);
+	vec2* pos_to_correct = &pos1;
+	vec2* other_pos = &pos2;
 
+	if (registry.players.has(entity_j)) {
+		pos_to_correct = &pos2;
+		other_pos = &pos1;
+	}
+
+	if (!registry.velocities.has(entity_i)) {
+		pos_to_correct = &pos2;
+		other_pos = &pos1;
+	}
 	if (x_depth < y_depth)
 	{
-		if (pos1.x < pos2.x)
+		if (pos_to_correct->x < other_pos->x)
 		{
-			pos1.x -= x_depth;
+			pos_to_correct->x -= x_depth;
 		}
 		else
 		{
-			pos1.x += x_depth;
+			pos_to_correct->x += x_depth;
 		}
-
 	}
 	else
 	{
-		if (pos1.y < pos2.y)
+		if (pos_to_correct->y < other_pos->y)
 		{
-			pos1.y -= y_depth;
+			pos_to_correct->y -= y_depth;
 		}
 		else
 		{
-			pos1.y += y_depth;
+			pos_to_correct->y += y_depth;
 		}
 	}
 }
@@ -174,6 +184,7 @@ uint64_t hash_key(int tx, int ty) {
 void PhysicsSystem::step(float elapsed_ms)
 {
 	handle_movement(elapsed_ms);
+	std::set<std::pair<int, int>> checked;
 
 	ComponentContainer<Collidable>& collidables = registry.collidables;
 	for (int i = 0; i < collidables.components.size(); i++)
@@ -194,8 +205,15 @@ void PhysicsSystem::step(float elapsed_ms)
 
 				//loops over entities within that grid, which is considerably smaller amount than all existing entities
 				for (Entity& entity_j : tile->second) {
-					if (entity_j <= entity_i) 
-					   continue; // avoid duplicates
+					if (entity_j == entity_i) 
+					   continue; // avoid self 
+
+					//avoid duplicates:
+					std::pair<int, int> pair = std::make_pair(std::min(entity_i.id(), entity_j.id()),std::max(entity_i.id(), entity_j.id()));
+					if (checked.count(pair)) 
+						continue;
+					checked.insert(pair);
+
 					if (collides(entity_i, entity_j))
 					{
 						if (registry.collidables.get(entity_i).inelastic && registry.collidables.get(entity_j).inelastic)
@@ -236,7 +254,7 @@ void PhysicsSystem::handle_movement(float elapsed_ms)
 
 		int tx = static_cast<int>(pos.x / GRID_CELL_WIDTH_PX);
 		int ty = static_cast<int>(pos.y / GRID_CELL_HEIGHT_PX);
-
+		std::cout << tx << ty << std::endl;
 		//update the grid position of entity if it changed
 		if (tx == old_tx && ty == old_ty) {
 			continue;

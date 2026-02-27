@@ -20,7 +20,7 @@ void addGeneralCreatureComponents(Entity creature, vec2 position, float width, f
     registry.colourStates.insert(creature, { color_state });
     registry.creatures.insert(creature, { creature_type });
     registry.positions.insert(creature, position);
-    registry.scales.insert(creature, vec2(2.0f * GRID_CELL_WIDTH_PX, 2.0f * GRID_CELL_HEIGHT_PX));
+    registry.scales.insert(creature, vec2(width, height));
     registry.sizes.insert(creature, Size{ width, height });
     registry.velocities.emplace(creature);
     
