@@ -5,8 +5,6 @@
 #include <math.h>
 #include <numeric>
 
-
-
 // Returns the local bounding coordinates scaled by the current size of the entity
 vec4 get_bounding_box(const Entity& entity)
 {
