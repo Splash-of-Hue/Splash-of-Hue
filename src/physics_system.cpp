@@ -82,17 +82,20 @@ std::vector<vec2> getNormals(ConvexPolygon& p) {
 	std::vector<vec2> normals;
 	//get first edge
 	vec2 edge = p.vertices[0] - p.vertices[p.vertices.size() - 1];
-	normalize(edge);
+	edge = vec2(edge.y, -edge.x);
+	edge = normalize(edge);
 	normals.push_back(edge);
 	for (int i = 1; i < p.vertices.size(); i++) {
 		edge = p.vertices[i] - p.vertices[i - 1];
-		normalize(edge);
+		edge = vec2(edge.y, -edge.x);
+		edge = normalize(edge);
 		normals.push_back(edge);
 	}
 	return normals;
 }
-bool axisCollision(ConvexPolygon& a, ConvexPolygon& b) {
+vec3 axisCollision(ConvexPolygon& a, ConvexPolygon& b) {
 	
+	vec3 penetration = vec3(WINDOW_WIDTH_PX, 0.f, 0.f);
 	std::vector<vec2> a_normals = getNormals(a);
 	for (int i = 0; i < a_normals.size(); i++) {
 		//project along each normal and if there is a gap, no collision
@@ -102,7 +105,14 @@ bool axisCollision(ConvexPolygon& a, ConvexPolygon& b) {
 		//check if one projections max is less than the others min
 		//if true, there is a gap
 		if (proj_a.y < proj_b.x || proj_b.y < proj_a.x) {
-			return false;
+			return vec3(0.f, 0.f, 0.f);
+		}
+		//keep track of smallest penetration for resolution
+		float p = min(abs(proj_a.x - proj_b.y), abs(proj_a.y - proj_b.x));
+		if (p < penetration.x) {
+			penetration.x = p;
+			penetration.y = a_normals[i].x;
+			penetration.z = a_normals[i].y;
 		}
 	}
 	std::vector<vec2> b_normals = getNormals(b);
@@ -111,21 +121,27 @@ bool axisCollision(ConvexPolygon& a, ConvexPolygon& b) {
 		vec2 proj_b = projection(b, b_normals[i]);
 
 		if (proj_a.y < proj_b.x || proj_b.y < proj_a.x) {
-			return false;
+			return vec3(0.f, 0.f, 0.f);
+		}
+		float p = min(abs(proj_a.x - proj_b.y), abs(proj_a.y - proj_b.x));
+		if (p < penetration.x) {
+			penetration.x = p;
+			penetration.y = b_normals[i].x;
+			penetration.z = b_normals[i].y;
 		}
 	}
-	return true;
+	return penetration;
 }
 
-bool collides(const Entity& entity1, const Entity& entity2)
+vec3 collides(const Entity& entity1, const Entity& entity2)
 {
 	if (!registry.positions.has(entity1) || !registry.positions.has(entity2))
 	{
-		return false;
+		return vec3(0.f, 0.f, 0.f);;
 	}
 	if (!registry.sizes.has(entity1) || !registry.sizes.has(entity2))
 	{
-		return false;
+		return vec3(0.f, 0.f, 0.f);;
 	}
 
 	//if (registry.circles.has(entity1) || registry.circles.has(entity2))
@@ -161,24 +177,23 @@ bool collides(const Entity& entity1, const Entity& entity2)
 	vec2& pos = registry.positions.get(entity1);
 	Size& size = registry.sizes.get(entity1);
 	ConvexPolygon a;
-	a.vertices.push_back(vec2(pos.x - size.width * 0.5, pos.y - size.height * 0.5));
-	a.vertices.push_back(vec2(pos.x + size.width * 0.5, pos.y - size.height * 0.5));
-	a.vertices.push_back(vec2(pos.x - size.width * 0.5, pos.y + size.height * 0.5));
-	a.vertices.push_back(vec2(pos.x + size.width * 0.5, pos.y + size.height * 0.5));
+	a.vertices.push_back(vec2(pos.x, pos.y - size.height * 0.15f)); // bottom right
+	a.vertices.push_back(vec2(pos.x + size.width * 0.5f, pos.y + size.height * 0.15f)); // top right
+	a.vertices.push_back(vec2(pos.x - size.width * 0.5f, pos.y + size.height * 0.15f)); // top left
 
 	vec2& pos_b = registry.positions.get(entity2);
 	Size& size_b = registry.sizes.get(entity2);
 	ConvexPolygon b;
-	b.vertices.push_back(vec2(pos_b.x - size_b.width * 0.5, pos_b.y - size_b.height * 0.5));
-	b.vertices.push_back(vec2(pos_b.x + size_b.width * 0.5, pos_b.y - size_b.height * 0.5));
-	b.vertices.push_back(vec2(pos_b.x - size_b.width * 0.5, pos_b.y + size_b.height * 0.5));
-	b.vertices.push_back(vec2(pos_b.x + size_b.width * 0.5, pos_b.y + size_b.height * 0.5));
+	b.vertices.push_back(vec2(pos_b.x - size_b.width * 0.5f, pos_b.y - size_b.height * 0.5f)); // bottom left
+	b.vertices.push_back(vec2(pos_b.x + size_b.width * 0.5f, pos_b.y - size_b.height * 0.5f)); // bottom right
+	b.vertices.push_back(vec2(pos_b.x + size_b.width * 0.5f, pos_b.y + size_b.height * 0.5f)); // top right
+	b.vertices.push_back(vec2(pos_b.x - size_b.width * 0.5f, pos_b.y + size_b.height * 0.5f)); // top left
 
 	// This is the equivalent of (left1 > right2 OR right1 < left2) OR (bottom1 > top2 OR top1 < bottom2)
 	// Which is asking if any of the edges of the boxes do NOT overlap.
 	return (axisCollision(a, b));
 }
-void handle_inelastic_collision(Entity entity_i, Entity entity_j) {
+void handle_inelastic_collision(Entity entity_i, Entity entity_j, vec3 penetration) {
 	vec2& pos1 = registry.positions.get(entity_i);
 	vec2& pos2 = registry.positions.get(entity_j);
 	vec4 box1 = get_bounding_box(entity_i);
@@ -200,28 +215,14 @@ void handle_inelastic_collision(Entity entity_i, Entity entity_j) {
 		pos_to_correct = &pos2;
 		other_pos = &pos1;
 	}
-	if (x_depth < y_depth)
-	{
-		if (pos_to_correct->x < other_pos->x)
-		{
-			pos_to_correct->x -= x_depth;
-		}
-		else
-		{
-			pos_to_correct->x += x_depth;
-		}
-	}
-	else
-	{
-		if (pos_to_correct->y < other_pos->y)
-		{
-			pos_to_correct->y -= y_depth;
-		}
-		else
-		{
-			pos_to_correct->y += y_depth;
-		}
-	}
+	vec2 dir = *pos_to_correct - *other_pos;
+
+	// if the normal points toward the other, flip
+	float dir_check = dir.x * penetration.y + dir.y * penetration.z;
+	float sign = dir_check >= 0 ? 1.0f : -1.0f;
+	pos_to_correct->x += (penetration.x * penetration.y*sign);
+	pos_to_correct->y += (penetration.x * penetration.z*sign);
+	
 }
 
 uint64_t hash_key(int tx, int ty) {
@@ -260,13 +261,13 @@ void PhysicsSystem::step(float elapsed_ms)
 					if (checked.count(pair)) 
 						continue;
 					checked.insert(pair);
-
-					if (collides(entity_i, entity_j))
+					vec3 penetration = collides(entity_i, entity_j);
+					if (penetration.x != 0.f)
 					{
 						if (registry.collidables.get(entity_i).inelastic && registry.collidables.get(entity_j).inelastic)
 						{
 							//handle it here because using bounding box for correction (also it is a physics resolution)
-							handle_inelastic_collision(entity_i, entity_j);
+							handle_inelastic_collision(entity_i, entity_j, penetration);
 						}
 					}
 				}
