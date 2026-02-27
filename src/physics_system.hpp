@@ -17,6 +17,6 @@ public:
 
 private:
 	std::unordered_map<uint64_t, std::vector<Entity>> grid;
-
+	vec2 level_offset;
 	void handle_movement(float elapsed_ms);
 };

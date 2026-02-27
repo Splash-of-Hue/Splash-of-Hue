@@ -44,10 +44,12 @@ const int WINDOW_WIDTH_PX = 1280;
 const int WINDOW_HEIGHT_PX = 720;
 inline vec2 window_center() { return vec2(WINDOW_WIDTH_PX, WINDOW_HEIGHT_PX) * 0.5f; };
 
-//divide window into 8 x 6 subsections for spatial subdivsion
+const int LEVEL_WIDTH_PX = 1920;
+const int LEVEL_HEIGHT_PX = 1080;
+//divide window into 10 x 10 subsections for spatial subdivsion
 // if an entity is larger than one of these values, then need to increase the grid size
-const int GRID_CELL_WIDTH_PX = 160;
-const int GRID_CELL_HEIGHT_PX = 120;
+const int GRID_CELL_WIDTH_PX = 192;
+const int GRID_CELL_HEIGHT_PX = 108;
 const int GRID_LINE_WIDTH_PX = 2;
 const float PLAYER_SPEED = 300.0f;
 const float PLAYER_SCALE = 0.9f;

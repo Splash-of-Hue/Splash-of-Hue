@@ -216,9 +216,9 @@ uint64_t hash_key(int tx, int ty) {
 }
 void PhysicsSystem::init() {
 	grid.clear();
-
-	int tx = WINDOW_WIDTH_PX / GRID_CELL_WIDTH_PX;
-	int ty = WINDOW_HEIGHT_PX / GRID_CELL_HEIGHT_PX;
+	WorldSystem::current_level_uid
+	int tx = static_cast<int>(LEVEL_WIDTH_PX / GRID_CELL_WIDTH_PX);
+	int ty = static_cast<int>(LEVEL_HEIGHT_PX/ GRID_CELL_HEIGHT_PX);
 	for (int i = 0; i < tx; i++) {
 		for (int j = 0; j < ty; j++) {
 			//initialize grid to empty vector list
@@ -420,25 +420,6 @@ void PhysicsSystem::step(float elapsed_ms)
 							}
 
 						}
-						else
-						{
-							//if (registry.collidables.get(entity_i).overlay)
-							//{
-							//	//let world_systems handle it
-							//	//extra guard for potential errors
-							//	if (!registry.change_behaviours.has(entity_j))
-							//	{
-							//		registry.change_behaviours.emplace(entity_j);
-							//	}
-							//}
-							//if (registry.collidables.get(entity_j).overlay)
-							//{
-							//	if (!registry.change_behaviours.has(entity_i))
-							//	{
-							//		registry.change_behaviours.emplace(entity_i);
-							//	}
-							//}
-						}
 
 						if (registry.collidables.get(entity_i).inelastic && registry.collidables.get(entity_j).inelastic)
 						{
@@ -466,15 +447,6 @@ void PhysicsSystem::handle_movement(float elapsed_ms)
 		vec2& vel = registry.velocities.get(e);
 		float step = elapsed_ms*ONE_THOUSANDTH;
 		pos += (vel*step);
-
-		if (pos.x > WINDOW_WIDTH_PX || pos.x < 0)
-		{
-			pos.x = pos.x > WINDOW_WIDTH_PX ? WINDOW_WIDTH_PX : 0;
-		}
-		if (pos.y < 0 || pos.y > WINDOW_HEIGHT_PX)
-		{
-			pos.y = pos.y > WINDOW_HEIGHT_PX ? WINDOW_HEIGHT_PX : 0;
-		}
 
 		int tx = static_cast<int>(pos.x / GRID_CELL_WIDTH_PX);
 		int ty = static_cast<int>(pos.y / GRID_CELL_HEIGHT_PX);
