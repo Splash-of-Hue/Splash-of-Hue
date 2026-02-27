@@ -37,7 +37,9 @@ void CameraSystem::step(float elapsed_ms)
 	const vec2& request_position_difference = change_request.target - camera_position;
 	const vec2& camera_move_direction = normalize(request_position_difference);
 	// Only go part of the way if we have less than the speed to get there
-	const vec2& move_velocity = fminf(change_request.speed, length(request_position_difference)) * camera_move_direction;
+	float distance_left = length(request_position_difference);
+	float step_size = (change_request.speed * elapsed_ms * ONE_THOUSANDTH);
+	const vec2& move_velocity = step_size < distance_left ? (change_request.speed * camera_move_direction) : request_position_difference;
 	camera_velocity = move_velocity;
 
 	// If multiple camera changes are requested, we only care about the most recent one
