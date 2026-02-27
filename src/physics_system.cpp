@@ -181,7 +181,6 @@ vec3 collides(const Entity& entity1, const Entity& entity2)
 	//create polygon either returns rectangle or predefined polygon of entity
 	ConvexPolygon& a = createPolygon(entity1);
 	ConvexPolygon& b = createPolygon(entity2);
-	//std::cout << "a vertices: " << a.vertices.size() << " b vertices: " << b.vertices.size() << std::endl;
 	return (axisCollision(a, b));
 }
 
@@ -219,15 +218,15 @@ uint64_t hash_key(int tx, int ty) {
 }
 
 void PhysicsSystem::init() {
-	grid.clear();
-	int tx = static_cast<int>(LEVEL_WIDTH_PX / GRID_CELL_WIDTH_PX);
-	int ty = static_cast<int>(LEVEL_HEIGHT_PX/ GRID_CELL_HEIGHT_PX);
-	for (int i = 0; i < tx; i++) {
-		for (int j = 0; j < ty; j++) {
-			//initialize grid to empty vector list
-			grid[hash_key(i, j)] = std::vector<Entity>();
-		}
-	}
+	//grid.clear();
+	//int tx = static_cast<int>(LEVEL_WIDTH_PX / GRID_CELL_WIDTH_PX);
+	//int ty = static_cast<int>(LEVEL_HEIGHT_PX/ GRID_CELL_HEIGHT_PX);
+	//for (int i = 0; i < tx; i++) {
+	//	for (int j = 0; j < ty; j++) {
+	//		//initialize grid to empty vector list
+	//		grid[hash_key(i, j)] = std::vector<Entity>();
+	//	}
+	//}
 }
 
 void PhysicsSystem::step(float elapsed_ms)
@@ -252,7 +251,6 @@ void PhysicsSystem::step(float elapsed_ms)
 				if (tile == grid.end()) {
 					continue;
 				}
-
 				//loops over entities within that grid, which is considerably smaller amount than all existing entities
 				for (Entity& entity_j : tile->second) {
 					if (entity_j == entity_i) 
@@ -263,7 +261,6 @@ void PhysicsSystem::step(float elapsed_ms)
 					if (checked.count(pair)) 
 						continue;
 					checked.insert(pair);
-
 					//if penetration is not 0, then a collision has occured
 					vec3 penetration = collides(entity_i, entity_j);
 
@@ -272,9 +269,6 @@ void PhysicsSystem::step(float elapsed_ms)
 						// TODO UurbFK4Z: Handle in callback instead of in the physics system
 						if (registry.players.has(entity_i) && registry.spawnPoints.has(entity_j) || registry.players.has(entity_j) && registry.spawnPoints.has(entity_i))
 						{
-							if (!registry.changeMapLevelRequests.entities.empty()) {
-								return;
-							}
 							grid.clear();
 							Entity change_map_request_entity;
 							Entity& spawn_point_entity = registry.spawnPoints.has(entity_i) ? entity_i : entity_j;
@@ -324,6 +318,6 @@ void PhysicsSystem::handle_movement(float elapsed_ms)
 
 		//push entity into the vector of the tile it is in
 		grid[hash_key(tx, ty)].push_back(e);
-		std::cout << tx << ty << std::endl;
+		//std::cout << tx << ty << std::endl;
 	}
 }
