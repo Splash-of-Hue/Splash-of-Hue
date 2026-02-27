@@ -18,7 +18,6 @@ vec4 get_bounding_box(const Entity& entity)
 	float top = pos[1] + half_height;
 	float left = pos[0] - half_width;
 	float right = pos[0] + half_width;
-
 	return { bottom, top, left, right };
 }
 
@@ -137,60 +136,50 @@ vec3 collides(const Entity& entity1, const Entity& entity2)
 {
 	if (!registry.positions.has(entity1) || !registry.positions.has(entity2))
 	{
-		return vec3(0.f, 0.f, 0.f);;
+		return vec3(0.f, 0.f, 0.f);
 	}
 	if (!registry.sizes.has(entity1) || !registry.sizes.has(entity2))
 	{
-		return vec3(0.f, 0.f, 0.f);;
+		return vec3(0.f, 0.f, 0.f);
 	}
 
-	//if (registry.circles.has(entity1) || registry.circles.has(entity2))
-	//{
-	//	const Entity& eC = registry.circles.has(entity1) ? entity1 : entity2;
-	//	const Entity& eR = registry.circles.has(entity1) ? entity2 : entity1;
+	if (registry.circles.has(entity1) || registry.circles.has(entity2))
+	{
+		const Entity& eC = registry.circles.has(entity1) ? entity1 : entity2;
+		const Entity& eR = registry.circles.has(entity1) ? entity2 : entity1;
 
-	//	const vec2& posC = registry.positions.get(eC);
-	//	const vec2& posR = registry.positions.get(eR);
+		const vec2& posC = registry.positions.get(eC);
+		const vec2& posR = registry.positions.get(eR);
 
-	//	const Size& sC = registry.sizes.get(eC);
-	//	const Size& sR = registry.sizes.get(eR);
-	//	float radiusC = sR.width * 0.5f;
+		const Size& sC = registry.sizes.get(eC);
+		const Size& sR = registry.sizes.get(eR);
+		float radiusC = sR.width * 0.5f;
 
-	//	float rectR = posR.x + sR.width * 0.5f;    //we're going to be doing a lot of comparing between
-	//	float rectL = posR.x - sR.width * 0.5f;    //point on a circle, line on a rectangle, and radius of the circle
-	//	float rectT = posR.y + sR.height * 0.5f;   //so this is just me creating variables to avoid calling things as much as possible
-	//	float rectB = posR.y - sR.height * 0.5f;
+		float rectR = posR.x + sR.width * 0.5f;    //we're going to be doing a lot of comparing between
+		float rectL = posR.x - sR.width * 0.5f;    //point on a circle, line on a rectangle, and radius of the circle
+		float rectT = posR.y + sR.height * 0.5f;   //so this is just me creating variables to avoid calling things as much as possible
+		float rectB = posR.y - sR.height * 0.5f;
 
-	//	vec2 vertexTopLeft = { rectL, rectT };
-	//	vec2 vertexTopRight = { rectR, rectT };
-	//	vec2 vertexBottomLeft = { rectL, rectB };
-	//	vec2 vertexBottomRight = { rectR, rectB };
+		vec2 vertexTopLeft = { rectL, rectT };
+		vec2 vertexTopRight = { rectR, rectT };
+		vec2 vertexBottomLeft = { rectL, rectB };
+		vec2 vertexBottomRight = { rectR, rectB };
 
-	//	return (isCircleInRect(posC, radiusC, vertexTopLeft, vertexTopRight, vertexBottomRight) ||
-	//			isLineInRangeOfCircle(posC, radiusC, vertexTopLeft, vertexTopRight) ||
-	//			isLineInRangeOfCircle(posC, radiusC, vertexTopRight, vertexBottomRight) ||
-	//			isLineInRangeOfCircle(posC, radiusC, vertexBottomRight, vertexBottomLeft) ||
-	//			isLineInRangeOfCircle(posC, radiusC, vertexBottomLeft, vertexTopLeft));
-	//}
-	//vec4 box1 = get_bounding_box(entity1);
-	//vec4 box2 = get_bounding_box(entity2);
-	vec2& pos = registry.positions.get(entity1);
-	Size& size = registry.sizes.get(entity1);
-	ConvexPolygon a;
-	a.vertices.push_back(vec2(pos.x, pos.y - size.height * 0.15f)); // bottom right
-	a.vertices.push_back(vec2(pos.x + size.width * 0.5f, pos.y + size.height * 0.15f)); // top right
-	a.vertices.push_back(vec2(pos.x - size.width * 0.5f, pos.y + size.height * 0.15f)); // top left
-
-	vec2& pos_b = registry.positions.get(entity2);
-	Size& size_b = registry.sizes.get(entity2);
-	ConvexPolygon b;
-	b.vertices.push_back(vec2(pos_b.x - size_b.width * 0.5f, pos_b.y - size_b.height * 0.5f)); // bottom left
-	b.vertices.push_back(vec2(pos_b.x + size_b.width * 0.5f, pos_b.y - size_b.height * 0.5f)); // bottom right
-	b.vertices.push_back(vec2(pos_b.x + size_b.width * 0.5f, pos_b.y + size_b.height * 0.5f)); // top right
-	b.vertices.push_back(vec2(pos_b.x - size_b.width * 0.5f, pos_b.y + size_b.height * 0.5f)); // top left
-
-	// This is the equivalent of (left1 > right2 OR right1 < left2) OR (bottom1 > top2 OR top1 < bottom2)
-	// Which is asking if any of the edges of the boxes do NOT overlap.
+		if ((isCircleInRect(posC, radiusC, vertexTopLeft, vertexTopRight, vertexBottomRight) ||
+			isLineInRangeOfCircle(posC, radiusC, vertexTopLeft, vertexTopRight) ||
+			isLineInRangeOfCircle(posC, radiusC, vertexTopRight, vertexBottomRight) ||
+			isLineInRangeOfCircle(posC, radiusC, vertexBottomRight, vertexBottomLeft) ||
+			isLineInRangeOfCircle(posC, radiusC, vertexBottomLeft, vertexTopLeft))) {
+			//since circle-rect collision prolly wont need penetration depth anyways
+			//don't return 0 for x value though, otherwise it is "false"
+			return vec3{ 1.0f, 0.0f, 0.0f };
+		}
+			
+	}
+	//create polygon either returns rectangle or predefined polygon of entity
+	ConvexPolygon& a = createPolygon(entity1);
+	ConvexPolygon& b = createPolygon(entity2);
+	std::cout << "a vertices: " << a.vertices.size() << " b vertices: " << b.vertices.size() << std::endl;
 	return (axisCollision(a, b));
 }
 void handle_inelastic_collision(Entity entity_i, Entity entity_j, vec3 penetration) {
@@ -199,10 +188,6 @@ void handle_inelastic_collision(Entity entity_i, Entity entity_j, vec3 penetrati
 	vec4 box1 = get_bounding_box(entity_i);
 	vec4 box2 = get_bounding_box(entity_j);
 
-	float x_depth = box1[3] < box2[3] ? box1[3] - box2[2] : box2[3] - box1[2];
-	float y_depth = box1[1] < box2[1] ? box1[1] - box2[0] : box2[1] - box1[0];
-	x_depth = fmaxf(0, x_depth);
-	y_depth = fmaxf(0, y_depth);
 	vec2* pos_to_correct = &pos1;
 	vec2* other_pos = &pos2;
 
@@ -261,6 +246,7 @@ void PhysicsSystem::step(float elapsed_ms)
 					if (checked.count(pair)) 
 						continue;
 					checked.insert(pair);
+					//if penetration is not 0, then a collision has occured
 					vec3 penetration = collides(entity_i, entity_j);
 					if (penetration.x != 0.f)
 					{

@@ -146,4 +146,5 @@ struct ColouredWall
 
 struct ConvexPolygon {
 	std::vector<vec2> vertices;
+	vec2 centre;
 };

@@ -100,3 +100,30 @@ Entity createCircle(vec2 position, float radius, vec4 color)
 	
 	return entity;
 }
+
+ConvexPolygon createPolygon(const Entity& e) {
+	
+	//if it already has a polygon, its position needs to be updated
+	if (registry.polygons.has(e)) {
+		ConvexPolygon& polygon = registry.polygons.get(e);
+		vec2& pos = registry.positions.get(e);
+		vec2 change_in_pos = pos - polygon.centre;
+		for (vec2& v : polygon.vertices) {
+			v += change_in_pos;
+		}
+		polygon.centre = pos;
+		return polygon;
+	}
+	//default is rectangle
+	ConvexPolygon& polygon = registry.polygons.emplace(e);
+	vec2& pos = registry.positions.get(e);
+	Size& size = registry.sizes.get(e);
+	polygon.centre = pos;
+	polygon.vertices.push_back(vec2(pos.x - size.width * 0.5f, pos.y - size.height * 0.5f)); // bottom left
+	polygon.vertices.push_back(vec2(pos.x + size.width * 0.5f, pos.y - size.height * 0.5f)); // bottom right
+	polygon.vertices.push_back(vec2(pos.x + size.width * 0.5f, pos.y + size.height * 0.5f)); // top right
+	polygon.vertices.push_back(vec2(pos.x - size.width * 0.5f, pos.y + size.height * 0.5f)); // top left
+
+	return polygon;
+
+}

@@ -39,3 +39,9 @@ Entity createRectangle(vec2 top_left, vec2 bottom_right, vec4 color = DEFAULT_CO
 /// <param name="color">The color of the circle, defaults to white if not set.</param>
 /// <returns></returns>
 Entity createCircle(vec2 position, float radius, vec4 color = DEFAULT_COLOUR_VEC4);
+/// <summary>
+/// Checks if an entity has existing polygon and if not, creates a rectangle polygon
+/// </summary>
+/// <param name="Entity">The entity that will be assigned a polygon component</param>
+/// <returns></returns>
+ConvexPolygon createPolygon(const Entity& e);

@@ -63,6 +63,7 @@ public:
 	ComponentContainer<ChangeBehaviour> change_behaviours;
 	ComponentContainer<Collidable> collidables;
 	ComponentContainer<Collision> collisions;
+	ComponentContainer<ConvexPolygon> polygons;
 	// Physics - Movement / Transforms
 	ComponentContainer<Angle> angles;
 	ComponentContainer<vec2> positions;
