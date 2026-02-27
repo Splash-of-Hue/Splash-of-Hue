@@ -90,7 +90,6 @@ int main()
 		physics_system.step(DT);
 		animation_system.step(elapsed_ms);
 		world_system.handle_behaviour_change();
-		std::cout << elapsed_ms << std::endl;
 		renderer_system.draw();
 	}
 

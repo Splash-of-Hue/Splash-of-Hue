@@ -232,9 +232,7 @@ void PhysicsSystem::init() {
 
 void PhysicsSystem::step(float elapsed_ms)
 {
-	if (!registry.changeMapLevelRequests.entities.empty()) {
-		return;
-	}
+
 	handle_movement(elapsed_ms);
 	std::set<uint64_t> checked;
 
@@ -265,20 +263,23 @@ void PhysicsSystem::step(float elapsed_ms)
 					if (checked.count(pair)) 
 						continue;
 					checked.insert(pair);
+
 					//if penetration is not 0, then a collision has occured
 					vec3 penetration = collides(entity_i, entity_j);
+
 					if (penetration.x != 0.f)
 					{
-
 						// TODO UurbFK4Z: Handle in callback instead of in the physics system
 						if (registry.players.has(entity_i) && registry.spawnPoints.has(entity_j) || registry.players.has(entity_j) && registry.spawnPoints.has(entity_i))
 						{
-							
+							if (!registry.changeMapLevelRequests.entities.empty()) {
+								return;
+							}
+							grid.clear();
 							Entity change_map_request_entity;
 							Entity& spawn_point_entity = registry.spawnPoints.has(entity_i) ? entity_i : entity_j;
 							const SpawnPoint& spawn_point = registry.spawnPoints.get(spawn_point_entity);
 							registry.changeMapLevelRequests.insert(change_map_request_entity, { spawn_point.connected_level_uid, spawn_point.send_to_location });
-							init();
 							return;
 						}
 
@@ -318,10 +319,11 @@ void PhysicsSystem::handle_movement(float elapsed_ms)
 		}
 
 		//remove entity from other tile
-		std::vector<Entity>& old_tile = grid.at(hash_key(old_tx, old_ty));
+		std::vector<Entity>& old_tile = grid[hash_key(old_tx, old_ty)];
 		old_tile.erase(std::remove(old_tile.begin(), old_tile.end(), e), old_tile.end());
 
 		//push entity into the vector of the tile it is in
-		grid.at(hash_key(tx, ty)).push_back(e);
+		grid[hash_key(tx, ty)].push_back(e);
+		std::cout << tx << ty << std::endl;
 	}
 }
