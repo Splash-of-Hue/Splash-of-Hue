@@ -12,11 +12,11 @@ Entity PlayerControllerSystem::create_player()
 	//auto& player_entity = createPlayer({ 0, 0 }, 40.0f, 40.0f, color_from_state);
 	Entity player_entity = Entity();
 	//TODO: RD9Gsz6C change to constant spawning point
-	registry.positions.insert(player_entity, { GRID_CELL_WIDTH_PX, GRID_CELL_HEIGHT_PX });
+	vec2& pos = registry.positions.insert(player_entity, { GRID_CELL_WIDTH_PX, GRID_CELL_HEIGHT_PX });
 	registry.scales.insert(player_entity, vec2((float)2.0f * GRID_CELL_WIDTH_PX, (float)2.0f * GRID_CELL_HEIGHT_PX));
 	registry.angles.emplace(player_entity);
 	registry.angles.get(player_entity).degrees = 0.0f;
-	registry.sizes.insert(player_entity, Size{ 40.0f, 40.0f });
+	Size& size = registry.sizes.insert(player_entity, Size{ 40.0f, 40.0f });
 	registry.colors.emplace(player_entity, color_from_state);
 	registry.textured.emplace(player_entity);
 	registry.textured.get(player_entity).used_texture = TEXTURE_ASSET_ID::PLAYER_TEXTURE_01;
@@ -34,6 +34,15 @@ Entity PlayerControllerSystem::create_player()
 	registry.colourStates.emplace(player_entity, player_color_state);
 	Collidable& collidable = registry.collidables.emplace(player_entity);
 	collidable.inelastic = true;
+	//default is triangle
+	PolygonMesh& polygon = registry.polygons.emplace(player_entity);
+	polygon.centre = pos;
+	//Entity heights and widths are too large, this is a temp fix
+	//TODO: DMdDb4NW
+	polygon.vertices.push_back(vec2(pos.x, pos.y - size.height * 0.15f)); // bottom
+	polygon.vertices.push_back(vec2(pos.x + size.width * 0.25f, pos.y + size.height * 0.15f)); // top right
+	polygon.vertices.push_back(vec2(pos.x - size.width * 0.25f, pos.y + size.height * 0.15f)); // top left
+
 
 	return player_entity;
 }

@@ -6,6 +6,9 @@
 #include <numeric>
 
 // Returns the local bounding coordinates scaled by the current size of the entity
+
+
+
 vec4 get_bounding_box(const Entity& entity)
 {
 	Size& size = registry.sizes.get(entity);
@@ -64,7 +67,7 @@ bool isLineInRangeOfCircle(vec2 posC, float radiusC, vec2 point1, vec2 point2)
 	}
 }
 
-bool collides(const Entity& entity1, const Entity& entity2)
+bool box_collides(const Entity& entity1, const Entity& entity2)
 {
 	if (!registry.positions.has(entity1) || !registry.positions.has(entity2))
 	{
@@ -113,6 +116,174 @@ bool collides(const Entity& entity1, const Entity& entity2)
 			(box1[0] <= box2[1]) &&
 			(box2[0] <= box1[1]));
 }
+void handle_inelastic_collision_box(Entity& entity_i, Entity& entity_j) {
+	vec2& pos1 = registry.positions.get(entity_i);
+	vec2& pos2 = registry.positions.get(entity_j);
+	vec4 box1 = get_bounding_box(entity_i);
+	vec4 box2 = get_bounding_box(entity_j);
+
+	float x_depth = box1[3] < box2[3] ? box1[3] - box2[2] : box2[3] - box1[2];
+	float y_depth = box1[1] < box2[1] ? box1[1] - box2[0] : box2[1] - box1[0];
+	x_depth = fmaxf(0, x_depth);
+	y_depth = fmaxf(0, y_depth);
+
+	if (x_depth < y_depth)
+	{
+		if (pos1.x < pos2.x)
+		{
+			pos1.x -= x_depth;
+		}
+		else
+		{
+			pos1.x += x_depth;
+		}
+
+	}
+	else
+	{
+		if (pos1.y < pos2.y)
+		{
+			pos1.y -= y_depth;
+		}
+		else
+		{
+			pos1.y += y_depth;
+		}
+	}
+}
+
+
+//mesh collision helpers
+
+PolygonMesh findHitbox(const Entity& e) {
+	//default is triangle
+	PolygonMesh& polygon = registry.polygons.emplace(e);
+	vec2& pos = registry.positions.get(e);
+	Size& size = registry.sizes.get(e);
+	polygon.centre = pos;
+	//Entity heights and widths are too large, this is a temp fix
+	//TODO: DMdDb4NW
+	polygon.vertices.push_back(vec2(pos.x, pos.y - size.height * 0.15f)); // bottom
+	polygon.vertices.push_back(vec2(pos.x + size.width * 0.25f, pos.y + size.height * 0.15f)); // top right
+	polygon.vertices.push_back(vec2(pos.x - size.width * 0.25f, pos.y + size.height * 0.15f)); // top left
+
+	return polygon;
+}
+std::vector<vec2> getNormals(PolygonMesh& p) {
+	std::vector<vec2> normals;
+	//get first edge
+	vec2 edge = p.vertices[0] - p.vertices[p.vertices.size() - 1];
+	edge = vec2(edge.y, -edge.x);
+	edge = normalize(edge);
+	normals.push_back(edge);
+	for (int i = 1; i < p.vertices.size(); i++) {
+		edge = p.vertices[i] - p.vertices[i - 1];
+		edge = vec2(edge.y, -edge.x);
+		edge = normalize(edge);
+		normals.push_back(edge);
+	}
+	return normals;
+}
+
+vec2 projection(PolygonMesh& p, vec2 normal)
+{
+	float min = dot(p.vertices[0], normal);
+	float max = min;
+
+	for (int i = 0; i < p.vertices.size(); i++) {
+		float proj = dot(p.vertices[i], normal);
+		min = std::min(proj, min);
+		max = std::max(proj, max);
+	}
+	return vec2(min, max);
+}
+
+vec3 axisCollision(PolygonMesh& a, PolygonMesh& b) {
+
+	vec3 penetration = vec3(WINDOW_WIDTH_PX, 0.f, 0.f);
+	std::vector<vec2> a_normals = getNormals(a);
+	for (int i = 0; i < a_normals.size(); i++) {
+		//project along each normal and if there is a gap, no collision
+		vec2 proj_a = projection(a, a_normals[i]);
+		vec2 proj_b = projection(b, a_normals[i]);
+
+		//check if one projections max is less than the others min
+		//if true, there is a gap
+		if (proj_a.y < proj_b.x || proj_b.y < proj_a.x) {
+			return vec3(0.f, 0.f, 0.f);
+		}
+		//keep track of smallest penetration for resolution
+		float p = min(abs(proj_a.x - proj_b.y), abs(proj_a.y - proj_b.x));
+		if (p < penetration.x) {
+			penetration.x = p;
+			penetration.y = a_normals[i].x;
+			penetration.z = a_normals[i].y;
+		}
+	}
+	std::vector<vec2> b_normals = getNormals(b);
+	for (int i = 0; i < b_normals.size(); i++) {
+		vec2 proj_a = projection(a, b_normals[i]);
+		vec2 proj_b = projection(b, b_normals[i]);
+
+		if (proj_a.y < proj_b.x || proj_b.y < proj_a.x) {
+			return vec3(0.f, 0.f, 0.f);
+		}
+		float p = min(abs(proj_a.x - proj_b.y), abs(proj_a.y - proj_b.x));
+		if (p < penetration.x) {
+			penetration.x = p;
+			penetration.y = b_normals[i].x;
+			penetration.z = b_normals[i].y;
+		}
+	}
+	return penetration;
+}
+
+vec3 mesh_collides(const Entity& entity1, const Entity& entity2) {
+	PolygonMesh a;
+	PolygonMesh b;
+	if (registry.polygons.has(entity1)) {
+		a = registry.polygons.get(entity1);
+		
+	} else 
+	{
+		a = findHitbox(entity1);
+	}
+	if (registry.polygons.has(entity2)) {
+		b = registry.polygons.get(entity2);
+
+	}
+	else
+	{
+		b = findHitbox(entity2);
+	}
+	 
+	return (axisCollision(a, b));
+}
+
+void handle_inelastic_collision_mesh(Entity& entity_i, Entity& entity_j, vec3 penetration) {
+	vec2& pos1 = registry.positions.get(entity_i);
+	vec2& pos2 = registry.positions.get(entity_j);
+
+	vec2* pos_to_correct = &pos1;
+	vec2* other_pos = &pos2;
+
+	if (registry.players.has(entity_j)) {
+		pos_to_correct = &pos2;
+		other_pos = &pos1;
+	}
+
+	if (!registry.velocities.has(entity_i)) {
+		pos_to_correct = &pos2;
+		other_pos = &pos1;
+	}
+	vec2 dir = *pos_to_correct - *other_pos;
+
+	// if the normal points toward the other, flip
+	float dir_check = dir.x * penetration.y + dir.y * penetration.z;
+	float sign = dir_check >= 0 ? 1.0f : -1.0f;
+	pos_to_correct->x += (penetration.x * penetration.y * sign);
+	pos_to_correct->y += (penetration.x * penetration.z * sign);
+}
 
 void PhysicsSystem::step(float elapsed_ms)
 {
@@ -127,113 +298,20 @@ void PhysicsSystem::step(float elapsed_ms)
 		for (uint j = i + 1; j < collidables.components.size(); j++)
 		{
 			Entity& entity_j = collidables.entities[j];
-
-			if (collides(entity_i, entity_j))
+			if (registry.polygons.has(entity_i) || registry.polygons.has(entity_j)) {
+				vec3 penetration = mesh_collides(entity_i, entity_j);
+				if (penetration.x != 0) {
+					if (registry.collidables.get(entity_i).inelastic && registry.collidables.get(entity_j).inelastic)
+					{
+						handle_inelastic_collision_mesh(entity_i, entity_j, penetration);
+					}
+					continue;
+				}
+			}
+			//no mesh, so use box collision
+			if (box_collides(entity_i, entity_j))
 			{
-				vec2& posI = registry.positions.get(entity_i);
-				vec2& posJ = registry.positions.get(entity_j);
-
-				//registry.list_all_components_of(entity_i);
-				//std::cout << posI.x << " " << posI.y << std::endl;
-				//registry.list_all_components_of(entity_j);
-				//std::cout << posJ.x << " " << posJ.y << std::endl;
-
-				// For now, this handles creature - player interaction
-				if (registry.colourStates.has(entity_i) && registry.colourStates.has(entity_j))
-				{
-					if (registry.colouredWall.has(entity_i) && registry.colouredWall.has(entity_j))
-					{
-						continue;
-					}
-
-					// TODO: Determine color giving priority
-
-					const bool i_is_player = registry.players.has(entity_i);
-					const bool j_is_player = registry.players.has(entity_j);
-
-					// For now, only a player can change states
-					if (!i_is_player && !j_is_player)
-					{
-						goto after_color_collision;
-					}
-
-					const Entity& player_entity = i_is_player ? entity_i : entity_j;
-					const Entity& other_entity = i_is_player ? entity_j : entity_i;
-
-					if (!registry.creatures.has(other_entity))
-					{
-						goto after_color_collision;
-					}
-
-					const ColourState& player_color_state = registry.colourStates.get(player_entity);
-
-					// A neutral player does not toggle anything
-					if (player_color_state.curr_colour_state == COLOUR_STATE::NEUTRAL)
-					{
-						goto after_color_collision;
-					}
-
-					ColourState& other_color_state = registry.colourStates.get(other_entity);
-
-					// If the states are the same, move on
-					if (player_color_state.curr_colour_state == other_color_state.curr_colour_state)
-					{
-						goto after_color_collision;
-					}
-
-					other_color_state.prev_colour_state = other_color_state.curr_colour_state;
-					other_color_state.curr_colour_state = player_color_state.curr_colour_state;
-					vec4& other_color = registry.colors.get(other_entity);
-					const ColourPalette& palette = registry.colourPalettes.components[0];
-					auto& color_from_state = palette.state_to_colour.at(other_color_state.curr_colour_state);
-					other_color = color_from_state;
-				}
-
-				after_color_collision:
-				//im wondering if its better to look at what type of creatures/entities we're dealing with BEFORE we look at their type
-				//of collision. Because walls will be changing between inelastic and no collision, so im not entirely sure which
-				//type of collision we want to put it in. For now, it will be its own thing.
-
-				if (registry.colouredWall.has(entity_i) || registry.colouredWall.has(entity_j))
-				{
-
-					//find out which entity is which, since we need to find out if the other entity is a player
-					//although right now, im testing collisions between the hovering rectangle and a placed rectangle
-					//so that does not really apply here
-					Entity& eCW = registry.colouredWall.has(entity_i) ? entity_i : entity_j;
-					Entity& eO = registry.colouredWall.has(entity_j) ? entity_i : entity_j;
-
-					ColourState& csCW = registry.colourStates.get(eCW);
-					ColourState& csO = registry.colourStates.get(eO);
-					Collidable& colCW = registry.collidables.get(eCW);
-
-					//if colourStates are same, wall is no longer inelastic, so player can walk through
-					if (csCW.curr_colour_state == csO.curr_colour_state && csCW.curr_colour_state != COLOUR_STATE::NEUTRAL && registry.players.has(eO))
-					{
-
-						colCW.inelastic = false;
-					}
-					else
-					{
-						colCW.inelastic = true;
-					}
-				}
-
-				//todo - change to sawfish once there are more creatures than sawfish
-				if (registry.players.has(entity_i) && registry.creatures.has(entity_j) || registry.players.has(entity_j) && registry.creatures.has(entity_i)) {
-					Entity& eP = registry.players.has(entity_i) ? entity_i : entity_j;
-					Entity& eS = registry.creatures.has(entity_i) ? entity_i : entity_j;
-					if (registry.colourStates.has(eS)) {
-						ColourState& csS = registry.colourStates.get(eS);
-						if (csS.curr_colour_state == COLOUR_STATE::RED) {
-							if (!registry.deathTimers.has(eP)) {
-								registry.deathTimers.emplace(eP);
-							}
-							
-						}
-					}
-				}
-
+				
 				// TODO UurbFK4Z: Handle in callback instead of in the physics system
 				if (registry.players.has(entity_i) && registry.spawnPoints.has(entity_j) || registry.players.has(entity_j) && registry.spawnPoints.has(entity_i))
 				{
@@ -242,109 +320,12 @@ void PhysicsSystem::step(float elapsed_ms)
 					const SpawnPoint& spawn_point = registry.spawnPoints.get(spawn_point_entity);
 					registry.changeMapLevelRequests.insert(change_map_request_entity, { spawn_point.connected_level_uid, spawn_point.send_to_location });
 				}
-
-				//the button is a circle, is in an overlay? do we walk on top of the button?
-				//is it only our radius that affects the button?
-				//This assumed the button in a circle, and is an overlay, but since we send the rectangle
-				//to "change_behaviours," i need to implement this code
-
-				if (registry.toggles.has(entity_i) || registry.toggles.has(entity_j))
+				//must both be inelastic for this collision resolution to occur
+				if (registry.collidables.get(entity_i).inelastic && registry.collidables.get(entity_j).inelastic)
 				{
-					Entity& eT = registry.toggles.has(entity_i) ? entity_i : entity_j;
-					Entity& eO = registry.toggles.has(entity_j) ? entity_i : entity_j;
-					Toggle& tT = registry.toggles.get(eT);
-
-					// Only the player can toggle things
-					if (!registry.players.has(eO))
-					{
-						continue;
-					}
-
-					if (registry.colourStates.has(eO))
-					{
-						ColourState& csO = registry.colourStates.get(eO);
-
-						// A neutral object does not toggle anything
-						if (csO.curr_colour_state == COLOUR_STATE::NEUTRAL)
-						{
-							continue;
-						}
-
-						ColourState& csT = registry.colourStates.get(eT);
-
-						vec4& colT = registry.colors.get(eT);
-						vec4& colO = registry.colors.get(eO);
-						colT = colO;
-
-						for (Entity& toggledEntity : tT.walls_to_toggle)
-						{
-							ColourState& csTE = registry.colourStates.get(toggledEntity);
-							csTE.prev_colour_state = csTE.curr_colour_state;
-							csTE.curr_colour_state = csO.curr_colour_state;
-							vec4& colTE = registry.colors.get(toggledEntity);
-							colTE = vec4{ colO.r, colO.g, colO.b, colO.a };
-						}
-					}
-
+					handle_inelastic_collision_box(entity_i, entity_j);
 				}
-				else
-				{
-					if (registry.collidables.get(entity_i).overlay)
-					{
-						//let world_systems handle it
-						//extra guard for potential errors
-						if (!registry.change_behaviours.has(entity_j))
-						{
-							registry.change_behaviours.emplace(entity_j);
-						}
-					}
-					if (registry.collidables.get(entity_j).overlay)
-					{
-						if (!registry.change_behaviours.has(entity_i))
-						{
-							registry.change_behaviours.emplace(entity_i);
-						}
-					}
-					//must both be inelastic for this collision resolution to occur
-					if (registry.collidables.get(entity_i).inelastic && registry.collidables.get(entity_j).inelastic)
-					{
-						//handle it here because using bounding box for correction (also it is a physics resolution)
-						vec2& pos1 = registry.positions.get(entity_i);
-						vec2& pos2 = registry.positions.get(entity_j);
-						vec4 box1 = get_bounding_box(entity_i);
-						vec4 box2 = get_bounding_box(entity_j);
-
-						float x_depth = box1[3] < box2[3] ? box1[3] - box2[2] : box2[3] - box1[2];
-						float y_depth = box1[1] < box2[1] ? box1[1] - box2[0] : box2[1] - box1[0];
-						x_depth = fmaxf(0, x_depth);
-						y_depth = fmaxf(0, y_depth);
-
-						if (x_depth < y_depth)
-						{
-							if (pos1.x < pos2.x)
-							{
-								pos1.x -= x_depth;
-							}
-							else
-							{
-								pos1.x += x_depth;
-							}
-
-						}
-						else
-						{
-							if (pos1.y < pos2.y)
-							{
-								pos1.y -= y_depth;
-							}
-							else
-							{
-								pos1.y += y_depth;
-							}
-						}
-
-					}
-				}
+				
 			}
 
 		}
@@ -356,9 +337,20 @@ void PhysicsSystem::handle_movement(float elapsed_ms)
 	ComponentContainer<vec2>& moving_entities = registry.velocities;
 	for (int i = 0; i < moving_entities.size(); i++)
 	{
-		vec2& pos = registry.positions.get(moving_entities.entities[i]);
-		vec2& vel = registry.velocities.get(moving_entities.entities[i]);
+		Entity& e = moving_entities.entities[i];
+		vec2& pos = registry.positions.get(e);
+		vec2& vel = registry.velocities.get(e);
 		float step = elapsed_ms * ONE_THOUSANDTH;
 		pos += (vel*step);
+
+		if (registry.polygons.has(e)) {
+			PolygonMesh& polygon = registry.polygons.get(e);
+			vec2& pos = registry.positions.get(e);
+			vec2 change_in_pos = pos - polygon.centre;
+			for (vec2& v : polygon.vertices) {
+				v += change_in_pos;
+			}
+			polygon.centre = pos;
+		}
 	}
 }
