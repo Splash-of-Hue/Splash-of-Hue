@@ -8,6 +8,34 @@
 #include <unordered_map>
 
 // Returns the local bounding coordinates scaled by the current size of the entity
+PolygonMesh findHitbox(const Entity& e) {
+
+	//if it already has a polygon, its position needs to be updated
+	if (registry.polygons.has(e)) {
+		PolygonMesh& polygon = registry.polygons.get(e);
+		vec2& pos = registry.positions.get(e);
+		vec2 change_in_pos = pos - polygon.centre;
+		for (vec2& v : polygon.vertices) {
+			v += change_in_pos;
+		}
+		polygon.centre = pos;
+		return polygon;
+	}
+	//default is rectangle
+	PolygonMesh& polygon = registry.polygons.emplace(e);
+	vec2& pos = registry.positions.get(e);
+	Size& size = registry.sizes.get(e);
+	polygon.centre = pos;
+	//Entity heights and widths are too large, this is a temp fix
+	//TODO: DMdDb4NW
+	polygon.vertices.push_back(vec2(pos.x - size.width * 0.25f, pos.y - size.height * 0.15f)); // bottom left
+	polygon.vertices.push_back(vec2(pos.x + size.width * 0.25f, pos.y - size.height * 0.15f)); // bottom right
+	polygon.vertices.push_back(vec2(pos.x + size.width * 0.25f, pos.y + size.height * 0.15f)); // top right
+	polygon.vertices.push_back(vec2(pos.x - size.width * 0.25f, pos.y + size.height * 0.15f)); // top left
+
+	return polygon;
+}
+
 vec4 get_bounding_box(const Entity& entity)
 {
 	Size& size = registry.sizes.get(entity);
@@ -182,8 +210,8 @@ vec3 collides(const Entity& entity1, const Entity& entity2)
 			
 	}
 	//create polygon either returns rectangle or predefined polygon of entity
-	PolygonMesh a = createPolygon(entity1);
-	PolygonMesh b = createPolygon(entity2);
+	PolygonMesh a = findHitbox(entity1);
+	PolygonMesh b = findHitbox(entity2);
 	return (axisCollision(a, b));
 }
 
