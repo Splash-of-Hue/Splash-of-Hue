@@ -7,7 +7,7 @@
 #include <sstream>
 #include <iostream>
 
-#include "physics_system.hpp"
+#include "physics/physics_system.hpp"
 #include "loading/loading_constants.hpp"
 
 // create the world
