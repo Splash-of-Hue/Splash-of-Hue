@@ -12,6 +12,12 @@ Entity PlayerControllerSystem::create_player()
 	//auto& player_entity = createPlayer({ 0, 0 }, 40.0f, 40.0f, color_from_state);
 	Entity player_entity = Entity();
 	//TODO: RD9Gsz6C change to constant spawning point
+	Animatable& animatable = registry.animatables.emplace(player_entity);
+	animatable.type = ANIMATABLE_TYPE::PLAYER;
+	animatable.behavior = ANIMATION_BEHAVIOR::LOOP;
+	animatable.current_trigger = ANIMATION_TRIGGER::IDLE;
+	animatable.frame_rate = 3;
+	animatable.cancellable = true;
 	vec2& pos = registry.positions.insert(player_entity, { GRID_CELL_WIDTH_PX, GRID_CELL_HEIGHT_PX });
 	registry.scales.insert(player_entity, vec2((float)2.0f * GRID_CELL_WIDTH_PX, (float)2.0f * GRID_CELL_HEIGHT_PX));
 	registry.angles.emplace(player_entity);
