@@ -93,7 +93,7 @@ void LoaderSystem::load_level(int level_uid)
 		}
 	}
 
-	// TODO ???: This is extremely inefficient. Use polygons to better improve this
+	// TODO rUJfFQQT: This is extremely inefficient. Use polygons to better improve this
 	std::vector<Entity> level_wall_tile_entities;
 	for (Entity level_tile_entity : registry.levelTiles.entities)
 	{
@@ -170,7 +170,7 @@ void load_tile_layer(const ldtk::Layer& layer)
 			tile_size / (float)tileset_texture_size.x,
 			tile_size / (float)tileset_texture_size.y
 		};
-		// TODO ???: Tile layers won't always be the map, move elsewhere
+		// TODO qEQqmtkO: Tile layers won't always be the map, move elsewhere
 		MAP_TILE_TYPE map_tile_type = MAP_TILE_TYPE::DEFAULT;
 		const auto& tile_tags = layer_tileset.getTileEnumTags(tile.tileId);
 		
