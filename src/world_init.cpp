@@ -121,10 +121,10 @@ ConvexPolygon createPolygon(const Entity& e) {
 	polygon.centre = pos;
 	//Entity heights are too large, this is a temp fix
 	//TODO: DMdDb4NW
-	polygon.vertices.push_back(vec2(pos.x - size.width * 0.5f, pos.y - size.height * 0.15f)); // bottom left
-	polygon.vertices.push_back(vec2(pos.x + size.width * 0.5f, pos.y - size.height * 0.15f)); // bottom right
-	polygon.vertices.push_back(vec2(pos.x + size.width * 0.5f, pos.y + size.height * 0.15f)); // top right
-	polygon.vertices.push_back(vec2(pos.x - size.width * 0.5f, pos.y + size.height * 0.15f)); // top left
+	polygon.vertices.push_back(vec2(pos.x - size.width * 0.25f, pos.y - size.height * 0.15f)); // bottom left
+	polygon.vertices.push_back(vec2(pos.x + size.width * 0.25f, pos.y - size.height * 0.15f)); // bottom right
+	polygon.vertices.push_back(vec2(pos.x + size.width * 0.25f, pos.y + size.height * 0.15f)); // top right
+	polygon.vertices.push_back(vec2(pos.x - size.width * 0.25f, pos.y + size.height * 0.15f)); // top left
 	
 	return polygon;
 }
