@@ -77,6 +77,7 @@ Entity createMinnows(vec2 position, float width, float height, COLOUR_STATE colo
     return minnows;
 }
 
+// Todo: AkWAGMV1 cleanup and make just createArm
 // Todo: yz2rEB5j, this function is a helper, make private
 // Todo: ojg8otlR, replace rectangle with polygon mesh
 // Todo: SibWWzX3, set arms to be invisible
@@ -92,6 +93,7 @@ Entity createLeftArm(vec2 shrimp_position, float shrimp_width, vec4 colour)
     return armEntity;
 }
 
+// Todo: AkWAGMV1 cleanup and make just createArm
 // Todo: yz2rEB5j, this function is a helper, make private
 // Todo: ojg8otlR, replace rectangle with polygon mesh
 // Todo: SibWWzX3, set arms to be invisible
@@ -106,6 +108,7 @@ Entity createRightArm(vec2 shrimp_position, float shrimp_width, vec4 colour)
     return armEntity;
 }
 
+// Todo: AkWAGMV1 cleanup and make just createArm
 // Todo: yz2rEB5j, this function is a helper, make private
 // Todo: ojg8otlR, replace rectangle with polygon mesh
 // Todo: SibWWzX3, set arms to be invisible
@@ -120,6 +123,7 @@ Entity createUpArm(vec2 shrimp_position, float shrimp_width, vec4 colour)
     return armEntity;
 }
 
+// Todo: AkWAGMV1 cleanup and make just createArm
 // Todo: yz2rEB5j, this function is a helper, make private
 // Todo: ojg8otlR, replace rectangle with polygon mesh
 // Todo: SibWWzX3, set arms to be invisible
@@ -134,7 +138,7 @@ Entity createDownArm(vec2 shrimp_position, float shrimp_width, vec4 colour)
     return armEntity;
 }
 
-// TODO: 0aEQcx13 AND yz2rEB5j, once implemented this function is a helper, make private
+// Todo: AkWAGMV1 cleanup and turn into an iterator within createShrimp
 /*
 void createThreeArmShrimp(Shrimp& shrimp_component, DIRECTION curr_direction_facing, vec2 shrimp_position, float shrimp_width, float shrimp_height)
 {
@@ -143,6 +147,7 @@ void createThreeArmShrimp(Shrimp& shrimp_component, DIRECTION curr_direction_fac
 }
 */
 
+// Todo: AkWAGMV1 cleanup and turn into an iterator within createShrimp
 void createTwoArmShrimp(Shrimp& shrimp_component, DIRECTION curr_direction_facing, vec2 shrimp_position, float shrimp_width, float shrimp_height)
 {
     switch (curr_direction_facing)
@@ -200,6 +205,7 @@ void createTwoArmShrimp(Shrimp& shrimp_component, DIRECTION curr_direction_facin
     }
 }
 
+// Todo: AkWAGMV1 cleanup and turn into an iterator within createShrimp
 void createOneArmShrimp(Shrimp& shrimp_component, DIRECTION curr_direction_facing, vec2 shrimp_position, float shrimp_width, float shrimp_height)
 {
     switch (curr_direction_facing)
@@ -257,6 +263,7 @@ Entity createShrimp(vec2 position, float width, float height, COLOUR_STATE color
 
     createCircle(position, width / 2, RED_COLOUR_VEC4);
 
+    // Todo: AkWAGMV1 cleanup and turn switch into an iterator
     // Add appropriate arms for this shrimp
     switch (num_arms)
     {
