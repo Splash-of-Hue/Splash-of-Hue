@@ -7,7 +7,7 @@
 #include "ecs/components.hpp"
 #include <unordered_map>
 
-// Returns the local bounding coordinates scaled by the current size of the entity
+//TODO: jKoLrbu6
 PolygonMesh findHitbox(const Entity& e) {
 
 	//if it already has a polygon, its position needs to be updated
