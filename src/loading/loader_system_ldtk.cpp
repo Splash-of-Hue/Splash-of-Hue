@@ -122,8 +122,8 @@ void LoaderSystem::load_level(int level_uid)
 
 			for (Entity& wall_tile_entity : level_wall_tile_entities)
 			{
-				auto& tile_position = registry.positions.get(wall_tile_entity);
-				auto& tile_size = registry.scales.get(wall_tile_entity);
+				vec2& tile_position = registry.positions.get(wall_tile_entity);
+				vec2& tile_size = registry.scales.get(wall_tile_entity);
 
 				if (quantize_world_position.x < tile_position.x || quantize_world_position.x > tile_position.x + tile_size.x)
 				{
