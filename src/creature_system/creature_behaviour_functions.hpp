@@ -23,6 +23,8 @@
 BEHAVIOUR_TREE_STATUS aStarFollowTarget(Entity& follower, float elapsed_ms);
 BEHAVIOUR_TREE_STATUS chargeAtTarget(Entity& charger, float elapsed_ms);
 BEHAVIOUR_TREE_STATUS stopCreatureMovement(Entity& creature, float elapsed_ms);
+BEHAVIOUR_TREE_STATUS requestNewPath(Entity& creature, float elapsed_ms);
+BEHAVIOUR_TREE_STATUS goToNextPathStep(Entity& creature, float elapsed_ms);
 
 // ===== Decorator Node Functions =====
 BEHAVIOUR_TREE_STATUS isInBlueState(Entity& creature, float elapsed_ms);
