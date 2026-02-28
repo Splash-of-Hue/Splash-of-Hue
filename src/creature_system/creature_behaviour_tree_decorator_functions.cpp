@@ -86,7 +86,7 @@ BEHAVIOUR_TREE_STATUS isTimerComplete(Entity& creature, float elapsed_ms)
 // TODO: https://trello.com/c/DMWehWpC/119-2-creaturebehavioursystem-hascreaturecollided
 BEHAVIOUR_TREE_STATUS hasCreatureCollided(Entity& creature, float elapsed_ms)
 {
-	if (registry.collisions.has(creature)) 
+	if (registry.collisions.has(creature))
 	{
 		return BEHAVIOUR_TREE_STATUS::SUCCESS;
 	}
@@ -161,7 +161,7 @@ BEHAVIOUR_TREE_STATUS checkIfInComponentRadius(Entity& creature, Component& comp
 	for (auto it = creature_collision_component.collisionList.begin(); it != creature_collision_component.collisionList.end(); ++it)
 	{
 		if (registry.colourCircles.has(it->second))
-		{	
+		{
 			ColourCircle& colour_circle = registry.colourCircles.get(it->second);
 			Entity& source_entity = colour_circle.sourceEntity;
 			if (component_type.has(source_entity))

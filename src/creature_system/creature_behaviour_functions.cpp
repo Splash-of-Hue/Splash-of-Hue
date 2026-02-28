@@ -53,7 +53,7 @@ BEHAVIOUR_TREE_STATUS stopColliding(Entity& creature, float elapsed_ms)
 
 	other_collision_component.collisionList.erase(creature.id());
 	creature_collision_component.collisionList.erase(other_entity.id());
-	
+
 	return BEHAVIOUR_TREE_STATUS::SUCCESS;
 }
 

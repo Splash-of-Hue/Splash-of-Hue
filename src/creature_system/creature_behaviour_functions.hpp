@@ -7,14 +7,14 @@
 
 // System responsible for handling creature behaviours. 
 /*
-* 
-	Every function created to be called by the behaviour tree (action nodes and decorator nodes) should be declared here 
+*
+	Every function created to be called by the behaviour tree (action nodes and decorator nodes) should be declared here
 	and defined in creature_behaviour_functions.cpp
 
 	WHEN CREATING NEW FUNCTIONS HERE:
-	Currently, the definition for a function in a Node REQUIRES that each function can only (and must be) declared 
-	with parameters Entity& creature, float elapsed_ms, and return a BEHAVIOUR_TREE_STATUS. Keep this in mind when 
-	designing your functions, and try to get any necessary information from components attached to the creature 
+	Currently, the definition for a function in a Node REQUIRES that each function can only (and must be) declared
+	with parameters Entity& creature, float elapsed_ms, and return a BEHAVIOUR_TREE_STATUS. Keep this in mind when
+	designing your functions, and try to get any necessary information from components attached to the creature
 	entity instead of passing them in.
 
 */
