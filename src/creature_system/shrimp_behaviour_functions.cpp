@@ -2,6 +2,8 @@
 #include "common.hpp"
 #include "creature_system/creature_behaviour_functions.hpp"
 
+#include <iostream>
+
 /*
 
 SHRIMP-SPECIFIC BEHAVIOUR FUNCTIONS WILL GO HERE
@@ -14,16 +16,17 @@ BEHAVIOUR_TREE_STATUS CreatureBehaviourFunctions::disableCollidableComponent(std
 {
 	for (Entity& entity : entityList)
 	{
-		if (registry.collidables.has(entity))
-		{
-			Collidable& collidable = registry.collidables.get(entity);
-			collidable.overlay = false;
-			collidable.inelastic = false;
-		}
-		else
+		if (!registry.collidables.has(entity) || !registry.colors.has(entity))
 		{
 			return BEHAVIOUR_TREE_STATUS::FAILURE;
 		}
+
+		Collidable& collidable = registry.collidables.get(entity);
+		collidable.overlay = false;
+		collidable.inelastic = false;
+		
+		vec4& colour = registry.colors.get(entity);
+		colour.a = 0.0f; // set invisible
 	}
 
 	return BEHAVIOUR_TREE_STATUS::SUCCESS;
@@ -33,15 +36,16 @@ BEHAVIOUR_TREE_STATUS CreatureBehaviourFunctions::enableCollidableComponent(std:
 {
 	for (Entity& entity : entityList)
 	{
-		if (registry.collidables.has(entity))
-		{
-			Collidable& collidable = registry.collidables.emplace(entity);
-			collidable.inelastic = true;
-		}
-		else
+		if (!registry.collidables.has(entity) || !registry.colors.has(entity))
 		{
 			return BEHAVIOUR_TREE_STATUS::FAILURE;
 		}
+
+		Collidable& collidable = registry.collidables.get(entity);
+		collidable.inelastic = true;
+
+		vec4& colour = registry.colors.get(entity);
+		colour.a = 1.0f; // set visible
 	}
 
 	return BEHAVIOUR_TREE_STATUS::SUCCESS;
@@ -57,33 +61,38 @@ BEHAVIOUR_TREE_STATUS CreatureBehaviourFunctions::setShrimpArms(Entity& creature
 	for (auto& [colour, arms] : shrimp_component.shrimp_arms)
 	{
 		if (colour == shrimp_arm_colour)
-			enableCollidableComponent(arms);
+		{
+			BEHAVIOUR_TREE_STATUS status_result = enableCollidableComponent(arms);
+
+			if (status_result == BEHAVIOUR_TREE_STATUS::FAILURE)
+				return status_result;
+		}
 		else
-			disableCollidableComponent(arms);
+		{
+			BEHAVIOUR_TREE_STATUS status_result = disableCollidableComponent(arms);
+
+			if (status_result == BEHAVIOUR_TREE_STATUS::FAILURE)
+				return status_result;
+		}
 	}
+
+	return BEHAVIOUR_TREE_STATUS::SUCCESS;
 }
 
 BEHAVIOUR_TREE_STATUS CreatureBehaviourFunctions::neutralArms(Entity& creature, float elapsed_ms)
 {
-	// animation trigger?
-
+	// todo: 61gdK0v8 animation trigger?
 	return setShrimpArms(creature, SHRIMP_ARM_COLOUR::NEUTRAL);
 }
 
 BEHAVIOUR_TREE_STATUS CreatureBehaviourFunctions::blueArms(Entity& creature, float elapsed_ms)
 {
-	// animation trigger?
-
+	// todo: 61gdK0v8 animation trigger?
 	return setShrimpArms(creature, SHRIMP_ARM_COLOUR::BLUE);
 }
 
 BEHAVIOUR_TREE_STATUS CreatureBehaviourFunctions::redArms(Entity& creature, float elapsed_ms)
 {
-	// animation trigger?
-
+	// todo: 61gdK0v8 animation trigger?
 	return setShrimpArms(creature, SHRIMP_ARM_COLOUR::RED);
 }
-
-
-
-
