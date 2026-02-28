@@ -8,6 +8,7 @@
 #include "controls/control_components.hpp"
 #include "creature_system/creature_components.hpp"
 #include "input/input_components.hpp"
+#include "interactables/interactable_components.hpp"
 #include "loading/loading_components.hpp"
 #include "map/map_components.hpp"
 #include "renderer/render_components.hpp"
@@ -52,6 +53,13 @@ public:
 	ComponentContainer<InputClearRequest> inputClearRequests;
 	// Debug
 	ComponentContainer<DebugComponent> debugComponents;
+	// Interactables
+	ComponentContainer<Box> boxes;
+	ComponentContainer<Breakable> breakables;
+	ComponentContainer<Collectable> collectables;
+	ComponentContainer<ColourOrb> colourOrbs;
+	ComponentContainer<Interactable> interactables;
+	ComponentContainer<Mushroom> mushrooms;	
 	// Loader
 	ComponentContainer<LoadRequest> loadRequests;
 	// Map
@@ -125,6 +133,14 @@ public:
 		registry_list.push_back(&inputClearRequests);
 		// Debug
 		registry_list.push_back(&debugComponents);
+		// Interactables
+		registry_list.push_back(&boxes);
+		registry_list.push_back(&breakables);
+		registry_list.push_back(&collectables);
+		registry_list.push_back(&colourOrbs);
+		registry_list.push_back(&interactables);
+		registry_list.push_back(&mushrooms);
+
 		// Loader
 		registry_list.push_back(&loadRequests);
 		// Map

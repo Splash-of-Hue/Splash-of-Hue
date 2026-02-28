@@ -9,7 +9,7 @@
 #include <ai/pathfinding.hpp>
 
 // todo: https://trello.com/c/Qj457xrS/105-2-creature-behaviour-system-a-pathfinding
-BEHAVIOUR_TREE_STATUS aStarFollowTarget(Entity& follower, float elapsed_ms)
+BEHAVIOUR_TREE_STATUS CreatureBehaviourFunctions::aStarFollowTarget(Entity& follower, float elapsed_ms)
 {
 	if (direct_line_next_step(elapsed_ms, follower))
 	{
@@ -20,7 +20,7 @@ BEHAVIOUR_TREE_STATUS aStarFollowTarget(Entity& follower, float elapsed_ms)
 }
 
 // todo: https://trello.com/c/D5ie5Ml8/120-task-score-task-template
-BEHAVIOUR_TREE_STATUS chargeAtTarget(Entity& charger, float elapsed_ms)
+BEHAVIOUR_TREE_STATUS CreatureBehaviourFunctions::chargeAtTarget(Entity& charger, float elapsed_ms)
 {
 	// DEBUGGING std::cout << "chargeAtTarget" << std::endl;
 

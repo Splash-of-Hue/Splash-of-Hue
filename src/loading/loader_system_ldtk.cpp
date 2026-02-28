@@ -239,14 +239,16 @@ void use_initial_player_position(const ldtk::Entity& initial_player_position_ent
 void load_creatures(const ldtk::Layer& layer)
 {
 	// iterate on Enemy entities
-	for (const ldtk::Entity& creature_entity : layer.allEntities())
+	for (const ldtk::Entity& ldtk_creature_entity : layer.allEntities())
 	{
-		const ldtk::Field<ldtk::EnumValue>& creature_enum_type = creature_entity.getField<ldtk::EnumValue>("CreatureType");
+		const ldtk::Field<ldtk::EnumValue>& creature_enum_type = ldtk_creature_entity.getField<ldtk::EnumValue>("CreatureType");
 		const CREATURETYPE& creature_type = creature_type_from_string(creature_enum_type.value().name);
-		const ldtk::Field<ldtk::EnumValue>& color_state_enum_type = creature_entity.getField<ldtk::EnumValue>("ColorState");
+		
+		const ldtk::Field<ldtk::EnumValue>& color_state_enum_type = ldtk_creature_entity.getField<ldtk::EnumValue>("ColorState");
 		const COLOUR_STATE& color_state = color_state_from_string(color_state_enum_type.value().name);
-		const ldtk::IntPoint& creature_world_position = creature_entity.getWorldPosition();
-		const ldtk::IntPoint& creature_size = creature_entity.getSize();
+		
+		const ldtk::IntPoint& creature_world_position = ldtk_creature_entity.getWorldPosition();
+		const ldtk::IntPoint& creature_size = ldtk_creature_entity.getSize();
 		const vec2 position = vec2(creature_world_position.x * LEVEL_TO_SCREEN_SCALE.x, creature_world_position.y * LEVEL_TO_SCREEN_SCALE.y);
 		float width = creature_size.x * LEVEL_TO_SCREEN_SCALE.x;
 		float height = creature_size.y * LEVEL_TO_SCREEN_SCALE.y;
@@ -257,21 +259,33 @@ void load_creatures(const ldtk::Layer& layer)
 			case CREATURETYPE::ANGLERFISH:
 				creature_entity = createAnglerfish(position, width, height, color_state);
 				break;
+
 			case CREATURETYPE::CRAB:
 				creature_entity = createCrab(position, width, height, color_state);
 				break;
+
 			case CREATURETYPE::MINNOWS:
 				creature_entity = createMinnows(position, width, height, color_state);
 				break;
+
 			case CREATURETYPE::SAWFISH:
 				creature_entity = createSawfish(position, width, height, color_state);
 				break;
+
 			case CREATURETYPE::SHRIMP:
-				creature_entity = createShrimp(position, width, height, color_state);
+				{
+					const ldtk::Field<ldtk::EnumValue>& direction_enum_type = ldtk_creature_entity.getField<ldtk::EnumValue>("Direction");
+					const DIRECTION& direction_state = direction_type_from_string(direction_enum_type.value().name);
+					const ldtk::Field<int> arm_count = ldtk_creature_entity.getField<ldtk::FieldType::Int>("ArmCount");
+
+					creature_entity = createShrimp(position, width, height, color_state, direction_state, arm_count.value());
+				}
 				break;
+
 			case CREATURETYPE::WHALE:
 				creature_entity = createWhale(position, width, height, color_state);
 				break;
+
 			default:
 				std::cerr << "WARNING: unknown creature type, skipping." << std::endl;
 				break;
