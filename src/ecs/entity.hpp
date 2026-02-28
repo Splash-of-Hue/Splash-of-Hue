@@ -27,6 +27,8 @@ public:
 
     unsigned int id() { return m_id; }
 
+    //checks if two entities are equal
+    //TODO: WoeA9rEw
     bool operator==(const Entity& other) const {
         return m_id == other.m_id;
     }

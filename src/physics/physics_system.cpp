@@ -187,8 +187,6 @@ vec3 collides(const Entity& entity1, const Entity& entity2)
 void handle_inelastic_collision(Entity entity_i, Entity entity_j, vec3 penetration) {
 	vec2& pos1 = registry.positions.get(entity_i);
 	vec2& pos2 = registry.positions.get(entity_j);
-	vec4 box1 = get_bounding_box(entity_i);
-	vec4 box2 = get_bounding_box(entity_j);
 
 	vec2* pos_to_correct = &pos1;
 	vec2* other_pos = &pos2;
@@ -253,7 +251,7 @@ void PhysicsSystem::step(float elapsed_ms)
 				}
 				//loops over entities within that grid, which is considerably smaller amount than all existing entities
 				for (Entity& entity_j : tile->second) {
-					if (entity_j == entity_i) 
+					if (entity_j.id() == entity_i.id())
 					   continue; // avoid self 
 
 					//avoid duplicates:
