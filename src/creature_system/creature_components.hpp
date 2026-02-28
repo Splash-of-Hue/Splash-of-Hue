@@ -1,6 +1,8 @@
 #pragma once
-#include "creature_system/creature_constants.hpp"
 #include "creature_system/creature_behaviour_tree_constants.hpp"
+#include "creature_system/creature_constants.hpp"
+#include <ai/ai_constants.hpp>
+#include <vector>
 
 struct Creature
 {
@@ -34,6 +36,14 @@ struct Shrimp
 
 struct Pathfinder
 {
-	float minimumDistanceToTarget = 70.0f;
+	float minimum_distance_to_target = 70.0f;
 	float max_speed = 2.0f;
+	// The thing to follow. The target is assumed to have a position
+	Entity target;
+	// A boolean about whether the path to the target needs updating
+	bool is_path_dirty = true;
+	// A set of points that makes up the map
+	std::vector<vec2> path;
+	// The type of pathfinding. If this is changed, the path will change
+	PATHFINDING_TYPE type;
 };

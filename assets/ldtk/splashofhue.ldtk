@@ -911,7 +911,7 @@
 			}
 		}
 	], "enums": [
-		{ "identifier": "Collision_Type", "uid": 14, "values": [{ "id": "Wall", "tileRect": null, "color": 12470831 }], "iconTilesetUid": null, "externalRelPath": null, "externalFileChecksum": null, "tags": [] },
+		{ "identifier": "MapTileType", "uid": 14, "values": [{ "id": "Wall", "tileRect": null, "color": 12470831 }], "iconTilesetUid": null, "externalRelPath": null, "externalFileChecksum": null, "tags": [] },
 		{ "identifier": "CreatureType", "uid": 15, "values": [
 			{ "id": "Sawfish", "tileRect": null, "color": 12668724 },
 			{ "id": "JPCrab", "tileRect": { "tilesetUid": 16, "x": 0, "y": 0, "w": 256, "h": 256 }, "color": 14120515 },

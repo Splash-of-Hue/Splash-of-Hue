@@ -36,7 +36,9 @@ Entity createAnglerfish(vec2 position, float width, float height, COLOUR_STATE c
 
     addGeneralCreatureComponents(anglerfish, position, width, height, color_state, CREATURETYPE::ANGLERFISH, TEXTURE_ASSET_ID::ANGLERFISH_01);
 
-    registry.pathfinders.emplace(anglerfish);
+    Pathfinder& pathfinder = registry.pathfinders.emplace(anglerfish);
+    pathfinder.target = registry.players.entities[0];
+    pathfinder.type = PATHFINDING_TYPE::BEST;
     CreatureBehaviour& creatureBehaviour = registry.creatureBehaviours.emplace(anglerfish);
     CreatureBehaviourTreeBuilder builder;
     creatureBehaviour.behaviour_tree = builder.buildAnglerfishTree();
@@ -91,7 +93,9 @@ Entity createSawfish(vec2 position, float width, float height, COLOUR_STATE colo
 
 	addGeneralCreatureComponents(sawfish, position, width, height, color_state, CREATURETYPE::SAWFISH, TEXTURE_ASSET_ID::SAWFISH_01);
 
-    registry.pathfinders.emplace(sawfish);
+    Pathfinder pathfinder = registry.pathfinders.emplace(sawfish);
+    pathfinder.target = registry.players.entities[0];
+    pathfinder.type = PATHFINDING_TYPE::BEST;
     CreatureBehaviour& creatureBehaviour = registry.creatureBehaviours.emplace(sawfish);
     creatureBehaviour.behaviour_tree = CreatureBehaviourTreeBuilder::buildSawfishTree();
    

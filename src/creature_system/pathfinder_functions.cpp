@@ -6,11 +6,12 @@
 #include "creature_system/creature_behaviour_functions.hpp"
 #include "creature_system/creature_behaviour_system.hpp"
 #include "creature_system/creature_components.hpp"
+#include <ai/pathfinding.hpp>
 
 // todo: https://trello.com/c/Qj457xrS/105-2-creature-behaviour-system-a-pathfinding
 BEHAVIOUR_TREE_STATUS aStarFollowTarget(Entity& follower, float elapsed_ms)
 {
-	if (follow_player(elapsed_ms, follower))
+	if (direct_line_next_step(elapsed_ms, follower))
 	{
 		return BEHAVIOUR_TREE_STATUS::FAILURE;
 	}
@@ -26,54 +27,49 @@ BEHAVIOUR_TREE_STATUS chargeAtTarget(Entity& charger, float elapsed_ms)
 	return BEHAVIOUR_TREE_STATUS::FAILURE;
 }
 
-// TODO: REMOVE AS PART OF THE ASTAR TASK 
-// For M1, no real fancy-schmancy AI pathfinding, just bare bones following 
-bool follow_player(float elapsed_ms, Entity& follower)
-{ 
-	assert(registry.pathfinders.has(follower) && "The follower creature isn't registered as a pathfinder");
-	Pathfinder& pathfinder_component = registry.pathfinders.get(follower);
+BEHAVIOUR_TREE_STATUS requestNewPath(Entity& pathfinder_entity, float elapsed_ms)
+{
+	// DEBUGGING std::cout << "chargeAtTarget" << std::endl;
+	Pathfinder& pathfinder = registry.pathfinders.get(pathfinder_entity);
+	pathfinder.is_path_dirty = true;
 
-	assert(registry.players.entities.size() == 1 && "There's no player for the creature to follow!");
-	Entity& player = registry.players.entities[0];
+	return BEHAVIOUR_TREE_STATUS::SUCCESS;
+}
 
-	// TODO: REFACTOR as part of pathfinding tasks in later milestones SO THIS IS GENERAL FOR ANY "TARGET". Whatever entity's ColourComponent triggers it
-	assert(registry.positions.has(player) && "Player doesn't have a position");
-	assert(registry.positions.has(follower) && "Pathfinder doesn't have a position");
-	assert(registry.velocities.has(follower) && "Pathfinder doesn't have a velocity");
+BEHAVIOUR_TREE_STATUS goToNextPathStep(Entity& pathfinder_entity, float elapsed_ms)
+{
+	// DEBUGGING std::cout << "chargeAtTarget" << std::endl;
 
-	const vec2& player_position = registry.positions.get(player);
-	vec2& follower_position = registry.positions.get(follower);
-	vec2& follower_velocity = registry.velocities.get(follower);
+	vec2& position = registry.positions.get(pathfinder_entity);
+	Pathfinder& pathfinder = registry.pathfinders.get(pathfinder_entity);
 
-	// Get the vector to the player
-	float dx = player_position.x - follower_position.x;
-	float dy = player_position.y - follower_position.y;
-
-	// Calculate and compare squares bec they're cheaper to avoid sqrt
-	float distance_squared = dx * dx + dy * dy;
-	float minDistToTarget_squared = pathfinder_component.minimumDistanceToTarget * pathfinder_component.minimumDistanceToTarget;
-
-	// If too close to the target, stop
-	if (distance_squared <= minDistToTarget_squared)
+	// If there is no path, return failure as we try to move without any target
+	if (pathfinder.path.size() == 0)
 	{
-		follower_velocity = { 0.0f, 0.0f };
-		return true;
+		return BEHAVIOUR_TREE_STATUS::FAILURE;
 	}
 
-	// Sqrt only when moving for normalization
-	float distance = std::sqrt(distance_squared);
-	float norm_x = dx / distance;
-	float norm_y = dy / distance;
+	vec2& next_step = pathfinder.path[0];
+	float movement_speed = pathfinder.max_speed * elapsed_ms * ONE_THOUSANDTH;
+	float distance_to_next_step = distance(position, next_step);
 
-	// Slow down when approaching the player so there isn't an abrupt stop
-	float slow_radius = pathfinder_component.minimumDistanceToTarget * 3.f;
-	float max_speed = pathfinder_component.max_speed * elapsed_ms * 0.01;
-	if (distance < slow_radius) {
-		float t = (distance - pathfinder_component.minimumDistanceToTarget) / (slow_radius - pathfinder_component.minimumDistanceToTarget);
-		t = std::clamp(t, 0.f, 1.f);
-		max_speed = max_speed * t;
-	}  
+	if (pathfinder.path.size() == 1)
+	{
+		// We are at the last step of the path, so don't go closer than the minimum distance
+		distance_to_next_step = distance_to_next_step - pathfinder.minimum_distance_to_target;
+	}
 
-	follower_velocity = { norm_x * max_speed, norm_y * max_speed };	
-	return false;
+	if (distance_to_next_step < movement_speed)
+	{
+		// We are one step away from the edge of the target, set that as the velocity and return success
+		registry.velocities.get(pathfinder_entity) = distance_to_next_step * normalize(next_step - position);
+		pathfinder.path.erase(pathfinder.path.begin());
+
+		return BEHAVIOUR_TREE_STATUS::SUCCESS;
+	}
+
+	// Otherwise we still have some distance to go
+	registry.velocities.get(pathfinder_entity) = movement_speed * normalize(next_step - position);
+
+	return BEHAVIOUR_TREE_STATUS::RUNNING;
 }

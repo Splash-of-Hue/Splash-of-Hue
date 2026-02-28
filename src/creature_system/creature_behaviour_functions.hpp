@@ -19,9 +19,6 @@
 
 */
 
-// Pathfinder, TEMPORARY to be discontinued once A* pathfinding is implemented. (Qj457xrS)
-bool follow_player(float elapsed_ms, Entity& follower);
-
 // ===== Action Node Functions =====
 BEHAVIOUR_TREE_STATUS aStarFollowTarget(Entity& follower, float elapsed_ms);
 BEHAVIOUR_TREE_STATUS chargeAtTarget(Entity& charger, float elapsed_ms);

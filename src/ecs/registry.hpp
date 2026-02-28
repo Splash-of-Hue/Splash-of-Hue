@@ -56,7 +56,9 @@ public:
 	ComponentContainer<LoadRequest> loadRequests;
 	// Map
 	ComponentContainer<ChangeMapLevelRequest> changeMapLevelRequests;
+	ComponentContainer<LevelEntity> levelEntities;
 	ComponentContainer<Level> levels;
+	ComponentContainer<LevelTile> levelTiles;
 	ComponentContainer<MapTile> mapTiles;
 	ComponentContainer<SpawnPoint> spawnPoints;
 	// Physics - Collisions
@@ -127,7 +129,9 @@ public:
 		registry_list.push_back(&loadRequests);
 		// Map
 		registry_list.push_back(&changeMapLevelRequests);
+		registry_list.push_back(&levelEntities);
 		registry_list.push_back(&levels);
+		registry_list.push_back(&levelTiles);
 		registry_list.push_back(&mapTiles);
 		registry_list.push_back(&spawnPoints);
 		// Physics - Collisions
