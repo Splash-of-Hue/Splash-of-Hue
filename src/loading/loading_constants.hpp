@@ -65,6 +65,19 @@ inline CREATURETYPE creature_type_from_string(const std::string creature_string)
 	return search != creature_string_enum_map.end() ? search->second : CREATURETYPE::UNDEFINED;
 };
 
+const std::map<std::string, DIRECTION> direction_string_enum_map = {
+	{ "Up", DIRECTION::UP },
+	{ "Down", DIRECTION::DOWN },
+	{ "Left", DIRECTION::LEFT },
+	{ "Right", DIRECTION::RIGHT }
+};
+
+inline DIRECTION direction_type_from_string(const std::string direction_string)
+{
+	const auto& search = direction_string_enum_map.find(direction_string);
+	return search != direction_string_enum_map.end() ? search->second : DIRECTION::UP; // defaults to UP
+};
+
 const std::map<std::string, COLOUR_STATE> color_state_string_enum_map = {
 	{ "Neutral", COLOUR_STATE::NEUTRAL },
 	{ "Blue", COLOUR_STATE::BLUE },

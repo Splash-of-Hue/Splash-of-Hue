@@ -12,6 +12,12 @@ Entity PlayerControllerSystem::create_player()
 	//auto& player_entity = createPlayer({ 0, 0 }, 40.0f, 40.0f, color_from_state);
 	Entity player_entity = Entity();
 	//TODO: RD9Gsz6C change to constant spawning point
+	Animatable& animatable = registry.animatables.emplace(player_entity);
+	animatable.type = ANIMATABLE_TYPE::PLAYER;
+	animatable.behavior = ANIMATION_BEHAVIOR::LOOP;
+	animatable.current_trigger = ANIMATION_TRIGGER::IDLE;
+	animatable.frame_rate = 3;
+	animatable.cancellable = true;
 	registry.positions.insert(player_entity, { GRID_CELL_WIDTH_PX, GRID_CELL_HEIGHT_PX });
 	registry.scales.insert(player_entity, vec2((float)2.0f * GRID_CELL_WIDTH_PX, (float)2.0f * GRID_CELL_HEIGHT_PX));
 	registry.angles.emplace(player_entity);
@@ -78,4 +84,23 @@ void PlayerControllerSystem::step(float elapsed_ms)
 	Player& player = registry.players.components[0];
 	player_velocity += player_movement * player.speed;
 	//std::cout << "DEBUG: Moving x: " << player_velocity.x << ", y: " << player_velocity.y << std::endl;
+	
+	bool is_moving = player_movement.x != 0 || player_movement.y != 0;
+
+	ANIMATION_TRIGGER desired = is_moving ? ANIMATION_TRIGGER::WALK : ANIMATION_TRIGGER::IDLE;
+
+	Animatable& anim = registry.animatables.get(player_entity);
+	if (anim.current_trigger != desired) {
+		if (is_moving)
+		{
+			anim.frame_rate = is_moving ? 5 : 3;  // walking : idle
+		}
+
+		if (registry.animation_triggers.has(player_entity)) {
+			registry.animation_triggers.get(player_entity).animation_trigger = desired;
+		}
+		else {
+			registry.animation_triggers.insert(player_entity, { desired });
+		}
+	}
 }

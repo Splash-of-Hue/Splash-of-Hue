@@ -5,7 +5,7 @@
 
 #include <iostream>
 
-BEHAVIOUR_TREE_STATUS isInBlueState(Entity& creature, float elapsed_ms)
+BEHAVIOUR_TREE_STATUS CreatureBehaviourFunctions::isInBlueState(Entity& creature, float elapsed_ms)
 {
 	ColourState& colourState = registry.colourStates.get(creature);
 
@@ -15,7 +15,7 @@ BEHAVIOUR_TREE_STATUS isInBlueState(Entity& creature, float elapsed_ms)
 		return BEHAVIOUR_TREE_STATUS::FAILURE;
 }
 
-BEHAVIOUR_TREE_STATUS isInRedState(Entity& creature, float elapsed_ms)
+BEHAVIOUR_TREE_STATUS CreatureBehaviourFunctions::isInRedState(Entity& creature, float elapsed_ms)
 {
 	ColourState& colourState = registry.colourStates.get(creature);
 
@@ -25,7 +25,7 @@ BEHAVIOUR_TREE_STATUS isInRedState(Entity& creature, float elapsed_ms)
 		return BEHAVIOUR_TREE_STATUS::FAILURE;
 }
 
-BEHAVIOUR_TREE_STATUS isInNeutralState(Entity& creature, float elapsed_ms)
+BEHAVIOUR_TREE_STATUS CreatureBehaviourFunctions::isInNeutralState(Entity& creature, float elapsed_ms)
 {
 	ColourState& colourState = registry.colourStates.get(creature);
 
@@ -36,7 +36,7 @@ BEHAVIOUR_TREE_STATUS isInNeutralState(Entity& creature, float elapsed_ms)
 }
 
 // Will START executing behaviour after cooldown is completed
-BEHAVIOUR_TREE_STATUS isCooldownComplete(Entity& creature, float elapsed_ms)
+BEHAVIOUR_TREE_STATUS CreatureBehaviourFunctions::isCooldownComplete(Entity& creature, float elapsed_ms)
 {
 	CreatureBehaviourCooldown& cooldown = registry.creatureBehaviourCooldowns.get(creature);
 	if (cooldown.cooldown <= 0)
@@ -52,7 +52,7 @@ BEHAVIOUR_TREE_STATUS isCooldownComplete(Entity& creature, float elapsed_ms)
 }
 
 // Will STOP executing behaviour after timer is completed
-BEHAVIOUR_TREE_STATUS isTimerComplete(Entity& creature, float elapsed_ms)
+BEHAVIOUR_TREE_STATUS CreatureBehaviourFunctions::isTimerComplete(Entity& creature, float elapsed_ms)
 {
 	CreatureBehaviourTimer& timer = registry.creatureBehaviourTimers.get(creature);
 	if (timer.timer <= 0)
@@ -68,23 +68,13 @@ BEHAVIOUR_TREE_STATUS isTimerComplete(Entity& creature, float elapsed_ms)
 }
 
 // TODO: https://trello.com/c/9KLJ5MXH/118-2-creature-behaviour-system-iscreaturewithincolourradius
-/* isCreatureWithinColourRadius(Entity& creature, float elapsed_ms)
+BEHAVIOUR_TREE_STATUS CreatureBehaviourFunctions::isCreatureWithinAnyColourRadius(Entity& creature, float elapsed_ms)
 {
-	if (registry.collisions.has(creature))
-	{
-		Collision& creature_collision_component = registry.collisions.get(creature);
-		Entity& circle_entity = creature_collision_component.other;
-		if (registry.colourCircles.has(circle_entity))
-		{
-			return BEHAVIOUR_TREE_STATUS::SUCCESS;
-		}
-	}
-
-	return BEHAVIOUR_TREE_STATUS::FAILURE;
-}*/
+	return BEHAVIOUR_TREE_STATUS::SUCCESS;
+}
 
 // TODO: https://trello.com/c/DMWehWpC/119-2-creaturebehavioursystem-hascreaturecollided
-BEHAVIOUR_TREE_STATUS hasCreatureCollided(Entity& creature, float elapsed_ms)
+BEHAVIOUR_TREE_STATUS CreatureBehaviourFunctions::hasCreatureCollided(Entity& creature, float elapsed_ms)
 {
 	if (registry.collisions.has(creature))
 	{
@@ -94,33 +84,33 @@ BEHAVIOUR_TREE_STATUS hasCreatureCollided(Entity& creature, float elapsed_ms)
 	return BEHAVIOUR_TREE_STATUS::FAILURE;
 }
 
-BEHAVIOUR_TREE_STATUS isCreatureInBlueRadius(Entity& creature, float elapsed_ms)
+BEHAVIOUR_TREE_STATUS CreatureBehaviourFunctions::isCreatureInBlueRadius(Entity& creature, float elapsed_ms)
 {
 	return checkIfInColourRadius(creature, COLOUR_STATE::BLUE);
 }
 
-BEHAVIOUR_TREE_STATUS isCreatureInRedRadius(Entity& creature, float elapsed_ms)
+BEHAVIOUR_TREE_STATUS CreatureBehaviourFunctions::isCreatureInRedRadius(Entity& creature, float elapsed_ms)
 {
 	return checkIfInColourRadius(creature, COLOUR_STATE::RED);
 }
 
-BEHAVIOUR_TREE_STATUS isCreatureWithinPlayerColourRadius(Entity& creature, float elapsed_ms)
+BEHAVIOUR_TREE_STATUS CreatureBehaviourFunctions::isCreatureWithinPlayerColourRadius(Entity& creature, float elapsed_ms)
 {
 	return checkIfInComponentRadius(creature, registry.players);
 }
 
-BEHAVIOUR_TREE_STATUS isCreatureWithinCreatureColourRadius(Entity& creature, float elapsed_ms)
+BEHAVIOUR_TREE_STATUS CreatureBehaviourFunctions::isCreatureWithinCreatureColourRadius(Entity& creature, float elapsed_ms)
 {
 	return checkIfInComponentRadius(creature, registry.creatures);
 }
-BEHAVIOUR_TREE_STATUS isCreatureWithinInteractableColourRadius(Entity& creature, float elapsed_ms)
+BEHAVIOUR_TREE_STATUS CreatureBehaviourFunctions::isCreatureWithinInteractableColourRadius(Entity& creature, float elapsed_ms)
 {
 
 	return checkIfInComponentRadius(creature, registry.interactables);
 }
 
 //helper functions
-BEHAVIOUR_TREE_STATUS checkIfInColourRadius(Entity& creature, COLOUR_STATE colour_state)
+BEHAVIOUR_TREE_STATUS CreatureBehaviourFunctions::checkIfInColourRadius(Entity& creature, COLOUR_STATE colour_state)
 {
 	if (!registry.collisions.has(creature))
 	{
@@ -144,7 +134,7 @@ BEHAVIOUR_TREE_STATUS checkIfInColourRadius(Entity& creature, COLOUR_STATE colou
 }
 
 template <typename Component>
-BEHAVIOUR_TREE_STATUS checkIfInComponentRadius(Entity& creature, Component& component_type)
+BEHAVIOUR_TREE_STATUS CreatureBehaviourFunctions::checkIfInComponentRadius(Entity& creature, Component& component_type)
 {
 	if (!registry.collisions.has(creature))
 	{

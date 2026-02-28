@@ -128,8 +128,8 @@ struct Angle
 
 struct Size
 {
-	float height;
 	float width;
+	float height;
 };
 
 // TODO: Remove as we probably won't need this, this is just for M1 prototyping
@@ -152,11 +152,6 @@ struct ColourCircle
 struct EmittingCircle
 {
 	Entity colourCircleEntity;
-};
-
-struct Interactable
-{
-	
 };
 
 struct EntityToLookAt

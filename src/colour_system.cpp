@@ -265,6 +265,12 @@ void ColourSystem::changeColourCircle(Entity& player, int player_colour_state)
 	else {
 		vec2& player_position = registry.positions.get(player);
 		players_colour_circle = createCircle(player_position, 1.f, DEFAULT_COLOUR_VEC4);
+	
+		RenderRequest& circle_render_request = registry.renderRequests.get(players_colour_circle);
+		circle_render_request.used_geometry = GEOMETRY_BUFFER_ID::GRADIENT_CIRCLE;
+		vec4& circle_colour = registry.colors.get(players_colour_circle);
+		circle_colour.a= 0.5f;
+
 		ColourCircle& colour_circle_component = registry.colourCircles.emplace(players_colour_circle);
 
 		Collidable& colour_circle_collidable_component = registry.collidables.emplace(players_colour_circle);
