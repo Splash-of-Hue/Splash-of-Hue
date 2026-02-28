@@ -35,7 +35,6 @@ public:
 	static BEHAVIOUR_TREE_STATUS blueArms(Entity& follower, float elapsed_ms);
 	static BEHAVIOUR_TREE_STATUS redArms(Entity& follower, float elapsed_ms);
 
-
 	// ===== Decorator Node Functions =====
 	static BEHAVIOUR_TREE_STATUS isInBlueState(Entity& creature, float elapsed_ms);
 	static BEHAVIOUR_TREE_STATUS isInRedState(Entity& creature, float elapsed_ms);
