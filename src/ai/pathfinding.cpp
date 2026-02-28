@@ -57,19 +57,18 @@ bool direct_line_next_step(float elapsed_ms, Entity& follower)
 
 std::vector<ivec2> a_star(ivec2 start_position_grid, ivec2 end_position_grid, std::unordered_map<ivec2, bool> valid_grid_coordinates)
 {
-	// find the tiles that the positions map to
-
-
 	std::vector<ivec2> path = {};
+	// The open set is the positions to travel to
 	std::unordered_set<ivec2> open_set = { start_position_grid };
-	std::unordered_set<ivec2> closed_set = { };
-	// heuristic and weight function
+	// The cloased set is the positions that have been traveled to, this is kept for debugging purposes later
+	std::unordered_set<ivec2> closed_set;
+	// Heuristic and weight function, nothing unique in this grid-based version
 	auto h = [](ivec2 position) { return 1; };
 	auto d = [](ivec2 current, ivec2 neighbour) { return 1; };
 	// Set up maps
-	std::unordered_map<ivec2, ivec2> previous_best_position_map = {};
-	std::unordered_map<ivec2, float> g_score_map = {};
-	std::unordered_map<ivec2, float> f_score_map = {};
+	std::unordered_map<ivec2, ivec2> previous_best_position_map;
+	std::unordered_map<ivec2, float> g_score_map;
+	std::unordered_map<ivec2, float> f_score_map;
 	g_score_map[start_position_grid] = 0;
 	f_score_map[start_position_grid] = h(start_position_grid);
 
@@ -78,11 +77,12 @@ std::vector<ivec2> a_star(ivec2 start_position_grid, ivec2 end_position_grid, st
 		// Reset current position so we use one that's in the open set
 		ivec2 current_pos = ivec2(0);
 
-		for (auto& pos : open_set)
+		// Find the best next position to try
+		for (ivec2 position : open_set)
 		{
-			if (f_score_map.count(current_pos) == 0 || f_score_map[pos] < f_score_map[current_pos])
+			if (f_score_map.count(current_pos) == 0 || f_score_map[position] < f_score_map[current_pos])
 			{
-				current_pos = pos;
+				current_pos = position;
 			}
 		}
 
@@ -100,14 +100,16 @@ std::vector<ivec2> a_star(ivec2 start_position_grid, ivec2 end_position_grid, st
 			return path;
 		}
 
+		// Remove from the open set and add to the closed set
 		open_set.erase(current_pos);
 		closed_set.insert(current_pos);
-		std::vector<ivec2> neighbors = {};
-
+		// Set up the neighboring nodes
+		std::vector<ivec2> neighbors;
 		auto get_neighbors = [](ivec2 position) { return std::vector<ivec2> { position + ivec2(0, 1), position - ivec2(0, 1), position + ivec2(1, 0), position - ivec2(1, 0) }; };
 
-		for (auto& neighbor : get_neighbors(current_pos))
+		for (ivec2& neighbor : get_neighbors(current_pos))
 		{
+			// If the neighbor is not in the grid or is in the grid but not valid, continue
 			if (!valid_grid_coordinates[neighbor])
 			{
 				continue;
@@ -115,6 +117,7 @@ std::vector<ivec2> a_star(ivec2 start_position_grid, ivec2 end_position_grid, st
 		
 			float tentative_g_score = g_score_map[current_pos] + d(current_pos, neighbor);
 
+			// If the G score isn't registered yet or is better than other routes, make note
 			if (g_score_map.count(neighbor) == 0 || tentative_g_score < g_score_map[neighbor])
 			{
 				previous_best_position_map[neighbor] = current_pos;
