@@ -117,14 +117,14 @@ BEHAVIOUR_TREE_STATUS CreatureBehaviourFunctions::checkIfInColourRadius(Entity& 
 		return BEHAVIOUR_TREE_STATUS::FAILURE;
 	}
 
-	EntityToLookAt& other_entity_component = registry.entitiesToLookAt.get(creature);
-	Entity& other_entity = other_entity_component.entity;
+	EntityToLookAt& light_emission_entity_component = registry.entitiesToLookAt.get(creature);
+	Entity& light_emission_entity = light_emission_entity_component.entity;
 	Collision& creature_collision_component = registry.collisions.get(creature);
 
-	if (creature_collision_component.collisionList.count(other_entity.id()) && registry.colourCircles.has(other_entity))
+	if (creature_collision_component.collisionList.count(light_emission_entity.id()) && registry.lightEmissions.has(light_emission_entity))
 	{
-		ColourState& other_colour_state = registry.colourStates.get(other_entity);
-		if (other_colour_state.curr_colour_state == colour_state)
+		ColourState& light_emission_colour_state = registry.colourStates.get(light_emission_entity);
+		if (light_emission_colour_state.curr_colour_state == colour_state)
 		{
 			return BEHAVIOUR_TREE_STATUS::SUCCESS;
 		}
@@ -146,18 +146,18 @@ BEHAVIOUR_TREE_STATUS CreatureBehaviourFunctions::checkIfInComponentRadius(Entit
 		registry.entitiesToLookAt.emplace(creature);
 	}
 
-	EntityToLookAt& other_entity_component = registry.entitiesToLookAt.get(creature);
+	EntityToLookAt& light_emission_entity_component = registry.entitiesToLookAt.get(creature);
 	Collision& creature_collision_component = registry.collisions.get(creature);
 	for (auto it = creature_collision_component.collisionList.begin(); it != creature_collision_component.collisionList.end(); ++it)
 	{
-		if (registry.colourCircles.has(it->second))
+		if (registry.lightEmissions.has(it->second))
 		{
-			ColourCircle& colour_circle = registry.colourCircles.get(it->second);
-			Entity& source_entity = colour_circle.sourceEntity;
+			LightEmission& light_emission = registry.lightEmissions.get(it->second);
+			Entity& source_entity = light_emission.lightSourceEntity;
 			if (component_type.has(source_entity))
 			{
-				std::cout << "Creature is in " << typeid(component_type).name() << " Radius" << std::endl;
-				other_entity_component.entity = it->second;
+				//std::cout << "Creature is in " << typeid(component_type).name() << " Radius" << std::endl;
+				light_emission_entity_component.entity = it->second;
 				return BEHAVIOUR_TREE_STATUS::SUCCESS;
 			}
 		}

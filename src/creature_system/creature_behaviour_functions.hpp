@@ -38,6 +38,10 @@ public:
 	static BEHAVIOUR_TREE_STATUS blueArms(Entity& follower, float elapsed_ms);
 	static BEHAVIOUR_TREE_STATUS redArms(Entity& follower, float elapsed_ms);
 
+	// Sawfish Behaviour Actions
+	static BEHAVIOUR_TREE_STATUS aimAtTarget(Entity& follower, float elapsed_ms);
+	static BEHAVIOUR_TREE_STATUS beDizzy(Entity& follower, float elapsed_ms);
+
 	// ===== Decorator Node Functions =====
 	static BEHAVIOUR_TREE_STATUS isInBlueState(Entity& creature, float elapsed_ms);
 	static BEHAVIOUR_TREE_STATUS isInRedState(Entity& creature, float elapsed_ms);
@@ -51,6 +55,7 @@ public:
 	static BEHAVIOUR_TREE_STATUS isCreatureInBlueRadius(Entity& creature, float elapsed_ms);
 	static BEHAVIOUR_TREE_STATUS isCreatureInRedRadius(Entity& creature, float elapsed_ms);
 	static BEHAVIOUR_TREE_STATUS hasCreatureCollided(Entity& creature, float elapsed_ms);
+	static BEHAVIOUR_TREE_STATUS setTargetToEmissionSource(Entity& follower, float elapsed_ms);
 
 private:
 	// ===== NODE HELPERS =====
@@ -69,6 +74,5 @@ private:
 	static BEHAVIOUR_TREE_STATUS disableCollidableComponent(std::vector<Entity>& entityList);
 	static BEHAVIOUR_TREE_STATUS enableCollidableComponent(std::vector<Entity>& entityList);
 	static BEHAVIOUR_TREE_STATUS setShrimpArms(Entity& creature, SHRIMP_ARM_COLOUR shrimp_arm_colour);
-
 };
 extern CreatureBehaviourFunctions creatureBehaviourFunctions;

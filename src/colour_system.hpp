@@ -28,14 +28,13 @@ public:
 private:
 	Entity colour_menu_entity;
 	Entity colour_palette_entity;
-	Entity players_colour_circle;
+	Entity players_light_emission;
 	bool colour_menu_open = false;
 
 	// helper methods (existing)
 	void openColourMenu();
 	void closeColourMenu();
 	void setEntityVisualColour(Entity entity, COLOUR_STATE colour_state);
-	void updateCircles(float elapsed_ms);
-	void ColourSystem::changeColourCircle(Entity& player, int player_colour_state);
+	void updateEmissions(float elapsed_ms);
+	void ColourSystem::changeLightEmissions(Entity& player, int player_colour_state);
 };
-

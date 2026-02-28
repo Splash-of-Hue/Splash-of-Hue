@@ -149,9 +149,15 @@ struct ColourCircle
 	float maxRadius = 150.f;
 };
 
-struct EmittingCircle
+struct LightEmission
 {
-	Entity colourCircleEntity;
+	Entity lightSourceEntity;
+	float maxRadius = 100.f;
+};
+
+struct LightSource
+{
+	Entity lightEmissionEntity;
 };
 
 struct EntityToLookAt

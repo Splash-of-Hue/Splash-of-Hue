@@ -18,14 +18,6 @@ BEHAVIOUR_TREE_STATUS CreatureBehaviourFunctions::aStarFollowTarget(Entity& foll
 	return BEHAVIOUR_TREE_STATUS::RUNNING;
 }
 
-// todo: https://trello.com/c/D5ie5Ml8/120-task-score-task-template
-BEHAVIOUR_TREE_STATUS CreatureBehaviourFunctions::chargeAtTarget(Entity& charger, float elapsed_ms)
-{
-	// DEBUGGING std::cout << "chargeAtTarget" << std::endl;
-
-	return BEHAVIOUR_TREE_STATUS::FAILURE;
-}
-
 // TODO: REMOVE AS PART OF THE ASTAR TASK 
 // For M1, no real fancy-schmancy AI pathfinding, just bare bones following 
 bool CreatureBehaviourFunctions::follow_player(float elapsed_ms, Entity& follower)

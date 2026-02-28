@@ -131,166 +131,32 @@ void PhysicsSystem::step(float elapsed_ms)
 
 			if (collides(entity_i, entity_j))
 			{
-				if (!registry.collisions.has(entity_i)) {
-					registry.collisions.emplace(entity_i);
-				}
+				if (!specialCaseCollision(entity_i, entity_j)) {
 
-				if (!registry.collisions.has(entity_j)) {
-					registry.collisions.emplace(entity_j);
-				}
-
-				Collision& i_collision = registry.collisions.get(entity_i);
-				Collision& j_collision = registry.collisions.get(entity_j);
-
-				if (!i_collision.collisionList.count(entity_j.id()))
-				{
-					//checkCollisionCounts();
-					i_collision.collisionList[entity_j.id()] = entity_j;
-				}
-
-				if (!j_collision.collisionList.count(entity_i.id()))
-				{
-					//checkCollisionCounts();
-					j_collision.collisionList[entity_i.id()] = entity_i;
-				}
-
-				if (registry.colouredWall.has(entity_i) || registry.colouredWall.has(entity_j))
-				{
-
-					//find out which entity is which, since we need to find out if the other entity is a circle
-					//although right now, im testing collisions between the hovering rectangle and a placed rectangle
-					//so that does not really apply here
-					Entity& eCW = registry.colouredWall.has(entity_i) ? entity_i : entity_j;
-					Entity& eO = registry.colouredWall.has(entity_j) ? entity_i : entity_j;
-
-					ColourState& csCW = registry.colourStates.get(eCW);
-					ColourState& csO = registry.colourStates.get(eO);
-					Collidable& colCW = registry.collidables.get(eCW);
-
-					//if colourStates are same, wall is no longer inelastic, so player can walk through
-					if (csCW.curr_colour_state == csO.curr_colour_state && csCW.curr_colour_state != COLOUR_STATE::NEUTRAL && registry.players.has(eO))
-					{
-
-						colCW.inelastic = false;
-					}
-					else
-					{
-						colCW.inelastic = true;
-					}
-				}
-
-				//todo - change to sawfish once there are more creatures than sawfish
-				if (registry.players.has(entity_i) && registry.creatures.has(entity_j) || registry.players.has(entity_j) && registry.creatures.has(entity_i)) {
-					Entity& eP = registry.players.has(entity_i) ? entity_i : entity_j;
-					Entity& eS = registry.creatures.has(entity_i) ? entity_i : entity_j;
-					if (registry.colourStates.has(eS)) {
-						ColourState& csS = registry.colourStates.get(eS);
-						if (csS.curr_colour_state == COLOUR_STATE::RED) {
-							if (!registry.deathTimers.has(eP)) {
-								registry.deathTimers.emplace(eP);
-							}
-							
-						}
-					}
-				}
-
-				// TODO UurbFK4Z: Handle in callback instead of in the physics system
-				if (registry.players.has(entity_i) && registry.spawnPoints.has(entity_j) || registry.players.has(entity_j) && registry.spawnPoints.has(entity_i))
-				{
-					Entity change_map_request_entity;
-					Entity& spawn_point_entity = registry.spawnPoints.has(entity_i) ? entity_i : entity_j;
-					const SpawnPoint& spawn_point = registry.spawnPoints.get(spawn_point_entity);
-					registry.changeMapLevelRequests.insert(change_map_request_entity, { spawn_point.connected_level_uid, spawn_point.send_to_location });
-				}
-
-				//the button is a circle, is in an overlay? do we walk on top of the button?
-				//is it only our radius that affects the button?
-				//This assumed the button in a circle, and is an overlay, but since we send the rectangle
-				//to "change_behaviours," i need to implement this code
-
-				if (registry.toggles.has(entity_i) || registry.toggles.has(entity_j))
-				{
-					Entity& eT = registry.toggles.has(entity_i) ? entity_i : entity_j;
-					Entity& eO = registry.toggles.has(entity_j) ? entity_i : entity_j;
-					Toggle& tT = registry.toggles.get(eT);
-
-					// Only the colourCircle can toggle things
-					if (!registry.colourCircles.has(eO))
-					{
-						continue;
+					if (!registry.collisions.has(entity_i)) {
+						registry.collisions.emplace(entity_i);
 					}
 
-					if (registry.colourStates.has(eO))
-					{
-						ColourState& csO = registry.colourStates.get(eO);
-
-						// A neutral object does not toggle anything
-						if (csO.curr_colour_state == COLOUR_STATE::NEUTRAL)
-						{
-							continue;
-						}
-
-						ColourState& csT = registry.colourStates.get(eT);
-
-						vec4& colT = registry.colors.get(eT);
-						vec4& colO = registry.colors.get(eO);
-						colT = colO;
-
-						for (Entity& toggledEntity : tT.walls_to_toggle)
-						{
-							ColourState& csTE = registry.colourStates.get(toggledEntity);
-							csTE.prev_colour_state = csTE.curr_colour_state;
-							csTE.curr_colour_state = csO.curr_colour_state;
-							vec4& colTE = registry.colors.get(toggledEntity);
-							colTE = vec4{ colO.r, colO.g, colO.b, colO.a };
-						}
+					if (!registry.collisions.has(entity_j)) {
+						registry.collisions.emplace(entity_j);
 					}
 
-				}
-				else
-				{
-					//must both be inelastic for this collision resolution to occur
-					if (registry.collidables.get(entity_i).inelastic && registry.collidables.get(entity_j).inelastic)
+					Collision& i_collision = registry.collisions.get(entity_i);
+					Collision& j_collision = registry.collisions.get(entity_j);
+
+					if (!i_collision.collisionList.count(entity_j.id()))
 					{
-						//handle it here because using bounding box for correction (also it is a physics resolution)
-						vec2& pos1 = registry.positions.get(entity_i);
-						vec2& pos2 = registry.positions.get(entity_j);
-						vec4 box1 = get_bounding_box(entity_i);
-						vec4 box2 = get_bounding_box(entity_j);
+						//checkCollisionCounts();
+						i_collision.collisionList[entity_j.id()] = entity_j;
+					}
 
-						float x_depth = box1[3] < box2[3] ? box1[3] - box2[2] : box2[3] - box1[2];
-						float y_depth = box1[1] < box2[1] ? box1[1] - box2[0] : box2[1] - box1[0];
-						x_depth = fmaxf(0, x_depth);
-						y_depth = fmaxf(0, y_depth);
-
-						if (x_depth < y_depth)
-						{
-							if (pos1.x < pos2.x)
-							{
-								pos1.x -= x_depth;
-							}
-							else
-							{
-								pos1.x += x_depth;
-							}
-
-						}
-						else
-						{
-							if (pos1.y < pos2.y)
-							{
-								pos1.y -= y_depth;
-							}
-							else
-							{
-								pos1.y += y_depth;
-							}
-						}
-
+					if (!j_collision.collisionList.count(entity_i.id()))
+					{
+						//checkCollisionCounts();
+						j_collision.collisionList[entity_i.id()] = entity_i;
 					}
 				}
 			}
-
 		}
 	}
 }
@@ -326,4 +192,148 @@ void PhysicsSystem::checkCollisionCounts()
 		Collision& collision = registry.collisions.get(entity);
 		std::cout << collision.collisionList.size() << std::endl;
 	}
+}
+
+bool PhysicsSystem::specialCaseCollision(Entity& entity_i, Entity& entity_j)
+{
+	if ((registry.creatures.has(entity_i) && registry.lightEmissions.has(entity_j)) ||
+		(registry.creatures.has(entity_j) && registry.lightEmissions.has(entity_i)))
+	{
+		return false;
+	}
+
+	if (registry.players.has(entity_i) && registry.spawnPoints.has(entity_j) || registry.players.has(entity_j) && registry.spawnPoints.has(entity_i))
+	{
+		Entity change_map_request_entity;
+		Entity& spawn_point_entity = registry.spawnPoints.has(entity_i) ? entity_i : entity_j;
+		const SpawnPoint& spawn_point = registry.spawnPoints.get(spawn_point_entity);
+		registry.changeMapLevelRequests.insert(change_map_request_entity, { spawn_point.connected_level_uid, spawn_point.send_to_location });
+	}
+
+	if (registry.collidables.get(entity_i).inelastic && registry.collidables.get(entity_j).inelastic)
+	{
+		//handle it here because using bounding box for correction (also it is a physics resolution)
+		vec2& pos1 = registry.positions.get(entity_i);
+		vec2& pos2 = registry.positions.get(entity_j);
+		vec4 box1 = get_bounding_box(entity_i);
+		vec4 box2 = get_bounding_box(entity_j);
+
+		float x_depth = box1[3] < box2[3] ? box1[3] - box2[2] : box2[3] - box1[2];
+		float y_depth = box1[1] < box2[1] ? box1[1] - box2[0] : box2[1] - box1[0];
+		x_depth = fmaxf(0, x_depth);
+		y_depth = fmaxf(0, y_depth);
+
+		if (x_depth < y_depth)
+		{
+			if (pos1.x < pos2.x)
+			{
+				pos1.x -= x_depth;
+			}
+			else
+			{
+				pos1.x += x_depth;
+			}
+
+		}
+		else
+		{
+			if (pos1.y < pos2.y)
+			{
+				pos1.y -= y_depth;
+			}
+			else
+			{
+				pos1.y += y_depth;
+			}
+		}
+	}
+
+	if (registry.colouredWall.has(entity_i) || registry.colouredWall.has(entity_j))
+	{
+
+		//find out which entity is which, since we need to find out if the other entity is a circle
+		//although right now, im testing collisions between the hovering rectangle and a placed rectangle
+		//so that does not really apply here
+		Entity& eCW = registry.colouredWall.has(entity_i) ? entity_i : entity_j;
+		Entity& eO = registry.colouredWall.has(entity_j) ? entity_i : entity_j;
+
+		ColourState& csCW = registry.colourStates.get(eCW);
+		ColourState& csO = registry.colourStates.get(eO);
+		Collidable& colCW = registry.collidables.get(eCW);
+
+		//if colourStates are same, wall is no longer inelastic, so player can walk through
+		if (csCW.curr_colour_state == csO.curr_colour_state && csCW.curr_colour_state != COLOUR_STATE::NEUTRAL && registry.players.has(eO))
+		{
+
+			colCW.inelastic = false;
+		}
+		else
+		{
+			colCW.inelastic = true;
+		}
+	}
+
+	//todo - change to sawfish once there are more creatures than sawfish
+	if (registry.players.has(entity_i) && registry.creatures.has(entity_j) || registry.players.has(entity_j) && registry.creatures.has(entity_i)) {
+		Entity& eP = registry.players.has(entity_i) ? entity_i : entity_j;
+		Entity& eS = registry.creatures.has(entity_i) ? entity_i : entity_j;
+		if (registry.colourStates.has(eS)) {
+			ColourState& csS = registry.colourStates.get(eS);
+			if (csS.curr_colour_state == COLOUR_STATE::RED) {
+				if (!registry.deathTimers.has(eP)) {
+					registry.deathTimers.emplace(eP);
+				}
+
+			}
+		}
+	}
+
+	//the button is a circle, is in an overlay? do we walk on top of the button?
+	//is it only our radius that affects the button?
+	//This assumed the button in a circle, and is an overlay, but since we send the rectangle
+	//to "change_behaviours," i need to implement this code
+
+	if (registry.toggles.has(entity_i) || registry.toggles.has(entity_j))
+	{
+		Entity& eT = registry.toggles.has(entity_i) ? entity_i : entity_j;
+		Entity& eO = registry.toggles.has(entity_j) ? entity_i : entity_j;
+		Toggle& tT = registry.toggles.get(eT);
+
+		// Only the colourCircle can toggle things
+		if (!registry.lightEmissions.has(eO))
+		{
+			return true;
+		}
+
+		if (registry.colourStates.has(eO))
+		{
+			ColourState& csO = registry.colourStates.get(eO);
+
+			// A neutral object does not toggle anything
+			if (csO.curr_colour_state == COLOUR_STATE::NEUTRAL)
+			{
+				return true;
+			}
+
+			ColourState& csT = registry.colourStates.get(eT);
+
+			vec4& colT = registry.colors.get(eT);
+			vec4& colO = registry.colors.get(eO);
+			colT = colO;
+
+			for (Entity& toggledEntity : tT.walls_to_toggle)
+			{
+				ColourState& csTE = registry.colourStates.get(toggledEntity);
+				csTE.prev_colour_state = csTE.curr_colour_state;
+				csTE.curr_colour_state = csO.curr_colour_state;
+				vec4& colTE = registry.colors.get(toggledEntity);
+				colTE = vec4{ colO.r, colO.g, colO.b, colO.a };
+			}
+		}
+
+	}
+
+
+	return true;
+	
 }

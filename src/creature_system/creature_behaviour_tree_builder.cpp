@@ -37,23 +37,59 @@ BehaviourTree CreatureBehaviourTreeBuilder::buildMinnowTree()
 BehaviourTree CreatureBehaviourTreeBuilder::buildSawfishTree()
 {
 	BehaviourTreeBuilder builder;
-	int root_index =
-		Root(builder,
-			Selector(builder,
-				Decorator(builder, creatureBehaviourFunctions.isInBlueState,
-					Selector(builder,
-						Action(builder, creatureBehaviourFunctions.aStarFollowTarget),
-						Action(builder, creatureBehaviourFunctions.stopCreatureMovement)
-					)
-				),
-				Decorator(builder, creatureBehaviourFunctions.isInRedState,
-					Action(builder, creatureBehaviourFunctions.chargeAtTarget)
-				),
-				Decorator(builder, creatureBehaviourFunctions.isInNeutralState,
-					Action(builder, creatureBehaviourFunctions.stopCreatureMovement)
-				)
-			)
-		);
+    int root_index =
+        Root(builder,
+            //if in red state, cannot change states until it crashed into a wall, so this is selector, so we can loop through red state
+            Selector(builder,
+                Decorator(builder, creatureBehaviourFunctions.isInRedState,
+                    Selector(builder, 
+						Decorator(builder, creatureBehaviourFunctions.isCooldownComplete, 
+							Sequence(builder, 
+							
+								Action(builder, creatureBehaviourFunctions.chargeAtTarget),
+								Action(builder, creatureBehaviourFunctions.beDizzy),
+								Action(builder, creatureBehaviourFunctions.makeNeutral)
+							)
+						),
+						Action(builder, creatureBehaviourFunctions.aimAtTarget)
+                        
+                    )
+                ),
+                Sequence(builder,
+                    //Do Blue/Neutral Action
+                    Selector(builder,
+                        Decorator(builder, creatureBehaviourFunctions.isInBlueState,
+                            Action(builder, creatureBehaviourFunctions.aStarFollowTarget)
+                        ),
+                        Decorator(builder, creatureBehaviourFunctions.isInNeutralState,
+                            //ignore this makeNeutral, it's just so there's an action function here and doesnt give me an error
+                            Action(builder, creatureBehaviourFunctions.makeNeutral)/*,
+                            Action(builder, wanderAround)*/
+                        )
+                    ),
+                    //Change colour to whatever colour you're in
+                    Selector(builder,
+                        Decorator(builder, creatureBehaviourFunctions.isCreatureWithinPlayerColourRadius,
+                            Sequence(builder,
+                                Selector(builder,
+                                    Decorator(builder, creatureBehaviourFunctions.isCreatureInBlueRadius,
+                                        Action(builder, creatureBehaviourFunctions.makeBlue)
+                                    ),
+                                    Decorator(builder, creatureBehaviourFunctions.isCreatureInRedRadius,
+                                        Sequence(builder,
+                                            Action(builder, creatureBehaviourFunctions.setTargetToEmissionSource),
+											Action(builder, creatureBehaviourFunctions.makeRed)
+										)
+                                    ),
+                                    Action(builder, creatureBehaviourFunctions.makeNeutral)
+                                ),
+                                Action(builder, creatureBehaviourFunctions.stopColliding)
+                            )
+                        )
+                    )
+                )
+            )
+        );
 
 	return builder.build(root_index);
 }

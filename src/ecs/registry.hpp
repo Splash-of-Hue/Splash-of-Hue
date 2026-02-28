@@ -35,6 +35,7 @@ public:
 	ComponentContainer<CreatureBehaviourTimer> creatureBehaviourTimers;
 	ComponentContainer<EntityToLookAt> entitiesToLookAt;
 	ComponentContainer<Pathfinder> pathfinders;
+	ComponentContainer<Target> targets;
 	// Animation
 	ComponentContainer<Animatable> animatables;
 	ComponentContainer<AnimationTrigger> animation_triggers;
@@ -43,13 +44,13 @@ public:
 	// Colour System
 	ComponentContainer<vec4> colors;
 	ComponentContainer<ColouredWall> colouredWall;
-	ComponentContainer<ColourCircle> colourCircles;
 	ComponentContainer<ColourState> colourStates;
 	ComponentContainer<ColourWheel> colourWheels;
 	ComponentContainer<ColourPalette> colourPalettes;
 	ComponentContainer<ColourMenuState> colourMenuStates;
 	ComponentContainer<ColourMenuInput> colourMenuInputs;
-	ComponentContainer<EmittingCircle> emittingCircles;
+	ComponentContainer<LightEmission> lightEmissions;
+	ComponentContainer<LightSource> lightSources;
 	// Controls
 	ComponentContainer<Control> controls;
 	ComponentContainer<Input> inputs;
@@ -116,6 +117,7 @@ public:
 		registry_list.push_back(&creatureBehaviourTimers);
 		registry_list.push_back(&entitiesToLookAt);
 		registry_list.push_back(&pathfinders);
+		registry_list.push_back(&targets);
 		// Animation
 		registry_list.push_back(&animatables);
 		registry_list.push_back(&animation_triggers);
@@ -124,13 +126,13 @@ public:
 		// Colour System
 		registry_list.push_back(&colors);
 		registry_list.push_back(&colouredWall);
-		registry_list.push_back(&colourCircles);
 		registry_list.push_back(&colourStates);
 		registry_list.push_back(&colourWheels);
 		registry_list.push_back(&colourPalettes);
 		registry_list.push_back(&colourMenuStates);
 		registry_list.push_back(&colourMenuInputs);
-		registry_list.push_back(&emittingCircles);
+		registry_list.push_back(&lightEmissions);
+		registry_list.push_back(&lightSources);
 		// Controls
 		registry_list.push_back(&controls);
 		registry_list.push_back(&inputs);

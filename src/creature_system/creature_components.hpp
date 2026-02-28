@@ -39,3 +39,8 @@ struct Pathfinder
 	float minimumDistanceToTarget = 70.0f;
 	float max_speed = 2.0f;
 };
+
+struct Target
+{
+	Entity entity;
+};

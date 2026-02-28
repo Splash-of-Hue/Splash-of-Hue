@@ -59,6 +59,36 @@ BEHAVIOUR_TREE_STATUS CreatureBehaviourFunctions::stopColliding(Entity& creature
 	return BEHAVIOUR_TREE_STATUS::SUCCESS;
 }
 
+BEHAVIOUR_TREE_STATUS CreatureBehaviourFunctions::setTargetToEmissionSource(Entity& creature, float elapsed_ms)
+{
+	EntityToLookAt& light_emission_entity_component = registry.entitiesToLookAt.get(creature);
+	Entity& light_emission_entity = light_emission_entity_component.entity;
+	
+	if (!registry.lightEmissions.has(light_emission_entity))
+	{
+		return BEHAVIOUR_TREE_STATUS::FAILURE;
+	}
+	
+	if (!registry.targets.has(creature))
+	{
+		registry.targets.emplace(creature);
+
+	}
+
+	LightEmission& light_emission_component = registry.lightEmissions.get(light_emission_entity);
+	Entity& light_source_entity = light_emission_component.lightSourceEntity;
+
+	Target& target_component = registry.targets.get(creature);
+	target_component.entity = light_source_entity;
+
+	CreatureBehaviourCooldown& cooldown = registry.creatureBehaviourCooldowns.emplace(creature);
+
+	registry.list_all_components_of(light_source_entity);
+
+	return BEHAVIOUR_TREE_STATUS::SUCCESS;
+}
+
+//Helper Functions
 BEHAVIOUR_TREE_STATUS CreatureBehaviourFunctions::makeColour(Entity& creature, COLOUR_STATE colour_state)
 {
 	if (!registry.colourStates.has(creature))

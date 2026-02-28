@@ -19,4 +19,5 @@ private:
 	void handle_movement(float elapsed_ms);
 	void deleteEmptyCollisions();
 	void checkCollisionCounts();
+	bool specialCaseCollision(Entity& entity_i, Entity& entity_j);
 };
