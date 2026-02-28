@@ -176,6 +176,9 @@ vec3 collides(const Entity& entity1, const Entity& entity2)
 			//don't return 0 for x value though, otherwise it is "false"
 			return vec3{ 1.0f, 0.0f, 0.0f };
 		}
+		else {
+			return vec3{ 0.0f, 0.0f, 0.0f };
+		}
 			
 	}
 	//create polygon either returns rectangle or predefined polygon of entity
