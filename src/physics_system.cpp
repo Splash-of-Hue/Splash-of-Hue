@@ -153,15 +153,17 @@ void handle_inelastic_collision_box(Entity& entity_i, Entity& entity_j) {
 //mesh collision helpers
 PolygonMesh findHitbox(const Entity& e) {
 	//default is triangle
-	PolygonMesh& polygon = registry.polygons.emplace(e);
+	
 	vec2& pos = registry.positions.get(e);
 	Size& size = registry.sizes.get(e);
-	polygon.centre = pos;
+	std::vector<vec2> vertices;
 	//Entity heights and widths are too large, this is a temp fix
 	//TODO: DMdDb4NW
-	polygon.vertices.push_back(vec2(pos.x, pos.y - size.height * 0.45f)); // bottom
-	polygon.vertices.push_back(vec2(pos.x + size.width * 0.45f, pos.y + size.height * 0.45f)); // top right
-	polygon.vertices.push_back(vec2(pos.x - size.width * 0.45f, pos.y + size.height * 0.45f)); // top left
+	vertices.push_back({ vec2(pos.x, pos.y - size.height * 0.45f) }); // bottom
+	vertices.push_back(vec2(pos.x + size.width * 0.45f, pos.y + size.height * 0.45f)); // top right
+	vertices.push_back(vec2(pos.x - size.width * 0.45f, pos.y + size.height * 0.45f)); // top left
+	PolygonMesh& polygon = PolygonMesh{vertices, pos };
+	
 
 	return polygon;
 }
@@ -296,6 +298,13 @@ void PhysicsSystem::step(float elapsed_ms)
 			if (registry.polygons.has(entity_i) || registry.polygons.has(entity_j)) {
 				vec3 penetration = mesh_collides(entity_i, entity_j);
 				if (penetration.x != 0) {
+					if (registry.players.has(entity_i) && registry.spawnPoints.has(entity_j) || registry.players.has(entity_j) && registry.spawnPoints.has(entity_i))
+					{
+						Entity change_map_request_entity;
+						Entity& spawn_point_entity = registry.spawnPoints.has(entity_i) ? entity_i : entity_j;
+						const SpawnPoint& spawn_point = registry.spawnPoints.get(spawn_point_entity);
+						registry.changeMapLevelRequests.insert(change_map_request_entity, { spawn_point.connected_level_uid, spawn_point.send_to_location });
+					}
 					if (registry.collidables.get(entity_i).inelastic && registry.collidables.get(entity_j).inelastic)
 					{
 						handle_inelastic_collision_mesh(entity_i, entity_j, penetration);

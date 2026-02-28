@@ -206,8 +206,8 @@
 			"exportToToc": true,
 			"allowOutOfBounds": false,
 			"doc": null,
-			"width": 16,
-			"height": 16,
+			"width": 8,
+			"height": 8,
 			"resizableX": false,
 			"resizableY": false,
 			"minWidth": null,
@@ -395,8 +395,8 @@
 			"exportToToc": false,
 			"allowOutOfBounds": false,
 			"doc": null,
-			"width": 256,
-			"height": 128,
+			"width": 128,
+			"height": 256,
 			"resizableX": false,
 			"resizableY": false,
 			"minWidth": null,
@@ -1831,7 +1831,46 @@
 					"seed": 6461718,
 					"overrideTilesetUid": null,
 					"gridTiles": [],
-					"entityInstances": []
+					"entityInstances": [
+						{
+							"__identifier": "Sawfish",
+							"__grid": [23,39],
+							"__pivot": [0.5,0.5],
+							"__tags": [ "Creature", "Pathfinder" ],
+							"__tile": null,
+							"__smartColor": "#2C98AB",
+							"iid": "e028ba30-fa90-11f0-a9a5-5d444a3cef33",
+							"width": 256,
+							"height": 128,
+							"defUid": 20,
+							"px": [376,632],
+							"fieldInstances": [
+								{ "__identifier": "CreatureType", "__type": "LocalEnum.CreatureType", "__value": "Sawfish", "__tile": null, "defUid": 23, "realEditorValues": [] },
+								{ "__identifier": "ColorState", "__type": "LocalEnum.ColorState", "__value": "Neutral", "__tile": null, "defUid": 28, "realEditorValues": [] }
+							],
+							"__worldX": 376,
+							"__worldY": -448
+						},
+						{
+							"__identifier": "Sawfish",
+							"__grid": [77,26],
+							"__pivot": [0.5,0.5],
+							"__tags": [ "Creature", "Pathfinder" ],
+							"__tile": null,
+							"__smartColor": "#2C98AB",
+							"iid": "e0ef3e80-fa90-11f0-a9a5-bb64f433de78",
+							"width": 256,
+							"height": 128,
+							"defUid": 20,
+							"px": [1240,424],
+							"fieldInstances": [
+								{ "__identifier": "CreatureType", "__type": "LocalEnum.CreatureType", "__value": "Sawfish", "__tile": null, "defUid": 23, "realEditorValues": [] },
+								{ "__identifier": "ColorState", "__type": "LocalEnum.ColorState", "__value": "Neutral", "__tile": null, "defUid": 28, "realEditorValues": [] }
+							],
+							"__worldX": 1240,
+							"__worldY": -656
+						}
+					]
 				},
 				{
 					"__identifier": "Spawn_Points",
