@@ -258,7 +258,7 @@ Entity createShrimp(vec2 position, float width, float height, COLOUR_STATE color
     addGeneralCreatureComponents(shrimp, position, width, height, color_state, CREATURETYPE::SHRIMP, TEXTURE_ASSET_ID::PISTOL_SHRIMP_01, false);
 
     Shrimp& shrimp_component = registry.shrimps.emplace(shrimp); // direction tracking component
-    assert((num_arms == 1 || num_arms == 2 || num_arms == 3) && "shrimp can only be initialized with 1, 2, or 3 arms at this time");
+    assert((num_arms == 1 || num_arms == 2) && "shrimp can only be initialized with 1, 2, or 3 arms at this time");
     shrimp_component.num_arms = num_arms;
 
     createCircle(position, width / 2, RED_COLOUR_VEC4);
