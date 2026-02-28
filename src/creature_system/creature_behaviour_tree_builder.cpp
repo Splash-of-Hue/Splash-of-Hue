@@ -37,29 +37,56 @@ BehaviourTree CreatureBehaviourTreeBuilder::buildMinnowTree()
 BehaviourTree CreatureBehaviourTreeBuilder::buildSawfishTree()
 {
 	BehaviourTreeBuilder builder;
+
 	int root_index =
-		Root(builder,
-			Selector(builder,
-				Decorator(builder, isCreatureWithinPlayerColourRadius,
-					Selector(builder,
-						Decorator(builder, isCreatureInBlueRadius,
-							Sequence(builder,
-								Action(builder, makeBlue),
-								Action(builder, stopColliding)
-							)
-						),
-						Decorator(builder, isCreatureInRedRadius,
-							Sequence(builder,
-								Action(builder, makeRed),
-								Action(builder, stopColliding)
-							)
-						),
-						Action(builder, makeNeutral)
+	Root(builder,
+		//if in red state, cannot change states until it crashed into a wall, so this is selector, so we can loop through red state
+		Selector(builder,
+			Decorator(builder, isInRedState,
+				Sequence(builder,
+					Action(builder, chargeAtTarget)/*,
+					Action(builder, attackTarget), 
+					Action(builder, dizzy), 
+					Action(builder, turnNeutral)*/
+				)
+			),
+			Sequence(builder, 
+				//Do Blue/Neutral Action
+				Selector(builder, 
+					Decorator(builder, isInBlueState,
+						//ignore this makeBlue, it's just so there's an action function here and doesnt give me an error
+						Action(builder, makeBlue)/*,
+						Action(builder, follow_player)*/
+					),
+					Decorator(builder, isInNeutralState, 
+						//ignore this makeNeutral, it's just so there's an action function here and doesnt give me an error
+						Action(builder, makeNeutral)/*,
+						Action(builder, wanderAround)*/
+					)
+				), 
+				//Change colour to whatever colour you're in
+				Selector(builder, 
+					Decorator(builder, isCreatureWithinPlayerColourRadius, 
+						Sequence(builder, 
+							Selector(builder,
+								Decorator(builder, isCreatureInBlueRadius,
+									Action(builder, makeBlue)
+								),
+								Decorator(builder, isCreatureInRedRadius,
+								  /*Sequence(builder, 
+								        Action(builder, targetCreature),*/
+								        Action(builder, makeRed)
+								  /*)*/
+								),
+								Action(builder, makeNeutral)
+							),
+							Action(builder, stopColliding)
+						)
 					)
 				)
 			)
-		);
-	
+		)
+	);
 	return builder.build(root_index);
 }
 

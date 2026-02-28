@@ -144,13 +144,13 @@ void PhysicsSystem::step(float elapsed_ms)
 
 				if (!i_collision.collisionList.count(entity_j.id()))
 				{
-					checkCollisionCounts();
+					//checkCollisionCounts();
 					i_collision.collisionList[entity_j.id()] = entity_j;
 				}
 
 				if (!j_collision.collisionList.count(entity_i.id()))
 				{
-					checkCollisionCounts();
+					//checkCollisionCounts();
 					j_collision.collisionList[entity_i.id()] = entity_i;
 				}
 

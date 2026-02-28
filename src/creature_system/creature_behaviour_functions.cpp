@@ -17,32 +17,20 @@ BEHAVIOUR_TREE_STATUS stopCreatureMovement(Entity& creature, float elapsed_ms)
 
 BEHAVIOUR_TREE_STATUS makeRed(Entity& creature, float elapsed_ms)
 {
-	if (!registry.colourStates.has(creature))
-		return BEHAVIOUR_TREE_STATUS::FAILURE;
-	std::cout << "Creature Is Turning Red!" << std::endl;
-	makeColour(creature, COLOUR_STATE::RED);
-
-	return BEHAVIOUR_TREE_STATUS::SUCCESS;
+	std::cout << "Creature Is Turning RED!" << std::endl;
+	return makeColour(creature, COLOUR_STATE::RED);
 }
 
 BEHAVIOUR_TREE_STATUS makeBlue(Entity& creature, float elapsed_ms)
 {
-	if (!registry.colourStates.has(creature))
-		return BEHAVIOUR_TREE_STATUS::FAILURE;
 	std::cout << "Creature Is Turning Blue!" << std::endl;
-	makeColour(creature, COLOUR_STATE::BLUE);
-
-	return BEHAVIOUR_TREE_STATUS::SUCCESS;
+	return makeColour(creature, COLOUR_STATE::BLUE);
 }
 
 BEHAVIOUR_TREE_STATUS makeNeutral(Entity& creature, float elapsed_ms)
 {
-	if (!registry.colourStates.has(creature))
-		return BEHAVIOUR_TREE_STATUS::FAILURE;
 	std::cout << "Creature Is Turning Neutral!" << std::endl;
-	makeColour(creature, COLOUR_STATE::NEUTRAL);
-
-	return BEHAVIOUR_TREE_STATUS::SUCCESS;
+	return makeColour(creature, COLOUR_STATE::NEUTRAL);
 }
 
 BEHAVIOUR_TREE_STATUS stopColliding(Entity& creature, float elapsed_ms)
@@ -69,9 +57,12 @@ BEHAVIOUR_TREE_STATUS stopColliding(Entity& creature, float elapsed_ms)
 	return BEHAVIOUR_TREE_STATUS::SUCCESS;
 }
 
-void makeColour(Entity& creature, COLOUR_STATE colour_state) 
+BEHAVIOUR_TREE_STATUS makeColour(Entity& creature, COLOUR_STATE colour_state)
 {
+	if (!registry.colourStates.has(creature))
+		return BEHAVIOUR_TREE_STATUS::FAILURE;
 	ColourState& creature_colour_state = registry.colourStates.get(creature);
 	creature_colour_state.prev_colour_state = creature_colour_state.curr_colour_state;
 	creature_colour_state.curr_colour_state = colour_state;
+	return BEHAVIOUR_TREE_STATUS::SUCCESS;
 }

@@ -18,7 +18,6 @@
 	entity instead of passing them in.
 
 */
-
 // Pathfinder, TEMPORARY to be discontinued once A* pathfinding is implemented. (Qj457xrS)
 bool follow_player(float elapsed_ms, Entity& follower);
 
@@ -29,8 +28,9 @@ BEHAVIOUR_TREE_STATUS stopCreatureMovement(Entity& creature, float elapsed_ms);
 BEHAVIOUR_TREE_STATUS makeRed(Entity& creature, float elapsed_ms);
 BEHAVIOUR_TREE_STATUS makeBlue(Entity& creature, float elapsed_ms);
 BEHAVIOUR_TREE_STATUS makeNeutral(Entity& creature, float elapsed_ms);
-void makeColour(Entity& creature,COLOUR_STATE colour_state);
 BEHAVIOUR_TREE_STATUS stopColliding(Entity& creature, float elapsed_ms);
+// ===== Action Helper Functions =====
+BEHAVIOUR_TREE_STATUS makeColour(Entity& creature, COLOUR_STATE colour_state);
 
 // ===== Decorator Node Functions =====
 BEHAVIOUR_TREE_STATUS isInBlueState(Entity& creature, float elapsed_ms);
@@ -45,4 +45,8 @@ BEHAVIOUR_TREE_STATUS isCreatureWithinCreatureColourRadius(Entity& creature, flo
 BEHAVIOUR_TREE_STATUS isCreatureWithinInteractableColourRadius(Entity& creature, float elapsed_ms);
 BEHAVIOUR_TREE_STATUS isCreatureInBlueRadius(Entity& creature, float elapsed_ms);
 BEHAVIOUR_TREE_STATUS isCreatureInRedRadius(Entity& creature, float elapsed_ms);
-bool checkIfInColourRadius(Entity& creature, COLOUR_STATE colour_state);
+// ===== Decorator Helper Functions =====
+template <typename Component>
+BEHAVIOUR_TREE_STATUS checkIfInComponentRadius(Entity& creature, Component& component_type);
+BEHAVIOUR_TREE_STATUS checkIfInColourRadius(Entity& creature, COLOUR_STATE colour_state);
+
