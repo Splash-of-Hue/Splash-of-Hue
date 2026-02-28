@@ -27,7 +27,8 @@ BEHAVIOUR_TREE_STATUS CreatureBehaviourFunctions::chargeAtTarget(Entity& charger
 	return BEHAVIOUR_TREE_STATUS::FAILURE;
 }
 
-BEHAVIOUR_TREE_STATUS requestNewPath(Entity& pathfinder_entity, float elapsed_ms)
+
+BEHAVIOUR_TREE_STATUS CreatureBehaviourFunctions::requestNewPath(Entity& pathfinder_entity, float elapsed_ms)
 {
 	// DEBUGGING std::cout << "chargeAtTarget" << std::endl;
 	Pathfinder& pathfinder = registry.pathfinders.get(pathfinder_entity);
@@ -36,7 +37,7 @@ BEHAVIOUR_TREE_STATUS requestNewPath(Entity& pathfinder_entity, float elapsed_ms
 	return BEHAVIOUR_TREE_STATUS::SUCCESS;
 }
 
-BEHAVIOUR_TREE_STATUS goToNextPathStep(Entity& pathfinder_entity, float elapsed_ms)
+BEHAVIOUR_TREE_STATUS CreatureBehaviourFunctions::goToNextPathStep(Entity& pathfinder_entity, float elapsed_ms)
 {
 	// DEBUGGING std::cout << "chargeAtTarget" << std::endl;
 
