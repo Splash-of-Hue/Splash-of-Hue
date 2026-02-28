@@ -142,29 +142,29 @@ void PhysicsSystem::step(float elapsed_ms)
 					}
 
 					//colourcircles cannot interact with other colourcircles
-					if (registry.colourCircles.has(entity_i) && registry.colourCircles.has(entity_j)) {
+					if (registry.lightEmissions.has(entity_i) && registry.lightEmissions.has(entity_j)) {
 						goto after_color_collision;
 					}
-					const bool i_is_ColourCircle = registry.colourCircles.has(entity_i);
-					const bool j_is_ColourCircle = registry.colourCircles.has(entity_j);
+					const bool i_is_lightEmission = registry.lightEmissions.has(entity_i);
+					const bool j_is_lightEmissione = registry.lightEmissions.has(entity_j);
 
-					const Entity& circle_entity = i_is_ColourCircle ? entity_i : entity_j;
-					const Entity& other_entity = j_is_ColourCircle ? entity_i : entity_j;
+					const Entity& circle_entity = i_is_lightEmission ? entity_i : entity_j;
+					const Entity& other_entity = j_is_lightEmissione ? entity_i : entity_j;
 					if (!registry.creatures.has(other_entity))
 					{
 						goto after_color_collision;
 					}
-					const ColourState& circle_color_state = registry.colourStates.get(circle_entity);
+					const ColourState& light_emission_state = registry.colourStates.get(circle_entity);
 					ColourState& other_color_state = registry.colourStates.get(other_entity);
 
 					// If the states are the same, move on
-					if (circle_color_state.curr_colour_state == other_color_state.curr_colour_state)
+					if (light_emission_state.curr_colour_state == other_color_state.curr_colour_state)
 					{
 						goto after_color_collision;
 					}
 
 					other_color_state.prev_colour_state = other_color_state.curr_colour_state;
-					other_color_state.curr_colour_state = circle_color_state.curr_colour_state;
+					other_color_state.curr_colour_state = light_emission_state.curr_colour_state;
 					vec4& other_color = registry.colors.get(other_entity);
 					const ColourPalette& palette = registry.colourPalettes.components[0];
 					auto& color_from_state = palette.state_to_colour.at(other_color_state.curr_colour_state);
@@ -236,7 +236,7 @@ void PhysicsSystem::step(float elapsed_ms)
 					Toggle& tT = registry.toggles.get(eT);
 
 					// Only the colourCircle can toggle things
-					if (!registry.colourCircles.has(eO))
+					if (!registry.lightEmissions.has(eO))
 					{
 						continue;
 					}

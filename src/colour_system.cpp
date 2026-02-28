@@ -89,7 +89,7 @@ void ColourSystem::closeColourMenu()
 	if (player_colour_state.curr_colour_state != player_colour_state.prev_colour_state)
 	{
 		//sending the colour state as an int because sending the reference to the colour state creates issues
-		changeColourCircle(player, static_cast<int>(player_colour_state.curr_colour_state));
+		changeLightEmissions(player, static_cast<int>(player_colour_state.curr_colour_state));
 	}
 
 }
@@ -186,7 +186,7 @@ void ColourSystem::applyColorToPlayer(COLOUR_STATE colour)
 
 	//TODO: https://trello.com/c/XWeiA55L/149-1-colour-menu-ui-always-visible
 	setEntityVisualColour(player, colour);
-	changeColourCircle(player, static_cast<int>(colour));
+	changeLightEmissions(player, static_cast<int>(colour));
 
 	std::cout << "Player colour set to: " << static_cast<int>(colour) << std::endl;
 }
@@ -223,66 +223,66 @@ void ColourSystem::step(float elapsed_ms)
 		}
 	}
 
-	updateCircles(elapsed_ms);
+	updateEmissions(elapsed_ms);
 }
 
-void ColourSystem::changeColourCircle(Entity& player, int player_colour_state)
+void ColourSystem::changeLightEmissions(Entity& player, int player_colour_state)
 {
 	//creating coloured circle. The if state is needed so the circle doesnt animate
 	//if colours are same as before
 	//if neutral, delete colour circle
 	if (player_colour_state == static_cast<int>(COLOUR_STATE::NEUTRAL)) {
-		registry.emittingCircles.remove(player);
-		registry.remove_all_components_of(players_colour_circle);
+		registry.lightSources.remove(player);
+		registry.remove_all_components_of(players_light_emission);
 		return;
 	}
 
-	if (registry.emittingCircles.has(player))
+	if (registry.lightSources.has(player))
 	{
-		EmittingCircle& player_emitting_component = registry.emittingCircles.get(player);
-		players_colour_circle = player_emitting_component.colourCircleEntity;
-		Size& colour_circle_size = registry.sizes.get(players_colour_circle);
+		LightSource& light_source_component = registry.lightSources.get(player);
+		players_light_emission = light_source_component.lightEmissionEntity;
+		Size& colour_circle_size = registry.sizes.get(players_light_emission);
 		colour_circle_size.width = 0;
 		colour_circle_size.height = 0;
 	}
 	// TODO: FcZFoAfD set vec4 colour to be colour constant
 	else {
 		vec2& player_position = registry.positions.get(player);
-		players_colour_circle = createCircle(player_position, 1.f, DEFAULT_COLOUR_VEC4);
-		ColourCircle& colour_circle_component = registry.colourCircles.emplace(players_colour_circle);
-		Collidable& colour_circle_collidable_component = registry.collidables.emplace(players_colour_circle);
-		colour_circle_collidable_component.overlay = true;
-		colour_circle_collidable_component.inelastic = false;
+		players_light_emission = createCircle(player_position, 1.f, DEFAULT_COLOUR_VEC4);
+		LightEmission& light_emission_component = registry.lightEmissions.emplace(players_light_emission);
+		Collidable& light_emission_collidable_component = registry.collidables.emplace(players_light_emission);
+		light_emission_collidable_component.overlay = true;
+		light_emission_collidable_component.inelastic = false;
 
-		ColourState& colour_circle_colour_state = registry.colourStates.emplace(players_colour_circle);
-		colour_circle_component.sourceEntity = player;
+		ColourState& colour_circle_colour_state = registry.colourStates.emplace(players_light_emission);
+		light_emission_component.lightSourceEntity = player;
 		
-		EmittingCircle& player_emitting_component = registry.emittingCircles.emplace(player);
-		player_emitting_component.colourCircleEntity = players_colour_circle;
+		LightSource& light_source_component = registry.lightSources.emplace(player);
+		light_source_component.lightEmissionEntity = players_light_emission;
 	}
 
-	ColourState& colour_circle_colour_state = registry.colourStates.get(players_colour_circle);
-	colour_circle_colour_state.prev_colour_state = colour_circle_colour_state.curr_colour_state;
-	colour_circle_colour_state.curr_colour_state = COLOUR_STATE(player_colour_state);
-	setEntityVisualColour(players_colour_circle, COLOUR_STATE(player_colour_state));
+	ColourState& light_emission_colour_state = registry.colourStates.get(players_light_emission);
+	light_emission_colour_state.prev_colour_state = light_emission_colour_state.curr_colour_state;
+	light_emission_colour_state.curr_colour_state = COLOUR_STATE(player_colour_state);
+	setEntityVisualColour(players_light_emission, COLOUR_STATE(player_colour_state));
 }
 
-void ColourSystem::updateCircles(float elapsed_ms)
+void ColourSystem::updateEmissions(float elapsed_ms)
 {
-	for (Entity& colour_circle_entity : registry.colourCircles.entities)
+	for (Entity& light_emission_entity : registry.lightEmissions.entities)
 	{
 		//circle updates to location of whatever its attached to
-		vec2& colour_circle_position = registry.positions.get(colour_circle_entity);
-		ColourCircle& colour_circle_component = registry.colourCircles.get(colour_circle_entity);
-		Entity& source_entity = colour_circle_component.sourceEntity;
+		vec2& light_emission_position = registry.positions.get(light_emission_entity);
+		LightEmission& light_emission_component = registry.lightEmissions.get(light_emission_entity);
+		Entity& source_entity = light_emission_component.lightSourceEntity;
 		vec2& source_position = registry.positions.get(source_entity);
-		colour_circle_position = source_position;
+		light_emission_position = source_position;
 
-		Size& colour_circle_size = registry.sizes.get(colour_circle_entity);
-		if (colour_circle_size.width < colour_circle_component.maxRadius) {
+		Size& light_emission_size = registry.sizes.get(light_emission_entity);
+		if (light_emission_size.width < light_emission_component.maxRadius) {
 
-			colour_circle_size.width += colour_circle_component.maxRadius * elapsed_ms / TIME_FOR_CIRCLE_TO_GROW;
-			colour_circle_size.height += colour_circle_component.maxRadius * elapsed_ms / TIME_FOR_CIRCLE_TO_GROW;
+			light_emission_size.width += light_emission_component.maxRadius * elapsed_ms / TIME_FOR_CIRCLE_TO_GROW;
+			light_emission_size.height += light_emission_component.maxRadius * elapsed_ms / TIME_FOR_CIRCLE_TO_GROW;
 		}
 	}
 }

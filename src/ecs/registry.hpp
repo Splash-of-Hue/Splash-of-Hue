@@ -42,13 +42,13 @@ public:
 	// Colour System
 	ComponentContainer<vec4> colors;
 	ComponentContainer<ColouredWall> colouredWall;
-	ComponentContainer<ColourCircle> colourCircles;
+	ComponentContainer<LightEmission> lightEmissions;
 	ComponentContainer<ColourState> colourStates;
 	ComponentContainer<ColourWheel> colourWheels;
 	ComponentContainer<ColourPalette> colourPalettes;
 	ComponentContainer<ColourMenuState> colourMenuStates;
 	ComponentContainer<ColourMenuInput> colourMenuInputs;
-	ComponentContainer<EmittingCircle> emittingCircles;
+	ComponentContainer<LightSource> lightSources;
 	
 	// Controls
 	ComponentContainer<Control> controls;
@@ -123,13 +123,13 @@ public:
 		// Colour System
 		registry_list.push_back(&colors);
 		registry_list.push_back(&colouredWall);
-		registry_list.push_back(&colourCircles);
+		registry_list.push_back(&lightEmissions);
 		registry_list.push_back(&colourStates);
 		registry_list.push_back(&colourWheels);
 		registry_list.push_back(&colourPalettes);
 		registry_list.push_back(&colourMenuStates);
 		registry_list.push_back(&colourMenuInputs);
-		registry_list.push_back(&emittingCircles);
+		registry_list.push_back(&lightSources);
 		// Controls
 		registry_list.push_back(&controls);
 		registry_list.push_back(&inputs);
