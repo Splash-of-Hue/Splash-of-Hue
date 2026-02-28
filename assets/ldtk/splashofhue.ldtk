@@ -1357,27 +1357,7 @@
 					"seed": 8380983,
 					"overrideTilesetUid": null,
 					"gridTiles": [],
-					"entityInstances": [
-						{
-							"__identifier": "Sawfish",
-							"__grid": [42,18],
-							"__pivot": [0.5,0.5],
-							"__tags": [ "Creature", "Pathfinder" ],
-							"__tile": null,
-							"__smartColor": "#2C98AB",
-							"iid": "241b0460-fa90-11f0-95ae-b9176067c362",
-							"width": 256,
-							"height": 128,
-							"defUid": 20,
-							"px": [680,296],
-							"fieldInstances": [
-								{ "__identifier": "CreatureType", "__type": "LocalEnum.CreatureType", "__value": "Sawfish", "__tile": null, "defUid": 23, "realEditorValues": [] },
-								{ "__identifier": "ColorState", "__type": "LocalEnum.ColorState", "__value": "Neutral", "__tile": null, "defUid": 28, "realEditorValues": [] }
-							],
-							"__worldX": 680,
-							"__worldY": 296
-						}
-					]
+					"entityInstances": []
 				},
 				{
 					"__identifier": "Floor_Interactables",

@@ -18,20 +18,41 @@
 	entity instead of passing them in.
 
 */
+class CreatureBehaviourFunctions
+{
+public:
+	// Pathfinder, TEMPORARY to be discontinued once A* pathfinding is implemented. (Qj457xrS)
+	bool follow_player(float elapsed_ms, Entity& follower);
 
-// Pathfinder, TEMPORARY to be discontinued once A* pathfinding is implemented. (Qj457xrS)
-bool follow_player(float elapsed_ms, Entity& follower);
+	// ===== Action Node Functions =====
+	static BEHAVIOUR_TREE_STATUS aStarFollowTarget(Entity& follower, float elapsed_ms);
+	static BEHAVIOUR_TREE_STATUS chargeAtTarget(Entity& charger, float elapsed_ms);
+	static BEHAVIOUR_TREE_STATUS stopCreatureMovement(Entity& creature, float elapsed_ms);
 
-// ===== Action Node Functions =====
-BEHAVIOUR_TREE_STATUS aStarFollowTarget(Entity& follower, float elapsed_ms);
-BEHAVIOUR_TREE_STATUS chargeAtTarget(Entity& charger, float elapsed_ms);
-BEHAVIOUR_TREE_STATUS stopCreatureMovement(Entity& creature, float elapsed_ms);
+	// Shrimp Behaviour Actions
+	static BEHAVIOUR_TREE_STATUS neutralArms(Entity& follower, float elapsed_ms);
+	static BEHAVIOUR_TREE_STATUS blueArms(Entity& follower, float elapsed_ms);
+	static BEHAVIOUR_TREE_STATUS redArms(Entity& follower, float elapsed_ms);
 
-// ===== Decorator Node Functions =====
-BEHAVIOUR_TREE_STATUS isInBlueState(Entity& creature, float elapsed_ms);
-BEHAVIOUR_TREE_STATUS isInRedState(Entity& creature, float elapsed_ms);
-BEHAVIOUR_TREE_STATUS isInNeutralState(Entity& creature, float elapsed_ms);
-BEHAVIOUR_TREE_STATUS isCooldownComplete(Entity& creature, float elapsed_ms);
-BEHAVIOUR_TREE_STATUS isTimerComplete(Entity& creature, float elapsed_ms);
-BEHAVIOUR_TREE_STATUS isCreatureWithinColourRadius(Entity& creature, float elapsed_ms);
-BEHAVIOUR_TREE_STATUS hasCreatureCollided(Entity& creature, float elapsed_ms);
+	// ===== Decorator Node Functions =====
+	static BEHAVIOUR_TREE_STATUS isInBlueState(Entity& creature, float elapsed_ms);
+	static BEHAVIOUR_TREE_STATUS isInRedState(Entity& creature, float elapsed_ms);
+	static BEHAVIOUR_TREE_STATUS isInNeutralState(Entity& creature, float elapsed_ms);
+	static BEHAVIOUR_TREE_STATUS isCooldownComplete(Entity& creature, float elapsed_ms);
+	static BEHAVIOUR_TREE_STATUS isTimerComplete(Entity& creature, float elapsed_ms);
+	static BEHAVIOUR_TREE_STATUS isCreatureWithinAnyColourRadius(Entity& creature, float elapsed_ms);
+	static BEHAVIOUR_TREE_STATUS isCreatureWithinPlayerColourRadius(Entity& creature, float elapsed_ms);
+	static BEHAVIOUR_TREE_STATUS isCreatureWithinCreatureColourRadius(Entity& creature, float elapsed_ms);
+	static BEHAVIOUR_TREE_STATUS isCreatureWithinInteractableColourRadius(Entity& creature, float elapsed_ms);
+	static BEHAVIOUR_TREE_STATUS hasCreatureCollided(Entity& creature, float elapsed_ms);
+
+private:
+	// ===== NODE HELPERS =====
+
+	// Shrimp helpers
+	static BEHAVIOUR_TREE_STATUS disableCollidableComponent(std::vector<Entity>& entityList);
+	static BEHAVIOUR_TREE_STATUS enableCollidableComponent(std::vector<Entity>& entityList);
+	static BEHAVIOUR_TREE_STATUS setShrimpArms(Entity& creature, SHRIMP_ARM_COLOUR shrimp_arm_colour);
+
+};
+extern CreatureBehaviourFunctions creatureBehaviourFunctions;

@@ -88,4 +88,23 @@ void PlayerControllerSystem::step(float elapsed_ms)
 	Player& player = registry.players.components[0];
 	player_velocity += player_movement * player.speed;
 	//std::cout << "DEBUG: Moving x: " << player_velocity.x << ", y: " << player_velocity.y << std::endl;
+	
+	bool is_moving = player_movement.x != 0 || player_movement.y != 0;
+
+	ANIMATION_TRIGGER desired = is_moving ? ANIMATION_TRIGGER::WALK : ANIMATION_TRIGGER::IDLE;
+
+	Animatable& anim = registry.animatables.get(player_entity);
+	if (anim.current_trigger != desired) {
+		if (is_moving)
+		{
+			anim.frame_rate = is_moving ? 5 : 3;  // walking : idle
+		}
+
+		if (registry.animation_triggers.has(player_entity)) {
+			registry.animation_triggers.get(player_entity).animation_trigger = desired;
+		}
+		else {
+			registry.animation_triggers.insert(player_entity, { desired });
+		}
+	}
 }
