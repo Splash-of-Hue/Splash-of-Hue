@@ -64,7 +64,7 @@ endfunction()
 add_git_dependency(
     LDtkLoader
     https://github.com/Madour/LDtkLoader.git
-    1.5.3.1
+    fe57dcc0992bdedab5a310cff77c85b82af6c5d0
 )
 
 # Find OpenGL

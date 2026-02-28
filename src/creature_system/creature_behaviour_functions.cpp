@@ -4,7 +4,9 @@
 
 #include <iostream>
 
-BEHAVIOUR_TREE_STATUS stopCreatureMovement(Entity& creature, float elapsed_ms)
+CreatureBehaviourFunctions creatureBehaviourFunctions;
+
+BEHAVIOUR_TREE_STATUS CreatureBehaviourFunctions::stopCreatureMovement(Entity& creature, float elapsed_ms)
 {
 	if (!registry.velocities.has(creature))
 		return BEHAVIOUR_TREE_STATUS::FAILURE;

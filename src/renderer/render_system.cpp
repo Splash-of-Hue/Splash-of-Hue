@@ -76,9 +76,8 @@ void RenderSystem::drawShape(Entity entity,
 
 	// Getting uniform locations for glUniform* calls
 	GLint color_uloc = glGetUniformLocation(program, "fcolor");
-	const vec3 color = registry.colors.has(entity) ? registry.colors.get(entity) : vec3(1);
-	// CK: std::cout << "line color: " << color.r << ", " << color.g << ", " << color.b << std::endl;
-	glUniform3fv(color_uloc, 1, (float*)&color);
+	const vec4 color = registry.colors.has(entity) ? registry.colors.get(entity) : vec4(1);
+	glUniform4fv(color_uloc, 1, (float*)&color);
 	gl_has_errors();
 
 	// Get number of indices from index buffer, which has elements uint16_t
