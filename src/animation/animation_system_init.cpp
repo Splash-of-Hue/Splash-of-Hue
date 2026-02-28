@@ -15,11 +15,24 @@ void AnimationSystem::init()
 	/*
 		PLAYER ANIMATIONS
 	*/
+	// Idle - frames 0 and 1 on spritesheet
 	generate_animation(
 		ANIMATABLE_TYPE::PLAYER,
 		ANIMATION_TRIGGER::IDLE,
 		{
-				{ TEXTURE_ASSET_ID::PLAYER_TEXTURE_01, RenderSourceRect() }
+			{ TEXTURE_ASSET_ID::PLAYER_TEXTURE_01, RenderSourceRect { vec2(0.0f, 0.0f), vec2(0.2f, 1.0f) }},
+			{ TEXTURE_ASSET_ID::PLAYER_TEXTURE_01, RenderSourceRect { vec2(0.2f, 0.0f), vec2(0.2f, 1.0f) }}
+		}
+	);
+
+	// Walk -> frames 2, 3, 4 on spritesheet
+	generate_animation(
+		ANIMATABLE_TYPE::PLAYER,
+		ANIMATION_TRIGGER::WALK,
+		{
+			{ TEXTURE_ASSET_ID::PLAYER_TEXTURE_01, RenderSourceRect { vec2(0.4f, 0.0f), vec2(0.2f, 1.0f) }},
+			{ TEXTURE_ASSET_ID::PLAYER_TEXTURE_01, RenderSourceRect { vec2(0.6f, 0.0f), vec2(0.2f, 1.0f) }},
+			{ TEXTURE_ASSET_ID::PLAYER_TEXTURE_01, RenderSourceRect { vec2(0.8f, 0.0f), vec2(0.2f, 1.0f) }}
 		}
 	);
 
