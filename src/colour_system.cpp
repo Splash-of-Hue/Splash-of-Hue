@@ -8,7 +8,6 @@
 #include "world_init.hpp"
 #include <iostream>
 #include <vector>
-
 ColourSystem::ColourSystem()
 {
 }
@@ -84,10 +83,15 @@ void ColourSystem::closeColourMenu()
 	player_colour_state.curr_colour_state = chosen;
 
 	setEntityVisualColour(player, chosen);
-	
+
 	colour_menu_open = false;
 
-	changeColourCircle(player, player_colour_state);
+	if (player_colour_state.curr_colour_state != player_colour_state.prev_colour_state)
+	{
+		//sending the colour state as an int because sending the reference to the colour state creates issues
+		changeColourCircle(player, static_cast<int>(player_colour_state.curr_colour_state));
+	}
+
 }
 
 void ColourSystem::pollMenuState()
@@ -144,10 +148,10 @@ void ColourSystem::pollColourMenuInput(Control control)
 }
 
 COLOUR_STATE ColourSystem::getEntityColour(Entity entity) {
-    if (registry.colourStates.has(entity)) {
-        return registry.colourStates.get(entity).curr_colour_state;
-    }
-    return COLOUR_STATE::NEUTRAL;
+	if (registry.colourStates.has(entity)) {
+		return registry.colourStates.get(entity).curr_colour_state;
+	}
+	return COLOUR_STATE::NEUTRAL;
 }
 
 void ColourSystem::applyColour(Entity entity, COLOUR_STATE colour) {
@@ -164,7 +168,7 @@ vec4 ColourSystem::getPaletteColour(COLOUR_STATE state) {
 
 	return palette.state_to_colour.count(state) > 0
 		? palette.state_to_colour.at(state)
-		: DEFAULT_COLOUR_VEC4; 
+		: DEFAULT_COLOUR_VEC4;
 }
 
 void ColourSystem::applyColorToPlayer(COLOUR_STATE colour)
@@ -182,6 +186,7 @@ void ColourSystem::applyColorToPlayer(COLOUR_STATE colour)
 
 	//TODO: https://trello.com/c/XWeiA55L/149-1-colour-menu-ui-always-visible
 	setEntityVisualColour(player, colour);
+	changeColourCircle(player, static_cast<int>(colour));
 
 	std::cout << "Player colour set to: " << static_cast<int>(colour) << std::endl;
 }
@@ -217,21 +222,16 @@ void ColourSystem::step(float elapsed_ms)
 			}
 		}
 	}
-	
-	updateCircles(elapsed_ms);
 
+	updateCircles(elapsed_ms);
 }
 
-void ColourSystem::changeColourCircle(Entity& player, ColourState& player_colour_state)
+void ColourSystem::changeColourCircle(Entity& player, int player_colour_state)
 {
 	//creating coloured circle. The if state is needed so the circle doesnt animate
 	//if colours are same as before
-	if (player_colour_state.curr_colour_state == player_colour_state.prev_colour_state)
-	{
-		return;
-	}
 	//if neutral, delete colour circle
-	if (player_colour_state.curr_colour_state == COLOUR_STATE::NEUTRAL) {
+	if (player_colour_state == static_cast<int>(COLOUR_STATE::NEUTRAL)) {
 		registry.emittingCircles.remove(player);
 		registry.remove_all_components_of(players_colour_circle);
 		return;
@@ -248,17 +248,26 @@ void ColourSystem::changeColourCircle(Entity& player, ColourState& player_colour
 	// TODO: FcZFoAfD set vec4 colour to be colour constant
 	else {
 		vec2& player_position = registry.positions.get(player);
-		players_colour_circle = createCircle(player_position, 1.f, vec4(0.f, 0.f, 0.f, 0.3f));
+		players_colour_circle = createCircle(player_position, 1.f, DEFAULT_COLOUR_VEC4);
 		ColourCircle& colour_circle_component = registry.colourCircles.emplace(players_colour_circle);
+		Collidable& colour_circle_collidable_component = registry.collidables.emplace(players_colour_circle);
+		colour_circle_collidable_component.overlay = true;
+		colour_circle_collidable_component.inelastic = false;
+
+		ColourState& colour_circle_colour_state = registry.colourStates.emplace(players_colour_circle);
 		colour_circle_component.sourceEntity = player;
+		
 		EmittingCircle& player_emitting_component = registry.emittingCircles.emplace(player);
 		player_emitting_component.colourCircleEntity = players_colour_circle;
 	}
 
-	setEntityVisualColour(players_colour_circle, player_colour_state.curr_colour_state);
+	ColourState& colour_circle_colour_state = registry.colourStates.get(players_colour_circle);
+	colour_circle_colour_state.prev_colour_state = colour_circle_colour_state.curr_colour_state;
+	colour_circle_colour_state.curr_colour_state = COLOUR_STATE(player_colour_state);
+	setEntityVisualColour(players_colour_circle, COLOUR_STATE(player_colour_state));
 }
 
-void ColourSystem::updateCircles(float elapsed_ms) 
+void ColourSystem::updateCircles(float elapsed_ms)
 {
 	for (Entity& colour_circle_entity : registry.colourCircles.entities)
 	{

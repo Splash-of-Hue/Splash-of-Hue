@@ -36,6 +36,5 @@ private:
 	void closeColourMenu();
 	void setEntityVisualColour(Entity entity, COLOUR_STATE colour_state);
 	void updateCircles(float elapsed_ms);
-	void ColourSystem::changeColourCircle(Entity& player, ColourState& player_colour_state);
+	void ColourSystem::changeColourCircle(Entity& player, int player_colour_state);
 };
-

@@ -85,7 +85,7 @@ bool collides(const Entity& entity1, const Entity& entity2)
 
 		const Size& sC = registry.sizes.get(eC);
 		const Size& sR = registry.sizes.get(eR);
-		float radiusC = sR.width * 0.5f;
+		float radiusC = sC.width * 0.5f;
 
 		float rectR = posR.x + sR.width * 0.5f;    //we're going to be doing a lot of comparing between
 		float rectL = posR.x - sR.width * 0.5f;    //point on a circle, line on a rectangle, and radius of the circle
@@ -145,18 +145,15 @@ void PhysicsSystem::step(float elapsed_ms)
 					if (registry.colourCircles.has(entity_i) && registry.colourCircles.has(entity_j)) {
 						goto after_color_collision;
 					}
-					
 					const bool i_is_ColourCircle = registry.colourCircles.has(entity_i);
 					const bool j_is_ColourCircle = registry.colourCircles.has(entity_j);
 
 					const Entity& circle_entity = i_is_ColourCircle ? entity_i : entity_j;
-					const Entity& other_entity = j_is_ColourCircle ? entity_j : entity_i;
-
+					const Entity& other_entity = j_is_ColourCircle ? entity_i : entity_j;
 					if (!registry.creatures.has(other_entity))
 					{
 						goto after_color_collision;
 					}
-
 					const ColourState& circle_color_state = registry.colourStates.get(circle_entity);
 					ColourState& other_color_state = registry.colourStates.get(other_entity);
 
@@ -181,7 +178,6 @@ void PhysicsSystem::step(float elapsed_ms)
 
 				if (registry.colouredWall.has(entity_i) || registry.colouredWall.has(entity_j))
 				{
-
 					//find out which entity is which, since we need to find out if the other entity is a circle
 					//although right now, im testing collisions between the hovering rectangle and a placed rectangle
 					//so that does not really apply here
