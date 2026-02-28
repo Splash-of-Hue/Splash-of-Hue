@@ -127,5 +127,4 @@ ConvexPolygon createPolygon(const Entity& e) {
 	polygon.vertices.push_back(vec2(pos.x - size.width * 0.5f, pos.y + size.height * 0.15f)); // top left
 	
 	return polygon;
-
 }
