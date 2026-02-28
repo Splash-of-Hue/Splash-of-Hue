@@ -6,9 +6,6 @@
 #include <numeric>
 
 // Returns the local bounding coordinates scaled by the current size of the entity
-
-
-
 vec4 get_bounding_box(const Entity& entity)
 {
 	Size& size = registry.sizes.get(entity);
@@ -116,6 +113,7 @@ bool box_collides(const Entity& entity1, const Entity& entity2)
 			(box1[0] <= box2[1]) &&
 			(box2[0] <= box1[1]));
 }
+
 void handle_inelastic_collision_box(Entity& entity_i, Entity& entity_j) {
 	vec2& pos1 = registry.positions.get(entity_i);
 	vec2& pos2 = registry.positions.get(entity_j);
@@ -152,9 +150,7 @@ void handle_inelastic_collision_box(Entity& entity_i, Entity& entity_j) {
 	}
 }
 
-
 //mesh collision helpers
-
 PolygonMesh findHitbox(const Entity& e) {
 	//default is triangle
 	PolygonMesh& polygon = registry.polygons.emplace(e);
@@ -163,9 +159,9 @@ PolygonMesh findHitbox(const Entity& e) {
 	polygon.centre = pos;
 	//Entity heights and widths are too large, this is a temp fix
 	//TODO: DMdDb4NW
-	polygon.vertices.push_back(vec2(pos.x, pos.y - size.height * 0.15f)); // bottom
-	polygon.vertices.push_back(vec2(pos.x + size.width * 0.25f, pos.y + size.height * 0.15f)); // top right
-	polygon.vertices.push_back(vec2(pos.x - size.width * 0.25f, pos.y + size.height * 0.15f)); // top left
+	polygon.vertices.push_back(vec2(pos.x, pos.y - size.height * 0.45f)); // bottom
+	polygon.vertices.push_back(vec2(pos.x + size.width * 0.45f, pos.y + size.height * 0.45f)); // top right
+	polygon.vertices.push_back(vec2(pos.x - size.width * 0.45f, pos.y + size.height * 0.45f)); // top left
 
 	return polygon;
 }
@@ -243,7 +239,6 @@ vec3 mesh_collides(const Entity& entity1, const Entity& entity2) {
 	PolygonMesh b;
 	if (registry.polygons.has(entity1)) {
 		a = registry.polygons.get(entity1);
-		
 	} else 
 	{
 		a = findHitbox(entity1);
@@ -307,6 +302,7 @@ void PhysicsSystem::step(float elapsed_ms)
 					}
 					continue;
 				}
+				continue;
 			}
 			//no mesh, so use box collision
 			if (box_collides(entity_i, entity_j))
@@ -325,9 +321,7 @@ void PhysicsSystem::step(float elapsed_ms)
 				{
 					handle_inelastic_collision_box(entity_i, entity_j);
 				}
-				
 			}
-
 		}
 	}
 }

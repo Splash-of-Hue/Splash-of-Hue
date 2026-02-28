@@ -34,14 +34,16 @@ Entity PlayerControllerSystem::create_player()
 	registry.colourStates.emplace(player_entity, player_color_state);
 	Collidable& collidable = registry.collidables.emplace(player_entity);
 	collidable.inelastic = true;
+	
+	//add mesh to player
 	//default is triangle
 	PolygonMesh& polygon = registry.polygons.emplace(player_entity);
 	polygon.centre = pos;
 	//Entity heights and widths are too large, this is a temp fix
 	//TODO: DMdDb4NW
 	polygon.vertices.push_back(vec2(pos.x, pos.y - size.height * 0.15f)); // bottom
-	polygon.vertices.push_back(vec2(pos.x + size.width * 0.25f, pos.y + size.height * 0.15f)); // top right
-	polygon.vertices.push_back(vec2(pos.x - size.width * 0.25f, pos.y + size.height * 0.15f)); // top left
+	polygon.vertices.push_back(vec2(pos.x + size.width * 0.45f, pos.y + size.height * 0.45f)); // top right
+	polygon.vertices.push_back(vec2(pos.x - size.width * 0.45f, pos.y + size.height * 0.45f)); // top left
 
 
 	return player_entity;
