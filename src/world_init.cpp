@@ -101,11 +101,11 @@ Entity createCircle(vec2 position, float radius, vec4 color)
 	return entity;
 }
 
-ConvexPolygon createPolygon(const Entity& e) {
+PolygonMesh createPolygon(const Entity& e) {
 	
 	//if it already has a polygon, its position needs to be updated
 	if (registry.polygons.has(e)) {
-		ConvexPolygon& polygon = registry.polygons.get(e);
+		PolygonMesh& polygon = registry.polygons.get(e);
 		vec2& pos = registry.positions.get(e);
 		vec2 change_in_pos = pos - polygon.centre;
 		for (vec2& v : polygon.vertices) {
@@ -115,11 +115,11 @@ ConvexPolygon createPolygon(const Entity& e) {
 		return polygon;
 	}
 	//default is rectangle
-	ConvexPolygon& polygon = registry.polygons.emplace(e);
+	PolygonMesh& polygon = registry.polygons.emplace(e);
 	vec2& pos = registry.positions.get(e);
 	Size& size = registry.sizes.get(e);
 	polygon.centre = pos;
-	//Entity heights are too large, this is a temp fix
+	//Entity heights and widths are too large, this is a temp fix
 	//TODO: DMdDb4NW
 	polygon.vertices.push_back(vec2(pos.x - size.width * 0.25f, pos.y - size.height * 0.15f)); // bottom left
 	polygon.vertices.push_back(vec2(pos.x + size.width * 0.25f, pos.y - size.height * 0.15f)); // bottom right

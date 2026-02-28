@@ -44,4 +44,4 @@ Entity createCircle(vec2 position, float radius, vec4 color = DEFAULT_COLOUR_VEC
 /// </summary>
 /// <param name="Entity">The entity that will be assigned a polygon component</param>
 /// <returns></returns>
-ConvexPolygon createPolygon(const Entity& e);
+PolygonMesh createPolygon(const Entity& e);

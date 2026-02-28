@@ -144,7 +144,7 @@ struct ColouredWall
 
 };
 
-struct ConvexPolygon {
+struct PolygonMesh {
 	std::vector<vec2> vertices;
 	vec2 centre;
 };

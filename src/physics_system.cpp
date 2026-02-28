@@ -65,7 +65,7 @@ bool isLineInRangeOfCircle(vec2 posC, float radiusC, vec2 point1, vec2 point2)
 	}
 }
 
-vec2 projection(ConvexPolygon& p, vec2 normal)
+vec2 projection(PolygonMesh& p, vec2 normal)
 {
 	float min = dot(p.vertices[0], normal);
 	float max = min;
@@ -78,7 +78,7 @@ vec2 projection(ConvexPolygon& p, vec2 normal)
 	return vec2(min, max);
 }
 
-std::vector<vec2> getNormals(ConvexPolygon& p) {
+std::vector<vec2> getNormals(PolygonMesh& p) {
 	std::vector<vec2> normals;
 	//get first edge
 	vec2 edge = p.vertices[0] - p.vertices[p.vertices.size() - 1];
@@ -94,7 +94,7 @@ std::vector<vec2> getNormals(ConvexPolygon& p) {
 	return normals;
 }
 
-vec3 axisCollision(ConvexPolygon& a, ConvexPolygon& b) {
+vec3 axisCollision(PolygonMesh& a, PolygonMesh& b) {
 	
 	vec3 penetration = vec3(WINDOW_WIDTH_PX, 0.f, 0.f);
 	std::vector<vec2> a_normals = getNormals(a);
@@ -179,8 +179,8 @@ vec3 collides(const Entity& entity1, const Entity& entity2)
 			
 	}
 	//create polygon either returns rectangle or predefined polygon of entity
-	ConvexPolygon a = createPolygon(entity1);
-	ConvexPolygon b = createPolygon(entity2);
+	PolygonMesh a = createPolygon(entity1);
+	PolygonMesh b = createPolygon(entity2);
 	return (axisCollision(a, b));
 }
 
