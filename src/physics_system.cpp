@@ -179,8 +179,8 @@ vec3 collides(const Entity& entity1, const Entity& entity2)
 			
 	}
 	//create polygon either returns rectangle or predefined polygon of entity
-	ConvexPolygon& a = createPolygon(entity1);
-	ConvexPolygon& b = createPolygon(entity2);
+	ConvexPolygon a = createPolygon(entity1);
+	ConvexPolygon b = createPolygon(entity2);
 	return (axisCollision(a, b));
 }
 
