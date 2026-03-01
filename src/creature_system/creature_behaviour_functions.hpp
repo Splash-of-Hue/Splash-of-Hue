@@ -45,6 +45,7 @@ public:
 	// Sawfish Behaviour Actions
 	static BEHAVIOUR_TREE_STATUS aimAtTarget(Entity& follower, float elapsed_ms);
 	static BEHAVIOUR_TREE_STATUS beDizzy(Entity& follower, float elapsed_ms);
+	static BEHAVIOUR_TREE_STATUS sawfishChargeAtTarget(Entity& charger, float elapsed_ms);
 
 	// ===== Decorator Node Functions =====
 	static BEHAVIOUR_TREE_STATUS isInBlueState(Entity& creature, float elapsed_ms);

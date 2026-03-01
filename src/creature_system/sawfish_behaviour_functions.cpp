@@ -31,7 +31,7 @@ BEHAVIOUR_TREE_STATUS CreatureBehaviourFunctions::aimAtTarget(Entity& charger, f
 	return BEHAVIOUR_TREE_STATUS::SUCCESS;
 }
 
-BEHAVIOUR_TREE_STATUS CreatureBehaviourFunctions::chargeAtTarget(Entity& charger, float elapsed_ms)
+BEHAVIOUR_TREE_STATUS CreatureBehaviourFunctions::sawfishChargeAtTarget(Entity& charger, float elapsed_ms)
 {
 	std::cout << "Charging! 1" << std::endl;
 	Target& charger_target_component = registry.targets.get(charger);

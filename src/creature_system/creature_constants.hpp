@@ -28,7 +28,7 @@ struct Minnows
 
 struct Sawfish
 {
-	vec2 MAX_VELOCITY = { 10.f, 10.f};
+
 };
 
 enum DIRECTION
