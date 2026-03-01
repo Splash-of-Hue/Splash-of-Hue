@@ -48,10 +48,11 @@ Entity createToggle(vec2 position, float radius, COLOUR_STATE color_state, std::
 	return toggle_entity;
 }
 
-Entity createMapTile(int tile_id, TEXTURE_ASSET_ID texture_id, ivec2 tile_position, vec4 dest_rect, vec4 source_rect)
+Entity createMapTile(int tile_id, TEXTURE_ASSET_ID texture_id, ivec2 tile_position, vec4 dest_rect, vec4 source_rect, MAP_TILE_TYPE map_tile_type)
 {
 	Entity map_tile_entity;
-	MapTile map_tile = { tile_id, tile_position };
+	MapTile map_tile = { tile_id, tile_position, map_tile_type };
+	registry.mapTiles.insert(map_tile_entity, map_tile);
 	registry.positions.insert(map_tile_entity, { dest_rect.x, dest_rect.y });
 	registry.scales.insert(map_tile_entity, { dest_rect.p, dest_rect.q });
 	registry.angles.insert(map_tile_entity, { 0 });
