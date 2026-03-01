@@ -1,9 +1,11 @@
+#include "creature_system/creature_components.hpp"
+#include "glm/gtx/hash.hpp"
 #include "pathfinding.hpp"
 #include <ecs/registry.hpp>
-#include "glm/gtx/hash.hpp"
 #include <unordered_set>
+#include <vector>
 
-// For M1, no real fancy-schmancy AI pathfinding, just bare bones following 
+// Bare bones direct pathfinding 
 bool direct_line_next_step(float elapsed_ms, Entity& follower)
 {
 	assert(registry.pathfinders.has(follower) && "The follower creature isn't registered as a pathfinder");
@@ -114,7 +116,7 @@ std::vector<ivec2> a_star(ivec2 start_position_grid, ivec2 end_position_grid, st
 			{
 				continue;
 			}
-		
+
 			float tentative_g_score = g_score_map[current_pos] + d(current_pos, neighbor);
 
 			// If the G score isn't registered yet or is better than other routes, make note
