@@ -1,6 +1,8 @@
 #pragma once
 
 #include "interactables/interactable_constants.hpp"
+#include <string>
+#include <vector>
 
 struct Interactable {
 	INTERACTABLE_TYPE type = INTERACTABLE_TYPE::INVALID;
@@ -13,7 +15,9 @@ struct ColourOrb {
 
 };
 
-struct Mushroom {
+struct MossToggle
+{
+	std::vector<std::string> connected_wall_ids;
 };	
 
 

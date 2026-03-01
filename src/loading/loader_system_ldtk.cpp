@@ -1,6 +1,7 @@
 #include "creature_system/creature_constants.hpp"
 #include "creature_system/creature_creator.hpp"
 #include "ecs/entity.hpp"
+#include "interactables/interactable_creator.hpp"
 #include "ldtk_loader.hpp"
 #include "loader_system.hpp"
 #include "loading_constants.hpp"
@@ -226,6 +227,9 @@ void load_extra_entities(const ldtk::Layer& layer)
 			case ENTITY_TYPE::INITIAL_POSITION:
 				use_initial_player_position(extra_entity);
 				continue;
+			case ENTITY_TYPE::MOSS_WALL:
+				load_moss_door(extra_entity);
+				continue;
 			default:
 				continue;
 		}
@@ -326,6 +330,9 @@ void load_floor_interactables(const ldtk::Layer& layer)
 			case ENTITY_TYPE::SPAWN_POINT:
 				load_spawn_points(floor_interactable_entity);
 				continue;
+			case ENTITY_TYPE::MOSS_TOGGLE:
+				load_moss_toggle(floor_interactable_entity);
+				continue;
 			default:
 				continue;
 		}
@@ -358,6 +365,39 @@ void load_spawn_points(const ldtk::Entity& spawn_point_entity)
 	const auto level_match = [&](const Level& level) { return level.uid == level_uid; };
 	Level& level = *std::find_if(registry.levels.components.begin(), registry.levels.components.end(), level_match);
 	level.neighbor_level_uids.insert(connected_level_uid);
+}
+
+void load_moss_toggle(const ldtk::Entity& moss_toggle_entity)
+{
+	const ldtk::IntPoint& position = moss_toggle_entity.getWorldPosition();
+	const ldtk::IntPoint& size = moss_toggle_entity.getSize();
+	const vec2 world_position = vec2(position.x, position.y) * LEVEL_TO_SCREEN_SCALE;
+	const vec2 scaled_size = vec2(size.x, size.y) * LEVEL_TO_SCREEN_SCALE;
+	const ldtk::ArrayField<ldtk::EntityRef>& wall_entity_ref_fields = moss_toggle_entity.getField<ldtk::FieldType::ArrayEntityRef>("ConnectedWalls");
+	std::vector<std::string> connected_wall_ids;
+	const ldtk::Field<ldtk::EnumValue>& color_state_enum_type = moss_toggle_entity.getField<ldtk::EnumValue>("ColorState");
+	const COLOUR_STATE& color_state = color_state_from_string(color_state_enum_type.value().name);
+	
+	for (const ldtk::Field<ldtk::EntityRef>& wall_entity_ref_field : wall_entity_ref_fields)
+	{
+		const ldtk::EntityRef wall_entity_ref = wall_entity_ref_field.value();
+		connected_wall_ids.push_back(wall_entity_ref.entity_iid.str());
+	}
+
+	createMossToggle(world_position, scaled_size, color_state, connected_wall_ids);
+}
+
+void load_moss_door(const ldtk::Entity& moss_door_entity)
+{
+	const ldtk::IntPoint& position = moss_door_entity.getWorldPosition();
+	const ldtk::IntPoint& size = moss_door_entity.getSize();
+	const vec2 world_position = vec2(position.x, position.y) * LEVEL_TO_SCREEN_SCALE;
+	const vec2 scaled_size = vec2(size.x, size.y) * LEVEL_TO_SCREEN_SCALE;
+	std::string moss_door_id = moss_door_entity.iid.str();
+	const ldtk::Field<ldtk::EnumValue>& color_state_enum_type = moss_door_entity.getField<ldtk::EnumValue>("ColorState");
+	const COLOUR_STATE& color_state = color_state_from_string(color_state_enum_type.value().name);
+
+	createMossWall(moss_door_id, world_position, scaled_size, color_state);
 }
 
 void LoaderSystem::unload_level(int level_uid)

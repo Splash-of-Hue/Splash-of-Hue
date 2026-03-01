@@ -1,7 +1,6 @@
 #pragma once
 #include "common.hpp"
 #include <map>
-#include <vector>
 
 enum class COLOUR_STATE {
 	NEUTRAL = 0,
@@ -131,15 +130,4 @@ struct Size
 {
 	float width;
 	float height;
-};
-
-// TODO: Remove as we probably won't need this, this is just for M1 prototyping
-struct Toggle
-{
-	std::vector<Entity> walls_to_toggle;
-};
-
-struct ColouredWall
-{
-
 };
