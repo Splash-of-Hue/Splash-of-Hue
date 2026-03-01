@@ -42,7 +42,8 @@ BEHAVIOUR_TREE_STATUS CreatureBehaviourFunctions::goToNextPathStep(Entity& pathf
 	vec2& position = registry.positions.get(pathfinder_entity);
 	Pathfinder& pathfinder = registry.pathfinders.get(pathfinder_entity);
 
-	// If there is no path, return failure as we try to move without any target
+	// If there is no path, we are trying to follow a path that doesn't exist.
+	// So return failure since we won't be pathfinding to anything and it was a failure to try.
 	if (pathfinder.path.size() == 0)
 	{
 		return BEHAVIOUR_TREE_STATUS::FAILURE;
