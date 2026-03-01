@@ -1,7 +1,9 @@
 #pragma once
+#include "common.hpp"
 #include "creature_system/creature_behaviour_tree_constants.hpp"
 #include "creature_system/creature_constants.hpp"
 #include <ai/ai_constants.hpp>
+#include <unordered_map>
 #include <vector>
 
 struct Creature
