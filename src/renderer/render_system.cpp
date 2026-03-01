@@ -416,6 +416,16 @@ void RenderSystem::draw()
 
 	mat3 projection_2D = createProjectionMatrix();
 
+	// If the render requests changed, resort
+	if (registry.renderRequests.size() != previous_render_requests_size)
+	{
+		registry.renderRequests.sort([]
+		(Entity rr_a_entity, Entity rr_b_entity)
+		{
+			return registry.renderRequests.get(rr_a_entity).layer < registry.renderRequests.get(rr_b_entity).layer;
+		});
+	}
+
 	// draw all entities with a render request to the frame buffer
 	for (Entity entity : registry.renderRequests.entities)
 	{

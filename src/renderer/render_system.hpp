@@ -52,6 +52,7 @@ class RenderSystem {
 	std::array<GLuint, geometry_count> vertex_buffers;
 	std::array<GLuint, geometry_count> index_buffers;
 	std::array<Mesh, geometry_count> meshes;
+	int previous_render_requests_size = 0;
 
 public:
 	// Initialize the window
