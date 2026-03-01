@@ -51,7 +51,9 @@ std::vector<vec2> AISystem::generatePath(Entity pathfinder_entity)
 				{
 					for (auto& level_quantized_space : level.quantized_space_data)
 					{
+						// First insert the ivec2 (first) to is_valid map (second.second)
 						valid_position_map.insert({ level_quantized_space.first, level_quantized_space.second.second });
+						// Then insert the ivec2 (first) to vec2 world location (second.first)
 						world_space_map.insert({ level_quantized_space.first, level_quantized_space.second.first });
 
 						const float from_dist = distance(level_quantized_space.second.first, position);
