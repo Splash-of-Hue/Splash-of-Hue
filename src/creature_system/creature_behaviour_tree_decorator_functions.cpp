@@ -8,9 +8,10 @@
 BEHAVIOUR_TREE_STATUS CreatureBehaviourFunctions::isInBlueState(Entity& creature, float elapsed_ms)
 {
 	ColourState& colourState = registry.colourStates.get(creature);
-
 	if (colourState.curr_colour_state == COLOUR_STATE::BLUE)
+	{
 		return BEHAVIOUR_TREE_STATUS::SUCCESS;
+	}
 	else
 		return BEHAVIOUR_TREE_STATUS::FAILURE;
 }
@@ -158,12 +159,10 @@ BEHAVIOUR_TREE_STATUS CreatureBehaviourFunctions::checkIfInComponentRadius(Entit
 			{
 				std::cout << "Creature is in " << typeid(component_type).name() << " Radius" << std::endl;
 				light_emission_entity_component.entity = it->second;
-				registry.list_all_components_of(light_emission_entity_component.entity);
 				return BEHAVIOUR_TREE_STATUS::SUCCESS;
 			}
 		}
 	}
-
 	return BEHAVIOUR_TREE_STATUS::FAILURE;
 }
 

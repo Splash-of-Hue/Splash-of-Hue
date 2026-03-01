@@ -143,17 +143,8 @@ void PhysicsSystem::step(float elapsed_ms)
 					Collision& i_collision = registry.collisions.get(entity_i);
 					Collision& j_collision = registry.collisions.get(entity_j);
 
-					if (!i_collision.collisionList.count(entity_j.id()))
-					{
-						//checkCollisionCounts();
-						i_collision.collisionList[entity_j.id()] = entity_j;
-					}
-
-					if (!j_collision.collisionList.count(entity_i.id()))
-					{
-						//checkCollisionCounts();
-						j_collision.collisionList[entity_i.id()] = entity_i;
-					}
+					i_collision.collisionList[entity_j.id()] = entity_j;
+					j_collision.collisionList[entity_i.id()] = entity_i;
 				}
 			}
 		}

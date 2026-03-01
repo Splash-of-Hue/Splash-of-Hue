@@ -37,64 +37,59 @@ BehaviourTree CreatureBehaviourTreeBuilder::buildMinnowTree()
 BehaviourTree CreatureBehaviourTreeBuilder::buildSawfishTree()
 {
 	BehaviourTreeBuilder builder;
-    int root_index =
-        Root(builder,
-            //if in red state, cannot change states until it crashed into a wall, so this is selector, so we can loop through red state
-            Selector(builder,
-                Decorator(builder, creatureBehaviourFunctions.isInRedState,
-                    Selector(builder, 
-						Decorator(builder, creatureBehaviourFunctions.isCooldownComplete, 
-							Sequence(builder, 
-								Action(builder, creatureBehaviourFunctions.removeCooldown),
-								Action(builder, creatureBehaviourFunctions.sawfishChargeAtTarget),
-								Action(builder, creatureBehaviourFunctions.beDizzy),
-								Action(builder, creatureBehaviourFunctions.makeNeutral)
-							)
-						),
-						Action(builder, creatureBehaviourFunctions.aimAtTarget)
-                        
-                    )
-                ),
-                Sequence(builder,
-                    //Do Blue/Neutral Action
-                    Selector(builder,
-                        Decorator(builder, creatureBehaviourFunctions.isInBlueState,
-							Sequence(builder, 
+	int root_index =
+		Root(builder,
+			Selector(builder,
+				Decorator(builder, creatureBehaviourFunctions.isInRedState,
+					Sequence(builder,
+						Action(builder, creatureBehaviourFunctions.aimAtTarget),
+						Action(builder, creatureBehaviourFunctions.delayFor3000ms),
+						Action(builder, creatureBehaviourFunctions.sawfishChargeAtTarget)
+					)
+				),
+				Sequence(builder,
+					Selector(builder,
+						Decorator(builder, creatureBehaviourFunctions.isInBlueState,
+							Sequence(builder,
 								Action(builder, creatureBehaviourFunctions.aimAtTarget),
 								Action(builder, creatureBehaviourFunctions.aStarFollowTarget)
+								/*Action(builder, creatureBehaviourFunctions.goToNextPathStep),
+								Selector(builder, 
+									Sequence(builder,
+										Action(builder, creatureBehaviourFunctions.delayFor500ms),
+										Action(builder, creatureBehaviourFunctions.requestNewPath)
+									),
+									Action(builder, creatureBehaviourFunctions.returnSuccess)
+								)*/
 							)
-                        ),
-                        Decorator(builder, creatureBehaviourFunctions.isInNeutralState,
-                            //ignore this makeNeutral, it's just so there's an action function here and doesnt give me an error
-                            Action(builder, creatureBehaviourFunctions.makeNeutral)/*,
-                            Action(builder, wanderAround)*/
-                        )
-                    ),
-                    //Change colour to whatever colour you're in
-                    Selector(builder,
-                        Decorator(builder, creatureBehaviourFunctions.isCreatureWithinPlayerColourRadius,
-                            Sequence(builder,
-                                Selector(builder,
-                                    Decorator(builder, creatureBehaviourFunctions.isCreatureInBlueRadius,
-										Sequence(builder,
-											Action(builder, creatureBehaviourFunctions.setTargetToEmissionSource),
-											Action(builder, creatureBehaviourFunctions.makeBlue)
-										)
-                                    ),
-                                    Decorator(builder, creatureBehaviourFunctions.isCreatureInRedRadius,
-                                        Sequence(builder,
-                                            Action(builder, creatureBehaviourFunctions.setTargetToEmissionSource),
-											Action(builder, creatureBehaviourFunctions.makeRed)
-										)
-                                    ),
-                                    Action(builder, creatureBehaviourFunctions.makeNeutral)
-                                ),
-                                Action(builder, creatureBehaviourFunctions.stopColliding)
-                            )
-                        )
-                    )
-                )
-            )
+						), 
+						Action(builder, creatureBehaviourFunctions.returnSuccess)
+					),
+					Decorator(builder, creatureBehaviourFunctions.isCreatureWithinPlayerColourRadius,
+						Sequence(builder,
+							Selector(builder,
+								Decorator(builder, creatureBehaviourFunctions.isCreatureInBlueRadius,
+									Sequence(builder,
+										Action(builder, creatureBehaviourFunctions.makeBlue),
+										Action(builder, creatureBehaviourFunctions.requestNewPath),
+										Action(builder, creatureBehaviourFunctions.stopColliding)
+									)
+								),
+								Decorator(builder, creatureBehaviourFunctions.isCreatureInRedRadius,
+									Sequence(builder,
+										Action(builder, creatureBehaviourFunctions.makeRed),
+										Action(builder, creatureBehaviourFunctions.set3000msTimer),
+										Action(builder, creatureBehaviourFunctions.stopCreatureMovement),
+										Action(builder, creatureBehaviourFunctions.stopColliding)
+									)
+								)
+							)
+						)
+
+					)
+				)
+			)
+			
         );
 
 	return builder.build(root_index);

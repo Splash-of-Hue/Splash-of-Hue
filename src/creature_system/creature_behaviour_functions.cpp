@@ -103,6 +103,39 @@ BEHAVIOUR_TREE_STATUS CreatureBehaviourFunctions::returnSuccess(Entity& creature
 {
 	return BEHAVIOUR_TREE_STATUS::SUCCESS;
 }
+BEHAVIOUR_TREE_STATUS CreatureBehaviourFunctions::returnFailure(Entity& creature, float elapsed_ms)
+{
+	return BEHAVIOUR_TREE_STATUS::FAILURE;
+}
+
+float timer500ms = 500.f;
+BEHAVIOUR_TREE_STATUS CreatureBehaviourFunctions::delayFor500ms(Entity& creature, float elapsed_ms)
+{
+	if (timer500ms <= 0.f) 
+	{
+		timer500ms = 500.f;
+		return BEHAVIOUR_TREE_STATUS::SUCCESS;
+	}
+	timer500ms -= elapsed_ms;
+	return BEHAVIOUR_TREE_STATUS::FAILURE;
+}
+
+float timer3000ms = 3000.f;
+BEHAVIOUR_TREE_STATUS CreatureBehaviourFunctions::set3000msTimer(Entity& creature, float elapsed_ms)
+{
+	timer3000ms = 3000.f;
+	return BEHAVIOUR_TREE_STATUS::SUCCESS;
+}
+
+BEHAVIOUR_TREE_STATUS CreatureBehaviourFunctions::delayFor3000ms(Entity& creature, float elapsed_ms)
+{
+	if (timer3000ms <= 0.f)
+	{
+		return BEHAVIOUR_TREE_STATUS::SUCCESS;
+	}
+	timer3000ms -= elapsed_ms;
+	return BEHAVIOUR_TREE_STATUS::FAILURE;
+}
 
 //Helper Functions
 BEHAVIOUR_TREE_STATUS CreatureBehaviourFunctions::makeColour(Entity& creature, COLOUR_STATE colour_state)

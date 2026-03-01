@@ -16,7 +16,7 @@ BEHAVIOUR_TREE_STATUS CreatureBehaviourFunctions::aStarFollowTarget(Entity& foll
 		return BEHAVIOUR_TREE_STATUS::FAILURE;
 	}
 
-	return BEHAVIOUR_TREE_STATUS::RUNNING;
+	return BEHAVIOUR_TREE_STATUS::SUCCESS;
 }
 
 // todo: https://trello.com/c/D5ie5Ml8/120-task-score-task-template
@@ -30,6 +30,7 @@ BEHAVIOUR_TREE_STATUS CreatureBehaviourFunctions::chargeAtTarget(Entity& charger
 
 BEHAVIOUR_TREE_STATUS CreatureBehaviourFunctions::requestNewPath(Entity& pathfinder_entity, float elapsed_ms)
 {
+	std::cout << "requesting new path!" << std::endl;
 	Pathfinder& pathfinder = registry.pathfinders.get(pathfinder_entity);
 	pathfinder.is_path_dirty = true;
 
@@ -38,7 +39,6 @@ BEHAVIOUR_TREE_STATUS CreatureBehaviourFunctions::requestNewPath(Entity& pathfin
 
 BEHAVIOUR_TREE_STATUS CreatureBehaviourFunctions::goToNextPathStep(Entity& pathfinder_entity, float elapsed_ms)
 {
-
 	vec2& position = registry.positions.get(pathfinder_entity);
 	Pathfinder& pathfinder = registry.pathfinders.get(pathfinder_entity);
 
@@ -51,6 +51,7 @@ BEHAVIOUR_TREE_STATUS CreatureBehaviourFunctions::goToNextPathStep(Entity& pathf
 
 	vec2& next_step = pathfinder.path[0];
 	float movement_speed = pathfinder.max_speed * elapsed_ms * ONE_THOUSANDTH;
+	movement_speed *= 5;
 	float distance_to_next_step = distance(position, next_step);
 
 	if (pathfinder.path.size() == 1)
