@@ -313,14 +313,15 @@ void handle_inelastic_collision_box(Entity& entity_i, Entity& entity_j) {
 
 //mesh collision helpers
 PolygonMesh findHitbox(const Entity& e) {
-	//default is triangle
+	//default is rectangle
 	
 	vec2& pos = registry.positions.get(e);
 	Size& size = registry.sizes.get(e);
 	std::vector<vec2> vertices;
-	//Entity heights and widths are too large, this is a temp fix
+	//Sawfish heights and widths are too large, this is a temp fix
 	//TODO: DMdDb4NW
-	vertices.push_back({vec2(pos.x, pos.y - size.height * 0.45f) }); // bottom
+	vertices.push_back({ vec2(pos.x - size.width * 0.45f, pos.y - size.height * 0.45f) });
+	vertices.push_back({vec2(pos.x + size.width * 0.45f, pos.y - size.height * 0.45f) }); // bottom
 	vertices.push_back(vec2(pos.x + size.width * 0.45f, pos.y + size.height * 0.45f)); // top right
 	vertices.push_back(vec2(pos.x - size.width * 0.45f, pos.y + size.height * 0.45f)); // top left
 	PolygonMesh& polygon = PolygonMesh{vertices, pos };
