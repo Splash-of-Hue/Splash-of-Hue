@@ -225,7 +225,7 @@ void load_extra_entities(const ldtk::Layer& layer)
 		switch (extra_entity_type)
 		{
 			case ENTITY_TYPE::INITIAL_POSITION:
-				use_initial_player_position(extra_entity);
+				set_initial_player_position(extra_entity);
 				continue;
 			case ENTITY_TYPE::MOSS_WALL:
 				load_moss_door(extra_entity);
@@ -236,22 +236,22 @@ void load_extra_entities(const ldtk::Layer& layer)
 	}
 }
 
-void use_initial_player_position(const ldtk::Entity& initial_player_position_entity)
+void set_initial_player_position(const ldtk::Entity& initial_player_position_entity)
 {
-	// If the initial room was loaded before (the player goes far enough away and comes back)
-	// don't go to the initial position, go to the spawn point into the room, so ignore this.
-	if (!is_initial_load)
+	// Otherwise, this is the first time the level is loaded so use the initial position
+	Entity& player_entity = registry.players.entities[0];
+
+	// Player is already loaded, don't need to set initial position
+	if (registry.players.get(player_entity).is_loaded)
 	{
 		return;
 	}
 
-	// Otherwise, this is the first time the level is loaded so use the initial position
-	Entity& player_entity = registry.players.entities[0];
-	vec2& player_position = registry.positions.get(player_entity);
 	registry.currentLevels.get(player_entity).level_uid = initial_player_position_entity.layer->level->uid;
-	const ldtk::IntPoint& player_world_position = initial_player_position_entity.getWorldPosition();
-	player_position = vec2(player_world_position.x * LEVEL_TO_SCREEN_SCALE.x, player_world_position.y * LEVEL_TO_SCREEN_SCALE.y);
-	is_initial_load = false;
+	const ldtk::IntPoint& initial_player_world_position = initial_player_position_entity.getWorldPosition();
+	vec2 initial_player_position = vec2(initial_player_world_position.x, initial_player_world_position.y) * LEVEL_TO_SCREEN_SCALE;
+	registry.positions.get(player_entity) = initial_player_position;
+	registry.players.get(player_entity).is_loaded = true;
 }
 
 void load_creatures(const ldtk::Layer& layer)

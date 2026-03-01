@@ -30,18 +30,20 @@ void MapSystem::step(float elapsed_ms)
 	registry.loadRequests.insert(load_request_entity, { LOAD_TYPE::LOAD_LEVEL, new_level_uid });
 	// For each level that was adjacent to the previous level, that isn't the current level, unload it
 	const auto previous_level_match = [&](const Level& level) { return level.uid == previous_level_uid; };
-	const std::set<int> previous_adjacent_level_uids = std::find_if(registry.levels.components.begin(), registry.levels.components.end(), previous_level_match)->neighbor_level_uids;
-
-	for (int previous_adjacent_level_uid : previous_adjacent_level_uids)
+	const auto& level_iterator = std::find_if(registry.levels.components.begin(), registry.levels.components.end(), previous_level_match);
+	if (level_iterator != registry.levels.components.end())
 	{
-		// Don't unload the currently loading level since it's a neighbour
-		if (previous_adjacent_level_uid == new_level_uid)
+		for (int previous_adjacent_level_uid : level_iterator->neighbor_level_uids)
 		{
-			continue;
-		}
+			// Don't unload the currently loading level since it's a neighbour
+			if (previous_adjacent_level_uid == new_level_uid)
+			{
+				continue;
+			}
 
-		Entity unload_request_entity;
-		registry.loadRequests.insert(unload_request_entity, { LOAD_TYPE::UNLOAD_LEVEL, previous_adjacent_level_uid });
+			Entity unload_request_entity;
+			registry.loadRequests.insert(unload_request_entity, { LOAD_TYPE::UNLOAD_LEVEL, previous_adjacent_level_uid });
+		}
 	}
 
 	// Once all load requests are taken care of, remove them
