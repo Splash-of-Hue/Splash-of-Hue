@@ -34,6 +34,8 @@ public:
 	static BEHAVIOUR_TREE_STATUS stopColliding(Entity& creature, float elapsed_ms);
 	static BEHAVIOUR_TREE_STATUS removeCooldown(Entity& creature, float elapsed_ms);
 	static BEHAVIOUR_TREE_STATUS returnSuccess(Entity& creature, float elapsed_ms);
+	static BEHAVIOUR_TREE_STATUS requestNewPath(Entity& creature, float elapsed_ms);
+	static BEHAVIOUR_TREE_STATUS goToNextPathStep(Entity& creature, float elapsed_ms);
 
 	// Shrimp Behaviour Actions
 	static BEHAVIOUR_TREE_STATUS neutralArms(Entity& follower, float elapsed_ms);

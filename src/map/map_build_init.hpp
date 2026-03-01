@@ -42,7 +42,7 @@ Entity createToggle(vec2 position, float radius, COLOUR_STATE color_state, std::
 /// <param name="dest_rect">The (x, y, width, height) rectangle of the tile in world space.</param>
 /// <param name="source_rect">The (x, y, width, height) rectangle to use as the source on the texture for the tile.</param>
 /// <returns>The entity of the map tile.</returns>
-Entity createMapTile(int tile_id, TEXTURE_ASSET_ID texture_id, ivec2 tile_position, vec4 dest_rect, vec4 source_rect);
+Entity createMapTile(int tile_id, TEXTURE_ASSET_ID texture_id, ivec2 tile_position, vec4 dest_rect, vec4 source_rect, MAP_TILE_TYPE map_tile_type = MAP_TILE_TYPE::DEFAULT);
 
 /// <summary>
 /// Creates a spawn point, that if the player steps on, they are sent somewhere else

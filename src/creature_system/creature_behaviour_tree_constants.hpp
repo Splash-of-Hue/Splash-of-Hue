@@ -1,6 +1,8 @@
 #pragma once
-#include <type_traits>
 #include <cassert>
+#include <ecs/entity.hpp>
+#include <type_traits>
+#include <vector>
 
 enum class BEHAVIOUR_TREE_STATUS
 {
@@ -37,20 +39,20 @@ struct BehaviourTree
 
 struct BehaviourTreeBuilder
 {
-    BehaviourTree tree;
+	BehaviourTree tree;
 
-    int makeNode(NODETYPE nodeType, std::vector<int> children_indicies = {}, BEHAVIOUR_TREE_STATUS(*node_function)(Entity& entity, float elapsed_ms) = nullptr)
-    {
-        int node_index = tree.nodes.size();
-        tree.nodes.emplace_back(Node{ nodeType, std::move(children_indicies), node_function });
-        return node_index;
-    }
+	int makeNode(NODETYPE nodeType, std::vector<int> children_indicies = {}, BEHAVIOUR_TREE_STATUS(*node_function)(Entity& entity, float elapsed_ms) = nullptr)
+	{
+		int node_index = tree.nodes.size();
+		tree.nodes.emplace_back(Node{ nodeType, std::move(children_indicies), node_function });
+		return node_index;
+	}
 
-    BehaviourTree build(int root_index)
-    {
-        tree.root_index = root_index;
-        return std::move(tree);
-    }
+	BehaviourTree build(int root_index)
+	{
+		tree.root_index = root_index;
+		return std::move(tree);
+	}
 };
 
 inline int Root(BehaviourTreeBuilder& builder, int child_index)

@@ -6,7 +6,7 @@
 #include <iostream>
 
 // internal
-#include "ai_system.hpp"
+#include "ai/ai_system.hpp"
 #include "animation/animation_system.hpp"
 #include "controllers/player_controller_system.hpp"
 #include "controls/control_input_conversion_system.hpp"
