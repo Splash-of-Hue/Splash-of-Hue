@@ -88,6 +88,22 @@ BEHAVIOUR_TREE_STATUS CreatureBehaviourFunctions::setTargetToEmissionSource(Enti
 	return BEHAVIOUR_TREE_STATUS::SUCCESS;
 }
 
+BEHAVIOUR_TREE_STATUS CreatureBehaviourFunctions::removeCooldown(Entity& creature, float elapsed_ms)
+{
+	if (!registry.creatureBehaviourCooldowns.has(creature))
+	{
+		return BEHAVIOUR_TREE_STATUS::SUCCESS;
+	}
+
+	registry.creatureBehaviourCooldowns.remove(creature);
+	return BEHAVIOUR_TREE_STATUS::SUCCESS;
+}
+
+BEHAVIOUR_TREE_STATUS CreatureBehaviourFunctions::returnSuccess(Entity& creature, float elapsed_ms)
+{
+	return BEHAVIOUR_TREE_STATUS::SUCCESS;
+}
+
 //Helper Functions
 BEHAVIOUR_TREE_STATUS CreatureBehaviourFunctions::makeColour(Entity& creature, COLOUR_STATE colour_state)
 {

@@ -45,7 +45,7 @@ BehaviourTree CreatureBehaviourTreeBuilder::buildSawfishTree()
                     Selector(builder, 
 						Decorator(builder, creatureBehaviourFunctions.isCooldownComplete, 
 							Sequence(builder, 
-							
+								Action(builder, creatureBehaviourFunctions.removeCooldown),
 								Action(builder, creatureBehaviourFunctions.chargeAtTarget),
 								Action(builder, creatureBehaviourFunctions.beDizzy),
 								Action(builder, creatureBehaviourFunctions.makeNeutral)
@@ -59,7 +59,10 @@ BehaviourTree CreatureBehaviourTreeBuilder::buildSawfishTree()
                     //Do Blue/Neutral Action
                     Selector(builder,
                         Decorator(builder, creatureBehaviourFunctions.isInBlueState,
-                            Action(builder, creatureBehaviourFunctions.aStarFollowTarget)
+							Sequence(builder, 
+								Action(builder, creatureBehaviourFunctions.aimAtTarget),
+								Action(builder, creatureBehaviourFunctions.aStarFollowTarget)
+							)
                         ),
                         Decorator(builder, creatureBehaviourFunctions.isInNeutralState,
                             //ignore this makeNeutral, it's just so there's an action function here and doesnt give me an error
@@ -73,7 +76,10 @@ BehaviourTree CreatureBehaviourTreeBuilder::buildSawfishTree()
                             Sequence(builder,
                                 Selector(builder,
                                     Decorator(builder, creatureBehaviourFunctions.isCreatureInBlueRadius,
-                                        Action(builder, creatureBehaviourFunctions.makeBlue)
+										Sequence(builder,
+											Action(builder, creatureBehaviourFunctions.setTargetToEmissionSource),
+											Action(builder, creatureBehaviourFunctions.makeBlue)
+										)
                                     ),
                                     Decorator(builder, creatureBehaviourFunctions.isCreatureInRedRadius,
                                         Sequence(builder,

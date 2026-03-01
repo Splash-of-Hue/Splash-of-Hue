@@ -143,16 +143,10 @@ struct ColouredWall
 
 };
 
-struct ColourCircle
-{
-	Entity sourceEntity;
-	float maxRadius = 150.f;
-};
-
 struct LightEmission
 {
 	Entity lightSourceEntity;
-	float maxRadius = 100.f;
+	float maxRadius = 200.f;
 };
 
 struct LightSource

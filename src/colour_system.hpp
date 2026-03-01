@@ -36,5 +36,5 @@ private:
 	void closeColourMenu();
 	void setEntityVisualColour(Entity entity, COLOUR_STATE colour_state);
 	void updateEmissions(float elapsed_ms);
-	void ColourSystem::changeLightEmissions(Entity& player, int player_colour_state);
+	void ColourSystem::changeLightEmissions(Entity& player, int player_colour_state, int player_colour_state_prev);
 };

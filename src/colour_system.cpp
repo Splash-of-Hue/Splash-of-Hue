@@ -89,7 +89,7 @@ void ColourSystem::closeColourMenu()
 	if (player_colour_state.curr_colour_state != player_colour_state.prev_colour_state) 
 	{
 		//sending the colour state as an int because sending the reference to the colour state creates issues
-		changeLightEmissions(player, static_cast<int>(player_colour_state.curr_colour_state));
+		changeLightEmissions(player, static_cast<int>(player_colour_state.curr_colour_state), static_cast<int>(player_colour_state.prev_colour_state));
 	}
 	
 }
@@ -178,15 +178,16 @@ void ColourSystem::applyColorToPlayer(COLOUR_STATE colour)
 	}
 
 	Entity& player = registry.players.entities[0];
-
+	ColourState& player_colour_state = registry.colourStates.get(player);
+	player_colour_state.prev_colour_state = player_colour_state.curr_colour_state;
+	player_colour_state.curr_colour_state = colour;
 	if (!registry.colourStates.has(player)) {
 		registry.colourStates.emplace(player);
 	}
-	registry.colourStates.get(player).curr_colour_state = colour;
 
 	//TODO: https://trello.com/c/XWeiA55L/149-1-colour-menu-ui-always-visible
 	setEntityVisualColour(player, colour);
-	changeLightEmissions(player, static_cast<int>(colour));
+	changeLightEmissions(player, static_cast<int>(player_colour_state.curr_colour_state), static_cast<int>(player_colour_state.prev_colour_state));
 
 	std::cout << "Player colour set to: " << static_cast<int>(colour) << std::endl;
 }
@@ -226,7 +227,7 @@ void ColourSystem::step(float elapsed_ms)
 	updateEmissions(elapsed_ms);
 }
 
-void ColourSystem::changeLightEmissions(Entity& player, int player_colour_state)
+void ColourSystem::changeLightEmissions(Entity& player, int player_colour_state, int player_colour_state_prev)
 {
 	//creating coloured circle. The if state is needed so the circle doesnt animate
 	//if colours are same as before
@@ -252,25 +253,23 @@ void ColourSystem::changeLightEmissions(Entity& player, int player_colour_state)
 		return;
 	}
 
+	if (player_colour_state == player_colour_state_prev)
+	{
+		return;
+	}
+
 
 	if (registry.lightSources.has(player))
 	{
 		LightSource& light_source_component = registry.lightSources.get(player);
 		players_light_emission = light_source_component.lightEmissionEntity;
+		ColourState& light_emission_colour_state = registry.colourStates.get(players_light_emission);
+
 		Size& colour_circle_size = registry.sizes.get(players_light_emission);
 		colour_circle_size.width = 0;
 		colour_circle_size.height = 0;
 	}
-	// TODO: FcZFoAfD set vec4 colour to be colour constant
-	if (registry.lightSources.has(player))
-	{
-		LightSource& light_source_component = registry.lightSources.get(player);
-		players_light_emission = light_source_component.lightEmissionEntity;
-		Size& colour_circle_size = registry.sizes.get(players_light_emission);
-		colour_circle_size.width = 0;
-		colour_circle_size.height = 0;
-	}
-	// TODO: FcZFoAfD set vec4 colour to be colour constant
+
 	else {
 		vec2& player_position = registry.positions.get(player);
 		players_light_emission = createCircle(player_position, 1.f, DEFAULT_COLOUR_VEC4);

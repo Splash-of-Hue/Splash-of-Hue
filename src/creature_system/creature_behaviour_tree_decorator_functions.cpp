@@ -156,8 +156,9 @@ BEHAVIOUR_TREE_STATUS CreatureBehaviourFunctions::checkIfInComponentRadius(Entit
 			Entity& source_entity = light_emission.lightSourceEntity;
 			if (component_type.has(source_entity))
 			{
-				//std::cout << "Creature is in " << typeid(component_type).name() << " Radius" << std::endl;
+				std::cout << "Creature is in " << typeid(component_type).name() << " Radius" << std::endl;
 				light_emission_entity_component.entity = it->second;
+				registry.list_all_components_of(light_emission_entity_component.entity);
 				return BEHAVIOUR_TREE_STATUS::SUCCESS;
 			}
 		}

@@ -132,7 +132,6 @@ void PhysicsSystem::step(float elapsed_ms)
 			if (collides(entity_i, entity_j))
 			{
 				if (!specialCaseCollision(entity_i, entity_j)) {
-
 					if (!registry.collisions.has(entity_i)) {
 						registry.collisions.emplace(entity_i);
 					}
