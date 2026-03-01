@@ -32,7 +32,8 @@ void addGeneralCreatureComponents(Entity creature, vec2 position, float width, f
     
     registry.renderRequests.insert(creature, {
         EFFECT_ASSET_ID::TEXTURED,
-        GEOMETRY_BUFFER_ID::SPRITE
+        GEOMETRY_BUFFER_ID::SPRITE,
+        RENDER_LAYER::CREATURES,
     });
 }
 
@@ -89,7 +90,7 @@ Entity createLeftArm(vec2 shrimp_position, float shrimp_width, vec4 colour)
     float left_arm_x = shrimp_position.x - SHRIMP_ARM_TRANSLATION_X;
     float left_arm_y = shrimp_position.y;
 
-    Entity& armEntity = createRectangle(vec2(left_arm_x, left_arm_y), shrimp_width / 2, shrimp_width / 4, colour);
+    Entity& armEntity = createRectangle(vec2(left_arm_x, left_arm_y), shrimp_width / 2, shrimp_width / 4, RENDER_LAYER::CREATURES, colour);
     
     registry.collidables.emplace(armEntity);
     return armEntity;
@@ -105,7 +106,7 @@ Entity createRightArm(vec2 shrimp_position, float shrimp_width, vec4 colour)
     float right_arm_x = shrimp_position.x + SHRIMP_ARM_TRANSLATION_X;
     float right_arm_y = shrimp_position.y;
 
-    Entity& armEntity = createRectangle(vec2(right_arm_x, right_arm_y), shrimp_width / 2, shrimp_width / 4, colour);
+    Entity& armEntity = createRectangle(vec2(right_arm_x, right_arm_y), shrimp_width / 2, shrimp_width / 4, RENDER_LAYER::CREATURES, colour);
     registry.collidables.emplace(armEntity);
     return armEntity;
 }
@@ -120,7 +121,7 @@ Entity createUpArm(vec2 shrimp_position, float shrimp_width, vec4 colour)
     float up_arm_x = shrimp_position.x;
     float up_arm_y = shrimp_position.y - SHRIMP_ARM_TRANSLATION_Y;
 
-    Entity& armEntity = createRectangle(vec2(up_arm_x, up_arm_y), shrimp_width / 4, shrimp_width / 2, colour);
+    Entity& armEntity = createRectangle(vec2(up_arm_x, up_arm_y), shrimp_width / 4, shrimp_width / 2, RENDER_LAYER::CREATURES, colour);
     registry.collidables.emplace(armEntity);
     return armEntity;
 }
@@ -135,7 +136,7 @@ Entity createDownArm(vec2 shrimp_position, float shrimp_width, vec4 colour)
     float down_arm_x = shrimp_position.x;
     float down_arm_y = shrimp_position.y + SHRIMP_ARM_TRANSLATION_Y;
 
-    Entity& armEntity = createRectangle(vec2(down_arm_x, down_arm_y), shrimp_width / 4, shrimp_width / 2, colour);
+    Entity& armEntity = createRectangle(vec2(down_arm_x, down_arm_y), shrimp_width / 4, shrimp_width / 2, RENDER_LAYER::CREATURES, colour);
     registry.collidables.emplace(armEntity);
     return armEntity;
 }
@@ -263,7 +264,7 @@ Entity createShrimp(vec2 position, float width, float height, COLOUR_STATE color
     assert((num_arms == 1 || num_arms == 2) && "shrimp can only be initialized with 1, 2, or 3 arms at this time");
     shrimp_component.num_arms = num_arms;
 
-    createCircle(position, width / 2, RED_COLOUR_VEC4);
+    createCircle(position, width / 2, RENDER_LAYER::CREATURES, RED_COLOUR_VEC4);
 
     // Todo: AkWAGMV1 cleanup and turn switch into an iterator
     // Add appropriate arms for this shrimp
