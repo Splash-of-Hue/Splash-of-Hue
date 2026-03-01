@@ -49,7 +49,7 @@ void ColourSystem::openColourMenu()
 		}
 	}
 
-	colour_menu_entity = createRectangle(top_left, bottom_right, vec4(0.2f, 0.2f, 0.2f, 1.0f));
+	colour_menu_entity = createRectangle(top_left, bottom_right, RENDER_LAYER::UI, vec4(0.2f, 0.2f, 0.2f, 1.0f));
 
 	ColourWheel wheel;
 	wheel.curr_colour = initial_colour;

@@ -37,7 +37,7 @@ Entity createLine(vec2 position, vec2 scale)
 	return entity;
 }
 
-Entity createRectangle(vec2 position, float width, float height, vec4 color)
+Entity createRectangle(vec2 position, float width, float height, RENDER_LAYER render_layer, vec4 color)
 {
 	Entity entity = Entity();
 
@@ -58,7 +58,7 @@ Entity createRectangle(vec2 position, float width, float height, vec4 color)
 	return entity;
 }
 
-Entity createRectangle(vec2 top_left, vec2 bottom_right, vec4 color)
+Entity createRectangle(vec2 top_left, vec2 bottom_right, RENDER_LAYER render_layer, vec4 color)
 {
 	Entity entity = Entity();
 
@@ -81,7 +81,7 @@ Entity createRectangle(vec2 top_left, vec2 bottom_right, vec4 color)
 	return entity;
 }
 
-Entity createCircle(vec2 position, float radius, vec4 color)
+Entity createCircle(vec2 position, float radius, RENDER_LAYER render_layer, vec4 color)
 {
 	Entity entity = Entity();
 
