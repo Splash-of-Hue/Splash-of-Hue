@@ -1,7 +1,9 @@
+#include "loading/loading_constants.hpp"
 #include "map_components.hpp"
 #include "map_system.hpp"
-#include "loading/loading_constants.hpp"
+#include <algorithm>
 #include <ecs/registry.hpp>
+#include <vector>
 
 void MapSystem::step(float elapsed_ms)
 {
@@ -13,18 +15,33 @@ void MapSystem::step(float elapsed_ms)
 		return;
 	}
 
+	// We only care about the most recent load request
+	const Entity& most_recent_request_entity = changeMapLevelRequestRegistry.entities.back();
 	// If there is a load request, check the type and act appropriately
-	for (Entity& entity : changeMapLevelRequestRegistry.entities)
+	ChangeMapLevelRequest& change_map_level_request = changeMapLevelRequestRegistry.get(most_recent_request_entity);
+	// Update the player, and get the old level from where the player was before
+	Entity& player_entity = registry.players.entities[0];
+	registry.positions.get(player_entity) = change_map_level_request.new_player_position;
+	int previous_level_uid = registry.currentLevels.get(player_entity).level_uid;
+	int new_level_uid = change_map_level_request.new_level_uid;
+	registry.currentLevels.get(player_entity).level_uid = new_level_uid;
+	// Load the new level. If the level is already loaded, it will jsut move the camera
+	Entity load_request_entity;
+	registry.loadRequests.insert(load_request_entity, { LOAD_TYPE::LOAD_LEVEL, new_level_uid });
+	// For each level that was adjacent to the previous level, that isn't the current level, unload it
+	const auto previous_level_match = [&](const Level& level) { return level.uid == previous_level_uid; };
+	const std::set<int> previous_adjacent_level_uids = std::find_if(registry.levels.components.begin(), registry.levels.components.end(), previous_level_match)->neighbor_level_uids;
+
+	for (int previous_adjacent_level_uid : previous_adjacent_level_uids)
 	{
-		ChangeMapLevelRequest& change_map_level_request = changeMapLevelRequestRegistry.get(entity);
+		// Don't unload the currently loading level since it's a neighbour
+		if (previous_adjacent_level_uid == new_level_uid)
+		{
+			continue;
+		}
 
-		// Update the player
-		Entity& player_entity = registry.players.entities[0];
-		registry.positions.get(player_entity) = change_map_level_request.new_player_position;
-
-		// Load level, this will do nothing is the level is already loaded
-		Entity load_request_entity;
-		registry.loadRequests.insert(load_request_entity, { LOAD_TYPE::LOAD_LEVEL, change_map_level_request.new_level_uid });
+		Entity unload_request_entity;
+		registry.loadRequests.insert(unload_request_entity, { LOAD_TYPE::UNLOAD_LEVEL, previous_adjacent_level_uid });
 	}
 
 	// Once all load requests are taken care of, remove them

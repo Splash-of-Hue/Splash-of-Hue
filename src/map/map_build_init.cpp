@@ -76,6 +76,7 @@ Entity createSpawnPoint(const int level_uid, const int connected_level_id, vec2 
 	SpawnPoint spawn_point = { level_uid, connected_level_id, vec2(connected_position.x, connected_position.y) };
 	registry.spawnPoints.emplace(spawn_point_entity, spawn_point);
 	registry.collidables.emplace(spawn_point_entity);
+	registry.levelEntities.insert(spawn_point_entity, { level_uid });
 
 	return spawn_point_entity;
 }
