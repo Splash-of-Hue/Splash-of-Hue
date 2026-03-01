@@ -94,7 +94,7 @@ void LoaderSystem::load_level(int level_uid)
 
 	// TODO rUJfFQQT: This is extremely inefficient. Use polygons to better improve this
 	std::vector<Entity> level_wall_tile_entities;
-	for (Entity level_tile_entity : registry.levelTiles.entities)
+	for (Entity& level_tile_entity : registry.levelTiles.entities)
 	{
 		if (registry.levelTiles.get(level_tile_entity).level_uid == level_uid && registry.mapTiles.get(level_tile_entity).tile_type == MAP_TILE_TYPE::WALL)
 		{
