@@ -91,7 +91,7 @@ void LoaderSystem::load_level(int level_uid)
 				continue;
 		}
 	}
-
+	
 	// TODO rUJfFQQT: This is extremely inefficient. Use polygons to better improve this
 	std::vector<Entity> level_wall_tile_entities;
 	for (Entity& level_tile_entity : registry.levelTiles.entities)
@@ -105,7 +105,7 @@ void LoaderSystem::load_level(int level_uid)
 	const int level_quantize_size = level.getLayer("Floor").getCellSize();
 	const ivec2 quantize_grid_size = ivec2(WINDOW_WIDTH_PX / level_quantize_size, WINDOW_HEIGHT_PX / level_quantize_size);
 	std::unordered_map<ivec2, std::pair<vec2, bool>> quantized_floor_data;
-
+	
 	for (int grid_x = 0; grid_x < quantize_grid_size.x; grid_x++)
 	{
 		for (int grid_y = 0; grid_y < quantize_grid_size.y; grid_y++)
@@ -136,11 +136,10 @@ void LoaderSystem::load_level(int level_uid)
 
 				is_in_wall = true;
 			}
-
 			quantized_floor_data[{grid_x, grid_y}] = { quantize_world_position, !is_in_wall };
 		}
 	}
-
+	
 	registry.levels.get(loading_level_entity).quantized_space_data = quantized_floor_data;
 }
 
@@ -307,6 +306,8 @@ void load_floor_interactables(const ldtk::Layer& layer)
 			case ENTITY_TYPE::SPAWN_POINT:
 				load_spawn_points(floor_interactable_entity);
 				continue;
+			case ENTITY_TYPE::WALL:
+				load_wall(floor_interactable_entity, layer);
 			default:
 				continue;
 		}
@@ -332,6 +333,20 @@ void load_spawn_points(const ldtk::Entity& spawn_point_entity)
 		vec2(position.x * LEVEL_TO_SCREEN_SCALE.x, position.y * LEVEL_TO_SCREEN_SCALE.y),
 		vec2(world_arrival_point.x * LEVEL_TO_SCREEN_SCALE.x, world_arrival_point.y * LEVEL_TO_SCREEN_SCALE.y)
 	);
+}
+
+void load_wall(const ldtk::Entity& wall_entity, const ldtk::Layer& layer)
+{
+	std::cout << wall_entity.getName() << std::endl;
+	const ldtk::IntPoint& wall_world_position = wall_entity.getWorldPosition();
+	const ldtk::IntPoint& wall_size = wall_entity.getSize();
+	const vec2 position = vec2(wall_world_position.x * LEVEL_TO_SCREEN_SCALE.x, wall_world_position.y * LEVEL_TO_SCREEN_SCALE.y);
+	float width = wall_size.x * LEVEL_TO_SCREEN_SCALE.x;
+	float height = wall_size.y * LEVEL_TO_SCREEN_SCALE.y;
+
+	Entity wall = createDungeonWall(position, width, height);
+
+	registry.levelEntities.insert(wall, { layer.level->uid });
 }
 
 void LoaderSystem::unload_level(int level_uid)

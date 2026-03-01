@@ -24,7 +24,8 @@ enum class ENTITY_TYPE
 {
 	INVALID,
 	SPAWN_POINT,
-	INITIAL_POSITION
+	INITIAL_POSITION, 
+	WALL
 };
 
 const std::map<std::string, LOADING_LAYER_TYPE> layer_string_to_enum_map = {
@@ -42,6 +43,7 @@ inline LOADING_LAYER_TYPE layer_from_string(const std::string layer_string)
 const std::map<std::string, ENTITY_TYPE> entity_type_string_to_enum_map = {
 	{ "Spawn_Point", ENTITY_TYPE::SPAWN_POINT },
 	{ "Initial_Position", ENTITY_TYPE::INITIAL_POSITION },
+	{ "Wall", ENTITY_TYPE::WALL },
 };
 
 inline ENTITY_TYPE entity_type_from_string(const std::string entity_string)
