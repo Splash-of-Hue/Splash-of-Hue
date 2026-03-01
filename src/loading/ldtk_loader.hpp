@@ -17,4 +17,4 @@ void load_spawn_points(const ldtk::Entity& spawn_point_entity);
 void load_floor_interactables(const ldtk::Layer& layer);
 void load_entity_layer(const ldtk::Layer& layer);
 void load_extra_entities(const ldtk::Layer& layer);
-void use_initial_player_position(const ldtk::Entity& initial_player_position_entity);
+void set_initial_player_position(const ldtk::Entity& initial_player_position_entity);
