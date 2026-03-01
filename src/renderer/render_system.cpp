@@ -416,6 +416,29 @@ void RenderSystem::draw()
 
 	mat3 projection_2D = createProjectionMatrix();
 
+	// We have to sort each frame in case things move around
+	// If things haven't changed, it should be fast to sort
+	registry.renderRequests.sort([&]
+		(Entity rr_a_entity, Entity rr_b_entity)
+		{
+		const RENDER_LAYER& a_layer = registry.renderRequests.get(rr_a_entity).layer;
+		const RENDER_LAYER& b_layer = registry.renderRequests.get(rr_b_entity).layer;
+
+		if (a_layer < RENDER_LAYER::FLOOR_INTERACTABLES || b_layer < RENDER_LAYER::FLOOR_INTERACTABLES
+			|| a_layer > RENDER_LAYER::PLAYER || b_layer > RENDER_LAYER::PLAYER)
+		{
+			return a_layer < b_layer;
+		}
+
+		// Some need to be sorted by where they are in the level, since they move around
+		// This way it looks like things pass each other
+		const float& a_y_bottom = registry.positions.get(rr_a_entity).y + registry.scales.get(rr_a_entity).y;
+		const float& b_y_bottom = registry.positions.get(rr_b_entity).y + registry.scales.get(rr_b_entity).y;
+
+		return a_y_bottom < b_y_bottom;
+		}
+	);
+
 	// draw all entities with a render request to the frame buffer
 	for (Entity entity : registry.renderRequests.entities)
 	{
