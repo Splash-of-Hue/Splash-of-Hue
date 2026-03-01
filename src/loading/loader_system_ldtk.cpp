@@ -1,10 +1,11 @@
+#include "creature_system/creature_constants.hpp"
 #include "creature_system/creature_creator.hpp"
 #include "ecs/entity.hpp"
 #include "ldtk_loader.hpp"
 #include "loader_system.hpp"
 #include "loading_constants.hpp"
 #include "map/map_build_init.hpp"
-#include <creature_system/creature_constants.hpp>
+#include "renderer/render_constants.hpp"
 #include <iostream>
 #include <LDtkLoader/DataTypes.hpp>
 #include <LDtkLoader/Entity.hpp>
@@ -13,10 +14,8 @@
 #include <LDtkLoader/Layer.hpp>
 #include <LDtkLoader/Project.hpp>
 #include <LDtkLoader/Tileset.hpp>
-#include <unordered_map>
-#include <renderer/render_constants.hpp>
 #include <string>
-#include <world_init.hpp>
+#include <unordered_map>
 
 void LoaderSystem::load_level(int level_uid)
 {
