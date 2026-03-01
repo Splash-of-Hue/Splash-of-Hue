@@ -276,10 +276,23 @@ after_color_collision:
 }
 
 void handle_inelastic_collision_box(Entity& entity_i, Entity& entity_j) {
-	vec2& pos1 = registry.positions.get(entity_i);
-	vec2& pos2 = registry.positions.get(entity_j);
 	vec4 box1 = get_bounding_box(entity_i);
 	vec4 box2 = get_bounding_box(entity_j);
+	vec2& pos1 = registry.positions.get(entity_i);
+	vec2& pos2 = registry.positions.get(entity_j);
+
+	vec2* pos_to_correct = &pos1;
+	vec2* other_pos = &pos2;
+
+	if (registry.players.has(entity_j)) {
+		pos_to_correct = &pos2;
+		other_pos = &pos1;
+	}
+
+	if (!registry.velocities.has(entity_i)) {
+		pos_to_correct = &pos2;
+		other_pos = &pos1;
+	}
 
 	float x_depth = box1[3] < box2[3] ? box1[3] - box2[2] : box2[3] - box1[2];
 	float y_depth = box1[1] < box2[1] ? box1[1] - box2[0] : box2[1] - box1[0];
@@ -288,25 +301,25 @@ void handle_inelastic_collision_box(Entity& entity_i, Entity& entity_j) {
 
 	if (x_depth < y_depth)
 	{
-		if (pos1.x < pos2.x)
+		if (pos_to_correct->x < other_pos->x)
 		{
-			pos1.x -= x_depth;
+			pos_to_correct->x -= x_depth;
 		}
 		else
 		{
-			pos1.x += x_depth;
+			pos_to_correct->x += x_depth;
 		}
 
 	}
 	else
 	{
-		if (pos1.y < pos2.y)
+		if (pos_to_correct->y < other_pos->y)
 		{
-			pos1.y -= y_depth;
+			pos_to_correct->y -= y_depth;
 		}
 		else
 		{
-			pos1.y += y_depth;
+			pos_to_correct->y += y_depth;
 		}
 	}
 }
