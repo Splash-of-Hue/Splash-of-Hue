@@ -31,7 +31,8 @@ Entity PlayerControllerSystem::create_player()
 		player_entity,
 		{
 			EFFECT_ASSET_ID::TEXTURED,
-			GEOMETRY_BUFFER_ID::SPRITE
+			GEOMETRY_BUFFER_ID::SPRITE,
+			RENDER_LAYER::PLAYER,
 		}
 	);
 	vec2 velocity = { 0.0f, 0.0f };

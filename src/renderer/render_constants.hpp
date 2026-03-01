@@ -60,3 +60,19 @@ enum class GEOMETRY_BUFFER_ID
 };
 const int geometry_count = (int)GEOMETRY_BUFFER_ID::GEOMETRY_COUNT;
 
+enum class RENDER_LAYER
+{
+	BACKGROUND_BACK,
+	BACKGROUND_FRONT,
+	FLOOR,
+	WALLS_BACK,
+	/* Entities in these layers are sorted by Y-axis */
+	FLOOR_INTERACTABLES,
+	ROOM_INTERACTABLES,
+	CREATURES,
+	PLAYER,
+	/* End */
+	WALLS_FRONT,
+	FOREGROUND,
+	UI
+};
