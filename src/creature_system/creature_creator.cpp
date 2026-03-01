@@ -298,7 +298,7 @@ Entity createSawfish(vec2 position, float width, float height, COLOUR_STATE colo
     Pathfinder& pathfinder = registry.pathfinders.emplace(sawfish);
     pathfinder.target = registry.players.entities[0];
     pathfinder.type = PATHFINDING_TYPE::BEST;
-    pathfinder.max_speed = 6000.0f;
+    pathfinder.max_speed = 3000.0f;
     CreatureBehaviour& creatureBehaviour = registry.creatureBehaviours.emplace(sawfish);
     creatureBehaviour.behaviour_tree = CreatureBehaviourTreeBuilder::buildSawfishTree();
    
