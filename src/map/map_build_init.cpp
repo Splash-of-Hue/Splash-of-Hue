@@ -57,7 +57,7 @@ Entity createMapTile(int tile_id, TEXTURE_ASSET_ID texture_id, ivec2 tile_positi
 	registry.angles.insert(map_tile_entity, { 0 });
 	registry.renderSourceRects.insert(map_tile_entity, { vec2(source_rect.x, source_rect.y), vec2(source_rect.p, source_rect.q) });
 	registry.textured.insert(map_tile_entity, { texture_id });
-	registry.colors.insert(map_tile_entity, { DEFAULT_COLOUR, 1.0f });
+	registry.colors.insert(map_tile_entity, { DEFAULT_COLOUR_VEC4 });
 	registry.renderRequests.insert(
 		map_tile_entity,
 		{
@@ -72,7 +72,7 @@ Entity createMapTile(int tile_id, TEXTURE_ASSET_ID texture_id, ivec2 tile_positi
 
 Entity createSpawnPoint(const int level_uid, const int connected_level_id, vec2 position, vec2 connected_position)
 {
-	Entity spawn_point_entity = createCircle(position, 10.0f, RENDER_LAYER::FLOOR_INTERACTABLES, { DEFAULT_COLOUR, 1.0f });
+	Entity spawn_point_entity = createCircle(position, 10.0f, RENDER_LAYER::FLOOR_INTERACTABLES, { DEFAULT_COLOUR_VEC4 });
 	SpawnPoint spawn_point = { level_uid, connected_level_id, vec2(connected_position.x, connected_position.y) };
 	registry.spawnPoints.emplace(spawn_point_entity, spawn_point);
 	registry.collidables.emplace(spawn_point_entity);
