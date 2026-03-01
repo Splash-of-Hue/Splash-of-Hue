@@ -30,7 +30,6 @@ BEHAVIOUR_TREE_STATUS CreatureBehaviourFunctions::chargeAtTarget(Entity& charger
 
 BEHAVIOUR_TREE_STATUS CreatureBehaviourFunctions::requestNewPath(Entity& pathfinder_entity, float elapsed_ms)
 {
-	// DEBUGGING std::cout << "chargeAtTarget" << std::endl;
 	Pathfinder& pathfinder = registry.pathfinders.get(pathfinder_entity);
 	pathfinder.is_path_dirty = true;
 
@@ -39,7 +38,6 @@ BEHAVIOUR_TREE_STATUS CreatureBehaviourFunctions::requestNewPath(Entity& pathfin
 
 BEHAVIOUR_TREE_STATUS CreatureBehaviourFunctions::goToNextPathStep(Entity& pathfinder_entity, float elapsed_ms)
 {
-	// DEBUGGING std::cout << "chargeAtTarget" << std::endl;
 
 	vec2& position = registry.positions.get(pathfinder_entity);
 	Pathfinder& pathfinder = registry.pathfinders.get(pathfinder_entity);
