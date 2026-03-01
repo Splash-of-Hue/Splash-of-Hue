@@ -1,9 +1,11 @@
+#include "creature_system/creature_constants.hpp"
+#include "creature_system/creature_creator.hpp"
+#include "ecs/entity.hpp"
+#include "ldtk_loader.hpp"
 #include "loader_system.hpp"
 #include "loading_constants.hpp"
-#include "creature_system/creature_creator.hpp"
-#include <creature_system/creature_constants.hpp>
 #include "map/map_build_init.hpp"
-#include "ecs/entity.hpp"
+#include "renderer/render_constants.hpp"
 #include <iostream>
 #include <LDtkLoader/DataTypes.hpp>
 #include <LDtkLoader/Entity.hpp>
@@ -12,10 +14,8 @@
 #include <LDtkLoader/Layer.hpp>
 #include <LDtkLoader/Project.hpp>
 #include <LDtkLoader/Tileset.hpp>
-#include <renderer/render_constants.hpp>
 #include <string>
-#include <world_init.hpp>
-#include "ldtk_loader.hpp"
+#include <unordered_map>
 
 void LoaderSystem::load_level(int level_uid)
 {
@@ -51,9 +51,14 @@ void LoaderSystem::load_level(int level_uid)
 	// get a level
 	const ldtk::Level& level = world.getLevel(level_uid);
 	loaded_level_uids.insert(level.uid);
-	const ldtk::IntPoint& level_index = level.position;
+	const ldtk::IntPoint& level_world_position = level.position;
+	const ivec2 level_index = ivec2(level_world_position.x / level.size.x, level_world_position.y / level.size.y);
 	Entity loading_level_entity;
-	registry.levels.insert(loading_level_entity, { level_uid, { level_index.x, level_index.y } });
+	Level level_component = {
+		level_uid,
+		level_index
+	};
+	registry.levels.insert(loading_level_entity, level_component);
 
 	if (LEVEL_TO_SCREEN_SCALE == vec2(0))
 	{
@@ -63,7 +68,7 @@ void LoaderSystem::load_level(int level_uid)
 		LEVEL_TO_SCREEN_SCALE = vec2(level_scale_x, level_scale_y);
 	}
 
-	const vec2 level_world_center = vec2(level_index.x, level_index.y) * LEVEL_TO_SCREEN_SCALE + window_center();
+	const vec2 level_world_center = vec2(level.position.x, level.position.y) * LEVEL_TO_SCREEN_SCALE + window_center();
 	vec2& level_position = registry.positions.insert(loading_level_entity, level_world_center);
 	Entity change_camera_request;
 	registry.changeCameraTargetRequests.insert(change_camera_request, { level_position, LDTK_CAMERA_ROOM_SPEED });
@@ -86,6 +91,57 @@ void LoaderSystem::load_level(int level_uid)
 				continue;
 		}
 	}
+
+	// TODO rUJfFQQT: This is extremely inefficient. Use polygons to better improve this
+	std::vector<Entity> level_wall_tile_entities;
+	for (Entity& level_tile_entity : registry.levelTiles.entities)
+	{
+		if (registry.levelTiles.get(level_tile_entity).level_uid == level_uid && registry.mapTiles.get(level_tile_entity).tile_type == MAP_TILE_TYPE::WALL)
+		{
+			level_wall_tile_entities.push_back(level_tile_entity);
+		}
+	}
+
+	const int level_quantize_size = level.getLayer("Floor").getCellSize();
+	const ivec2 quantize_grid_size = ivec2(WINDOW_WIDTH_PX / level_quantize_size, WINDOW_HEIGHT_PX / level_quantize_size);
+	std::unordered_map<ivec2, std::pair<vec2, bool>> quantized_floor_data;
+
+	for (int grid_x = 0; grid_x < quantize_grid_size.x; grid_x++)
+	{
+		for (int grid_y = 0; grid_y < quantize_grid_size.y; grid_y++)
+		{
+			// Get the world space coordinate
+			vec2 quantize_world_position = vec2(
+				(LEVEL_TO_SCREEN_SCALE.x * (level_world_position.x + level_quantize_size / 2)) + level_quantize_size * grid_x,
+				(LEVEL_TO_SCREEN_SCALE.y * (level_world_position.y + level_quantize_size / 2)) + level_quantize_size * grid_y
+			);
+
+			// Check if this coordinate is in any of the wall tiles
+			bool is_in_wall = false;
+
+			for (Entity& wall_tile_entity : level_wall_tile_entities)
+			{
+				vec2& tile_position = registry.positions.get(wall_tile_entity);
+				vec2& tile_size = registry.scales.get(wall_tile_entity);
+
+				if (quantize_world_position.x < tile_position.x || quantize_world_position.x > tile_position.x + tile_size.x)
+				{
+					continue;
+				}
+
+				if (quantize_world_position.y < tile_position.y || quantize_world_position.y > tile_position.y + tile_size.y)
+				{
+					continue;
+				}
+
+				is_in_wall = true;
+			}
+
+			quantized_floor_data[{grid_x, grid_y}] = { quantize_world_position, !is_in_wall };
+		}
+	}
+
+	registry.levels.get(loading_level_entity).quantized_space_data = quantized_floor_data;
 }
 
 void load_tile_layer(const ldtk::Layer& layer)
@@ -113,9 +169,21 @@ void load_tile_layer(const ldtk::Layer& layer)
 			tile_size / (float)tileset_texture_size.x,
 			tile_size / (float)tileset_texture_size.y
 		};
+		// TODO qEQqmtkO: Tile layers won't always be the map, move elsewhere
+		MAP_TILE_TYPE map_tile_type = MAP_TILE_TYPE::DEFAULT;
+		const auto& tile_tags = layer_tileset.getTileEnumTags(tile.tileId);
+		
+		for (const auto& tile_tag : tile_tags)
+		{
+			if (tile_tag.get().name == "Wall")
+			{
+				map_tile_type = map_tile_type | MAP_TILE_TYPE::WALL;
+			}
+		}
 
 		// TODO mgydr9IJ: Get texture ID dynamically instead of always using ROOMS
-		createMapTile(tile.tileId, TEXTURE_ASSET_ID::ROOMS, ivec2(tile_position.x, tile_position.y), destination_rect, source_rect);
+		Entity& map_tile_entity = createMapTile(tile.tileId, TEXTURE_ASSET_ID::ROOMS, ivec2(tile_position.x, tile_position.y), destination_rect, source_rect, map_tile_type);
+		registry.levelTiles.insert(map_tile_entity, { layer.level->uid });
 	}
 }
 
@@ -170,56 +238,59 @@ void use_initial_player_position(const ldtk::Entity& initial_player_position_ent
 void load_creatures(const ldtk::Layer& layer)
 {
 	// iterate on Enemy entities
-	for (const ldtk::Entity& creature_entity : layer.allEntities())
+	for (const ldtk::Entity& ldtk_creature_entity : layer.allEntities())
 	{
-		const ldtk::Field<ldtk::EnumValue>& creature_enum_type = creature_entity.getField<ldtk::EnumValue>("CreatureType");
+		const ldtk::Field<ldtk::EnumValue>& creature_enum_type = ldtk_creature_entity.getField<ldtk::EnumValue>("CreatureType");
 		const CREATURETYPE& creature_type = creature_type_from_string(creature_enum_type.value().name);
 		
-		const ldtk::Field<ldtk::EnumValue>& color_state_enum_type = creature_entity.getField<ldtk::EnumValue>("ColorState");
+		const ldtk::Field<ldtk::EnumValue>& color_state_enum_type = ldtk_creature_entity.getField<ldtk::EnumValue>("ColorState");
 		const COLOUR_STATE& color_state = color_state_from_string(color_state_enum_type.value().name);
 		
-		const ldtk::IntPoint& creature_world_position = creature_entity.getWorldPosition();
-		const ldtk::IntPoint& creature_size = creature_entity.getSize();
+		const ldtk::IntPoint& creature_world_position = ldtk_creature_entity.getWorldPosition();
+		const ldtk::IntPoint& creature_size = ldtk_creature_entity.getSize();
 		const vec2 position = vec2(creature_world_position.x * LEVEL_TO_SCREEN_SCALE.x, creature_world_position.y * LEVEL_TO_SCREEN_SCALE.y);
 		float width = creature_size.x * LEVEL_TO_SCREEN_SCALE.x;
 		float height = creature_size.y * LEVEL_TO_SCREEN_SCALE.y;
+		Entity creature_entity;
 
 		switch (creature_type)
 		{
 			case CREATURETYPE::ANGLERFISH:
-				createAnglerfish(position, width, height, color_state);
+				creature_entity = createAnglerfish(position, width, height, color_state);
 				break;
 
 			case CREATURETYPE::CRAB:
-				createCrab(position, width, height, color_state);
+				creature_entity = createCrab(position, width, height, color_state);
 				break;
 
 			case CREATURETYPE::MINNOWS:
-				createMinnows(position, width, height, color_state);
+				creature_entity = createMinnows(position, width, height, color_state);
 				break;
 
 			case CREATURETYPE::SAWFISH:
-				createSawfish(position, width, height, color_state);
+				creature_entity = createSawfish(position, width, height, color_state);
 				break;
 
 			case CREATURETYPE::SHRIMP:
 				{
-					const ldtk::Field<ldtk::EnumValue>& direction_enum_type = creature_entity.getField<ldtk::EnumValue>("Direction");
+					const ldtk::Field<ldtk::EnumValue>& direction_enum_type = ldtk_creature_entity.getField<ldtk::EnumValue>("Direction");
 					const DIRECTION& direction_state = direction_type_from_string(direction_enum_type.value().name);
-					const ldtk::Field<int> arm_count = creature_entity.getField<ldtk::FieldType::Int>("ArmCount");
+					const ldtk::Field<int> arm_count = ldtk_creature_entity.getField<ldtk::FieldType::Int>("ArmCount");
 
-					createShrimp(position, width, height, color_state, direction_state, arm_count.value());
+					creature_entity = createShrimp(position, width, height, color_state, direction_state, arm_count.value());
 				}
 				break;
 
 			case CREATURETYPE::WHALE:
-				createWhale(position, width, height, color_state);
+				creature_entity = createWhale(position, width, height, color_state);
 				break;
 
 			default:
 				std::cerr << "WARNING: unknown creature type, skipping." << std::endl;
 				break;
 		}
+
+		registry.levelEntities.insert(creature_entity, { layer.level->uid });
 	}
 }
 
