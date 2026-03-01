@@ -5,14 +5,15 @@
 #include <string>
 #include <vector>
 
-Entity addGeneralInteractableComponents(vec2 position, Size& size, INTERACTABLE_TYPE interactable_type) {
+Entity addGeneralInteractableComponents(vec2 position, Size& size, INTERACTABLE_TYPE interactable_type)
+{
 	Entity interactable;
 	Collidable& collidable = registry.collidables.emplace(interactable);
 	collidable.inelastic = true;
 	registry.interactables.insert(interactable, { interactable_type });
 	registry.positions.insert(interactable, position);
 	registry.sizes.insert(interactable, size);
-	return interactable; 
+	return interactable;
 }
 
 Entity createBox(vec2 position, float width, float height)
@@ -24,7 +25,8 @@ Entity createBox(vec2 position, float width, float height)
 	return box;
 }
 
-Entity createColourOrb(vec2 position, float radius, COLOUR_STATE colour_state) {
+Entity createColourOrb(vec2 position, float radius, COLOUR_STATE colour_state)
+{
 	Size size = { 2.0f * radius, 2.0f * radius };
 	Entity colourOrb = addGeneralInteractableComponents(position, size, INTERACTABLE_TYPE::COLOUR_ORB);
 	registry.collectables.emplace(colourOrb);
@@ -32,11 +34,12 @@ Entity createColourOrb(vec2 position, float radius, COLOUR_STATE colour_state) {
 	return colourOrb;
 }
 
-Entity createMushroom(vec2 position, float radius, COLOUR_STATE colour_state) {
-	
+Entity createMushroom(vec2 position, float radius, COLOUR_STATE colour_state)
+{
+
 	Size size = { 2.0f * radius, 2.0f * radius };
 	Entity mushroom = addGeneralInteractableComponents(position, size, INTERACTABLE_TYPE::MUSHROOM);
-	registry.collectables.emplace(mushroom);	
+	registry.collectables.emplace(mushroom);
 
 	return mushroom;
 }
