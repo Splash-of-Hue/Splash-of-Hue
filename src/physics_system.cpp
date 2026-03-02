@@ -264,6 +264,11 @@ void handle_misc_collision(Entity& entity_i, Entity& entity_j)
 			if (other_collidable.inelastic)
 			{
 				registry.creatureInelasticCollisions.emplace(entity_creature);
+				registry.list_all_components_of(entity_other);
+				if (registry.breakables.has(entity_other))
+				{
+					registry.remove_all_components_of(entity_other);
+				}
 			}
 		}
 	}

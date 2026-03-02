@@ -40,6 +40,7 @@ public:
 	static BEHAVIOUR_TREE_STATUS removeCollision(Entity& creature, float elapsed_ms);
 	static BEHAVIOUR_TREE_STATUS removeCharging(Entity& creature, float elapsed_ms);
 	static BEHAVIOUR_TREE_STATUS removeDizzy(Entity& creature, float elapsed_ms);
+	static BEHAVIOUR_TREE_STATUS makeDizzy(Entity& creature, float elapsed_ms);
 
 
 

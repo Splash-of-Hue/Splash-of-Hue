@@ -43,13 +43,17 @@ BehaviourTree CreatureBehaviourTreeBuilder::buildSawfishTree()
 				Decorator(builder, creatureBehaviourFunctions.isInRedState,
 					Selector(builder,
 						Decorator(builder, creatureBehaviourFunctions.isDizzy,
-							Selector(builder, 
-								Decorator(builder, creatureBehaviourFunctions.isCooldownComplete,
-									Sequence(builder,
-										Action(builder, creatureBehaviourFunctions.removeCooldown),
-										Action(builder, creatureBehaviourFunctions.removeCharging),
-										Action(builder, creatureBehaviourFunctions.makeNeutral)
-									)
+							Sequence(builder, 
+								Action(builder, creatureBehaviourFunctions.beDizzy),
+								Selector(builder, 
+									Decorator(builder, creatureBehaviourFunctions.isCooldownComplete,
+										Sequence(builder,
+											Action(builder, creatureBehaviourFunctions.removeCooldown),
+											Action(builder, creatureBehaviourFunctions.removeDizzy),
+											Action(builder, creatureBehaviourFunctions.makeNeutral)
+										)
+									),
+									Action(builder, creatureBehaviourFunctions.returnSuccess)
 								)
 							)
 						),
@@ -59,8 +63,9 @@ BehaviourTree CreatureBehaviourTreeBuilder::buildSawfishTree()
 									Sequence(builder, 
 										Action(builder, creatureBehaviourFunctions.stopCreatureMovement),
 										Action(builder, creatureBehaviourFunctions.removeCollision),
-										Action(builder, creatureBehaviourFunctions.beDizzy),
-										Action(builder, creatureBehaviourFunctions.applyCooldown)
+										Action(builder, creatureBehaviourFunctions.makeDizzy),
+										Action(builder, creatureBehaviourFunctions.applyCooldown),
+										Action(builder, creatureBehaviourFunctions.removeCharging)
 									)
 								)
 							)
@@ -84,7 +89,7 @@ BehaviourTree CreatureBehaviourTreeBuilder::buildSawfishTree()
 				Selector(builder,
 					Decorator(builder, creatureBehaviourFunctions.isInBlueState,
 						Sequence(builder,
-							Action(builder, creatureBehaviourFunctions.returnSuccess)
+							Action(builder, creatureBehaviourFunctions.aStarFollowTarget)
 						)
 					),
 					Decorator(builder, creatureBehaviourFunctions.isInNeutralState,

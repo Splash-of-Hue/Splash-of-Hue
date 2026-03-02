@@ -101,3 +101,13 @@ BEHAVIOUR_TREE_STATUS CreatureBehaviourFunctions::removeDizzy(Entity& creature, 
 	}
 	return BEHAVIOUR_TREE_STATUS::SUCCESS;
 }
+
+BEHAVIOUR_TREE_STATUS CreatureBehaviourFunctions::makeDizzy(Entity& creature, float elapsed_ms)
+{
+	if (!registry.dizzies.has(creature))
+	{
+		std::cout << "I am Dizzy!" << std::endl;
+		registry.dizzies.emplace(creature);
+	}
+	return BEHAVIOUR_TREE_STATUS::SUCCESS;
+}
