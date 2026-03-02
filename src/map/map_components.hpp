@@ -1,10 +1,11 @@
 #pragma once
 
 #include "common.hpp"
-#include "map_constants.hpp"
-#include <unordered_map>
 #include "glm/gtx/hash.hpp"
+#include "map_constants.hpp"
 #include <set>
+#include <string>
+#include <unordered_map>
 
 struct MapTile
 {
@@ -73,4 +74,9 @@ struct ChangeMapLevelRequest
 {
 	int new_level_uid;
 	vec2 new_player_position;
+};
+
+struct ColouredWall
+{
+	std::string id;
 };
