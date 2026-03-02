@@ -64,7 +64,6 @@ public:
 	ComponentContainer<LoadRequest> loadRequests;
 	// Map
 	ComponentContainer<ChangeMapLevelRequest> changeMapLevelRequests;
-	ComponentContainer<ColouredWall> colouredWall;
 	ComponentContainer<CurrentLevel> currentLevels;
 	ComponentContainer<LevelEntity> levelEntities;
 	ComponentContainer<Level> levels;
@@ -145,7 +144,6 @@ public:
 		registry_list.push_back(&loadRequests);
 		// Map
 		registry_list.push_back(&changeMapLevelRequests);
-		registry_list.push_back(&colouredWall);
 		registry_list.push_back(&currentLevels);
 		registry_list.push_back(&levelEntities);
 		registry_list.push_back(&levels);
