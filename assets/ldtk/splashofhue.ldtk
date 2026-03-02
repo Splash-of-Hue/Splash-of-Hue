@@ -320,7 +320,7 @@
 	"levelNamePattern": "Level_%idx",
 	"tutorialDesc": null,
 	"customCommands": [],
-	"flags": ["IgnoreBackupSuggest"],
+	"flags": [],
 	"defs": { "layers": [
 		{
 			"__type": "Entities",
@@ -2028,7 +2028,27 @@
 					"seed": 3599102,
 					"overrideTilesetUid": null,
 					"gridTiles": [],
-					"entityInstances": []
+					"entityInstances": [
+						{
+							"__identifier": "MossWall",
+							"__grid": [55,13],
+							"__pivot": [0.5,0.5],
+							"__tags": ["Internal_Wall"],
+							"__tile": null,
+							"__smartColor": "#DECDD4",
+							"iid": "8d3a3520-fa90-11f0-aace-71cad282f398",
+							"width": 1184,
+							"height": 80,
+							"defUid": 48,
+							"px": [888,216],
+							"fieldInstances": [{ "__identifier": "ColorState", "__type": "LocalEnum.ColorState", "__value": "Blue", "__tile": null, "defUid": 49, "realEditorValues": [{
+								"id": "V_String",
+								"params": ["Blue"]
+							}] }],
+							"__worldX": 888,
+							"__worldY": -864
+						}
+					]
 				},
 				{
 					"__identifier": "Creatures",
@@ -4179,7 +4199,46 @@
 					"seed": 8324060,
 					"overrideTilesetUid": null,
 					"gridTiles": [],
-					"entityInstances": []
+					"entityInstances": [
+						{
+							"__identifier": "MossWall",
+							"__grid": [47,11],
+							"__pivot": [0.5,0.5],
+							"__tags": ["Internal_Wall"],
+							"__tile": null,
+							"__smartColor": "#DECDD4",
+							"iid": "a6d78500-fa90-11f0-aace-99f35b4dd8c9",
+							"width": 528,
+							"height": 64,
+							"defUid": 48,
+							"px": [760,184],
+							"fieldInstances": [{ "__identifier": "ColorState", "__type": "LocalEnum.ColorState", "__value": "Red", "__tile": null, "defUid": 49, "realEditorValues": [{
+								"id": "V_String",
+								"params": ["Red"]
+							}] }],
+							"__worldX": 760,
+							"__worldY": -1976
+						},
+						{
+							"__identifier": "MossWall",
+							"__grid": [66,18],
+							"__pivot": [0.5,0.5],
+							"__tags": ["Internal_Wall"],
+							"__tile": null,
+							"__smartColor": "#DECDD4",
+							"iid": "b028c600-fa90-11f0-aace-3de86970d83b",
+							"width": 64,
+							"height": 320,
+							"defUid": 48,
+							"px": [1064,296],
+							"fieldInstances": [{ "__identifier": "ColorState", "__type": "LocalEnum.ColorState", "__value": "Blue", "__tile": null, "defUid": 49, "realEditorValues": [{
+								"id": "V_String",
+								"params": ["Blue"]
+							}] }],
+							"__worldX": 1064,
+							"__worldY": -1864
+						}
+					]
 				},
 				{
 					"__identifier": "Creatures",
@@ -7254,7 +7313,27 @@
 					"seed": 4245801,
 					"overrideTilesetUid": null,
 					"gridTiles": [],
-					"entityInstances": []
+					"entityInstances": [
+						{
+							"__identifier": "MossWall",
+							"__grid": [52,57],
+							"__pivot": [0.5,0.5],
+							"__tags": ["Internal_Wall"],
+							"__tile": null,
+							"__smartColor": "#DECDD4",
+							"iid": "496a6f90-fa90-11f0-aace-2df8892a2ee1",
+							"width": 1152,
+							"height": 64,
+							"defUid": 48,
+							"px": [840,920],
+							"fieldInstances": [{ "__identifier": "ColorState", "__type": "LocalEnum.ColorState", "__value": "Red", "__tile": null, "defUid": 49, "realEditorValues": [{
+								"id": "V_String",
+								"params": ["Red"]
+							}] }],
+							"__worldX": 4680,
+							"__worldY": -1240
+						}
+					]
 				},
 				{
 					"__identifier": "Creatures",

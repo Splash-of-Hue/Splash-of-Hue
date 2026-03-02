@@ -41,7 +41,6 @@ public:
 	ComponentContainer<Textured> textured;
 	// Colour System
 	ComponentContainer<vec4> colors;
-	ComponentContainer<ColouredWall> colouredWall;
 	ComponentContainer<ColourState> colourStates;
 	ComponentContainer<ColourWheel> colourWheels;
 	ComponentContainer<ColourPalette> colourPalettes;
@@ -59,11 +58,14 @@ public:
 	ComponentContainer<Collectable> collectables;
 	ComponentContainer<ColourOrb> colourOrbs;
 	ComponentContainer<Interactable> interactables;
+	ComponentContainer<MossToggle> mossToggles;
 	ComponentContainer<Mushroom> mushrooms;	
 	// Loader
 	ComponentContainer<LoadRequest> loadRequests;
 	// Map
 	ComponentContainer<ChangeMapLevelRequest> changeMapLevelRequests;
+	ComponentContainer<ColouredWall> colouredWall;
+	ComponentContainer<CurrentLevel> currentLevels;
 	ComponentContainer<LevelEntity> levelEntities;
 	ComponentContainer<Level> levels;
 	ComponentContainer<LevelTile> levelTiles;
@@ -97,7 +99,6 @@ public:
 	// Spawnables
 	ComponentContainer<Creature> creatures;
 	ComponentContainer<Shrimp> shrimps;
-	ComponentContainer<Toggle> toggles;
 
 	// constructor that adds all containers for looping over them
 	ECSRegistry()
@@ -122,7 +123,6 @@ public:
 		registry_list.push_back(&textured);
 		// Colour System
 		registry_list.push_back(&colors);
-		registry_list.push_back(&colouredWall);
 		registry_list.push_back(&colourStates);
 		registry_list.push_back(&colourWheels);
 		registry_list.push_back(&colourPalettes);
@@ -140,12 +140,14 @@ public:
 		registry_list.push_back(&collectables);
 		registry_list.push_back(&colourOrbs);
 		registry_list.push_back(&interactables);
+		registry_list.push_back(&mossToggles);
 		registry_list.push_back(&mushrooms);
-
 		// Loader
 		registry_list.push_back(&loadRequests);
 		// Map
 		registry_list.push_back(&changeMapLevelRequests);
+		registry_list.push_back(&colouredWall);
+		registry_list.push_back(&currentLevels);
 		registry_list.push_back(&levelEntities);
 		registry_list.push_back(&levels);
 		registry_list.push_back(&levelTiles);
@@ -179,7 +181,6 @@ public:
 		// Spawnables
 		registry_list.push_back(&creatures);
 		registry_list.push_back(&shrimps);
-		registry_list.push_back(&toggles);
 	}
 
 	void clear_all_components()

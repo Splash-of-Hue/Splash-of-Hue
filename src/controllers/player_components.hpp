@@ -5,6 +5,7 @@
 struct Player
 {
 	float speed = PLAYER_SPEED;
+	bool is_loaded = false;
 };
 
 struct PlayerCreateRequests
