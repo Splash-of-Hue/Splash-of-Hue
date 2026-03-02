@@ -1,6 +1,7 @@
 #pragma once
 
 #include "interactables/interactable_constants.hpp"
+#include "ecs/components.hpp"
 #include <string>
 #include <vector>
 
@@ -15,6 +16,10 @@ struct Box
 
 struct ColourOrb
 {
+	COLOUR_STATE colour = COLOUR_STATE::NEUTRAL;
+};
+
+struct OrbCollected {
 };
 
 struct Mushroom

@@ -39,13 +39,76 @@ void AnimationSystem::init()
 	/*
 		CREATURE ANIMATIONS
 	*/
+	// Sawfish idle, just one frame, not moving
 	generate_animation(
 		ANIMATABLE_TYPE::SAWFISH,
 		ANIMATION_TRIGGER::IDLE,
 		{
-				{ TEXTURE_ASSET_ID::SAWFISH_01, RenderSourceRect() }
+			{ TEXTURE_ASSET_ID::SAWFISH, RenderSourceRect { vec2(0.25f, 0.0f), vec2(0.25f, 0.25f) } },
 		}
 	);
+
+	// Sawfish swimming, tail flapping
+	generate_animation(
+		ANIMATABLE_TYPE::SAWFISH,
+		ANIMATION_TRIGGER::WALK,
+		{
+			{ TEXTURE_ASSET_ID::SAWFISH, RenderSourceRect { vec2(0.25f, 0.0f), vec2(0.25f, 0.25f) } },
+			{ TEXTURE_ASSET_ID::SAWFISH, RenderSourceRect { vec2(0.0f, 0.0f), vec2(0.25f, 0.25f) } },
+			{ TEXTURE_ASSET_ID::SAWFISH, RenderSourceRect { vec2(0.25f, 0.0f), vec2(0.25f, 0.25f) } },
+			{ TEXTURE_ASSET_ID::SAWFISH, RenderSourceRect { vec2(0.5f, 0.0f), vec2(0.25f, 0.25f) } },
+		}
+	);
+
+	// Sawfish happy eyes for following while blue
+	generate_animation(
+		ANIMATABLE_TYPE::SAWFISH,
+		ANIMATION_TRIGGER::HAPPY,
+		{
+			{ TEXTURE_ASSET_ID::SAWFISH, RenderSourceRect { vec2(0.75f, 0.0f), vec2(0.25f, 0.25f) } },
+			{ TEXTURE_ASSET_ID::SAWFISH, RenderSourceRect { vec2(0.0f, 0.25f), vec2(0.25f, 0.25f) } },
+			{ TEXTURE_ASSET_ID::SAWFISH, RenderSourceRect { vec2(0.75f, 0.0f), vec2(0.25f, 0.25f) } },
+			{ TEXTURE_ASSET_ID::SAWFISH, RenderSourceRect { vec2(0.25f, 0.25f), vec2(0.25f, 0.25f) } }
+		}
+	);
+
+	// Sawfish angry eyes for following while red
+	generate_animation(
+		ANIMATABLE_TYPE::SAWFISH,
+		ANIMATION_TRIGGER::ANGRY,
+		{
+			{ TEXTURE_ASSET_ID::SAWFISH, RenderSourceRect { vec2(0.5f, 0.25f), vec2(0.25f, 0.25f) } },
+			{ TEXTURE_ASSET_ID::SAWFISH, RenderSourceRect { vec2(0.75f, 0.25f), vec2(0.25f, 0.25f) } },
+			{ TEXTURE_ASSET_ID::SAWFISH, RenderSourceRect { vec2(0.5f, 0.25f), vec2(0.25f, 0.25f) } },
+			{ TEXTURE_ASSET_ID::SAWFISH, RenderSourceRect { vec2(0.0f, 0.5f), vec2(0.25f, 0.25f) } }
+		}
+	);
+
+	// Sawfish charging is just one frame
+	generate_animation(
+		ANIMATABLE_TYPE::SAWFISH,
+		ANIMATION_TRIGGER::CHARGE,
+		{
+			{ TEXTURE_ASSET_ID::SAWFISH, RenderSourceRect { vec2(0.25f, 0.5f), vec2(0.25f, 0.25f) } },
+		}
+	);
+
+	// Sawfish charges and bounces back, then returns to idle
+	generate_animation(
+		ANIMATABLE_TYPE::SAWFISH,
+		ANIMATION_TRIGGER::CRASH,
+		{
+			{ TEXTURE_ASSET_ID::SAWFISH, RenderSourceRect { vec2(0.5f, 0.5f), vec2(0.25f, 0.25f) } },
+			{ TEXTURE_ASSET_ID::SAWFISH, RenderSourceRect { vec2(0.75f, 0.5f), vec2(0.25f, 0.25f) } },
+			{ TEXTURE_ASSET_ID::SAWFISH, RenderSourceRect { vec2(0.0f, 0.75f), vec2(0.25f, 0.25f) } },
+			{ TEXTURE_ASSET_ID::SAWFISH, RenderSourceRect { vec2(0.25f, 0.75f), vec2(0.25f, 0.25f) } },
+			{ TEXTURE_ASSET_ID::SAWFISH, RenderSourceRect { vec2(0.0f, 0.75f), vec2(0.25f, 0.25f) } },
+			{ TEXTURE_ASSET_ID::SAWFISH, RenderSourceRect { vec2(0.75f, 0.5f), vec2(0.25f, 0.25f) } },
+			{ TEXTURE_ASSET_ID::SAWFISH, RenderSourceRect { vec2(0.5f, 0.5f), vec2(0.25f, 0.25f) } },
+		},
+		ANIMATION_TRIGGER::IDLE
+	);
+
 	generate_animation(
 		ANIMATABLE_TYPE::WHALE,
 		ANIMATION_TRIGGER::IDLE,

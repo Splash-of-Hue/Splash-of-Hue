@@ -31,7 +31,7 @@ class RenderSystem {
 	const std::array<std::string, texture_count> texture_paths = {
 		textures_path("Sheap_01.png"),
 		textures_path("Creatures.png"),
-		textures_path("Sawfish.png"),
+		textures_path("sawfish-sheet.png"),
 		textures_path("Whale.png"),
 		textures_path("P_Shrimp.png"),
 		textures_path("Minnow.png"),

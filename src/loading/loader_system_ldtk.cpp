@@ -339,6 +339,8 @@ void load_floor_interactables(const ldtk::Layer& layer)
 			case ENTITY_TYPE::MOSS_TOGGLE:
 				load_moss_toggle(floor_interactable_entity);
 				continue;
+			case ENTITY_TYPE::COLOUR_ORB:
+				load_colour_orb(floor_interactable_entity);
 			default:
 				continue;
 		}
@@ -416,6 +418,18 @@ void load_wall(const ldtk::Entity& wall_entity)
 	float height = wall_size.y * LEVEL_TO_SCREEN_SCALE.y;
 
 	Entity wall = createWall(position, width, height);
+}
+
+void load_colour_orb(const ldtk::Entity& colour_orb_entity)
+{
+	const ldtk::Field<ldtk::EnumValue>& color_state_field = colour_orb_entity.getField<ldtk::EnumValue>("ColorState");
+	const COLOUR_STATE colour_state = color_state_from_string(color_state_field.value().name);
+	const ldtk::IntPoint& world_pos = colour_orb_entity.getWorldPosition();
+	const ldtk::IntPoint& entity_size = colour_orb_entity.getSize();
+	const vec2 position = vec2(world_pos.x * LEVEL_TO_SCREEN_SCALE.x, world_pos.y * LEVEL_TO_SCREEN_SCALE.y);
+	const float radius = (entity_size.x * LEVEL_TO_SCREEN_SCALE.x) * 0.5f;
+	Entity orb = createColourOrb(position, radius, colour_state);
+	registry.levelEntities.insert(orb, { colour_orb_entity.layer->level->uid });
 }
 
 void LoaderSystem::unload_level(int level_uid)
