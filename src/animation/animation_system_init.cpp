@@ -237,7 +237,7 @@ void AnimationSystem::init()
 		ANIMATABLE_TYPE::MOSS_WALL,
 		ANIMATION_TRIGGER::IDLE_RED,
 		{
-				{ TEXTURE_ASSET_ID::MOSS, RenderSourceRect { vec2(0.125, 0.375), vec2(0.5, 0.5) }},
+				{ TEXTURE_ASSET_ID::MOSS, RenderSourceRect { vec2(0.300, 0.375), vec2(0.5, 0.25) }},
 		}
 	);
 	generate_animation(
