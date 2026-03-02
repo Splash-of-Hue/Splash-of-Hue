@@ -176,10 +176,10 @@ void handle_colour_collision(Entity& entity_i, Entity& entity_j) {
 		other_color = color_from_state;
 	}
 
-			after_color_collision:
-				//im wondering if its better to look at what type of creatures/entities we're dealing with BEFORE we look at their type
-				//of collision. Because walls will be changing between inelastic and no collision, so im not entirely sure which
-				//type of collision we want to put it in. For now, it will be its own thing.
+	after_color_collision:
+		//im wondering if its better to look at what type of creatures/entities we're dealing with BEFORE we look at their type
+		//of collision. Because walls will be changing between inelastic and no collision, so im not entirely sure which
+		//type of collision we want to put it in. For now, it will be its own thing.
 
 	if (registry.colouredWall.has(entity_i) || registry.colouredWall.has(entity_j))
 	{
@@ -190,14 +190,14 @@ void handle_colour_collision(Entity& entity_i, Entity& entity_j) {
 		Entity& eCW = registry.colouredWall.has(entity_i) ? entity_i : entity_j;
 		Entity& eO = registry.colouredWall.has(entity_j) ? entity_i : entity_j;
 
-					if (!registry.colourStates.has(eO))
-					{
-						return;
-					}
+		if (!registry.colourStates.has(eO))
+		{
+			return;
+		}
 
-					ColourState& csCW = registry.colourStates.get(eCW);
-					ColourState& csO = registry.colourStates.get(eO);
-					Collidable& colCW = registry.collidables.get(eCW);
+		ColourState& csCW = registry.colourStates.get(eCW);
+		ColourState& csO = registry.colourStates.get(eO);
+		Collidable& colCW = registry.collidables.get(eCW);
 
 		//if colourStates are same, wall is no longer inelastic, so player can walk through
 		if (csCW.curr_colour_state == csO.curr_colour_state && csCW.curr_colour_state != COLOUR_STATE::NEUTRAL && registry.players.has(eO))
@@ -211,24 +211,24 @@ void handle_colour_collision(Entity& entity_i, Entity& entity_j) {
 		}
 	}
 
-				//todo - change to sawfish once there are more creatures than sawfish
-				if (registry.players.has(entity_i) && registry.creatures.has(entity_j) || registry.players.has(entity_j) && registry.creatures.has(entity_i))
+	//todo - change to sawfish once there are more creatures than sawfish
+	if (registry.players.has(entity_i) && registry.creatures.has(entity_j) || registry.players.has(entity_j) && registry.creatures.has(entity_i))
+	{
+		Entity& eP = registry.players.has(entity_i) ? entity_i : entity_j;
+		Entity& eS = registry.creatures.has(entity_i) ? entity_i : entity_j;
+		if (registry.colourStates.has(eS))
+		{
+			ColourState& csS = registry.colourStates.get(eS);
+			if (csS.curr_colour_state == COLOUR_STATE::RED)
+			{
+				if (!registry.deathTimers.has(eP))
 				{
-					Entity& eP = registry.players.has(entity_i) ? entity_i : entity_j;
-					Entity& eS = registry.creatures.has(entity_i) ? entity_i : entity_j;
-					if (registry.colourStates.has(eS))
-					{
-						ColourState& csS = registry.colourStates.get(eS);
-						if (csS.curr_colour_state == COLOUR_STATE::RED)
-						{
-							if (!registry.deathTimers.has(eP))
-							{
-								registry.deathTimers.emplace(eP);
-							}
-
-						}
-					}
+					registry.deathTimers.emplace(eP);
 				}
+
+			}
+		}
+	}
 
 	// TODO UurbFK4Z: Handle in callback instead of in the physics system
 	if (registry.players.has(entity_i) && registry.spawnPoints.has(entity_j) || registry.players.has(entity_j) && registry.spawnPoints.has(entity_i))
@@ -244,11 +244,11 @@ void handle_colour_collision(Entity& entity_i, Entity& entity_j) {
 	//This assumed the button in a circle, and is an overlay, but since we send the rectangle
 	//to "change_behaviours," i need to implement this code
 
-				if (registry.mossToggles.has(entity_i) || registry.mossToggles.has(entity_j))
-				{
-					Entity& eT = registry.mossToggles.has(entity_i) ? entity_i : entity_j;
-					Entity& eO = registry.mossToggles.has(entity_j) ? entity_i : entity_j;
-					MossToggle& tT = registry.mossToggles.get(eT);
+	if (registry.mossToggles.has(entity_i) || registry.mossToggles.has(entity_j))
+	{
+		Entity& eT = registry.mossToggles.has(entity_i) ? entity_i : entity_j;
+		Entity& eO = registry.mossToggles.has(entity_j) ? entity_i : entity_j;
+		MossToggle& tT = registry.mossToggles.get(eT);
 
 		// Only the player can toggle things
 		if (!registry.players.has(eO))
@@ -272,23 +272,23 @@ void handle_colour_collision(Entity& entity_i, Entity& entity_j) {
 			vec4& colO = registry.colors.get(eO);
 			colT = colO;
 
-						for (std::string& connected_wall_id : tT.connected_wall_ids)
-						{
-							const auto wall_id_match = [&](const Entity& colored_wall_entity) { return registry.colouredWall.get(colored_wall_entity).id == connected_wall_id; };
-							auto& wall_entity_iterator = std::find_if(registry.colouredWall.entities.begin(), registry.colouredWall.entities.end(), wall_id_match);
+			for (std::string& connected_wall_id : tT.connected_wall_ids)
+			{
+				const auto wall_id_match = [&](const Entity& colored_wall_entity) { return registry.colouredWall.get(colored_wall_entity).id == connected_wall_id; };
+				auto& wall_entity_iterator = std::find_if(registry.colouredWall.entities.begin(), registry.colouredWall.entities.end(), wall_id_match);
 
-							if (wall_entity_iterator == registry.colouredWall.entities.end())
-							{
-								continue;
-							}
+				if (wall_entity_iterator == registry.colouredWall.entities.end())
+				{
+					continue;
+				}
 
-							ColourState& csTE = registry.colourStates.get(*wall_entity_iterator);
-							csTE.prev_colour_state = csTE.curr_colour_state;
-							csTE.curr_colour_state = csO.curr_colour_state;
-							vec4& colTE = registry.colors.get(*wall_entity_iterator);
-							colTE = vec4{ colO.r, colO.g, colO.b, colO.a };
-						}
-					}
+				ColourState& csTE = registry.colourStates.get(*wall_entity_iterator);
+				csTE.prev_colour_state = csTE.curr_colour_state;
+				csTE.curr_colour_state = csO.curr_colour_state;
+				vec4& colTE = registry.colors.get(*wall_entity_iterator);
+				colTE = vec4{ colO.r, colO.g, colO.b, colO.a };
+			}
+		}
 
 	}
 	
