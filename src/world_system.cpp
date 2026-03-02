@@ -164,6 +164,18 @@ void WorldSystem::restart_game() {
 	while (registry.renderRequests.entities.size() > 0)
 		registry.remove_all_components_of(registry.renderRequests.entities.back());
 
+	// Unload all loaded levels
+	for (Level& level : registry.levels.components)
+	{
+		if (!level.is_loaded)
+		{
+			continue;
+		}
+
+		Entity unload_request_entity;
+		registry.loadRequests.insert(unload_request_entity, { LOAD_TYPE::UNLOAD_LEVEL, level.uid });
+	}
+
 	Entity input_clear_request_entity;
 	registry.inputClearRequests.emplace(input_clear_request_entity);
 	// Request a player be made

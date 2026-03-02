@@ -1,21 +1,27 @@
 #pragma once
+#include "loading_constants.hpp"
 #include <LDtkLoader/Entity.hpp>
 #include <LDtkLoader/Layer.hpp>
 #include <LDtkLoader/Project.hpp>
-#include <set>
-#include "loading_constants.hpp"
 
 static bool project_loaded = false;
 static ldtk::Project ldtk_project;
 const auto& LDTK_WORLD_ID = ldtk::IID::IID(WORLD_ID_STRING);
-std::set<int> loaded_level_uids;
+bool is_initial_load = true;
 vec2 LEVEL_TO_SCREEN_SCALE;
 float LDTK_CAMERA_ROOM_SPEED = 800.f;
 
+// Tiles
 void load_tile_layer(const ldtk::Layer& layer);
-void load_creatures(const ldtk::Layer& layer);
-void load_spawn_points(const ldtk::Entity& spawn_point_entity);
-void load_floor_interactables(const ldtk::Layer& layer);
+// Entities
 void load_entity_layer(const ldtk::Layer& layer);
+// Entities - Creatures
+void load_creatures(const ldtk::Layer& layer);
+// Entities - Floor interactables
+void load_floor_interactables(const ldtk::Layer& layer);
+void load_spawn_points(const ldtk::Entity& spawn_point_entity);
+void load_moss_toggle(const ldtk::Entity& moss_toggle_entity);
+void load_moss_door(const ldtk::Entity& moss_door_entity);
+// Entities - Extras
 void load_extra_entities(const ldtk::Layer& layer);
-void use_initial_player_position(const ldtk::Entity& initial_player_position_entity);
+void set_initial_player_position(const ldtk::Entity& initial_player_position_entity);

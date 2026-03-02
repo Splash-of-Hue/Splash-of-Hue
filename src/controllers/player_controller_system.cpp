@@ -24,13 +24,15 @@ Entity PlayerControllerSystem::create_player()
 	registry.angles.get(player_entity).degrees = 0.0f;
 	Size& size = registry.sizes.insert(player_entity, Size{ 40.0f, 40.0f });
 	registry.colors.emplace(player_entity, color_from_state);
+	registry.currentLevels.emplace(player_entity);
 	registry.textured.emplace(player_entity);
 	registry.textured.get(player_entity).used_texture = TEXTURE_ASSET_ID::PLAYER_TEXTURE_01;
 	registry.renderRequests.insert(
 		player_entity,
 		{
 			EFFECT_ASSET_ID::TEXTURED,
-			GEOMETRY_BUFFER_ID::SPRITE
+			GEOMETRY_BUFFER_ID::SPRITE,
+			RENDER_LAYER::PLAYER,
 		}
 	);
 	vec2 velocity = { 0.0f, 0.0f };

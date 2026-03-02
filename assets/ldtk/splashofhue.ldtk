@@ -11,7 +11,7 @@
 	"iid": "53e64810-d380-11f0-a1bc-4d26a5cd15e3",
 	"jsonVersion": "1.5.3",
 	"appBuildId": 473703,
-	"nextUid": 46,
+	"nextUid": 51,
 	"identifierStyle": "Capitalize",
 	"toc": [{
 		"identifier": "Spawn_Point",
@@ -1180,6 +1180,189 @@
 			"pivotX": 0.5,
 			"pivotY": 0.5,
 			"fieldDefs": []
+		},
+		{
+			"identifier": "MossToggle",
+			"uid": 46,
+			"tags": ["Floor_Interactable"],
+			"exportToToc": false,
+			"allowOutOfBounds": false,
+			"doc": null,
+			"width": 70,
+			"height": 70,
+			"resizableX": false,
+			"resizableY": false,
+			"minWidth": null,
+			"maxWidth": null,
+			"minHeight": null,
+			"maxHeight": null,
+			"keepAspectRatio": false,
+			"tileOpacity": 1,
+			"fillOpacity": 0.43,
+			"lineOpacity": 1,
+			"hollow": false,
+			"color": "#70C16A",
+			"renderMode": "Ellipse",
+			"showName": true,
+			"tilesetId": null,
+			"tileRenderMode": "FitInside",
+			"tileRect": null,
+			"uiTileRect": null,
+			"nineSliceBorders": [],
+			"maxCount": 0,
+			"limitScope": "PerLevel",
+			"limitBehavior": "MoveLastOne",
+			"pivotX": 0.5,
+			"pivotY": 0.5,
+			"fieldDefs": [
+				{
+					"identifier": "ConnectedWalls",
+					"doc": "These are all the walls that the moss toggle changes",
+					"__type": "Array<EntityRef>",
+					"uid": 47,
+					"type": "F_EntityRef",
+					"isArray": true,
+					"canBeNull": false,
+					"arrayMinLength": 1,
+					"arrayMaxLength": null,
+					"editorDisplayMode": "RefLinkBetweenCenters",
+					"editorDisplayScale": 1,
+					"editorDisplayPos": "Above",
+					"editorLinkStyle": "DashedLine",
+					"editorDisplayColor": null,
+					"editorAlwaysShow": false,
+					"editorShowInWorld": true,
+					"editorCutLongValues": true,
+					"editorTextSuffix": null,
+					"editorTextPrefix": null,
+					"useForSmartColor": false,
+					"exportToToc": false,
+					"searchable": false,
+					"min": null,
+					"max": null,
+					"regex": null,
+					"acceptFileTypes": null,
+					"defaultOverride": null,
+					"textLanguageMode": null,
+					"symmetricalRef": false,
+					"autoChainRef": false,
+					"allowOutOfLevelRef": true,
+					"allowedRefs": "OnlySpecificEntity",
+					"allowedRefsEntityUid": 48,
+					"allowedRefTags": [],
+					"tilesetUid": null
+				},
+				{
+					"identifier": "ColorState",
+					"doc": null,
+					"__type": "LocalEnum.ColorState",
+					"uid": 50,
+					"type": "F_Enum(26)",
+					"isArray": false,
+					"canBeNull": false,
+					"arrayMinLength": null,
+					"arrayMaxLength": null,
+					"editorDisplayMode": "Hidden",
+					"editorDisplayScale": 1,
+					"editorDisplayPos": "Above",
+					"editorLinkStyle": "StraightArrow",
+					"editorDisplayColor": null,
+					"editorAlwaysShow": false,
+					"editorShowInWorld": true,
+					"editorCutLongValues": true,
+					"editorTextSuffix": null,
+					"editorTextPrefix": null,
+					"useForSmartColor": false,
+					"exportToToc": false,
+					"searchable": false,
+					"min": null,
+					"max": null,
+					"regex": null,
+					"acceptFileTypes": null,
+					"defaultOverride": null,
+					"textLanguageMode": null,
+					"symmetricalRef": false,
+					"autoChainRef": true,
+					"allowOutOfLevelRef": true,
+					"allowedRefs": "OnlySame",
+					"allowedRefsEntityUid": null,
+					"allowedRefTags": [],
+					"tilesetUid": null
+				}
+			]
+		},
+		{
+			"identifier": "MossWall",
+			"uid": 48,
+			"tags": ["Internal_Wall"],
+			"exportToToc": false,
+			"allowOutOfBounds": false,
+			"doc": null,
+			"width": 32,
+			"height": 32,
+			"resizableX": true,
+			"resizableY": true,
+			"minWidth": 16,
+			"maxWidth": null,
+			"minHeight": 16,
+			"maxHeight": null,
+			"keepAspectRatio": false,
+			"tileOpacity": 1,
+			"fillOpacity": 0.81,
+			"lineOpacity": 1,
+			"hollow": false,
+			"color": "#DECDD4",
+			"renderMode": "Rectangle",
+			"showName": true,
+			"tilesetId": null,
+			"tileRenderMode": "FitInside",
+			"tileRect": null,
+			"uiTileRect": null,
+			"nineSliceBorders": [],
+			"maxCount": 0,
+			"limitScope": "PerLevel",
+			"limitBehavior": "MoveLastOne",
+			"pivotX": 0.5,
+			"pivotY": 0.5,
+			"fieldDefs": [
+				{
+					"identifier": "ColorState",
+					"doc": "The default colour state",
+					"__type": "LocalEnum.ColorState",
+					"uid": 49,
+					"type": "F_Enum(26)",
+					"isArray": false,
+					"canBeNull": false,
+					"arrayMinLength": null,
+					"arrayMaxLength": null,
+					"editorDisplayMode": "NameAndValue",
+					"editorDisplayScale": 1,
+					"editorDisplayPos": "Above",
+					"editorLinkStyle": "StraightArrow",
+					"editorDisplayColor": null,
+					"editorAlwaysShow": false,
+					"editorShowInWorld": true,
+					"editorCutLongValues": true,
+					"editorTextSuffix": null,
+					"editorTextPrefix": null,
+					"useForSmartColor": false,
+					"exportToToc": false,
+					"searchable": false,
+					"min": null,
+					"max": null,
+					"regex": null,
+					"acceptFileTypes": null,
+					"defaultOverride": null,
+					"textLanguageMode": null,
+					"symmetricalRef": false,
+					"autoChainRef": true,
+					"allowOutOfLevelRef": true,
+					"allowedRefs": "OnlySame",
+					"allowedRefsEntityUid": null,
+					"allowedRefTags": [],
+					"tilesetUid": null
+				}
+			]
 		}
 	], "tilesets": [
 		{
@@ -1913,7 +2096,27 @@
 					"seed": 3599102,
 					"overrideTilesetUid": null,
 					"gridTiles": [],
-					"entityInstances": []
+					"entityInstances": [
+						{
+							"__identifier": "MossWall",
+							"__grid": [55,13],
+							"__pivot": [0.5,0.5],
+							"__tags": ["Internal_Wall"],
+							"__tile": null,
+							"__smartColor": "#DECDD4",
+							"iid": "8d3a3520-fa90-11f0-aace-71cad282f398",
+							"width": 1184,
+							"height": 80,
+							"defUid": 48,
+							"px": [888,216],
+							"fieldInstances": [{ "__identifier": "ColorState", "__type": "LocalEnum.ColorState", "__value": "Blue", "__tile": null, "defUid": 49, "realEditorValues": [{
+								"id": "V_String",
+								"params": ["Blue"]
+							}] }],
+							"__worldX": 888,
+							"__worldY": -864
+						}
+					]
 				},
 				{
 					"__identifier": "Creatures",
@@ -3888,7 +4091,46 @@
 					"seed": 8324060,
 					"overrideTilesetUid": null,
 					"gridTiles": [],
-					"entityInstances": []
+					"entityInstances": [
+						{
+							"__identifier": "MossWall",
+							"__grid": [47,11],
+							"__pivot": [0.5,0.5],
+							"__tags": ["Internal_Wall"],
+							"__tile": null,
+							"__smartColor": "#DECDD4",
+							"iid": "a6d78500-fa90-11f0-aace-99f35b4dd8c9",
+							"width": 528,
+							"height": 64,
+							"defUid": 48,
+							"px": [760,184],
+							"fieldInstances": [{ "__identifier": "ColorState", "__type": "LocalEnum.ColorState", "__value": "Red", "__tile": null, "defUid": 49, "realEditorValues": [{
+								"id": "V_String",
+								"params": ["Red"]
+							}] }],
+							"__worldX": 760,
+							"__worldY": -1976
+						},
+						{
+							"__identifier": "MossWall",
+							"__grid": [66,18],
+							"__pivot": [0.5,0.5],
+							"__tags": ["Internal_Wall"],
+							"__tile": null,
+							"__smartColor": "#DECDD4",
+							"iid": "b028c600-fa90-11f0-aace-3de86970d83b",
+							"width": 64,
+							"height": 320,
+							"defUid": 48,
+							"px": [1064,296],
+							"fieldInstances": [{ "__identifier": "ColorState", "__type": "LocalEnum.ColorState", "__value": "Blue", "__tile": null, "defUid": 49, "realEditorValues": [{
+								"id": "V_String",
+								"params": ["Blue"]
+							}] }],
+							"__worldX": 1064,
+							"__worldY": -1864
+						}
+					]
 				},
 				{
 					"__identifier": "Creatures",
@@ -6109,6 +6351,36 @@
 							],
 							"__worldX": 2876,
 							"__worldY": -1220
+						},
+						{
+							"__identifier": "MossToggle",
+							"__grid": [157,57],
+							"__pivot": [0.5,0.5],
+							"__tags": ["Floor_Interactable"],
+							"__tile": null,
+							"__smartColor": "#70C16A",
+							"iid": "63874fb0-fa90-11f0-aace-b3cb3c1d4a9f",
+							"width": 70,
+							"height": 70,
+							"defUid": 46,
+							"px": [1260,460],
+							"fieldInstances": [
+								{ "__identifier": "ConnectedWalls", "__type": "Array<EntityRef>", "__value": [{
+									"entityIid": "496a6f90-fa90-11f0-aace-2df8892a2ee1",
+									"layerIid": "2091ada1-fa90-11f0-95ec-5305befd8ab4",
+									"levelIid": "2091ada0-fa90-11f0-95ec-63798b15b604",
+									"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787"
+								}], "__tile": null, "defUid": 47, "realEditorValues": [{
+									"id": "V_String",
+									"params": ["496a6f90-fa90-11f0-aace-2df8892a2ee1"]
+								}] },
+								{ "__identifier": "ColorState", "__type": "LocalEnum.ColorState", "__value": "Red", "__tile": null, "defUid": 50, "realEditorValues": [{
+									"id": "V_String",
+									"params": ["Red"]
+								}] }
+							],
+							"__worldX": 3180,
+							"__worldY": -1700
 						}
 					]
 				},
@@ -6691,7 +6963,27 @@
 					"seed": 4245801,
 					"overrideTilesetUid": null,
 					"gridTiles": [],
-					"entityInstances": []
+					"entityInstances": [
+						{
+							"__identifier": "MossWall",
+							"__grid": [52,57],
+							"__pivot": [0.5,0.5],
+							"__tags": ["Internal_Wall"],
+							"__tile": null,
+							"__smartColor": "#DECDD4",
+							"iid": "496a6f90-fa90-11f0-aace-2df8892a2ee1",
+							"width": 1152,
+							"height": 64,
+							"defUid": 48,
+							"px": [840,920],
+							"fieldInstances": [{ "__identifier": "ColorState", "__type": "LocalEnum.ColorState", "__value": "Red", "__tile": null, "defUid": 49, "realEditorValues": [{
+								"id": "V_String",
+								"params": ["Red"]
+							}] }],
+							"__worldX": 4680,
+							"__worldY": -1240
+						}
+					]
 				},
 				{
 					"__identifier": "Creatures",
