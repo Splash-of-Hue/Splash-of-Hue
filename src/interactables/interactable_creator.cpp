@@ -95,11 +95,10 @@ Entity createMossToggle(vec2 position, vec2 size, COLOUR_STATE color_state, std:
 		ANIMATABLE_TYPE::MOSS_TRIGGER,
 		ANIMATION_BEHAVIOR::LOOP,
 		trigger,
-		1
+		MOSS_FRAME_RATE
 	};
 	registry.animatables.insert(toggle_entity, animatable);
 	registry.textured.insert(toggle_entity, { TEXTURE_ASSET_ID::MOSS });
-
 
 	return toggle_entity;
 }
