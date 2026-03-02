@@ -62,6 +62,7 @@ public:
 	ComponentContainer<Interactable> interactables;
 	ComponentContainer<MossToggle> mossToggles;
 	ComponentContainer<Mushroom> mushrooms;	
+	ComponentContainer<OrbCollected> orbCollected;
 	// Loader
 	ComponentContainer<LoadRequest> loadRequests;
 	// Map
@@ -146,6 +147,7 @@ public:
 		registry_list.push_back(&interactables);
 		registry_list.push_back(&mossToggles);
 		registry_list.push_back(&mushrooms);
+		registry_list.push_back(&orbCollected);
 		// Loader
 		registry_list.push_back(&loadRequests);
 		// Map

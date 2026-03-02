@@ -472,8 +472,11 @@ void PhysicsSystem::step(float elapsed_ms)
 		for (uint j = i + 1; j < collidables.components.size(); j++)
 		{
 			Entity& entity_j = collidables.entities[j];
-			if (registry.polygons.has(entity_i) || registry.polygons.has(entity_j)) {
+
+			if (registry.polygons.has(entity_i) || registry.polygons.has(entity_j)) 
+			{
 				vec3 penetration = mesh_collides(entity_i, entity_j);
+
 				if (penetration.x != 0) {
 					if (is_light_emission_collision(entity_i, entity_j))
 					{
@@ -483,6 +486,16 @@ void PhysicsSystem::step(float elapsed_ms)
 						handle_misc_collision(entity_i, entity_j);
 					}
 					
+					if (registry.players.has(entity_i) && registry.colourOrbs.has(entity_j) ||
+						registry.players.has(entity_j) && registry.colourOrbs.has(entity_i))
+					{
+						Entity& eOrb = registry.colourOrbs.has(entity_i) ? entity_i : entity_j;
+						if (!registry.orbCollected.has(eOrb))
+						{
+							registry.orbCollected.emplace(eOrb);
+						}
+					}
+
 					if (registry.collidables.get(entity_i).inelastic && registry.collidables.get(entity_j).inelastic)
 					{
 						handle_inelastic_collision_mesh(entity_i, entity_j, penetration);
