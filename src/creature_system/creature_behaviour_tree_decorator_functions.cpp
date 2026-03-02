@@ -76,19 +76,31 @@ BEHAVIOUR_TREE_STATUS CreatureBehaviourFunctions::isCreatureWithinAnyColourRadiu
 // TODO: https://trello.com/c/lw7cUBLv/141-2creaturebehavioursystem-iscreaturewithinplayercolourradius
 BEHAVIOUR_TREE_STATUS CreatureBehaviourFunctions::isCreatureWithinPlayerColourRadius(Entity& creature, float elapsed_ms)
 {
-	return BEHAVIOUR_TREE_STATUS::SUCCESS;
+	if (registry.inPlayerRadius.has(creature))
+	{
+		return BEHAVIOUR_TREE_STATUS::SUCCESS;
+	}
+	return BEHAVIOUR_TREE_STATUS::FAILURE;
 }
 
 // TODO: https://trello.com/c/V8KcHxHE/142-2-creature-behaviour-system-iscreaturewithincreaturecolourradius
 BEHAVIOUR_TREE_STATUS CreatureBehaviourFunctions::isCreatureWithinCreatureColourRadius(Entity& creature, float elapsed_ms)
 {
-	return BEHAVIOUR_TREE_STATUS::SUCCESS;
+	if (registry.inCreatureRadius.has(creature))
+	{
+		return BEHAVIOUR_TREE_STATUS::SUCCESS;
+	}
+	return BEHAVIOUR_TREE_STATUS::FAILURE;
 }
 
 // TODO: https://trello.com/c/aIFrZZcy/143-2-creature-behaviour-system-iscreaturewithininteractablecolourradius
 BEHAVIOUR_TREE_STATUS CreatureBehaviourFunctions::isCreatureWithinInteractableColourRadius(Entity& creature, float elapsed_ms)
 {
-	return BEHAVIOUR_TREE_STATUS::SUCCESS;
+	if (registry.inInteractableRadius.has(creature))
+	{
+		return BEHAVIOUR_TREE_STATUS::SUCCESS;
+	}
+	return BEHAVIOUR_TREE_STATUS::FAILURE;
 }
 
 // TODO: https://trello.com/c/DMWehWpC/119-2-creaturebehavioursystem-hascreaturecollided
