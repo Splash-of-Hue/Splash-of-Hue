@@ -324,6 +324,17 @@ void PhysicsSystem::step(float elapsed_ms)
 							registry.change_behaviours.emplace(entity_i);
 						}
 					}
+
+					if (registry.players.has(entity_i) && registry.colourOrbs.has(entity_j) ||
+						registry.players.has(entity_j) && registry.colourOrbs.has(entity_i))
+					{
+						Entity& eOrb = registry.colourOrbs.has(entity_i) ? entity_i : entity_j;
+						if (!registry.orbCollected.has(eOrb))
+						{
+							registry.orbCollected.emplace(eOrb);
+						}
+					}
+
 					//must both be inelastic for this collision resolution to occur
 					if (registry.collidables.get(entity_i).inelastic && registry.collidables.get(entity_j).inelastic)
 					{
