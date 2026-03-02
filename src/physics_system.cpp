@@ -192,7 +192,7 @@ void handle_colour_collision(Entity& entity_i, Entity& entity_j) {
 
 					if (!registry.colourStates.has(eO))
 					{
-						continue;
+						return;
 					}
 
 					ColourState& csCW = registry.colourStates.get(eCW);

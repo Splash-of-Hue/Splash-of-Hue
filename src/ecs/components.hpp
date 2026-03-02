@@ -138,10 +138,6 @@ struct Toggle
 	std::vector<Entity> walls_to_toggle;
 };
 
-struct ColouredWall
-{
-
-};
 struct PolygonMesh {
 	std::vector<vec2> vertices;
 	vec2 centre;
