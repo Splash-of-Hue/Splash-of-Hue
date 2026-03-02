@@ -27,6 +27,7 @@ enum class ENTITY_TYPE
 	INITIAL_POSITION,
 	MOSS_TOGGLE,
 	MOSS_WALL,
+	COLOUR_ORB,
 };
 
 const std::map<std::string, LOADING_LAYER_TYPE> layer_string_to_enum_map = {
@@ -46,6 +47,7 @@ const std::map<std::string, ENTITY_TYPE> entity_type_string_to_enum_map = {
 	{ "Initial_Position", ENTITY_TYPE::INITIAL_POSITION },
 	{ "MossToggle", ENTITY_TYPE::MOSS_TOGGLE },
 	{ "MossWall", ENTITY_TYPE::MOSS_WALL },
+	{ "ColourOrb", ENTITY_TYPE::COLOUR_ORB },
 };
 
 inline ENTITY_TYPE entity_type_from_string(const std::string entity_string)
