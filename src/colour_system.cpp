@@ -288,8 +288,8 @@ void ColourSystem::updateEmissions(float elapsed_ms)
 
 		Size& light_emission_size = registry.sizes.get(light_emission_entity);
 		if (light_emission_size.width < light_emission_component.MAX_RADIUS){
-			light_emission_size.width += light_emission_component.MAX_RADIUS * elapsed_ms / light_emission_component.TIME_TO_GROW;
-			light_emission_size.height += light_emission_component.MAX_RADIUS * elapsed_ms / light_emission_component.TIME_TO_GROW;
+			light_emission_size.width += light_emission_component.MAX_RADIUS * DT / light_emission_component.TIME_TO_GROW;
+			light_emission_size.height += light_emission_component.MAX_RADIUS * DT / light_emission_component.TIME_TO_GROW;
 		}
 	}
 }
