@@ -134,7 +134,8 @@ bool is_light_emission_collision(Entity& entity_i, Entity& entity_j)
 }
 
 
-void light_emission_collisions(Entity& entity_i, Entity& entity_j) {
+void light_emission_collisions(Entity& entity_i, Entity& entity_j) 
+{
 	vec2& posI = registry.positions.get(entity_i);
 	vec2& posJ = registry.positions.get(entity_j);
 
@@ -270,7 +271,8 @@ void handle_misc_collision(Entity& entity_i, Entity& entity_j)
 
 }
 
-void handle_inelastic_collision_box(Entity& entity_i, Entity& entity_j) {
+void handle_inelastic_collision_box(Entity& entity_i, Entity& entity_j) 
+{
 	vec4 box1 = get_bounding_box(entity_i);
 	vec4 box2 = get_bounding_box(entity_j);
 	vec2& pos1 = registry.positions.get(entity_i);
@@ -320,7 +322,8 @@ void handle_inelastic_collision_box(Entity& entity_i, Entity& entity_j) {
 }
 
 //mesh collision helpers
-PolygonMesh findHitbox(const Entity& e) {
+PolygonMesh findHitbox(const Entity& e) 
+{
 	//default is rectangle
 	
 	vec2& pos = registry.positions.get(e);
@@ -366,8 +369,8 @@ vec2 projection(PolygonMesh& p, vec2 normal)
 	return vec2(min, max);
 }
 
-vec3 axisCollision(PolygonMesh& a, PolygonMesh& b) {
-
+vec3 axisCollision(PolygonMesh& a, PolygonMesh& b) 
+{
 	vec3 penetration = vec3(WINDOW_WIDTH_PX, 0.f, 0.f);
 	std::vector<vec2> a_normals = getNormals(a);
 	for (int i = 0; i < a_normals.size(); i++) {
@@ -406,7 +409,8 @@ vec3 axisCollision(PolygonMesh& a, PolygonMesh& b) {
 	return penetration;
 }
 
-vec3 mesh_collides(const Entity& entity1, const Entity& entity2) {
+vec3 mesh_collides(const Entity& entity1, const Entity& entity2) 
+{
 	PolygonMesh a;
 	PolygonMesh b;
 	if (registry.polygons.has(entity1)) {
@@ -427,7 +431,8 @@ vec3 mesh_collides(const Entity& entity1, const Entity& entity2) {
 	return (axisCollision(a, b));
 }
 
-void handle_inelastic_collision_mesh(Entity& entity_i, Entity& entity_j, vec3 penetration) {
+void handle_inelastic_collision_mesh(Entity& entity_i, Entity& entity_j, vec3 penetration)
+{
 	vec2& pos1 = registry.positions.get(entity_i);
 	vec2& pos2 = registry.positions.get(entity_j);
 
