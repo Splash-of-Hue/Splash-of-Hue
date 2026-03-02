@@ -7,13 +7,34 @@
 
 Entity createMossWall(std::string id, vec2 position, vec2 size, COLOUR_STATE color_state)
 {
+	Entity moss_wall_entity;
 	const ColourPalette& palette = registry.colourPalettes.components[0];
 	auto& color_from_state = palette.state_to_colour.at(color_state);
-	const Entity& moss_wall_entity = createRectangle(position, size.x, size.y, RENDER_LAYER::WALLS_FRONT, color_from_state);
+	registry.positions.insert(moss_wall_entity, position);
+	registry.scales.insert(moss_wall_entity, size);
+	registry.sizes.insert(moss_wall_entity, { size.x, size.y });
+	registry.colors.emplace(moss_wall_entity, color_from_state);
+	registry.angles.emplace(moss_wall_entity);
 	Collidable& col = registry.collidables.emplace(moss_wall_entity);
 	col.inelastic = true;
 	registry.colouredWall.insert(moss_wall_entity, { id });
 	registry.colourStates.insert(moss_wall_entity, { color_state, color_state });
+	registry.renderRequests.insert(
+		moss_wall_entity,
+		{
+			EFFECT_ASSET_ID::TEXTURED,
+			GEOMETRY_BUFFER_ID::SPRITE,
+			RENDER_LAYER::WALLS_FRONT
+		}
+	);
+	const Animatable animatable = {
+		ANIMATABLE_TYPE::MOSS_WALL,
+		ANIMATION_BEHAVIOR::LOOP,
+		color_state == COLOUR_STATE::BLUE ? ANIMATION_TRIGGER::IDLE_BLUE : ANIMATION_TRIGGER::IDLE_RED,
+		1
+	};
+	registry.animatables.insert(moss_wall_entity, animatable);
+	registry.textured.insert(moss_wall_entity, { TEXTURE_ASSET_ID::MOSS });
 
 	return moss_wall_entity;
 }

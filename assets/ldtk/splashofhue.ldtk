@@ -11,7 +11,7 @@
 	"iid": "53e64810-d380-11f0-a1bc-4d26a5cd15e3",
 	"jsonVersion": "1.5.3",
 	"appBuildId": 473703,
-	"nextUid": 52,
+	"nextUid": 60,
 	"identifierStyle": "Capitalize",
 	"toc": [{
 		"identifier": "Spawn_Point",
@@ -1188,8 +1188,8 @@
 			"exportToToc": false,
 			"allowOutOfBounds": false,
 			"doc": null,
-			"width": 70,
-			"height": 70,
+			"width": 200,
+			"height": 100,
 			"resizableX": false,
 			"resizableY": false,
 			"minWidth": null,
@@ -1198,15 +1198,15 @@
 			"maxHeight": null,
 			"keepAspectRatio": false,
 			"tileOpacity": 1,
-			"fillOpacity": 0.43,
-			"lineOpacity": 1,
+			"fillOpacity": 0.08,
+			"lineOpacity": 0,
 			"hollow": false,
 			"color": "#70C16A",
-			"renderMode": "Ellipse",
+			"renderMode": "Tile",
 			"showName": true,
-			"tilesetId": null,
+			"tilesetId": 52,
 			"tileRenderMode": "FitInside",
-			"tileRect": null,
+			"tileRect": { "tilesetUid": 52, "x": 144, "y": 16, "w": 112, "h": 96 },
 			"uiTileRect": null,
 			"nineSliceBorders": [],
 			"maxCount": 0,
@@ -1308,15 +1308,15 @@
 			"maxHeight": null,
 			"keepAspectRatio": false,
 			"tileOpacity": 1,
-			"fillOpacity": 0.81,
-			"lineOpacity": 1,
+			"fillOpacity": 0.08,
+			"lineOpacity": 0,
 			"hollow": false,
 			"color": "#DECDD4",
-			"renderMode": "Rectangle",
+			"renderMode": "Tile",
 			"showName": true,
-			"tilesetId": null,
-			"tileRenderMode": "FitInside",
-			"tileRect": null,
+			"tilesetId": 52,
+			"tileRenderMode": "Repeat",
+			"tileRect": { "tilesetUid": 52, "x": 160, "y": 400, "w": 192, "h": 224 },
 			"uiTileRect": null,
 			"nineSliceBorders": [],
 			"maxCount": 0,
@@ -1439,6 +1439,82 @@
 					"tilesetUid": null
 				}
 			]
+		},
+		{
+			"identifier": "MossDecoration",
+			"uid": 53,
+			"tags": ["Floor_Decoration"],
+			"exportToToc": false,
+			"allowOutOfBounds": false,
+			"doc": null,
+			"width": 64,
+			"height": 64,
+			"resizableX": false,
+			"resizableY": false,
+			"minWidth": null,
+			"maxWidth": null,
+			"minHeight": null,
+			"maxHeight": null,
+			"keepAspectRatio": false,
+			"tileOpacity": 1,
+			"fillOpacity": 0.08,
+			"lineOpacity": 0,
+			"hollow": false,
+			"color": "#F77622",
+			"renderMode": "Tile",
+			"showName": true,
+			"tilesetId": 52,
+			"tileRenderMode": "FitInside",
+			"tileRect": { "tilesetUid": 52, "x": 128, "y": 256, "w": 48, "h": 48 },
+			"uiTileRect": null,
+			"nineSliceBorders": [],
+			"maxCount": 0,
+			"limitScope": "PerLevel",
+			"limitBehavior": "MoveLastOne",
+			"pivotX": 0.5,
+			"pivotY": 1,
+			"fieldDefs": [
+				{
+					"identifier": "MossDecorator",
+					"doc": null,
+					"__type": "LocalEnum.MossDecorator",
+					"uid": 59,
+					"type": "F_Enum(58)",
+					"isArray": false,
+					"canBeNull": false,
+					"arrayMinLength": null,
+					"arrayMaxLength": null,
+					"editorDisplayMode": "Hidden",
+					"editorDisplayScale": 1,
+					"editorDisplayPos": "Above",
+					"editorLinkStyle": "StraightArrow",
+					"editorDisplayColor": null,
+					"editorAlwaysShow": false,
+					"editorShowInWorld": true,
+					"editorCutLongValues": true,
+					"editorTextSuffix": null,
+					"editorTextPrefix": null,
+					"useForSmartColor": false,
+					"exportToToc": false,
+					"searchable": false,
+					"min": null,
+					"max": null,
+					"regex": null,
+					"acceptFileTypes": null,
+					"defaultOverride": {
+						"id": "V_String",
+						"params": ["Single1"]
+					},
+					"textLanguageMode": null,
+					"symmetricalRef": false,
+					"autoChainRef": true,
+					"allowOutOfLevelRef": true,
+					"allowedRefs": "OnlySame",
+					"allowedRefsEntityUid": null,
+					"allowedRefTags": [],
+					"tilesetUid": null
+				}
+			]
 		}
 	], "tilesets": [
 		{
@@ -1525,6 +1601,28 @@
 			"customData": [],
 			"savedSelections": [],
 			"cachedPixelData": { "opaqueTiles": "0000000000000000", "averageColors": "3367336733673367336733673357335733673367336733673357335700000000" }
+		},
+		{
+			"__cWid": 32,
+			"__cHei": 64,
+			"identifier": "Moss_sheet",
+			"uid": 52,
+			"relPath": "../textures/moss-sheet.png",
+			"embedAtlas": null,
+			"pxWid": 512,
+			"pxHei": 1024,
+			"tileGridSize": 16,
+			"spacing": 0,
+			"padding": 0,
+			"tags": [],
+			"tagsSourceEnumUid": null,
+			"enumTags": [],
+			"customData": [],
+			"savedSelections": [],
+			"cachedPixelData": {
+				"opaqueTiles": "00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000010000000000000001000000000000011100000010000001110000001000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001000000000000000000000000000001110000001000000001000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000010000000000000000000000100000000100000000000000000000001000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000100000000000000000000001000000001000000000000000000000000000000010000000000000000000000100000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+				"averageColors": "000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000002000421183115311420010000000000020004122812351334112100000000000200022107311631142103100000000002000212271236123412230110000000053119411a622d622b62285110000000051239134a245d245b2568234000000006311a311a522d522c622a511000000006133a123a245d245c246a234000000008732e632d732f732f7329411100000008257e256d368f367f2578134100000008732e632d732f732f732a411200000008257e256d368f367f257a13420000000c943f953fa53fa53f943a72200000000c368f48af48af48af379a35700000000c943f953fa53fa53f943a72200000000c368f48af48af48af379a3570000000001004622782288324722000000000000000042567367736852570000000000000100462278228832472200000000000000004256736773685257000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000010003134000010000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000413381230000523400000000000000000000100010005311631133112000000000001000100051336123312320000000000000000000000000000000000000001000424500000000100000000000000000007411a311a622e622b622a411000000007134a122a245e245b256a1340000000000000000000000000000000000003134413300002134424500000000000000008732e632d732f732f7329411100000008257e256d368f367f2579134100000007554c554c555c555944424440000324651340000000000000000000000000000c943f953fa53fa53f943a72200000000c368f48af48af48af379a25700000000c665f665f776f565f666a5540000000041230000623421230000000000000000010046227822883247220000000000000000425673677368525700000000000000004444755585554554000000000000413300004245125600000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000003133000000000000000000000000121133110000100000000000000000001000341100001000000000000000000011223133000010000000000000000000000000000000000000000000000000004411741110005511000000000000000044118311000054110000000000000000423471341000524500000000000000000000000000000000000000000000000010004411000000001000000000000000100045110000000010000000000000001000424500000000100000000000000000000000000000000000000000000000231143110000241134110000000000003411441100002411451100000000000021234123000022343134000000000000000000000000000000000000000000003621641100000000000000000000000036215411000000000000000000000000325661340000000000000000000000000000000000000000000000000000000000004311000064113311000000000000000043110000641123110000000000000000412300006134313300000000000000000000000000000000000000000000000053110000451116220000000000000000431100004511162200000000000000005133000042451256000000000000000000000000000000000000000000000000341100000000000000000000000000003411000000000000000000000000000031330000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000100000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000200094116301a200a51194119300c411a511a000a4110000000000000000000000000000000000000000000000000000000000000000000000000000000000004000e6118411d311e7118511a511f511b611b301e6110000000000000000000000000000000000000000000000000000000000000000000000000000000000005100c611b411d4119511b6118200f611b511b200d6110000000000000000000000000000000000000000000000000000000000000000000000000000000000006000b611f411c6116000f6118000e611c411b301b7110000000000000000000000000000000000000000000000000000000000000000000000000000000000006000b611d511d5118411f7119000b611e411a61195110000000000000000000000000000000000000000000000000000000000000000000000000000000000004000f6119411d301b611e6119000b511d511b411b7110000000000000000000000000000000000000000000000000000000000000000000000000000000000001000e5117000d300d511b5119300d301b511a100e6110000000000000000000000000000000000000000000000000000000000000000000000000000000000000000e5119100c301e411a5118301e2009411a300e5110000000000000000000000000000000000000000000000000000000000000000000000000000000000001000f411b301c200c411b4117100e3019311c200d4110000000000000000000000000000000000000000000000000000000000000000000000000000000000000000f4119100c200e200c411b200d4118311b200d311000000000000000000000000000000000000000000000000000000004011d045200000000000000000000000e4119100d311c311b200d411e3118311b300f411000000000000000000001000d3015311000000000000000000000000a045f046602300000000000000000000c411b100c411c200b300a311d311a200c301f411100000000000000000005100f511a300000000000000000000000000b056f045c168000000000000000000006200600072009100620030006200400072009200000000000000000000006200f511f611100000000000000000000000b056f056e056000000000000000000000000000000000000000000000000000000000000000000000000000000006000f611e411300000000000000000000000c045f045e034000000000000000000000000000000000000000000000000000000000000000000000000000000007301f311e411300000000000000000000000d045f045c012000000000000000030002000501160342000903460344022903460232000000000000000000000008411f411f200100000000000000000000000c011f0568000000000000000000090568056d046d0679056e167a034a057f057b0577045000000000000000000007200f300c411000000000000000000000000a056f04670230000000000000000a1688045e045d1676023e0578023b168e057b0678056000000000000000000005000f511b5110000000000000000000000009056f04560110000000000000000b167a000d045f0676000d1689057a056e045c1686022000000000000000000005000f511a3010000000000000000000000009045f04560120000000000000000b167a000c057f0567034c179c168a000b056f1684000000000000000000000004000f411a4110000000000000000000000008045f04480450000000000000000b168a045e056d057a011d178a057a000b167e1785000000000000000000000004000f301c411000000000000000000000000a056f034804500000000000000007045b168b044d046a034e168a0569023e056c1788045000000000000000000005000f411d411000000000000000000000000b045e046914500000000000000006011c168a034c0348045f1678012a046e05690459167000000000000000000007200f411e411000000000000000000000000c045f146804500000000000000006011b167d045b0459034e1456000a045e045b0458045000000000000000000008311f301d411000000000000000000000000e145f146702300000000000000006001c156d034b034b023e156a0458045e034b1457034000000000000000000009311f300c411000000000000000000000000d145f045702300000000000000005000e1569045b023c034e156e0348034e145b0349145000000000000000000008301f301b411000000000000000000000000b156f034702300000000000000003000f156b145a023d034d156b011b145d145c034a156000000000000000000006100f311c311000000000000000000000000b145d045502300000000000000001000e034a034a000a023d0343000a033b034b0239034000000000000000000007200e311941100000000000000000000000020450045000000000000000000000000000000000000000000000000000000000000000000000000000000000000241115110000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"
+			}
 		}
 	], "enums": [
 		{ "identifier": "MapTileType", "uid": 14, "values": [{ "id": "Wall", "tileRect": null, "color": 12470831 }], "iconTilesetUid": null, "externalRelPath": null, "externalFileChecksum": null, "tags": [] },
@@ -1546,7 +1644,15 @@
 			{ "id": "Down", "tileRect": null, "color": 14120515 },
 			{ "id": "Left", "tileRect": null, "color": 15389866 },
 			{ "id": "Right", "tileRect": null, "color": 14984818 }
-		], "iconTilesetUid": null, "externalRelPath": null, "externalFileChecksum": null, "tags": [] }
+		], "iconTilesetUid": null, "externalRelPath": null, "externalFileChecksum": null, "tags": [] },
+		{ "identifier": "MossDecorator", "uid": 58, "values": [
+			{ "id": "Single1", "tileRect": { "tilesetUid": 52, "x": 176, "y": 288, "w": 32, "h": 48 }, "color": 12470831 },
+			{ "id": "Single2", "tileRect": { "tilesetUid": 52, "x": 176, "y": 256, "w": 32, "h": 48 }, "color": 14120515 },
+			{ "id": "Double", "tileRect": { "tilesetUid": 52, "x": 176, "y": 336, "w": 32, "h": 32 }, "color": 15389866 },
+			{ "id": "Triple_Vertical", "tileRect": { "tilesetUid": 52, "x": 128, "y": 336, "w": 32, "h": 48 }, "color": 14984818 },
+			{ "id": "Triple_Horizontal", "tileRect": { "tilesetUid": 52, "x": 128, "y": 304, "w": 48, "h": 32 }, "color": 7552569 },
+			{ "id": "Quadruple", "tileRect": { "tilesetUid": 52, "x": 128, "y": 256, "w": 48, "h": 48 }, "color": 4073265 }
+		], "iconTilesetUid": 52, "externalRelPath": null, "externalFileChecksum": null, "tags": [] }
 	], "externalEnums": [], "levelFields": [] },
 	"levels": [
 		{
@@ -1609,6 +1715,25 @@
 							"fieldInstances": [],
 							"__worldX": 888,
 							"__worldY": 856
+						},
+						{
+							"__identifier": "MossWall",
+							"__grid": [65,15],
+							"__pivot": [0.5,0.5],
+							"__tags": ["Internal_Wall"],
+							"__tile": { "tilesetUid": 52, "x": 160, "y": 400, "w": 192, "h": 224 },
+							"__smartColor": "#DECDD4",
+							"iid": "7320fa40-fa90-11f0-aace-6b6206e497f1",
+							"width": 400,
+							"height": 240,
+							"defUid": 48,
+							"px": [1048,248],
+							"fieldInstances": [{ "__identifier": "ColorState", "__type": "LocalEnum.ColorState", "__value": "Blue", "__tile": null, "defUid": 49, "realEditorValues": [{
+								"id": "V_String",
+								"params": ["Blue"]
+							}] }],
+							"__worldX": 1048,
+							"__worldY": 248
 						}
 					]
 				},
@@ -1690,6 +1815,36 @@
 							],
 							"__worldX": 900,
 							"__worldY": 164
+						},
+						{
+							"__identifier": "MossToggle",
+							"__grid": [72,62],
+							"__pivot": [0.5,0.5],
+							"__tags": ["Floor_Interactable"],
+							"__tile": { "tilesetUid": 52, "x": 144, "y": 16, "w": 112, "h": 96 },
+							"__smartColor": "#70C16A",
+							"iid": "78600e60-fa90-11f0-aace-e93faf286bcb",
+							"width": 200,
+							"height": 100,
+							"defUid": 46,
+							"px": [580,500],
+							"fieldInstances": [
+								{ "__identifier": "ConnectedWalls", "__type": "Array<EntityRef>", "__value": [{
+									"entityIid": "7320fa40-fa90-11f0-aace-6b6206e497f1",
+									"layerIid": "ca7becd0-fa90-11f0-85ba-81bccb6ba5f4",
+									"levelIid": "def30d80-d380-11f0-a1bc-2363b8ac7cbf",
+									"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787"
+								}], "__tile": null, "defUid": 47, "realEditorValues": [{
+									"id": "V_String",
+									"params": ["7320fa40-fa90-11f0-aace-6b6206e497f1"]
+								}] },
+								{ "__identifier": "ColorState", "__type": "LocalEnum.ColorState", "__value": "Neutral", "__tile": null, "defUid": 50, "realEditorValues": [{
+									"id": "V_String",
+									"params": ["Neutral"]
+								}] }
+							],
+							"__worldX": 580,
+							"__worldY": 500
 						}
 					]
 				},
@@ -2194,22 +2349,22 @@
 					"entityInstances": [
 						{
 							"__identifier": "MossWall",
-							"__grid": [55,13],
+							"__grid": [55,11],
 							"__pivot": [0.5,0.5],
 							"__tags": ["Internal_Wall"],
-							"__tile": null,
+							"__tile": { "tilesetUid": 52, "x": 160, "y": 400, "w": 192, "h": 224 },
 							"__smartColor": "#DECDD4",
 							"iid": "8d3a3520-fa90-11f0-aace-71cad282f398",
-							"width": 1184,
-							"height": 80,
+							"width": 1040,
+							"height": 224,
 							"defUid": 48,
-							"px": [888,216],
+							"px": [888,184],
 							"fieldInstances": [{ "__identifier": "ColorState", "__type": "LocalEnum.ColorState", "__value": "Blue", "__tile": null, "defUid": 49, "realEditorValues": [{
 								"id": "V_String",
 								"params": ["Blue"]
 							}] }],
 							"__worldX": 888,
-							"__worldY": -864
+							"__worldY": -896
 						}
 					]
 				},
@@ -4227,29 +4382,29 @@
 					"entityInstances": [
 						{
 							"__identifier": "MossWall",
-							"__grid": [47,11],
+							"__grid": [47,8],
 							"__pivot": [0.5,0.5],
 							"__tags": ["Internal_Wall"],
-							"__tile": null,
+							"__tile": { "tilesetUid": 52, "x": 160, "y": 400, "w": 192, "h": 224 },
 							"__smartColor": "#DECDD4",
 							"iid": "a6d78500-fa90-11f0-aace-99f35b4dd8c9",
-							"width": 528,
-							"height": 64,
+							"width": 384,
+							"height": 240,
 							"defUid": 48,
-							"px": [760,184],
+							"px": [760,136],
 							"fieldInstances": [{ "__identifier": "ColorState", "__type": "LocalEnum.ColorState", "__value": "Red", "__tile": null, "defUid": 49, "realEditorValues": [{
 								"id": "V_String",
 								"params": ["Red"]
 							}] }],
 							"__worldX": 760,
-							"__worldY": -1976
+							"__worldY": -2024
 						},
 						{
 							"__identifier": "MossWall",
 							"__grid": [66,18],
 							"__pivot": [0.5,0.5],
 							"__tags": ["Internal_Wall"],
-							"__tile": null,
+							"__tile": { "tilesetUid": 52, "x": 160, "y": 400, "w": 192, "h": 224 },
 							"__smartColor": "#DECDD4",
 							"iid": "b028c600-fa90-11f0-aace-3de86970d83b",
 							"width": 64,
@@ -6344,7 +6499,176 @@
 					"seed": 2474132,
 					"overrideTilesetUid": null,
 					"gridTiles": [],
-					"entityInstances": []
+					"entityInstances": [
+						{
+							"__identifier": "MossDecoration",
+							"__grid": [112,42],
+							"__pivot": [0.5,1],
+							"__tags": ["Floor_Decoration"],
+							"__tile": { "tilesetUid": 52, "x": 128, "y": 256, "w": 48, "h": 48 },
+							"__smartColor": "#F77622",
+							"iid": "7c1a1b10-fa90-11f0-aace-75ace581d9e1",
+							"width": 64,
+							"height": 64,
+							"defUid": 53,
+							"px": [1800,688],
+							"fieldInstances": [{ "__identifier": "MossDecorator", "__type": "LocalEnum.MossDecorator", "__value": "Single1", "__tile": null, "defUid": 59, "realEditorValues": [{
+								"id": "V_String",
+								"params": ["Single1"]
+							}] }],
+							"__worldX": 3720,
+							"__worldY": -1472
+						},
+						{
+							"__identifier": "MossDecoration",
+							"__grid": [112,37],
+							"__pivot": [0.5,1],
+							"__tags": ["Floor_Decoration"],
+							"__tile": { "tilesetUid": 52, "x": 128, "y": 256, "w": 48, "h": 48 },
+							"__smartColor": "#F77622",
+							"iid": "7d3c05d0-fa90-11f0-aace-5f0c036b1a28",
+							"width": 64,
+							"height": 64,
+							"defUid": 53,
+							"px": [1800,608],
+							"fieldInstances": [{ "__identifier": "MossDecorator", "__type": "LocalEnum.MossDecorator", "__value": "Triple_Vertical", "__tile": null, "defUid": 59, "realEditorValues": [{
+								"id": "V_String",
+								"params": ["Triple_Vertical"]
+							}] }],
+							"__worldX": 3720,
+							"__worldY": -1552
+						},
+						{
+							"__identifier": "MossDecoration",
+							"__grid": [109,37],
+							"__pivot": [0.5,1],
+							"__tags": ["Floor_Decoration"],
+							"__tile": { "tilesetUid": 52, "x": 128, "y": 256, "w": 48, "h": 48 },
+							"__smartColor": "#F77622",
+							"iid": "7d94fb40-fa90-11f0-aace-7d52b8835ae3",
+							"width": 64,
+							"height": 64,
+							"defUid": 53,
+							"px": [1752,608],
+							"fieldInstances": [{ "__identifier": "MossDecorator", "__type": "LocalEnum.MossDecorator", "__value": "Triple_Vertical", "__tile": null, "defUid": 59, "realEditorValues": [{
+								"id": "V_String",
+								"params": ["Triple_Vertical"]
+							}] }],
+							"__worldX": 3672,
+							"__worldY": -1552
+						},
+						{
+							"__identifier": "MossDecoration",
+							"__grid": [106,35],
+							"__pivot": [0.5,1],
+							"__tags": ["Floor_Decoration"],
+							"__tile": { "tilesetUid": 52, "x": 128, "y": 256, "w": 48, "h": 48 },
+							"__smartColor": "#F77622",
+							"iid": "7df5b8e0-fa90-11f0-aace-e10345beb2b5",
+							"width": 64,
+							"height": 64,
+							"defUid": 53,
+							"px": [1704,576],
+							"fieldInstances": [{ "__identifier": "MossDecorator", "__type": "LocalEnum.MossDecorator", "__value": "Triple_Vertical", "__tile": null, "defUid": 59, "realEditorValues": [{
+								"id": "V_String",
+								"params": ["Triple_Vertical"]
+							}] }],
+							"__worldX": 3624,
+							"__worldY": -1584
+						},
+						{
+							"__identifier": "MossDecoration",
+							"__grid": [103,35],
+							"__pivot": [0.5,1],
+							"__tags": ["Floor_Decoration"],
+							"__tile": { "tilesetUid": 52, "x": 128, "y": 256, "w": 48, "h": 48 },
+							"__smartColor": "#F77622",
+							"iid": "7e564f70-fa90-11f0-aace-f199de663a8c",
+							"width": 64,
+							"height": 64,
+							"defUid": 53,
+							"px": [1656,576],
+							"fieldInstances": [{ "__identifier": "MossDecorator", "__type": "LocalEnum.MossDecorator", "__value": "Single1", "__tile": null, "defUid": 59, "realEditorValues": [{
+								"id": "V_String",
+								"params": ["Single1"]
+							}] }],
+							"__worldX": 3576,
+							"__worldY": -1584
+						},
+						{
+							"__identifier": "MossDecoration",
+							"__grid": [99,35],
+							"__pivot": [0.5,1],
+							"__tags": ["Floor_Decoration"],
+							"__tile": { "tilesetUid": 52, "x": 128, "y": 256, "w": 48, "h": 48 },
+							"__smartColor": "#F77622",
+							"iid": "7eb70d10-fa90-11f0-aace-cfdd002f61e4",
+							"width": 64,
+							"height": 64,
+							"defUid": 53,
+							"px": [1592,576],
+							"fieldInstances": [{ "__identifier": "MossDecorator", "__type": "LocalEnum.MossDecorator", "__value": "Quadruple", "__tile": null, "defUid": 59, "realEditorValues": [{
+								"id": "V_String",
+								"params": ["Quadruple"]
+							}] }],
+							"__worldX": 3512,
+							"__worldY": -1584
+						},
+						{
+							"__identifier": "MossDecoration",
+							"__grid": [93,35],
+							"__pivot": [0.5,1],
+							"__tags": ["Floor_Decoration"],
+							"__tile": { "tilesetUid": 52, "x": 128, "y": 256, "w": 48, "h": 48 },
+							"__smartColor": "#F77622",
+							"iid": "7f1532a0-fa90-11f0-aace-2db06908702a",
+							"width": 64,
+							"height": 64,
+							"defUid": 53,
+							"px": [1496,576],
+							"fieldInstances": [{ "__identifier": "MossDecorator", "__type": "LocalEnum.MossDecorator", "__value": "Triple_Horizontal", "__tile": null, "defUid": 59, "realEditorValues": [{
+								"id": "V_String",
+								"params": ["Triple_Horizontal"]
+							}] }],
+							"__worldX": 3416,
+							"__worldY": -1584
+						},
+						{
+							"__identifier": "MossDecoration",
+							"__grid": [87,35],
+							"__pivot": [0.5,1],
+							"__tags": ["Floor_Decoration"],
+							"__tile": { "tilesetUid": 52, "x": 128, "y": 256, "w": 48, "h": 48 },
+							"__smartColor": "#F77622",
+							"iid": "7f63eee0-fa90-11f0-aace-ef93bb61e8da",
+							"width": 64,
+							"height": 64,
+							"defUid": 53,
+							"px": [1400,576],
+							"fieldInstances": [{ "__identifier": "MossDecorator", "__type": "LocalEnum.MossDecorator", "__value": "Double", "__tile": null, "defUid": 59, "realEditorValues": [{
+								"id": "V_String",
+								"params": ["Double"]
+							}] }],
+							"__worldX": 3320,
+							"__worldY": -1584
+						},
+						{
+							"__identifier": "MossDecoration",
+							"__grid": [83,35],
+							"__pivot": [0.5,1],
+							"__tags": ["Floor_Decoration"],
+							"__tile": { "tilesetUid": 52, "x": 128, "y": 256, "w": 48, "h": 48 },
+							"__smartColor": "#F77622",
+							"iid": "7fb56a40-fa90-11f0-aace-adb01a79fc32",
+							"width": 64,
+							"height": 64,
+							"defUid": 53,
+							"px": [1336,576],
+							"fieldInstances": [{ "__identifier": "MossDecorator", "__type": "LocalEnum.MossDecorator", "__value": "Single1", "__tile": null, "defUid": 59, "realEditorValues": [] }],
+							"__worldX": 3256,
+							"__worldY": -1584
+						}
+					]
 				},
 				{
 					"__identifier": "Creatures",
@@ -6490,11 +6814,11 @@
 							"__grid": [157,57],
 							"__pivot": [0.5,0.5],
 							"__tags": ["Floor_Interactable"],
-							"__tile": null,
+							"__tile": { "tilesetUid": 52, "x": 144, "y": 16, "w": 112, "h": 96 },
 							"__smartColor": "#70C16A",
 							"iid": "63874fb0-fa90-11f0-aace-b3cb3c1d4a9f",
-							"width": 70,
-							"height": 70,
+							"width": 200,
+							"height": 100,
 							"defUid": 46,
 							"px": [1260,460],
 							"fieldInstances": [
@@ -7099,22 +7423,285 @@
 					"entityInstances": [
 						{
 							"__identifier": "MossWall",
-							"__grid": [52,57],
+							"__grid": [76,57],
 							"__pivot": [0.5,0.5],
 							"__tags": ["Internal_Wall"],
-							"__tile": null,
+							"__tile": { "tilesetUid": 52, "x": 160, "y": 400, "w": 192, "h": 224 },
 							"__smartColor": "#DECDD4",
 							"iid": "496a6f90-fa90-11f0-aace-2df8892a2ee1",
-							"width": 1152,
-							"height": 64,
+							"width": 384,
+							"height": 224,
 							"defUid": 48,
-							"px": [840,920],
+							"px": [1224,920],
 							"fieldInstances": [{ "__identifier": "ColorState", "__type": "LocalEnum.ColorState", "__value": "Red", "__tile": null, "defUid": 49, "realEditorValues": [{
 								"id": "V_String",
 								"params": ["Red"]
 							}] }],
-							"__worldX": 4680,
+							"__worldX": 5064,
 							"__worldY": -1240
+						},
+						{
+							"__identifier": "MossDecoration",
+							"__grid": [63,58],
+							"__pivot": [0.5,1],
+							"__tags": ["Floor_Decoration"],
+							"__tile": { "tilesetUid": 52, "x": 128, "y": 256, "w": 48, "h": 48 },
+							"__smartColor": "#F77622",
+							"iid": "6dee0600-fa90-11f0-aace-f507441eee60",
+							"width": 64,
+							"height": 64,
+							"defUid": 53,
+							"px": [1016,944],
+							"fieldInstances": [{ "__identifier": "MossDecorator", "__type": "LocalEnum.MossDecorator", "__value": "Single2", "__tile": null, "defUid": 59, "realEditorValues": [{
+								"id": "V_String",
+								"params": ["Single2"]
+							}] }],
+							"__worldX": 4856,
+							"__worldY": -1216
+						},
+						{
+							"__identifier": "MossDecoration",
+							"__grid": [57,58],
+							"__pivot": [0.5,1],
+							"__tags": ["Floor_Decoration"],
+							"__tile": { "tilesetUid": 52, "x": 128, "y": 256, "w": 48, "h": 48 },
+							"__smartColor": "#F77622",
+							"iid": "721df410-fa90-11f0-aace-2734ac7ac18a",
+							"width": 64,
+							"height": 64,
+							"defUid": 53,
+							"px": [920,944],
+							"fieldInstances": [{ "__identifier": "MossDecorator", "__type": "LocalEnum.MossDecorator", "__value": "Single2", "__tile": null, "defUid": 59, "realEditorValues": [{
+								"id": "V_String",
+								"params": ["Single2"]
+							}] }],
+							"__worldX": 4760,
+							"__worldY": -1216
+						},
+						{
+							"__identifier": "MossDecoration",
+							"__grid": [51,56],
+							"__pivot": [0.5,1],
+							"__tags": ["Floor_Decoration"],
+							"__tile": { "tilesetUid": 52, "x": 128, "y": 256, "w": 48, "h": 48 },
+							"__smartColor": "#F77622",
+							"iid": "72c5ccd0-fa90-11f0-aace-4fe2c3ae0fc1",
+							"width": 64,
+							"height": 64,
+							"defUid": 53,
+							"px": [824,912],
+							"fieldInstances": [{ "__identifier": "MossDecorator", "__type": "LocalEnum.MossDecorator", "__value": "Single1", "__tile": null, "defUid": 59, "realEditorValues": [{
+								"id": "V_String",
+								"params": ["Single1"]
+							}] }],
+							"__worldX": 4664,
+							"__worldY": -1248
+						},
+						{
+							"__identifier": "MossDecoration",
+							"__grid": [44,57],
+							"__pivot": [0.5,1],
+							"__tags": ["Floor_Decoration"],
+							"__tile": { "tilesetUid": 52, "x": 128, "y": 256, "w": 48, "h": 48 },
+							"__smartColor": "#F77622",
+							"iid": "73450ef0-fa90-11f0-aace-6970c499aa9f",
+							"width": 64,
+							"height": 64,
+							"defUid": 53,
+							"px": [712,928],
+							"fieldInstances": [{ "__identifier": "MossDecorator", "__type": "LocalEnum.MossDecorator", "__value": "Quadruple", "__tile": null, "defUid": 59, "realEditorValues": [{
+								"id": "V_String",
+								"params": ["Quadruple"]
+							}] }],
+							"__worldX": 4552,
+							"__worldY": -1232
+						},
+						{
+							"__identifier": "MossDecoration",
+							"__grid": [37,56],
+							"__pivot": [0.5,1],
+							"__tags": ["Floor_Decoration"],
+							"__tile": { "tilesetUid": 52, "x": 128, "y": 256, "w": 48, "h": 48 },
+							"__smartColor": "#F77622",
+							"iid": "73b4e7c0-fa90-11f0-aace-21d1ca5fd9fa",
+							"width": 64,
+							"height": 64,
+							"defUid": 53,
+							"px": [600,912],
+							"fieldInstances": [{ "__identifier": "MossDecorator", "__type": "LocalEnum.MossDecorator", "__value": "Single1", "__tile": null, "defUid": 59, "realEditorValues": [{
+								"id": "V_String",
+								"params": ["Single1"]
+							}] }],
+							"__worldX": 4440,
+							"__worldY": -1248
+						},
+						{
+							"__identifier": "MossDecoration",
+							"__grid": [28,57],
+							"__pivot": [0.5,1],
+							"__tags": ["Floor_Decoration"],
+							"__tile": { "tilesetUid": 52, "x": 128, "y": 256, "w": 48, "h": 48 },
+							"__smartColor": "#F77622",
+							"iid": "74763bf0-fa90-11f0-aace-2f5a4e9036df",
+							"width": 64,
+							"height": 64,
+							"defUid": 53,
+							"px": [456,928],
+							"fieldInstances": [{ "__identifier": "MossDecorator", "__type": "LocalEnum.MossDecorator", "__value": "Double", "__tile": null, "defUid": 59, "realEditorValues": [{
+								"id": "V_String",
+								"params": ["Double"]
+							}] }],
+							"__worldX": 4296,
+							"__worldY": -1232
+						},
+						{
+							"__identifier": "MossDecoration",
+							"__grid": [33,56],
+							"__pivot": [0.5,1],
+							"__tags": ["Floor_Decoration"],
+							"__tile": { "tilesetUid": 52, "x": 128, "y": 256, "w": 48, "h": 48 },
+							"__smartColor": "#F77622",
+							"iid": "750ed270-fa90-11f0-aace-a7463ea895ec",
+							"width": 64,
+							"height": 64,
+							"defUid": 53,
+							"px": [536,912],
+							"fieldInstances": [{ "__identifier": "MossDecorator", "__type": "LocalEnum.MossDecorator", "__value": "Triple_Horizontal", "__tile": null, "defUid": 59, "realEditorValues": [{
+								"id": "V_String",
+								"params": ["Triple_Horizontal"]
+							}] }],
+							"__worldX": 4376,
+							"__worldY": -1248
+						},
+						{
+							"__identifier": "MossDecoration",
+							"__grid": [23,56],
+							"__pivot": [0.5,1],
+							"__tags": ["Floor_Decoration"],
+							"__tile": { "tilesetUid": 52, "x": 128, "y": 256, "w": 48, "h": 48 },
+							"__smartColor": "#F77622",
+							"iid": "7579a230-fa90-11f0-aace-11d5709227a5",
+							"width": 64,
+							"height": 64,
+							"defUid": 53,
+							"px": [376,912],
+							"fieldInstances": [{ "__identifier": "MossDecorator", "__type": "LocalEnum.MossDecorator", "__value": "Single1", "__tile": null, "defUid": 59, "realEditorValues": [null] }],
+							"__worldX": 4216,
+							"__worldY": -1248
+						},
+						{
+							"__identifier": "MossDecoration",
+							"__grid": [19,57],
+							"__pivot": [0.5,1],
+							"__tags": ["Floor_Decoration"],
+							"__tile": { "tilesetUid": 52, "x": 128, "y": 256, "w": 48, "h": 48 },
+							"__smartColor": "#F77622",
+							"iid": "75d2beb0-fa90-11f0-aace-5b950b327109",
+							"width": 64,
+							"height": 64,
+							"defUid": 53,
+							"px": [312,928],
+							"fieldInstances": [{ "__identifier": "MossDecorator", "__type": "LocalEnum.MossDecorator", "__value": "Single1", "__tile": null, "defUid": 59, "realEditorValues": [{
+								"id": "V_String",
+								"params": ["Single1"]
+							}] }],
+							"__worldX": 4152,
+							"__worldY": -1232
+						},
+						{
+							"__identifier": "MossDecoration",
+							"__grid": [12,56],
+							"__pivot": [0.5,1],
+							"__tags": ["Floor_Decoration"],
+							"__tile": { "tilesetUid": 52, "x": 128, "y": 256, "w": 48, "h": 48 },
+							"__smartColor": "#F77622",
+							"iid": "762bb420-fa90-11f0-aace-93c503adbdba",
+							"width": 64,
+							"height": 64,
+							"defUid": 53,
+							"px": [200,912],
+							"fieldInstances": [{ "__identifier": "MossDecorator", "__type": "LocalEnum.MossDecorator", "__value": "Triple_Horizontal", "__tile": null, "defUid": 59, "realEditorValues": [{
+								"id": "V_String",
+								"params": ["Triple_Horizontal"]
+							}] }],
+							"__worldX": 4040,
+							"__worldY": -1248
+						},
+						{
+							"__identifier": "MossDecoration",
+							"__grid": [7,56],
+							"__pivot": [0.5,1],
+							"__tags": ["Floor_Decoration"],
+							"__tile": { "tilesetUid": 52, "x": 128, "y": 256, "w": 48, "h": 48 },
+							"__smartColor": "#F77622",
+							"iid": "769683e0-fa90-11f0-aace-53f6c711ba5f",
+							"width": 64,
+							"height": 64,
+							"defUid": 53,
+							"px": [120,912],
+							"fieldInstances": [{ "__identifier": "MossDecorator", "__type": "LocalEnum.MossDecorator", "__value": "Quadruple", "__tile": null, "defUid": 59, "realEditorValues": [{
+								"id": "V_String",
+								"params": ["Quadruple"]
+							}] }],
+							"__worldX": 3960,
+							"__worldY": -1248
+						},
+						{
+							"__identifier": "MossDecoration",
+							"__grid": [7,51],
+							"__pivot": [0.5,1],
+							"__tags": ["Floor_Decoration"],
+							"__tile": { "tilesetUid": 52, "x": 128, "y": 256, "w": 48, "h": 48 },
+							"__smartColor": "#F77622",
+							"iid": "76ed0850-fa90-11f0-aace-c99b8b4b7938",
+							"width": 64,
+							"height": 64,
+							"defUid": 53,
+							"px": [120,832],
+							"fieldInstances": [{ "__identifier": "MossDecorator", "__type": "LocalEnum.MossDecorator", "__value": "Triple_Vertical", "__tile": null, "defUid": 59, "realEditorValues": [{
+								"id": "V_String",
+								"params": ["Triple_Vertical"]
+							}] }],
+							"__worldX": 3960,
+							"__worldY": -1328
+						},
+						{
+							"__identifier": "MossDecoration",
+							"__grid": [6,46],
+							"__pivot": [0.5,1],
+							"__tags": ["Floor_Decoration"],
+							"__tile": { "tilesetUid": 52, "x": 128, "y": 256, "w": 48, "h": 48 },
+							"__smartColor": "#F77622",
+							"iid": "77c53fe0-fa90-11f0-aace-eb9056208e41",
+							"width": 64,
+							"height": 64,
+							"defUid": 53,
+							"px": [104,752],
+							"fieldInstances": [{ "__identifier": "MossDecorator", "__type": "LocalEnum.MossDecorator", "__value": "Double", "__tile": null, "defUid": 59, "realEditorValues": [{
+								"id": "V_String",
+								"params": ["Double"]
+							}] }],
+							"__worldX": 3944,
+							"__worldY": -1408
+						},
+						{
+							"__identifier": "MossDecoration",
+							"__grid": [3,42],
+							"__pivot": [0.5,1],
+							"__tags": ["Floor_Decoration"],
+							"__tile": { "tilesetUid": 52, "x": 128, "y": 256, "w": 48, "h": 48 },
+							"__smartColor": "#F77622",
+							"iid": "79919b70-fa90-11f0-aace-3925106a98ff",
+							"width": 64,
+							"height": 64,
+							"defUid": 53,
+							"px": [56,688],
+							"fieldInstances": [{ "__identifier": "MossDecorator", "__type": "LocalEnum.MossDecorator", "__value": "Single1", "__tile": null, "defUid": 59, "realEditorValues": [{
+								"id": "V_String",
+								"params": ["Single1"]
+							}] }],
+							"__worldX": 3896,
+							"__worldY": -1472
 						}
 					]
 				},
