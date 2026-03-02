@@ -35,11 +35,12 @@ void LoaderSystem::load_level(int level_uid)
 	// If the level had been loaded previously, we might be done if it's still loaded
 	if (level_has_been_loaded_before && level_iterator->is_loaded)
 	{
-		// If the level is already loaded, do nothing except change camera
+		// If the level is already loaded, do nothing except change camera and set background color
 		Entity& level_entity = *std::find_if(registry.levels.entities.begin(), registry.levels.entities.end(), level_entity_match);
 		vec2& level_position = registry.positions.get(level_entity);
 		Entity change_camera_request;
 		registry.changeCameraTargetRequests.insert(change_camera_request, { level_position, LDTK_CAMERA_ROOM_SPEED });
+		registry.screenStates.components[0].background_color = registry.levels.get(level_entity).background_color;
 
 		return;
 	}
@@ -67,6 +68,7 @@ void LoaderSystem::load_level(int level_uid)
 		Level& level_component = registry.levels.insert(loading_level_entity, { level_uid, level_index });
 		const vec2 level_world_center = vec2(level.position.x, level.position.y) * LEVEL_TO_SCREEN_SCALE + window_center();
 		vec2& level_position = registry.positions.insert(loading_level_entity, level_world_center);
+		level_component.background_color = vec4(level.bg_color.r, level.bg_color.g, level.bg_color.b, level.bg_color.a) / 255.0f;
 	}
 
 	// get a layer
@@ -143,6 +145,8 @@ void LoaderSystem::load_level(int level_uid)
 	Level& level_component = registry.levels.get(level_entity);
 	level_component.quantized_space_data = quantized_floor_data;
 	level_component.is_loaded = true;
+	// Use level background color to update screen background
+	registry.screenStates.components[0].background_color = level_component.background_color;
 	// Make the camera request at the end of loading
 	Entity change_camera_request;
 	registry.changeCameraTargetRequests.insert(change_camera_request, { registry.positions.get(level_entity), LDTK_CAMERA_ROOM_SPEED});
