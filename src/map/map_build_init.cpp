@@ -1,3 +1,4 @@
+#include "creature_system/creature_constants.hpp"
 #include "ecs/registry.hpp"
 #include "map/map_build_init.hpp"
 #include "map_components.hpp"
@@ -41,13 +42,13 @@ Entity createMapTile(int tile_id, TEXTURE_ASSET_ID texture_id, ivec2 tile_positi
 	return map_tile_entity;
 }
 
-Entity createSpawnPoint(const int level_uid, const int connected_level_id, vec2 position, vec2 connected_position)
+Entity createTeleporter(const int level_uid, const int connected_level_id, vec2 position, vec2 connected_position, DIRECTION offset_direction)
 {
-	Entity spawn_point_entity = createCircle(position, 10.0f, RENDER_LAYER::FLOOR_INTERACTABLES, { DEFAULT_COLOUR_VEC4 });
-	SpawnPoint spawn_point = { level_uid, connected_level_id, vec2(connected_position.x, connected_position.y) };
-	registry.spawnPoints.emplace(spawn_point_entity, spawn_point);
-	registry.collidables.emplace(spawn_point_entity);
-	registry.levelEntities.insert(spawn_point_entity, { level_uid });
+	Entity teleporter_entity = createCircle(position, 10.0f, RENDER_LAYER::FLOOR_INTERACTABLES, { DEFAULT_COLOUR_VEC4 });
+	Teleporter teleporter = { level_uid, connected_level_id, offset_direction, vec2(connected_position.x, connected_position.y) };
+	registry.teleporters.emplace(teleporter_entity, teleporter);
+	registry.collidables.emplace(teleporter_entity);
+	registry.levelEntities.insert(teleporter_entity, { level_uid });
 
-	return spawn_point_entity;
+	return teleporter_entity;
 }

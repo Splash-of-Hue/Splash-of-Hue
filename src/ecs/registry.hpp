@@ -70,7 +70,7 @@ public:
 	ComponentContainer<Level> levels;
 	ComponentContainer<LevelTile> levelTiles;
 	ComponentContainer<MapTile> mapTiles;
-	ComponentContainer<SpawnPoint> spawnPoints;
+	ComponentContainer<Teleporter> teleporters;
 	// Physics - Collisions
 	ComponentContainer<ChangeBehaviour> change_behaviours;
 	ComponentContainer<Collidable> collidables;
@@ -151,7 +151,7 @@ public:
 		registry_list.push_back(&levels);
 		registry_list.push_back(&levelTiles);
 		registry_list.push_back(&mapTiles);
-		registry_list.push_back(&spawnPoints);
+		registry_list.push_back(&teleporters);
 		// Physics - Collisions
 		registry_list.push_back(&change_behaviours);
 		registry_list.push_back(&collidables);

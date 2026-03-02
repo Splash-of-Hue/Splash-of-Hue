@@ -1,5 +1,12 @@
 #pragma once
 
+enum class MAP_CHANGE_REQUEST_TYPE
+{
+	INVALID,
+	PLAYER,
+	CREATURE
+};
+
 enum MAP_TILE_TYPE
 {
 	DEFAULT = 0,

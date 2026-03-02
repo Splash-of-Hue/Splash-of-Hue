@@ -11,10 +11,10 @@
 	"iid": "53e64810-d380-11f0-a1bc-4d26a5cd15e3",
 	"jsonVersion": "1.5.3",
 	"appBuildId": 473703,
-	"nextUid": 51,
+	"nextUid": 53,
 	"identifierStyle": "Capitalize",
 	"toc": [{
-		"identifier": "Spawn_Point",
+		"identifier": "Teleporter",
 		"instances": [],
 		"instancesData": [
 			{ "iids": {
@@ -22,7 +22,7 @@
 				"levelIid": "def30d80-d380-11f0-a1bc-2363b8ac7cbf",
 				"layerIid": "e519eeb0-d380-11f0-a1bc-09692cbe4ff9",
 				"entityIid": "6b6f63c0-fa90-11f0-85ba-1d0ac849c3bc"
-			}, "worldX": 900, "worldY": 164, "widPx": 16, "heiPx": 16, "fields" : {} },
+			}, "worldX": 900, "worldY": 124, "widPx": 16, "heiPx": 16, "fields" : {} },
 			{ "iids": {
 				"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787",
 				"levelIid": "ece88230-d380-11f0-a1bc-15355c04c6fa",
@@ -34,109 +34,19 @@
 				"levelIid": "ece88230-d380-11f0-a1bc-15355c04c6fa",
 				"layerIid": "e51a3cd0-d380-11f0-a1bc-17f9478cdf93",
 				"entityIid": "e4f78da0-fa90-11f0-95ec-dfa7a08c7f3e"
-			}, "worldX": 892, "worldY": -916, "widPx": 16, "heiPx": 16, "fields" : {} },
-			{ "iids": {
-				"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787",
-				"levelIid": "b0bad970-fa90-11f0-95ec-9bb8d9cc1bda",
-				"layerIid": "b0bb0080-fa90-11f0-95ec-8b3306960b1d",
-				"entityIid": "05ef5ac0-fa90-11f0-95ec-5550bffe137d"
-			}, "worldX": 3828, "worldY": -900, "widPx": 16, "heiPx": 16, "fields" : {} },
-			{ "iids": {
-				"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787",
-				"levelIid": "b0bad970-fa90-11f0-95ec-9bb8d9cc1bda",
-				"layerIid": "b0bb0080-fa90-11f0-95ec-8b3306960b1d",
-				"entityIid": "076a8910-fa90-11f0-95ec-5b7003775699"
-			}, "worldX": 3828, "worldY": -852, "widPx": 16, "heiPx": 16, "fields" : {} },
-			{ "iids": {
-				"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787",
-				"levelIid": "b0bad970-fa90-11f0-95ec-9bb8d9cc1bda",
-				"layerIid": "b0bb0080-fa90-11f0-95ec-8b3306960b1d",
-				"entityIid": "08f9b490-fa90-11f0-95ec-21e6fbfe88bb"
-			}, "worldX": 3828, "worldY": -804, "widPx": 16, "heiPx": 16, "fields" : {} },
-			{ "iids": {
-				"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787",
-				"levelIid": "b0bad970-fa90-11f0-95ec-9bb8d9cc1bda",
-				"layerIid": "b0bb0080-fa90-11f0-95ec-8b3306960b1d",
-				"entityIid": "0e19f610-fa90-11f0-95ec-f745d3d2abfe"
-			}, "worldX": 3828, "worldY": -756, "widPx": 16, "heiPx": 16, "fields" : {} },
-			{ "iids": {
-				"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787",
-				"levelIid": "b0bad970-fa90-11f0-95ec-9bb8d9cc1bda",
-				"layerIid": "b0bb0080-fa90-11f0-95ec-8b3306960b1d",
-				"entityIid": "109afba0-fa90-11f0-95ec-bd2a99dcfc2d"
-			}, "worldX": 3828, "worldY": -708, "widPx": 16, "heiPx": 16, "fields" : {} },
-			{ "iids": {
-				"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787",
-				"levelIid": "b0bad970-fa90-11f0-95ec-9bb8d9cc1bda",
-				"layerIid": "b0bb0080-fa90-11f0-95ec-8b3306960b1d",
-				"entityIid": "12716950-fa90-11f0-95ec-1fe990692946"
-			}, "worldX": 3828, "worldY": -660, "widPx": 16, "heiPx": 16, "fields" : {} },
-			{ "iids": {
-				"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787",
-				"levelIid": "b0bad970-fa90-11f0-95ec-9bb8d9cc1bda",
-				"layerIid": "b0bb0080-fa90-11f0-95ec-8b3306960b1d",
-				"entityIid": "14456600-fa90-11f0-95ec-c9e79efdad57"
-			}, "worldX": 3828, "worldY": -612, "widPx": 16, "heiPx": 16, "fields" : {} },
-			{ "iids": {
-				"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787",
-				"levelIid": "b0bad970-fa90-11f0-95ec-9bb8d9cc1bda",
-				"layerIid": "b0bb0080-fa90-11f0-95ec-8b3306960b1d",
-				"entityIid": "16893b80-fa90-11f0-95ec-63384d735ab5"
-			}, "worldX": 3828, "worldY": -564, "widPx": 16, "heiPx": 16, "fields" : {} },
-			{ "iids": {
-				"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787",
-				"levelIid": "b0bad970-fa90-11f0-95ec-9bb8d9cc1bda",
-				"layerIid": "b0bb0080-fa90-11f0-95ec-8b3306960b1d",
-				"entityIid": "17b55f70-fa90-11f0-95ec-7f053835aa26"
-			}, "worldX": 3828, "worldY": -516, "widPx": 16, "heiPx": 16, "fields" : {} },
-			{ "iids": {
-				"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787",
-				"levelIid": "b0bad970-fa90-11f0-95ec-9bb8d9cc1bda",
-				"layerIid": "b0bb0080-fa90-11f0-95ec-8b3306960b1d",
-				"entityIid": "19f404d0-fa90-11f0-95ec-9348ea208950"
-			}, "worldX": 3828, "worldY": -468, "widPx": 16, "heiPx": 16, "fields" : {} },
-			{ "iids": {
-				"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787",
-				"levelIid": "b0bad970-fa90-11f0-95ec-9bb8d9cc1bda",
-				"layerIid": "b0bb0080-fa90-11f0-95ec-8b3306960b1d",
-				"entityIid": "1e06cdf0-fa90-11f0-95ec-e3769a794947"
-			}, "worldX": 3828, "worldY": -420, "widPx": 16, "heiPx": 16, "fields" : {} },
-			{ "iids": {
-				"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787",
-				"levelIid": "b0bad970-fa90-11f0-95ec-9bb8d9cc1bda",
-				"layerIid": "b0bb0080-fa90-11f0-95ec-8b3306960b1d",
-				"entityIid": "1f1e7f80-fa90-11f0-95ec-6fa8f08a029a"
-			}, "worldX": 3828, "worldY": -372, "widPx": 16, "heiPx": 16, "fields" : {} },
-			{ "iids": {
-				"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787",
-				"levelIid": "b0bad970-fa90-11f0-95ec-9bb8d9cc1bda",
-				"layerIid": "b0bb0080-fa90-11f0-95ec-8b3306960b1d",
-				"entityIid": "207d9a50-fa90-11f0-95ec-dd9b7d8f1a77"
-			}, "worldX": 3828, "worldY": -324, "widPx": 16, "heiPx": 16, "fields" : {} },
-			{ "iids": {
-				"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787",
-				"levelIid": "b0bad970-fa90-11f0-95ec-9bb8d9cc1bda",
-				"layerIid": "b0bb0080-fa90-11f0-95ec-8b3306960b1d",
-				"entityIid": "214e09b0-fa90-11f0-95ec-676cdd707081"
-			}, "worldX": 3828, "worldY": -276, "widPx": 16, "heiPx": 16, "fields" : {} },
-			{ "iids": {
-				"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787",
-				"levelIid": "b0bad970-fa90-11f0-95ec-9bb8d9cc1bda",
-				"layerIid": "b0bb0080-fa90-11f0-95ec-8b3306960b1d",
-				"entityIid": "22b22d90-fa90-11f0-95ec-b56355275e58"
-			}, "worldX": 3828, "worldY": -228, "widPx": 16, "heiPx": 16, "fields" : {} },
+			}, "worldX": 892, "worldY": -964, "widPx": 16, "heiPx": 16, "fields" : {} },
 			{ "iids": {
 				"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787",
 				"levelIid": "b0bad970-fa90-11f0-95ec-9bb8d9cc1bda",
 				"layerIid": "b0bb0080-fa90-11f0-95ec-8b3306960b1d",
 				"entityIid": "24d9ef90-fa90-11f0-95ec-11382381a1ef"
-			}, "worldX": 3828, "worldY": -188, "widPx": 16, "heiPx": 16, "fields" : {} },
+			}, "worldX": 3828, "worldY": -540, "widPx": 16, "heiPx": 720, "fields" : {} },
 			{ "iids": {
 				"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787",
 				"levelIid": "b0bad970-fa90-11f0-95ec-9bb8d9cc1bda",
 				"layerIid": "b0bb0080-fa90-11f0-95ec-8b3306960b1d",
 				"entityIid": "379a3d50-fa90-11f0-95ec-815dd2ea23dd"
-			}, "worldX": 2884, "worldY": -916, "widPx": 16, "heiPx": 16, "fields" : {} },
+			}, "worldX": 2868, "worldY": -948, "widPx": 16, "heiPx": 16, "fields" : {} },
 			{ "iids": {
 				"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787",
 				"levelIid": "1ae35cf0-fa90-11f0-95ec-85cc4233bd3c",
@@ -148,7 +58,7 @@
 				"levelIid": "1ae35cf0-fa90-11f0-95ec-85cc4233bd3c",
 				"layerIid": "1ae35cf3-fa90-11f0-95ec-c348a259a321",
 				"entityIid": "192f83b0-fa90-11f0-95ec-33d368ca5083"
-			}, "worldX": 1876, "worldY": -1636, "widPx": 16, "heiPx": 16, "fields" : {} },
+			}, "worldX": 1876, "worldY": -1612, "widPx": 16, "heiPx": 16, "fields" : {} },
 			{ "iids": {
 				"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787",
 				"levelIid": "1ae35cf0-fa90-11f0-95ec-85cc4233bd3c",
@@ -178,7 +88,7 @@
 				"levelIid": "1f0a2340-fa90-11f0-95ec-b5764b7730ff",
 				"layerIid": "1f0a2343-fa90-11f0-95ec-27803fef534f",
 				"entityIid": "3b0c80b0-fa90-11f0-95ec-0574faf58485"
-			}, "worldX": 2876, "worldY": -1220, "widPx": 16, "heiPx": 16, "fields" : {} },
+			}, "worldX": 2876, "worldY": -1196, "widPx": 16, "heiPx": 16, "fields" : {} },
 			{ "iids": {
 				"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787",
 				"levelIid": "2091ada0-fa90-11f0-95ec-63798b15b604",
@@ -195,98 +105,8 @@
 				"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787",
 				"levelIid": "7072afd0-fa90-11f0-95ec-9728d75f4198",
 				"layerIid": "7072afd3-fa90-11f0-95ec-97a665172d3c",
-				"entityIid": "e8407a40-fa90-11f0-95ec-731374bce536"
-			}, "worldX": 3852, "worldY": -892, "widPx": 16, "heiPx": 16, "fields" : {} },
-			{ "iids": {
-				"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787",
-				"levelIid": "7072afd0-fa90-11f0-95ec-9728d75f4198",
-				"layerIid": "7072afd3-fa90-11f0-95ec-97a665172d3c",
-				"entityIid": "eab9b7a0-fa90-11f0-95ec-e15a253d2a23"
-			}, "worldX": 3852, "worldY": -844, "widPx": 16, "heiPx": 16, "fields" : {} },
-			{ "iids": {
-				"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787",
-				"levelIid": "7072afd0-fa90-11f0-95ec-9728d75f4198",
-				"layerIid": "7072afd3-fa90-11f0-95ec-97a665172d3c",
-				"entityIid": "ec64f6a0-fa90-11f0-95ec-6b1e39f56f0c"
-			}, "worldX": 3852, "worldY": -796, "widPx": 16, "heiPx": 16, "fields" : {} },
-			{ "iids": {
-				"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787",
-				"levelIid": "7072afd0-fa90-11f0-95ec-9728d75f4198",
-				"layerIid": "7072afd3-fa90-11f0-95ec-97a665172d3c",
-				"entityIid": "ee45c490-fa90-11f0-95ec-c9aa6192596a"
-			}, "worldX": 3852, "worldY": -748, "widPx": 16, "heiPx": 16, "fields" : {} },
-			{ "iids": {
-				"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787",
-				"levelIid": "7072afd0-fa90-11f0-95ec-9728d75f4198",
-				"layerIid": "7072afd3-fa90-11f0-95ec-97a665172d3c",
-				"entityIid": "f10b4d30-fa90-11f0-95ec-5523ade7a72c"
-			}, "worldX": 3852, "worldY": -700, "widPx": 16, "heiPx": 16, "fields" : {} },
-			{ "iids": {
-				"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787",
-				"levelIid": "7072afd0-fa90-11f0-95ec-9728d75f4198",
-				"layerIid": "7072afd3-fa90-11f0-95ec-97a665172d3c",
-				"entityIid": "f28b3670-fa90-11f0-95ec-c91bfe67aa9b"
-			}, "worldX": 3852, "worldY": -652, "widPx": 16, "heiPx": 16, "fields" : {} },
-			{ "iids": {
-				"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787",
-				"levelIid": "7072afd0-fa90-11f0-95ec-9728d75f4198",
-				"layerIid": "7072afd3-fa90-11f0-95ec-97a665172d3c",
-				"entityIid": "f38993a0-fa90-11f0-95ec-8bf85d1de694"
-			}, "worldX": 3852, "worldY": -604, "widPx": 16, "heiPx": 16, "fields" : {} },
-			{ "iids": {
-				"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787",
-				"levelIid": "7072afd0-fa90-11f0-95ec-9728d75f4198",
-				"layerIid": "7072afd3-fa90-11f0-95ec-97a665172d3c",
-				"entityIid": "f4e5ef50-fa90-11f0-95ec-2fcbf35580d9"
-			}, "worldX": 3852, "worldY": -556, "widPx": 16, "heiPx": 16, "fields" : {} },
-			{ "iids": {
-				"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787",
-				"levelIid": "7072afd0-fa90-11f0-95ec-9728d75f4198",
-				"layerIid": "7072afd3-fa90-11f0-95ec-97a665172d3c",
-				"entityIid": "f761c4c0-fa90-11f0-95ec-ed3624200c21"
-			}, "worldX": 3852, "worldY": -508, "widPx": 16, "heiPx": 16, "fields" : {} },
-			{ "iids": {
-				"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787",
-				"levelIid": "7072afd0-fa90-11f0-95ec-9728d75f4198",
-				"layerIid": "7072afd3-fa90-11f0-95ec-97a665172d3c",
-				"entityIid": "f8862080-fa90-11f0-95ec-a303328d5be0"
-			}, "worldX": 3852, "worldY": -460, "widPx": 16, "heiPx": 16, "fields" : {} },
-			{ "iids": {
-				"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787",
-				"levelIid": "7072afd0-fa90-11f0-95ec-9728d75f4198",
-				"layerIid": "7072afd3-fa90-11f0-95ec-97a665172d3c",
-				"entityIid": "fb46c720-fa90-11f0-95ec-effa2c28861c"
-			}, "worldX": 3852, "worldY": -412, "widPx": 16, "heiPx": 16, "fields" : {} },
-			{ "iids": {
-				"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787",
-				"levelIid": "7072afd0-fa90-11f0-95ec-9728d75f4198",
-				"layerIid": "7072afd3-fa90-11f0-95ec-97a665172d3c",
-				"entityIid": "fc385310-fa90-11f0-95ec-cb631021bdf7"
-			}, "worldX": 3852, "worldY": -364, "widPx": 16, "heiPx": 16, "fields" : {} },
-			{ "iids": {
-				"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787",
-				"levelIid": "7072afd0-fa90-11f0-95ec-9728d75f4198",
-				"layerIid": "7072afd3-fa90-11f0-95ec-97a665172d3c",
-				"entityIid": "fd5a3dd0-fa90-11f0-95ec-ad4a484f8c1a"
-			}, "worldX": 3852, "worldY": -316, "widPx": 16, "heiPx": 16, "fields" : {} },
-			{ "iids": {
-				"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787",
-				"levelIid": "7072afd0-fa90-11f0-95ec-9728d75f4198",
-				"layerIid": "7072afd3-fa90-11f0-95ec-97a665172d3c",
-				"entityIid": "fe4bc9c0-fa90-11f0-95ec-7d20fccc9011"
-			}, "worldX": 3852, "worldY": -268, "widPx": 16, "heiPx": 16, "fields" : {} },
-			{ "iids": {
-				"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787",
-				"levelIid": "7072afd0-fa90-11f0-95ec-9728d75f4198",
-				"layerIid": "7072afd3-fa90-11f0-95ec-97a665172d3c",
-				"entityIid": "005f4070-fa90-11f0-95ec-b3548a794491"
-			}, "worldX": 3852, "worldY": -220, "widPx": 16, "heiPx": 16, "fields" : {} },
-			{ "iids": {
-				"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787",
-				"levelIid": "7072afd0-fa90-11f0-95ec-9728d75f4198",
-				"layerIid": "7072afd3-fa90-11f0-95ec-97a665172d3c",
 				"entityIid": "285e3450-fa90-11f0-95ec-63fc582c909b"
-			}, "worldX": 3852, "worldY": -188, "widPx": 16, "heiPx": 16, "fields" : {} },
+			}, "worldX": 3852, "worldY": -540, "widPx": 16, "heiPx": 720, "fields" : {} },
 			{ "iids": {
 				"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787",
 				"levelIid": "7072afd0-fa90-11f0-95ec-9728d75f4198",
@@ -499,7 +319,7 @@
 		}
 	], "entities": [
 		{
-			"identifier": "Spawn_Point",
+			"identifier": "Teleporter",
 			"uid": 12,
 			"tags": ["Floor_Interactable"],
 			"exportToToc": true,
@@ -507,19 +327,19 @@
 			"doc": null,
 			"width": 16,
 			"height": 16,
-			"resizableX": false,
-			"resizableY": false,
-			"minWidth": null,
+			"resizableX": true,
+			"resizableY": true,
+			"minWidth": 16,
 			"maxWidth": null,
-			"minHeight": null,
+			"minHeight": 16,
 			"maxHeight": null,
-			"keepAspectRatio": true,
+			"keepAspectRatio": false,
 			"tileOpacity": 1,
 			"fillOpacity": 1,
 			"lineOpacity": 1,
 			"hollow": false,
 			"color": "#BE4A2F",
-			"renderMode": "Ellipse",
+			"renderMode": "Rectangle",
 			"showName": true,
 			"tilesetId": null,
 			"tileRenderMode": "FitInside",
@@ -533,7 +353,7 @@
 			"pivotY": 0.5,
 			"fieldDefs": [
 				{
-					"identifier": "ConnectedSpawnPoint",
+					"identifier": "ConnectedTeleporter",
 					"doc": null,
 					"__type": "EntityRef",
 					"uid": 31,
@@ -570,20 +390,57 @@
 					"tilesetUid": null
 				},
 				{
-					"identifier": "ArrivalGridPosition",
-					"doc": "This is where the player will arrive when using the connected spawn point.",
-					"__type": "Point",
-					"uid": 32,
-					"type": "F_Point",
+					"identifier": "OffsetDirection",
+					"doc": "This is the direction whatever uses the teleport point will be offset to when arriving. Overridden by the grid position.",
+					"__type": "LocalEnum.Direction",
+					"uid": 51,
+					"type": "F_Enum(37)",
 					"isArray": false,
 					"canBeNull": false,
 					"arrayMinLength": null,
 					"arrayMaxLength": null,
-					"editorDisplayMode": "PointStar",
+					"editorDisplayMode": "Hidden",
 					"editorDisplayScale": 1,
 					"editorDisplayPos": "Above",
 					"editorLinkStyle": "StraightArrow",
-					"editorDisplayColor": "#D5B813",
+					"editorDisplayColor": null,
+					"editorAlwaysShow": false,
+					"editorShowInWorld": true,
+					"editorCutLongValues": true,
+					"editorTextSuffix": null,
+					"editorTextPrefix": null,
+					"useForSmartColor": false,
+					"exportToToc": false,
+					"searchable": false,
+					"min": null,
+					"max": null,
+					"regex": null,
+					"acceptFileTypes": null,
+					"defaultOverride": null,
+					"textLanguageMode": null,
+					"symmetricalRef": false,
+					"autoChainRef": true,
+					"allowOutOfLevelRef": true,
+					"allowedRefs": "OnlySame",
+					"allowedRefsEntityUid": null,
+					"allowedRefTags": [],
+					"tilesetUid": null
+				},
+				{
+					"identifier": "ArrivalGridPosition",
+					"doc": "This overrides the arrival direction if set.",
+					"__type": "Point",
+					"uid": 52,
+					"type": "F_Point",
+					"isArray": false,
+					"canBeNull": true,
+					"arrayMinLength": null,
+					"arrayMaxLength": null,
+					"editorDisplayMode": "PointPath",
+					"editorDisplayScale": 1,
+					"editorDisplayPos": "Above",
+					"editorLinkStyle": "StraightArrow",
+					"editorDisplayColor": null,
 					"editorAlwaysShow": false,
 					"editorShowInWorld": true,
 					"editorCutLongValues": true,
@@ -1567,8 +1424,8 @@
 					"gridTiles": [],
 					"entityInstances": [
 						{
-							"__identifier": "Spawn_Point",
-							"__grid": [112,20],
+							"__identifier": "Teleporter",
+							"__grid": [112,15],
 							"__pivot": [0.5,0.5],
 							"__tags": ["Floor_Interactable"],
 							"__tile": null,
@@ -1577,9 +1434,9 @@
 							"width": 16,
 							"height": 16,
 							"defUid": 12,
-							"px": [900,164],
+							"px": [900,124],
 							"fieldInstances": [
-								{ "__identifier": "ConnectedSpawnPoint", "__type": "EntityRef", "__value": {
+								{ "__identifier": "ConnectedTeleporter", "__type": "EntityRef", "__value": {
 									"entityIid": "6d3e3050-fa90-11f0-85ba-f796828588ad",
 									"layerIid": "e51a3cd0-d380-11f0-a1bc-17f9478cdf93",
 									"levelIid": "ece88230-d380-11f0-a1bc-15355c04c6fa",
@@ -1588,13 +1445,14 @@
 									"id": "V_String",
 									"params": ["6d3e3050-fa90-11f0-85ba-f796828588ad"]
 								}] },
-								{ "__identifier": "ArrivalGridPosition", "__type": "Point", "__value": { "cx": 112, "cy": 30 }, "__tile": null, "defUid": 32, "realEditorValues": [{
+								{ "__identifier": "OffsetDirection", "__type": "LocalEnum.Direction", "__value": "Down", "__tile": null, "defUid": 51, "realEditorValues": [{
 									"id": "V_String",
-									"params": ["112,30"]
-								}] }
+									"params": ["Down"]
+								}] },
+								{ "__identifier": "ArrivalGridPosition", "__type": "Point", "__value": null, "__tile": null, "defUid": 52, "realEditorValues": [] }
 							],
 							"__worldX": 900,
-							"__worldY": 164
+							"__worldY": 124
 						}
 					]
 				},
@@ -2168,7 +2026,7 @@
 					"gridTiles": [],
 					"entityInstances": [
 						{
-							"__identifier": "Spawn_Point",
+							"__identifier": "Teleporter",
 							"__grid": [112,130],
 							"__pivot": [0.5,0.5],
 							"__tags": ["Floor_Interactable"],
@@ -2180,7 +2038,7 @@
 							"defUid": 12,
 							"px": [900,1044],
 							"fieldInstances": [
-								{ "__identifier": "ConnectedSpawnPoint", "__type": "EntityRef", "__value": {
+								{ "__identifier": "ConnectedTeleporter", "__type": "EntityRef", "__value": {
 									"entityIid": "6b6f63c0-fa90-11f0-85ba-1d0ac849c3bc",
 									"layerIid": "e519eeb0-d380-11f0-a1bc-09692cbe4ff9",
 									"levelIid": "def30d80-d380-11f0-a1bc-2363b8ac7cbf",
@@ -2189,17 +2047,18 @@
 									"id": "V_String",
 									"params": ["6b6f63c0-fa90-11f0-85ba-1d0ac849c3bc"]
 								}] },
-								{ "__identifier": "ArrivalGridPosition", "__type": "Point", "__value": { "cx": 112, "cy": 115 }, "__tile": null, "defUid": 32, "realEditorValues": [{
+								{ "__identifier": "OffsetDirection", "__type": "LocalEnum.Direction", "__value": "Up", "__tile": null, "defUid": 51, "realEditorValues": [{
 									"id": "V_String",
-									"params": ["112,115"]
-								}] }
+									"params": ["Up"]
+								}] },
+								{ "__identifier": "ArrivalGridPosition", "__type": "Point", "__value": null, "__tile": null, "defUid": 52, "realEditorValues": [] }
 							],
 							"__worldX": 900,
 							"__worldY": -36
 						},
 						{
-							"__identifier": "Spawn_Point",
-							"__grid": [111,20],
+							"__identifier": "Teleporter",
+							"__grid": [111,14],
 							"__pivot": [0.5,0.5],
 							"__tags": ["Floor_Interactable"],
 							"__tile": null,
@@ -2208,9 +2067,9 @@
 							"width": 16,
 							"height": 16,
 							"defUid": 12,
-							"px": [892,164],
+							"px": [892,116],
 							"fieldInstances": [
-								{ "__identifier": "ConnectedSpawnPoint", "__type": "EntityRef", "__value": {
+								{ "__identifier": "ConnectedTeleporter", "__type": "EntityRef", "__value": {
 									"entityIid": "e7b2dd10-fa90-11f0-95ec-6db0deef7c4c",
 									"layerIid": "1ae35cf3-fa90-11f0-95ec-c348a259a321",
 									"levelIid": "1ae35cf0-fa90-11f0-95ec-85cc4233bd3c",
@@ -2219,13 +2078,14 @@
 									"id": "V_String",
 									"params": ["e7b2dd10-fa90-11f0-95ec-6db0deef7c4c"]
 								}] },
-								{ "__identifier": "ArrivalGridPosition", "__type": "Point", "__value": { "cx": 111, "cy": 40 }, "__tile": null, "defUid": 32, "realEditorValues": [{
+								{ "__identifier": "OffsetDirection", "__type": "LocalEnum.Direction", "__value": "Down", "__tile": null, "defUid": 51, "realEditorValues": [{
 									"id": "V_String",
-									"params": ["111,40"]
-								}] }
+									"params": ["Down"]
+								}] },
+								{ "__identifier": "ArrivalGridPosition", "__type": "Point", "__value": null, "__tile": null, "defUid": 52, "realEditorValues": [] }
 							],
 							"__worldX": 892,
-							"__worldY": -916
+							"__worldY": -964
 						}
 					]
 				},
@@ -2878,469 +2738,19 @@
 					"gridTiles": [],
 					"entityInstances": [
 						{
-							"__identifier": "Spawn_Point",
-							"__grid": [238,22],
-							"__pivot": [0.5,0.5],
-							"__tags": ["Floor_Interactable"],
-							"__tile": null,
-							"__smartColor": "#BE4A2F",
-							"iid": "05ef5ac0-fa90-11f0-95ec-5550bffe137d",
-							"width": 16,
-							"height": 16,
-							"defUid": 12,
-							"px": [1908,180],
-							"fieldInstances": [
-								{ "__identifier": "ConnectedSpawnPoint", "__type": "EntityRef", "__value": {
-									"entityIid": "e8407a40-fa90-11f0-95ec-731374bce536",
-									"layerIid": "7072afd3-fa90-11f0-95ec-97a665172d3c",
-									"levelIid": "7072afd0-fa90-11f0-95ec-9728d75f4198",
-									"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787"
-								}, "__tile": null, "defUid": 31, "realEditorValues": [{
-									"id": "V_String",
-									"params": ["e8407a40-fa90-11f0-95ec-731374bce536"]
-								}] },
-								{ "__identifier": "ArrivalGridPosition", "__type": "Point", "__value": { "cx": 220, "cy": 22 }, "__tile": null, "defUid": 32, "realEditorValues": [{
-									"id": "V_String",
-									"params": ["220,22"]
-								}] }
-							],
-							"__worldX": 3828,
-							"__worldY": -900
-						},
-						{
-							"__identifier": "Spawn_Point",
-							"__grid": [238,28],
-							"__pivot": [0.5,0.5],
-							"__tags": ["Floor_Interactable"],
-							"__tile": null,
-							"__smartColor": "#BE4A2F",
-							"iid": "076a8910-fa90-11f0-95ec-5b7003775699",
-							"width": 16,
-							"height": 16,
-							"defUid": 12,
-							"px": [1908,228],
-							"fieldInstances": [
-								{ "__identifier": "ConnectedSpawnPoint", "__type": "EntityRef", "__value": {
-									"entityIid": "eab9b7a0-fa90-11f0-95ec-e15a253d2a23",
-									"layerIid": "7072afd3-fa90-11f0-95ec-97a665172d3c",
-									"levelIid": "7072afd0-fa90-11f0-95ec-9728d75f4198",
-									"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787"
-								}, "__tile": null, "defUid": 31, "realEditorValues": [{
-									"id": "V_String",
-									"params": ["eab9b7a0-fa90-11f0-95ec-e15a253d2a23"]
-								}] },
-								{ "__identifier": "ArrivalGridPosition", "__type": "Point", "__value": { "cx": 220, "cy": 28 }, "__tile": null, "defUid": 32, "realEditorValues": [{
-									"id": "V_String",
-									"params": ["220,28"]
-								}] }
-							],
-							"__worldX": 3828,
-							"__worldY": -852
-						},
-						{
-							"__identifier": "Spawn_Point",
-							"__grid": [238,34],
-							"__pivot": [0.5,0.5],
-							"__tags": ["Floor_Interactable"],
-							"__tile": null,
-							"__smartColor": "#BE4A2F",
-							"iid": "08f9b490-fa90-11f0-95ec-21e6fbfe88bb",
-							"width": 16,
-							"height": 16,
-							"defUid": 12,
-							"px": [1908,276],
-							"fieldInstances": [
-								{ "__identifier": "ConnectedSpawnPoint", "__type": "EntityRef", "__value": {
-									"entityIid": "ec64f6a0-fa90-11f0-95ec-6b1e39f56f0c",
-									"layerIid": "7072afd3-fa90-11f0-95ec-97a665172d3c",
-									"levelIid": "7072afd0-fa90-11f0-95ec-9728d75f4198",
-									"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787"
-								}, "__tile": null, "defUid": 31, "realEditorValues": [{
-									"id": "V_String",
-									"params": ["ec64f6a0-fa90-11f0-95ec-6b1e39f56f0c"]
-								}] },
-								{ "__identifier": "ArrivalGridPosition", "__type": "Point", "__value": { "cx": 220, "cy": 34 }, "__tile": null, "defUid": 32, "realEditorValues": [{
-									"id": "V_String",
-									"params": ["220,34"]
-								}] }
-							],
-							"__worldX": 3828,
-							"__worldY": -804
-						},
-						{
-							"__identifier": "Spawn_Point",
-							"__grid": [238,40],
-							"__pivot": [0.5,0.5],
-							"__tags": ["Floor_Interactable"],
-							"__tile": null,
-							"__smartColor": "#BE4A2F",
-							"iid": "0e19f610-fa90-11f0-95ec-f745d3d2abfe",
-							"width": 16,
-							"height": 16,
-							"defUid": 12,
-							"px": [1908,324],
-							"fieldInstances": [
-								{ "__identifier": "ConnectedSpawnPoint", "__type": "EntityRef", "__value": {
-									"entityIid": "ee45c490-fa90-11f0-95ec-c9aa6192596a",
-									"layerIid": "7072afd3-fa90-11f0-95ec-97a665172d3c",
-									"levelIid": "7072afd0-fa90-11f0-95ec-9728d75f4198",
-									"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787"
-								}, "__tile": null, "defUid": 31, "realEditorValues": [{
-									"id": "V_String",
-									"params": ["ee45c490-fa90-11f0-95ec-c9aa6192596a"]
-								}] },
-								{ "__identifier": "ArrivalGridPosition", "__type": "Point", "__value": { "cx": 220, "cy": 40 }, "__tile": null, "defUid": 32, "realEditorValues": [{
-									"id": "V_String",
-									"params": ["220,40"]
-								}] }
-							],
-							"__worldX": 3828,
-							"__worldY": -756
-						},
-						{
-							"__identifier": "Spawn_Point",
-							"__grid": [238,46],
-							"__pivot": [0.5,0.5],
-							"__tags": ["Floor_Interactable"],
-							"__tile": null,
-							"__smartColor": "#BE4A2F",
-							"iid": "109afba0-fa90-11f0-95ec-bd2a99dcfc2d",
-							"width": 16,
-							"height": 16,
-							"defUid": 12,
-							"px": [1908,372],
-							"fieldInstances": [
-								{ "__identifier": "ConnectedSpawnPoint", "__type": "EntityRef", "__value": {
-									"entityIid": "f10b4d30-fa90-11f0-95ec-5523ade7a72c",
-									"layerIid": "7072afd3-fa90-11f0-95ec-97a665172d3c",
-									"levelIid": "7072afd0-fa90-11f0-95ec-9728d75f4198",
-									"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787"
-								}, "__tile": null, "defUid": 31, "realEditorValues": [{
-									"id": "V_String",
-									"params": ["f10b4d30-fa90-11f0-95ec-5523ade7a72c"]
-								}] },
-								{ "__identifier": "ArrivalGridPosition", "__type": "Point", "__value": { "cx": 220, "cy": 46 }, "__tile": null, "defUid": 32, "realEditorValues": [{
-									"id": "V_String",
-									"params": ["220,46"]
-								}] }
-							],
-							"__worldX": 3828,
-							"__worldY": -708
-						},
-						{
-							"__identifier": "Spawn_Point",
-							"__grid": [238,52],
-							"__pivot": [0.5,0.5],
-							"__tags": ["Floor_Interactable"],
-							"__tile": null,
-							"__smartColor": "#BE4A2F",
-							"iid": "12716950-fa90-11f0-95ec-1fe990692946",
-							"width": 16,
-							"height": 16,
-							"defUid": 12,
-							"px": [1908,420],
-							"fieldInstances": [
-								{ "__identifier": "ConnectedSpawnPoint", "__type": "EntityRef", "__value": {
-									"entityIid": "f28b3670-fa90-11f0-95ec-c91bfe67aa9b",
-									"layerIid": "7072afd3-fa90-11f0-95ec-97a665172d3c",
-									"levelIid": "7072afd0-fa90-11f0-95ec-9728d75f4198",
-									"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787"
-								}, "__tile": null, "defUid": 31, "realEditorValues": [{
-									"id": "V_String",
-									"params": ["f28b3670-fa90-11f0-95ec-c91bfe67aa9b"]
-								}] },
-								{ "__identifier": "ArrivalGridPosition", "__type": "Point", "__value": { "cx": 220, "cy": 52 }, "__tile": null, "defUid": 32, "realEditorValues": [{
-									"id": "V_String",
-									"params": ["220,52"]
-								}] }
-							],
-							"__worldX": 3828,
-							"__worldY": -660
-						},
-						{
-							"__identifier": "Spawn_Point",
-							"__grid": [238,58],
-							"__pivot": [0.5,0.5],
-							"__tags": ["Floor_Interactable"],
-							"__tile": null,
-							"__smartColor": "#BE4A2F",
-							"iid": "14456600-fa90-11f0-95ec-c9e79efdad57",
-							"width": 16,
-							"height": 16,
-							"defUid": 12,
-							"px": [1908,468],
-							"fieldInstances": [
-								{ "__identifier": "ConnectedSpawnPoint", "__type": "EntityRef", "__value": {
-									"entityIid": "f38993a0-fa90-11f0-95ec-8bf85d1de694",
-									"layerIid": "7072afd3-fa90-11f0-95ec-97a665172d3c",
-									"levelIid": "7072afd0-fa90-11f0-95ec-9728d75f4198",
-									"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787"
-								}, "__tile": null, "defUid": 31, "realEditorValues": [{
-									"id": "V_String",
-									"params": ["f38993a0-fa90-11f0-95ec-8bf85d1de694"]
-								}] },
-								{ "__identifier": "ArrivalGridPosition", "__type": "Point", "__value": { "cx": 220, "cy": 58 }, "__tile": null, "defUid": 32, "realEditorValues": [{
-									"id": "V_String",
-									"params": ["220,58"]
-								}] }
-							],
-							"__worldX": 3828,
-							"__worldY": -612
-						},
-						{
-							"__identifier": "Spawn_Point",
-							"__grid": [238,64],
-							"__pivot": [0.5,0.5],
-							"__tags": ["Floor_Interactable"],
-							"__tile": null,
-							"__smartColor": "#BE4A2F",
-							"iid": "16893b80-fa90-11f0-95ec-63384d735ab5",
-							"width": 16,
-							"height": 16,
-							"defUid": 12,
-							"px": [1908,516],
-							"fieldInstances": [
-								{ "__identifier": "ConnectedSpawnPoint", "__type": "EntityRef", "__value": {
-									"entityIid": "f4e5ef50-fa90-11f0-95ec-2fcbf35580d9",
-									"layerIid": "7072afd3-fa90-11f0-95ec-97a665172d3c",
-									"levelIid": "7072afd0-fa90-11f0-95ec-9728d75f4198",
-									"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787"
-								}, "__tile": null, "defUid": 31, "realEditorValues": [{
-									"id": "V_String",
-									"params": ["f4e5ef50-fa90-11f0-95ec-2fcbf35580d9"]
-								}] },
-								{ "__identifier": "ArrivalGridPosition", "__type": "Point", "__value": { "cx": 220, "cy": 64 }, "__tile": null, "defUid": 32, "realEditorValues": [{
-									"id": "V_String",
-									"params": ["220,64"]
-								}] }
-							],
-							"__worldX": 3828,
-							"__worldY": -564
-						},
-						{
-							"__identifier": "Spawn_Point",
-							"__grid": [238,70],
-							"__pivot": [0.5,0.5],
-							"__tags": ["Floor_Interactable"],
-							"__tile": null,
-							"__smartColor": "#BE4A2F",
-							"iid": "17b55f70-fa90-11f0-95ec-7f053835aa26",
-							"width": 16,
-							"height": 16,
-							"defUid": 12,
-							"px": [1908,564],
-							"fieldInstances": [
-								{ "__identifier": "ConnectedSpawnPoint", "__type": "EntityRef", "__value": {
-									"entityIid": "f761c4c0-fa90-11f0-95ec-ed3624200c21",
-									"layerIid": "7072afd3-fa90-11f0-95ec-97a665172d3c",
-									"levelIid": "7072afd0-fa90-11f0-95ec-9728d75f4198",
-									"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787"
-								}, "__tile": null, "defUid": 31, "realEditorValues": [{
-									"id": "V_String",
-									"params": ["f761c4c0-fa90-11f0-95ec-ed3624200c21"]
-								}] },
-								{ "__identifier": "ArrivalGridPosition", "__type": "Point", "__value": { "cx": 220, "cy": 70 }, "__tile": null, "defUid": 32, "realEditorValues": [{
-									"id": "V_String",
-									"params": ["220,70"]
-								}] }
-							],
-							"__worldX": 3828,
-							"__worldY": -516
-						},
-						{
-							"__identifier": "Spawn_Point",
-							"__grid": [238,76],
-							"__pivot": [0.5,0.5],
-							"__tags": ["Floor_Interactable"],
-							"__tile": null,
-							"__smartColor": "#BE4A2F",
-							"iid": "19f404d0-fa90-11f0-95ec-9348ea208950",
-							"width": 16,
-							"height": 16,
-							"defUid": 12,
-							"px": [1908,612],
-							"fieldInstances": [
-								{ "__identifier": "ConnectedSpawnPoint", "__type": "EntityRef", "__value": {
-									"entityIid": "f8862080-fa90-11f0-95ec-a303328d5be0",
-									"layerIid": "7072afd3-fa90-11f0-95ec-97a665172d3c",
-									"levelIid": "7072afd0-fa90-11f0-95ec-9728d75f4198",
-									"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787"
-								}, "__tile": null, "defUid": 31, "realEditorValues": [{
-									"id": "V_String",
-									"params": ["f8862080-fa90-11f0-95ec-a303328d5be0"]
-								}] },
-								{ "__identifier": "ArrivalGridPosition", "__type": "Point", "__value": { "cx": 220, "cy": 76 }, "__tile": null, "defUid": 32, "realEditorValues": [{
-									"id": "V_String",
-									"params": ["220,76"]
-								}] }
-							],
-							"__worldX": 3828,
-							"__worldY": -468
-						},
-						{
-							"__identifier": "Spawn_Point",
-							"__grid": [238,82],
-							"__pivot": [0.5,0.5],
-							"__tags": ["Floor_Interactable"],
-							"__tile": null,
-							"__smartColor": "#BE4A2F",
-							"iid": "1e06cdf0-fa90-11f0-95ec-e3769a794947",
-							"width": 16,
-							"height": 16,
-							"defUid": 12,
-							"px": [1908,660],
-							"fieldInstances": [
-								{ "__identifier": "ConnectedSpawnPoint", "__type": "EntityRef", "__value": {
-									"entityIid": "fb46c720-fa90-11f0-95ec-effa2c28861c",
-									"layerIid": "7072afd3-fa90-11f0-95ec-97a665172d3c",
-									"levelIid": "7072afd0-fa90-11f0-95ec-9728d75f4198",
-									"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787"
-								}, "__tile": null, "defUid": 31, "realEditorValues": [{
-									"id": "V_String",
-									"params": ["fb46c720-fa90-11f0-95ec-effa2c28861c"]
-								}] },
-								{ "__identifier": "ArrivalGridPosition", "__type": "Point", "__value": { "cx": 220, "cy": 82 }, "__tile": null, "defUid": 32, "realEditorValues": [{
-									"id": "V_String",
-									"params": ["220,82"]
-								}] }
-							],
-							"__worldX": 3828,
-							"__worldY": -420
-						},
-						{
-							"__identifier": "Spawn_Point",
-							"__grid": [238,88],
-							"__pivot": [0.5,0.5],
-							"__tags": ["Floor_Interactable"],
-							"__tile": null,
-							"__smartColor": "#BE4A2F",
-							"iid": "1f1e7f80-fa90-11f0-95ec-6fa8f08a029a",
-							"width": 16,
-							"height": 16,
-							"defUid": 12,
-							"px": [1908,708],
-							"fieldInstances": [
-								{ "__identifier": "ConnectedSpawnPoint", "__type": "EntityRef", "__value": {
-									"entityIid": "fc385310-fa90-11f0-95ec-cb631021bdf7",
-									"layerIid": "7072afd3-fa90-11f0-95ec-97a665172d3c",
-									"levelIid": "7072afd0-fa90-11f0-95ec-9728d75f4198",
-									"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787"
-								}, "__tile": null, "defUid": 31, "realEditorValues": [{
-									"id": "V_String",
-									"params": ["fc385310-fa90-11f0-95ec-cb631021bdf7"]
-								}] },
-								{ "__identifier": "ArrivalGridPosition", "__type": "Point", "__value": { "cx": 220, "cy": 88 }, "__tile": null, "defUid": 32, "realEditorValues": [{
-									"id": "V_String",
-									"params": ["220,88"]
-								}] }
-							],
-							"__worldX": 3828,
-							"__worldY": -372
-						},
-						{
-							"__identifier": "Spawn_Point",
-							"__grid": [238,94],
-							"__pivot": [0.5,0.5],
-							"__tags": ["Floor_Interactable"],
-							"__tile": null,
-							"__smartColor": "#BE4A2F",
-							"iid": "207d9a50-fa90-11f0-95ec-dd9b7d8f1a77",
-							"width": 16,
-							"height": 16,
-							"defUid": 12,
-							"px": [1908,756],
-							"fieldInstances": [
-								{ "__identifier": "ConnectedSpawnPoint", "__type": "EntityRef", "__value": {
-									"entityIid": "fd5a3dd0-fa90-11f0-95ec-ad4a484f8c1a",
-									"layerIid": "7072afd3-fa90-11f0-95ec-97a665172d3c",
-									"levelIid": "7072afd0-fa90-11f0-95ec-9728d75f4198",
-									"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787"
-								}, "__tile": null, "defUid": 31, "realEditorValues": [{
-									"id": "V_String",
-									"params": ["fd5a3dd0-fa90-11f0-95ec-ad4a484f8c1a"]
-								}] },
-								{ "__identifier": "ArrivalGridPosition", "__type": "Point", "__value": { "cx": 220, "cy": 94 }, "__tile": null, "defUid": 32, "realEditorValues": [{
-									"id": "V_String",
-									"params": ["220,94"]
-								}] }
-							],
-							"__worldX": 3828,
-							"__worldY": -324
-						},
-						{
-							"__identifier": "Spawn_Point",
-							"__grid": [238,100],
-							"__pivot": [0.5,0.5],
-							"__tags": ["Floor_Interactable"],
-							"__tile": null,
-							"__smartColor": "#BE4A2F",
-							"iid": "214e09b0-fa90-11f0-95ec-676cdd707081",
-							"width": 16,
-							"height": 16,
-							"defUid": 12,
-							"px": [1908,804],
-							"fieldInstances": [
-								{ "__identifier": "ConnectedSpawnPoint", "__type": "EntityRef", "__value": {
-									"entityIid": "fe4bc9c0-fa90-11f0-95ec-7d20fccc9011",
-									"layerIid": "7072afd3-fa90-11f0-95ec-97a665172d3c",
-									"levelIid": "7072afd0-fa90-11f0-95ec-9728d75f4198",
-									"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787"
-								}, "__tile": null, "defUid": 31, "realEditorValues": [{
-									"id": "V_String",
-									"params": ["fe4bc9c0-fa90-11f0-95ec-7d20fccc9011"]
-								}] },
-								{ "__identifier": "ArrivalGridPosition", "__type": "Point", "__value": { "cx": 220, "cy": 100 }, "__tile": null, "defUid": 32, "realEditorValues": [{
-									"id": "V_String",
-									"params": ["220,100"]
-								}] }
-							],
-							"__worldX": 3828,
-							"__worldY": -276
-						},
-						{
-							"__identifier": "Spawn_Point",
-							"__grid": [238,106],
-							"__pivot": [0.5,0.5],
-							"__tags": ["Floor_Interactable"],
-							"__tile": null,
-							"__smartColor": "#BE4A2F",
-							"iid": "22b22d90-fa90-11f0-95ec-b56355275e58",
-							"width": 16,
-							"height": 16,
-							"defUid": 12,
-							"px": [1908,852],
-							"fieldInstances": [
-								{ "__identifier": "ConnectedSpawnPoint", "__type": "EntityRef", "__value": {
-									"entityIid": "005f4070-fa90-11f0-95ec-b3548a794491",
-									"layerIid": "7072afd3-fa90-11f0-95ec-97a665172d3c",
-									"levelIid": "7072afd0-fa90-11f0-95ec-9728d75f4198",
-									"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787"
-								}, "__tile": null, "defUid": 31, "realEditorValues": [{
-									"id": "V_String",
-									"params": ["005f4070-fa90-11f0-95ec-b3548a794491"]
-								}] },
-								{ "__identifier": "ArrivalGridPosition", "__type": "Point", "__value": { "cx": 220, "cy": 106 }, "__tile": null, "defUid": 32, "realEditorValues": [{
-									"id": "V_String",
-									"params": ["220,106"]
-								}] }
-							],
-							"__worldX": 3828,
-							"__worldY": -228
-						},
-						{
-							"__identifier": "Spawn_Point",
-							"__grid": [238,111],
+							"__identifier": "Teleporter",
+							"__grid": [238,67],
 							"__pivot": [0.5,0.5],
 							"__tags": ["Floor_Interactable"],
 							"__tile": null,
 							"__smartColor": "#BE4A2F",
 							"iid": "24d9ef90-fa90-11f0-95ec-11382381a1ef",
 							"width": 16,
-							"height": 16,
+							"height": 720,
 							"defUid": 12,
-							"px": [1908,892],
+							"px": [1908,540],
 							"fieldInstances": [
-								{ "__identifier": "ConnectedSpawnPoint", "__type": "EntityRef", "__value": {
+								{ "__identifier": "ConnectedTeleporter", "__type": "EntityRef", "__value": {
 									"entityIid": "285e3450-fa90-11f0-95ec-63fc582c909b",
 									"layerIid": "7072afd3-fa90-11f0-95ec-97a665172d3c",
 									"levelIid": "7072afd0-fa90-11f0-95ec-9728d75f4198",
@@ -3349,17 +2759,18 @@
 									"id": "V_String",
 									"params": ["285e3450-fa90-11f0-95ec-63fc582c909b"]
 								}] },
-								{ "__identifier": "ArrivalGridPosition", "__type": "Point", "__value": { "cx": 220, "cy": 111 }, "__tile": null, "defUid": 32, "realEditorValues": [{
+								{ "__identifier": "OffsetDirection", "__type": "LocalEnum.Direction", "__value": "Left", "__tile": null, "defUid": 51, "realEditorValues": [{
 									"id": "V_String",
-									"params": ["220,111"]
-								}] }
+									"params": ["Left"]
+								}] },
+								{ "__identifier": "ArrivalGridPosition", "__type": "Point", "__value": null, "__tile": null, "defUid": 52, "realEditorValues": [] }
 							],
 							"__worldX": 3828,
-							"__worldY": -188
+							"__worldY": -540
 						},
 						{
-							"__identifier": "Spawn_Point",
-							"__grid": [120,20],
+							"__identifier": "Teleporter",
+							"__grid": [118,16],
 							"__pivot": [0.5,0.5],
 							"__tags": ["Floor_Interactable"],
 							"__tile": null,
@@ -3368,9 +2779,9 @@
 							"width": 16,
 							"height": 16,
 							"defUid": 12,
-							"px": [964,164],
+							"px": [948,132],
 							"fieldInstances": [
-								{ "__identifier": "ConnectedSpawnPoint", "__type": "EntityRef", "__value": {
+								{ "__identifier": "ConnectedTeleporter", "__type": "EntityRef", "__value": {
 									"entityIid": "3b0c80b0-fa90-11f0-95ec-0574faf58485",
 									"layerIid": "1f0a2343-fa90-11f0-95ec-27803fef534f",
 									"levelIid": "1f0a2340-fa90-11f0-95ec-b5764b7730ff",
@@ -3379,13 +2790,14 @@
 									"id": "V_String",
 									"params": ["3b0c80b0-fa90-11f0-95ec-0574faf58485"]
 								}] },
-								{ "__identifier": "ArrivalGridPosition", "__type": "Point", "__value": { "cx": 120, "cy": 34 }, "__tile": null, "defUid": 32, "realEditorValues": [{
+								{ "__identifier": "OffsetDirection", "__type": "LocalEnum.Direction", "__value": "Down", "__tile": null, "defUid": 51, "realEditorValues": [{
 									"id": "V_String",
-									"params": ["120,34"]
-								}] }
+									"params": ["Down"]
+								}] },
+								{ "__identifier": "ArrivalGridPosition", "__type": "Point", "__value": null, "__tile": null, "defUid": 52, "realEditorValues": [] }
 							],
-							"__worldX": 2884,
-							"__worldY": -916
+							"__worldX": 2868,
+							"__worldY": -948
 						}
 					]
 				},
@@ -4084,7 +3496,7 @@
 					"layerDefUid": 36,
 					"pxOffsetX": 0,
 					"pxOffsetY": 0,
-					"visible": true,
+					"visible": false,
 					"optionalRules": [],
 					"intGridCsv": [],
 					"autoLayerTiles": [],
@@ -4231,7 +3643,7 @@
 					"gridTiles": [],
 					"entityInstances": [
 						{
-							"__identifier": "Spawn_Point",
+							"__identifier": "Teleporter",
 							"__grid": [111,129],
 							"__pivot": [0.5,0.5],
 							"__tags": ["Floor_Interactable"],
@@ -4243,7 +3655,7 @@
 							"defUid": 12,
 							"px": [892,1036],
 							"fieldInstances": [
-								{ "__identifier": "ConnectedSpawnPoint", "__type": "EntityRef", "__value": {
+								{ "__identifier": "ConnectedTeleporter", "__type": "EntityRef", "__value": {
 									"entityIid": "e4f78da0-fa90-11f0-95ec-dfa7a08c7f3e",
 									"layerIid": "e51a3cd0-d380-11f0-a1bc-17f9478cdf93",
 									"levelIid": "ece88230-d380-11f0-a1bc-15355c04c6fa",
@@ -4252,17 +3664,18 @@
 									"id": "V_String",
 									"params": ["e4f78da0-fa90-11f0-95ec-dfa7a08c7f3e"]
 								}] },
-								{ "__identifier": "ArrivalGridPosition", "__type": "Point", "__value": { "cx": 111, "cy": 116 }, "__tile": null, "defUid": 32, "realEditorValues": [{
+								{ "__identifier": "OffsetDirection", "__type": "LocalEnum.Direction", "__value": "Up", "__tile": null, "defUid": 51, "realEditorValues": [{
 									"id": "V_String",
-									"params": ["111,116"]
-								}] }
+									"params": ["Up"]
+								}] },
+								{ "__identifier": "ArrivalGridPosition", "__type": "Point", "__value": null, "__tile": null, "defUid": 52, "realEditorValues": [] }
 							],
 							"__worldX": 892,
 							"__worldY": -1124
 						},
 						{
-							"__identifier": "Spawn_Point",
-							"__grid": [234,65],
+							"__identifier": "Teleporter",
+							"__grid": [234,68],
 							"__pivot": [0.5,0.5],
 							"__tags": ["Floor_Interactable"],
 							"__tile": null,
@@ -4271,9 +3684,9 @@
 							"width": 16,
 							"height": 16,
 							"defUid": 12,
-							"px": [1876,524],
+							"px": [1876,548],
 							"fieldInstances": [
-								{ "__identifier": "ConnectedSpawnPoint", "__type": "EntityRef", "__value": {
+								{ "__identifier": "ConnectedTeleporter", "__type": "EntityRef", "__value": {
 									"entityIid": "1bdb90e0-fa90-11f0-95ec-ff06ab89d1ea",
 									"layerIid": "1f0a2343-fa90-11f0-95ec-27803fef534f",
 									"levelIid": "1f0a2340-fa90-11f0-95ec-b5764b7730ff",
@@ -4282,16 +3695,17 @@
 									"id": "V_String",
 									"params": ["1bdb90e0-fa90-11f0-95ec-ff06ab89d1ea"]
 								}] },
-								{ "__identifier": "ArrivalGridPosition", "__type": "Point", "__value": { "cx": 219, "cy": 66 }, "__tile": null, "defUid": 32, "realEditorValues": [{
+								{ "__identifier": "OffsetDirection", "__type": "LocalEnum.Direction", "__value": "Left", "__tile": null, "defUid": 51, "realEditorValues": [{
 									"id": "V_String",
-									"params": ["219,66"]
-								}] }
+									"params": ["Left"]
+								}] },
+								{ "__identifier": "ArrivalGridPosition", "__type": "Point", "__value": null, "__tile": null, "defUid": 52, "realEditorValues": [] }
 							],
 							"__worldX": 1876,
-							"__worldY": -1636
+							"__worldY": -1612
 						},
 						{
-							"__identifier": "Spawn_Point",
+							"__identifier": "Teleporter",
 							"__grid": [95,20],
 							"__pivot": [0.5,0.5],
 							"__tags": ["Floor_Interactable"],
@@ -4303,7 +3717,7 @@
 							"defUid": 12,
 							"px": [764,164],
 							"fieldInstances": [
-								{ "__identifier": "ConnectedSpawnPoint", "__type": "EntityRef", "__value": {
+								{ "__identifier": "ConnectedTeleporter", "__type": "EntityRef", "__value": {
 									"entityIid": "229ac310-fa90-11f0-95ec-bd54b61ff6d1",
 									"layerIid": "1dbfa1e3-fa90-11f0-95ec-0d50a37731e8",
 									"levelIid": "1dbfa1e0-fa90-11f0-95ec-7b07f8d0bd5f",
@@ -4312,10 +3726,11 @@
 									"id": "V_String",
 									"params": ["229ac310-fa90-11f0-95ec-bd54b61ff6d1"]
 								}] },
-								{ "__identifier": "ArrivalGridPosition", "__type": "Point", "__value": { "cx": 95, "cy": 44 }, "__tile": null, "defUid": 32, "realEditorValues": [{
+								{ "__identifier": "OffsetDirection", "__type": "LocalEnum.Direction", "__value": "Down", "__tile": null, "defUid": 51, "realEditorValues": [{
 									"id": "V_String",
-									"params": ["95,44"]
-								}] }
+									"params": ["Down"]
+								}] },
+								{ "__identifier": "ArrivalGridPosition", "__type": "Point", "__value": null, "__tile": null, "defUid": 52, "realEditorValues": [] }
 							],
 							"__worldX": 764,
 							"__worldY": -1996
@@ -5517,7 +4932,7 @@
 					"gridTiles": [],
 					"entityInstances": [
 						{
-							"__identifier": "Spawn_Point",
+							"__identifier": "Teleporter",
 							"__grid": [239,132],
 							"__pivot": [0.5,0.5],
 							"__tags": ["Floor_Interactable"],
@@ -5529,7 +4944,7 @@
 							"defUid": 12,
 							"px": [1916,1060],
 							"fieldInstances": [
-								{ "__identifier": "ConnectedSpawnPoint", "__type": "EntityRef", "__value": {
+								{ "__identifier": "ConnectedTeleporter", "__type": "EntityRef", "__value": {
 									"entityIid": "252342b0-fa90-11f0-95ec-a1257b5485cb",
 									"layerIid": "1ae35cf3-fa90-11f0-95ec-c348a259a321",
 									"levelIid": "1ae35cf0-fa90-11f0-95ec-85cc4233bd3c",
@@ -5538,9 +4953,13 @@
 									"id": "V_String",
 									"params": ["252342b0-fa90-11f0-95ec-a1257b5485cb"]
 								}] },
-								{ "__identifier": "ArrivalGridPosition", "__type": "Point", "__value": { "cx": 95, "cy": 116 }, "__tile": null, "defUid": 32, "realEditorValues": [{
+								{ "__identifier": "OffsetDirection", "__type": "LocalEnum.Direction", "__value": "Up", "__tile": null, "defUid": 51, "realEditorValues": [{
 									"id": "V_String",
-									"params": ["95,116"]
+									"params": ["Up"]
+								}] },
+								{ "__identifier": "ArrivalGridPosition", "__type": "Point", "__value": { "cx": 97, "cy": 113 }, "__tile": null, "defUid": 52, "realEditorValues": [{
+									"id": "V_String",
+									"params": ["97,113"]
 								}] }
 							],
 							"__worldX": 1916,
@@ -6263,7 +5682,7 @@
 					"gridTiles": [],
 					"entityInstances": [
 						{
-							"__identifier": "Spawn_Point",
+							"__identifier": "Teleporter",
 							"__grid": [17,65],
 							"__pivot": [0.5,0.5],
 							"__tags": ["Floor_Interactable"],
@@ -6275,7 +5694,7 @@
 							"defUid": 12,
 							"px": [140,524],
 							"fieldInstances": [
-								{ "__identifier": "ConnectedSpawnPoint", "__type": "EntityRef", "__value": {
+								{ "__identifier": "ConnectedTeleporter", "__type": "EntityRef", "__value": {
 									"entityIid": "192f83b0-fa90-11f0-95ec-33d368ca5083",
 									"layerIid": "1ae35cf3-fa90-11f0-95ec-c348a259a321",
 									"levelIid": "1ae35cf0-fa90-11f0-95ec-85cc4233bd3c",
@@ -6284,16 +5703,17 @@
 									"id": "V_String",
 									"params": ["192f83b0-fa90-11f0-95ec-33d368ca5083"]
 								}] },
-								{ "__identifier": "ArrivalGridPosition", "__type": "Point", "__value": { "cx": 28, "cy": 65 }, "__tile": null, "defUid": 32, "realEditorValues": [{
+								{ "__identifier": "OffsetDirection", "__type": "LocalEnum.Direction", "__value": "Right", "__tile": null, "defUid": 51, "realEditorValues": [{
 									"id": "V_String",
-									"params": ["28,65"]
-								}] }
+									"params": ["Right"]
+								}] },
+								{ "__identifier": "ArrivalGridPosition", "__type": "Point", "__value": null, "__tile": null, "defUid": 52, "realEditorValues": [] }
 							],
 							"__worldX": 2060,
 							"__worldY": -1636
 						},
 						{
-							"__identifier": "Spawn_Point",
+							"__identifier": "Teleporter",
 							"__grid": [223,65],
 							"__pivot": [0.5,0.5],
 							"__tags": ["Floor_Interactable"],
@@ -6305,7 +5725,7 @@
 							"defUid": 12,
 							"px": [1788,524],
 							"fieldInstances": [
-								{ "__identifier": "ConnectedSpawnPoint", "__type": "EntityRef", "__value": {
+								{ "__identifier": "ConnectedTeleporter", "__type": "EntityRef", "__value": {
 									"entityIid": "fc8d9470-fa90-11f0-95ec-4b01e153d08d",
 									"layerIid": "2091ada3-fa90-11f0-95ec-1911df471392",
 									"levelIid": "2091ada0-fa90-11f0-95ec-63798b15b604",
@@ -6314,17 +5734,18 @@
 									"id": "V_String",
 									"params": ["fc8d9470-fa90-11f0-95ec-4b01e153d08d"]
 								}] },
-								{ "__identifier": "ArrivalGridPosition", "__type": "Point", "__value": { "cx": 212, "cy": 65 }, "__tile": null, "defUid": 32, "realEditorValues": [{
+								{ "__identifier": "OffsetDirection", "__type": "LocalEnum.Direction", "__value": "Left", "__tile": null, "defUid": 51, "realEditorValues": [{
 									"id": "V_String",
-									"params": ["212,65"]
-								}] }
+									"params": ["Left"]
+								}] },
+								{ "__identifier": "ArrivalGridPosition", "__type": "Point", "__value": null, "__tile": null, "defUid": 52, "realEditorValues": [] }
 							],
 							"__worldX": 3708,
 							"__worldY": -1636
 						},
 						{
-							"__identifier": "Spawn_Point",
-							"__grid": [119,117],
+							"__identifier": "Teleporter",
+							"__grid": [119,120],
 							"__pivot": [0.5,0.5],
 							"__tags": ["Floor_Interactable"],
 							"__tile": null,
@@ -6333,9 +5754,9 @@
 							"width": 16,
 							"height": 16,
 							"defUid": 12,
-							"px": [956,940],
+							"px": [956,964],
 							"fieldInstances": [
-								{ "__identifier": "ConnectedSpawnPoint", "__type": "EntityRef", "__value": {
+								{ "__identifier": "ConnectedTeleporter", "__type": "EntityRef", "__value": {
 									"entityIid": "379a3d50-fa90-11f0-95ec-815dd2ea23dd",
 									"layerIid": "b0bb0080-fa90-11f0-95ec-8b3306960b1d",
 									"levelIid": "b0bad970-fa90-11f0-95ec-9bb8d9cc1bda",
@@ -6344,13 +5765,14 @@
 									"id": "V_String",
 									"params": ["379a3d50-fa90-11f0-95ec-815dd2ea23dd"]
 								}] },
-								{ "__identifier": "ArrivalGridPosition", "__type": "Point", "__value": { "cx": 119, "cy": 93 }, "__tile": null, "defUid": 32, "realEditorValues": [{
+								{ "__identifier": "OffsetDirection", "__type": "LocalEnum.Direction", "__value": "Up", "__tile": null, "defUid": 51, "realEditorValues": [{
 									"id": "V_String",
-									"params": ["119,93"]
-								}] }
+									"params": ["Up"]
+								}] },
+								{ "__identifier": "ArrivalGridPosition", "__type": "Point", "__value": null, "__tile": null, "defUid": 52, "realEditorValues": [] }
 							],
 							"__worldX": 2876,
-							"__worldY": -1220
+							"__worldY": -1196
 						},
 						{
 							"__identifier": "MossToggle",
@@ -7117,7 +6539,7 @@
 					"gridTiles": [],
 					"entityInstances": [
 						{
-							"__identifier": "Spawn_Point",
+							"__identifier": "Teleporter",
 							"__grid": [8,65],
 							"__pivot": [0.5,0.5],
 							"__tags": ["Floor_Interactable"],
@@ -7129,7 +6551,7 @@
 							"defUid": 12,
 							"px": [68,524],
 							"fieldInstances": [
-								{ "__identifier": "ConnectedSpawnPoint", "__type": "EntityRef", "__value": {
+								{ "__identifier": "ConnectedTeleporter", "__type": "EntityRef", "__value": {
 									"entityIid": "f79db1c0-fa90-11f0-95ec-4332a72fc64f",
 									"layerIid": "1f0a2343-fa90-11f0-95ec-27803fef534f",
 									"levelIid": "1f0a2340-fa90-11f0-95ec-b5764b7730ff",
@@ -7138,16 +6560,17 @@
 									"id": "V_String",
 									"params": ["f79db1c0-fa90-11f0-95ec-4332a72fc64f"]
 								}] },
-								{ "__identifier": "ArrivalGridPosition", "__type": "Point", "__value": { "cx": 21, "cy": 65 }, "__tile": null, "defUid": 32, "realEditorValues": [{
+								{ "__identifier": "OffsetDirection", "__type": "LocalEnum.Direction", "__value": "Right", "__tile": null, "defUid": 51, "realEditorValues": [{
 									"id": "V_String",
-									"params": ["21,65"]
-								}] }
+									"params": ["Right"]
+								}] },
+								{ "__identifier": "ArrivalGridPosition", "__type": "Point", "__value": null, "__tile": null, "defUid": 52, "realEditorValues": [] }
 							],
 							"__worldX": 3908,
 							"__worldY": -1636
 						},
 						{
-							"__identifier": "Spawn_Point",
+							"__identifier": "Teleporter",
 							"__grid": [152,129],
 							"__pivot": [0.5,0.5],
 							"__tags": ["Floor_Interactable"],
@@ -7159,7 +6582,7 @@
 							"defUid": 12,
 							"px": [1220,1036],
 							"fieldInstances": [
-								{ "__identifier": "ConnectedSpawnPoint", "__type": "EntityRef", "__value": {
+								{ "__identifier": "ConnectedTeleporter", "__type": "EntityRef", "__value": {
 									"entityIid": "b7970550-fa90-11f0-95ec-0b8ba0fec937",
 									"layerIid": "7072afd3-fa90-11f0-95ec-97a665172d3c",
 									"levelIid": "7072afd0-fa90-11f0-95ec-9728d75f4198",
@@ -7168,10 +6591,11 @@
 									"id": "V_String",
 									"params": ["b7970550-fa90-11f0-95ec-0b8ba0fec937"]
 								}] },
-								{ "__identifier": "ArrivalGridPosition", "__type": "Point", "__value": { "cx": 152, "cy": 114 }, "__tile": null, "defUid": 32, "realEditorValues": [{
+								{ "__identifier": "OffsetDirection", "__type": "LocalEnum.Direction", "__value": "Up", "__tile": null, "defUid": 51, "realEditorValues": [{
 									"id": "V_String",
-									"params": ["152,114"]
-								}] }
+									"params": ["Up"]
+								}] },
+								{ "__identifier": "ArrivalGridPosition", "__type": "Point", "__value": null, "__tile": null, "defUid": 52, "realEditorValues": [] }
 							],
 							"__worldX": 5060,
 							"__worldY": -1124
@@ -7969,469 +7393,19 @@
 					"gridTiles": [],
 					"entityInstances": [
 						{
-							"__identifier": "Spawn_Point",
-							"__grid": [1,23],
-							"__pivot": [0.5,0.5],
-							"__tags": ["Floor_Interactable"],
-							"__tile": null,
-							"__smartColor": "#BE4A2F",
-							"iid": "e8407a40-fa90-11f0-95ec-731374bce536",
-							"width": 16,
-							"height": 16,
-							"defUid": 12,
-							"px": [12,188],
-							"fieldInstances": [
-								{ "__identifier": "ConnectedSpawnPoint", "__type": "EntityRef", "__value": {
-									"entityIid": "05ef5ac0-fa90-11f0-95ec-5550bffe137d",
-									"layerIid": "b0bb0080-fa90-11f0-95ec-8b3306960b1d",
-									"levelIid": "b0bad970-fa90-11f0-95ec-9bb8d9cc1bda",
-									"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787"
-								}, "__tile": null, "defUid": 31, "realEditorValues": [{
-									"id": "V_String",
-									"params": ["05ef5ac0-fa90-11f0-95ec-5550bffe137d"]
-								}] },
-								{ "__identifier": "ArrivalGridPosition", "__type": "Point", "__value": { "cx": 18, "cy": 23 }, "__tile": null, "defUid": 32, "realEditorValues": [{
-									"id": "V_String",
-									"params": ["18,23"]
-								}] }
-							],
-							"__worldX": 3852,
-							"__worldY": -892
-						},
-						{
-							"__identifier": "Spawn_Point",
-							"__grid": [1,29],
-							"__pivot": [0.5,0.5],
-							"__tags": ["Floor_Interactable"],
-							"__tile": null,
-							"__smartColor": "#BE4A2F",
-							"iid": "eab9b7a0-fa90-11f0-95ec-e15a253d2a23",
-							"width": 16,
-							"height": 16,
-							"defUid": 12,
-							"px": [12,236],
-							"fieldInstances": [
-								{ "__identifier": "ConnectedSpawnPoint", "__type": "EntityRef", "__value": {
-									"entityIid": "076a8910-fa90-11f0-95ec-5b7003775699",
-									"layerIid": "b0bb0080-fa90-11f0-95ec-8b3306960b1d",
-									"levelIid": "b0bad970-fa90-11f0-95ec-9bb8d9cc1bda",
-									"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787"
-								}, "__tile": null, "defUid": 31, "realEditorValues": [{
-									"id": "V_String",
-									"params": ["076a8910-fa90-11f0-95ec-5b7003775699"]
-								}] },
-								{ "__identifier": "ArrivalGridPosition", "__type": "Point", "__value": { "cx": 18, "cy": 29 }, "__tile": null, "defUid": 32, "realEditorValues": [{
-									"id": "V_String",
-									"params": ["18,29"]
-								}] }
-							],
-							"__worldX": 3852,
-							"__worldY": -844
-						},
-						{
-							"__identifier": "Spawn_Point",
-							"__grid": [1,35],
-							"__pivot": [0.5,0.5],
-							"__tags": ["Floor_Interactable"],
-							"__tile": null,
-							"__smartColor": "#BE4A2F",
-							"iid": "ec64f6a0-fa90-11f0-95ec-6b1e39f56f0c",
-							"width": 16,
-							"height": 16,
-							"defUid": 12,
-							"px": [12,284],
-							"fieldInstances": [
-								{ "__identifier": "ConnectedSpawnPoint", "__type": "EntityRef", "__value": {
-									"entityIid": "08f9b490-fa90-11f0-95ec-21e6fbfe88bb",
-									"layerIid": "b0bb0080-fa90-11f0-95ec-8b3306960b1d",
-									"levelIid": "b0bad970-fa90-11f0-95ec-9bb8d9cc1bda",
-									"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787"
-								}, "__tile": null, "defUid": 31, "realEditorValues": [{
-									"id": "V_String",
-									"params": ["08f9b490-fa90-11f0-95ec-21e6fbfe88bb"]
-								}] },
-								{ "__identifier": "ArrivalGridPosition", "__type": "Point", "__value": { "cx": 18, "cy": 35 }, "__tile": null, "defUid": 32, "realEditorValues": [{
-									"id": "V_String",
-									"params": ["18,35"]
-								}] }
-							],
-							"__worldX": 3852,
-							"__worldY": -796
-						},
-						{
-							"__identifier": "Spawn_Point",
-							"__grid": [1,41],
-							"__pivot": [0.5,0.5],
-							"__tags": ["Floor_Interactable"],
-							"__tile": null,
-							"__smartColor": "#BE4A2F",
-							"iid": "ee45c490-fa90-11f0-95ec-c9aa6192596a",
-							"width": 16,
-							"height": 16,
-							"defUid": 12,
-							"px": [12,332],
-							"fieldInstances": [
-								{ "__identifier": "ConnectedSpawnPoint", "__type": "EntityRef", "__value": {
-									"entityIid": "0e19f610-fa90-11f0-95ec-f745d3d2abfe",
-									"layerIid": "b0bb0080-fa90-11f0-95ec-8b3306960b1d",
-									"levelIid": "b0bad970-fa90-11f0-95ec-9bb8d9cc1bda",
-									"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787"
-								}, "__tile": null, "defUid": 31, "realEditorValues": [{
-									"id": "V_String",
-									"params": ["0e19f610-fa90-11f0-95ec-f745d3d2abfe"]
-								}] },
-								{ "__identifier": "ArrivalGridPosition", "__type": "Point", "__value": { "cx": 18, "cy": 41 }, "__tile": null, "defUid": 32, "realEditorValues": [{
-									"id": "V_String",
-									"params": ["18,41"]
-								}] }
-							],
-							"__worldX": 3852,
-							"__worldY": -748
-						},
-						{
-							"__identifier": "Spawn_Point",
-							"__grid": [1,47],
-							"__pivot": [0.5,0.5],
-							"__tags": ["Floor_Interactable"],
-							"__tile": null,
-							"__smartColor": "#BE4A2F",
-							"iid": "f10b4d30-fa90-11f0-95ec-5523ade7a72c",
-							"width": 16,
-							"height": 16,
-							"defUid": 12,
-							"px": [12,380],
-							"fieldInstances": [
-								{ "__identifier": "ConnectedSpawnPoint", "__type": "EntityRef", "__value": {
-									"entityIid": "109afba0-fa90-11f0-95ec-bd2a99dcfc2d",
-									"layerIid": "b0bb0080-fa90-11f0-95ec-8b3306960b1d",
-									"levelIid": "b0bad970-fa90-11f0-95ec-9bb8d9cc1bda",
-									"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787"
-								}, "__tile": null, "defUid": 31, "realEditorValues": [{
-									"id": "V_String",
-									"params": ["109afba0-fa90-11f0-95ec-bd2a99dcfc2d"]
-								}] },
-								{ "__identifier": "ArrivalGridPosition", "__type": "Point", "__value": { "cx": 18, "cy": 47 }, "__tile": null, "defUid": 32, "realEditorValues": [{
-									"id": "V_String",
-									"params": ["18,47"]
-								}] }
-							],
-							"__worldX": 3852,
-							"__worldY": -700
-						},
-						{
-							"__identifier": "Spawn_Point",
-							"__grid": [1,53],
-							"__pivot": [0.5,0.5],
-							"__tags": ["Floor_Interactable"],
-							"__tile": null,
-							"__smartColor": "#BE4A2F",
-							"iid": "f28b3670-fa90-11f0-95ec-c91bfe67aa9b",
-							"width": 16,
-							"height": 16,
-							"defUid": 12,
-							"px": [12,428],
-							"fieldInstances": [
-								{ "__identifier": "ConnectedSpawnPoint", "__type": "EntityRef", "__value": {
-									"entityIid": "12716950-fa90-11f0-95ec-1fe990692946",
-									"layerIid": "b0bb0080-fa90-11f0-95ec-8b3306960b1d",
-									"levelIid": "b0bad970-fa90-11f0-95ec-9bb8d9cc1bda",
-									"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787"
-								}, "__tile": null, "defUid": 31, "realEditorValues": [{
-									"id": "V_String",
-									"params": ["12716950-fa90-11f0-95ec-1fe990692946"]
-								}] },
-								{ "__identifier": "ArrivalGridPosition", "__type": "Point", "__value": { "cx": 18, "cy": 53 }, "__tile": null, "defUid": 32, "realEditorValues": [{
-									"id": "V_String",
-									"params": ["18,53"]
-								}] }
-							],
-							"__worldX": 3852,
-							"__worldY": -652
-						},
-						{
-							"__identifier": "Spawn_Point",
-							"__grid": [1,59],
-							"__pivot": [0.5,0.5],
-							"__tags": ["Floor_Interactable"],
-							"__tile": null,
-							"__smartColor": "#BE4A2F",
-							"iid": "f38993a0-fa90-11f0-95ec-8bf85d1de694",
-							"width": 16,
-							"height": 16,
-							"defUid": 12,
-							"px": [12,476],
-							"fieldInstances": [
-								{ "__identifier": "ConnectedSpawnPoint", "__type": "EntityRef", "__value": {
-									"entityIid": "14456600-fa90-11f0-95ec-c9e79efdad57",
-									"layerIid": "b0bb0080-fa90-11f0-95ec-8b3306960b1d",
-									"levelIid": "b0bad970-fa90-11f0-95ec-9bb8d9cc1bda",
-									"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787"
-								}, "__tile": null, "defUid": 31, "realEditorValues": [{
-									"id": "V_String",
-									"params": ["14456600-fa90-11f0-95ec-c9e79efdad57"]
-								}] },
-								{ "__identifier": "ArrivalGridPosition", "__type": "Point", "__value": { "cx": 18, "cy": 59 }, "__tile": null, "defUid": 32, "realEditorValues": [{
-									"id": "V_String",
-									"params": ["18,59"]
-								}] }
-							],
-							"__worldX": 3852,
-							"__worldY": -604
-						},
-						{
-							"__identifier": "Spawn_Point",
-							"__grid": [1,65],
-							"__pivot": [0.5,0.5],
-							"__tags": ["Floor_Interactable"],
-							"__tile": null,
-							"__smartColor": "#BE4A2F",
-							"iid": "f4e5ef50-fa90-11f0-95ec-2fcbf35580d9",
-							"width": 16,
-							"height": 16,
-							"defUid": 12,
-							"px": [12,524],
-							"fieldInstances": [
-								{ "__identifier": "ConnectedSpawnPoint", "__type": "EntityRef", "__value": {
-									"entityIid": "16893b80-fa90-11f0-95ec-63384d735ab5",
-									"layerIid": "b0bb0080-fa90-11f0-95ec-8b3306960b1d",
-									"levelIid": "b0bad970-fa90-11f0-95ec-9bb8d9cc1bda",
-									"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787"
-								}, "__tile": null, "defUid": 31, "realEditorValues": [{
-									"id": "V_String",
-									"params": ["16893b80-fa90-11f0-95ec-63384d735ab5"]
-								}] },
-								{ "__identifier": "ArrivalGridPosition", "__type": "Point", "__value": { "cx": 18, "cy": 65 }, "__tile": null, "defUid": 32, "realEditorValues": [{
-									"id": "V_String",
-									"params": ["18,65"]
-								}] }
-							],
-							"__worldX": 3852,
-							"__worldY": -556
-						},
-						{
-							"__identifier": "Spawn_Point",
-							"__grid": [1,71],
-							"__pivot": [0.5,0.5],
-							"__tags": ["Floor_Interactable"],
-							"__tile": null,
-							"__smartColor": "#BE4A2F",
-							"iid": "f761c4c0-fa90-11f0-95ec-ed3624200c21",
-							"width": 16,
-							"height": 16,
-							"defUid": 12,
-							"px": [12,572],
-							"fieldInstances": [
-								{ "__identifier": "ConnectedSpawnPoint", "__type": "EntityRef", "__value": {
-									"entityIid": "17b55f70-fa90-11f0-95ec-7f053835aa26",
-									"layerIid": "b0bb0080-fa90-11f0-95ec-8b3306960b1d",
-									"levelIid": "b0bad970-fa90-11f0-95ec-9bb8d9cc1bda",
-									"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787"
-								}, "__tile": null, "defUid": 31, "realEditorValues": [{
-									"id": "V_String",
-									"params": ["17b55f70-fa90-11f0-95ec-7f053835aa26"]
-								}] },
-								{ "__identifier": "ArrivalGridPosition", "__type": "Point", "__value": { "cx": 18, "cy": 71 }, "__tile": null, "defUid": 32, "realEditorValues": [{
-									"id": "V_String",
-									"params": ["18,71"]
-								}] }
-							],
-							"__worldX": 3852,
-							"__worldY": -508
-						},
-						{
-							"__identifier": "Spawn_Point",
-							"__grid": [1,77],
-							"__pivot": [0.5,0.5],
-							"__tags": ["Floor_Interactable"],
-							"__tile": null,
-							"__smartColor": "#BE4A2F",
-							"iid": "f8862080-fa90-11f0-95ec-a303328d5be0",
-							"width": 16,
-							"height": 16,
-							"defUid": 12,
-							"px": [12,620],
-							"fieldInstances": [
-								{ "__identifier": "ConnectedSpawnPoint", "__type": "EntityRef", "__value": {
-									"entityIid": "19f404d0-fa90-11f0-95ec-9348ea208950",
-									"layerIid": "b0bb0080-fa90-11f0-95ec-8b3306960b1d",
-									"levelIid": "b0bad970-fa90-11f0-95ec-9bb8d9cc1bda",
-									"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787"
-								}, "__tile": null, "defUid": 31, "realEditorValues": [{
-									"id": "V_String",
-									"params": ["19f404d0-fa90-11f0-95ec-9348ea208950"]
-								}] },
-								{ "__identifier": "ArrivalGridPosition", "__type": "Point", "__value": { "cx": 18, "cy": 77 }, "__tile": null, "defUid": 32, "realEditorValues": [{
-									"id": "V_String",
-									"params": ["18,77"]
-								}] }
-							],
-							"__worldX": 3852,
-							"__worldY": -460
-						},
-						{
-							"__identifier": "Spawn_Point",
-							"__grid": [1,83],
-							"__pivot": [0.5,0.5],
-							"__tags": ["Floor_Interactable"],
-							"__tile": null,
-							"__smartColor": "#BE4A2F",
-							"iid": "fb46c720-fa90-11f0-95ec-effa2c28861c",
-							"width": 16,
-							"height": 16,
-							"defUid": 12,
-							"px": [12,668],
-							"fieldInstances": [
-								{ "__identifier": "ConnectedSpawnPoint", "__type": "EntityRef", "__value": {
-									"entityIid": "1e06cdf0-fa90-11f0-95ec-e3769a794947",
-									"layerIid": "b0bb0080-fa90-11f0-95ec-8b3306960b1d",
-									"levelIid": "b0bad970-fa90-11f0-95ec-9bb8d9cc1bda",
-									"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787"
-								}, "__tile": null, "defUid": 31, "realEditorValues": [{
-									"id": "V_String",
-									"params": ["1e06cdf0-fa90-11f0-95ec-e3769a794947"]
-								}] },
-								{ "__identifier": "ArrivalGridPosition", "__type": "Point", "__value": { "cx": 18, "cy": 83 }, "__tile": null, "defUid": 32, "realEditorValues": [{
-									"id": "V_String",
-									"params": ["18,83"]
-								}] }
-							],
-							"__worldX": 3852,
-							"__worldY": -412
-						},
-						{
-							"__identifier": "Spawn_Point",
-							"__grid": [1,89],
-							"__pivot": [0.5,0.5],
-							"__tags": ["Floor_Interactable"],
-							"__tile": null,
-							"__smartColor": "#BE4A2F",
-							"iid": "fc385310-fa90-11f0-95ec-cb631021bdf7",
-							"width": 16,
-							"height": 16,
-							"defUid": 12,
-							"px": [12,716],
-							"fieldInstances": [
-								{ "__identifier": "ConnectedSpawnPoint", "__type": "EntityRef", "__value": {
-									"entityIid": "1f1e7f80-fa90-11f0-95ec-6fa8f08a029a",
-									"layerIid": "b0bb0080-fa90-11f0-95ec-8b3306960b1d",
-									"levelIid": "b0bad970-fa90-11f0-95ec-9bb8d9cc1bda",
-									"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787"
-								}, "__tile": null, "defUid": 31, "realEditorValues": [{
-									"id": "V_String",
-									"params": ["1f1e7f80-fa90-11f0-95ec-6fa8f08a029a"]
-								}] },
-								{ "__identifier": "ArrivalGridPosition", "__type": "Point", "__value": { "cx": 18, "cy": 89 }, "__tile": null, "defUid": 32, "realEditorValues": [{
-									"id": "V_String",
-									"params": ["18,89"]
-								}] }
-							],
-							"__worldX": 3852,
-							"__worldY": -364
-						},
-						{
-							"__identifier": "Spawn_Point",
-							"__grid": [1,95],
-							"__pivot": [0.5,0.5],
-							"__tags": ["Floor_Interactable"],
-							"__tile": null,
-							"__smartColor": "#BE4A2F",
-							"iid": "fd5a3dd0-fa90-11f0-95ec-ad4a484f8c1a",
-							"width": 16,
-							"height": 16,
-							"defUid": 12,
-							"px": [12,764],
-							"fieldInstances": [
-								{ "__identifier": "ConnectedSpawnPoint", "__type": "EntityRef", "__value": {
-									"entityIid": "207d9a50-fa90-11f0-95ec-dd9b7d8f1a77",
-									"layerIid": "b0bb0080-fa90-11f0-95ec-8b3306960b1d",
-									"levelIid": "b0bad970-fa90-11f0-95ec-9bb8d9cc1bda",
-									"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787"
-								}, "__tile": null, "defUid": 31, "realEditorValues": [{
-									"id": "V_String",
-									"params": ["207d9a50-fa90-11f0-95ec-dd9b7d8f1a77"]
-								}] },
-								{ "__identifier": "ArrivalGridPosition", "__type": "Point", "__value": { "cx": 18, "cy": 95 }, "__tile": null, "defUid": 32, "realEditorValues": [{
-									"id": "V_String",
-									"params": ["18,95"]
-								}] }
-							],
-							"__worldX": 3852,
-							"__worldY": -316
-						},
-						{
-							"__identifier": "Spawn_Point",
-							"__grid": [1,101],
-							"__pivot": [0.5,0.5],
-							"__tags": ["Floor_Interactable"],
-							"__tile": null,
-							"__smartColor": "#BE4A2F",
-							"iid": "fe4bc9c0-fa90-11f0-95ec-7d20fccc9011",
-							"width": 16,
-							"height": 16,
-							"defUid": 12,
-							"px": [12,812],
-							"fieldInstances": [
-								{ "__identifier": "ConnectedSpawnPoint", "__type": "EntityRef", "__value": {
-									"entityIid": "214e09b0-fa90-11f0-95ec-676cdd707081",
-									"layerIid": "b0bb0080-fa90-11f0-95ec-8b3306960b1d",
-									"levelIid": "b0bad970-fa90-11f0-95ec-9bb8d9cc1bda",
-									"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787"
-								}, "__tile": null, "defUid": 31, "realEditorValues": [{
-									"id": "V_String",
-									"params": ["214e09b0-fa90-11f0-95ec-676cdd707081"]
-								}] },
-								{ "__identifier": "ArrivalGridPosition", "__type": "Point", "__value": { "cx": 18, "cy": 101 }, "__tile": null, "defUid": 32, "realEditorValues": [{
-									"id": "V_String",
-									"params": ["18,101"]
-								}] }
-							],
-							"__worldX": 3852,
-							"__worldY": -268
-						},
-						{
-							"__identifier": "Spawn_Point",
-							"__grid": [1,107],
-							"__pivot": [0.5,0.5],
-							"__tags": ["Floor_Interactable"],
-							"__tile": null,
-							"__smartColor": "#BE4A2F",
-							"iid": "005f4070-fa90-11f0-95ec-b3548a794491",
-							"width": 16,
-							"height": 16,
-							"defUid": 12,
-							"px": [12,860],
-							"fieldInstances": [
-								{ "__identifier": "ConnectedSpawnPoint", "__type": "EntityRef", "__value": {
-									"entityIid": "22b22d90-fa90-11f0-95ec-b56355275e58",
-									"layerIid": "b0bb0080-fa90-11f0-95ec-8b3306960b1d",
-									"levelIid": "b0bad970-fa90-11f0-95ec-9bb8d9cc1bda",
-									"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787"
-								}, "__tile": null, "defUid": 31, "realEditorValues": [{
-									"id": "V_String",
-									"params": ["22b22d90-fa90-11f0-95ec-b56355275e58"]
-								}] },
-								{ "__identifier": "ArrivalGridPosition", "__type": "Point", "__value": { "cx": 18, "cy": 107 }, "__tile": null, "defUid": 32, "realEditorValues": [{
-									"id": "V_String",
-									"params": ["18,107"]
-								}] }
-							],
-							"__worldX": 3852,
-							"__worldY": -220
-						},
-						{
-							"__identifier": "Spawn_Point",
-							"__grid": [1,111],
+							"__identifier": "Teleporter",
+							"__grid": [1,67],
 							"__pivot": [0.5,0.5],
 							"__tags": ["Floor_Interactable"],
 							"__tile": null,
 							"__smartColor": "#BE4A2F",
 							"iid": "285e3450-fa90-11f0-95ec-63fc582c909b",
 							"width": 16,
-							"height": 16,
+							"height": 720,
 							"defUid": 12,
-							"px": [12,892],
+							"px": [12,540],
 							"fieldInstances": [
-								{ "__identifier": "ConnectedSpawnPoint", "__type": "EntityRef", "__value": {
+								{ "__identifier": "ConnectedTeleporter", "__type": "EntityRef", "__value": {
 									"entityIid": "24d9ef90-fa90-11f0-95ec-11382381a1ef",
 									"layerIid": "b0bb0080-fa90-11f0-95ec-8b3306960b1d",
 									"levelIid": "b0bad970-fa90-11f0-95ec-9bb8d9cc1bda",
@@ -8440,16 +7414,17 @@
 									"id": "V_String",
 									"params": ["24d9ef90-fa90-11f0-95ec-11382381a1ef"]
 								}] },
-								{ "__identifier": "ArrivalGridPosition", "__type": "Point", "__value": { "cx": 18, "cy": 111 }, "__tile": null, "defUid": 32, "realEditorValues": [{
+								{ "__identifier": "OffsetDirection", "__type": "LocalEnum.Direction", "__value": "Right", "__tile": null, "defUid": 51, "realEditorValues": [{
 									"id": "V_String",
-									"params": ["18,111"]
-								}] }
+									"params": ["Right"]
+								}] },
+								{ "__identifier": "ArrivalGridPosition", "__type": "Point", "__value": null, "__tile": null, "defUid": 52, "realEditorValues": [] }
 							],
 							"__worldX": 3852,
-							"__worldY": -188
+							"__worldY": -540
 						},
 						{
-							"__identifier": "Spawn_Point",
+							"__identifier": "Teleporter",
 							"__grid": [151,20],
 							"__pivot": [0.5,0.5],
 							"__tags": ["Floor_Interactable"],
@@ -8461,7 +7436,7 @@
 							"defUid": 12,
 							"px": [1212,164],
 							"fieldInstances": [
-								{ "__identifier": "ConnectedSpawnPoint", "__type": "EntityRef", "__value": {
+								{ "__identifier": "ConnectedTeleporter", "__type": "EntityRef", "__value": {
 									"entityIid": "b4875450-fa90-11f0-95ec-63f86769392b",
 									"layerIid": "2091ada3-fa90-11f0-95ec-1911df471392",
 									"levelIid": "2091ada0-fa90-11f0-95ec-63798b15b604",
@@ -8470,10 +7445,11 @@
 									"id": "V_String",
 									"params": ["b4875450-fa90-11f0-95ec-63f86769392b"]
 								}] },
-								{ "__identifier": "ArrivalGridPosition", "__type": "Point", "__value": { "cx": 151, "cy": 32 }, "__tile": null, "defUid": 32, "realEditorValues": [{
+								{ "__identifier": "OffsetDirection", "__type": "LocalEnum.Direction", "__value": "Down", "__tile": null, "defUid": 51, "realEditorValues": [{
 									"id": "V_String",
-									"params": ["151,32"]
-								}] }
+									"params": ["Down"]
+								}] },
+								{ "__identifier": "ArrivalGridPosition", "__type": "Point", "__value": null, "__tile": null, "defUid": 52, "realEditorValues": [] }
 							],
 							"__worldX": 5052,
 							"__worldY": -916

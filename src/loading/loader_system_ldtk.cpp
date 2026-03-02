@@ -327,8 +327,8 @@ void load_floor_interactables(const ldtk::Layer& layer)
 
 		switch (floor_interactable_entity_type)
 		{
-			case ENTITY_TYPE::SPAWN_POINT:
-				load_spawn_points(floor_interactable_entity);
+			case ENTITY_TYPE::TELEPORTER:
+				load_teleporter(floor_interactable_entity);
 				continue;
 			case ENTITY_TYPE::MOSS_TOGGLE:
 				load_moss_toggle(floor_interactable_entity);
@@ -339,26 +339,36 @@ void load_floor_interactables(const ldtk::Layer& layer)
 	}
 }
 
-void load_spawn_points(const ldtk::Entity& spawn_point_entity)
+void load_teleporter(const ldtk::Entity& teleporter_entity)
 {
-	std::cout << spawn_point_entity.getName() << std::endl;
-	const ldtk::EntityRef& other_spawn_point_entity_ref = spawn_point_entity.getField<ldtk::EntityRef>("ConnectedSpawnPoint").value();
-	const auto& other_layer_grid_size = other_spawn_point_entity_ref->layer->getCellSize();
-	const ldtk::IntPoint& position = spawn_point_entity.getWorldPosition();
-	const ldtk::IntPoint& arrival_entity_position = other_spawn_point_entity_ref->getWorldPosition();
-	const ldtk::IntPoint& arrival_grid_position = other_spawn_point_entity_ref->getField<ldtk::IntPoint>("ArrivalGridPosition").value();
-	const ldtk::IntPoint& other_spawn_grid_position = other_spawn_point_entity_ref->getGridPosition();
-	ivec2 other_spawn_grid_offset = ivec2(arrival_grid_position.x - other_spawn_grid_position.x, arrival_grid_position.y - other_spawn_grid_position.y);
-	ivec2 other_spawn_offset = other_spawn_grid_offset * other_layer_grid_size;
-	const vec2 world_arrival_point = vec2(arrival_entity_position.x + other_spawn_offset.x, arrival_entity_position.y + other_spawn_offset.y);
-	int level_uid = spawn_point_entity.layer->level->uid;
-	int connected_level_uid = other_spawn_point_entity_ref->layer->level->uid;
+	std::cout << teleporter_entity.getName() << std::endl;
+	const ldtk::EntityRef& other_teleporter_entity_ref = teleporter_entity.getField<ldtk::EntityRef>("ConnectedTeleporter").value();
+	const auto& other_layer_grid_size = other_teleporter_entity_ref->layer->getCellSize();
+	const ldtk::IntPoint& position = teleporter_entity.getWorldPosition();
+	const ldtk::IntPoint& arrival_entity_position = other_teleporter_entity_ref->getWorldPosition();
+	bool has_defined_arrival_position = !other_teleporter_entity_ref->getField<ldtk::IntPoint>("ArrivalGridPosition").is_null();
+	ivec2 other_teleporter_grid_offset = ivec2(0);
 
-	createSpawnPoint(
+	if (has_defined_arrival_position)
+	{
+		const ldtk::IntPoint& arrival_grid_position = other_teleporter_entity_ref->getField<ldtk::IntPoint>("ArrivalGridPosition").value();
+		const ldtk::IntPoint& other_teleporter_grid_position = other_teleporter_entity_ref->getGridPosition();
+		other_teleporter_grid_offset = ivec2(arrival_grid_position.x - other_teleporter_grid_position.x, arrival_grid_position.y - other_teleporter_grid_position.y);
+	}
+
+	ivec2 other_teleporter = other_teleporter_grid_offset * other_layer_grid_size;
+	const vec2 world_arrival_point = vec2(arrival_entity_position.x + other_teleporter.x, arrival_entity_position.y + other_teleporter.y);
+	int level_uid = teleporter_entity.layer->level->uid;
+	int connected_level_uid = other_teleporter_entity_ref->layer->level->uid;
+	const ldtk::Field<ldtk::EnumValue>& offset_direction_field = other_teleporter_entity_ref->getField<ldtk::EnumValue>("OffsetDirection");
+	const DIRECTION& offset_direction = direction_type_from_string(offset_direction_field.value().name);
+
+	createTeleporter(
 		level_uid,
 		connected_level_uid,
 		vec2(position.x * LEVEL_TO_SCREEN_SCALE.x, position.y * LEVEL_TO_SCREEN_SCALE.y),
-		vec2(world_arrival_point.x * LEVEL_TO_SCREEN_SCALE.x, world_arrival_point.y * LEVEL_TO_SCREEN_SCALE.y)
+		vec2(world_arrival_point.x * LEVEL_TO_SCREEN_SCALE.x, world_arrival_point.y * LEVEL_TO_SCREEN_SCALE.y),
+		offset_direction
 	);
 
 	// Add the connected level UIDs as neighbours to the current level (which must exist at this point)

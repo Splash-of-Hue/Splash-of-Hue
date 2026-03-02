@@ -1,6 +1,7 @@
 #pragma once
 
 #include "common.hpp"
+#include "ecs/entity.hpp"
 #include "glm/gtx/hash.hpp"
 #include "map_constants.hpp"
 #include <set>
@@ -36,11 +37,15 @@ struct CurrentLevel
 	int level_uid;
 };
 
-struct SpawnPoint
+struct Teleporter
 {
 	int level_uid;
 	int connected_level_uid;
-	vec2 send_to_location;
+	/// <summary>
+	/// The direction whatever uses teleporter is offset to from the arrival position
+	/// </summary>
+	DIRECTION offset_direction;
+	vec2 arrival_location;
 };
 
 // Used for level entity
@@ -68,8 +73,11 @@ struct Level
 
 struct ChangeMapLevelRequest
 {
+	Entity moving_entity;
 	int new_level_uid;
-	vec2 new_player_position;
+	vec2 arrival_position;
+	MAP_CHANGE_REQUEST_TYPE type = MAP_CHANGE_REQUEST_TYPE::INVALID;
+	DIRECTION offset_direction;
 };
 
 struct ColouredWall
