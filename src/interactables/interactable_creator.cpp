@@ -19,25 +19,37 @@ Entity createBox(vec2 position, float width, float height)
 {
 	Size size = { width, height };
 	Entity box = addGeneralInteractableComponents(position, size, INTERACTABLE_TYPE::BOX);
-	registry.breakables.emplace(box);
 	Collidable& collidable = registry.collidables.emplace(box);
 	collidable.inelastic = true;
+	registry.boxes.emplace(box);
+	registry.rectangles.emplace(box);
+	registry.scales.insert(box, vec2(width, height));
+	registry.colors.insert(box, vec4(0.6f, 0.4f, 0.2f, 1.0f));
+
+	registry.renderRequests.insert(
+		box,
+		{
+			EFFECT_ASSET_ID::DEFAULT,
+			GEOMETRY_BUFFER_ID::RECTANGLE,
+			RENDER_LAYER::FLOOR_INTERACTABLES
+		}
+	);
 
 	return box;
 }
 
 Entity createColourOrb(vec2 position, float radius, COLOUR_STATE colour_state)
 {
-	std::cout << "createColourOrb called, palette size: " << registry.colourPalettes.components.size() << std::endl;  // ADD THIS
+	std::cout << "createColourOrb called, palette size: " << registry.colourPalettes.components.size() << std::endl; 
 	Size size = { 2.0f * radius, 2.0f * radius };
 	Entity colourOrb = addGeneralInteractableComponents(position, size, INTERACTABLE_TYPE::COLOUR_ORB);
-	Collidable& col = registry.collidables.emplace(colourOrb);
-	col.inelastic = false;
-	col.overlay = true;
+	Collidable& collidable = registry.collidables.emplace(colourOrb);
+	collidable.inelastic = false;
+	collidable.overlay = true;
 
 	ColourOrb orb;
 	orb.colour = colour_state;
-	registry.colourOrbs.insert(colourOrb, orb);  // THIS is what puts it in registry.colourOrbs
+	registry.colourOrbs.insert(colourOrb, orb); 
 
 	const ColourPalette& palette = registry.colourPalettes.components[0];
 	registry.colors.insert(colourOrb, palette.state_to_colour.at(colour_state));
@@ -77,8 +89,8 @@ Entity createMossToggle(vec2 position, vec2 size, COLOUR_STATE color_state, std:
 	ColourState& color_state_component = registry.colourStates.emplace(toggle_entity);
 	color_state_component.curr_colour_state = color_state;
 	moss_toggle.connected_wall_ids = connected_wall_ids;
-	Collidable& col = registry.collidables.emplace(toggle_entity);
-	col.inelastic = true;
+	Collidable& collidable = registry.collidables.emplace(toggle_entity);
+	collidable.inelastic = true;
 
 	return toggle_entity;
 }
