@@ -1,0 +1,10 @@
+^C:\USERS\DETEC\SOURCE\REPOS\TEAM08\BUILD\_DEPS\LDTKLOADER-SUBBUILD\CMAKEFILES\4685C62E0724EC38AD01D01ACA55ACD1\GENERATE.STAMP.RULE
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SC:/Users/detec/source/repos/Team08/build/_deps/ldtkloader-subbuild -BC:/Users/detec/source/repos/Team08/build/_deps/ldtkloader-subbuild --check-stamp-list CMakeFiles/generate.stamp.list --vs-solution-file C:/Users/detec/source/repos/Team08/build/_deps/ldtkloader-subbuild/ldtkloader-populate.slnx
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd

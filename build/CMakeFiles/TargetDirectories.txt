@@ -1,0 +1,7 @@
+C:/Users/detec/source/repos/Team08/build/CMakeFiles/Splash_of_Hue.dir
+C:/Users/detec/source/repos/Team08/build/CMakeFiles/INSTALL.dir
+C:/Users/detec/source/repos/Team08/build/CMakeFiles/ALL_BUILD.dir
+C:/Users/detec/source/repos/Team08/build/CMakeFiles/ZERO_CHECK.dir
+C:/Users/detec/source/repos/Team08/build/_deps/ldtkloader-build/CMakeFiles/LDtkLoader.dir
+C:/Users/detec/source/repos/Team08/build/_deps/ldtkloader-build/CMakeFiles/INSTALL.dir
+C:/Users/detec/source/repos/Team08/build/_deps/ldtkloader-build/CMakeFiles/ALL_BUILD.dir

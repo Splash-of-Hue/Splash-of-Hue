@@ -1,0 +1,8 @@
+{
+	"InstallScripts" : 
+	[
+		"C:/Users/detec/source/repos/Team08/build/cmake_install.cmake",
+		"C:/Users/detec/source/repos/Team08/build/_deps/ldtkloader-build/cmake_install.cmake"
+	],
+	"Parallel" : false
+}

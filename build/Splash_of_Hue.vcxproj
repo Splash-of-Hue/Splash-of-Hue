@@ -1,0 +1,611 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="18.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <PreferredToolArchitecture>x64</PreferredToolArchitecture>
+  </PropertyGroup>
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="MinSizeRel|x64">
+      <Configuration>MinSizeRel</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="RelWithDebInfo|x64">
+      <Configuration>RelWithDebInfo</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{37A92332-9BED-3882-97FA-5C413BAFDD7E}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <WindowsTargetPlatformVersion>10.0.26100.0</WindowsTargetPlatformVersion>
+    <Platform>x64</Platform>
+    <ProjectName>Splash_of_Hue</ProjectName>
+    <VCProjectUpgraderObjectName>NoUpgrade</VCProjectUpgraderObjectName>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v145</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v145</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v145</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v145</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.20506.1</_ProjectFileVersion>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Users\detec\source\repos\Team08\build\Debug\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Splash_of_Hue.dir\Debug\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Splash_of_Hue</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.exe</TargetExt>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</LinkIncremental>
+    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</GenerateManifest>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\Users\detec\source\repos\Team08\build\Release\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Splash_of_Hue.dir\Release\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Splash_of_Hue</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.exe</TargetExt>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkIncremental>
+    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</GenerateManifest>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">C:\Users\detec\source\repos\Team08\build\MinSizeRel\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">Splash_of_Hue.dir\MinSizeRel\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">Splash_of_Hue</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">.exe</TargetExt>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">false</LinkIncremental>
+    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">true</GenerateManifest>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">C:\Users\detec\source\repos\Team08\build\RelWithDebInfo\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">Splash_of_Hue.dir\RelWithDebInfo\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">Splash_of_Hue</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">.exe</TargetExt>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">true</LinkIncremental>
+    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">true</GenerateManifest>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>C:\Users\detec\source\repos\Team08\src;C:\Users\detec\source\repos\Team08\ext\stb_image;C:\Users\detec\source\repos\Team08\ext\gl3w;C:\Users\detec\source\repos\Team08\ext\glfw\include;C:\Users\detec\source\repos\Team08\ext\sdl\include\SDL;C:\Users\detec\source\repos\Team08\build\_deps\ldtkloader-src\include;C:\Users\detec\source\repos\Team08\build\_deps\ldtkloader-build\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /external:I "C:/Users/detec/source/repos/Team08/ext/glm" -w</AdditionalOptions>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <BufferSecurityCheck></BufferSecurityCheck>
+      <CallingConvention></CallingConvention>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <ExternalWarningLevel>TurnOffAllWarnings</ExternalWarningLevel>
+      <FloatingPointModel></FloatingPointModel>
+      <ForceConformanceInForLoopScope></ForceConformanceInForLoopScope>
+      <InlineFunctionExpansion>Disabled</InlineFunctionExpansion>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <MinimalRebuild></MinimalRebuild>
+      <Optimization>Disabled</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RemoveUnreferencedCodeData></RemoveUnreferencedCodeData>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <SupportJustMyCode></SupportJustMyCode>
+      <TreatWChar_tAsBuiltInType></TreatWChar_tAsBuiltInType>
+      <UseFullPaths>false</UseFullPaths>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;CMAKE_INTDIR="Debug"</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <ScanSourceForModuleDependencies>false</ScanSourceForModuleDependencies>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_DEBUG;_WINDOWS;CMAKE_INTDIR=\"Debug\"</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>C:\Users\detec\source\repos\Team08\src;C:\Users\detec\source\repos\Team08\ext\stb_image;C:\Users\detec\source\repos\Team08\ext\gl3w;C:\Users\detec\source\repos\Team08\ext\glfw\include;C:\Users\detec\source\repos\Team08\ext\sdl\include\SDL;C:\Users\detec\source\repos\Team08\build\_deps\ldtkloader-src\include;C:\Users\detec\source\repos\Team08\build\_deps\ldtkloader-build\include;C:\Users\detec\source\repos\Team08\ext\glm;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>C:\Users\detec\source\repos\Team08\src;C:\Users\detec\source\repos\Team08\ext\stb_image;C:\Users\detec\source\repos\Team08\ext\gl3w;C:\Users\detec\source\repos\Team08\ext\glfw\include;C:\Users\detec\source\repos\Team08\ext\sdl\include\SDL;C:\Users\detec\source\repos\Team08\build\_deps\ldtkloader-src\include;C:\Users\detec\source\repos\Team08\build\_deps\ldtkloader-build\include;C:\Users\detec\source\repos\Team08\ext\glm;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <PostBuildEvent>
+      <Message>		</Message>
+      <Command>setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -E copy_if_different C:/Users/detec/source/repos/Team08/ext/glfw/lib/glfw3-x64.dll C:/Users/detec/source/repos/Team08/build/Debug/glfw3.dll
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -E copy_if_different C:/Users/detec/source/repos/Team08/ext/sdl/lib/SDL2-x64.dll C:/Users/detec/source/repos/Team08/build/Debug/SDL2.dll
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -E copy_if_different C:/Users/detec/source/repos/Team08/ext/sdl/lib/SDL2_mixer-x64.dll C:/Users/detec/source/repos/Team08/build/Debug/SDL2_mixer.dll
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+    </PostBuildEvent>
+    <Link>
+      <AdditionalDependencies>opengl32.lib;C:\Users\detec\source\repos\Team08\ext\glfw\lib\glfw3dll-x64.lib;C:\Users\detec\source\repos\Team08\ext\sdl\lib\SDL2-x64.lib;C:\Users\detec\source\repos\Team08\ext\sdl\lib\SDL2_mixer-x64.lib;_deps\ldtkloader-build\lib\Debug\LDtkLoader-d.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /machine:x64</AdditionalOptions>
+      <DataExecutionPrevention></DataExecutionPrevention>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <ImageHasSafeExceptionHandlers></ImageHasSafeExceptionHandlers>
+      <ImportLibrary>C:/Users/detec/source/repos/Team08/build/Debug/Splash_of_Hue.lib</ImportLibrary>
+      <LinkErrorReporting></LinkErrorReporting>
+      <ProgramDataBaseFile>C:/Users/detec/source/repos/Team08/build/Debug/Splash_of_Hue.pdb</ProgramDataBaseFile>
+      <RandomizedBaseAddress></RandomizedBaseAddress>
+      <SubSystem>Console</SubSystem>
+    </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>C:\Users\detec\source\repos\Team08\src;C:\Users\detec\source\repos\Team08\ext\stb_image;C:\Users\detec\source\repos\Team08\ext\gl3w;C:\Users\detec\source\repos\Team08\ext\glfw\include;C:\Users\detec\source\repos\Team08\ext\sdl\include\SDL;C:\Users\detec\source\repos\Team08\build\_deps\ldtkloader-src\include;C:\Users\detec\source\repos\Team08\build\_deps\ldtkloader-build\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /external:I "C:/Users/detec/source/repos/Team08/ext/glm" -w</AdditionalOptions>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <BasicRuntimeChecks>Default</BasicRuntimeChecks>
+      <BufferSecurityCheck></BufferSecurityCheck>
+      <CallingConvention></CallingConvention>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <ExternalWarningLevel>TurnOffAllWarnings</ExternalWarningLevel>
+      <FloatingPointModel></FloatingPointModel>
+      <ForceConformanceInForLoopScope></ForceConformanceInForLoopScope>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <MinimalRebuild></MinimalRebuild>
+      <Optimization>MaxSpeed</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RemoveUnreferencedCodeData></RemoveUnreferencedCodeData>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <SupportJustMyCode></SupportJustMyCode>
+      <TreatWChar_tAsBuiltInType></TreatWChar_tAsBuiltInType>
+      <UseFullPaths>false</UseFullPaths>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;CMAKE_INTDIR="Release"</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <DebugInformationFormat>
+      </DebugInformationFormat>
+      <ScanSourceForModuleDependencies>false</ScanSourceForModuleDependencies>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;CMAKE_INTDIR=\"Release\"</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>C:\Users\detec\source\repos\Team08\src;C:\Users\detec\source\repos\Team08\ext\stb_image;C:\Users\detec\source\repos\Team08\ext\gl3w;C:\Users\detec\source\repos\Team08\ext\glfw\include;C:\Users\detec\source\repos\Team08\ext\sdl\include\SDL;C:\Users\detec\source\repos\Team08\build\_deps\ldtkloader-src\include;C:\Users\detec\source\repos\Team08\build\_deps\ldtkloader-build\include;C:\Users\detec\source\repos\Team08\ext\glm;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>C:\Users\detec\source\repos\Team08\src;C:\Users\detec\source\repos\Team08\ext\stb_image;C:\Users\detec\source\repos\Team08\ext\gl3w;C:\Users\detec\source\repos\Team08\ext\glfw\include;C:\Users\detec\source\repos\Team08\ext\sdl\include\SDL;C:\Users\detec\source\repos\Team08\build\_deps\ldtkloader-src\include;C:\Users\detec\source\repos\Team08\build\_deps\ldtkloader-build\include;C:\Users\detec\source\repos\Team08\ext\glm;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <PostBuildEvent>
+      <Message>		</Message>
+      <Command>setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -E copy_if_different C:/Users/detec/source/repos/Team08/ext/glfw/lib/glfw3-x64.dll C:/Users/detec/source/repos/Team08/build/Release/glfw3.dll
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -E copy_if_different C:/Users/detec/source/repos/Team08/ext/sdl/lib/SDL2-x64.dll C:/Users/detec/source/repos/Team08/build/Release/SDL2.dll
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -E copy_if_different C:/Users/detec/source/repos/Team08/ext/sdl/lib/SDL2_mixer-x64.dll C:/Users/detec/source/repos/Team08/build/Release/SDL2_mixer.dll
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+    </PostBuildEvent>
+    <Link>
+      <AdditionalDependencies>opengl32.lib;C:\Users\detec\source\repos\Team08\ext\glfw\lib\glfw3dll-x64.lib;C:\Users\detec\source\repos\Team08\ext\sdl\lib\SDL2-x64.lib;C:\Users\detec\source\repos\Team08\ext\sdl\lib\SDL2_mixer-x64.lib;_deps\ldtkloader-build\lib\Release\LDtkLoader.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /machine:x64</AdditionalOptions>
+      <DataExecutionPrevention></DataExecutionPrevention>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <ImageHasSafeExceptionHandlers></ImageHasSafeExceptionHandlers>
+      <ImportLibrary>C:/Users/detec/source/repos/Team08/build/Release/Splash_of_Hue.lib</ImportLibrary>
+      <LinkErrorReporting></LinkErrorReporting>
+      <ProgramDataBaseFile>C:/Users/detec/source/repos/Team08/build/Release/Splash_of_Hue.pdb</ProgramDataBaseFile>
+      <RandomizedBaseAddress></RandomizedBaseAddress>
+      <SubSystem>Console</SubSystem>
+    </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>C:\Users\detec\source\repos\Team08\src;C:\Users\detec\source\repos\Team08\ext\stb_image;C:\Users\detec\source\repos\Team08\ext\gl3w;C:\Users\detec\source\repos\Team08\ext\glfw\include;C:\Users\detec\source\repos\Team08\ext\sdl\include\SDL;C:\Users\detec\source\repos\Team08\build\_deps\ldtkloader-src\include;C:\Users\detec\source\repos\Team08\build\_deps\ldtkloader-build\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /external:I "C:/Users/detec/source/repos/Team08/ext/glm" -w</AdditionalOptions>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <BasicRuntimeChecks>Default</BasicRuntimeChecks>
+      <BufferSecurityCheck></BufferSecurityCheck>
+      <CallingConvention></CallingConvention>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <ExternalWarningLevel>TurnOffAllWarnings</ExternalWarningLevel>
+      <FloatingPointModel></FloatingPointModel>
+      <ForceConformanceInForLoopScope></ForceConformanceInForLoopScope>
+      <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <MinimalRebuild></MinimalRebuild>
+      <Optimization>MinSpace</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RemoveUnreferencedCodeData></RemoveUnreferencedCodeData>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <SupportJustMyCode></SupportJustMyCode>
+      <TreatWChar_tAsBuiltInType></TreatWChar_tAsBuiltInType>
+      <UseFullPaths>false</UseFullPaths>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;CMAKE_INTDIR="MinSizeRel"</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <DebugInformationFormat>
+      </DebugInformationFormat>
+      <ScanSourceForModuleDependencies>false</ScanSourceForModuleDependencies>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;CMAKE_INTDIR=\"MinSizeRel\"</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>C:\Users\detec\source\repos\Team08\src;C:\Users\detec\source\repos\Team08\ext\stb_image;C:\Users\detec\source\repos\Team08\ext\gl3w;C:\Users\detec\source\repos\Team08\ext\glfw\include;C:\Users\detec\source\repos\Team08\ext\sdl\include\SDL;C:\Users\detec\source\repos\Team08\build\_deps\ldtkloader-src\include;C:\Users\detec\source\repos\Team08\build\_deps\ldtkloader-build\include;C:\Users\detec\source\repos\Team08\ext\glm;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>C:\Users\detec\source\repos\Team08\src;C:\Users\detec\source\repos\Team08\ext\stb_image;C:\Users\detec\source\repos\Team08\ext\gl3w;C:\Users\detec\source\repos\Team08\ext\glfw\include;C:\Users\detec\source\repos\Team08\ext\sdl\include\SDL;C:\Users\detec\source\repos\Team08\build\_deps\ldtkloader-src\include;C:\Users\detec\source\repos\Team08\build\_deps\ldtkloader-build\include;C:\Users\detec\source\repos\Team08\ext\glm;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <PostBuildEvent>
+      <Message>		</Message>
+      <Command>setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -E copy_if_different C:/Users/detec/source/repos/Team08/ext/glfw/lib/glfw3-x64.dll C:/Users/detec/source/repos/Team08/build/MinSizeRel/glfw3.dll
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -E copy_if_different C:/Users/detec/source/repos/Team08/ext/sdl/lib/SDL2-x64.dll C:/Users/detec/source/repos/Team08/build/MinSizeRel/SDL2.dll
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -E copy_if_different C:/Users/detec/source/repos/Team08/ext/sdl/lib/SDL2_mixer-x64.dll C:/Users/detec/source/repos/Team08/build/MinSizeRel/SDL2_mixer.dll
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+    </PostBuildEvent>
+    <Link>
+      <AdditionalDependencies>opengl32.lib;C:\Users\detec\source\repos\Team08\ext\glfw\lib\glfw3dll-x64.lib;C:\Users\detec\source\repos\Team08\ext\sdl\lib\SDL2-x64.lib;C:\Users\detec\source\repos\Team08\ext\sdl\lib\SDL2_mixer-x64.lib;_deps\ldtkloader-build\lib\MinSizeRel\LDtkLoader.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /machine:x64</AdditionalOptions>
+      <DataExecutionPrevention></DataExecutionPrevention>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <ImageHasSafeExceptionHandlers></ImageHasSafeExceptionHandlers>
+      <ImportLibrary>C:/Users/detec/source/repos/Team08/build/MinSizeRel/Splash_of_Hue.lib</ImportLibrary>
+      <LinkErrorReporting></LinkErrorReporting>
+      <ProgramDataBaseFile>C:/Users/detec/source/repos/Team08/build/MinSizeRel/Splash_of_Hue.pdb</ProgramDataBaseFile>
+      <RandomizedBaseAddress></RandomizedBaseAddress>
+      <SubSystem>Console</SubSystem>
+    </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>C:\Users\detec\source\repos\Team08\src;C:\Users\detec\source\repos\Team08\ext\stb_image;C:\Users\detec\source\repos\Team08\ext\gl3w;C:\Users\detec\source\repos\Team08\ext\glfw\include;C:\Users\detec\source\repos\Team08\ext\sdl\include\SDL;C:\Users\detec\source\repos\Team08\build\_deps\ldtkloader-src\include;C:\Users\detec\source\repos\Team08\build\_deps\ldtkloader-build\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /external:I "C:/Users/detec/source/repos/Team08/ext/glm" -w</AdditionalOptions>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <BasicRuntimeChecks>Default</BasicRuntimeChecks>
+      <BufferSecurityCheck></BufferSecurityCheck>
+      <CallingConvention></CallingConvention>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <ExternalWarningLevel>TurnOffAllWarnings</ExternalWarningLevel>
+      <FloatingPointModel></FloatingPointModel>
+      <ForceConformanceInForLoopScope></ForceConformanceInForLoopScope>
+      <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <MinimalRebuild></MinimalRebuild>
+      <Optimization>MaxSpeed</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RemoveUnreferencedCodeData></RemoveUnreferencedCodeData>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <SupportJustMyCode></SupportJustMyCode>
+      <TreatWChar_tAsBuiltInType></TreatWChar_tAsBuiltInType>
+      <UseFullPaths>false</UseFullPaths>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;CMAKE_INTDIR="RelWithDebInfo"</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <ScanSourceForModuleDependencies>false</ScanSourceForModuleDependencies>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;CMAKE_INTDIR=\"RelWithDebInfo\"</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>C:\Users\detec\source\repos\Team08\src;C:\Users\detec\source\repos\Team08\ext\stb_image;C:\Users\detec\source\repos\Team08\ext\gl3w;C:\Users\detec\source\repos\Team08\ext\glfw\include;C:\Users\detec\source\repos\Team08\ext\sdl\include\SDL;C:\Users\detec\source\repos\Team08\build\_deps\ldtkloader-src\include;C:\Users\detec\source\repos\Team08\build\_deps\ldtkloader-build\include;C:\Users\detec\source\repos\Team08\ext\glm;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>C:\Users\detec\source\repos\Team08\src;C:\Users\detec\source\repos\Team08\ext\stb_image;C:\Users\detec\source\repos\Team08\ext\gl3w;C:\Users\detec\source\repos\Team08\ext\glfw\include;C:\Users\detec\source\repos\Team08\ext\sdl\include\SDL;C:\Users\detec\source\repos\Team08\build\_deps\ldtkloader-src\include;C:\Users\detec\source\repos\Team08\build\_deps\ldtkloader-build\include;C:\Users\detec\source\repos\Team08\ext\glm;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <PostBuildEvent>
+      <Message>		</Message>
+      <Command>setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -E copy_if_different C:/Users/detec/source/repos/Team08/ext/glfw/lib/glfw3-x64.dll C:/Users/detec/source/repos/Team08/build/RelWithDebInfo/glfw3.dll
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -E copy_if_different C:/Users/detec/source/repos/Team08/ext/sdl/lib/SDL2-x64.dll C:/Users/detec/source/repos/Team08/build/RelWithDebInfo/SDL2.dll
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -E copy_if_different C:/Users/detec/source/repos/Team08/ext/sdl/lib/SDL2_mixer-x64.dll C:/Users/detec/source/repos/Team08/build/RelWithDebInfo/SDL2_mixer.dll
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+    </PostBuildEvent>
+    <Link>
+      <AdditionalDependencies>opengl32.lib;C:\Users\detec\source\repos\Team08\ext\glfw\lib\glfw3dll-x64.lib;C:\Users\detec\source\repos\Team08\ext\sdl\lib\SDL2-x64.lib;C:\Users\detec\source\repos\Team08\ext\sdl\lib\SDL2_mixer-x64.lib;_deps\ldtkloader-build\lib\RelWithDebInfo\LDtkLoader.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /machine:x64</AdditionalOptions>
+      <DataExecutionPrevention></DataExecutionPrevention>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <ImageHasSafeExceptionHandlers></ImageHasSafeExceptionHandlers>
+      <ImportLibrary>C:/Users/detec/source/repos/Team08/build/RelWithDebInfo/Splash_of_Hue.lib</ImportLibrary>
+      <LinkErrorReporting></LinkErrorReporting>
+      <ProgramDataBaseFile>C:/Users/detec/source/repos/Team08/build/RelWithDebInfo/Splash_of_Hue.pdb</ProgramDataBaseFile>
+      <RandomizedBaseAddress></RandomizedBaseAddress>
+      <SubSystem>Console</SubSystem>
+    </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\detec\source\repos\Team08\CMakeLists.txt">
+      <UseUtf8Encoding>Always</UseUtf8Encoding>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Building Custom Rule C:/Users/detec/source/repos/Team08/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SC:/Users/detec/source/repos/Team08 -BC:/Users/detec/source/repos/Team08/build --check-stamp-file C:/Users/detec/source/repos/Team08/build/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Program Files\CMake\share\cmake-4.2\Modules\CMakeCInformation.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\CMakeCXXInformation.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\CMakeCommonLanguageInclude.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\CMakeGenericSystem.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\CMakeInitializeConfigs.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\CMakeLanguageInformation.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\CMakeRCInformation.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\CMakeSystemSpecificInformation.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\CMakeSystemSpecificInitialize.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\Compiler\CMakeCommonCompilerMacros.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\Compiler\MSVC-C.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\Compiler\MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\Compiler\MSVC.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\ExternalProject\shared_internal_commands.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\FetchContent.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\FetchContent\CMakeLists.cmake.in;C:\Program Files\CMake\share\cmake-4.2\Modules\FindGit.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\FindOpenGL.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\FindPackageHandleStandardArgs.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\FindPackageMessage.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\Internal\CMakeCLinkerInformation.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\Internal\CMakeCXXLinkerInformation.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\Internal\CMakeCommonLinkerInformation.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\Linker\MSVC-C.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\Linker\MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\Linker\MSVC.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\Platform\Linker\Windows-MSVC-C.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\Platform\Linker\Windows-MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\Platform\Linker\Windows-MSVC.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\Platform\Windows-Initialize.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\Platform\Windows-MSVC-C.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\Platform\Windows-MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\Platform\Windows-MSVC.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\Platform\Windows.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\Platform\WindowsPaths.cmake;C:\Users\detec\source\repos\Team08\build\CMakeFiles\4.2.1\CMakeCCompiler.cmake;C:\Users\detec\source\repos\Team08\build\CMakeFiles\4.2.1\CMakeCXXCompiler.cmake;C:\Users\detec\source\repos\Team08\build\CMakeFiles\4.2.1\CMakeRCCompiler.cmake;C:\Users\detec\source\repos\Team08\build\CMakeFiles\4.2.1\CMakeSystem.cmake;C:\Users\detec\source\repos\Team08\ext\glm\cmake\glm\glmConfig-version.cmake;C:\Users\detec\source\repos\Team08\ext\glm\cmake\glm\glmConfig.cmake;C:\Users\detec\source\repos\Team08\ext\project_path.hpp.in;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Users\detec\source\repos\Team08\build\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Building Custom Rule C:/Users/detec/source/repos/Team08/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SC:/Users/detec/source/repos/Team08 -BC:/Users/detec/source/repos/Team08/build --check-stamp-file C:/Users/detec/source/repos/Team08/build/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\Program Files\CMake\share\cmake-4.2\Modules\CMakeCInformation.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\CMakeCXXInformation.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\CMakeCommonLanguageInclude.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\CMakeGenericSystem.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\CMakeInitializeConfigs.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\CMakeLanguageInformation.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\CMakeRCInformation.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\CMakeSystemSpecificInformation.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\CMakeSystemSpecificInitialize.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\Compiler\CMakeCommonCompilerMacros.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\Compiler\MSVC-C.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\Compiler\MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\Compiler\MSVC.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\ExternalProject\shared_internal_commands.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\FetchContent.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\FetchContent\CMakeLists.cmake.in;C:\Program Files\CMake\share\cmake-4.2\Modules\FindGit.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\FindOpenGL.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\FindPackageHandleStandardArgs.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\FindPackageMessage.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\Internal\CMakeCLinkerInformation.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\Internal\CMakeCXXLinkerInformation.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\Internal\CMakeCommonLinkerInformation.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\Linker\MSVC-C.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\Linker\MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\Linker\MSVC.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\Platform\Linker\Windows-MSVC-C.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\Platform\Linker\Windows-MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\Platform\Linker\Windows-MSVC.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\Platform\Windows-Initialize.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\Platform\Windows-MSVC-C.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\Platform\Windows-MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\Platform\Windows-MSVC.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\Platform\Windows.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\Platform\WindowsPaths.cmake;C:\Users\detec\source\repos\Team08\build\CMakeFiles\4.2.1\CMakeCCompiler.cmake;C:\Users\detec\source\repos\Team08\build\CMakeFiles\4.2.1\CMakeCXXCompiler.cmake;C:\Users\detec\source\repos\Team08\build\CMakeFiles\4.2.1\CMakeRCCompiler.cmake;C:\Users\detec\source\repos\Team08\build\CMakeFiles\4.2.1\CMakeSystem.cmake;C:\Users\detec\source\repos\Team08\ext\glm\cmake\glm\glmConfig-version.cmake;C:\Users\detec\source\repos\Team08\ext\glm\cmake\glm\glmConfig.cmake;C:\Users\detec\source\repos\Team08\ext\project_path.hpp.in;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\Users\detec\source\repos\Team08\build\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">Building Custom Rule C:/Users/detec/source/repos/Team08/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SC:/Users/detec/source/repos/Team08 -BC:/Users/detec/source/repos/Team08/build --check-stamp-file C:/Users/detec/source/repos/Team08/build/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">C:\Program Files\CMake\share\cmake-4.2\Modules\CMakeCInformation.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\CMakeCXXInformation.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\CMakeCommonLanguageInclude.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\CMakeGenericSystem.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\CMakeInitializeConfigs.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\CMakeLanguageInformation.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\CMakeRCInformation.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\CMakeSystemSpecificInformation.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\CMakeSystemSpecificInitialize.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\Compiler\CMakeCommonCompilerMacros.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\Compiler\MSVC-C.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\Compiler\MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\Compiler\MSVC.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\ExternalProject\shared_internal_commands.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\FetchContent.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\FetchContent\CMakeLists.cmake.in;C:\Program Files\CMake\share\cmake-4.2\Modules\FindGit.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\FindOpenGL.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\FindPackageHandleStandardArgs.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\FindPackageMessage.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\Internal\CMakeCLinkerInformation.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\Internal\CMakeCXXLinkerInformation.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\Internal\CMakeCommonLinkerInformation.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\Linker\MSVC-C.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\Linker\MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\Linker\MSVC.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\Platform\Linker\Windows-MSVC-C.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\Platform\Linker\Windows-MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\Platform\Linker\Windows-MSVC.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\Platform\Windows-Initialize.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\Platform\Windows-MSVC-C.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\Platform\Windows-MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\Platform\Windows-MSVC.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\Platform\Windows.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\Platform\WindowsPaths.cmake;C:\Users\detec\source\repos\Team08\build\CMakeFiles\4.2.1\CMakeCCompiler.cmake;C:\Users\detec\source\repos\Team08\build\CMakeFiles\4.2.1\CMakeCXXCompiler.cmake;C:\Users\detec\source\repos\Team08\build\CMakeFiles\4.2.1\CMakeRCCompiler.cmake;C:\Users\detec\source\repos\Team08\build\CMakeFiles\4.2.1\CMakeSystem.cmake;C:\Users\detec\source\repos\Team08\ext\glm\cmake\glm\glmConfig-version.cmake;C:\Users\detec\source\repos\Team08\ext\glm\cmake\glm\glmConfig.cmake;C:\Users\detec\source\repos\Team08\ext\project_path.hpp.in;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">C:\Users\detec\source\repos\Team08\build\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">Building Custom Rule C:/Users/detec/source/repos/Team08/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SC:/Users/detec/source/repos/Team08 -BC:/Users/detec/source/repos/Team08/build --check-stamp-file C:/Users/detec/source/repos/Team08/build/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">C:\Program Files\CMake\share\cmake-4.2\Modules\CMakeCInformation.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\CMakeCXXInformation.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\CMakeCommonLanguageInclude.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\CMakeGenericSystem.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\CMakeInitializeConfigs.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\CMakeLanguageInformation.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\CMakeRCInformation.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\CMakeSystemSpecificInformation.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\CMakeSystemSpecificInitialize.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\Compiler\CMakeCommonCompilerMacros.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\Compiler\MSVC-C.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\Compiler\MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\Compiler\MSVC.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\ExternalProject\shared_internal_commands.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\FetchContent.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\FetchContent\CMakeLists.cmake.in;C:\Program Files\CMake\share\cmake-4.2\Modules\FindGit.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\FindOpenGL.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\FindPackageHandleStandardArgs.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\FindPackageMessage.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\Internal\CMakeCLinkerInformation.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\Internal\CMakeCXXLinkerInformation.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\Internal\CMakeCommonLinkerInformation.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\Linker\MSVC-C.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\Linker\MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\Linker\MSVC.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\Platform\Linker\Windows-MSVC-C.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\Platform\Linker\Windows-MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\Platform\Linker\Windows-MSVC.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\Platform\Windows-Initialize.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\Platform\Windows-MSVC-C.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\Platform\Windows-MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\Platform\Windows-MSVC.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\Platform\Windows.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\Platform\WindowsPaths.cmake;C:\Users\detec\source\repos\Team08\build\CMakeFiles\4.2.1\CMakeCCompiler.cmake;C:\Users\detec\source\repos\Team08\build\CMakeFiles\4.2.1\CMakeCXXCompiler.cmake;C:\Users\detec\source\repos\Team08\build\CMakeFiles\4.2.1\CMakeRCCompiler.cmake;C:\Users\detec\source\repos\Team08\build\CMakeFiles\4.2.1\CMakeSystem.cmake;C:\Users\detec\source\repos\Team08\ext\glm\cmake\glm\glmConfig-version.cmake;C:\Users\detec\source\repos\Team08\ext\glm\cmake\glm\glmConfig.cmake;C:\Users\detec\source\repos\Team08\ext\project_path.hpp.in;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">C:\Users\detec\source\repos\Team08\build\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="C:\Users\detec\source\repos\Team08\src\ai\ai_constants.hpp" />
+    <ClCompile Include="C:\Users\detec\source\repos\Team08\src\ai\ai_system.cpp" />
+    <ClInclude Include="C:\Users\detec\source\repos\Team08\src\ai\ai_system.hpp" />
+    <ClCompile Include="C:\Users\detec\source\repos\Team08\src\ai\pathfinding.cpp" />
+    <ClInclude Include="C:\Users\detec\source\repos\Team08\src\ai\pathfinding.hpp" />
+    <ClInclude Include="C:\Users\detec\source\repos\Team08\src\animation\animation_components.hpp" />
+    <ClInclude Include="C:\Users\detec\source\repos\Team08\src\animation\animation_constants.hpp" />
+    <ClCompile Include="C:\Users\detec\source\repos\Team08\src\animation\animation_system.cpp" />
+    <ClInclude Include="C:\Users\detec\source\repos\Team08\src\animation\animation_system.hpp" />
+    <ClCompile Include="C:\Users\detec\source\repos\Team08\src\animation\animation_system_init.cpp" />
+    <ClInclude Include="C:\Users\detec\source\repos\Team08\src\camera\camera_components.hpp" />
+    <ClCompile Include="C:\Users\detec\source\repos\Team08\src\camera\camera_system.cpp" />
+    <ClInclude Include="C:\Users\detec\source\repos\Team08\src\camera\camera_system.hpp" />
+    <ClCompile Include="C:\Users\detec\source\repos\Team08\src\colour_system.cpp" />
+    <ClInclude Include="C:\Users\detec\source\repos\Team08\src\colour_system.hpp" />
+    <ClCompile Include="C:\Users\detec\source\repos\Team08\src\common.cpp" />
+    <ClInclude Include="C:\Users\detec\source\repos\Team08\src\common.hpp" />
+    <ClInclude Include="C:\Users\detec\source\repos\Team08\src\controllers\player_components.hpp" />
+    <ClCompile Include="C:\Users\detec\source\repos\Team08\src\controllers\player_controller_system.cpp" />
+    <ClInclude Include="C:\Users\detec\source\repos\Team08\src\controllers\player_controller_system.hpp" />
+    <ClInclude Include="C:\Users\detec\source\repos\Team08\src\controls\control_components.hpp" />
+    <ClInclude Include="C:\Users\detec\source\repos\Team08\src\controls\control_constants.hpp" />
+    <ClCompile Include="C:\Users\detec\source\repos\Team08\src\controls\control_input_conversion_system.cpp" />
+    <ClInclude Include="C:\Users\detec\source\repos\Team08\src\controls\control_input_conversion_system.hpp" />
+    <ClCompile Include="C:\Users\detec\source\repos\Team08\src\creature_system\anglerfish_behaviour_functions.cpp" />
+    <ClCompile Include="C:\Users\detec\source\repos\Team08\src\creature_system\crab_behaviour_functions.cpp" />
+    <ClCompile Include="C:\Users\detec\source\repos\Team08\src\creature_system\creature_behaviour_functions.cpp" />
+    <ClInclude Include="C:\Users\detec\source\repos\Team08\src\creature_system\creature_behaviour_functions.hpp" />
+    <ClCompile Include="C:\Users\detec\source\repos\Team08\src\creature_system\creature_behaviour_system.cpp" />
+    <ClInclude Include="C:\Users\detec\source\repos\Team08\src\creature_system\creature_behaviour_system.hpp" />
+    <ClCompile Include="C:\Users\detec\source\repos\Team08\src\creature_system\creature_behaviour_tree_builder.cpp" />
+    <ClInclude Include="C:\Users\detec\source\repos\Team08\src\creature_system\creature_behaviour_tree_builder.hpp" />
+    <ClInclude Include="C:\Users\detec\source\repos\Team08\src\creature_system\creature_behaviour_tree_constants.hpp" />
+    <ClCompile Include="C:\Users\detec\source\repos\Team08\src\creature_system\creature_behaviour_tree_decorator_functions.cpp" />
+    <ClInclude Include="C:\Users\detec\source\repos\Team08\src\creature_system\creature_components.hpp" />
+    <ClInclude Include="C:\Users\detec\source\repos\Team08\src\creature_system\creature_constants.hpp" />
+    <ClCompile Include="C:\Users\detec\source\repos\Team08\src\creature_system\creature_creator.cpp" />
+    <ClInclude Include="C:\Users\detec\source\repos\Team08\src\creature_system\creature_creator.hpp" />
+    <ClCompile Include="C:\Users\detec\source\repos\Team08\src\creature_system\minnows_behaviour_functions.cpp" />
+    <ClCompile Include="C:\Users\detec\source\repos\Team08\src\creature_system\pathfinder_functions.cpp" />
+    <ClCompile Include="C:\Users\detec\source\repos\Team08\src\creature_system\sawfish_behaviour_functions.cpp" />
+    <ClCompile Include="C:\Users\detec\source\repos\Team08\src\creature_system\shrimp_behaviour_functions.cpp" />
+    <ClCompile Include="C:\Users\detec\source\repos\Team08\src\creature_system\whale_behaviour_functions.cpp" />
+    <ClCompile Include="C:\Users\detec\source\repos\Team08\src\ecs\components.cpp" />
+    <ClInclude Include="C:\Users\detec\source\repos\Team08\src\ecs\components.hpp" />
+    <ClInclude Include="C:\Users\detec\source\repos\Team08\src\ecs\entity.hpp" />
+    <ClCompile Include="C:\Users\detec\source\repos\Team08\src\ecs\registry.cpp" />
+    <ClInclude Include="C:\Users\detec\source\repos\Team08\src\ecs\registry.hpp" />
+    <ClCompile Include="C:\Users\detec\source\repos\Team08\src\ecs\tiny_ecs.cpp" />
+    <ClInclude Include="C:\Users\detec\source\repos\Team08\src\ecs\tiny_ecs.hpp" />
+    <ClInclude Include="C:\Users\detec\source\repos\Team08\src\input\input_components.hpp" />
+    <ClInclude Include="C:\Users\detec\source\repos\Team08\src\input\input_constants.hpp" />
+    <ClCompile Include="C:\Users\detec\source\repos\Team08\src\input\input_gamepad_system.cpp" />
+    <ClCompile Include="C:\Users\detec\source\repos\Team08\src\input\input_joystick_system.cpp" />
+    <ClCompile Include="C:\Users\detec\source\repos\Team08\src\input\input_keyboard_system.cpp" />
+    <ClCompile Include="C:\Users\detec\source\repos\Team08\src\input\input_mouse_system.cpp" />
+    <ClCompile Include="C:\Users\detec\source\repos\Team08\src\input\input_system.cpp" />
+    <ClInclude Include="C:\Users\detec\source\repos\Team08\src\input\input_system.hpp" />
+    <ClInclude Include="C:\Users\detec\source\repos\Team08\src\interactables\interactable_components.hpp" />
+    <ClInclude Include="C:\Users\detec\source\repos\Team08\src\interactables\interactable_constants.hpp" />
+    <ClCompile Include="C:\Users\detec\source\repos\Team08\src\interactables\interactable_creator.cpp" />
+    <ClInclude Include="C:\Users\detec\source\repos\Team08\src\interactables\interactable_creator.hpp" />
+    <ClCompile Include="C:\Users\detec\source\repos\Team08\src\interactables\interactable_system.cpp" />
+    <ClInclude Include="C:\Users\detec\source\repos\Team08\src\interactables\interactable_system.hpp" />
+    <ClInclude Include="C:\Users\detec\source\repos\Team08\src\loading\ldtk_loader.hpp" />
+    <ClCompile Include="C:\Users\detec\source\repos\Team08\src\loading\loader_system.cpp" />
+    <ClInclude Include="C:\Users\detec\source\repos\Team08\src\loading\loader_system.hpp" />
+    <ClCompile Include="C:\Users\detec\source\repos\Team08\src\loading\loader_system_ldtk.cpp" />
+    <ClInclude Include="C:\Users\detec\source\repos\Team08\src\loading\loading_components.hpp" />
+    <ClInclude Include="C:\Users\detec\source\repos\Team08\src\loading\loading_constants.hpp" />
+    <ClCompile Include="C:\Users\detec\source\repos\Team08\src\main.cpp" />
+    <ClCompile Include="C:\Users\detec\source\repos\Team08\src\map\map_build_init.cpp" />
+    <ClInclude Include="C:\Users\detec\source\repos\Team08\src\map\map_build_init.hpp" />
+    <ClInclude Include="C:\Users\detec\source\repos\Team08\src\map\map_components.hpp" />
+    <ClInclude Include="C:\Users\detec\source\repos\Team08\src\map\map_constants.hpp" />
+    <ClCompile Include="C:\Users\detec\source\repos\Team08\src\map\map_system.cpp" />
+    <ClInclude Include="C:\Users\detec\source\repos\Team08\src\map\map_system.hpp" />
+    <ClCompile Include="C:\Users\detec\source\repos\Team08\src\physics_system.cpp" />
+    <ClInclude Include="C:\Users\detec\source\repos\Team08\src\physics_system.hpp" />
+    <ClCompile Include="C:\Users\detec\source\repos\Team08\src\renderer\render_components.cpp" />
+    <ClInclude Include="C:\Users\detec\source\repos\Team08\src\renderer\render_components.hpp" />
+    <ClInclude Include="C:\Users\detec\source\repos\Team08\src\renderer\render_constants.hpp" />
+    <ClCompile Include="C:\Users\detec\source\repos\Team08\src\renderer\render_system.cpp" />
+    <ClInclude Include="C:\Users\detec\source\repos\Team08\src\renderer\render_system.hpp" />
+    <ClCompile Include="C:\Users\detec\source\repos\Team08\src\renderer\render_system_init.cpp" />
+    <ClCompile Include="C:\Users\detec\source\repos\Team08\src\sound\sound_system.cpp" />
+    <ClInclude Include="C:\Users\detec\source\repos\Team08\src\sound\sound_system.hpp" />
+    <ClCompile Include="C:\Users\detec\source\repos\Team08\src\world_init.cpp" />
+    <ClInclude Include="C:\Users\detec\source\repos\Team08\src\world_init.hpp" />
+    <ClCompile Include="C:\Users\detec\source\repos\Team08\src\world_system.cpp" />
+    <ClInclude Include="C:\Users\detec\source\repos\Team08\src\world_system.hpp" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="C:\Users\detec\source\repos\Team08\build\ZERO_CHECK.vcxproj">
+      <Project>{E514F1CF-E8DA-3BCD-B035-B3BE8D755384}</Project>
+      <Name>ZERO_CHECK</Name>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </ProjectReference>
+    <ProjectReference Include="C:\Users\detec\source\repos\Team08\build\_deps\ldtkloader-build\LDtkLoader.vcxproj">
+      <Project>{C8030DE9-1742-3C24-8257-5AD0F3761FD8}</Project>
+      <Name>LDtkLoader</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
