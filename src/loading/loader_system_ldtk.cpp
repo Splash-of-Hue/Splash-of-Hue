@@ -230,6 +230,9 @@ void load_extra_entities(const ldtk::Layer& layer)
 			case ENTITY_TYPE::INITIAL_POSITION:
 				set_initial_player_position(extra_entity);
 				continue;
+			case ENTITY_TYPE::WALL:
+				load_wall(extra_entity);
+				continue;
 			case ENTITY_TYPE::MOSS_WALL:
 				load_moss_door(extra_entity);
 				continue;
@@ -333,9 +336,6 @@ void load_floor_interactables(const ldtk::Layer& layer)
 			case ENTITY_TYPE::SPAWN_POINT:
 				load_spawn_points(floor_interactable_entity);
 				continue;
-			case ENTITY_TYPE::WALL:
-				load_wall(floor_interactable_entity, layer);
-				continue;
 			case ENTITY_TYPE::MOSS_TOGGLE:
 				load_moss_toggle(floor_interactable_entity);
 				continue;
@@ -406,7 +406,7 @@ void load_moss_door(const ldtk::Entity& moss_door_entity)
 	createMossWall(moss_door_id, world_position, scaled_size, color_state);
 }
 
-void load_wall(const ldtk::Entity& wall_entity, const ldtk::Layer& layer)
+void load_wall(const ldtk::Entity& wall_entity)
 {
 	std::cout << wall_entity.getName() << std::endl;
 	const ldtk::IntPoint& wall_world_position = wall_entity.getWorldPosition();
@@ -416,8 +416,6 @@ void load_wall(const ldtk::Entity& wall_entity, const ldtk::Layer& layer)
 	float height = wall_size.y * LEVEL_TO_SCREEN_SCALE.y;
 
 	Entity wall = createDungeonWall(position, width, height);
-
-	registry.levelEntities.insert(wall, { layer.level->uid });
 }
 
 void LoaderSystem::unload_level(int level_uid)
