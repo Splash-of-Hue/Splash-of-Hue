@@ -25,3 +25,4 @@ void load_moss_door(const ldtk::Entity& moss_door_entity);
 // Entities - Extras
 void load_extra_entities(const ldtk::Layer& layer);
 void set_initial_player_position(const ldtk::Entity& initial_player_position_entity);
+void load_wall(const ldtk::Entity& wall_entity);

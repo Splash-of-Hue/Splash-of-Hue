@@ -36,3 +36,9 @@ Entity createMapTile(int tile_id, TEXTURE_ASSET_ID texture_id, ivec2 tile_positi
 /// <param name="offset_direction">The direction whatever teleports in will be offset to.</param>
 /// <returns>The entity of the teleporter.</returns>
 Entity createTeleporter(const int level_uid, const int connected_level_uid, vec2 position, vec2 connected_position, DIRECTION offset_direction);
+
+/// <summary>
+/// Creates dungeon wall that players cannot pass
+/// </summary>
+/// <returns>The entity of the wall.</returns>
+Entity createDungeonWall(vec2 position, float width, float height);
