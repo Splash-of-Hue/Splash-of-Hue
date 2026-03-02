@@ -339,6 +339,10 @@ void load_floor_interactables(const ldtk::Layer& layer)
 				continue;
 			case ENTITY_TYPE::COLOUR_ORB:
 				load_colour_orb(floor_interactable_entity);
+				continue;
+			case ENTITY_TYPE::BOX:
+				load_box(floor_interactable_entity);
+				continue;
 			default:
 				continue;
 		}
@@ -416,6 +420,17 @@ void load_colour_orb(const ldtk::Entity& colour_orb_entity)
 	const float radius = (entity_size.x * LEVEL_TO_SCREEN_SCALE.x) * 0.5f;
 	Entity orb = createColourOrb(position, radius, colour_state);
 	registry.levelEntities.insert(orb, { colour_orb_entity.layer->level->uid });
+}
+
+void load_box(const ldtk::Entity& box_entity)
+{
+	const ldtk::IntPoint& world_pos = box_entity.getWorldPosition();
+	const ldtk::IntPoint& entity_size = box_entity.getSize();
+	const vec2 position = vec2(world_pos.x * LEVEL_TO_SCREEN_SCALE.x, world_pos.y * LEVEL_TO_SCREEN_SCALE.y);
+	const float width = entity_size.x * LEVEL_TO_SCREEN_SCALE.x;
+	const float height = entity_size.y * LEVEL_TO_SCREEN_SCALE.y;
+	Entity box = createBox(position, width, height);
+	registry.levelEntities.insert(box, { box_entity.layer->level->uid });
 }
 
 void LoaderSystem::unload_level(int level_uid)

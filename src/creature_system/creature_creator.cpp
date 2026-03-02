@@ -259,12 +259,11 @@ Entity createShrimp(vec2 position, float width, float height, COLOUR_STATE color
     Entity shrimp = Entity();
 
     addGeneralCreatureComponents(shrimp, position, width, height, color_state, CREATURETYPE::SHRIMP, TEXTURE_ASSET_ID::PISTOL_SHRIMP_01, false);
+    registry.scales.get(shrimp) = vec2(5.0f * GRID_CELL_WIDTH_PX, 5.0f * GRID_CELL_HEIGHT_PX);
 
     Shrimp& shrimp_component = registry.shrimps.emplace(shrimp); // direction tracking component
     assert((num_arms == 1 || num_arms == 2) && "shrimp can only be initialized with 1, 2, or 3 arms at this time");
     shrimp_component.num_arms = num_arms;
-
-    createCircle(position, width / 2, RENDER_LAYER::CREATURES, RED_COLOUR_VEC4);
 
     // Todo: AkWAGMV1 cleanup and turn switch into an iterator
     // Add appropriate arms for this shrimp
@@ -282,6 +281,35 @@ Entity createShrimp(vec2 position, float width, float height, COLOUR_STATE color
         //createThreeArmShrimp(shrimp_component, curr_direction_facing, position, width, height); // TODO: 0aEQcx13
         break;
     }    
+
+
+    ANIMATABLE_TYPE shrimp_anim_type;
+    switch (curr_direction_facing)
+    {
+        case DIRECTION::UP:    
+            shrimp_anim_type = ANIMATABLE_TYPE::PISTOL_SHRIMP_UP;    
+            break;
+        case DIRECTION::DOWN:  
+            shrimp_anim_type = ANIMATABLE_TYPE::PISTOL_SHRIMP_DOWN;  
+            break;
+        case DIRECTION::LEFT:  
+            shrimp_anim_type = ANIMATABLE_TYPE::PISTOL_SHRIMP_LEFT;  
+            break;
+        case DIRECTION::RIGHT: 
+            shrimp_anim_type = ANIMATABLE_TYPE::PISTOL_SHRIMP_RIGHT; 
+            break;
+        default:               
+            shrimp_anim_type = ANIMATABLE_TYPE::PISTOL_SHRIMP_UP;    
+            break;
+    }
+
+    const Animatable animatable = {
+        shrimp_anim_type,
+        ANIMATION_BEHAVIOR::LOOP,
+        ANIMATION_TRIGGER::SHRIMP_NEUTRAL,
+        4
+    };
+    registry.animatables.insert(shrimp, animatable);
 
     CreatureBehaviour& creatureBehaviour = registry.creatureBehaviours.emplace(shrimp);
     CreatureBehaviourTreeBuilder builder;

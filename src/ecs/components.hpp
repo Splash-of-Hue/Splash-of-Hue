@@ -138,7 +138,38 @@ struct Toggle
 	std::vector<Entity> walls_to_toggle;
 };
 
-struct PolygonMesh {
+struct PolygonMesh 
+{
 	std::vector<vec2> vertices;
 	vec2 centre;
+};
+
+struct LightEmission 
+{
+	Entity lightSourceEntity;
+	float MAX_RADIUS = 100.f;
+	float TIME_TO_GROW = 1000.f;
+};
+
+struct LightSource 
+{
+	Entity lightEmissionEntity;
+};
+//Todo SPoplE91 - find a way to consolidate
+struct InPlayerRadius
+{
+	Entity radius_entity;
+	COLOUR_STATE colour = COLOUR_STATE::NEUTRAL;
+};
+
+struct InCreatureRadius
+{
+	Entity radius_entity;
+	COLOUR_STATE colour = COLOUR_STATE::NEUTRAL;
+};
+
+struct InInteractableRadius
+{
+	Entity radius_entity;
+	COLOUR_STATE colour = COLOUR_STATE::NEUTRAL;
 };

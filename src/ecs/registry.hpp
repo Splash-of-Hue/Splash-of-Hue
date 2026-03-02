@@ -46,6 +46,8 @@ public:
 	ComponentContainer<ColourPalette> colourPalettes;
 	ComponentContainer<ColourMenuState> colourMenuStates;
 	ComponentContainer<ColourMenuInput> colourMenuInputs;
+	ComponentContainer<LightEmission> lightEmissions;
+	ComponentContainer<LightSource> lightSources;
 	// Controls
 	ComponentContainer<Control> controls;
 	ComponentContainer<Input> inputs;
@@ -76,6 +78,9 @@ public:
 	ComponentContainer<ChangeBehaviour> change_behaviours;
 	ComponentContainer<Collidable> collidables;
 	ComponentContainer<Collision> collisions;
+	ComponentContainer<InCreatureRadius> inCreatureRadius;
+	ComponentContainer<InInteractableRadius> inInteractableRadius;
+	ComponentContainer<InPlayerRadius> inPlayerRadius;
 	ComponentContainer<PolygonMesh> polygons;
 	// Physics - Movement / Transforms
 	ComponentContainer<Angle> angles;
@@ -129,6 +134,8 @@ public:
 		registry_list.push_back(&colourPalettes);
 		registry_list.push_back(&colourMenuStates);
 		registry_list.push_back(&colourMenuInputs);
+		registry_list.push_back(&lightEmissions);
+		registry_list.push_back(&lightSources);
 		// Controls
 		registry_list.push_back(&controls);
 		registry_list.push_back(&inputs);
@@ -159,6 +166,9 @@ public:
 		registry_list.push_back(&change_behaviours);
 		registry_list.push_back(&collidables);
 		registry_list.push_back(&collisions);
+		registry_list.push_back(&inCreatureRadius);
+		registry_list.push_back(&inInteractableRadius);
+		registry_list.push_back(&inPlayerRadius);
 		registry_list.push_back(&polygons);
 		// Physics - Movement / Transforms
 		registry_list.push_back(&angles);
