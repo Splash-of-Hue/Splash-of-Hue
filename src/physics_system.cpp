@@ -164,6 +164,7 @@ void light_emission_collisions(Entity& entity_i, Entity& entity_j)
 				{
 					registry.inPlayerRadius.emplace(other_entity);
 				}
+
 				InPlayerRadius& in_player_radius_component = registry.inPlayerRadius.get(other_entity);
 				in_player_radius_component.colour = colour_state_creature.curr_colour_state;
 				in_player_radius_component.radius_entity = light_emission_entity;
@@ -171,11 +172,11 @@ void light_emission_collisions(Entity& entity_i, Entity& entity_j)
 
 			if (registry.creatures.has(source_entity))
 			{
-
 				if (!registry.inCreatureRadius.has(other_entity))
 				{
 					registry.inCreatureRadius.emplace(other_entity);
 				}
+
 				InCreatureRadius& in_creature_radius_component = registry.inCreatureRadius.get(other_entity);
 				in_creature_radius_component.colour = colour_state_creature.curr_colour_state;
 				in_creature_radius_component.radius_entity = light_emission_entity;
@@ -187,6 +188,7 @@ void light_emission_collisions(Entity& entity_i, Entity& entity_j)
 				{
 					registry.inInteractableRadius.emplace(other_entity);
 				}
+
 				InInteractableRadius& in_interactable_radius_component = registry.inInteractableRadius.get(other_entity);
 				in_interactable_radius_component.colour = colour_state_creature.curr_colour_state;
 				in_interactable_radius_component.radius_entity = light_emission_entity;
