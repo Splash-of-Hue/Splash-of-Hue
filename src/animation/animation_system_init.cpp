@@ -44,7 +44,7 @@ void AnimationSystem::init()
 		ANIMATABLE_TYPE::SAWFISH,
 		ANIMATION_TRIGGER::IDLE,
 		{
-			{ TEXTURE_ASSET_ID::SAWFISH, RenderSourceRect { vec2(0.0f, 0.0f), vec2(0.25f, 0.25f) } },
+			{ TEXTURE_ASSET_ID::SAWFISH, RenderSourceRect { vec2(0.25f, 0.0f), vec2(0.25f, 0.25f) } },
 		}
 	);
 
