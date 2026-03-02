@@ -231,34 +231,34 @@ void handle_colour_collision(Entity& entity_i, Entity& entity_j) {
 		}
 	}
 
-				// TODO UurbFK4Z: Handle in callback instead of in the physics system
-				if (registry.teleporters.has(entity_j) || registry.teleporters.has(entity_i))
-				{
-					bool i_is_teleporter = registry.teleporters.has(entity_i);
-					Entity& teleporter_entity = i_is_teleporter ? entity_i : entity_j;
-					Entity& other_entity = i_is_teleporter ? entity_j : entity_i;
+	// TODO UurbFK4Z: Handle in callback instead of in the physics system
+	if (registry.teleporters.has(entity_j) || registry.teleporters.has(entity_i))
+	{
+		bool i_is_teleporter = registry.teleporters.has(entity_i);
+		Entity& teleporter_entity = i_is_teleporter ? entity_i : entity_j;
+		Entity& other_entity = i_is_teleporter ? entity_j : entity_i;
 
-					if (!registry.currentLevels.has(other_entity))
-					{
-						// Only things that change levels can request to move
-						continue;
-					}
+		if (!registry.currentLevels.has(other_entity))
+		{
+			// Only things that change levels can request to move
+			return;
+		}
 
-					// Check if player or something else is requesting a movement
-					bool is_player = registry.players.has(other_entity);
-					MAP_CHANGE_REQUEST_TYPE map_change_request_type = is_player ? MAP_CHANGE_REQUEST_TYPE::PLAYER : MAP_CHANGE_REQUEST_TYPE::CREATURE;
-					// Generate the request from the teleporter information
-					const Teleporter& teleporter = registry.teleporters.get(teleporter_entity);
-					Entity change_map_request_entity;
-					ChangeMapLevelRequest level_change_request = {
-						other_entity,
-						teleporter.connected_level_uid,
-						teleporter.arrival_location,
-						map_change_request_type,
-						teleporter.offset_direction
-					};
-					registry.changeMapLevelRequests.insert(change_map_request_entity, level_change_request);
-				}
+		// Check if player or something else is requesting a movement
+		bool is_player = registry.players.has(other_entity);
+		MAP_CHANGE_REQUEST_TYPE map_change_request_type = is_player ? MAP_CHANGE_REQUEST_TYPE::PLAYER : MAP_CHANGE_REQUEST_TYPE::CREATURE;
+		// Generate the request from the teleporter information
+		const Teleporter& teleporter = registry.teleporters.get(teleporter_entity);
+		Entity change_map_request_entity;
+		ChangeMapLevelRequest level_change_request = {
+			other_entity,
+			teleporter.connected_level_uid,
+			teleporter.arrival_location,
+			map_change_request_type,
+			teleporter.offset_direction
+		};
+		registry.changeMapLevelRequests.insert(change_map_request_entity, level_change_request);
+	}
 
 	//the button is a circle, is in an overlay? do we walk on top of the button?
 	//is it only our radius that affects the button?
