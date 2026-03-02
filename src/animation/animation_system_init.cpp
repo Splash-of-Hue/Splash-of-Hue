@@ -116,13 +116,63 @@ void AnimationSystem::init()
 				{ TEXTURE_ASSET_ID::WHALE_01, RenderSourceRect() }
 		}
 	);
-	generate_animation(
-		ANIMATABLE_TYPE::PISTOL_SHRIMP,
-		ANIMATION_TRIGGER::IDLE,
-		{
-				{ TEXTURE_ASSET_ID::PISTOL_SHRIMP_01, RenderSourceRect() }
-		}
-	);
+
+	/** DOWN P Shrimp **/
+	generate_animation(ANIMATABLE_TYPE::PISTOL_SHRIMP_DOWN, ANIMATION_TRIGGER::SHRIMP_BLUE, {
+		{ TEXTURE_ASSET_ID::PISTOL_SHRIMP_01, RenderSourceRect{ vec2(0.0f,   0.0f), vec2(0.1667f, 0.25f) }},
+		{ TEXTURE_ASSET_ID::PISTOL_SHRIMP_01, RenderSourceRect{ vec2(0.1667f,0.0f), vec2(0.1667f, 0.25f) }}
+		});
+	generate_animation(ANIMATABLE_TYPE::PISTOL_SHRIMP_DOWN, ANIMATION_TRIGGER::SHRIMP_NEUTRAL, {
+		{ TEXTURE_ASSET_ID::PISTOL_SHRIMP_01, RenderSourceRect{ vec2(0.3333f,0.0f), vec2(0.1667f, 0.25f) }},
+		{ TEXTURE_ASSET_ID::PISTOL_SHRIMP_01, RenderSourceRect{ vec2(0.5f,   0.0f), vec2(0.1667f, 0.25f) }}
+		});
+	generate_animation(ANIMATABLE_TYPE::PISTOL_SHRIMP_DOWN, ANIMATION_TRIGGER::SHRIMP_RED, {
+		{ TEXTURE_ASSET_ID::PISTOL_SHRIMP_01, RenderSourceRect{ vec2(0.6667f,0.0f), vec2(0.1667f, 0.25f) }},
+		{ TEXTURE_ASSET_ID::PISTOL_SHRIMP_01, RenderSourceRect{ vec2(0.8333f,0.0f), vec2(0.1667f, 0.25f) }}
+		});
+
+	/** LEFT P Shrimp **/
+	generate_animation(ANIMATABLE_TYPE::PISTOL_SHRIMP_LEFT, ANIMATION_TRIGGER::SHRIMP_BLUE, {
+		{ TEXTURE_ASSET_ID::PISTOL_SHRIMP_01, RenderSourceRect{ vec2(0.0f,   0.25f), vec2(0.1667f, 0.25f) }},
+		{ TEXTURE_ASSET_ID::PISTOL_SHRIMP_01, RenderSourceRect{ vec2(0.1667f,0.25f), vec2(0.1667f, 0.25f) }}
+		});
+	generate_animation(ANIMATABLE_TYPE::PISTOL_SHRIMP_LEFT, ANIMATION_TRIGGER::SHRIMP_NEUTRAL, {
+		{ TEXTURE_ASSET_ID::PISTOL_SHRIMP_01, RenderSourceRect{ vec2(0.3333f,0.25f), vec2(0.1667f, 0.25f) }},
+		{ TEXTURE_ASSET_ID::PISTOL_SHRIMP_01, RenderSourceRect{ vec2(0.5f,   0.25f), vec2(0.1667f, 0.25f) }}
+		});
+	generate_animation(ANIMATABLE_TYPE::PISTOL_SHRIMP_LEFT, ANIMATION_TRIGGER::SHRIMP_RED, {
+		{ TEXTURE_ASSET_ID::PISTOL_SHRIMP_01, RenderSourceRect{ vec2(0.6667f,0.25f), vec2(0.1667f, 0.25f) }},
+		{ TEXTURE_ASSET_ID::PISTOL_SHRIMP_01, RenderSourceRect{ vec2(0.8333f,0.25f), vec2(0.1667f, 0.25f) }}
+		});
+
+	/** RIGHT P Shrimp **/
+	generate_animation(ANIMATABLE_TYPE::PISTOL_SHRIMP_RIGHT, ANIMATION_TRIGGER::SHRIMP_BLUE, {
+		{ TEXTURE_ASSET_ID::PISTOL_SHRIMP_01, RenderSourceRect{ vec2(0.0f,   0.5f), vec2(0.1667f, 0.25f) }},
+		{ TEXTURE_ASSET_ID::PISTOL_SHRIMP_01, RenderSourceRect{ vec2(0.1667f,0.5f), vec2(0.1667f, 0.25f) }}
+		});
+	generate_animation(ANIMATABLE_TYPE::PISTOL_SHRIMP_RIGHT, ANIMATION_TRIGGER::SHRIMP_NEUTRAL, {
+		{ TEXTURE_ASSET_ID::PISTOL_SHRIMP_01, RenderSourceRect{ vec2(0.3333f,0.5f), vec2(0.1667f, 0.25f) }},
+		{ TEXTURE_ASSET_ID::PISTOL_SHRIMP_01, RenderSourceRect{ vec2(0.5f,   0.5f), vec2(0.1667f, 0.25f) }}
+		});
+	generate_animation(ANIMATABLE_TYPE::PISTOL_SHRIMP_RIGHT, ANIMATION_TRIGGER::SHRIMP_RED, {
+		{ TEXTURE_ASSET_ID::PISTOL_SHRIMP_01, RenderSourceRect{ vec2(0.6667f,0.5f), vec2(0.1667f, 0.25f) }},
+		{ TEXTURE_ASSET_ID::PISTOL_SHRIMP_01, RenderSourceRect{ vec2(0.8333f,0.5f), vec2(0.1667f, 0.25f) }}
+		});
+
+	/** UP P Shrimp **/
+	generate_animation(ANIMATABLE_TYPE::PISTOL_SHRIMP_UP, ANIMATION_TRIGGER::SHRIMP_BLUE, {
+		{ TEXTURE_ASSET_ID::PISTOL_SHRIMP_01, RenderSourceRect{ vec2(0.0f,   0.75f), vec2(0.1667f, 0.25f) }},
+		{ TEXTURE_ASSET_ID::PISTOL_SHRIMP_01, RenderSourceRect{ vec2(0.1667f,0.75f), vec2(0.1667f, 0.25f) }}
+		});
+	generate_animation(ANIMATABLE_TYPE::PISTOL_SHRIMP_UP, ANIMATION_TRIGGER::SHRIMP_NEUTRAL, {
+		{ TEXTURE_ASSET_ID::PISTOL_SHRIMP_01, RenderSourceRect{ vec2(0.3333f,0.75f), vec2(0.1667f, 0.25f) }},
+		{ TEXTURE_ASSET_ID::PISTOL_SHRIMP_01, RenderSourceRect{ vec2(0.5f,   0.75f), vec2(0.1667f, 0.25f) }}
+		});
+	generate_animation(ANIMATABLE_TYPE::PISTOL_SHRIMP_UP, ANIMATION_TRIGGER::SHRIMP_RED, {
+		{ TEXTURE_ASSET_ID::PISTOL_SHRIMP_01, RenderSourceRect{ vec2(0.6667f,0.75f), vec2(0.1667f, 0.25f) }},
+		{ TEXTURE_ASSET_ID::PISTOL_SHRIMP_01, RenderSourceRect{ vec2(0.8333f,0.75f), vec2(0.1667f, 0.25f) }}
+		});
+
 	generate_animation(
 		ANIMATABLE_TYPE::MINNOW,
 		ANIMATION_TRIGGER::IDLE,

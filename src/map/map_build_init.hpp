@@ -35,3 +35,8 @@ Entity createMapTile(int tile_id, TEXTURE_ASSET_ID texture_id, ivec2 tile_positi
 /// <param name="connected_position">The place in the world to be sent to once stepped on.</param>
 /// <returns>The entity of the spawn point.</returns>
 Entity createSpawnPoint(const int level_uid, const int connected_level_uid, vec2 position, vec2 connected_position);
+/// <summary>
+/// Creates dungeon wall that players cannot pass
+/// </summary>
+/// <returns>The entity of the wall.</returns>
+Entity createWall(vec2 position, float width, float height);

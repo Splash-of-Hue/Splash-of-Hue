@@ -384,12 +384,13 @@ PolygonMesh findHitbox(const Entity& e)
 	std::vector<vec2> vertices;
 	//Sawfish heights and widths are too large, this is a temp fix
 	//TODO: DMdDb4NW
-	vertices.push_back({ vec2(pos.x - size.width * 0.45f, pos.y - size.height * 0.45f) });
-	vertices.push_back({vec2(pos.x + size.width * 0.45f, pos.y - size.height * 0.45f) }); // bottom
-	vertices.push_back(vec2(pos.x + size.width * 0.45f, pos.y + size.height * 0.45f)); // top right
-	vertices.push_back(vec2(pos.x - size.width * 0.45f, pos.y + size.height * 0.45f)); // top left
+	float half_width = size.width * 0.5f;
+	float half_height = size.height * 0.5f;
+	vertices.push_back({vec2(pos.x - half_width , pos.y - half_height)});
+	vertices.push_back({vec2(pos.x + half_width, pos.y - half_height) }); // bottom
+	vertices.push_back(vec2(pos.x + half_width, pos.y + half_height)); // top right
+	vertices.push_back(vec2(pos.x - half_width, pos.y + half_height)); // top left
 	PolygonMesh& polygon = PolygonMesh{vertices, pos };
-	
 
 	return polygon;
 }
@@ -474,7 +475,6 @@ vec3 mesh_collides(const Entity& entity1, const Entity& entity2)
 	}
 	if (registry.polygons.has(entity2)) {
 		b = registry.polygons.get(entity2);
-
 	}
 	else
 	{

@@ -91,7 +91,7 @@ void LoaderSystem::load_level(int level_uid)
 				continue;
 		}
 	}
-
+	
 	// TODO rUJfFQQT: This is extremely inefficient. Use polygons to better improve this
 	std::vector<Entity> level_wall_tile_entities;
 	for (Entity& level_tile_entity : registry.levelTiles.entities)
@@ -105,7 +105,7 @@ void LoaderSystem::load_level(int level_uid)
 	const int level_quantize_size = level.getLayer("Floor").getCellSize();
 	const ivec2 quantize_grid_size = ivec2(WINDOW_WIDTH_PX / level_quantize_size, WINDOW_HEIGHT_PX / level_quantize_size);
 	std::unordered_map<ivec2, std::pair<vec2, bool>> quantized_floor_data;
-
+	
 	for (int grid_x = 0; grid_x < quantize_grid_size.x; grid_x++)
 	{
 		for (int grid_y = 0; grid_y < quantize_grid_size.y; grid_y++)
@@ -136,7 +136,6 @@ void LoaderSystem::load_level(int level_uid)
 
 				is_in_wall = true;
 			}
-
 			quantized_floor_data[{grid_x, grid_y}] = { quantize_world_position, !is_in_wall };
 		}
 	}
@@ -230,6 +229,9 @@ void load_extra_entities(const ldtk::Layer& layer)
 		{
 			case ENTITY_TYPE::INITIAL_POSITION:
 				set_initial_player_position(extra_entity);
+				continue;
+			case ENTITY_TYPE::WALL:
+				load_wall(extra_entity);
 				continue;
 			case ENTITY_TYPE::MOSS_WALL:
 				load_moss_door(extra_entity);
@@ -339,6 +341,10 @@ void load_floor_interactables(const ldtk::Layer& layer)
 				continue;
 			case ENTITY_TYPE::COLOUR_ORB:
 				load_colour_orb(floor_interactable_entity);
+				continue;
+			case ENTITY_TYPE::BOX:
+				load_box(floor_interactable_entity);
+				continue;
 			default:
 				continue;
 		}
@@ -406,6 +412,18 @@ void load_moss_door(const ldtk::Entity& moss_door_entity)
 	createMossWall(moss_door_id, world_position, scaled_size, color_state);
 }
 
+void load_wall(const ldtk::Entity& wall_entity)
+{
+	std::cout << wall_entity.getName() << std::endl;
+	const ldtk::IntPoint& wall_world_position = wall_entity.getWorldPosition();
+	const ldtk::IntPoint& wall_size = wall_entity.getSize();
+	const vec2 position = vec2(wall_world_position.x * LEVEL_TO_SCREEN_SCALE.x, wall_world_position.y * LEVEL_TO_SCREEN_SCALE.y);
+	float width = wall_size.x * LEVEL_TO_SCREEN_SCALE.x;
+	float height = wall_size.y * LEVEL_TO_SCREEN_SCALE.y;
+
+	Entity& wall = createWall(position, width, height);
+}
+
 void load_colour_orb(const ldtk::Entity& colour_orb_entity)
 {
 	const ldtk::Field<ldtk::EnumValue>& color_state_field = colour_orb_entity.getField<ldtk::EnumValue>("ColorState");
@@ -416,6 +434,17 @@ void load_colour_orb(const ldtk::Entity& colour_orb_entity)
 	const float radius = (entity_size.x * LEVEL_TO_SCREEN_SCALE.x) * 0.5f;
 	Entity orb = createColourOrb(position, radius, colour_state);
 	registry.levelEntities.insert(orb, { colour_orb_entity.layer->level->uid });
+}
+
+void load_box(const ldtk::Entity& box_entity)
+{
+	const ldtk::IntPoint& world_pos = box_entity.getWorldPosition();
+	const ldtk::IntPoint& entity_size = box_entity.getSize();
+	const vec2 position = vec2(world_pos.x * LEVEL_TO_SCREEN_SCALE.x, world_pos.y * LEVEL_TO_SCREEN_SCALE.y);
+	const float width = entity_size.x * LEVEL_TO_SCREEN_SCALE.x;
+	const float height = entity_size.y * LEVEL_TO_SCREEN_SCALE.y;
+	Entity box = createBox(position, width, height);
+	registry.levelEntities.insert(box, { box_entity.layer->level->uid });
 }
 
 void LoaderSystem::unload_level(int level_uid)
