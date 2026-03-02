@@ -29,13 +29,29 @@ public:
 	static BEHAVIOUR_TREE_STATUS chargeAtTarget(Entity& charger, float elapsed_ms);
 	static BEHAVIOUR_TREE_STATUS stopCreatureMovement(Entity& creature, float elapsed_ms);
 	static BEHAVIOUR_TREE_STATUS requestNewPath(Entity& creature, float elapsed_ms);
+	static BEHAVIOUR_TREE_STATUS requestNewRandomPath(Entity& creature, float elapsed_ms);
 	static BEHAVIOUR_TREE_STATUS goToNextPathStep(Entity& creature, float elapsed_ms);
 	static BEHAVIOUR_TREE_STATUS makeNeutral(Entity& creature, float elapsed_ms);
+	static BEHAVIOUR_TREE_STATUS applyCooldown(Entity& creature, float elapsed_ms);
+	static BEHAVIOUR_TREE_STATUS applyCharging(Entity& creature, float elapsed_ms);
+	static BEHAVIOUR_TREE_STATUS removeCooldown(Entity& creature, float elapsed_ms);
+	static BEHAVIOUR_TREE_STATUS returnSuccess(Entity& creature, float elapsed_ms);
+	static BEHAVIOUR_TREE_STATUS returnFailure(Entity& creature, float elapsed_ms);
+	static BEHAVIOUR_TREE_STATUS removeCollision(Entity& creature, float elapsed_ms);
+	static BEHAVIOUR_TREE_STATUS removeCharging(Entity& creature, float elapsed_ms);
+	static BEHAVIOUR_TREE_STATUS removeDizzy(Entity& creature, float elapsed_ms);
+
+
 
 	// Shrimp Behaviour Actions
 	static BEHAVIOUR_TREE_STATUS neutralArms(Entity& follower, float elapsed_ms);
 	static BEHAVIOUR_TREE_STATUS blueArms(Entity& follower, float elapsed_ms);
 	static BEHAVIOUR_TREE_STATUS redArms(Entity& follower, float elapsed_ms);
+
+	// Sawfish Behaviour Actions
+	static BEHAVIOUR_TREE_STATUS aimAtTarget(Entity& follower, float elapsed_ms);
+	static BEHAVIOUR_TREE_STATUS sawfishChargeAtTarget(Entity& follower, float elapsed_ms);
+	static BEHAVIOUR_TREE_STATUS beDizzy(Entity& follower, float elapsed_ms);
 
 	// ===== Decorator Node Functions =====
 	static BEHAVIOUR_TREE_STATUS isInBlueState(Entity& creature, float elapsed_ms);
@@ -48,6 +64,9 @@ public:
 	static BEHAVIOUR_TREE_STATUS isCreatureWithinCreatureColourRadius(Entity& creature, float elapsed_ms);
 	static BEHAVIOUR_TREE_STATUS isCreatureWithinInteractableColourRadius(Entity& creature, float elapsed_ms);
 	static BEHAVIOUR_TREE_STATUS hasCreatureCollided(Entity& creature, float elapsed_ms);
+	static BEHAVIOUR_TREE_STATUS hasCooldown(Entity& creature, float elapsed_ms);
+	static BEHAVIOUR_TREE_STATUS isCharging(Entity& creature, float elapsed_ms);
+	static BEHAVIOUR_TREE_STATUS isDizzy(Entity& creature, float elapsed_ms);
 
 private:
 	// ===== NODE HELPERS =====

@@ -38,14 +38,20 @@ BEHAVIOUR_TREE_STATUS CreatureBehaviourFunctions::isInNeutralState(Entity& creat
 // Will START executing behaviour after cooldown is completed
 BEHAVIOUR_TREE_STATUS CreatureBehaviourFunctions::isCooldownComplete(Entity& creature, float elapsed_ms)
 {
+	if (!registry.creatureBehaviourCooldowns.has(creature))
+	{
+		return BEHAVIOUR_TREE_STATUS::FAILURE;
+	}
 	CreatureBehaviourCooldown& cooldown = registry.creatureBehaviourCooldowns.get(creature);
 	if (cooldown.cooldown <= 0)
 	{
+		std::cout << cooldown.cooldown <<  "completed" << std::endl;
 		cooldown.cooldown = cooldown.cooldown_default; // reset cooldown
 		return BEHAVIOUR_TREE_STATUS::SUCCESS;
 	}
 	else
 	{
+		std::cout << cooldown.cooldown << std::endl;
 		cooldown.cooldown -= elapsed_ms;
 		return BEHAVIOUR_TREE_STATUS::FAILURE;
 	}
@@ -106,5 +112,38 @@ BEHAVIOUR_TREE_STATUS CreatureBehaviourFunctions::isCreatureWithinInteractableCo
 // TODO: https://trello.com/c/DMWehWpC/119-2-creaturebehavioursystem-hascreaturecollided
 BEHAVIOUR_TREE_STATUS CreatureBehaviourFunctions::hasCreatureCollided(Entity& creature, float elapsed_ms)
 {
-	return BEHAVIOUR_TREE_STATUS::SUCCESS;
+	if (registry.creatureInelasticCollisions.has(creature))
+	{
+		std::cout << "ouch!" << std::endl;
+		return BEHAVIOUR_TREE_STATUS::SUCCESS;
+	}
+	return BEHAVIOUR_TREE_STATUS::RUNNING;
+}
+
+// TODO: https://trello.com/c/DMWehWpC/119-2-creaturebehavioursystem-hascreaturecollided
+BEHAVIOUR_TREE_STATUS CreatureBehaviourFunctions::hasCooldown(Entity& creature, float elapsed_ms)
+{
+	if (registry.creatureBehaviourCooldowns.has(creature))
+	{
+		return BEHAVIOUR_TREE_STATUS::SUCCESS;
+	}
+	return BEHAVIOUR_TREE_STATUS::FAILURE;
+}
+
+BEHAVIOUR_TREE_STATUS CreatureBehaviourFunctions::isCharging(Entity& creature, float elapsed_ms)
+{
+	if (registry.chargers.has(creature))
+	{
+		return BEHAVIOUR_TREE_STATUS::SUCCESS;
+	}
+	return BEHAVIOUR_TREE_STATUS::FAILURE;
+}
+
+BEHAVIOUR_TREE_STATUS CreatureBehaviourFunctions::isDizzy(Entity& creature, float elapsed_ms)
+{
+	if (registry.dizzies.has(creature))
+	{
+		return BEHAVIOUR_TREE_STATUS::SUCCESS;
+	}
+	return BEHAVIOUR_TREE_STATUS::FAILURE;
 }

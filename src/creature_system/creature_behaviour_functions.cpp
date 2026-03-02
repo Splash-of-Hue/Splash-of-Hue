@@ -35,3 +35,69 @@ BEHAVIOUR_TREE_STATUS CreatureBehaviourFunctions::makeNeutral(Entity& creature, 
 	return BEHAVIOUR_TREE_STATUS::SUCCESS;
 	
 }
+
+BEHAVIOUR_TREE_STATUS CreatureBehaviourFunctions::applyCooldown(Entity& creature, float elapsed_ms)
+{
+	if (!registry.creatureBehaviourCooldowns.has(creature))
+	{
+		registry.creatureBehaviourCooldowns.emplace(creature);
+	}
+	return BEHAVIOUR_TREE_STATUS::SUCCESS;
+}
+
+BEHAVIOUR_TREE_STATUS CreatureBehaviourFunctions::removeCooldown(Entity& creature, float elapsed_ms)
+{
+	if (registry.creatureBehaviourCooldowns.has(creature))
+	{
+		registry.creatureBehaviourCooldowns.remove(creature);
+	}
+	return BEHAVIOUR_TREE_STATUS::SUCCESS;
+}
+
+BEHAVIOUR_TREE_STATUS CreatureBehaviourFunctions::applyCharging(Entity& creature, float elapsed_ms)
+{
+	if (!registry.chargers.has(creature))
+	{
+		registry.chargers.emplace(creature);
+	}
+	return BEHAVIOUR_TREE_STATUS::SUCCESS;
+}
+
+BEHAVIOUR_TREE_STATUS CreatureBehaviourFunctions::returnSuccess(Entity& creature, float elapsed_ms)
+{
+	return BEHAVIOUR_TREE_STATUS::SUCCESS;
+}
+
+BEHAVIOUR_TREE_STATUS CreatureBehaviourFunctions::returnFailure(Entity& creature, float elapsed_ms)
+{
+	return BEHAVIOUR_TREE_STATUS::FAILURE;
+}
+
+BEHAVIOUR_TREE_STATUS CreatureBehaviourFunctions::removeCollision(Entity& creature, float elapsed_ms)
+{
+	if (registry.creatureInelasticCollisions.has(creature))
+	{
+		registry.creatureInelasticCollisions.remove(creature);
+	}
+	return BEHAVIOUR_TREE_STATUS::SUCCESS;
+}
+
+BEHAVIOUR_TREE_STATUS CreatureBehaviourFunctions::removeCharging(Entity& creature, float elapsed_ms)
+{
+	if (registry.chargers.has(creature))
+	{
+		std::cout << "removing CharginG!" << std::endl;
+		registry.chargers.remove(creature);
+	}
+	return BEHAVIOUR_TREE_STATUS::SUCCESS;
+}
+
+BEHAVIOUR_TREE_STATUS CreatureBehaviourFunctions::removeDizzy(Entity& creature, float elapsed_ms)
+{
+	if (registry.dizzies.has(creature))
+	{
+		std::cout << "removing dizzy!" << std::endl;
+		registry.dizzies.remove(creature);
+	}
+	return BEHAVIOUR_TREE_STATUS::SUCCESS;
+}

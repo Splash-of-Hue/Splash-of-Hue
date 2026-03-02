@@ -40,19 +40,61 @@ BehaviourTree CreatureBehaviourTreeBuilder::buildSawfishTree()
 	int root_index =
 		Root(builder,
 			Selector(builder,
-				Decorator(builder, creatureBehaviourFunctions.isInBlueState,
+				Decorator(builder, creatureBehaviourFunctions.isInRedState,
 					Selector(builder,
-						Action(builder, creatureBehaviourFunctions.aStarFollowTarget),
-						Action(builder, creatureBehaviourFunctions.stopCreatureMovement)
+						Decorator(builder, creatureBehaviourFunctions.isDizzy,
+							Selector(builder, 
+								Decorator(builder, creatureBehaviourFunctions.isCooldownComplete,
+									Sequence(builder,
+										Action(builder, creatureBehaviourFunctions.removeCooldown),
+										Action(builder, creatureBehaviourFunctions.removeCharging),
+										Action(builder, creatureBehaviourFunctions.makeNeutral)
+									)
+								)
+							)
+						),
+						Decorator(builder, creatureBehaviourFunctions.isCharging,
+							Selector(builder,
+								Decorator(builder, creatureBehaviourFunctions.hasCreatureCollided,
+									Sequence(builder, 
+										Action(builder, creatureBehaviourFunctions.stopCreatureMovement),
+										Action(builder, creatureBehaviourFunctions.removeCollision),
+										Action(builder, creatureBehaviourFunctions.beDizzy),
+										Action(builder, creatureBehaviourFunctions.applyCooldown)
+									)
+								)
+							)
+						),
+						Sequence(builder,
+							Action(builder, creatureBehaviourFunctions.stopCreatureMovement),
+							Action(builder, creatureBehaviourFunctions.applyCooldown),
+							Action(builder, creatureBehaviourFunctions.aimAtTarget),
+							Selector(builder,
+								Decorator(builder, creatureBehaviourFunctions.isCooldownComplete,
+									Sequence(builder, 
+										Action(builder, creatureBehaviourFunctions.removeCooldown),
+										Action(builder, creatureBehaviourFunctions.applyCharging),
+										Action(builder, creatureBehaviourFunctions.sawfishChargeAtTarget)
+									)
+								)
+							)
+						)
 					)
 				),
-				Decorator(builder, creatureBehaviourFunctions.isInRedState,
-					Action(builder, creatureBehaviourFunctions.chargeAtTarget)
-				),
-				Decorator(builder, creatureBehaviourFunctions.isInNeutralState,
-					Action(builder, creatureBehaviourFunctions.stopCreatureMovement)
+				Selector(builder,
+					Decorator(builder, creatureBehaviourFunctions.isInBlueState,
+						Sequence(builder,
+							Action(builder, creatureBehaviourFunctions.returnSuccess)
+						)
+					),
+					Decorator(builder, creatureBehaviourFunctions.isInNeutralState,
+						Sequence(builder,
+							Action(builder, creatureBehaviourFunctions.returnSuccess)
+						)
+					)
 				)
 			)
+			
 		);
 
 	return builder.build(root_index);

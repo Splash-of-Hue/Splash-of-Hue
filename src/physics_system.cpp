@@ -253,6 +253,21 @@ void light_emission_collisions(Entity& entity_i, Entity& entity_j)
 
 void handle_misc_collision(Entity& entity_i, Entity& entity_j)
 {
+	if (registry.creatures.has(entity_i) || registry.creatures.has(entity_j))
+	{
+		Entity& entity_creature = registry.creatures.has(entity_i) ? entity_i : entity_j;
+		Entity& entity_other = registry.creatures.has(entity_j) ? entity_i : entity_j;
+
+		if (!registry.creatureInelasticCollisions.has(entity_creature))
+		{
+			Collidable& other_collidable = registry.collidables.get(entity_other);
+			if (other_collidable.inelastic)
+			{
+				registry.creatureInelasticCollisions.emplace(entity_creature);
+			}
+		}
+	}
+
 	if (registry.colouredWall.has(entity_i) || registry.colouredWall.has(entity_j))
 	{
 		Entity& eCW = registry.colouredWall.has(entity_i) ? entity_i : entity_j;
@@ -268,7 +283,7 @@ void handle_misc_collision(Entity& entity_i, Entity& entity_j)
 		Collidable& colCW = registry.collidables.get(eCW);
 
 		//if colourStates are same, wall is no longer inelastic, so player can walk through
-		if (csCW.curr_colour_state == csO.curr_colour_state && csCW.curr_colour_state != COLOUR_STATE::NEUTRAL && registry.players.has(eO))
+		if (csCW.curr_colour_state == csO.curr_colour_state && csCW.curr_colour_state != COLOUR_STATE::NEUTRAL)
 		{
 
 			colCW.inelastic = false;
