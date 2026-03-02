@@ -141,7 +141,6 @@ void light_emission_collisions(Entity& entity_i, Entity& entity_j) {
 	Entity& light_emission_entity = registry.lightEmissions.has(entity_i) ? entity_i : entity_j;
 	Entity& other_entity = registry.lightEmissions.has(entity_i) ? entity_j : entity_i;
 
-
 	if (registry.creatures.has(other_entity))
 	{
 		if (registry.colourStates.has(other_entity))
@@ -208,7 +207,6 @@ void light_emission_collisions(Entity& entity_i, Entity& entity_j) {
 		}
 
 	}
-	
 }
 
 void handle_misc_collision(Entity& entity_i, Entity& entity_j)
@@ -256,7 +254,6 @@ void handle_misc_collision(Entity& entity_i, Entity& entity_j)
 					{
 						registry.deathTimers.emplace(eP);
 					}
-
 				}
 			}
 		}
