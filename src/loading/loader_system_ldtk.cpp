@@ -351,6 +351,7 @@ void load_teleporter(const ldtk::Entity& teleporter_entity)
 	const ldtk::EntityRef& other_teleporter_entity_ref = teleporter_entity.getField<ldtk::EntityRef>("ConnectedTeleporter").value();
 	const auto& other_layer_grid_size = other_teleporter_entity_ref->layer->getCellSize();
 	const ldtk::IntPoint& position = teleporter_entity.getWorldPosition();
+	const ldtk::IntPoint& size = teleporter_entity.getSize();
 	const ldtk::IntPoint& arrival_entity_position = other_teleporter_entity_ref->getWorldPosition();
 	bool has_defined_arrival_position = !other_teleporter_entity_ref->getField<ldtk::IntPoint>("ArrivalGridPosition").is_null();
 	ivec2 other_teleporter_grid_offset = ivec2(0);
@@ -373,6 +374,7 @@ void load_teleporter(const ldtk::Entity& teleporter_entity)
 		level_uid,
 		connected_level_uid,
 		vec2(position.x * LEVEL_TO_SCREEN_SCALE.x, position.y * LEVEL_TO_SCREEN_SCALE.y),
+		{ size.x, size.y },
 		vec2(world_arrival_point.x * LEVEL_TO_SCREEN_SCALE.x, world_arrival_point.y * LEVEL_TO_SCREEN_SCALE.y),
 		offset_direction
 	);
@@ -400,7 +402,7 @@ void load_moss_toggle(const ldtk::Entity& moss_toggle_entity)
 		connected_wall_ids.push_back(wall_entity_ref.entity_iid.str());
 	}
 
-	createMossToggle(world_position, scaled_size, color_state, connected_wall_ids);
+	createMossToggle(moss_toggle_entity.layer->level->uid, world_position, scaled_size, color_state, connected_wall_ids);
 }
 
 void load_moss_door(const ldtk::Entity& moss_door_entity)
@@ -413,7 +415,7 @@ void load_moss_door(const ldtk::Entity& moss_door_entity)
 	const ldtk::Field<ldtk::EnumValue>& color_state_enum_type = moss_door_entity.getField<ldtk::EnumValue>("ColorState");
 	const COLOUR_STATE& color_state = color_state_from_string(color_state_enum_type.value().name);
 
-	createMossWall(moss_door_id, world_position, scaled_size, color_state);
+	createMossWall(moss_door_entity.layer->level->uid, moss_door_id, world_position, scaled_size, color_state);
 }
 
 void load_wall(const ldtk::Entity& wall_entity)
@@ -425,7 +427,7 @@ void load_wall(const ldtk::Entity& wall_entity)
 	float width = wall_size.x * LEVEL_TO_SCREEN_SCALE.x;
 	float height = wall_size.y * LEVEL_TO_SCREEN_SCALE.y;
 
-	Entity wall = createDungeonWall(position, width, height);
+	Entity wall = createDungeonWall(wall_entity.layer->level->uid, position, width, height);
 }
 
 void LoaderSystem::unload_level(int level_uid)

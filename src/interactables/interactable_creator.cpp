@@ -44,7 +44,7 @@ Entity createMushroom(vec2 position, float radius, COLOUR_STATE colour_state)
 	return mushroom;
 }
 
-Entity createMossToggle(vec2 position, vec2 size, COLOUR_STATE color_state, std::vector<std::string> connected_wall_ids)
+Entity createMossToggle(const int level_uid, vec2 position, vec2 size, COLOUR_STATE color_state, std::vector<std::string> connected_wall_ids)
 {
 	const ColourPalette& palette = registry.colourPalettes.components[0];
 	auto& color_from_state = palette.state_to_colour.at(color_state);
@@ -55,6 +55,7 @@ Entity createMossToggle(vec2 position, vec2 size, COLOUR_STATE color_state, std:
 	moss_toggle.connected_wall_ids = connected_wall_ids;
 	Collidable& col = registry.collidables.emplace(toggle_entity);
 	col.inelastic = true;
+	registry.levelEntities.insert(toggle_entity, { level_uid });
 
 	return toggle_entity;
 }
