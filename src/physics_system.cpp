@@ -374,12 +374,11 @@ PolygonMesh findHitbox(const Entity& e)
 	//TODO: DMdDb4NW
 	float half_width = size.width * 0.5f;
 	float half_height = size.height * 0.5f;
-	vertices.push_back({ vec2(pos.x - half_width , pos.y - half_height) });
+	vertices.push_back({vec2(pos.x - half_width , pos.y - half_height)});
 	vertices.push_back({vec2(pos.x + half_width, pos.y - half_height) }); // bottom
 	vertices.push_back(vec2(pos.x + half_width, pos.y + half_height)); // top right
 	vertices.push_back(vec2(pos.x - half_width, pos.y + half_height)); // top left
 	PolygonMesh& polygon = PolygonMesh{vertices, pos };
-	
 
 	return polygon;
 }
