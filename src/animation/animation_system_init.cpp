@@ -202,6 +202,53 @@ void AnimationSystem::init()
 				{ TEXTURE_ASSET_ID::CORAL_TREE_01, RenderSourceRect() }
 		}
 	);
+
+	/*
+		ENVIRONMENT ANIMATIONS
+	*/
+	generate_animation(
+		ANIMATABLE_TYPE::MOSS_TRIGGER,
+		ANIMATION_TRIGGER::IDLE,
+		{
+				{ TEXTURE_ASSET_ID::MOSS, RenderSourceRect { vec2(0.5, 0.125), vec2(0.25, 0.125) }},
+		}
+	);
+	generate_animation(
+		ANIMATABLE_TYPE::MOSS_TRIGGER,
+		ANIMATION_TRIGGER::IDLE_BLUE,
+		{
+				{ TEXTURE_ASSET_ID::MOSS, RenderSourceRect { vec2(0.25, 0.0), vec2(0.25, 0.125) }},
+				{ TEXTURE_ASSET_ID::MOSS, RenderSourceRect { vec2(0.25, 0.125), vec2(0.25, 0.125) }},
+				{ TEXTURE_ASSET_ID::MOSS, RenderSourceRect { vec2(0.75, 0.0), vec2(0.25, 0.125) }},
+				{ TEXTURE_ASSET_ID::MOSS, RenderSourceRect { vec2(0.25, 0.125), vec2(0.25, 0.125) }},
+		}
+	);
+	generate_animation(
+		ANIMATABLE_TYPE::MOSS_TRIGGER,
+		ANIMATION_TRIGGER::IDLE_RED,
+		{
+				{ TEXTURE_ASSET_ID::MOSS, RenderSourceRect { vec2(0.0, 0.0), vec2(0.25, 0.125) }},
+				{ TEXTURE_ASSET_ID::MOSS, RenderSourceRect { vec2(0.0, 0.125), vec2(0.25, 0.125) }},
+				{ TEXTURE_ASSET_ID::MOSS, RenderSourceRect { vec2(0.5, 0.0), vec2(0.25, 0.125) }},
+				{ TEXTURE_ASSET_ID::MOSS, RenderSourceRect { vec2(0.0, 0.125), vec2(0.25, 0.125) }},
+		}
+		);
+	generate_animation(
+		ANIMATABLE_TYPE::MOSS_WALL,
+		ANIMATION_TRIGGER::IDLE_RED,
+		{
+				{ TEXTURE_ASSET_ID::MOSS, RenderSourceRect { vec2(0.300, 0.375), vec2(0.5, 0.25) }},
+		}
+	);
+	generate_animation(
+		ANIMATABLE_TYPE::MOSS_WALL,
+		ANIMATION_TRIGGER::IDLE_BLUE,
+		{
+				{ TEXTURE_ASSET_ID::MOSS, RenderSourceRect { vec2(0.300, 0.625), vec2(0.5, 0.35) }},
+				// 				{ TEXTURE_ASSET_ID::MOSS, RenderSourceRect { vec2(0.300, 0.625), vec2(0.5, 0.3) }},
+
+		}
+	);
 }
 
 void AnimationSystem::generate_animation(
