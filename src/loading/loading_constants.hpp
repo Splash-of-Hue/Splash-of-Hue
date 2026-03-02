@@ -27,6 +27,7 @@ enum class ENTITY_TYPE
 	INITIAL_POSITION,
 	MOSS_TOGGLE,
 	MOSS_WALL,
+	WALL,
 	COLOUR_ORB,
 	BOX,
 };
@@ -48,6 +49,7 @@ const std::map<std::string, ENTITY_TYPE> entity_type_string_to_enum_map = {
 	{ "Initial_Position", ENTITY_TYPE::INITIAL_POSITION },
 	{ "MossToggle", ENTITY_TYPE::MOSS_TOGGLE },
 	{ "MossWall", ENTITY_TYPE::MOSS_WALL },
+	{ "Wall", ENTITY_TYPE::WALL },
 	{ "ColourOrb", ENTITY_TYPE::COLOUR_ORB },
 	{ "Box", ENTITY_TYPE::BOX },
 };
