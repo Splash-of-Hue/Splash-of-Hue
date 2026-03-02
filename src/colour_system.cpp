@@ -81,7 +81,7 @@ void ColourSystem::closeColourMenu()
 	registry.colourStates.get(player).curr_colour_state = chosen;
 
 	setEntityVisualColour(player, chosen);
-	
+
 	colour_menu_open = false;
 }
 
@@ -173,11 +173,13 @@ void ColourSystem::applyColorToPlayer(COLOUR_STATE colour)
 	if (!registry.colourStates.has(player)) {
 		registry.colourStates.emplace(player);
 	}
-	registry.colourStates.get(player).curr_colour_state = colour;
-
+	ColourState& player_colour_state = registry.colourStates.get(player);
+	player_colour_state.prev_colour_state = player_colour_state.curr_colour_state;
+	player_colour_state.curr_colour_state = colour;
+	
 	//TODO: https://trello.com/c/XWeiA55L/149-1-colour-menu-ui-always-visible
 	setEntityVisualColour(player, colour);
-
+	changeLightEmissions(player, static_cast<int>(player_colour_state.curr_colour_state), static_cast<int>(player_colour_state.prev_colour_state));
 	std::cout << "Player colour set to: " << static_cast<int>(colour) << std::endl;
 }
 
@@ -212,5 +214,82 @@ void ColourSystem::step(float elapsed_ms)
 			}
 		}
 	}
+	updateEmissions(elapsed_ms);
 }
 
+void ColourSystem::changeLightEmissions(Entity& player, int player_colour_state, int player_colour_state_prev)
+{
+	//if neutral, delete colour circle
+	if (player_colour_state == static_cast<int>(COLOUR_STATE::NEUTRAL)) {
+		registry.lightSources.remove(player);
+		registry.remove_all_components_of(players_light_emission);
+		return;
+	}
+
+	//if same colour, don't reanimate
+	if (player_colour_state == player_colour_state_prev)
+	{
+		return;
+	}
+	//if player already has light emission, but the light is a different colour,
+	//make size 0, so that you can see the regrowing of the circle
+	if (registry.lightSources.has(player))
+	{
+		LightSource& light_source_component = registry.lightSources.get(player);
+		players_light_emission = light_source_component.lightEmissionEntity;
+		Size& colour_circle_size = registry.sizes.get(players_light_emission);
+		colour_circle_size.width = 0;
+		colour_circle_size.height = 0;
+	}
+
+	//create lightsource if player does not have one
+	else {
+		vec2& player_position = registry.positions.get(player);
+		vec4 light_emission_colour = DEFAULT_COLOUR_VEC4;
+		light_emission_colour.a = 0.2f;
+
+		players_light_emission = createCircle(player_position, 1.f, RENDER_LAYER::FOREGROUND, light_emission_colour);
+		Collidable& light_emission_collidable_component = registry.collidables.emplace(players_light_emission);
+		light_emission_collidable_component.overlay = true;
+		light_emission_collidable_component.inelastic = false;
+
+		LightEmission& light_emission_component = registry.lightEmissions.emplace(players_light_emission);
+		light_emission_component.MAX_RADIUS = 150.f;
+		light_emission_component.TIME_TO_GROW = 1000.f;
+
+		RenderRequest& light_emission_render_request = registry.renderRequests.get(players_light_emission);
+		light_emission_render_request.used_geometry = GEOMETRY_BUFFER_ID::GRADIENT_CIRCLE;
+
+		ColourState& colour_circle_colour_state = registry.colourStates.emplace(players_light_emission);
+		light_emission_component.lightSourceEntity = player;
+
+		LightSource& light_source_component = registry.lightSources.emplace(player);
+		light_source_component.lightEmissionEntity = players_light_emission;
+	}
+
+	ColourState& light_emission_colour_state = registry.colourStates.get(players_light_emission);
+	light_emission_colour_state.prev_colour_state = light_emission_colour_state.curr_colour_state;
+	light_emission_colour_state.curr_colour_state = COLOUR_STATE(player_colour_state);
+	setEntityVisualColour(players_light_emission, COLOUR_STATE(player_colour_state));
+}
+
+void ColourSystem::updateEmissions(float elapsed_ms)
+{
+	for (Entity& light_emission_entity : registry.lightEmissions.entities)
+	{
+		//circle updates to location of whatever its attached to
+		vec2& light_emission_position = registry.positions.get(light_emission_entity);
+		
+		LightEmission& light_emission_component = registry.lightEmissions.get(light_emission_entity);
+		Entity& source_entity = light_emission_component.lightSourceEntity;
+		vec2& source_position = registry.positions.get(source_entity);
+		
+		light_emission_position = source_position;
+
+		Size& light_emission_size = registry.sizes.get(light_emission_entity);
+		if (light_emission_size.width < light_emission_component.MAX_RADIUS){
+			light_emission_size.width += light_emission_component.MAX_RADIUS * elapsed_ms / light_emission_component.TIME_TO_GROW;
+			light_emission_size.height += light_emission_component.MAX_RADIUS * elapsed_ms / light_emission_component.TIME_TO_GROW;
+		}
+	}
+}
