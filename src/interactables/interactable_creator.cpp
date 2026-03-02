@@ -82,15 +82,35 @@ Entity createMushroom(vec2 position, float radius, COLOUR_STATE colour_state)
 
 Entity createMossToggle(vec2 position, vec2 size, COLOUR_STATE color_state, std::vector<std::string> connected_wall_ids)
 {
+	Entity toggle_entity;
 	const ColourPalette& palette = registry.colourPalettes.components[0];
 	auto& color_from_state = palette.state_to_colour.at(color_state);
-	Entity& toggle_entity = createRectangle(position, size.x, size.y, RENDER_LAYER::FLOOR_INTERACTABLES, color_from_state);
 	MossToggle& moss_toggle = registry.mossToggles.emplace(toggle_entity);
-	ColourState& color_state_component = registry.colourStates.emplace(toggle_entity);
-	color_state_component.curr_colour_state = color_state;
-	moss_toggle.connected_wall_ids = connected_wall_ids;
-	Collidable& collidable = registry.collidables.emplace(toggle_entity);
-	collidable.inelastic = true;
+	registry.positions.insert(toggle_entity, position);
+	registry.scales.insert(toggle_entity, size);
+	registry.sizes.insert(toggle_entity, { size.x, size.y });
+	registry.colors.emplace(toggle_entity, color_from_state);
+	registry.angles.emplace(toggle_entity);
+	Collidable& col = registry.collidables.emplace(toggle_entity);
+	col.inelastic = false;
+	registry.colourStates.insert(toggle_entity, { color_state, color_state });
+	registry.renderRequests.insert(
+		toggle_entity,
+		{
+			EFFECT_ASSET_ID::TEXTURED,
+			GEOMETRY_BUFFER_ID::SPRITE,
+			RENDER_LAYER::FLOOR_INTERACTABLES
+		}
+	);
+	const ANIMATION_TRIGGER trigger = color_state == COLOUR_STATE::NEUTRAL ? ANIMATION_TRIGGER::IDLE : color_state == COLOUR_STATE::BLUE ? ANIMATION_TRIGGER::IDLE_BLUE : ANIMATION_TRIGGER::IDLE_RED;
+	const Animatable animatable = {
+		ANIMATABLE_TYPE::MOSS_TRIGGER,
+		ANIMATION_BEHAVIOR::LOOP,
+		trigger,
+		MOSS_FRAME_RATE
+	};
+	registry.animatables.insert(toggle_entity, animatable);
+	registry.textured.insert(toggle_entity, { TEXTURE_ASSET_ID::MOSS });
 
 	return toggle_entity;
 }

@@ -90,7 +90,7 @@ Entity createLeftArm(vec2 shrimp_position, float shrimp_width, vec4 colour)
     float left_arm_x = shrimp_position.x - SHRIMP_ARM_TRANSLATION_X;
     float left_arm_y = shrimp_position.y;
 
-    Entity& armEntity = createRectangle(vec2(left_arm_x, left_arm_y), shrimp_width / 2, shrimp_width / 4, RENDER_LAYER::CREATURES, colour);
+    Entity& armEntity = createRectangle(vec2(left_arm_x, left_arm_y), shrimp_width, shrimp_width / 4, RENDER_LAYER::CREATURES, colour);
     
     registry.collidables.emplace(armEntity);
     return armEntity;
@@ -106,7 +106,7 @@ Entity createRightArm(vec2 shrimp_position, float shrimp_width, vec4 colour)
     float right_arm_x = shrimp_position.x + SHRIMP_ARM_TRANSLATION_X;
     float right_arm_y = shrimp_position.y;
 
-    Entity& armEntity = createRectangle(vec2(right_arm_x, right_arm_y), shrimp_width / 2, shrimp_width / 4, RENDER_LAYER::CREATURES, colour);
+    Entity& armEntity = createRectangle(vec2(right_arm_x, right_arm_y), shrimp_width, shrimp_width / 4, RENDER_LAYER::CREATURES, colour);
     registry.collidables.emplace(armEntity);
     return armEntity;
 }
@@ -121,7 +121,7 @@ Entity createUpArm(vec2 shrimp_position, float shrimp_width, vec4 colour)
     float up_arm_x = shrimp_position.x;
     float up_arm_y = shrimp_position.y - SHRIMP_ARM_TRANSLATION_Y;
 
-    Entity& armEntity = createRectangle(vec2(up_arm_x, up_arm_y), shrimp_width / 4, shrimp_width / 2, RENDER_LAYER::CREATURES, colour);
+    Entity& armEntity = createRectangle(vec2(up_arm_x, up_arm_y), shrimp_width / 4, shrimp_width, RENDER_LAYER::CREATURES, colour);
     registry.collidables.emplace(armEntity);
     return armEntity;
 }
@@ -136,7 +136,7 @@ Entity createDownArm(vec2 shrimp_position, float shrimp_width, vec4 colour)
     float down_arm_x = shrimp_position.x;
     float down_arm_y = shrimp_position.y + SHRIMP_ARM_TRANSLATION_Y;
 
-    Entity& armEntity = createRectangle(vec2(down_arm_x, down_arm_y), shrimp_width / 4, shrimp_width / 2, RENDER_LAYER::CREATURES, colour);
+    Entity& armEntity = createRectangle(vec2(down_arm_x, down_arm_y), shrimp_width / 4, shrimp_width, RENDER_LAYER::CREATURES, colour);
     registry.collidables.emplace(armEntity);
     return armEntity;
 }
