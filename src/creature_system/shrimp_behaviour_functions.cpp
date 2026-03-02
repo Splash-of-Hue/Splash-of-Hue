@@ -45,6 +45,7 @@ BEHAVIOUR_TREE_STATUS CreatureBehaviourFunctions::enableCollidableComponent(std:
 		collidable.inelastic = true;
 
 		vec4& colour = registry.colors.get(entity);
+		colour.a = 1.0f; // set invisible
 	}
 
 	return BEHAVIOUR_TREE_STATUS::SUCCESS;
