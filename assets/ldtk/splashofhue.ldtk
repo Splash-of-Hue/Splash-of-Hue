@@ -963,8 +963,8 @@
 			"exportToToc": false,
 			"allowOutOfBounds": false,
 			"doc": null,
-			"width": 256,
-			"height": 128,
+			"width": 512,
+			"height": 256,
 			"resizableX": false,
 			"resizableY": false,
 			"minWidth": null,
@@ -1715,25 +1715,6 @@
 							"fieldInstances": [],
 							"__worldX": 888,
 							"__worldY": 856
-						},
-						{
-							"__identifier": "MossWall",
-							"__grid": [65,15],
-							"__pivot": [0.5,0.5],
-							"__tags": ["Internal_Wall"],
-							"__tile": { "tilesetUid": 52, "x": 160, "y": 400, "w": 192, "h": 224 },
-							"__smartColor": "#DECDD4",
-							"iid": "7320fa40-fa90-11f0-aace-6b6206e497f1",
-							"width": 400,
-							"height": 240,
-							"defUid": 48,
-							"px": [1048,248],
-							"fieldInstances": [{ "__identifier": "ColorState", "__type": "LocalEnum.ColorState", "__value": "Blue", "__tile": null, "defUid": 49, "realEditorValues": [{
-								"id": "V_String",
-								"params": ["Blue"]
-							}] }],
-							"__worldX": 1048,
-							"__worldY": 248
 						}
 					]
 				},
@@ -1815,36 +1796,6 @@
 							],
 							"__worldX": 900,
 							"__worldY": 164
-						},
-						{
-							"__identifier": "MossToggle",
-							"__grid": [72,62],
-							"__pivot": [0.5,0.5],
-							"__tags": ["Floor_Interactable"],
-							"__tile": { "tilesetUid": 52, "x": 144, "y": 16, "w": 112, "h": 96 },
-							"__smartColor": "#70C16A",
-							"iid": "78600e60-fa90-11f0-aace-e93faf286bcb",
-							"width": 200,
-							"height": 100,
-							"defUid": 46,
-							"px": [580,500],
-							"fieldInstances": [
-								{ "__identifier": "ConnectedWalls", "__type": "Array<EntityRef>", "__value": [{
-									"entityIid": "7320fa40-fa90-11f0-aace-6b6206e497f1",
-									"layerIid": "ca7becd0-fa90-11f0-85ba-81bccb6ba5f4",
-									"levelIid": "def30d80-d380-11f0-a1bc-2363b8ac7cbf",
-									"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787"
-								}], "__tile": null, "defUid": 47, "realEditorValues": [{
-									"id": "V_String",
-									"params": ["7320fa40-fa90-11f0-aace-6b6206e497f1"]
-								}] },
-								{ "__identifier": "ColorState", "__type": "LocalEnum.ColorState", "__value": "Neutral", "__tile": null, "defUid": 50, "realEditorValues": [{
-									"id": "V_String",
-									"params": ["Neutral"]
-								}] }
-							],
-							"__worldX": 580,
-							"__worldY": 500
 						}
 					]
 				},
@@ -2349,22 +2300,117 @@
 					"entityInstances": [
 						{
 							"__identifier": "MossWall",
-							"__grid": [55,11],
+							"__grid": [28,10],
 							"__pivot": [0.5,0.5],
 							"__tags": ["Internal_Wall"],
 							"__tile": { "tilesetUid": 52, "x": 160, "y": 400, "w": 192, "h": 224 },
 							"__smartColor": "#DECDD4",
 							"iid": "8d3a3520-fa90-11f0-aace-71cad282f398",
-							"width": 1040,
+							"width": 190,
 							"height": 224,
 							"defUid": 48,
-							"px": [888,184],
+							"px": [456,168],
 							"fieldInstances": [{ "__identifier": "ColorState", "__type": "LocalEnum.ColorState", "__value": "Blue", "__tile": null, "defUid": 49, "realEditorValues": [{
 								"id": "V_String",
 								"params": ["Blue"]
 							}] }],
-							"__worldX": 888,
-							"__worldY": -896
+							"__worldX": 456,
+							"__worldY": -912
+						},
+						{
+							"__identifier": "MossWall",
+							"__grid": [39,10],
+							"__pivot": [0.5,0.5],
+							"__tags": ["Internal_Wall"],
+							"__tile": { "tilesetUid": 52, "x": 160, "y": 400, "w": 192, "h": 224 },
+							"__smartColor": "#DECDD4",
+							"iid": "509b3450-fa90-11f0-9290-cdb29ca29123",
+							"width": 190,
+							"height": 224,
+							"defUid": 48,
+							"px": [632,168],
+							"fieldInstances": [{ "__identifier": "ColorState", "__type": "LocalEnum.ColorState", "__value": "Blue", "__tile": null, "defUid": 49, "realEditorValues": [{
+								"id": "V_String",
+								"params": ["Blue"]
+							}] }],
+							"__worldX": 632,
+							"__worldY": -912
+						},
+						{
+							"__identifier": "MossWall",
+							"__grid": [50,10],
+							"__pivot": [0.5,0.5],
+							"__tags": ["Internal_Wall"],
+							"__tile": { "tilesetUid": 52, "x": 160, "y": 400, "w": 192, "h": 224 },
+							"__smartColor": "#DECDD4",
+							"iid": "51b074e0-fa90-11f0-9290-371b247fecdf",
+							"width": 190,
+							"height": 224,
+							"defUid": 48,
+							"px": [808,168],
+							"fieldInstances": [{ "__identifier": "ColorState", "__type": "LocalEnum.ColorState", "__value": "Blue", "__tile": null, "defUid": 49, "realEditorValues": [{
+								"id": "V_String",
+								"params": ["Blue"]
+							}] }],
+							"__worldX": 808,
+							"__worldY": -912
+						},
+						{
+							"__identifier": "MossWall",
+							"__grid": [61,10],
+							"__pivot": [0.5,0.5],
+							"__tags": ["Internal_Wall"],
+							"__tile": { "tilesetUid": 52, "x": 160, "y": 400, "w": 192, "h": 224 },
+							"__smartColor": "#DECDD4",
+							"iid": "52e8a6c0-fa90-11f0-9290-77d49ed3ac25",
+							"width": 190,
+							"height": 224,
+							"defUid": 48,
+							"px": [984,168],
+							"fieldInstances": [{ "__identifier": "ColorState", "__type": "LocalEnum.ColorState", "__value": "Blue", "__tile": null, "defUid": 49, "realEditorValues": [{
+								"id": "V_String",
+								"params": ["Blue"]
+							}] }],
+							"__worldX": 984,
+							"__worldY": -912
+						},
+						{
+							"__identifier": "MossWall",
+							"__grid": [71,10],
+							"__pivot": [0.5,0.5],
+							"__tags": ["Internal_Wall"],
+							"__tile": { "tilesetUid": 52, "x": 160, "y": 400, "w": 192, "h": 224 },
+							"__smartColor": "#DECDD4",
+							"iid": "53d7e8c0-fa90-11f0-9290-09b55682effa",
+							"width": 190,
+							"height": 224,
+							"defUid": 48,
+							"px": [1144,168],
+							"fieldInstances": [{ "__identifier": "ColorState", "__type": "LocalEnum.ColorState", "__value": "Blue", "__tile": null, "defUid": 49, "realEditorValues": [{
+								"id": "V_String",
+								"params": ["Blue"]
+							}] }],
+							"__worldX": 1144,
+							"__worldY": -912
+						},
+						{
+							"__identifier": "MossWall",
+							"__grid": [82,10],
+							"__pivot": [0.5,0.5],
+							"__tags": ["Internal_Wall"],
+							"__tile": { "tilesetUid": 52, "x": 160, "y": 400, "w": 192, "h": 224 },
+							"__smartColor": "#DECDD4",
+							"iid": "5508c7a0-fa90-11f0-9290-b36362e6b0a0",
+							"width": 190,
+							"height": 224,
+							"defUid": 48,
+							"px": [1320,168],
+							"fieldInstances": [{ "__identifier": "ColorState", "__type": "LocalEnum.ColorState", "__value": "Blue", "__tile": null, "defUid": 49, "realEditorValues": [{
+								"id": "V_String",
+								"params": ["Blue"]
+							}] }],
+							"__worldX": 1320,
+							"__worldY": -912
 						}
 					]
 				},
@@ -3104,8 +3150,8 @@
 							"__tile": null,
 							"__smartColor": "#E4A672",
 							"iid": "515eeb50-fa90-11f0-95ec-59a945e0df01",
-							"width": 256,
-							"height": 128,
+							"width": 512,
+							"height": 256,
 							"defUid": 22,
 							"px": [760,248],
 							"fieldInstances": [
@@ -4408,7 +4454,7 @@
 							"__smartColor": "#DECDD4",
 							"iid": "b028c600-fa90-11f0-aace-3de86970d83b",
 							"width": 64,
-							"height": 320,
+							"height": 200,
 							"defUid": 48,
 							"px": [1064,296],
 							"fieldInstances": [{ "__identifier": "ColorState", "__type": "LocalEnum.ColorState", "__value": "Blue", "__tile": null, "defUid": 49, "realEditorValues": [{
@@ -4417,6 +4463,25 @@
 							}] }],
 							"__worldX": 1064,
 							"__worldY": -1864
+						},
+						{
+							"__identifier": "MossWall",
+							"__grid": [66,9],
+							"__pivot": [0.5,0.5],
+							"__tags": ["Internal_Wall"],
+							"__tile": { "tilesetUid": 52, "x": 160, "y": 400, "w": 192, "h": 224 },
+							"__smartColor": "#DECDD4",
+							"iid": "6111ae90-fa90-11f0-9290-87b49e96ec33",
+							"width": 64,
+							"height": 200,
+							"defUid": 48,
+							"px": [1064,152],
+							"fieldInstances": [{ "__identifier": "ColorState", "__type": "LocalEnum.ColorState", "__value": "Blue", "__tile": null, "defUid": 49, "realEditorValues": [{
+								"id": "V_String",
+								"params": ["Blue"]
+							}] }],
+							"__worldX": 1064,
+							"__worldY": -2008
 						}
 					]
 				},
@@ -4446,16 +4511,16 @@
 					"entityInstances": [
 						{
 							"__identifier": "PShrimp",
-							"__grid": [16,21],
+							"__grid": [21,26],
 							"__pivot": [0.5,0.5],
 							"__tags": ["Creature"],
 							"__tile": null,
 							"__smartColor": "#E4A672",
 							"iid": "831ff220-fa90-11f0-95ec-43677fbe6c4f",
-							"width": 256,
-							"height": 128,
+							"width": 512,
+							"height": 256,
 							"defUid": 22,
-							"px": [264,344],
+							"px": [344,424],
 							"fieldInstances": [
 								{ "__identifier": "CreatureType", "__type": "LocalEnum.CreatureType", "__value": "PShrimp", "__tile": null, "defUid": 25, "realEditorValues": [] },
 								{ "__identifier": "ColorState", "__type": "LocalEnum.ColorState", "__value": "Neutral", "__tile": null, "defUid": 30, "realEditorValues": [] },
@@ -4465,21 +4530,21 @@
 								}] },
 								{ "__identifier": "ArmCount", "__type": "Int", "__value": 2, "__tile": null, "defUid": 39, "realEditorValues": [] }
 							],
-							"__worldX": 264,
-							"__worldY": -1816
+							"__worldX": 344,
+							"__worldY": -1736
 						},
 						{
 							"__identifier": "PShrimp",
-							"__grid": [99,32],
+							"__grid": [99,37],
 							"__pivot": [0.5,0.5],
 							"__tags": ["Creature"],
 							"__tile": null,
 							"__smartColor": "#E4A672",
 							"iid": "9323ad60-fa90-11f0-95ec-25a11f5b327f",
-							"width": 256,
-							"height": 128,
+							"width": 512,
+							"height": 256,
 							"defUid": 22,
-							"px": [1592,520],
+							"px": [1592,600],
 							"fieldInstances": [
 								{ "__identifier": "CreatureType", "__type": "LocalEnum.CreatureType", "__value": "PShrimp", "__tile": null, "defUid": 25, "realEditorValues": [] },
 								{ "__identifier": "ColorState", "__type": "LocalEnum.ColorState", "__value": "Neutral", "__tile": null, "defUid": 30, "realEditorValues": [] },
@@ -4490,7 +4555,7 @@
 								{ "__identifier": "ArmCount", "__type": "Int", "__value": 2, "__tile": null, "defUid": 39, "realEditorValues": [] }
 							],
 							"__worldX": 1592,
-							"__worldY": -1640
+							"__worldY": -1560
 						}
 					]
 				},
@@ -7429,7 +7494,7 @@
 							"__tile": { "tilesetUid": 52, "x": 160, "y": 400, "w": 192, "h": 224 },
 							"__smartColor": "#DECDD4",
 							"iid": "496a6f90-fa90-11f0-aace-2df8892a2ee1",
-							"width": 384,
+							"width": 190,
 							"height": 224,
 							"defUid": 48,
 							"px": [1224,920],
@@ -7702,6 +7767,44 @@
 							}] }],
 							"__worldX": 3896,
 							"__worldY": -1472
+						},
+						{
+							"__identifier": "MossWall",
+							"__grid": [66,58],
+							"__pivot": [0.5,0.5],
+							"__tags": ["Internal_Wall"],
+							"__tile": { "tilesetUid": 52, "x": 160, "y": 400, "w": 192, "h": 224 },
+							"__smartColor": "#DECDD4",
+							"iid": "74515af0-fa90-11f0-9290-2b7088ff7928",
+							"width": 190,
+							"height": 224,
+							"defUid": 48,
+							"px": [1064,936],
+							"fieldInstances": [{ "__identifier": "ColorState", "__type": "LocalEnum.ColorState", "__value": "Red", "__tile": null, "defUid": 49, "realEditorValues": [{
+								"id": "V_String",
+								"params": ["Red"]
+							}] }],
+							"__worldX": 4904,
+							"__worldY": -1224
+						},
+						{
+							"__identifier": "MossWall",
+							"__grid": [86,57],
+							"__pivot": [0.5,0.5],
+							"__tags": ["Internal_Wall"],
+							"__tile": { "tilesetUid": 52, "x": 160, "y": 400, "w": 192, "h": 224 },
+							"__smartColor": "#DECDD4",
+							"iid": "756710b0-fa90-11f0-9290-8ba1d3a481bf",
+							"width": 190,
+							"height": 224,
+							"defUid": 48,
+							"px": [1384,920],
+							"fieldInstances": [{ "__identifier": "ColorState", "__type": "LocalEnum.ColorState", "__value": "Red", "__tile": null, "defUid": 49, "realEditorValues": [{
+								"id": "V_String",
+								"params": ["Red"]
+							}] }],
+							"__worldX": 5224,
+							"__worldY": -1240
 						}
 					]
 				},
@@ -7756,8 +7859,8 @@
 							"__tile": null,
 							"__smartColor": "#E4A672",
 							"iid": "cf4b6dc0-fa90-11f0-95ec-dd7825f24e8d",
-							"width": 256,
-							"height": 128,
+							"width": 512,
+							"height": 256,
 							"defUid": 22,
 							"px": [424,632],
 							"fieldInstances": [
