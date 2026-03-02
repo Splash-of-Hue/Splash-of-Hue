@@ -1,5 +1,7 @@
 #pragma once
 
+const float SPAWN_POINT_RADIUS = 10.0f;
+
 enum MAP_TILE_TYPE
 {
 	DEFAULT = 0,
