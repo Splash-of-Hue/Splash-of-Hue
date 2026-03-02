@@ -5801,6 +5801,36 @@
 									"params": ["Red"]
 								}] }
 							],
+							"__worldX": 2876,
+							"__worldY": -1220
+						},
+						{
+							"__identifier": "MossToggle",
+							"__grid": [157,57],
+							"__pivot": [0.5,0.5],
+							"__tags": ["Floor_Interactable"],
+							"__tile": null,
+							"__smartColor": "#70C16A",
+							"iid": "63874fb0-fa90-11f0-aace-b3cb3c1d4a9f",
+							"width": 70,
+							"height": 70,
+							"defUid": 46,
+							"px": [1260,460],
+							"fieldInstances": [
+								{ "__identifier": "ConnectedWalls", "__type": "Array<EntityRef>", "__value": [{
+									"entityIid": "496a6f90-fa90-11f0-aace-2df8892a2ee1",
+									"layerIid": "2091ada1-fa90-11f0-95ec-5305befd8ab4",
+									"levelIid": "2091ada0-fa90-11f0-95ec-63798b15b604",
+									"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787"
+								}], "__tile": null, "defUid": 47, "realEditorValues": [{
+									"id": "V_String",
+									"params": ["496a6f90-fa90-11f0-aace-2df8892a2ee1"]
+								}] },
+								{ "__identifier": "ColorState", "__type": "LocalEnum.ColorState", "__value": "Red", "__tile": null, "defUid": 50, "realEditorValues": [{
+									"id": "V_String",
+									"params": ["Red"]
+								}] }
+							],
 							"__worldX": 3180,
 							"__worldY": -1700
 						}

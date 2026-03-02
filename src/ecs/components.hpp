@@ -93,10 +93,10 @@ struct Debug {
 };
 extern Debug debugging;
 
-// Sets the brightness of the screen
+// Sets the state of the screen
 struct ScreenState
 {
-	float darken_screen_factor = -1;
+	vec4 background_color;
 };
 
 // A struct to refer to debugging graphics in the ECS

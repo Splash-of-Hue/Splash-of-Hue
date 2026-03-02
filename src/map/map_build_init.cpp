@@ -44,7 +44,10 @@ Entity createMapTile(int tile_id, TEXTURE_ASSET_ID texture_id, ivec2 tile_positi
 
 Entity createTeleporter(const int level_uid, const int connected_level_id, vec2 position, vec2 connected_position, DIRECTION offset_direction)
 {
-	Entity teleporter_entity = createCircle(position, 10.0f, RENDER_LAYER::FLOOR_INTERACTABLES, { DEFAULT_COLOUR_VEC4 });
+	Entity teleporter_entity;
+	Size size = { TELEPORTER_RADIUS, TELEPORTER_RADIUS };
+	registry.sizes.insert(teleporter_entity, size);
+	registry.positions.insert(teleporter_entity, position);
 	Teleporter teleporter = { level_uid, connected_level_id, offset_direction, vec2(connected_position.x, connected_position.y) };
 	registry.teleporters.emplace(teleporter_entity, teleporter);
 	registry.collidables.emplace(teleporter_entity);

@@ -69,6 +69,10 @@ struct Level
 	/// having this as false means the level has previously been loaded and then unloaded
 	/// </summary>
 	bool is_loaded = false;
+	/// <summary>
+	/// The background color of the level, behind everything rendered on screen
+	/// </summary>
+	vec4 background_color;
 };
 
 struct ChangeMapLevelRequest

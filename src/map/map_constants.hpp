@@ -7,6 +7,8 @@ enum class MAP_CHANGE_REQUEST_TYPE
 	CREATURE
 };
 
+const float TELEPORTER_RADIUS = 10.0f;
+
 enum MAP_TILE_TYPE
 {
 	DEFAULT = 0,
