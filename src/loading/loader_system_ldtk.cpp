@@ -335,6 +335,7 @@ void load_floor_interactables(const ldtk::Layer& layer)
 				continue;
 			case ENTITY_TYPE::WALL:
 				load_wall(floor_interactable_entity, layer);
+				continue;
 			case ENTITY_TYPE::MOSS_TOGGLE:
 				load_moss_toggle(floor_interactable_entity);
 				continue;
