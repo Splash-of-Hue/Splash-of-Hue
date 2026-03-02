@@ -39,4 +39,4 @@ Entity createSpawnPoint(const int level_uid, const int connected_level_uid, vec2
 /// Creates dungeon wall that players cannot pass
 /// </summary>
 /// <returns>The entity of the wall.</returns>
-Entity createDungeonWall(vec2 position, float width, float height);
+Entity createWall(vec2 position, float width, float height);

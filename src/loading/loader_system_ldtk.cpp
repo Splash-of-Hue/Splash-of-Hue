@@ -415,7 +415,7 @@ void load_wall(const ldtk::Entity& wall_entity)
 	float width = wall_size.x * LEVEL_TO_SCREEN_SCALE.x;
 	float height = wall_size.y * LEVEL_TO_SCREEN_SCALE.y;
 
-	Entity wall = createDungeonWall(position, width, height);
+	Entity wall = createWall(position, width, height);
 }
 
 void LoaderSystem::unload_level(int level_uid)
