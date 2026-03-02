@@ -11,7 +11,6 @@ Entity PlayerControllerSystem::create_player()
 	auto& color_from_state = palette.state_to_colour.at(player_color_state.curr_colour_state);
 	//auto& player_entity = createPlayer({ 0, 0 }, 40.0f, 40.0f, color_from_state);
 	Entity player_entity = Entity();
-	//TODO: RD9Gsz6C change to constant spawning point
 	Animatable& animatable = registry.animatables.emplace(player_entity);
 	animatable.type = ANIMATABLE_TYPE::PLAYER;
 	animatable.behavior = ANIMATION_BEHAVIOR::LOOP;
