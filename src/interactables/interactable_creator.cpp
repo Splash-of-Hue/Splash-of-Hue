@@ -19,8 +19,8 @@ Entity createBox(vec2 position, float width, float height)
 {
 	Size size = { width, height };
 	Entity box = addGeneralInteractableComponents(position, size, INTERACTABLE_TYPE::BOX);
-	Collidable& col = registry.collidables.emplace(box);
-	col.inelastic = true;
+	Collidable& collidable = registry.collidables.emplace(box);
+	collidable.inelastic = true;
 	registry.boxes.emplace(box);
 	registry.rectangles.emplace(box);
 	registry.scales.insert(box, vec2(width, height));
