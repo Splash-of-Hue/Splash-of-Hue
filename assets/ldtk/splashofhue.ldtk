@@ -320,7 +320,7 @@
 	"levelNamePattern": "Level_%idx",
 	"tutorialDesc": null,
 	"customCommands": [],
-	"flags": ["IgnoreBackupSuggest"],
+	"flags": [],
 	"defs": { "layers": [
 		{
 			"__type": "Entities",
