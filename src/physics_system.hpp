@@ -11,6 +11,7 @@ class PhysicsSystem
 public:
 	void step(float elapsed_ms);
 	void checkIfInRadius();
+	void turnNeutral(Entity& entity);
 	PhysicsSystem()
 	{
 	}
