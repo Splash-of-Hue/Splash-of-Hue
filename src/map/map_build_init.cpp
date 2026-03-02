@@ -75,3 +75,11 @@ Entity createSpawnPoint(const int level_uid, const int connected_level_id, vec2 
 
 	return spawn_point_entity;
 }
+Entity createWall(vec2 position, float width, float height)
+{
+	const Entity& wall_rectangle_entity = createRectangle(position, width, height, RENDER_LAYER::WALLS_BACK, vec4{1.0, 1.0, 1.0, 0.0});
+	Collidable& col = registry.collidables.emplace(wall_rectangle_entity);
+	col.inelastic = true;
+
+	return wall_rectangle_entity;
+}
