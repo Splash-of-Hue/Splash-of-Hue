@@ -73,10 +73,14 @@ Entity createMapTile(int tile_id, TEXTURE_ASSET_ID texture_id, ivec2 tile_positi
 
 Entity createSpawnPoint(const int level_uid, const int connected_level_id, vec2 position, vec2 connected_position)
 {
-	Entity spawn_point_entity = createCircle(position, 10.0f, RENDER_LAYER::FLOOR_INTERACTABLES, { DEFAULT_COLOUR_VEC4 });
+	Entity spawn_point_entity;
+	Size size = { SPAWN_POINT_RADIUS, SPAWN_POINT_RADIUS };
+	registry.sizes.insert(spawn_point_entity, size);
+	registry.positions.insert(spawn_point_entity, position);
 	SpawnPoint spawn_point = { level_uid, connected_level_id, vec2(connected_position.x, connected_position.y) };
 	registry.spawnPoints.emplace(spawn_point_entity, spawn_point);
 	registry.collidables.emplace(spawn_point_entity);
+	registry.levelEntities.insert(spawn_point_entity, { level_uid });
 
 	return spawn_point_entity;
 }

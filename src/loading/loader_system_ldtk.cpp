@@ -6,6 +6,7 @@
 #include "loading_constants.hpp"
 #include "map/map_build_init.hpp"
 #include "renderer/render_constants.hpp"
+#include <algorithm>
 #include <iostream>
 #include <LDtkLoader/DataTypes.hpp>
 #include <LDtkLoader/Entity.hpp>
@@ -24,23 +25,21 @@ void LoaderSystem::load_level(int level_uid)
 		// load the file
 		ldtk_project.loadFromFile(LDTK_PROJECT_PATH);
 	}
+	std::cout << "Loading level ID " << level_uid << std::endl;
 
-	// If the level is already loaded, do nothing except change camera
-	if (loaded_level_uids.count(level_uid) > 0)
+	const auto level_match = [&](const Level& level) { return level.uid == level_uid; };
+	const auto level_entity_match = [&](Entity& entity) { return registry.levels.get(entity).uid == level_uid; };
+	auto level_iterator = std::find_if(registry.levels.components.begin(), registry.levels.components.end(), level_match);
+	bool level_has_been_loaded_before = level_iterator != registry.levels.components.end();
+
+	// If the level had been loaded previously, we might be done if it's still loaded
+	if (level_has_been_loaded_before && level_iterator->is_loaded)
 	{
-		for (Entity& level_entity : registry.levels.entities)
-		{
-			Level& level_component = registry.levels.get(level_entity);
-
-			if (level_component.uid != level_uid)
-			{
-				continue;
-			}
-
-			vec2& level_position = registry.positions.get(level_entity);
-			Entity change_camera_request;
-			registry.changeCameraTargetRequests.insert(change_camera_request, { level_position, LDTK_CAMERA_ROOM_SPEED });
-		}
+		// If the level is already loaded, do nothing except change camera
+		Entity& level_entity = *std::find_if(registry.levels.entities.begin(), registry.levels.entities.end(), level_entity_match);
+		vec2& level_position = registry.positions.get(level_entity);
+		Entity change_camera_request;
+		registry.changeCameraTargetRequests.insert(change_camera_request, { level_position, LDTK_CAMERA_ROOM_SPEED });
 
 		return;
 	}
@@ -50,15 +49,8 @@ void LoaderSystem::load_level(int level_uid)
 
 	// get a level
 	const ldtk::Level& level = world.getLevel(level_uid);
-	loaded_level_uids.insert(level.uid);
 	const ldtk::IntPoint& level_world_position = level.position;
 	const ivec2 level_index = ivec2(level_world_position.x / level.size.x, level_world_position.y / level.size.y);
-	Entity loading_level_entity;
-	Level level_component = {
-		level_uid,
-		level_index
-	};
-	registry.levels.insert(loading_level_entity, level_component);
 
 	if (LEVEL_TO_SCREEN_SCALE == vec2(0))
 	{
@@ -68,10 +60,15 @@ void LoaderSystem::load_level(int level_uid)
 		LEVEL_TO_SCREEN_SCALE = vec2(level_scale_x, level_scale_y);
 	}
 
-	const vec2 level_world_center = vec2(level.position.x, level.position.y) * LEVEL_TO_SCREEN_SCALE + window_center();
-	vec2& level_position = registry.positions.insert(loading_level_entity, level_world_center);
-	Entity change_camera_request;
-	registry.changeCameraTargetRequests.insert(change_camera_request, { level_position, LDTK_CAMERA_ROOM_SPEED });
+	if (!level_has_been_loaded_before)
+	{
+		// Level has not been loaded before, make a new entity and set the position
+		Entity loading_level_entity;
+		Level& level_component = registry.levels.insert(loading_level_entity, { level_uid, level_index });
+		const vec2 level_world_center = vec2(level.position.x, level.position.y) * LEVEL_TO_SCREEN_SCALE + window_center();
+		vec2& level_position = registry.positions.insert(loading_level_entity, level_world_center);
+	}
+
 	// get a layer
 	const auto& level_layers = level.allLayers();
 
@@ -141,7 +138,14 @@ void LoaderSystem::load_level(int level_uid)
 		}
 	}
 
-	registry.levels.get(loading_level_entity).quantized_space_data = quantized_floor_data;
+	// Load the quantized space and set that the level is now loaded
+	Entity& level_entity = *std::find_if(registry.levels.entities.begin(), registry.levels.entities.end(), level_entity_match);
+	Level& level_component = registry.levels.get(level_entity);
+	level_component.quantized_space_data = quantized_floor_data;
+	level_component.is_loaded = true;
+	// Make the camera request at the end of loading
+	Entity change_camera_request;
+	registry.changeCameraTargetRequests.insert(change_camera_request, { registry.positions.get(level_entity), LDTK_CAMERA_ROOM_SPEED});
 }
 
 void load_tile_layer(const ldtk::Layer& layer)
@@ -172,7 +176,7 @@ void load_tile_layer(const ldtk::Layer& layer)
 		// TODO qEQqmtkO: Tile layers won't always be the map, move elsewhere
 		MAP_TILE_TYPE map_tile_type = MAP_TILE_TYPE::DEFAULT;
 		const auto& tile_tags = layer_tileset.getTileEnumTags(tile.tileId);
-		
+
 		for (const auto& tile_tag : tile_tags)
 		{
 			if (tile_tag.get().name == "Wall")
@@ -220,7 +224,7 @@ void load_extra_entities(const ldtk::Layer& layer)
 		switch (extra_entity_type)
 		{
 			case ENTITY_TYPE::INITIAL_POSITION:
-				use_initial_player_position(extra_entity);
+				set_initial_player_position(extra_entity);
 				continue;
 			default:
 				continue;
@@ -228,11 +232,22 @@ void load_extra_entities(const ldtk::Layer& layer)
 	}
 }
 
-void use_initial_player_position(const ldtk::Entity& initial_player_position_entity)
+void set_initial_player_position(const ldtk::Entity& initial_player_position_entity)
 {
-	vec2& player_position = registry.positions.get(registry.players.entities[0]);
-	const ldtk::IntPoint& player_world_position = initial_player_position_entity.getWorldPosition();
-	player_position = vec2(player_world_position.x * LEVEL_TO_SCREEN_SCALE.x, player_world_position.y * LEVEL_TO_SCREEN_SCALE.y);
+	// Otherwise, this is the first time the level is loaded so use the initial position
+	Entity& player_entity = registry.players.entities[0];
+
+	// Player is already loaded, don't need to set initial position
+	if (registry.players.get(player_entity).is_loaded)
+	{
+		return;
+	}
+
+	registry.currentLevels.get(player_entity).level_uid = initial_player_position_entity.layer->level->uid;
+	const ldtk::IntPoint& initial_player_world_position = initial_player_position_entity.getWorldPosition();
+	vec2 initial_player_position = vec2(initial_player_world_position.x, initial_player_world_position.y) * LEVEL_TO_SCREEN_SCALE;
+	registry.positions.get(player_entity) = initial_player_position;
+	registry.players.get(player_entity).is_loaded = true;
 }
 
 void load_creatures(const ldtk::Layer& layer)
@@ -242,10 +257,10 @@ void load_creatures(const ldtk::Layer& layer)
 	{
 		const ldtk::Field<ldtk::EnumValue>& creature_enum_type = ldtk_creature_entity.getField<ldtk::EnumValue>("CreatureType");
 		const CREATURETYPE& creature_type = creature_type_from_string(creature_enum_type.value().name);
-		
+
 		const ldtk::Field<ldtk::EnumValue>& color_state_enum_type = ldtk_creature_entity.getField<ldtk::EnumValue>("ColorState");
 		const COLOUR_STATE& color_state = color_state_from_string(color_state_enum_type.value().name);
-		
+
 		const ldtk::IntPoint& creature_world_position = ldtk_creature_entity.getWorldPosition();
 		const ldtk::IntPoint& creature_size = ldtk_creature_entity.getSize();
 		const vec2 position = vec2(creature_world_position.x * LEVEL_TO_SCREEN_SCALE.x, creature_world_position.y * LEVEL_TO_SCREEN_SCALE.y);
@@ -256,7 +271,9 @@ void load_creatures(const ldtk::Layer& layer)
 		switch (creature_type)
 		{
 			case CREATURETYPE::ANGLERFISH:
+				// TODO nsTuVKMT: Check if this specific one already exists since it can move
 				creature_entity = createAnglerfish(position, width, height, color_state);
+				registry.currentLevels.insert(creature_entity, { layer.level->uid });
 				break;
 
 			case CREATURETYPE::CRAB:
@@ -268,18 +285,20 @@ void load_creatures(const ldtk::Layer& layer)
 				break;
 
 			case CREATURETYPE::SAWFISH:
+				// TODO nsTuVKMT: Check if this specific one already exists since it can move
 				creature_entity = createSawfish(position, width, height, color_state);
+				registry.currentLevels.insert(creature_entity, { layer.level->uid });
 				break;
 
 			case CREATURETYPE::SHRIMP:
-				{
-					const ldtk::Field<ldtk::EnumValue>& direction_enum_type = ldtk_creature_entity.getField<ldtk::EnumValue>("Direction");
-					const DIRECTION& direction_state = direction_type_from_string(direction_enum_type.value().name);
-					const ldtk::Field<int> arm_count = ldtk_creature_entity.getField<ldtk::FieldType::Int>("ArmCount");
+			{
+				const ldtk::Field<ldtk::EnumValue>& direction_enum_type = ldtk_creature_entity.getField<ldtk::EnumValue>("Direction");
+				const DIRECTION& direction_state = direction_type_from_string(direction_enum_type.value().name);
+				const ldtk::Field<int> arm_count = ldtk_creature_entity.getField<ldtk::FieldType::Int>("ArmCount");
 
-					creature_entity = createShrimp(position, width, height, color_state, direction_state, arm_count.value());
-				}
-				break;
+				creature_entity = createShrimp(position, width, height, color_state, direction_state, arm_count.value());
+			}
+			break;
 
 			case CREATURETYPE::WHALE:
 				creature_entity = createWhale(position, width, height, color_state);
@@ -325,17 +344,77 @@ void load_spawn_points(const ldtk::Entity& spawn_point_entity)
 	ivec2 other_spawn_grid_offset = ivec2(arrival_grid_position.x - other_spawn_grid_position.x, arrival_grid_position.y - other_spawn_grid_position.y);
 	ivec2 other_spawn_offset = other_spawn_grid_offset * other_layer_grid_size;
 	const vec2 world_arrival_point = vec2(arrival_entity_position.x + other_spawn_offset.x, arrival_entity_position.y + other_spawn_offset.y);
+	int level_uid = spawn_point_entity.layer->level->uid;
+	int connected_level_uid = other_spawn_point_entity_ref->layer->level->uid;
 
 	createSpawnPoint(
-		spawn_point_entity.layer->level->uid,
-		other_spawn_point_entity_ref->layer->level->uid,
+		level_uid,
+		connected_level_uid,
 		vec2(position.x * LEVEL_TO_SCREEN_SCALE.x, position.y * LEVEL_TO_SCREEN_SCALE.y),
 		vec2(world_arrival_point.x * LEVEL_TO_SCREEN_SCALE.x, world_arrival_point.y * LEVEL_TO_SCREEN_SCALE.y)
 	);
+
+	// Add the connected level UIDs as neighbours to the current level (which must exist at this point)
+	const auto level_match = [&](const Level& level) { return level.uid == level_uid; };
+	Level& level = *std::find_if(registry.levels.components.begin(), registry.levels.components.end(), level_match);
+	level.neighbor_level_uids.insert(connected_level_uid);
 }
 
 void LoaderSystem::unload_level(int level_uid)
 {
-	// TODO Mh0WEPiT: Do nothing, this will be implemented later.
-	// Later we will want to remove things from memory and registry.
+	// Try to find the level component
+	const auto level_match = [&](const Level& level) { return level.uid == level_uid; };
+	auto& level_iterator = std::find_if(registry.levels.components.begin(), registry.levels.components.end(), level_match);
+	std::cout << "Unloading level ID " << level_uid;
+
+	// First check if the level has been previously loaded or if it is loaded at all
+	if (level_iterator == registry.levels.components.end() || !level_iterator->is_loaded)
+	{
+		std::cout << " failed, either level hasn't been loaded or is already unloaded." << std::endl;
+		// Either the level was never loaded or is already unloaded
+		return;
+	}
+
+	std::cout << "." << std::endl;
+
+	// Get every tile from that level
+	for (Entity& level_tile_entity : registry.levelTiles.entities)
+	{
+		// Unload the tiles if it is in the unloading level
+		if (registry.levelTiles.get(level_tile_entity).level_uid == level_uid)
+		{
+			registry.remove_all_components_of(level_tile_entity);
+		}
+	}
+
+	// Get every entity from that level and every entity from other levels that moved to that level
+	for (Entity& level_entities_entity : registry.levelEntities.entities)
+	{
+		bool entity_moves_through_levels = registry.currentLevels.has(level_entities_entity);
+
+		if (entity_moves_through_levels)
+		{
+			// This entity moves around, check where it is currently.
+			const int& entity_current_level = registry.currentLevels.get(level_entities_entity).level_uid;
+
+			// If the current level is not the one being unloaded, move on
+			if (entity_current_level != level_uid)
+			{
+				continue;
+			}
+		}
+
+		// Otherwise, it can't leave the level, so check as usual if it's the right level
+		if (!entity_moves_through_levels && registry.levelEntities.get(level_entities_entity).level_uid != level_uid)
+		{
+			continue;
+		}
+
+		// The entity is either not in the level we are unloading if it moves
+		// or it's not part of the level we are unloading
+		registry.remove_all_components_of(level_entities_entity);
+	}
+
+	// Keep the map data but remove from loaded levels (is generated, is not loaded)
+	level_iterator->is_loaded = false;
 }

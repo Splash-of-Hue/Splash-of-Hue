@@ -64,6 +64,7 @@ public:
 	ComponentContainer<LoadRequest> loadRequests;
 	// Map
 	ComponentContainer<ChangeMapLevelRequest> changeMapLevelRequests;
+	ComponentContainer<CurrentLevel> currentLevels;
 	ComponentContainer<LevelEntity> levelEntities;
 	ComponentContainer<Level> levels;
 	ComponentContainer<LevelTile> levelTiles;
@@ -140,11 +141,11 @@ public:
 		registry_list.push_back(&colourOrbs);
 		registry_list.push_back(&interactables);
 		registry_list.push_back(&mushrooms);
-
 		// Loader
 		registry_list.push_back(&loadRequests);
 		// Map
 		registry_list.push_back(&changeMapLevelRequests);
+		registry_list.push_back(&currentLevels);
 		registry_list.push_back(&levelEntities);
 		registry_list.push_back(&levels);
 		registry_list.push_back(&levelTiles);
