@@ -1629,22 +1629,6 @@
 							"fieldInstances": [],
 							"__worldX": 1128,
 							"__worldY": 104
-						},
-						{
-							"__identifier": "Wall",
-							"__grid": [56,15],
-							"__pivot": [0.5,0.5],
-							"__tags": ["Internal_Wall"],
-							"__tile": null,
-							"__smartColor": "#3E2731",
-							"iid": "c560f9b0-fa90-11f0-a437-ed3bd4d32385",
-							"width": 50,
-							"height": 50,
-							"defUid": 51,
-							"px": [904,248],
-							"fieldInstances": [],
-							"__worldX": 904,
-							"__worldY": 248
 						}
 					]
 				},
