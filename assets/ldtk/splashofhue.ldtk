@@ -3777,8 +3777,8 @@
 								"id": "V_String",
 								"params": ["Red"]
 							}] }],
-							"__worldX": 3328,
-							"__worldY": -632
+							"__worldX": 3256,
+							"__worldY": -624
 						},
 						{
 							"__identifier": "Box",
@@ -4927,7 +4927,7 @@
 						},
 						{
 							"__identifier": "PShrimp",
-							"__grid": [99,32],
+							"__grid": [98,37],
 							"__pivot": [0.5,0.5],
 							"__tags": ["Creature"],
 							"__tile": null,
@@ -4936,7 +4936,7 @@
 							"width": 256,
 							"height": 128,
 							"defUid": 22,
-							"px": [1592,520],
+							"px": [1576,600],
 							"fieldInstances": [
 								{ "__identifier": "CreatureType", "__type": "LocalEnum.CreatureType", "__value": "PShrimp", "__tile": null, "defUid": 25, "realEditorValues": [] },
 								{ "__identifier": "ColorState", "__type": "LocalEnum.ColorState", "__value": "Neutral", "__tile": null, "defUid": 30, "realEditorValues": [] },
@@ -4946,8 +4946,8 @@
 								}] },
 								{ "__identifier": "ArmCount", "__type": "Int", "__value": 2, "__tile": null, "defUid": 39, "realEditorValues": [] }
 							],
-							"__worldX": 1592,
-							"__worldY": -1640
+							"__worldX": 1576,
+							"__worldY": -1560
 						}
 					]
 				},
