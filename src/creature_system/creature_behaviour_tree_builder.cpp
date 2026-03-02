@@ -43,58 +43,75 @@ BehaviourTree CreatureBehaviourTreeBuilder::buildSawfishTree()
 				Decorator(builder, creatureBehaviourFunctions.isInRedState,
 					Selector(builder,
 						Decorator(builder, creatureBehaviourFunctions.isDizzy,
-							Selector(builder, 
+							Selector(builder,
 								Decorator(builder, creatureBehaviourFunctions.isCooldownComplete,
 									Sequence(builder,
 										Action(builder, creatureBehaviourFunctions.removeCooldown),
-										Action(builder, creatureBehaviourFunctions.removeCharging),
+										Action(builder, creatureBehaviourFunctions.removeDizzy),
 										Action(builder, creatureBehaviourFunctions.makeNeutral)
 									)
-								)
+								),
+								Action(builder, creatureBehaviourFunctions.beDizzy)
 							)
 						),
 						Decorator(builder, creatureBehaviourFunctions.isCharging,
-							Selector(builder,
+							Selector(builder, 
 								Decorator(builder, creatureBehaviourFunctions.hasCreatureCollided,
 									Sequence(builder, 
 										Action(builder, creatureBehaviourFunctions.stopCreatureMovement),
-										Action(builder, creatureBehaviourFunctions.removeCollision),
-										Action(builder, creatureBehaviourFunctions.beDizzy),
+										Action(builder, creatureBehaviourFunctions.removeCharging),
+										Action(builder, creatureBehaviourFunctions.applyDizzy),
 										Action(builder, creatureBehaviourFunctions.applyCooldown)
 									)
-								)
+								),
+								Action(builder, creatureBehaviourFunctions.returnSuccess)
 							)
 						),
 						Sequence(builder,
 							Action(builder, creatureBehaviourFunctions.stopCreatureMovement),
-							Action(builder, creatureBehaviourFunctions.applyCooldown),
 							Action(builder, creatureBehaviourFunctions.aimAtTarget),
 							Selector(builder,
 								Decorator(builder, creatureBehaviourFunctions.isCooldownComplete,
-									Sequence(builder, 
+									Sequence(builder,
 										Action(builder, creatureBehaviourFunctions.removeCooldown),
 										Action(builder, creatureBehaviourFunctions.applyCharging),
 										Action(builder, creatureBehaviourFunctions.sawfishChargeAtTarget)
 									)
-								)
+								),
+								Action(builder, creatureBehaviourFunctions.returnSuccess)
 							)
 						)
 					)
 				),
-				Selector(builder,
-					Decorator(builder, creatureBehaviourFunctions.isInBlueState,
-						Sequence(builder,
-							Action(builder, creatureBehaviourFunctions.returnSuccess)
-						)
+				Decorator(builder, creatureBehaviourFunctions.isCreatureWithinRedPlayerColourRadius,
+					Sequence(builder,
+						Action(builder, creatureBehaviourFunctions.applyCooldown),
+						Action(builder, creatureBehaviourFunctions.makeRed)
+					)
+				),
+				Sequence(builder,
+					Selector(builder, 
+						Decorator(builder, creatureBehaviourFunctions.isCreatureWithinBluePlayerColourRadius,
+							Action(builder, creatureBehaviourFunctions.makeBlue)
+						),
+						Action(builder, creatureBehaviourFunctions.returnSuccess)
 					),
-					Decorator(builder, creatureBehaviourFunctions.isInNeutralState,
-						Sequence(builder,
-							Action(builder, creatureBehaviourFunctions.returnSuccess)
+
+					Selector(builder,
+						Decorator(builder, creatureBehaviourFunctions.isInBlueState,
+							Sequence(builder,
+								Action(builder, creatureBehaviourFunctions.aimAtTarget),
+								Action(builder, creatureBehaviourFunctions.aStarFollowTarget)
+							)
+						),
+						Decorator(builder, creatureBehaviourFunctions.isInNeutralState,
+							Sequence(builder,
+								Action(builder, creatureBehaviourFunctions.aimAtTarget)
+							)
 						)
 					)
 				)
 			)
-			
 		);
 
 	return builder.build(root_index);
@@ -116,28 +133,37 @@ BehaviourTree CreatureBehaviourTreeBuilder::buildShrimpTree()
 				Decorator(builder, creatureBehaviourFunctions.isCreatureWithinCreatureColourRadius,
 					Selector(builder,
 						Decorator(builder, creatureBehaviourFunctions.isInRedState,
-							Action(builder, creatureBehaviourFunctions.redArms)),
+							Action(builder, creatureBehaviourFunctions.redArms)
+						),
 						Decorator(builder, creatureBehaviourFunctions.isInBlueState,
-							Action(builder, creatureBehaviourFunctions.blueArms)),
-						Action(builder, creatureBehaviourFunctions.neutralArms))
+							Action(builder, creatureBehaviourFunctions.blueArms)
+						)
+					)
 				),
 
-				Decorator(builder, creatureBehaviourFunctions.isCreatureWithinPlayerColourRadius,
-					Selector(builder,
-						Decorator(builder, creatureBehaviourFunctions.isInRedState,
-							Action(builder, creatureBehaviourFunctions.redArms)),
-						Decorator(builder, creatureBehaviourFunctions.isInBlueState,
-							Action(builder, creatureBehaviourFunctions.blueArms)),
-						Action(builder, creatureBehaviourFunctions.neutralArms))
+				Decorator(builder, creatureBehaviourFunctions.isCreatureWithinRedPlayerColourRadius,
+					Sequence(builder, 
+						Action(builder, creatureBehaviourFunctions.makeRed),
+						Action(builder, creatureBehaviourFunctions.redArms)
+					)
+				),
+
+				Decorator(builder, creatureBehaviourFunctions.isCreatureWithinBluePlayerColourRadius,
+					Sequence(builder,
+						Action(builder, creatureBehaviourFunctions.makeBlue),
+						Action(builder, creatureBehaviourFunctions.blueArms)
+					)
 				),
 
 				Decorator(builder, creatureBehaviourFunctions.isCreatureWithinInteractableColourRadius,
 					Selector(builder,
 						Decorator(builder, creatureBehaviourFunctions.isInRedState,
-							Action(builder, creatureBehaviourFunctions.redArms)),
+							Action(builder, creatureBehaviourFunctions.redArms)
+						),
 						Decorator(builder, creatureBehaviourFunctions.isInBlueState,
-							Action(builder, creatureBehaviourFunctions.blueArms)),
-						Action(builder, creatureBehaviourFunctions.neutralArms))
+							Action(builder, creatureBehaviourFunctions.blueArms)
+						)
+					)
 				),
 
 				Sequence(builder,

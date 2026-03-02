@@ -42,8 +42,9 @@ BEHAVIOUR_TREE_STATUS CreatureBehaviourFunctions::beDizzy(Entity& creature, floa
 {
 	if (!registry.dizzies.has(creature))
 	{
-		std::cout << "I am Dizzy!" << std::endl;
-		registry.dizzies.emplace(creature);
+		return BEHAVIOUR_TREE_STATUS::FAILURE;
 	}
+	Angle& charger_angle = registry.angles.get(creature);
+	charger_angle.degrees += 5.f;
 	return BEHAVIOUR_TREE_STATUS::SUCCESS;
 }

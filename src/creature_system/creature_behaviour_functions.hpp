@@ -32,6 +32,8 @@ public:
 	static BEHAVIOUR_TREE_STATUS requestNewRandomPath(Entity& creature, float elapsed_ms);
 	static BEHAVIOUR_TREE_STATUS goToNextPathStep(Entity& creature, float elapsed_ms);
 	static BEHAVIOUR_TREE_STATUS makeNeutral(Entity& creature, float elapsed_ms);
+	static BEHAVIOUR_TREE_STATUS makeBlue(Entity& creature, float elapsed_ms);
+	static BEHAVIOUR_TREE_STATUS makeRed(Entity& creature, float elapsed_ms);
 	static BEHAVIOUR_TREE_STATUS applyCooldown(Entity& creature, float elapsed_ms);
 	static BEHAVIOUR_TREE_STATUS applyCharging(Entity& creature, float elapsed_ms);
 	static BEHAVIOUR_TREE_STATUS removeCooldown(Entity& creature, float elapsed_ms);
@@ -61,12 +63,15 @@ public:
 	static BEHAVIOUR_TREE_STATUS isTimerComplete(Entity& creature, float elapsed_ms);
 	static BEHAVIOUR_TREE_STATUS isCreatureWithinAnyColourRadius(Entity& creature, float elapsed_ms);
 	static BEHAVIOUR_TREE_STATUS isCreatureWithinPlayerColourRadius(Entity& creature, float elapsed_ms);
+	static BEHAVIOUR_TREE_STATUS isCreatureWithinBluePlayerColourRadius(Entity& creature, float elapsed_ms);
+	static BEHAVIOUR_TREE_STATUS isCreatureWithinRedPlayerColourRadius(Entity& creature, float elapsed_ms);
 	static BEHAVIOUR_TREE_STATUS isCreatureWithinCreatureColourRadius(Entity& creature, float elapsed_ms);
 	static BEHAVIOUR_TREE_STATUS isCreatureWithinInteractableColourRadius(Entity& creature, float elapsed_ms);
 	static BEHAVIOUR_TREE_STATUS hasCreatureCollided(Entity& creature, float elapsed_ms);
 	static BEHAVIOUR_TREE_STATUS hasCooldown(Entity& creature, float elapsed_ms);
 	static BEHAVIOUR_TREE_STATUS isCharging(Entity& creature, float elapsed_ms);
 	static BEHAVIOUR_TREE_STATUS isDizzy(Entity& creature, float elapsed_ms);
+	static BEHAVIOUR_TREE_STATUS applyDizzy(Entity& creature, float elapsed_ms);
 
 private:
 	// ===== NODE HELPERS =====
