@@ -75,6 +75,7 @@ public:
 	ComponentContainer<ChangeBehaviour> change_behaviours;
 	ComponentContainer<Collidable> collidables;
 	ComponentContainer<Collision> collisions;
+	ComponentContainer<PolygonMesh> polygons;
 	// Physics - Movement / Transforms
 	ComponentContainer<Angle> angles;
 	ComponentContainer<vec2> positions;
@@ -156,6 +157,7 @@ public:
 		registry_list.push_back(&change_behaviours);
 		registry_list.push_back(&collidables);
 		registry_list.push_back(&collisions);
+		registry_list.push_back(&polygons);
 		// Physics - Movement / Transforms
 		registry_list.push_back(&angles);
 		registry_list.push_back(&positions);
