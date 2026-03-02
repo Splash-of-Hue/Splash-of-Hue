@@ -294,7 +294,7 @@ Entity createSawfish(vec2 position, float width, float height, COLOUR_STATE colo
 {
     Entity sawfish = Entity();
 
-	addGeneralCreatureComponents(sawfish, position, width, height, color_state, CREATURETYPE::SAWFISH, TEXTURE_ASSET_ID::SAWFISH_01);
+	addGeneralCreatureComponents(sawfish, position, width, height, color_state, CREATURETYPE::SAWFISH, TEXTURE_ASSET_ID::SAWFISH);
 
     Pathfinder& pathfinder = registry.pathfinders.emplace(sawfish);
     pathfinder.target = registry.players.entities[0];
@@ -302,6 +302,13 @@ Entity createSawfish(vec2 position, float width, float height, COLOUR_STATE colo
     pathfinder.max_speed = 500.0f;
     CreatureBehaviour& creatureBehaviour = registry.creatureBehaviours.emplace(sawfish);
     creatureBehaviour.behaviour_tree = CreatureBehaviourTreeBuilder::buildSawfishTree();
+    const Animatable animatable = {
+        ANIMATABLE_TYPE::SAWFISH,
+        ANIMATION_BEHAVIOR::LOOP,
+        ANIMATION_TRIGGER::IDLE,
+        1
+    };
+    registry.animatables.insert(sawfish, animatable);
    
     return sawfish;
 }
