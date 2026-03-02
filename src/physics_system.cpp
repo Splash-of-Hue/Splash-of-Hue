@@ -72,6 +72,7 @@ bool box_collides(const Entity& entity1, const Entity& entity2)
 	{
 		return false;
 	}
+
 	if (!registry.sizes.has(entity1) || !registry.sizes.has(entity2))
 	{
 		return false;
@@ -148,14 +149,7 @@ void light_emission_collisions(Entity& entity_i, Entity& entity_j)
 	{
 		if (registry.colourStates.has(other_entity))
 		{
-			ColourState& colour_state_creature = registry.colourStates.get(other_entity);
-			colour_state_creature.prev_colour_state = colour_state_creature.curr_colour_state;
-			colour_state_creature.curr_colour_state = registry.colourStates.get(light_emission_entity).curr_colour_state;
-
-			vec4& other_color = registry.colors.get(other_entity);
-			const ColourPalette& palette = registry.colourPalettes.components[0];
-			auto& color_from_state = palette.state_to_colour.at(colour_state_creature.curr_colour_state);
-			other_color = color_from_state;
+			COLOUR_STATE& colour_to_turn_into = registry.colourStates.get(light_emission_entity).curr_colour_state;
 
 			LightEmission& light_emission_component = registry.lightEmissions.get(light_emission_entity);
 			Entity& source_entity = light_emission_component.lightSourceEntity;
@@ -168,7 +162,7 @@ void light_emission_collisions(Entity& entity_i, Entity& entity_j)
 				}
 
 				InPlayerRadius& in_player_radius_component = registry.inPlayerRadius.get(other_entity);
-				in_player_radius_component.colour = colour_state_creature.curr_colour_state;
+				in_player_radius_component.colour = colour_to_turn_into;
 				in_player_radius_component.radius_entity = light_emission_entity;
 			}
 
@@ -180,7 +174,7 @@ void light_emission_collisions(Entity& entity_i, Entity& entity_j)
 				}
 
 				InCreatureRadius& in_creature_radius_component = registry.inCreatureRadius.get(other_entity);
-				in_creature_radius_component.colour = colour_state_creature.curr_colour_state;
+				in_creature_radius_component.colour = colour_to_turn_into;
 				in_creature_radius_component.radius_entity = light_emission_entity;
 			}
 
@@ -192,7 +186,7 @@ void light_emission_collisions(Entity& entity_i, Entity& entity_j)
 				}
 
 				InInteractableRadius& in_interactable_radius_component = registry.inInteractableRadius.get(other_entity);
-				in_interactable_radius_component.colour = colour_state_creature.curr_colour_state;
+				in_interactable_radius_component.colour = colour_to_turn_into;
 				in_interactable_radius_component.radius_entity = light_emission_entity;
 			}
 		}
@@ -253,6 +247,25 @@ void light_emission_collisions(Entity& entity_i, Entity& entity_j)
 
 void handle_misc_collision(Entity& entity_i, Entity& entity_j)
 {
+	if (registry.creatures.has(entity_i) || registry.creatures.has(entity_j))
+	{
+		Entity& entity_creature = registry.creatures.has(entity_i) ? entity_i : entity_j;
+		Entity& entity_other = registry.creatures.has(entity_j) ? entity_i : entity_j;
+
+		if (!registry.creatureInelasticCollisions.has(entity_creature))
+		{
+			Collidable& other_collidable = registry.collidables.get(entity_other);
+			if (other_collidable.inelastic)
+			{
+				registry.creatureInelasticCollisions.emplace(entity_creature);
+				if (registry.breakables.has(entity_other))
+				{
+					registry.remove_all_components_of(entity_other);
+				}
+			}
+		}
+	}
+
 	if (registry.colouredWall.has(entity_i) || registry.colouredWall.has(entity_j))
 	{
 		Entity& eCW = registry.colouredWall.has(entity_i) ? entity_i : entity_j;
@@ -268,7 +281,7 @@ void handle_misc_collision(Entity& entity_i, Entity& entity_j)
 		Collidable& colCW = registry.collidables.get(eCW);
 
 		//if colourStates are same, wall is no longer inelastic, so player can walk through
-		if (csCW.curr_colour_state == csO.curr_colour_state && csCW.curr_colour_state != COLOUR_STATE::NEUTRAL && registry.players.has(eO))
+		if (csCW.curr_colour_state == csO.curr_colour_state && csCW.curr_colour_state != COLOUR_STATE::NEUTRAL)
 		{
 
 			colCW.inelastic = false;
@@ -292,9 +305,12 @@ void handle_misc_collision(Entity& entity_i, Entity& entity_j)
 				ColourState& csS = registry.colourStates.get(eS);
 				if (csS.curr_colour_state == COLOUR_STATE::RED)
 				{
-					if (!registry.deathTimers.has(eP))
+					if (registry.chargers.has(eS))
 					{
-						registry.deathTimers.emplace(eP);
+						if (!registry.deathTimers.has(eP))
+						{
+							registry.deathTimers.emplace(eP);
+						}
 					}
 				}
 			}
@@ -536,7 +552,7 @@ void PhysicsSystem::step(float elapsed_ms)
 							registry.orbCollected.emplace(eOrb);
 						}
 					}
-
+					
 					if (registry.collidables.get(entity_i).inelastic && registry.collidables.get(entity_j).inelastic)
 					{
 						handle_inelastic_collision_mesh(entity_i, entity_j, penetration);
@@ -594,11 +610,18 @@ void PhysicsSystem::checkIfInRadius()
 	{
 		InPlayerRadius& in_player_radius_component = registry.inPlayerRadius.get(entity);
 		Entity& radius_entity = in_player_radius_component.radius_entity;
-
-		if (!box_collides(entity, radius_entity))
+		if (registry.sizes.has(radius_entity))
+		{
+			if (!box_collides(entity, radius_entity))
+			{
+				registry.inPlayerRadius.remove(entity);
+			}
+		} 
+		else
 		{
 			registry.inPlayerRadius.remove(entity);
 		}
+		
 	}
 
 	for (Entity& entity : registry.inCreatureRadius.entities)
