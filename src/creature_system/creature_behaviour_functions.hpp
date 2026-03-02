@@ -43,8 +43,6 @@ public:
 	static BEHAVIOUR_TREE_STATUS removeCharging(Entity& creature, float elapsed_ms);
 	static BEHAVIOUR_TREE_STATUS removeDizzy(Entity& creature, float elapsed_ms);
 
-
-
 	// Shrimp Behaviour Actions
 	static BEHAVIOUR_TREE_STATUS neutralArms(Entity& follower, float elapsed_ms);
 	static BEHAVIOUR_TREE_STATUS blueArms(Entity& follower, float elapsed_ms);
