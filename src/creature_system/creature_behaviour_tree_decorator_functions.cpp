@@ -45,13 +45,11 @@ BEHAVIOUR_TREE_STATUS CreatureBehaviourFunctions::isCooldownComplete(Entity& cre
 	CreatureBehaviourCooldown& cooldown = registry.creatureBehaviourCooldowns.get(creature);
 	if (cooldown.cooldown <= 0)
 	{
-		std::cout << cooldown.cooldown <<  "completed" << std::endl;
 		cooldown.cooldown = cooldown.cooldown_default; // reset cooldown
 		return BEHAVIOUR_TREE_STATUS::SUCCESS;
 	}
 	else
 	{
-		std::cout << cooldown.cooldown << std::endl;
 		cooldown.cooldown -= elapsed_ms;
 		return BEHAVIOUR_TREE_STATUS::FAILURE;
 	}
@@ -149,7 +147,6 @@ BEHAVIOUR_TREE_STATUS CreatureBehaviourFunctions::hasCreatureCollided(Entity& cr
 {
 	if (registry.creatureInelasticCollisions.has(creature))
 	{
-		std::cout << "ouch!" << std::endl;
 		return BEHAVIOUR_TREE_STATUS::SUCCESS;
 	}
 	return BEHAVIOUR_TREE_STATUS::RUNNING;

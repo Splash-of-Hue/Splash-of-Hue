@@ -113,7 +113,6 @@ BEHAVIOUR_TREE_STATUS CreatureBehaviourFunctions::removeCharging(Entity& creatur
 {
 	if (registry.chargers.has(creature))
 	{
-		std::cout << "removing CharginG!" << std::endl;
 		registry.chargers.remove(creature);
 	}
 	return BEHAVIOUR_TREE_STATUS::SUCCESS;
@@ -132,7 +131,6 @@ BEHAVIOUR_TREE_STATUS CreatureBehaviourFunctions::removeDizzy(Entity& creature, 
 {
 	if (registry.dizzies.has(creature))
 	{
-		std::cout << "removing dizzy!" << std::endl;
 		registry.dizzies.remove(creature);
 	}
 	return BEHAVIOUR_TREE_STATUS::SUCCESS;
