@@ -248,7 +248,7 @@ void ColourSystem::changeLightEmissions(Entity& player, int player_colour_state,
 		vec4 light_emission_colour = DEFAULT_COLOUR_VEC4;
 		light_emission_colour.a = 0.2f;
 
-		players_light_emission = createCircle(player_position, 1.f, RENDER_LAYER::FOREGROUND, light_emission_colour);
+		players_light_emission = createCircle(player_position, 1.f, RENDER_LAYER::PLAYER, light_emission_colour);
 		Collidable& light_emission_collidable_component = registry.collidables.emplace(players_light_emission);
 		light_emission_collidable_component.overlay = true;
 		light_emission_collidable_component.inelastic = false;
@@ -288,8 +288,10 @@ void ColourSystem::updateEmissions(float elapsed_ms)
 
 		Size& light_emission_size = registry.sizes.get(light_emission_entity);
 		if (light_emission_size.width < light_emission_component.MAX_RADIUS){
-			light_emission_size.width += light_emission_component.MAX_RADIUS * DT / light_emission_component.TIME_TO_GROW;
-			light_emission_size.height += light_emission_component.MAX_RADIUS * DT / light_emission_component.TIME_TO_GROW;
+			light_emission_size.width = min(light_emission_component.MAX_RADIUS,
+											light_emission_size.width + light_emission_component.MAX_RADIUS * elapsed_ms / light_emission_component.TIME_TO_GROW);
+			light_emission_size.height = min(light_emission_component.MAX_RADIUS,
+				light_emission_size.height + light_emission_component.MAX_RADIUS * elapsed_ms / light_emission_component.TIME_TO_GROW);
 		}
 	}
 }

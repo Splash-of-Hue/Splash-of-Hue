@@ -116,6 +116,8 @@ bool box_collides(const Entity& entity1, const Entity& entity2)
 			(box2[0] <= box1[1]));
 }
 
+
+//TODO gRCmzvrs - make more generalized once outside of tutorial
 bool is_light_emission_collision(Entity& entity_i, Entity& entity_j)
 {
 	if ((registry.lightEmissions.has(entity_i) && registry.creatures.has(entity_j)) ||
