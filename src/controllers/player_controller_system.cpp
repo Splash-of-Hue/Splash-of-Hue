@@ -18,11 +18,11 @@ Entity PlayerControllerSystem::create_player()
 	animatable.current_trigger = ANIMATION_TRIGGER::IDLE;
 	animatable.frame_rate = 3;
 	animatable.cancellable = true;
-	vec2& pos = registry.positions.insert(player_entity, { GRID_CELL_WIDTH_PX, GRID_CELL_HEIGHT_PX });
+	registry.positions.insert(player_entity, { GRID_CELL_WIDTH_PX, GRID_CELL_HEIGHT_PX });
 	registry.scales.insert(player_entity, vec2((float)2.0f * GRID_CELL_WIDTH_PX, (float)2.0f * GRID_CELL_HEIGHT_PX));
 	registry.angles.emplace(player_entity);
 	registry.angles.get(player_entity).degrees = 0.0f;
-	Size& size = registry.sizes.insert(player_entity, Size{ 40.0f, 40.0f });
+	registry.sizes.insert(player_entity, Size{ 40.0f, 40.0f });
 	registry.colors.emplace(player_entity, color_from_state);
 	registry.currentLevels.emplace(player_entity);
 	registry.textured.emplace(player_entity);
@@ -42,17 +42,6 @@ Entity PlayerControllerSystem::create_player()
 	registry.colourStates.emplace(player_entity, player_color_state);
 	Collidable& collidable = registry.collidables.emplace(player_entity);
 	collidable.inelastic = true;
-	
-	//add mesh to player
-	//default is triangle
-	PolygonMesh& polygon = registry.polygons.emplace(player_entity);
-	polygon.centre = pos;
-	//Entity heights and widths are too large, this is a temp fix
-	//TODO: DMdDb4NW
-	polygon.vertices.push_back(vec2(pos.x, pos.y - size.height * 0.15f)); // bottom
-	polygon.vertices.push_back(vec2(pos.x + size.width * 0.45f, pos.y + size.height * 0.45f)); // top right
-	polygon.vertices.push_back(vec2(pos.x - size.width * 0.45f, pos.y + size.height * 0.45f)); // top left
-
 
 	return player_entity;
 }

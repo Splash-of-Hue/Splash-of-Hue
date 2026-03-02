@@ -131,14 +131,3 @@ struct Size
 	float width;
 	float height;
 };
-
-// TODO: Remove as we probably won't need this, this is just for M1 prototyping
-struct Toggle
-{
-	std::vector<Entity> walls_to_toggle;
-};
-
-struct PolygonMesh {
-	std::vector<vec2> vertices;
-	vec2 centre;
-};
