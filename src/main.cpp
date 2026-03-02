@@ -11,6 +11,7 @@
 #include "controllers/player_controller_system.hpp"
 #include "controls/control_input_conversion_system.hpp"
 #include "input/input_system.hpp"
+#include "interactables/interactable_system.hpp"
 #include "loading/loader_system.hpp"
 #include "colour_system.hpp"
 #include "physics_system.hpp"
@@ -35,6 +36,7 @@ int main()
 	SoundSystem   sound_system;
 	AnimationSystem animation_system;
 	InputSystem input_system;
+	InteractableSystem interactable_system;
 	LoaderSystem loader_system;
 	ControlInputConversionSystem control_input_conversion_system;
 	PlayerControllerSystem player_controller_system;
@@ -89,7 +91,7 @@ int main()
 		physics_system.step(DT);
 		animation_system.step(elapsed_ms);
 		world_system.handle_behaviour_change();
-
+		interactable_system.step(elapsed_ms);
 		renderer_system.draw();
 	}
 

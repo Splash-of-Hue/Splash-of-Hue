@@ -527,9 +527,21 @@ void PhysicsSystem::step(float elapsed_ms)
 		for (uint j = i + 1; j < collidables.components.size(); j++)
 		{
 			Entity& entity_j = collidables.entities[j];
+
 			if (registry.polygons.has(entity_i) || registry.polygons.has(entity_j)) {
 				vec3 penetration = mesh_collides(entity_i, entity_j);
 				if (penetration.x != 0) {
+
+					if (registry.players.has(entity_i) && registry.colourOrbs.has(entity_j) ||
+						registry.players.has(entity_j) && registry.colourOrbs.has(entity_i))
+					{
+						Entity& eOrb = registry.colourOrbs.has(entity_i) ? entity_i : entity_j;
+						if (!registry.orbCollected.has(eOrb))
+						{
+							registry.orbCollected.emplace(eOrb);
+						}
+					}
+
 					if (is_light_emission_collision(entity_i, entity_j))
 					{
 						light_emission_collisions(entity_i, entity_j);

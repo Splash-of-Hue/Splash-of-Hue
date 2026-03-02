@@ -169,6 +169,19 @@ void ColourSystem::applyColorToPlayer(COLOUR_STATE colour)
 	}
 
 	Entity& player = registry.players.entities[0];
+	Player& playerComp = registry.players.get(player);
+
+	// Check if the colour is unlocked (by collecting the orb) before applying
+	if (colour == COLOUR_STATE::BLUE && !playerComp.blue_unlocked)
+	{
+		std::cout << "BLUE not unlocked yet" << std::endl;
+		return;
+	}
+	if (colour == COLOUR_STATE::RED && !playerComp.red_unlocked)
+	{
+		std::cout << "RED not unlocked yet" << std::endl;
+		return;
+	}
 
 	if (!registry.colourStates.has(player)) {
 		registry.colourStates.emplace(player);
