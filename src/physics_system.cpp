@@ -580,7 +580,6 @@ void PhysicsSystem::checkIfInRadius()
 		if (!box_collides(entity, radius_entity))
 		{
 			registry.inPlayerRadius.remove(entity);
-			turnNeutral(entity);
 		}
 	}
 
@@ -592,7 +591,6 @@ void PhysicsSystem::checkIfInRadius()
 		if (!box_collides(entity, radius_entity))
 		{
 			registry.inPlayerRadius.remove(entity);
-			turnNeutral(entity);
 		}
 	}
 
@@ -604,23 +602,6 @@ void PhysicsSystem::checkIfInRadius()
 		if (!box_collides(entity, radius_entity))
 		{
 			registry.inPlayerRadius.remove(entity);
-			turnNeutral(entity);
 		}
 	}
-}
-
-void PhysicsSystem::turnNeutral(Entity& entity)
-{
-	if (registry.colourStates.has(entity))
-	{
-		ColourState& colour_state_component = registry.colourStates.get(entity);
-		colour_state_component.prev_colour_state = colour_state_component.prev_colour_state;
-		colour_state_component.curr_colour_state = COLOUR_STATE::NEUTRAL;
-
-		vec4& color = registry.colors.get(entity);
-		const ColourPalette& palette = registry.colourPalettes.components[0];
-		auto& color_from_state = palette.state_to_colour.at(colour_state_component.curr_colour_state);
-		color = color_from_state;
-	}
-	
 }
