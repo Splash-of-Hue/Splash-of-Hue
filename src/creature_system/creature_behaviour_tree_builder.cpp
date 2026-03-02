@@ -98,7 +98,11 @@ BehaviourTree CreatureBehaviourTreeBuilder::buildShrimpTree()
 						Action(builder, creatureBehaviourFunctions.neutralArms))
 				),
 
-				Action(builder, creatureBehaviourFunctions.neutralArms))
+				Sequence(builder,
+					Action(builder, creatureBehaviourFunctions.makeNeutral),
+					Action(builder, creatureBehaviourFunctions.neutralArms))
+
+				)
 		);
 
 	return builder.build(root_index);

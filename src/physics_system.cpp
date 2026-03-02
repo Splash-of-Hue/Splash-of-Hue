@@ -156,6 +156,45 @@ void light_emission_collisions(Entity& entity_i, Entity& entity_j)
 			const ColourPalette& palette = registry.colourPalettes.components[0];
 			auto& color_from_state = palette.state_to_colour.at(colour_state_creature.curr_colour_state);
 			other_color = color_from_state;
+
+			LightEmission& light_emission_component = registry.lightEmissions.get(light_emission_entity);
+			Entity& source_entity = light_emission_component.lightSourceEntity;
+
+			if (registry.players.has(source_entity))
+			{
+				if (!registry.inPlayerRadius.has(other_entity))
+				{
+					registry.inPlayerRadius.emplace(other_entity);
+				}
+
+				InPlayerRadius& in_player_radius_component = registry.inPlayerRadius.get(other_entity);
+				in_player_radius_component.colour = colour_state_creature.curr_colour_state;
+				in_player_radius_component.radius_entity = light_emission_entity;
+			}
+
+			if (registry.creatures.has(source_entity))
+			{
+				if (!registry.inCreatureRadius.has(other_entity))
+				{
+					registry.inCreatureRadius.emplace(other_entity);
+				}
+
+				InCreatureRadius& in_creature_radius_component = registry.inCreatureRadius.get(other_entity);
+				in_creature_radius_component.colour = colour_state_creature.curr_colour_state;
+				in_creature_radius_component.radius_entity = light_emission_entity;
+			}
+
+			if (registry.interactables.has(source_entity))
+			{
+				if (!registry.inInteractableRadius.has(other_entity))
+				{
+					registry.inInteractableRadius.emplace(other_entity);
+				}
+
+				InInteractableRadius& in_interactable_radius_component = registry.inInteractableRadius.get(other_entity);
+				in_interactable_radius_component.colour = colour_state_creature.curr_colour_state;
+				in_interactable_radius_component.radius_entity = light_emission_entity;
+			}
 		}
 	}
 
@@ -463,6 +502,7 @@ void handle_inelastic_collision_mesh(Entity& entity_i, Entity& entity_j, vec3 pe
 void PhysicsSystem::step(float elapsed_ms)
 {
 	handle_movement(elapsed_ms);
+	checkIfInRadius();
 	// check for collisions between all collidable entities
 	ComponentContainer<Collidable>& collidables = registry.collidables;
 	for (uint i = 0; i < collidables.components.size(); i++)
@@ -479,6 +519,7 @@ void PhysicsSystem::step(float elapsed_ms)
 				vec3 penetration = mesh_collides(entity_i, entity_j);
 
 				if (penetration.x != 0) {
+
 					if (is_light_emission_collision(entity_i, entity_j))
 					{
 						light_emission_collisions(entity_i, entity_j);
@@ -544,6 +585,42 @@ void PhysicsSystem::handle_movement(float elapsed_ms)
 				v += change_in_pos;
 			}
 			polygon.centre = pos;
+		}
+	}
+}
+
+void PhysicsSystem::checkIfInRadius()
+{
+	for (Entity& entity : registry.inPlayerRadius.entities)
+	{
+		InPlayerRadius& in_player_radius_component = registry.inPlayerRadius.get(entity);
+		Entity& radius_entity = in_player_radius_component.radius_entity;
+
+		if (!box_collides(entity, radius_entity))
+		{
+			registry.inPlayerRadius.remove(entity);
+		}
+	}
+
+	for (Entity& entity : registry.inCreatureRadius.entities)
+	{
+		InCreatureRadius& in_creature_radius_component = registry.inCreatureRadius.get(entity);
+		Entity& radius_entity = in_creature_radius_component.radius_entity;
+
+		if (!box_collides(entity, radius_entity))
+		{
+			registry.inPlayerRadius.remove(entity);
+		}
+	}
+
+	for (Entity& entity : registry.inInteractableRadius.entities)
+	{
+		InInteractableRadius& in_interactable_radius_component = registry.inInteractableRadius.get(entity);
+		Entity& radius_entity = in_interactable_radius_component.radius_entity;
+
+		if (!box_collides(entity, radius_entity))
+		{
+			registry.inPlayerRadius.remove(entity);
 		}
 	}
 }
