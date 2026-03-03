@@ -8,3 +8,5 @@ enum class INTERACTABLE_TYPE
 	COLOUR_ORB = BOX + 1,
 	MUSHROOM = COLOUR_ORB + 1
 };
+
+const int MOSS_FRAME_RATE = 1;

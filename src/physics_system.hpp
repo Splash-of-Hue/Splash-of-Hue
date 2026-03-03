@@ -10,11 +10,11 @@ class PhysicsSystem
 {
 public:
 	void step(float elapsed_ms);
-
 	PhysicsSystem()
 	{
 	}
 
 private:
+	void checkIfInRadius();
 	void handle_movement(float elapsed_ms);
 };

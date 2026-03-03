@@ -33,10 +33,11 @@ class RenderSystem {
 		textures_path("Creatures.png"),
 		textures_path("sawfish-sheet.png"),
 		textures_path("Whale.png"),
-		textures_path("P_Shrimp.png"),
+		textures_path("P_Shrimp_Sheet.png"),
 		textures_path("Minnow.png"),
 		textures_path("Anglerfish.png"),
 		textures_path("Coral Tree.png"),
+		textures_path("moss-sheet.png"),
 		textures_path("Rooms.png"),
 	};
 

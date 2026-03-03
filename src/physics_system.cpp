@@ -73,6 +73,7 @@ bool box_collides(const Entity& entity1, const Entity& entity2)
 	{
 		return false;
 	}
+
 	if (!registry.sizes.has(entity1) || !registry.sizes.has(entity2))
 	{
 		return false;
@@ -88,7 +89,7 @@ bool box_collides(const Entity& entity1, const Entity& entity2)
 
 		const Size& sC = registry.sizes.get(eC);
 		const Size& sR = registry.sizes.get(eR);
-		float radiusC = sR.width * 0.5f;
+		float radiusC = sC.width * 0.5f;
 
 		float rectR = posR.x + sR.width * 0.5f;    //we're going to be doing a lot of comparing between
 		float rectL = posR.x - sR.width * 0.5f;    //point on a circle, line on a rectangle, and radius of the circle
@@ -117,116 +118,79 @@ bool box_collides(const Entity& entity1, const Entity& entity2)
 			(box2[0] <= box1[1]));
 }
 
-void handle_colour_collision(Entity& entity_i, Entity& entity_j) {
+
+//TODO gRCmzvrs - make more generalized once outside of tutorial
+bool is_light_emission_collision(Entity& entity_i, Entity& entity_j)
+{
+	if ((registry.lightEmissions.has(entity_i) && registry.creatures.has(entity_j)) ||
+		registry.lightEmissions.has(entity_j) && registry.creatures.has(entity_i))
+	{
+		return true;
+	}
+
+	if ((registry.lightEmissions.has(entity_i) && registry.mossToggles.has(entity_j)) ||
+		registry.lightEmissions.has(entity_j) && registry.mossToggles.has(entity_i))
+	{
+		return true;
+	}
+
+	return false;
+}
+
+
+void light_emission_collisions(Entity& entity_i, Entity& entity_j) 
+{
 	vec2& posI = registry.positions.get(entity_i);
 	vec2& posJ = registry.positions.get(entity_j);
 
-	//registry.list_all_components_of(entity_i);
-	//std::cout << posI.x << " " << posI.y << std::endl;
-	//registry.list_all_components_of(entity_j);
-	//std::cout << posJ.x << " " << posJ.y << std::endl;
+	Entity& light_emission_entity = registry.lightEmissions.has(entity_i) ? entity_i : entity_j;
+	Entity& other_entity = registry.lightEmissions.has(entity_i) ? entity_j : entity_i;
 
-	// For now, this handles creature - player interaction
-	if (registry.colourStates.has(entity_i) && registry.colourStates.has(entity_j))
+	if (registry.creatures.has(other_entity))
 	{
-		if (registry.colouredWall.has(entity_i) && registry.colouredWall.has(entity_j))
+		if (registry.colourStates.has(other_entity))
 		{
-			return;
-		}
+			COLOUR_STATE& colour_to_turn_into = registry.colourStates.get(light_emission_entity).curr_colour_state;
 
-		// TODO: Determine color giving priority
+			LightEmission& light_emission_component = registry.lightEmissions.get(light_emission_entity);
+			Entity& source_entity = light_emission_component.lightSourceEntity;
 
-		const bool i_is_player = registry.players.has(entity_i);
-		const bool j_is_player = registry.players.has(entity_j);
-
-		// For now, only a player can change states
-		if (!i_is_player && !j_is_player)
-		{
-			goto after_color_collision;
-		}
-
-		const Entity& player_entity = i_is_player ? entity_i : entity_j;
-		const Entity& other_entity = i_is_player ? entity_j : entity_i;
-
-		if (!registry.creatures.has(other_entity))
-		{
-			goto after_color_collision;
-		}
-
-		const ColourState& player_color_state = registry.colourStates.get(player_entity);
-
-		// A neutral player does not toggle anything
-		if (player_color_state.curr_colour_state == COLOUR_STATE::NEUTRAL)
-		{
-			goto after_color_collision;
-		}
-
-		ColourState& other_color_state = registry.colourStates.get(other_entity);
-
-		// If the states are the same, move on
-		if (player_color_state.curr_colour_state == other_color_state.curr_colour_state)
-		{
-			goto after_color_collision;
-		}
-
-		other_color_state.prev_colour_state = other_color_state.curr_colour_state;
-		other_color_state.curr_colour_state = player_color_state.curr_colour_state;
-		vec4& other_color = registry.colors.get(other_entity);
-		const ColourPalette& palette = registry.colourPalettes.components[0];
-		auto& color_from_state = palette.state_to_colour.at(other_color_state.curr_colour_state);
-		other_color = color_from_state;
-	}
-
-	after_color_collision:
-		//im wondering if its better to look at what type of creatures/entities we're dealing with BEFORE we look at their type
-		//of collision. Because walls will be changing between inelastic and no collision, so im not entirely sure which
-		//type of collision we want to put it in. For now, it will be its own thing.
-
-	if (registry.colouredWall.has(entity_i) || registry.colouredWall.has(entity_j))
-	{
-
-		//find out which entity is which, since we need to find out if the other entity is a player
-		//although right now, im testing collisions between the hovering rectangle and a placed rectangle
-		//so that does not really apply here
-		Entity& eCW = registry.colouredWall.has(entity_i) ? entity_i : entity_j;
-		Entity& eO = registry.colouredWall.has(entity_j) ? entity_i : entity_j;
-
-		if (!registry.colourStates.has(eO))
-		{
-			return;
-		}
-
-		ColourState& csCW = registry.colourStates.get(eCW);
-		ColourState& csO = registry.colourStates.get(eO);
-		Collidable& colCW = registry.collidables.get(eCW);
-
-		//if colourStates are same, wall is no longer inelastic, so player can walk through
-		if (csCW.curr_colour_state == csO.curr_colour_state && csCW.curr_colour_state != COLOUR_STATE::NEUTRAL && registry.players.has(eO))
-		{
-
-			colCW.inelastic = false;
-		}
-		else
-		{
-			colCW.inelastic = true;
-		}
-	}
-
-	//todo - change to sawfish once there are more creatures than sawfish
-	if (registry.players.has(entity_i) && registry.creatures.has(entity_j) || registry.players.has(entity_j) && registry.creatures.has(entity_i))
-	{
-		Entity& eP = registry.players.has(entity_i) ? entity_i : entity_j;
-		Entity& eS = registry.creatures.has(entity_i) ? entity_i : entity_j;
-		if (registry.colourStates.has(eS))
-		{
-			ColourState& csS = registry.colourStates.get(eS);
-			if (csS.curr_colour_state == COLOUR_STATE::RED)
+			if (registry.players.has(source_entity))
 			{
-				if (!registry.deathTimers.has(eP))
+				if (!registry.inPlayerRadius.has(other_entity))
 				{
-					registry.deathTimers.emplace(eP);
+					registry.inPlayerRadius.emplace(other_entity);
 				}
 
+				InPlayerRadius& in_player_radius_component = registry.inPlayerRadius.get(other_entity);
+				in_player_radius_component.colour = colour_to_turn_into;
+				in_player_radius_component.radius_entity = light_emission_entity;
+			}
+
+			if (registry.creatures.has(source_entity))
+			{
+				if (!registry.inCreatureRadius.has(other_entity))
+				{
+					registry.inCreatureRadius.emplace(other_entity);
+				}
+
+				InCreatureRadius& in_creature_radius_component = registry.inCreatureRadius.get(other_entity);
+				in_creature_radius_component.colour = colour_to_turn_into;
+				in_creature_radius_component.radius_entity = light_emission_entity;
+			}
+
+			if (registry.interactables.has(source_entity))
+			{
+				if (!registry.inInteractableRadius.has(other_entity))
+				{
+					registry.inInteractableRadius.emplace(other_entity);
+				}
+
+				InInteractableRadius& in_interactable_radius_component = registry.inInteractableRadius.get(other_entity);
+				in_interactable_radius_component.colour = colour_to_turn_into;
+				in_interactable_radius_component.radius_entity = light_emission_entity;
+			}
+		}
 			}
 		}
 	}
@@ -264,7 +228,6 @@ void handle_colour_collision(Entity& entity_i, Entity& entity_j) {
 	//is it only our radius that affects the button?
 	//This assumed the button in a circle, and is an overlay, but since we send the rectangle
 	//to "change_behaviours," i need to implement this code
-
 	if (registry.mossToggles.has(entity_i) || registry.mossToggles.has(entity_j))
 	{
 		Entity& eT = registry.mossToggles.has(entity_i) ? entity_i : entity_j;
@@ -272,7 +235,7 @@ void handle_colour_collision(Entity& entity_i, Entity& entity_j) {
 		MossToggle& tT = registry.mossToggles.get(eT);
 
 		// Only the player can toggle things
-		if (!registry.players.has(eO))
+		if (!registry.lightEmissions.has(eO))
 		{
 			return;
 		}
@@ -312,10 +275,93 @@ void handle_colour_collision(Entity& entity_i, Entity& entity_j) {
 		}
 
 	}
-	
 }
 
-void handle_inelastic_collision_box(Entity& entity_i, Entity& entity_j) {
+void handle_misc_collision(Entity& entity_i, Entity& entity_j)
+{
+	if (registry.creatures.has(entity_i) || registry.creatures.has(entity_j))
+	{
+		Entity& entity_creature = registry.creatures.has(entity_i) ? entity_i : entity_j;
+		Entity& entity_other = registry.creatures.has(entity_j) ? entity_i : entity_j;
+
+		if (!registry.creatureInelasticCollisions.has(entity_creature))
+		{
+			Collidable& other_collidable = registry.collidables.get(entity_other);
+			if (other_collidable.inelastic)
+			{
+				registry.creatureInelasticCollisions.emplace(entity_creature);
+				if (registry.breakables.has(entity_other))
+				{
+					registry.remove_all_components_of(entity_other);
+				}
+			}
+		}
+	}
+
+	if (registry.colouredWall.has(entity_i) || registry.colouredWall.has(entity_j))
+	{
+		Entity& eCW = registry.colouredWall.has(entity_i) ? entity_i : entity_j;
+		Entity& eO = registry.colouredWall.has(entity_j) ? entity_i : entity_j;
+
+		if (!registry.colourStates.has(eO))
+		{
+			return;
+		}
+
+		ColourState& csCW = registry.colourStates.get(eCW);
+		ColourState& csO = registry.colourStates.get(eO);
+		Collidable& colCW = registry.collidables.get(eCW);
+
+		//if colourStates are same, wall is no longer inelastic, so player can walk through
+		if (csCW.curr_colour_state == csO.curr_colour_state && csCW.curr_colour_state != COLOUR_STATE::NEUTRAL)
+		{
+
+			colCW.inelastic = false;
+		}
+		else
+		{
+			colCW.inelastic = true;
+		}
+	}
+
+	//todo - change to sawfish once there are more creatures than sawfish
+	if (registry.players.has(entity_i) && registry.creatures.has(entity_j) || registry.players.has(entity_j) && registry.creatures.has(entity_i))
+	{
+		Entity& eP = registry.players.has(entity_i) ? entity_i : entity_j;
+		Entity& eS = registry.creatures.has(entity_i) ? entity_i : entity_j;
+		//make it so only sawfish kills
+		if (!registry.shrimps.has(eS))
+		{
+			if (registry.colourStates.has(eS))
+			{
+				ColourState& csS = registry.colourStates.get(eS);
+				if (csS.curr_colour_state == COLOUR_STATE::RED)
+				{
+					if (registry.chargers.has(eS))
+					{
+						if (!registry.deathTimers.has(eP))
+						{
+							registry.deathTimers.emplace(eP);
+						}
+					}
+				}
+			}
+		}
+	}
+
+	// TODO UurbFK4Z: Handle in callback instead of in the physics system
+	if (registry.players.has(entity_i) && registry.spawnPoints.has(entity_j) || registry.players.has(entity_j) && registry.spawnPoints.has(entity_i))
+	{
+		Entity change_map_request_entity;
+		Entity& spawn_point_entity = registry.spawnPoints.has(entity_i) ? entity_i : entity_j;
+		const SpawnPoint& spawn_point = registry.spawnPoints.get(spawn_point_entity);
+		registry.changeMapLevelRequests.insert(change_map_request_entity, { spawn_point.connected_level_uid, spawn_point.send_to_location });
+	}
+
+}
+
+void handle_inelastic_collision_box(Entity& entity_i, Entity& entity_j) 
+{
 	vec4 box1 = get_bounding_box(entity_i);
 	vec4 box2 = get_bounding_box(entity_j);
 	vec2& pos1 = registry.positions.get(entity_i);
@@ -365,7 +411,8 @@ void handle_inelastic_collision_box(Entity& entity_i, Entity& entity_j) {
 }
 
 //mesh collision helpers
-PolygonMesh findHitbox(const Entity& e) {
+PolygonMesh findHitbox(const Entity& e) 
+{
 	//default is rectangle
 	
 	vec2& pos = registry.positions.get(e);
@@ -373,12 +420,13 @@ PolygonMesh findHitbox(const Entity& e) {
 	std::vector<vec2> vertices;
 	//Sawfish heights and widths are too large, this is a temp fix
 	//TODO: DMdDb4NW
-	vertices.push_back({ vec2(pos.x - size.width * 0.5f, pos.y - size.height * 0.5f) });
-	vertices.push_back({vec2(pos.x + size.width * 0.5f, pos.y - size.height * 0.5f) }); // bottom
-	vertices.push_back(vec2(pos.x + size.width * 0.5f, pos.y + size.height * 0.5f)); // top right
-	vertices.push_back(vec2(pos.x - size.width * 0.5f, pos.y + size.height * 0.5f)); // top left
+	float half_width = size.width * 0.5f;
+	float half_height = size.height * 0.5f;
+	vertices.push_back({vec2(pos.x - half_width , pos.y - half_height)});
+	vertices.push_back({vec2(pos.x + half_width, pos.y - half_height) }); // bottom
+	vertices.push_back(vec2(pos.x + half_width, pos.y + half_height)); // top right
+	vertices.push_back(vec2(pos.x - half_width, pos.y + half_height)); // top left
 	PolygonMesh& polygon = PolygonMesh{vertices, pos };
-	
 
 	return polygon;
 }
@@ -411,8 +459,8 @@ vec2 projection(PolygonMesh& p, vec2 normal)
 	return vec2(min, max);
 }
 
-vec3 axisCollision(PolygonMesh& a, PolygonMesh& b) {
-
+vec3 axisCollision(PolygonMesh& a, PolygonMesh& b) 
+{
 	vec3 penetration = vec3(WINDOW_WIDTH_PX, 0.f, 0.f);
 	std::vector<vec2> a_normals = getNormals(a);
 	for (int i = 0; i < a_normals.size(); i++) {
@@ -451,7 +499,8 @@ vec3 axisCollision(PolygonMesh& a, PolygonMesh& b) {
 	return penetration;
 }
 
-vec3 mesh_collides(const Entity& entity1, const Entity& entity2) {
+vec3 mesh_collides(const Entity& entity1, const Entity& entity2) 
+{
 	PolygonMesh a;
 	PolygonMesh b;
 	if (registry.polygons.has(entity1)) {
@@ -471,7 +520,8 @@ vec3 mesh_collides(const Entity& entity1, const Entity& entity2) {
 	return (axisCollision(a, b));
 }
 
-void handle_inelastic_collision_mesh(Entity& entity_i, Entity& entity_j, vec3 penetration) {
+void handle_inelastic_collision_mesh(Entity& entity_i, Entity& entity_j, vec3 penetration)
+{
 	vec2& pos1 = registry.positions.get(entity_i);
 	vec2& pos2 = registry.positions.get(entity_j);
 
@@ -499,6 +549,7 @@ void handle_inelastic_collision_mesh(Entity& entity_i, Entity& entity_j, vec3 pe
 void PhysicsSystem::step(float elapsed_ms)
 {
 	handle_movement(elapsed_ms);
+	checkIfInRadius();
 	// check for collisions between all collidable entities
 	ComponentContainer<Collidable>& collidables = registry.collidables;
 	for (uint i = 0; i < collidables.components.size(); i++)
@@ -509,10 +560,31 @@ void PhysicsSystem::step(float elapsed_ms)
 		for (uint j = i + 1; j < collidables.components.size(); j++)
 		{
 			Entity& entity_j = collidables.entities[j];
-			if (registry.polygons.has(entity_i) || registry.polygons.has(entity_j)) {
+
+			if (registry.polygons.has(entity_i) || registry.polygons.has(entity_j)) 
+			{
 				vec3 penetration = mesh_collides(entity_i, entity_j);
+
 				if (penetration.x != 0) {
-					handle_colour_collision(entity_i, entity_j);
+
+					if (is_light_emission_collision(entity_i, entity_j))
+					{
+						light_emission_collisions(entity_i, entity_j);
+					}
+					else {
+						handle_misc_collision(entity_i, entity_j);
+					}
+					
+					if (registry.players.has(entity_i) && registry.colourOrbs.has(entity_j) ||
+						registry.players.has(entity_j) && registry.colourOrbs.has(entity_i))
+					{
+						Entity& eOrb = registry.colourOrbs.has(entity_i) ? entity_i : entity_j;
+						if (!registry.orbCollected.has(eOrb))
+						{
+							registry.orbCollected.emplace(eOrb);
+						}
+					}
+					
 					if (registry.collidables.get(entity_i).inelastic && registry.collidables.get(entity_j).inelastic)
 					{
 						handle_inelastic_collision_mesh(entity_i, entity_j, penetration);
@@ -524,7 +596,13 @@ void PhysicsSystem::step(float elapsed_ms)
 			//no mesh, so use box collision
 			if (box_collides(entity_i, entity_j))
 			{
-				handle_colour_collision(entity_i, entity_j);
+				if (is_light_emission_collision(entity_i, entity_j))
+				{
+					light_emission_collisions(entity_i, entity_j);
+				}
+				else {
+					handle_misc_collision(entity_i, entity_j);
+				}
 				//must both be inelastic for this collision resolution to occur
 				if (registry.collidables.get(entity_i).inelastic && registry.collidables.get(entity_j).inelastic)
 				{
@@ -554,6 +632,49 @@ void PhysicsSystem::handle_movement(float elapsed_ms)
 				v += change_in_pos;
 			}
 			polygon.centre = pos;
+		}
+	}
+}
+
+void PhysicsSystem::checkIfInRadius()
+{
+	for (Entity& entity : registry.inPlayerRadius.entities)
+	{
+		InPlayerRadius& in_player_radius_component = registry.inPlayerRadius.get(entity);
+		Entity& radius_entity = in_player_radius_component.radius_entity;
+		if (registry.sizes.has(radius_entity))
+		{
+			if (!box_collides(entity, radius_entity))
+			{
+				registry.inPlayerRadius.remove(entity);
+			}
+		} 
+		else
+		{
+			registry.inPlayerRadius.remove(entity);
+		}
+		
+	}
+
+	for (Entity& entity : registry.inCreatureRadius.entities)
+	{
+		InCreatureRadius& in_creature_radius_component = registry.inCreatureRadius.get(entity);
+		Entity& radius_entity = in_creature_radius_component.radius_entity;
+
+		if (!box_collides(entity, radius_entity))
+		{
+			registry.inPlayerRadius.remove(entity);
+		}
+	}
+
+	for (Entity& entity : registry.inInteractableRadius.entities)
+	{
+		InInteractableRadius& in_interactable_radius_component = registry.inInteractableRadius.get(entity);
+		Entity& radius_entity = in_interactable_radius_component.radius_entity;
+
+		if (!box_collides(entity, radius_entity))
+		{
+			registry.inPlayerRadius.remove(entity);
 		}
 	}
 }

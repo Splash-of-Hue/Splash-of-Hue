@@ -30,9 +30,12 @@ public:
 	ComponentContainer<Projectile> projectiles; // TODO X4tDLE6K: remove
 	ComponentContainer<Tower> towers; // TODO X4tDLE6K: remove
 	// AI
+	ComponentContainer<Charging> chargers;
 	ComponentContainer<CreatureBehaviour> creatureBehaviours;
 	ComponentContainer<CreatureBehaviourCooldown> creatureBehaviourCooldowns;
 	ComponentContainer<CreatureBehaviourTimer> creatureBehaviourTimers;
+	ComponentContainer<IsInInelasticCollision> creatureInelasticCollisions;
+	ComponentContainer<Dizzy> dizzies;
 	ComponentContainer<Pathfinder> pathfinders;
 	// Animation
 	ComponentContainer<Animatable> animatables;
@@ -46,6 +49,8 @@ public:
 	ComponentContainer<ColourPalette> colourPalettes;
 	ComponentContainer<ColourMenuState> colourMenuStates;
 	ComponentContainer<ColourMenuInput> colourMenuInputs;
+	ComponentContainer<LightEmission> lightEmissions;
+	ComponentContainer<LightSource> lightSources;
 	// Controls
 	ComponentContainer<Control> controls;
 	ComponentContainer<Input> inputs;
@@ -60,6 +65,7 @@ public:
 	ComponentContainer<Interactable> interactables;
 	ComponentContainer<MossToggle> mossToggles;
 	ComponentContainer<Mushroom> mushrooms;	
+	ComponentContainer<OrbCollected> orbCollected;
 	// Loader
 	ComponentContainer<LoadRequest> loadRequests;
 	// Map
@@ -75,6 +81,9 @@ public:
 	ComponentContainer<ChangeBehaviour> change_behaviours;
 	ComponentContainer<Collidable> collidables;
 	ComponentContainer<Collision> collisions;
+	ComponentContainer<InCreatureRadius> inCreatureRadius;
+	ComponentContainer<InInteractableRadius> inInteractableRadius;
+	ComponentContainer<InPlayerRadius> inPlayerRadius;
 	ComponentContainer<PolygonMesh> polygons;
 	// Physics - Movement / Transforms
 	ComponentContainer<Angle> angles;
@@ -112,9 +121,12 @@ public:
 		registry_list.push_back(&projectiles); // TODO X4tDLE6K: remove
 		registry_list.push_back(&towers); // TODO X4tDLE6K: remove
 		// AI
+		registry_list.push_back(&chargers);
 		registry_list.push_back(&creatureBehaviours);
 		registry_list.push_back(&creatureBehaviourCooldowns);
 		registry_list.push_back(&creatureBehaviourTimers);
+		registry_list.push_back(&creatureInelasticCollisions);
+		registry_list.push_back(&dizzies);
 		registry_list.push_back(&pathfinders);
 		// Animation
 		registry_list.push_back(&animatables);
@@ -128,6 +140,8 @@ public:
 		registry_list.push_back(&colourPalettes);
 		registry_list.push_back(&colourMenuStates);
 		registry_list.push_back(&colourMenuInputs);
+		registry_list.push_back(&lightEmissions);
+		registry_list.push_back(&lightSources);
 		// Controls
 		registry_list.push_back(&controls);
 		registry_list.push_back(&inputs);
@@ -142,6 +156,7 @@ public:
 		registry_list.push_back(&interactables);
 		registry_list.push_back(&mossToggles);
 		registry_list.push_back(&mushrooms);
+		registry_list.push_back(&orbCollected);
 		// Loader
 		registry_list.push_back(&loadRequests);
 		// Map
@@ -157,6 +172,9 @@ public:
 		registry_list.push_back(&change_behaviours);
 		registry_list.push_back(&collidables);
 		registry_list.push_back(&collisions);
+		registry_list.push_back(&inCreatureRadius);
+		registry_list.push_back(&inInteractableRadius);
+		registry_list.push_back(&inPlayerRadius);
 		registry_list.push_back(&polygons);
 		// Physics - Movement / Transforms
 		registry_list.push_back(&angles);
