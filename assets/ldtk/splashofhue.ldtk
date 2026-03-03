@@ -154,7 +154,7 @@
 				"levelIid": "1ae35cf0-fa90-11f0-95ec-85cc4233bd3c",
 				"layerIid": "1ae35cf3-fa90-11f0-95ec-c348a259a321",
 				"entityIid": "252342b0-fa90-11f0-95ec-a1257b5485cb"
-			}, "worldX": 764, "worldY": -1996, "widPx": 16, "heiPx": 16, "fields" : {} },
+			}, "worldX": 764, "worldY": -1964, "widPx": 16, "heiPx": 16, "fields" : {} },
 			{ "iids": {
 				"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787",
 				"levelIid": "1dbfa1e0-fa90-11f0-95ec-7b07f8d0bd5f",
@@ -4947,7 +4947,7 @@
 					"entityInstances": [
 						{
 							"__identifier": "MossWall",
-							"__grid": [47,10],
+							"__grid": [47,11],
 							"__pivot": [0.5,0.5],
 							"__tags": ["Internal_Wall"],
 							"__tile": { "tilesetUid": 52, "x": 160, "y": 400, "w": 192, "h": 224 },
@@ -4956,13 +4956,13 @@
 							"width": 200,
 							"height": 190,
 							"defUid": 48,
-							"px": [760,168],
+							"px": [760,184],
 							"fieldInstances": [{ "__identifier": "ColorState", "__type": "LocalEnum.ColorState", "__value": "Red", "__tile": null, "defUid": 49, "realEditorValues": [{
 								"id": "V_String",
 								"params": ["Red"]
 							}] }],
 							"__worldX": 760,
-							"__worldY": -1992
+							"__worldY": -1976
 						},
 						{
 							"__identifier": "MossWall",
@@ -5093,7 +5093,7 @@
 						},
 						{
 							"__identifier": "Wall",
-							"__grid": [61,6],
+							"__grid": [62,6],
 							"__pivot": [0.5,0.5],
 							"__tags": ["Internal_Wall"],
 							"__tile": null,
@@ -5102,9 +5102,9 @@
 							"width": 1872,
 							"height": 128,
 							"defUid": 61,
-							"px": [984,104],
+							"px": [1000,104],
 							"fieldInstances": [],
-							"__worldX": 984,
+							"__worldX": 1000,
 							"__worldY": -2056
 						},
 						{
@@ -5333,7 +5333,7 @@
 						},
 						{
 							"__identifier": "Spawn_Point",
-							"__grid": [95,20],
+							"__grid": [95,24],
 							"__pivot": [0.5,0.5],
 							"__tags": ["Floor_Interactable"],
 							"__tile": null,
@@ -5342,7 +5342,7 @@
 							"width": 16,
 							"height": 16,
 							"defUid": 12,
-							"px": [764,164],
+							"px": [764,196],
 							"fieldInstances": [
 								{ "__identifier": "ConnectedSpawnPoint", "__type": "EntityRef", "__value": {
 									"entityIid": "229ac310-fa90-11f0-95ec-bd54b61ff6d1",
@@ -5359,7 +5359,7 @@
 								}] }
 							],
 							"__worldX": 764,
-							"__worldY": -1996
+							"__worldY": -1964
 						},
 						{
 							"__identifier": "Box",
