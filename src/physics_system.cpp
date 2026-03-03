@@ -224,6 +224,7 @@ void light_emission_collisions(Entity& entity_i, Entity& entity_j)
 			vec4& colT = registry.colors.get(eT);
 			vec4& colO = registry.colors.get(eO);
 			colT = colO;
+			csT.curr_colour_state = csO.curr_colour_state;
 
 			for (std::string& connected_wall_id : tT.connected_wall_ids)
 			{

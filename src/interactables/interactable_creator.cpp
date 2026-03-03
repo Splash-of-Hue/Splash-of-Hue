@@ -86,7 +86,7 @@ Entity createMossToggle(const int level_uid, vec2 position, vec2 size, COLOUR_ST
 	Entity toggle_entity;
 	const ColourPalette& palette = registry.colourPalettes.components[0];
 	auto& color_from_state = palette.state_to_colour.at(color_state);
-	MossToggle& moss_toggle = registry.mossToggles.emplace(toggle_entity);
+	MossToggle& moss_toggle = registry.mossToggles.insert(toggle_entity, { connected_wall_ids });
 	registry.positions.insert(toggle_entity, position);
 	registry.scales.insert(toggle_entity, size);
 	registry.sizes.insert(toggle_entity, { size.x, size.y });
