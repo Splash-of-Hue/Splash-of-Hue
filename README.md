@@ -7,7 +7,7 @@
 ## Concept
 Our game is a top-down puzzle based dungeon crawler where the player will find and collect colours that you will be able to emit and use to solve puzzles.
 ## Setting
-A bioluminescent sea creature journeys up to the surface to return to the sun that it has heard legends of and believes it originates from. Along the way, this creature introduces colour and light to a world that has never experienced it before.
+A bioluminescent sea sheep, born different from the rest of its herd, journeys up to the surface to return to the sun that it has heard legends of and believes it originates from. Along the way, the sheep introduces colour and light to a world that has never experienced it before. However, its mother is determined to stop the sheep's journey, believing she knows whats best for it, and sends obstacles to stop the sheep from continuing its journey. 
 ## Controls
 WASD for up, left, down, right movement. Left arrow key for blue, right arrow key for red, up/down to deactivate colours. 
 
