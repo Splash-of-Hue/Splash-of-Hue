@@ -453,6 +453,14 @@ void load_colour_orb(const ldtk::Entity& colour_orb_entity)
 {
 	const ldtk::Field<ldtk::EnumValue>& color_state_field = colour_orb_entity.getField<ldtk::EnumValue>("ColorState");
 	const COLOUR_STATE colour_state = color_state_from_string(color_state_field.value().name);
+
+	// Don't spawn it if the player has the abilities
+	const Player& player = registry.players.components[0];
+	if (player.blue_unlocked && colour_state == COLOUR_STATE::BLUE || player.red_unlocked && colour_state == COLOUR_STATE::RED)
+	{
+		return;
+	}
+
 	const ldtk::IntPoint& world_pos = colour_orb_entity.getWorldPosition();
 	const ldtk::IntPoint& entity_size = colour_orb_entity.getSize();
 	const vec2 position = vec2(world_pos.x * LEVEL_TO_SCREEN_SCALE.x, world_pos.y * LEVEL_TO_SCREEN_SCALE.y);
