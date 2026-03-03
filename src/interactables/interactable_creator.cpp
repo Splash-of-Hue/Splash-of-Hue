@@ -73,7 +73,7 @@ Entity createFloorPictureControls(vec2 position, float width, float height, CONT
 {
 	Size size = { width, height };
 	Entity control_entity = addGeneralInteractableComponents(position, size, INTERACTABLE_TYPE::CONTROLS);
-	
+
 	registry.renderRequests.insert(
 		control_entity,
 		{
@@ -83,18 +83,39 @@ Entity createFloorPictureControls(vec2 position, float width, float height, CONT
 		}
 	);
 
-	// TODO ANIMATION_TRIGGER TYPES
-	const ANIMATION_TRIGGER trigger = control_png_type == COLOUR_STATE::NEUTRAL ? ANIMATION_TRIGGER::IDLE : color_state == COLOUR_STATE::BLUE ? ANIMATION_TRIGGER::IDLE_BLUE : ANIMATION_TRIGGER::IDLE_RED;
-	
+	ANIMATION_TRIGGER trigger;
+	switch (control_png_type)
+	{
+	case CONTROL_PNG_TYPE::WASD:
+		trigger = ANIMATION_TRIGGER::WASD;
+		break;
+	case CONTROL_PNG_TYPE::ARROW_NO_RED:
+		trigger = ANIMATION_TRIGGER::ARROW_NO_RED;
+		break;
+	case CONTROL_PNG_TYPE::ARROW_RED:
+		trigger = ANIMATION_TRIGGER::ARROW_RED;
+		break;
+	case CONTROL_PNG_TYPE::COLOUR_AFFECTS:
+		trigger = ANIMATION_TRIGGER::COLOUR_AFFECTS;
+		break;
+	default:
+		trigger = ANIMATION_TRIGGER::WASD;
+		break;
+	}
+
 	const Animatable animatable = {
-		ANIMATABLE_TYPE::MOSS_TRIGGER, // TODO CHANGE THIS
+		ANIMATABLE_TYPE::CONTROLS_SHEET,
 		ANIMATION_BEHAVIOR::LOOP,
 		trigger,
 		1
 	};
 
 	registry.animatables.insert(control_entity, animatable);
-	registry.textured.insert(control_entity, { TEXTURE_ASSET_ID::MOSS }); // TODO CHANGE THIS
+	registry.textured.insert(control_entity, { TEXTURE_ASSET_ID::CONTROLS_SHEET });
+	registry.scales.insert(control_entity, vec2(width, height));
+	registry.angles.emplace(control_entity);
+
+	return control_entity;
 }
 
 Entity createMushroom(vec2 position, float radius, COLOUR_STATE colour_state)

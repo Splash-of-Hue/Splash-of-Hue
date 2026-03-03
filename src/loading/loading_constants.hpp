@@ -4,6 +4,7 @@
 #include <ecs/components.hpp>
 #include <map>
 #include <string>
+#include <interactables/interactable_constants.hpp>
 
 // Currently just for loading rooms, but intentionally extendable
 enum class LOAD_TYPE
@@ -30,7 +31,7 @@ enum class ENTITY_TYPE
 	WALL,
 	COLOUR_ORB,
 	BOX,
-	COLOUR_PNG_ENTITY
+	CONTROL_PNG_ENTITY
 };
 
 const std::map<std::string, LOADING_LAYER_TYPE> layer_string_to_enum_map = {
@@ -53,6 +54,8 @@ const std::map<std::string, ENTITY_TYPE> entity_type_string_to_enum_map = {
 	{ "Wall", ENTITY_TYPE::WALL },
 	{ "ColourOrb", ENTITY_TYPE::COLOUR_ORB },
 	{ "Box", ENTITY_TYPE::BOX },
+	{ "Control_PNG_entity", ENTITY_TYPE::CONTROL_PNG_ENTITY },
+	// Control_PNG_entity
 };
 
 inline ENTITY_TYPE entity_type_from_string(const std::string entity_string)
