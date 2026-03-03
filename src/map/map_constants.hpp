@@ -1,6 +1,11 @@
 #pragma once
 
-const float SPAWN_POINT_RADIUS = 10.0f;
+enum class MAP_CHANGE_REQUEST_TYPE
+{
+	INVALID,
+	PLAYER,
+	CREATURE
+};
 
 enum MAP_TILE_TYPE
 {

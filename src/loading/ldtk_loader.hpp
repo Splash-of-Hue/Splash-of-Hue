@@ -19,8 +19,7 @@ void load_entity_layer(const ldtk::Layer& layer);
 void load_creatures(const ldtk::Layer& layer);
 // Entities - Floor interactables
 void load_floor_interactables(const ldtk::Layer& layer);
-void load_spawn_points(const ldtk::Entity& spawn_point_entity);
-void load_entity_layer(const ldtk::Layer& layer);
+void load_teleporter(const ldtk::Entity& teleporter_entity);
 void load_moss_toggle(const ldtk::Entity& moss_toggle_entity);
 void load_moss_door(const ldtk::Entity& moss_door_entity);
 void load_colour_orb(const ldtk::Entity& colour_orb_entity);

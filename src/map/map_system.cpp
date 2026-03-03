@@ -1,8 +1,10 @@
+#include "ecs/components.hpp"
+#include "ecs/registry.hpp"
 #include "loading/loading_constants.hpp"
 #include "map_components.hpp"
 #include "map_system.hpp"
 #include <algorithm>
-#include <ecs/registry.hpp>
+#include <map>
 #include <vector>
 
 void MapSystem::step(float elapsed_ms)
@@ -19,13 +21,34 @@ void MapSystem::step(float elapsed_ms)
 	const Entity& most_recent_request_entity = changeMapLevelRequestRegistry.entities.back();
 	// If there is a load request, check the type and act appropriately
 	ChangeMapLevelRequest& change_map_level_request = changeMapLevelRequestRegistry.get(most_recent_request_entity);
-	// Update the player, and get the old level from where the player was before
-	Entity& player_entity = registry.players.entities[0];
-	registry.positions.get(player_entity) = change_map_level_request.new_player_position;
-	int previous_level_uid = registry.currentLevels.get(player_entity).level_uid;
+	Entity& moving_entity = change_map_level_request.moving_entity;
+	// Figure out where to put the moving entity based on position, size, and teleport direction
+	const std::map<DIRECTION, vec2>& direction_to_unit_direction_map = {
+		{ DIRECTION::UP, UNIT_UP },
+		{ DIRECTION::RIGHT, UNIT_RIGHT },
+		{ DIRECTION::DOWN, UNIT_DOWN },
+		{ DIRECTION::LEFT, UNIT_LEFT },
+	};
+	const vec2 unit_vector_offset = direction_to_unit_direction_map.at(change_map_level_request.offset_direction);
+	const Size& size = registry.sizes.get(moving_entity);
+	// TODO 5L8I7eho: Too big but smaller can cause infinite loops
+	// TODO FX9GFvwR: The location should also take the position into account of the thing teleporting,
+	// since wider teleporters like connected screens should not always go to the same spot.
+	const vec2 offset = vec2(size.width, size.height) * unit_vector_offset;
+	// Update the moving entity, and get the old level from where the entity was before
+	registry.positions.get(moving_entity) = change_map_level_request.arrival_position + offset;
+	int previous_level_uid = registry.currentLevels.get(moving_entity).level_uid;
 	int new_level_uid = change_map_level_request.new_level_uid;
-	registry.currentLevels.get(player_entity).level_uid = new_level_uid;
-	// Load the new level. If the level is already loaded, it will jsut move the camera
+	registry.currentLevels.get(moving_entity).level_uid = new_level_uid;
+
+	// If this isn't a player, we are done. Don't load or unload based on it
+	if (change_map_level_request.type != MAP_CHANGE_REQUEST_TYPE::PLAYER)
+	{
+		changeMapLevelRequestRegistry.clear();
+		return;
+	}
+
+	// Load the new level. If the level is already loaded, it will just move the camera
 	Entity load_request_entity;
 	registry.loadRequests.insert(load_request_entity, { LOAD_TYPE::LOAD_LEVEL, new_level_uid });
 	// For each level that was adjacent to the previous level, that isn't the current level, unload it
