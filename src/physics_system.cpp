@@ -529,6 +529,13 @@ void PhysicsSystem::step(float elapsed_ms)
 		{
 			Entity& entity_j = collidables.entities[j];
 
+			//Two non_moving entities should not collide (unless one of them is a light source)
+			if (!registry.velocities.has(entity_i) && !registry.velocities.has(entity_j)) {
+				if (!registry.lightEmissions.has(entity_i) && !registry.lightEmissions.has(entity_j)) {
+					continue;
+				}
+				
+			}
 			if (registry.polygons.has(entity_i) || registry.polygons.has(entity_j)) 
 			{
 				vec3 penetration = mesh_collides(entity_i, entity_j);
