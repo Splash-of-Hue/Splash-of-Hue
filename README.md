@@ -32,11 +32,11 @@ FPS Counter: FPS counter in window caption.
 ## Milestone Screenshots
 In this sub-section, add, label, and describe at least two screenshot of your game to showcase what the second milestone has achieved, changed, or enhanced.
 In the following screenshots, the integrated assets, activated colour radius, room loading, and different behaviours are demonstrated. 
-Sawfish following player when blue. 
-![Screenshot 2026-03-02 225659](https://github.students.cs.ubc.ca/user-attachments/assets/aede040b-7c72-4b09-aeaf-d7aa73b6eced)
 Shrimp in neutral state.
 ![Screenshot 2026-03-02 225627](https://github.students.cs.ubc.ca/user-attachments/assets/01f51942-66f6-41ca-a607-09d34421a53c)
-Shrimp rotated in blue radius.
+Shrimp rotated in blue state
+![Screenshot 2026-03-02 225659](https://github.students.cs.ubc.ca/user-attachments/assets/aede040b-7c72-4b09-aeaf-d7aa73b6eced)
+Sawfish following player when blue. 
 ![Screenshot 2026-03-02 225736](https://github.students.cs.ubc.ca/user-attachments/assets/d943e95e-671a-4018-a133-268cc36a5946)
 
 # Docs
