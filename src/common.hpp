@@ -82,6 +82,11 @@ const vec4 RED_COLOUR_VEC4 = vec4(1.0f, 0.0f, 0.0f, 1.0f);
 const vec4 BLACK_COLOUR_VEC4 = vec4(0.0f, 0.0f, 0.0f, 1.0f);
 const vec4 DEFAULT_COLOUR_VEC4 = WHITE_COLOUR_VEC4;	
 
+const ivec2 UNIT_UP = vec2(0, -1);
+const ivec2 UNIT_DOWN = vec2(0, 1);
+const ivec2 UNIT_LEFT = vec2(-1, 0);
+const ivec2 UNIT_RIGHT = vec2(1, 0);
+
 #ifndef M_PI
 #define M_PI 3.14159265358979323846f
 #endif

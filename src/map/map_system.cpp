@@ -24,13 +24,13 @@ void MapSystem::step(float elapsed_ms)
 	Entity& moving_entity = change_map_level_request.moving_entity;
 	// Figure out where to put the moving entity based on position, size, and teleport direction
 	const std::map<DIRECTION, vec2>& direction_to_unit_direction_map = {
-		{ DIRECTION::UP, vec2(0, -1) },
-		{ DIRECTION::RIGHT, vec2(1, 0) },
-		{ DIRECTION::DOWN, vec2(0, 1) },
-		{ DIRECTION::LEFT, vec2(-1, 0) },
+		{ DIRECTION::UP, UNIT_UP },
+		{ DIRECTION::RIGHT, UNIT_RIGHT },
+		{ DIRECTION::DOWN, UNIT_DOWN },
+		{ DIRECTION::LEFT, UNIT_LEFT },
 	};
 	const vec2 unit_vector_offset = direction_to_unit_direction_map.at(change_map_level_request.offset_direction);
-	const Size size = registry.sizes.get(moving_entity);
+	const Size& size = registry.sizes.get(moving_entity);
 	// TODO 5L8I7eho: Too big but smaller can cause infinite loops
 	// TODO FX9GFvwR: The location should also take the position into account of the thing teleporting,
 	// since wider teleporters like connected screens should not always go to the same spot.
