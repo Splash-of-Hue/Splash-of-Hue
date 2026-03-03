@@ -25,17 +25,21 @@ Assets: Original sprite and background assets, as well as original music.
 FPS Counter: FPS counter in window caption. 
 
 ## Milestone Creative Features 
-List all creative features for this milestone with their [num] (from the Suggested Game Features page in Canvas), the feature name, its level (basic or advanced), and a brief description of the implementation and team member(s) who implemented it.
-
-
 [10] Precise collisions -> Mesh based collisions using seperability axis theorem implemented by Geetika
 [15] Advanced decision-making -> A* pathfinding implemented by Clair, and decision tree for sawfish and shrimp behaviours implemented by Sophia and Spencer. 
 [19] Reloadability -> Loading and unloading levels using LDtk library implemented by Clair
 [26] Numerous sophisticated integrated assets -> Same art style for assets implemented by Clair and Abby
 ## Milestone Screenshots
 In this sub-section, add, label, and describe at least two screenshot of your game to showcase what the second milestone has achieved, changed, or enhanced.
-# Docs
+In the following screenshots, the integrated assets, activated colour radius, room loading, and different behaviours are demonstrated. 
+Sawfish following player when blue. 
+![Screenshot 2026-03-02 225659](https://github.students.cs.ubc.ca/user-attachments/assets/aede040b-7c72-4b09-aeaf-d7aa73b6eced)
+Shrimp in neutral state.
+![Screenshot 2026-03-02 225627](https://github.students.cs.ubc.ca/user-attachments/assets/01f51942-66f6-41ca-a607-09d34421a53c)
+Shrimp rotated in blue radius.
+![Screenshot 2026-03-02 225736](https://github.students.cs.ubc.ca/user-attachments/assets/d943e95e-671a-4018-a133-268cc36a5946)
 
+# Docs
 - [Test Plan](./doc/test-plan.pdf)
 - [Game Proposal](./doc/proposal.pdf)
 
