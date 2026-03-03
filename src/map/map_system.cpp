@@ -32,6 +32,8 @@ void MapSystem::step(float elapsed_ms)
 	const vec2 unit_vector_offset = direction_to_unit_direction_map.at(change_map_level_request.offset_direction);
 	const Size size = registry.sizes.get(moving_entity);
 	// TODO 5L8I7eho: Too big but smaller can cause infinite loops
+	// TODO FX9GFvwR: The location should also take the position into account of the thing teleporting,
+	// since wider teleporters like connected screens should not always go to the same spot.
 	const vec2 offset = vec2(size.width, size.height) * unit_vector_offset;
 	// Update the moving entity, and get the old level from where the entity was before
 	registry.positions.get(moving_entity) = change_map_level_request.arrival_position + offset;
