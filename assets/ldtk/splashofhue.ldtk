@@ -8513,7 +8513,7 @@
 					"entityInstances": [
 						{
 							"__identifier": "MossWall",
-							"__grid": [76,52],
+							"__grid": [75,54],
 							"__pivot": [0.5,0.5],
 							"__tags": ["Internal_Wall"],
 							"__tile": { "tilesetUid": 52, "x": 160, "y": 400, "w": 192, "h": 224 },
@@ -8522,13 +8522,13 @@
 							"width": 190,
 							"height": 224,
 							"defUid": 48,
-							"px": [1224,840],
+							"px": [1208,872],
 							"fieldInstances": [{ "__identifier": "ColorState", "__type": "LocalEnum.ColorState", "__value": "Blue", "__tile": null, "defUid": 49, "realEditorValues": [{
 								"id": "V_String",
 								"params": ["Blue"]
 							}] }],
-							"__worldX": 5064,
-							"__worldY": -1320
+							"__worldX": 5048,
+							"__worldY": -1288
 						},
 						{
 							"__identifier": "MossDecoration",
