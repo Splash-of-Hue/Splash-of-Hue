@@ -433,7 +433,7 @@ void load_wall(const ldtk::Entity& wall_entity)
 	float width = wall_size.x * LEVEL_TO_SCREEN_SCALE.x;
 	float height = wall_size.y * LEVEL_TO_SCREEN_SCALE.y;
 
-	Entity& wall = createWall(position, width, height);
+	Entity& wall = createWall(wall_entity.layer->level->uid, position, width, height);
 }
 
 void load_colour_orb(const ldtk::Entity& colour_orb_entity)
