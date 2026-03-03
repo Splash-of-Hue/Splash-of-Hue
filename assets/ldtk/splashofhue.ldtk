@@ -7286,15 +7286,35 @@
 							"defUid": 46,
 							"px": [1260,460],
 							"fieldInstances": [
-								{ "__identifier": "ConnectedWalls", "__type": "Array<EntityRef>", "__value": [{
-									"entityIid": "496a6f90-fa90-11f0-aace-2df8892a2ee1",
-									"layerIid": "2091ada1-fa90-11f0-95ec-5305befd8ab4",
-									"levelIid": "2091ada0-fa90-11f0-95ec-63798b15b604",
-									"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787"
-								}], "__tile": null, "defUid": 47, "realEditorValues": [{
+								{ "__identifier": "ConnectedWalls", "__type": "Array<EntityRef>", "__value": [
+									{
+										"entityIid": "496a6f90-fa90-11f0-aace-2df8892a2ee1",
+										"layerIid": "2091ada1-fa90-11f0-95ec-5305befd8ab4",
+										"levelIid": "2091ada0-fa90-11f0-95ec-63798b15b604",
+										"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787"
+									},
+									{
+										"entityIid": "74515af0-fa90-11f0-9290-2b7088ff7928",
+										"layerIid": "2091ada1-fa90-11f0-95ec-5305befd8ab4",
+										"levelIid": "2091ada0-fa90-11f0-95ec-63798b15b604",
+										"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787"
+									},
+									{
+										"entityIid": "756710b0-fa90-11f0-9290-8ba1d3a481bf",
+										"layerIid": "2091ada1-fa90-11f0-95ec-5305befd8ab4",
+										"levelIid": "2091ada0-fa90-11f0-95ec-63798b15b604",
+										"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787"
+									}
+								], "__tile": null, "defUid": 47, "realEditorValues": [ {
 									"id": "V_String",
 									"params": ["496a6f90-fa90-11f0-aace-2df8892a2ee1"]
-								}] },
+								}, {
+									"id": "V_String",
+									"params": ["74515af0-fa90-11f0-9290-2b7088ff7928"]
+								}, {
+									"id": "V_String",
+									"params": ["756710b0-fa90-11f0-9290-8ba1d3a481bf"]
+								} ] },
 								{ "__identifier": "ColorState", "__type": "LocalEnum.ColorState", "__value": "Red", "__tile": null, "defUid": 50, "realEditorValues": [{
 									"id": "V_String",
 									"params": ["Red"]
@@ -8072,10 +8092,10 @@
 							"width": 190,
 							"height": 224,
 							"defUid": 48,
-							"px": [1208,872],
-							"fieldInstances": [{ "__identifier": "ColorState", "__type": "LocalEnum.ColorState", "__value": "Blue", "__tile": null, "defUid": 49, "realEditorValues": [{
+							"px": [1224,920],
+							"fieldInstances": [{ "__identifier": "ColorState", "__type": "LocalEnum.ColorState", "__value": "Red", "__tile": null, "defUid": 49, "realEditorValues": [{
 								"id": "V_String",
-								"params": ["Blue"]
+								"params": ["Red"]
 							}] }],
 							"__worldX": 5048,
 							"__worldY": -1288
@@ -8354,10 +8374,10 @@
 							"width": 190,
 							"height": 224,
 							"defUid": 48,
-							"px": [1064,888],
-							"fieldInstances": [{ "__identifier": "ColorState", "__type": "LocalEnum.ColorState", "__value": "Blue", "__tile": null, "defUid": 49, "realEditorValues": [{
+							"px": [1064,936],
+							"fieldInstances": [{ "__identifier": "ColorState", "__type": "LocalEnum.ColorState", "__value": "Red", "__tile": null, "defUid": 49, "realEditorValues": [{
 								"id": "V_String",
-								"params": ["Blue"]
+								"params": ["Red"]
 							}] }],
 							"__worldX": 4904,
 							"__worldY": -1272
@@ -8373,10 +8393,10 @@
 							"width": 190,
 							"height": 224,
 							"defUid": 48,
-							"px": [1384,872],
-							"fieldInstances": [{ "__identifier": "ColorState", "__type": "LocalEnum.ColorState", "__value": "Blue", "__tile": null, "defUid": 49, "realEditorValues": [{
+							"px": [1384,920],
+							"fieldInstances": [{ "__identifier": "ColorState", "__type": "LocalEnum.ColorState", "__value": "Red", "__tile": null, "defUid": 49, "realEditorValues": [{
 								"id": "V_String",
-								"params": ["Blue"]
+								"params": ["Red"]
 							}] }],
 							"__worldX": 5224,
 							"__worldY": -1288

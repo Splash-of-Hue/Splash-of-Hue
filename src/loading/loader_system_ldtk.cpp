@@ -419,7 +419,20 @@ void load_moss_door(const ldtk::Entity& moss_door_entity)
 	const vec2 scaled_size = vec2(size.x, size.y) * LEVEL_TO_SCREEN_SCALE;
 	std::string moss_door_id = moss_door_entity.iid.str();
 	const ldtk::Field<ldtk::EnumValue>& color_state_enum_type = moss_door_entity.getField<ldtk::EnumValue>("ColorState");
-	const COLOUR_STATE& color_state = color_state_from_string(color_state_enum_type.value().name);
+	COLOUR_STATE color_state = color_state_from_string(color_state_enum_type.value().name);
+
+	const auto find_toggle = [&](Entity& entity)
+	{
+		std::vector<std::string>& moss_toggle_ids = registry.mossToggles.get(entity).connected_wall_ids;
+		return std::find(moss_toggle_ids.begin(), moss_toggle_ids.end(), moss_door_id) != moss_toggle_ids.end();
+	};
+	const auto toggle_component_iterator = std::find_if(registry.mossToggles.entities.begin(), registry.mossToggles.entities.end(), find_toggle);
+
+	// If there are any toggles that exist for this door, use the toggle color
+	if (toggle_component_iterator != registry.mossToggles.entities.end())
+	{
+		color_state = registry.colourStates.get(*toggle_component_iterator).curr_colour_state;
+	}
 
 	createMossWall(moss_door_entity.layer->level->uid, moss_door_id, world_position, scaled_size, color_state);
 }
