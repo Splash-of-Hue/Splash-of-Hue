@@ -1579,7 +1579,14 @@
 			{ "id": "Triple_Vertical", "tileRect": { "tilesetUid": 52, "x": 128, "y": 336, "w": 32, "h": 48 }, "color": 14984818 },
 			{ "id": "Triple_Horizontal", "tileRect": { "tilesetUid": 52, "x": 128, "y": 304, "w": 48, "h": 32 }, "color": 7552569 },
 			{ "id": "Quadruple", "tileRect": { "tilesetUid": 52, "x": 128, "y": 256, "w": 48, "h": 48 }, "color": 4073265 }
-		], "iconTilesetUid": 52, "externalRelPath": null, "externalFileChecksum": null, "tags": [] }
+		], "iconTilesetUid": 52, "externalRelPath": null, "externalFileChecksum": null, "tags": [] },
+		{ "identifier": "ControlPictureType", "uid": 63, "values": [
+			{ "id": "Invalid", "tileRect": null, "color": 12470831 },
+			{ "id": "WASD", "tileRect": null, "color": 14120515 },
+			{ "id": "ARROW_RED", "tileRect": null, "color": 15389866 },
+			{ "id": "ARROW_NO_RED", "tileRect": null, "color": 14984818 },
+			{ "id": "COLOUR_AFFECTS", "tileRect": null, "color": 7552569 }
+		], "iconTilesetUid": null, "externalRelPath": null, "externalFileChecksum": null, "tags": [] }
 	], "externalEnums": [], "levelFields": [] },
 	"levels": [
 		{
