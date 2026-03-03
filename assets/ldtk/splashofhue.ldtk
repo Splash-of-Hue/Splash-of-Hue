@@ -8961,18 +8961,18 @@
 						},
 						{
 							"__identifier": "Wall",
-							"__grid": [39,62],
+							"__grid": [37,62],
 							"__pivot": [0.5,0.5],
 							"__tags": ["Internal_Wall"],
 							"__tile": null,
 							"__smartColor": "#FEE761",
 							"iid": "043bfeb0-fa90-11f0-a6d6-47fd3f3668f7",
-							"width": 1056,
+							"width": 1088,
 							"height": 128,
 							"defUid": 61,
-							"px": [632,1000],
+							"px": [600,1000],
 							"fieldInstances": [],
-							"__worldX": 4472,
+							"__worldX": 4440,
 							"__worldY": -1160
 						},
 						{
