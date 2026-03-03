@@ -45,7 +45,7 @@ BEHAVIOUR_TREE_STATUS CreatureBehaviourFunctions::enableCollidableComponent(std:
 		collidable.inelastic = true;
 
 		vec4& colour = registry.colors.get(entity);
-		colour.a = 1.0f; // set visible
+		// colour.a = 1.0f; // set visible, uncomment to test shrimp arms
 	}
 
 	return BEHAVIOUR_TREE_STATUS::SUCCESS;
@@ -82,17 +82,20 @@ BEHAVIOUR_TREE_STATUS CreatureBehaviourFunctions::setShrimpArms(Entity& creature
 BEHAVIOUR_TREE_STATUS CreatureBehaviourFunctions::neutralArms(Entity& creature, float elapsed_ms)
 {
 	// todo: 61gdK0v8 animation trigger?
+	registry.animation_triggers.emplace(creature, AnimationTrigger{ ANIMATION_TRIGGER::SHRIMP_NEUTRAL });
 	return setShrimpArms(creature, SHRIMP_ARM_COLOUR::NEUTRAL);
 }
 
 BEHAVIOUR_TREE_STATUS CreatureBehaviourFunctions::blueArms(Entity& creature, float elapsed_ms)
 {
 	// todo: 61gdK0v8 animation trigger?
+	registry.animation_triggers.emplace(creature, AnimationTrigger{ ANIMATION_TRIGGER::SHRIMP_BLUE });
 	return setShrimpArms(creature, SHRIMP_ARM_COLOUR::BLUE);
 }
 
 BEHAVIOUR_TREE_STATUS CreatureBehaviourFunctions::redArms(Entity& creature, float elapsed_ms)
 {
 	// todo: 61gdK0v8 animation trigger?
+	registry.animation_triggers.emplace(creature, AnimationTrigger{ ANIMATION_TRIGGER::SHRIMP_RED });
 	return setShrimpArms(creature, SHRIMP_ARM_COLOUR::RED);
 }

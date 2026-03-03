@@ -51,3 +51,18 @@ struct Pathfinder
 	// The thing to follow. The target is assumed to have a position
 	Entity target;
 };
+
+struct Charging
+{
+
+};
+
+struct IsInInelasticCollision
+{
+
+};
+
+struct Dizzy
+{
+
+};

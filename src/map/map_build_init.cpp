@@ -1,3 +1,4 @@
+#include "creature_system/creature_constants.hpp"
 #include "ecs/registry.hpp"
 #include "map/map_build_init.hpp"
 #include "map_components.hpp"
@@ -5,15 +6,36 @@
 #include "world_init.hpp"
 #include <string>
 
-Entity createMossWall(std::string id, vec2 position, vec2 size, COLOUR_STATE color_state)
+Entity createMossWall(const int level_uid, std::string id, vec2 position, vec2 size, COLOUR_STATE color_state)
 {
+	Entity moss_wall_entity;
 	const ColourPalette& palette = registry.colourPalettes.components[0];
 	auto& color_from_state = palette.state_to_colour.at(color_state);
-	const Entity& moss_wall_entity = createRectangle(position, size.x, size.y, RENDER_LAYER::WALLS_FRONT, color_from_state);
+	registry.positions.insert(moss_wall_entity, position);
+	registry.scales.insert(moss_wall_entity, size);
+	registry.sizes.insert(moss_wall_entity, { size.x, size.y });
+	registry.colors.emplace(moss_wall_entity, color_from_state);
+	registry.angles.emplace(moss_wall_entity);
 	Collidable& col = registry.collidables.emplace(moss_wall_entity);
 	col.inelastic = true;
 	registry.colouredWall.insert(moss_wall_entity, { id });
 	registry.colourStates.insert(moss_wall_entity, { color_state, color_state });
+	registry.renderRequests.insert(
+		moss_wall_entity,
+		{
+			EFFECT_ASSET_ID::TEXTURED,
+			GEOMETRY_BUFFER_ID::SPRITE,
+			RENDER_LAYER::WALLS_FRONT
+		}
+	);
+	const Animatable animatable = {
+		ANIMATABLE_TYPE::MOSS_WALL,
+		ANIMATION_BEHAVIOR::LOOP,
+		color_state == COLOUR_STATE::BLUE ? ANIMATION_TRIGGER::IDLE_BLUE : ANIMATION_TRIGGER::IDLE_RED,
+		1
+	};
+	registry.animatables.insert(moss_wall_entity, animatable);
+	registry.textured.insert(moss_wall_entity, { TEXTURE_ASSET_ID::MOSS });
 
 	return moss_wall_entity;
 }
@@ -41,16 +63,24 @@ Entity createMapTile(int tile_id, TEXTURE_ASSET_ID texture_id, ivec2 tile_positi
 	return map_tile_entity;
 }
 
-Entity createSpawnPoint(const int level_uid, const int connected_level_id, vec2 position, vec2 connected_position)
+Entity createTeleporter(const int level_uid, const int connected_level_id, vec2 position, vec2 size, vec2 connected_position, DIRECTION offset_direction)
 {
-	Entity spawn_point_entity;
-	Size size = { SPAWN_POINT_RADIUS, SPAWN_POINT_RADIUS };
-	registry.sizes.insert(spawn_point_entity, size);
-	registry.positions.insert(spawn_point_entity, position);
-	SpawnPoint spawn_point = { level_uid, connected_level_id, vec2(connected_position.x, connected_position.y) };
-	registry.spawnPoints.emplace(spawn_point_entity, spawn_point);
-	registry.collidables.emplace(spawn_point_entity);
-	registry.levelEntities.insert(spawn_point_entity, { level_uid });
+	Entity teleporter_entity;
+	registry.sizes.insert(teleporter_entity, { size.x, size.y });
+	registry.positions.insert(teleporter_entity, position);
+	Teleporter teleporter = { level_uid, connected_level_id, offset_direction, vec2(connected_position.x, connected_position.y) };
+	registry.teleporters.emplace(teleporter_entity, teleporter);
+	registry.collidables.emplace(teleporter_entity);
+	registry.levelEntities.insert(teleporter_entity, { level_uid });
 
-	return spawn_point_entity;
+	return teleporter_entity;
+}
+Entity createWall(const int level_uid, vec2 position, float width, float height)
+{
+	const Entity& wall_rectangle_entity = createRectangle(position, width, height, RENDER_LAYER::WALLS_BACK, vec4{1.0, 1.0, 1.0, 0.0});
+	Collidable& col = registry.collidables.emplace(wall_rectangle_entity);
+	col.inelastic = true;
+	registry.levelEntities.insert(wall_rectangle_entity, { level_uid });
+
+	return wall_rectangle_entity;
 }

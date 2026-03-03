@@ -420,7 +420,7 @@ void RenderSystem::draw()
 		const RENDER_LAYER& a_layer = registry.renderRequests.get(rr_a_entity).layer;
 		const RENDER_LAYER& b_layer = registry.renderRequests.get(rr_b_entity).layer;
 
-		if (a_layer < RENDER_LAYER::FLOOR_INTERACTABLES || b_layer < RENDER_LAYER::FLOOR_INTERACTABLES
+		if (a_layer < RENDER_LAYER::FLOOR_DECORATIONS || b_layer < RENDER_LAYER::FLOOR_DECORATIONS
 			|| a_layer > RENDER_LAYER::PLAYER || b_layer > RENDER_LAYER::PLAYER)
 		{
 			return a_layer < b_layer;
