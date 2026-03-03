@@ -69,6 +69,34 @@ Entity createColourOrb(vec2 position, float radius, COLOUR_STATE colour_state)
 	return colourOrb;
 }
 
+Entity createFloorPictureControls(vec2 position, float width, float height, CONTROL_PNG_TYPE control_png_type)
+{
+	Size size = { width, height };
+	Entity control_entity = addGeneralInteractableComponents(position, size, INTERACTABLE_TYPE::CONTROLS);
+	
+	registry.renderRequests.insert(
+		control_entity,
+		{
+			EFFECT_ASSET_ID::TEXTURED,
+			GEOMETRY_BUFFER_ID::SPRITE,
+			RENDER_LAYER::FLOOR_INTERACTABLES
+		}
+	);
+
+	// TODO ANIMATION_TRIGGER TYPES
+	const ANIMATION_TRIGGER trigger = control_png_type == COLOUR_STATE::NEUTRAL ? ANIMATION_TRIGGER::IDLE : color_state == COLOUR_STATE::BLUE ? ANIMATION_TRIGGER::IDLE_BLUE : ANIMATION_TRIGGER::IDLE_RED;
+	
+	const Animatable animatable = {
+		ANIMATABLE_TYPE::MOSS_TRIGGER, // TODO CHANGE THIS
+		ANIMATION_BEHAVIOR::LOOP,
+		trigger,
+		1
+	};
+
+	registry.animatables.insert(control_entity, animatable);
+	registry.textured.insert(control_entity, { TEXTURE_ASSET_ID::MOSS }); // TODO CHANGE THIS
+}
+
 Entity createMushroom(vec2 position, float radius, COLOUR_STATE colour_state)
 {
 

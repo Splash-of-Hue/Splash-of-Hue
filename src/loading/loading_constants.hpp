@@ -88,6 +88,20 @@ inline DIRECTION direction_type_from_string(const std::string direction_string)
 	return search != direction_string_enum_map.end() ? search->second : DIRECTION::UP; // defaults to UP
 };
 
+const std::map<std::string, CONTROL_PNG_TYPE> control_png_string_enum_map = {
+	{ "Invalid", CONTROL_PNG_TYPE::INVALID },
+	{ "WASD", CONTROL_PNG_TYPE::WASD },
+	{ "ARROW_RED", CONTROL_PNG_TYPE::ARROW_RED },
+	{ "ARROW_NO_RED", CONTROL_PNG_TYPE::ARROW_NO_RED },
+	{ "COLOUR_AFFECTS", CONTROL_PNG_TYPE::COLOUR_AFFECTS}
+};
+
+inline CONTROL_PNG_TYPE control_png_type_from_string(const std::string control_png_string)
+{
+	const auto& search = control_png_string_enum_map.find(control_png_string);
+	return search != control_png_string_enum_map.end() ? search->second : CONTROL_PNG_TYPE::INVALID;
+};
+
 const std::map<std::string, COLOUR_STATE> color_state_string_enum_map = {
 	{ "Neutral", COLOUR_STATE::NEUTRAL },
 	{ "Blue", COLOUR_STATE::BLUE },

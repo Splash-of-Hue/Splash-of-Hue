@@ -10,6 +10,7 @@ Entity addGeneralInteractableComponents(vec2 position, Size& size, INTERACTABLE_
 
 Entity createBox(vec2 position, float width, float height);
 Entity createColourOrb(vec2 position, float radius, COLOUR_STATE colour_state);
+Entity createFloorPictureControls(vec2 position, float width, float height, CONTROL_PNG_TYPE control_png_type);
 Entity createMushroom(vec2 position, float radius, COLOUR_STATE colour_state);
 
 /// <summary>
