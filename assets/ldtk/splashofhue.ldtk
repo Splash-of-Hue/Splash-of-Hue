@@ -3397,7 +3397,7 @@
 						},
 						{
 							"__identifier": "Wall",
-							"__grid": [71,60],
+							"__grid": [72,60],
 							"__pivot": [0.5,0.5],
 							"__tags": ["Internal_Wall"],
 							"__tile": null,
@@ -3406,26 +3406,26 @@
 							"width": 1584,
 							"height": 128,
 							"defUid": 61,
-							"px": [1144,968],
+							"px": [1160,968],
 							"fieldInstances": [],
-							"__worldX": 3064,
+							"__worldX": 3080,
 							"__worldY": -112
 						},
 						{
 							"__identifier": "Wall",
-							"__grid": [68,10],
+							"__grid": [68,13],
 							"__pivot": [0.5,0.5],
 							"__tags": ["Internal_Wall"],
 							"__tile": null,
 							"__smartColor": "#FEE761",
 							"iid": "96d455c0-fa90-11f0-a6d6-35771a7fb2a7",
 							"width": 50,
-							"height": 288,
+							"height": 400,
 							"defUid": 61,
-							"px": [1096,168],
+							"px": [1096,216],
 							"fieldInstances": [],
 							"__worldX": 3016,
-							"__worldY": -912
+							"__worldY": -864
 						},
 						{
 							"__identifier": "Wall",
