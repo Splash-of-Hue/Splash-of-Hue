@@ -3,7 +3,6 @@
 #include "world_init.hpp"
 #include "creature_system/creature_behaviour_tree_builder.hpp"
 #include "creature_system/creature_components.hpp"
-
 #include <iostream>
 /*
 
@@ -31,7 +30,6 @@ void addGeneralCreatureComponents(const int level_uid, Entity creature, vec2 pos
     registry.sizes.insert(creature, Size{ width, height });
     registry.velocities.emplace(creature);
     registry.levelEntities.insert(creature, { level_uid });
-    
     registry.renderRequests.insert(creature, {
         EFFECT_ASSET_ID::TEXTURED,
         GEOMETRY_BUFFER_ID::SPRITE,
