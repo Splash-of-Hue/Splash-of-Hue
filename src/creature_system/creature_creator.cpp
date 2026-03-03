@@ -89,15 +89,10 @@ Entity createMinnows(const int level_uid, vec2 position, float width, float heig
 // For the sake of simplicity + time for M2, just use the shrimp width to make a rectangle
 Entity createLeftArm(vec2 shrimp_position, float shrimp_width, vec4 colour)
 {
-    std::cout << "shrimp left arm, position: " << shrimp_position.x << ", " << shrimp_position.y << " shrimp width: " << shrimp_width << std::endl;
-
     float left_arm_x = shrimp_position.x - SHRIMP_ARM_TRANSLATION_X;
     float left_arm_y = shrimp_position.y + 5.0f;
 
-    std::cout << "shrimp left arm vals: " << left_arm_x << ", " << left_arm_y << std::endl;
-
     Entity& armEntity = createRectangle(vec2(left_arm_x, left_arm_y), shrimp_width, shrimp_width / 4, RENDER_LAYER::CREATURES, colour);
-    
     registry.collidables.emplace(armEntity);
     return armEntity;
 }
@@ -109,12 +104,8 @@ Entity createLeftArm(vec2 shrimp_position, float shrimp_width, vec4 colour)
 // For the sake of simplicity + time for M2, just use the shrimp width to make a rectangle
 Entity createRightArm(vec2 shrimp_position, float shrimp_width, vec4 colour)
 {
-    std::cout << "shrimp right arm, position: " << shrimp_position.x << ", " << shrimp_position.y << " shrimp width: " << shrimp_width << std::endl;
-
     float right_arm_x = shrimp_position.x + SHRIMP_ARM_TRANSLATION_X;
     float right_arm_y = shrimp_position.y + 5.0f;
-    std::cout << "shrimp right arm vals: " << right_arm_x << ", " << right_arm_y << std::endl;
-
 
     Entity& armEntity = createRectangle(vec2(right_arm_x, right_arm_y), shrimp_width, shrimp_width / 4, RENDER_LAYER::CREATURES, colour);
     registry.collidables.emplace(armEntity);
@@ -128,11 +119,8 @@ Entity createRightArm(vec2 shrimp_position, float shrimp_width, vec4 colour)
 // For the sake of simplicity + time for M2, just use the shrimp width to make a rectangle
 Entity createUpArm(vec2 shrimp_position, float shrimp_width, vec4 colour)
 {
-    std::cout << "shrimp up arm, position: " << shrimp_position.x << ", " << shrimp_position.y << " shrimp width: " << shrimp_width << std::endl;
-
     float up_arm_x = shrimp_position.x + 10.0f;
     float up_arm_y = shrimp_position.y - SHRIMP_ARM_TRANSLATION_Y;
-    std::cout << "shrimp up arm vals: " << up_arm_x << ", " << up_arm_y << std::endl;
 
     Entity& armEntity = createRectangle(vec2(up_arm_x, up_arm_y), shrimp_width / 4, shrimp_width - (shrimp_width / 4), RENDER_LAYER::CREATURES, colour);
     registry.collidables.emplace(armEntity);
@@ -146,12 +134,8 @@ Entity createUpArm(vec2 shrimp_position, float shrimp_width, vec4 colour)
 // For the sake of simplicity + time for M2, just use the shrimp width to make a rectangle
 Entity createDownArm(vec2 shrimp_position, float shrimp_width, vec4 colour)
 {
-    std::cout << "shrimp down arm, position: " << shrimp_position.x << ", " << shrimp_position.y << " shrimp width: " << shrimp_width << std::endl;
-
     float down_arm_x = shrimp_position.x - 10.0;
     float down_arm_y = shrimp_position.y + SHRIMP_ARM_TRANSLATION_Y + 20.0f; // translate a bit extra to accommodate for body
-
-    std::cout << "shrimp down arm vals: " << down_arm_x << ", " << down_arm_y << std::endl;
 
     Entity& armEntity = createRectangle(vec2(down_arm_x, down_arm_y), shrimp_width / 4, shrimp_width - (shrimp_width / 4), RENDER_LAYER::CREATURES, colour);
     registry.collidables.emplace(armEntity);
@@ -281,8 +265,6 @@ Entity createShrimp(const int level_uid, vec2 position, float width, float heigh
     Shrimp& shrimp_component = registry.shrimps.emplace(shrimp); // direction tracking component
     assert((num_arms == 1 || num_arms == 2) && "shrimp can only be initialized with 1, or 2 arms at this time");
     shrimp_component.num_arms = num_arms;
-
-    std::cout << "create shrimp direction: " << static_cast<int>(curr_direction_facing) << std::endl;
 
     // Todo: AkWAGMV1 cleanup and turn switch into an iterator
     // Add appropriate arms for this shrimp
