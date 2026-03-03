@@ -2654,6 +2654,25 @@
 							}] }],
 							"__worldX": 872,
 							"__worldY": -640
+						},
+						{
+							"__identifier": "Control_PNG_entity",
+							"__grid": [64,64],
+							"__pivot": [0,0],
+							"__tags": ["Floor_Interactable"],
+							"__tile": null,
+							"__smartColor": "#FEE761",
+							"iid": "fbd353b0-fa90-11f0-8415-e938d80fa113",
+							"width": 16,
+							"height": 16,
+							"defUid": 61,
+							"px": [512,512],
+							"fieldInstances": [{ "__identifier": "ControlPictureType", "__type": "LocalEnum.ControlPictureType", "__value": "ARROW_NO_RED", "__tile": null, "defUid": 64, "realEditorValues": [{
+								"id": "V_String",
+								"params": ["ARROW_NO_RED"]
+							}] }],
+							"__worldX": 512,
+							"__worldY": -568
 						}
 					]
 				},
@@ -3690,6 +3709,25 @@
 							"fieldInstances": [],
 							"__worldX": 3672,
 							"__worldY": -944
+						},
+						{
+							"__identifier": "Control_PNG_entity",
+							"__grid": [105,71],
+							"__pivot": [0,0],
+							"__tags": ["Floor_Interactable"],
+							"__tile": null,
+							"__smartColor": "#FEE761",
+							"iid": "229337e0-fa90-11f0-8415-35ecc0cd7f24",
+							"width": 16,
+							"height": 16,
+							"defUid": 61,
+							"px": [840,568],
+							"fieldInstances": [{ "__identifier": "ControlPictureType", "__type": "LocalEnum.ControlPictureType", "__value": "ARROW_RED", "__tile": null, "defUid": 64, "realEditorValues": [{
+								"id": "V_String",
+								"params": ["ARROW_RED"]
+							}] }],
+							"__worldX": 2760,
+							"__worldY": -512
 						}
 					]
 				},
