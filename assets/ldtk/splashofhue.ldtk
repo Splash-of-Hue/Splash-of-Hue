@@ -11,7 +11,7 @@
 	"iid": "53e64810-d380-11f0-a1bc-4d26a5cd15e3",
 	"jsonVersion": "1.5.3",
 	"appBuildId": 473703,
-	"nextUid": 61,
+	"nextUid": 65,
 	"identifierStyle": "Capitalize",
 	"toc": [{
 		"identifier": "Spawn_Point",
@@ -1550,6 +1550,82 @@
 			"pivotX": 0,
 			"pivotY": 0,
 			"fieldDefs": []
+		},
+		{
+			"identifier": "Control_PNG_entity",
+			"uid": 61,
+			"tags": ["Floor_Interactable"],
+			"exportToToc": false,
+			"allowOutOfBounds": false,
+			"doc": null,
+			"width": 16,
+			"height": 16,
+			"resizableX": false,
+			"resizableY": false,
+			"minWidth": null,
+			"maxWidth": null,
+			"minHeight": null,
+			"maxHeight": null,
+			"keepAspectRatio": false,
+			"tileOpacity": 1,
+			"fillOpacity": 1,
+			"lineOpacity": 1,
+			"hollow": false,
+			"color": "#FEE761",
+			"renderMode": "Rectangle",
+			"showName": true,
+			"tilesetId": null,
+			"tileRenderMode": "FitInside",
+			"tileRect": null,
+			"uiTileRect": null,
+			"nineSliceBorders": [],
+			"maxCount": 0,
+			"limitScope": "PerLevel",
+			"limitBehavior": "MoveLastOne",
+			"pivotX": 0,
+			"pivotY": 0,
+			"fieldDefs": [
+				{
+					"identifier": "ControlPictureType",
+					"doc": null,
+					"__type": "LocalEnum.ControlPictureType",
+					"uid": 64,
+					"type": "F_Enum(63)",
+					"isArray": false,
+					"canBeNull": false,
+					"arrayMinLength": null,
+					"arrayMaxLength": null,
+					"editorDisplayMode": "Hidden",
+					"editorDisplayScale": 1,
+					"editorDisplayPos": "Above",
+					"editorLinkStyle": "StraightArrow",
+					"editorDisplayColor": null,
+					"editorAlwaysShow": false,
+					"editorShowInWorld": true,
+					"editorCutLongValues": true,
+					"editorTextSuffix": null,
+					"editorTextPrefix": null,
+					"useForSmartColor": false,
+					"exportToToc": false,
+					"searchable": false,
+					"min": null,
+					"max": null,
+					"regex": null,
+					"acceptFileTypes": null,
+					"defaultOverride": {
+						"id": "V_String",
+						"params": ["WASD"]
+					},
+					"textLanguageMode": null,
+					"symmetricalRef": false,
+					"autoChainRef": true,
+					"allowOutOfLevelRef": true,
+					"allowedRefs": "OnlySame",
+					"allowedRefsEntityUid": null,
+					"allowedRefTags": [],
+					"tilesetUid": null
+				}
+			]
 		}
 	], "tilesets": [
 		{
@@ -1687,7 +1763,14 @@
 			{ "id": "Triple_Vertical", "tileRect": { "tilesetUid": 52, "x": 128, "y": 336, "w": 32, "h": 48 }, "color": 14984818 },
 			{ "id": "Triple_Horizontal", "tileRect": { "tilesetUid": 52, "x": 128, "y": 304, "w": 48, "h": 32 }, "color": 7552569 },
 			{ "id": "Quadruple", "tileRect": { "tilesetUid": 52, "x": 128, "y": 256, "w": 48, "h": 48 }, "color": 4073265 }
-		], "iconTilesetUid": 52, "externalRelPath": null, "externalFileChecksum": null, "tags": [] }
+		], "iconTilesetUid": 52, "externalRelPath": null, "externalFileChecksum": null, "tags": [] },
+		{ "identifier": "ControlPictureType", "uid": 63, "values": [
+			{ "id": "Invalid", "tileRect": null, "color": 12470831 },
+			{ "id": "WASD", "tileRect": null, "color": 14120515 },
+			{ "id": "ARROW_RED", "tileRect": null, "color": 15389866 },
+			{ "id": "ARROW_NO_RED", "tileRect": null, "color": 14984818 },
+			{ "id": "COLOUR_AFFECTS", "tileRect": null, "color": 7552569 }
+		], "iconTilesetUid": null, "externalRelPath": null, "externalFileChecksum": null, "tags": [] }
 	], "externalEnums": [], "levelFields": [] },
 	"levels": [
 		{

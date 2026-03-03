@@ -30,6 +30,7 @@ enum class ENTITY_TYPE
 	WALL,
 	COLOUR_ORB,
 	BOX,
+	COLOUR_PNG_ENTITY
 };
 
 const std::map<std::string, LOADING_LAYER_TYPE> layer_string_to_enum_map = {

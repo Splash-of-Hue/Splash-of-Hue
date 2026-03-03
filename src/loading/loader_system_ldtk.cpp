@@ -345,6 +345,9 @@ void load_floor_interactables(const ldtk::Layer& layer)
 			case ENTITY_TYPE::BOX:
 				load_box(floor_interactable_entity);
 				continue;
+			case ENTITY_TYPE::CONTROL_PNG_ENTITY:
+				load_control_pictures(floor_interactable_entity);
+				continue;
 			default:
 				continue;
 		}
