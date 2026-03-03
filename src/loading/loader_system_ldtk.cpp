@@ -447,6 +447,18 @@ void load_box(const ldtk::Entity& box_entity)
 	registry.levelEntities.insert(box, { box_entity.layer->level->uid });
 }
 
+void load_control_pictures(const ldtk::Entity& control_picture_entity)
+{
+	const ldtk::Field<ldtk::EnumValue>& color_state_field = control_picture_entity.getField<ldtk::EnumValue>("ControlPictureType");
+	const ldtk::IntPoint& world_pos = control_picture_entity.getWorldPosition();
+	const ldtk::IntPoint& entity_size = control_picture_entity.getSize();
+	const vec2 position = vec2(world_pos.x * LEVEL_TO_SCREEN_SCALE.x, world_pos.y * LEVEL_TO_SCREEN_SCALE.y);
+	const float width = entity_size.x * LEVEL_TO_SCREEN_SCALE.x;
+	const float height = entity_size.y * LEVEL_TO_SCREEN_SCALE.y;
+	Entity box = createBox(position, width, height);
+	registry.levelEntities.insert(box, { control_picture_entity.layer->level->uid });
+}
+
 void LoaderSystem::unload_level(int level_uid)
 {
 	// Try to find the level component

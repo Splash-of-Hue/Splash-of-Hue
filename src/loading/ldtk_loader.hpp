@@ -25,6 +25,7 @@ void load_moss_toggle(const ldtk::Entity& moss_toggle_entity);
 void load_moss_door(const ldtk::Entity& moss_door_entity);
 void load_colour_orb(const ldtk::Entity& colour_orb_entity);
 void load_box(const ldtk::Entity& box_entity);
+void load_control_pictures(const ldtk::Entity& control_picture_entity);
 // Entities - Extras
 void load_extra_entities(const ldtk::Layer& layer);
 void set_initial_player_position(const ldtk::Entity& initial_player_position_entity);
