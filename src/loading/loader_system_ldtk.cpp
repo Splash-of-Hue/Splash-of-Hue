@@ -277,27 +277,28 @@ void load_creatures(const ldtk::Layer& layer)
 		float width = creature_size.x * LEVEL_TO_SCREEN_SCALE.x;
 		float height = creature_size.y * LEVEL_TO_SCREEN_SCALE.y;
 		Entity creature_entity;
+		const int level_uid = layer.level->uid;
 
 		switch (creature_type)
 		{
 			case CREATURETYPE::ANGLERFISH:
 				// TODO nsTuVKMT: Check if this specific one already exists since it can move
-				creature_entity = createAnglerfish(position, width, height, color_state);
-				registry.currentLevels.insert(creature_entity, { layer.level->uid });
+				creature_entity = createAnglerfish(level_uid, position, width, height, color_state);
+				registry.currentLevels.insert(creature_entity, { level_uid });
 				break;
 
 			case CREATURETYPE::CRAB:
-				creature_entity = createCrab(position, width, height, color_state);
+				creature_entity = createCrab(level_uid, position, width, height, color_state);
 				break;
 
 			case CREATURETYPE::MINNOWS:
-				creature_entity = createMinnows(position, width, height, color_state);
+				creature_entity = createMinnows(level_uid, position, width, height, color_state);
 				break;
 
 			case CREATURETYPE::SAWFISH:
 				// TODO nsTuVKMT: Check if this specific one already exists since it can move
-				creature_entity = createSawfish(position, width, height, color_state);
-				registry.currentLevels.insert(creature_entity, { layer.level->uid });
+				creature_entity = createSawfish(level_uid, position, width, height, color_state);
+				registry.currentLevels.insert(creature_entity, { level_uid });
 				break;
 
 			case CREATURETYPE::SHRIMP:
@@ -306,20 +307,18 @@ void load_creatures(const ldtk::Layer& layer)
 				const DIRECTION& direction_state = direction_type_from_string(direction_enum_type.value().name);
 				const ldtk::Field<int> arm_count = ldtk_creature_entity.getField<ldtk::FieldType::Int>("ArmCount");
 
-				creature_entity = createShrimp(position, width, height, color_state, direction_state, arm_count.value());
+				creature_entity = createShrimp(level_uid, position, width, height, color_state, direction_state, arm_count.value());
 			}
 			break;
 
 			case CREATURETYPE::WHALE:
-				creature_entity = createWhale(position, width, height, color_state);
+				creature_entity = createWhale(level_uid, position, width, height, color_state);
 				break;
 
 			default:
 				std::cerr << "WARNING: unknown creature type, skipping." << std::endl;
 				break;
 		}
-
-		registry.levelEntities.insert(creature_entity, { layer.level->uid });
 	}
 }
 
