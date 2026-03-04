@@ -1,3 +1,4 @@
+#include "creature_system/creature_constants.hpp"
 #include "ecs/registry.hpp"
 #include "map/map_build_init.hpp"
 #include "map_components.hpp"
@@ -5,7 +6,7 @@
 #include "world_init.hpp"
 #include <string>
 
-Entity createMossWall(std::string id, vec2 position, vec2 size, COLOUR_STATE color_state)
+Entity createMossWall(const int level_uid, std::string id, vec2 position, vec2 size, COLOUR_STATE color_state)
 {
 	Entity moss_wall_entity;
 	const ColourPalette& palette = registry.colourPalettes.components[0];
@@ -62,24 +63,24 @@ Entity createMapTile(int tile_id, TEXTURE_ASSET_ID texture_id, ivec2 tile_positi
 	return map_tile_entity;
 }
 
-Entity createSpawnPoint(const int level_uid, const int connected_level_id, vec2 position, vec2 connected_position)
+Entity createTeleporter(const int level_uid, const int connected_level_id, vec2 position, vec2 size, vec2 connected_position, DIRECTION offset_direction)
 {
-	Entity spawn_point_entity;
-	Size size = { SPAWN_POINT_RADIUS, SPAWN_POINT_RADIUS };
-	registry.sizes.insert(spawn_point_entity, size);
-	registry.positions.insert(spawn_point_entity, position);
-	SpawnPoint spawn_point = { level_uid, connected_level_id, vec2(connected_position.x, connected_position.y) };
-	registry.spawnPoints.emplace(spawn_point_entity, spawn_point);
-	registry.collidables.emplace(spawn_point_entity);
-	registry.levelEntities.insert(spawn_point_entity, { level_uid });
+	Entity teleporter_entity;
+	registry.sizes.insert(teleporter_entity, { size.x, size.y });
+	registry.positions.insert(teleporter_entity, position);
+	Teleporter teleporter = { level_uid, connected_level_id, offset_direction, vec2(connected_position.x, connected_position.y) };
+	registry.teleporters.emplace(teleporter_entity, teleporter);
+	registry.collidables.emplace(teleporter_entity);
+	registry.levelEntities.insert(teleporter_entity, { level_uid });
 
-	return spawn_point_entity;
+	return teleporter_entity;
 }
-Entity createWall(vec2 position, float width, float height)
+Entity createWall(const int level_uid, vec2 position, float width, float height)
 {
 	const Entity& wall_rectangle_entity = createRectangle(position, width, height, RENDER_LAYER::WALLS_BACK, vec4{1.0, 1.0, 1.0, 0.0});
 	Collidable& col = registry.collidables.emplace(wall_rectangle_entity);
 	col.inelastic = true;
+	registry.levelEntities.insert(wall_rectangle_entity, { level_uid });
 
 	return wall_rectangle_entity;
 }

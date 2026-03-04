@@ -334,8 +334,8 @@ void load_floor_interactables(const ldtk::Layer& layer)
 
 		switch (floor_interactable_entity_type)
 		{
-			case ENTITY_TYPE::SPAWN_POINT:
-				load_spawn_points(floor_interactable_entity);
+			case ENTITY_TYPE::TELEPORTER:
+				load_teleporter(floor_interactable_entity);
 				continue;
 			case ENTITY_TYPE::MOSS_TOGGLE:
 				load_moss_toggle(floor_interactable_entity);
@@ -355,26 +355,38 @@ void load_floor_interactables(const ldtk::Layer& layer)
 	}
 }
 
-void load_spawn_points(const ldtk::Entity& spawn_point_entity)
+void load_teleporter(const ldtk::Entity& teleporter_entity)
 {
-	std::cout << spawn_point_entity.getName() << std::endl;
-	const ldtk::EntityRef& other_spawn_point_entity_ref = spawn_point_entity.getField<ldtk::EntityRef>("ConnectedSpawnPoint").value();
-	const auto& other_layer_grid_size = other_spawn_point_entity_ref->layer->getCellSize();
-	const ldtk::IntPoint& position = spawn_point_entity.getWorldPosition();
-	const ldtk::IntPoint& arrival_entity_position = other_spawn_point_entity_ref->getWorldPosition();
-	const ldtk::IntPoint& arrival_grid_position = other_spawn_point_entity_ref->getField<ldtk::IntPoint>("ArrivalGridPosition").value();
-	const ldtk::IntPoint& other_spawn_grid_position = other_spawn_point_entity_ref->getGridPosition();
-	ivec2 other_spawn_grid_offset = ivec2(arrival_grid_position.x - other_spawn_grid_position.x, arrival_grid_position.y - other_spawn_grid_position.y);
-	ivec2 other_spawn_offset = other_spawn_grid_offset * other_layer_grid_size;
-	const vec2 world_arrival_point = vec2(arrival_entity_position.x + other_spawn_offset.x, arrival_entity_position.y + other_spawn_offset.y);
-	int level_uid = spawn_point_entity.layer->level->uid;
-	int connected_level_uid = other_spawn_point_entity_ref->layer->level->uid;
+	std::cout << teleporter_entity.getName() << std::endl;
+	const ldtk::EntityRef& other_teleporter_entity_ref = teleporter_entity.getField<ldtk::EntityRef>("ConnectedTeleporter").value();
+	const auto& other_layer_grid_size = other_teleporter_entity_ref->layer->getCellSize();
+	const ldtk::IntPoint& position = teleporter_entity.getWorldPosition();
+	const ldtk::IntPoint& size = teleporter_entity.getSize();
+	const ldtk::IntPoint& arrival_entity_position = other_teleporter_entity_ref->getWorldPosition();
+	bool has_defined_arrival_position = !other_teleporter_entity_ref->getField<ldtk::IntPoint>("ArrivalGridPosition").is_null();
+	ivec2 other_teleporter_grid_offset = ivec2(0);
 
-	createSpawnPoint(
+	if (has_defined_arrival_position)
+	{
+		const ldtk::IntPoint& arrival_grid_position = other_teleporter_entity_ref->getField<ldtk::IntPoint>("ArrivalGridPosition").value();
+		const ldtk::IntPoint& other_teleporter_grid_position = other_teleporter_entity_ref->getGridPosition();
+		other_teleporter_grid_offset = ivec2(arrival_grid_position.x - other_teleporter_grid_position.x, arrival_grid_position.y - other_teleporter_grid_position.y);
+	}
+
+	ivec2 other_teleporter = other_teleporter_grid_offset * other_layer_grid_size;
+	const vec2 world_arrival_point = vec2(arrival_entity_position.x + other_teleporter.x, arrival_entity_position.y + other_teleporter.y);
+	int level_uid = teleporter_entity.layer->level->uid;
+	int connected_level_uid = other_teleporter_entity_ref->layer->level->uid;
+	const ldtk::Field<ldtk::EnumValue>& offset_direction_field = other_teleporter_entity_ref->getField<ldtk::EnumValue>("OffsetDirection");
+	const DIRECTION& offset_direction = direction_type_from_string(offset_direction_field.value().name);
+
+	createTeleporter(
 		level_uid,
 		connected_level_uid,
 		vec2(position.x * LEVEL_TO_SCREEN_SCALE.x, position.y * LEVEL_TO_SCREEN_SCALE.y),
-		vec2(world_arrival_point.x * LEVEL_TO_SCREEN_SCALE.x, world_arrival_point.y * LEVEL_TO_SCREEN_SCALE.y)
+		{ size.x, size.y },
+		vec2(world_arrival_point.x * LEVEL_TO_SCREEN_SCALE.x, world_arrival_point.y * LEVEL_TO_SCREEN_SCALE.y),
+		offset_direction
 	);
 
 	// Add the connected level UIDs as neighbours to the current level (which must exist at this point)
@@ -400,7 +412,7 @@ void load_moss_toggle(const ldtk::Entity& moss_toggle_entity)
 		connected_wall_ids.push_back(wall_entity_ref.entity_iid.str());
 	}
 
-	createMossToggle(world_position, scaled_size, color_state, connected_wall_ids);
+	createMossToggle(moss_toggle_entity.layer->level->uid, world_position, scaled_size, color_state, connected_wall_ids);
 }
 
 void load_moss_door(const ldtk::Entity& moss_door_entity)
@@ -411,9 +423,22 @@ void load_moss_door(const ldtk::Entity& moss_door_entity)
 	const vec2 scaled_size = vec2(size.x, size.y) * LEVEL_TO_SCREEN_SCALE;
 	std::string moss_door_id = moss_door_entity.iid.str();
 	const ldtk::Field<ldtk::EnumValue>& color_state_enum_type = moss_door_entity.getField<ldtk::EnumValue>("ColorState");
-	const COLOUR_STATE& color_state = color_state_from_string(color_state_enum_type.value().name);
+	COLOUR_STATE color_state = color_state_from_string(color_state_enum_type.value().name);
 
-	createMossWall(moss_door_id, world_position, scaled_size, color_state);
+	const auto find_toggle = [&](Entity& entity)
+	{
+		std::vector<std::string>& moss_toggle_ids = registry.mossToggles.get(entity).connected_wall_ids;
+		return std::find(moss_toggle_ids.begin(), moss_toggle_ids.end(), moss_door_id) != moss_toggle_ids.end();
+	};
+	const auto toggle_component_iterator = std::find_if(registry.mossToggles.entities.begin(), registry.mossToggles.entities.end(), find_toggle);
+
+	// If there are any toggles that exist for this door, use the toggle color
+	if (toggle_component_iterator != registry.mossToggles.entities.end())
+	{
+		color_state = registry.colourStates.get(*toggle_component_iterator).curr_colour_state;
+	}
+
+	createMossWall(moss_door_entity.layer->level->uid, moss_door_id, world_position, scaled_size, color_state);
 }
 
 void load_wall(const ldtk::Entity& wall_entity)
@@ -425,13 +450,21 @@ void load_wall(const ldtk::Entity& wall_entity)
 	float width = wall_size.x * LEVEL_TO_SCREEN_SCALE.x;
 	float height = wall_size.y * LEVEL_TO_SCREEN_SCALE.y;
 
-	Entity& wall = createWall(position, width, height);
+	Entity& wall = createWall(wall_entity.layer->level->uid, position, width, height);
 }
 
 void load_colour_orb(const ldtk::Entity& colour_orb_entity)
 {
 	const ldtk::Field<ldtk::EnumValue>& color_state_field = colour_orb_entity.getField<ldtk::EnumValue>("ColorState");
 	const COLOUR_STATE colour_state = color_state_from_string(color_state_field.value().name);
+
+	// Don't spawn it if the player has the abilities
+	const Player& player = registry.players.components[0];
+	if (player.blue_unlocked && colour_state == COLOUR_STATE::BLUE || player.red_unlocked && colour_state == COLOUR_STATE::RED)
+	{
+		return;
+	}
+
 	const ldtk::IntPoint& world_pos = colour_orb_entity.getWorldPosition();
 	const ldtk::IntPoint& entity_size = colour_orb_entity.getSize();
 	const vec2 position = vec2(world_pos.x * LEVEL_TO_SCREEN_SCALE.x, world_pos.y * LEVEL_TO_SCREEN_SCALE.y);

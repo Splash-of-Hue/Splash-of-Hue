@@ -1,5 +1,6 @@
 // internal
 #include "interactables/interactable_components.hpp"
+#include "map/map_constants.hpp"
 #include "physics_system.hpp"
 #include "world_init.hpp"
 #include <algorithm>
@@ -223,6 +224,7 @@ void light_emission_collisions(Entity& entity_i, Entity& entity_j)
 			vec4& colT = registry.colors.get(eT);
 			vec4& colO = registry.colors.get(eO);
 			colT = colO;
+			csT.curr_colour_state = csO.curr_colour_state;
 
 			for (std::string& connected_wall_id : tT.connected_wall_ids)
 			{
@@ -292,6 +294,35 @@ void handle_misc_collision(Entity& entity_i, Entity& entity_j)
 		}
 	}
 
+	// TODO UurbFK4Z: Handle in callback instead of in the physics system
+	if (registry.teleporters.has(entity_j) || registry.teleporters.has(entity_i))
+	{
+		bool i_is_teleporter = registry.teleporters.has(entity_i);
+		Entity& teleporter_entity = i_is_teleporter ? entity_i : entity_j;
+		Entity& other_entity = i_is_teleporter ? entity_j : entity_i;
+
+		if (!registry.currentLevels.has(other_entity))
+		{
+			// Only things that change levels can request to move
+			return;
+		}
+
+		// Check if player or something else is requesting a movement
+		bool is_player = registry.players.has(other_entity);
+		MAP_CHANGE_REQUEST_TYPE map_change_request_type = is_player ? MAP_CHANGE_REQUEST_TYPE::PLAYER : MAP_CHANGE_REQUEST_TYPE::CREATURE;
+		// Generate the request from the teleporter information
+		const Teleporter& teleporter = registry.teleporters.get(teleporter_entity);
+		Entity change_map_request_entity;
+		ChangeMapLevelRequest level_change_request = {
+			other_entity,
+			teleporter.connected_level_uid,
+			teleporter.arrival_location,
+			map_change_request_type,
+			teleporter.offset_direction
+		};
+		registry.changeMapLevelRequests.insert(change_map_request_entity, level_change_request);
+	}
+
 	//todo - change to sawfish once there are more creatures than sawfish
 	if (registry.players.has(entity_i) && registry.creatures.has(entity_j) || registry.players.has(entity_j) && registry.creatures.has(entity_i))
 	{
@@ -316,16 +347,6 @@ void handle_misc_collision(Entity& entity_i, Entity& entity_j)
 			}
 		}
 	}
-
-	// TODO UurbFK4Z: Handle in callback instead of in the physics system
-	if (registry.players.has(entity_i) && registry.spawnPoints.has(entity_j) || registry.players.has(entity_j) && registry.spawnPoints.has(entity_i))
-	{
-		Entity change_map_request_entity;
-		Entity& spawn_point_entity = registry.spawnPoints.has(entity_i) ? entity_i : entity_j;
-		const SpawnPoint& spawn_point = registry.spawnPoints.get(spawn_point_entity);
-		registry.changeMapLevelRequests.insert(change_map_request_entity, { spawn_point.connected_level_uid, spawn_point.send_to_location });
-	}
-
 }
 
 void handle_inelastic_collision_box(Entity& entity_i, Entity& entity_j) 
@@ -529,6 +550,13 @@ void PhysicsSystem::step(float elapsed_ms)
 		{
 			Entity& entity_j = collidables.entities[j];
 
+			//Two non_moving entities should not collide (unless one of them is a light source)
+			if (!registry.velocities.has(entity_i) && !registry.velocities.has(entity_j)) {
+				if (!registry.lightEmissions.has(entity_i) && !registry.lightEmissions.has(entity_j)) {
+					continue;
+				}
+				
+			}
 			if (registry.polygons.has(entity_i) || registry.polygons.has(entity_j)) 
 			{
 				vec3 penetration = mesh_collides(entity_i, entity_j);
