@@ -2663,8 +2663,8 @@
 							"__tile": null,
 							"__smartColor": "#FEE761",
 							"iid": "fbd353b0-fa90-11f0-8415-e938d80fa113",
-							"width": 16,
-							"height": 16,
+							"width": 400,
+							"height": 400,
 							"defUid": 61,
 							"px": [512,512],
 							"fieldInstances": [{ "__identifier": "ControlPictureType", "__type": "LocalEnum.ControlPictureType", "__value": "ARROW_NO_RED", "__tile": null, "defUid": 64, "realEditorValues": [{
@@ -3718,8 +3718,8 @@
 							"__tile": null,
 							"__smartColor": "#FEE761",
 							"iid": "229337e0-fa90-11f0-8415-35ecc0cd7f24",
-							"width": 16,
-							"height": 16,
+							"width": 400,
+							"height": 400,
 							"defUid": 61,
 							"px": [840,568],
 							"fieldInstances": [{ "__identifier": "ControlPictureType", "__type": "LocalEnum.ControlPictureType", "__value": "ARROW_RED", "__tile": null, "defUid": 64, "realEditorValues": [{
