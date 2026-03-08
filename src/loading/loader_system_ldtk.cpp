@@ -476,7 +476,7 @@ void load_box(const ldtk::Entity& box_entity)
 {
 	const ldtk::IntPoint& world_pos = box_entity.getWorldPosition();
 	const ldtk::IntPoint& entity_size = box_entity.getSize();
-	const vec2 position = vec2(world_pos.x * LEVEL_TO_SCREEN_SCALE.x, world_pos.y * LEVEL_TO_SCREEN_SCALE.y);
+	const vec2 position = vec2((world_pos.x + entity_size.x  / 2) * LEVEL_TO_SCREEN_SCALE.x, (world_pos.y + entity_size.x / 2) * LEVEL_TO_SCREEN_SCALE.y);
 	const float width = entity_size.x * LEVEL_TO_SCREEN_SCALE.x;
 	const float height = entity_size.y * LEVEL_TO_SCREEN_SCALE.y;
 	Entity box = createBox(position, width, height);

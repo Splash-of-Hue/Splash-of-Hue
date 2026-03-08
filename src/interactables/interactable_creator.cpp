@@ -79,7 +79,7 @@ Entity createFloorPictureControls(vec2 position, float width, float height, CONT
 		{
 			EFFECT_ASSET_ID::TEXTURED,
 			GEOMETRY_BUFFER_ID::SPRITE,
-			RENDER_LAYER::FLOOR_INTERACTABLES
+			RENDER_LAYER::FLOOR_DECORATIONS
 		}
 	);
 
