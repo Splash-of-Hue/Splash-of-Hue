@@ -324,6 +324,14 @@ Entity createShrimp(const int level_uid, vec2 position, float width, float heigh
     CreatureBehaviourTreeBuilder builder;
     creatureBehaviour.behaviour_tree = builder.buildShrimpTree();
     
+    for (auto arm_color : shrimp_component.shrimp_arms)
+    {
+        for (auto arm : arm_color.second)
+        {
+            registry.levelEntities.insert(arm, { id });
+        }
+    }
+    
     return shrimp;
 }
 
