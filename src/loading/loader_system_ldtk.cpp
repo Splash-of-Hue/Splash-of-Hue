@@ -67,7 +67,7 @@ void LoaderSystem::load_level(int level_uid)
 		// Level has not been loaded before, make a new entity and set the position
 		Entity loading_level_entity;
 		Level& level_component = registry.levels.insert(loading_level_entity, { level_uid, level_index });
-		const vec2 level_world_center = vec2(level.position.x, level.position.y) * LEVEL_TO_SCREEN_SCALE + window_center();
+		const vec2 level_world_center = scale_to_level(vec2(level.position.x, level.position.y)) + window_center();
 		vec2& level_position = registry.positions.insert(loading_level_entity, level_world_center);
 		level_component.background_color = vec4(level.bg_color.r, level.bg_color.g, level.bg_color.b, level.bg_color.a) / 255.0f;
 	}
@@ -111,10 +111,9 @@ void LoaderSystem::load_level(int level_uid)
 		for (int grid_y = 0; grid_y < quantize_grid_size.y; grid_y++)
 		{
 			// Get the world space coordinate
-			vec2 quantize_world_position = vec2(
-				(LEVEL_TO_SCREEN_SCALE.x * (level_world_position.x + level_quantize_size / 2)) + level_quantize_size * grid_x,
-				(LEVEL_TO_SCREEN_SCALE.y * (level_world_position.y + level_quantize_size / 2)) + level_quantize_size * grid_y
-			);
+			const vec2 quantize_world_position = scale_to_level(
+				vec2(level_world_position.x + level_quantize_size, level_world_position.y + level_quantize_size) / 2.0f
+			) + vec2(grid_x, grid_y) * float(level_quantize_size);
 
 			// Check if this coordinate is in any of the wall tiles
 			bool is_in_wall = false;
@@ -165,11 +164,13 @@ void load_tile_layer(const ldtk::Layer& layer)
 		const ldtk::IntPoint& tile_position = tile.getPosition();
 		const ldtk::IntPoint& tile_world_position = tile.getWorldPosition();
 		const ldtk::IntRect& tile_texture_rect = tile.getTextureRect();
+		const vec2 destination_position = scale_to_level(vec2(tile_world_position.x, tile_world_position.y) + vec2(tile_size) / 2.0f);
+		const vec2 destination_size = scale_to_level(vec2(tile_size));
 		vec4 destination_rect = {
-			(tile_world_position.x + tile_size / 2) * LEVEL_TO_SCREEN_SCALE.x,
-			(tile_world_position.y + tile_size / 2) * LEVEL_TO_SCREEN_SCALE.y,
-			tile_size * LEVEL_TO_SCREEN_SCALE.x,
-			tile_size * LEVEL_TO_SCREEN_SCALE.y
+			destination_position.x,
+			destination_position.y,
+			destination_size.x,
+			destination_size.y
 		};
 		vec4 source_rect = {
 			tile_texture_rect.x / (float)tileset_texture_size.x,
@@ -255,7 +256,7 @@ void set_initial_player_position(const ldtk::Entity& initial_player_position_ent
 
 	registry.currentLevels.get(player_entity).level_uid = initial_player_position_entity.layer->level->uid;
 	const ldtk::IntPoint& initial_player_world_position = initial_player_position_entity.getWorldPosition();
-	vec2 initial_player_position = vec2(initial_player_world_position.x, initial_player_world_position.y) * LEVEL_TO_SCREEN_SCALE;
+	vec2 initial_player_position = scale_to_level(vec2(initial_player_world_position.x, initial_player_world_position.y));
 	registry.positions.get(player_entity) = initial_player_position;
 	registry.players.get(player_entity).is_loaded = true;
 }
@@ -273,9 +274,8 @@ void load_creatures(const ldtk::Layer& layer)
 
 		const ldtk::IntPoint& creature_world_position = ldtk_creature_entity.getWorldPosition();
 		const ldtk::IntPoint& creature_size = ldtk_creature_entity.getSize();
-		const vec2 position = vec2(creature_world_position.x * LEVEL_TO_SCREEN_SCALE.x, creature_world_position.y * LEVEL_TO_SCREEN_SCALE.y);
-		float width = creature_size.x * LEVEL_TO_SCREEN_SCALE.x;
-		float height = creature_size.y * LEVEL_TO_SCREEN_SCALE.y;
+		const vec2 position = scale_to_level(vec2(creature_world_position.x, creature_world_position.y));
+		const vec2 size = scale_to_level(vec2(creature_size.x, creature_size.y));
 		Entity creature_entity;
 		const int level_uid = layer.level->uid;
 
@@ -382,9 +382,9 @@ void load_teleporter(const ldtk::Entity& teleporter_entity)
 	createTeleporter(
 		level_uid,
 		connected_level_uid,
-		vec2(position.x * LEVEL_TO_SCREEN_SCALE.x, position.y * LEVEL_TO_SCREEN_SCALE.y),
+		scale_to_level(vec2(position.x, position.y)),
 		{ size.x, size.y },
-		vec2(world_arrival_point.x * LEVEL_TO_SCREEN_SCALE.x, world_arrival_point.y * LEVEL_TO_SCREEN_SCALE.y),
+		scale_to_level(world_arrival_point),
 		offset_direction
 	);
 
@@ -398,8 +398,8 @@ void load_moss_toggle(const ldtk::Entity& moss_toggle_entity)
 {
 	const ldtk::IntPoint& position = moss_toggle_entity.getWorldPosition();
 	const ldtk::IntPoint& size = moss_toggle_entity.getSize();
-	const vec2 world_position = vec2(position.x, position.y) * LEVEL_TO_SCREEN_SCALE;
-	const vec2 scaled_size = vec2(size.x, size.y) * LEVEL_TO_SCREEN_SCALE;
+	const vec2 world_position = scale_to_level(vec2(position.x, position.y));
+	const vec2 scaled_size = scale_to_level(vec2(size.x, size.y));
 	const ldtk::ArrayField<ldtk::EntityRef>& wall_entity_ref_fields = moss_toggle_entity.getField<ldtk::FieldType::ArrayEntityRef>("ConnectedWalls");
 	std::vector<std::string> connected_wall_ids;
 	const ldtk::Field<ldtk::EnumValue>& color_state_enum_type = moss_toggle_entity.getField<ldtk::EnumValue>("ColorState");
@@ -418,8 +418,8 @@ void load_moss_door(const ldtk::Entity& moss_door_entity)
 {
 	const ldtk::IntPoint& position = moss_door_entity.getWorldPosition();
 	const ldtk::IntPoint& size = moss_door_entity.getSize();
-	const vec2 world_position = vec2(position.x, position.y) * LEVEL_TO_SCREEN_SCALE;
-	const vec2 scaled_size = vec2(size.x, size.y) * LEVEL_TO_SCREEN_SCALE;
+	const vec2 world_position = scale_to_level(vec2(position.x, position.y));
+	const vec2 scaled_size = scale_to_level(vec2(size.x, size.y));
 	std::string moss_door_id = moss_door_entity.iid.str();
 	const ldtk::Field<ldtk::EnumValue>& color_state_enum_type = moss_door_entity.getField<ldtk::EnumValue>("ColorState");
 	COLOUR_STATE color_state = color_state_from_string(color_state_enum_type.value().name);
@@ -445,11 +445,10 @@ void load_wall(const ldtk::Entity& wall_entity)
 	std::cout << wall_entity.getName() << std::endl;
 	const ldtk::IntPoint& wall_world_position = wall_entity.getWorldPosition();
 	const ldtk::IntPoint& wall_size = wall_entity.getSize();
-	const vec2 position = vec2(wall_world_position.x * LEVEL_TO_SCREEN_SCALE.x, wall_world_position.y * LEVEL_TO_SCREEN_SCALE.y);
-	float width = wall_size.x * LEVEL_TO_SCREEN_SCALE.x;
-	float height = wall_size.y * LEVEL_TO_SCREEN_SCALE.y;
+	const vec2 position = scale_to_level(vec2(wall_world_position.x, wall_world_position.y));
+	const vec2 size = scale_to_level(vec2(wall_size.x, wall_size.y));
 
-	Entity& wall = createWall(wall_entity.layer->level->uid, position, width, height);
+	Entity& wall = createWall(wall_entity.layer->level->uid, position, size.x, size.y);
 }
 
 void load_colour_orb(const ldtk::Entity& colour_orb_entity)
@@ -466,8 +465,8 @@ void load_colour_orb(const ldtk::Entity& colour_orb_entity)
 
 	const ldtk::IntPoint& world_pos = colour_orb_entity.getWorldPosition();
 	const ldtk::IntPoint& entity_size = colour_orb_entity.getSize();
-	const vec2 position = vec2(world_pos.x * LEVEL_TO_SCREEN_SCALE.x, world_pos.y * LEVEL_TO_SCREEN_SCALE.y);
-	const float radius = (entity_size.x * LEVEL_TO_SCREEN_SCALE.x) * 0.5f;
+	const vec2 position = scale_to_level(vec2(world_pos.x, world_pos.y));
+	const float radius = scale_to_level(vec2(entity_size.x,entity_size.y)).x * 0.5f;
 	Entity orb = createColourOrb(position, radius, colour_state);
 	registry.levelEntities.insert(orb, { colour_orb_entity.layer->level->uid });
 }
@@ -476,10 +475,10 @@ void load_box(const ldtk::Entity& box_entity)
 {
 	const ldtk::IntPoint& world_pos = box_entity.getWorldPosition();
 	const ldtk::IntPoint& entity_size = box_entity.getSize();
-	const vec2 position = vec2((world_pos.x + entity_size.x  / 2) * LEVEL_TO_SCREEN_SCALE.x, (world_pos.y + entity_size.x / 2) * LEVEL_TO_SCREEN_SCALE.y);
-	const float width = entity_size.x * LEVEL_TO_SCREEN_SCALE.x;
-	const float height = entity_size.y * LEVEL_TO_SCREEN_SCALE.y;
-	Entity box = createBox(position, width, height);
+	vec2 position = vec2(world_pos.x + entity_size.x, world_pos.y + entity_size.y) / 2.0f;
+	position = scale_to_level(position);
+	const vec2 size = scale_to_level(vec2(entity_size.x, entity_size.y));
+	Entity box = createBox(position, size.x, size.y);
 	registry.levelEntities.insert(box, { box_entity.layer->level->uid });
 }
 
@@ -489,10 +488,9 @@ void load_control_pictures(const ldtk::Entity& control_picture_entity)
 	const CONTROL_PNG_TYPE control_png_type = control_png_type_from_string(control_type_field.value().name);
 	const ldtk::IntPoint& world_pos = control_picture_entity.getWorldPosition();
 	const ldtk::IntPoint& entity_size = control_picture_entity.getSize();
-	const vec2 position = vec2(world_pos.x * LEVEL_TO_SCREEN_SCALE.x, world_pos.y * LEVEL_TO_SCREEN_SCALE.y);
-	const float width = entity_size.x * LEVEL_TO_SCREEN_SCALE.x;
-	const float height = entity_size.y * LEVEL_TO_SCREEN_SCALE.y;
-	Entity control_entity = createFloorPictureControls(position, width, height, control_png_type);
+	const vec2 position = scale_to_level(vec2(world_pos.x, world_pos.y));
+	const vec2 size = scale_to_level(vec2(entity_size.x, entity_size.y));
+	Entity control_entity = createFloorPictureControls(position, size.x, size.y, control_png_type);
 	registry.levelEntities.insert(control_entity, { control_picture_entity.layer->level->uid });
 }
 
