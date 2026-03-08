@@ -466,7 +466,7 @@ void load_colour_orb(const ldtk::Entity& colour_orb_entity)
 	const ldtk::IntPoint& world_pos = colour_orb_entity.getWorldPosition();
 	const ldtk::IntPoint& entity_size = colour_orb_entity.getSize();
 	const vec2 position = scale_to_level(vec2(world_pos.x, world_pos.y));
-	const float radius = scale_to_level(vec2(entity_size.x,entity_size.y)).x * 0.5f;
+	const float radius = scale_to_level(vec2(entity_size.x)).x * 0.5f;
 	Entity orb = createColourOrb(position, radius, colour_state);
 	registry.levelEntities.insert(orb, { colour_orb_entity.layer->level->uid });
 }
