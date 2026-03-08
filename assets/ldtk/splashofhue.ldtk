@@ -1442,6 +1442,82 @@
 			"pivotX": 0.5,
 			"pivotY": 0.5,
 			"fieldDefs": []
+		},
+		{
+			"identifier": "Control_PNG_entity",
+			"uid": 63,
+			"tags": ["Floor_Interactable"],
+			"exportToToc": false,
+			"allowOutOfBounds": false,
+			"doc": null,
+			"width": 400,
+			"height": 280,
+			"resizableX": false,
+			"resizableY": false,
+			"minWidth": null,
+			"maxWidth": null,
+			"minHeight": null,
+			"maxHeight": null,
+			"keepAspectRatio": false,
+			"tileOpacity": 1,
+			"fillOpacity": 1,
+			"lineOpacity": 1,
+			"hollow": false,
+			"color": "#3E8948",
+			"renderMode": "Rectangle",
+			"showName": true,
+			"tilesetId": null,
+			"tileRenderMode": "FitInside",
+			"tileRect": null,
+			"uiTileRect": null,
+			"nineSliceBorders": [],
+			"maxCount": 0,
+			"limitScope": "PerLevel",
+			"limitBehavior": "MoveLastOne",
+			"pivotX": 0,
+			"pivotY": 0,
+			"fieldDefs": [
+				{
+					"identifier": "ControlPictureType",
+					"doc": null,
+					"__type": "LocalEnum.ControlPictureType",
+					"uid": 65,
+					"type": "F_Enum(64)",
+					"isArray": false,
+					"canBeNull": false,
+					"arrayMinLength": null,
+					"arrayMaxLength": null,
+					"editorDisplayMode": "Hidden",
+					"editorDisplayScale": 1,
+					"editorDisplayPos": "Above",
+					"editorLinkStyle": "StraightArrow",
+					"editorDisplayColor": null,
+					"editorAlwaysShow": false,
+					"editorShowInWorld": true,
+					"editorCutLongValues": true,
+					"editorTextSuffix": null,
+					"editorTextPrefix": null,
+					"useForSmartColor": false,
+					"exportToToc": false,
+					"searchable": false,
+					"min": null,
+					"max": null,
+					"regex": null,
+					"acceptFileTypes": null,
+					"defaultOverride": {
+						"id": "V_String",
+						"params": ["WASD"]
+					},
+					"textLanguageMode": null,
+					"symmetricalRef": false,
+					"autoChainRef": true,
+					"allowOutOfLevelRef": true,
+					"allowedRefs": "OnlySame",
+					"allowedRefsEntityUid": null,
+					"allowedRefTags": [],
+					"tilesetUid": null
+				}
+			]
 		}
 	], "tilesets": [
 		{
@@ -1811,6 +1887,22 @@
 							],
 							"__worldX": 900,
 							"__worldY": 108
+						},
+						{
+							"__identifier": "Control_PNG_entity",
+							"__grid": [186,67],
+							"__pivot": [0,0],
+							"__tags": ["Floor_Interactable"],
+							"__tile": null,
+							"__smartColor": "#3E8948",
+							"iid": "2a99e220-fa90-11f0-aace-f7ed8650355c",
+							"width": 400,
+							"height": 280,
+							"defUid": 63,
+							"px": [1488,536],
+							"fieldInstances": [{ "__identifier": "ControlPictureType", "__type": "LocalEnum.ControlPictureType", "__value": "WASD", "__tile": null, "defUid": 65, "realEditorValues": [] }],
+							"__worldX": 1488,
+							"__worldY": 536
 						}
 					]
 				},
@@ -7227,7 +7319,7 @@
 					"entityInstances": [
 						{
 							"__identifier": "Teleporter",
-							"__grid": [17,65],
+							"__grid": [19,65],
 							"__pivot": [0.5,0.5],
 							"__tags": ["Floor_Interactable"],
 							"__tile": null,
@@ -7258,7 +7350,7 @@
 						},
 						{
 							"__identifier": "Teleporter",
-							"__grid": [223,65],
+							"__grid": [219,65],
 							"__pivot": [0.5,0.5],
 							"__tags": ["Floor_Interactable"],
 							"__tile": null,
@@ -8128,7 +8220,7 @@
 					"entityInstances": [
 						{
 							"__identifier": "MossWall",
-							"__grid": [75,54],
+							"__grid": [76,57],
 							"__pivot": [0.5,0.5],
 							"__tags": ["Internal_Wall"],
 							"__tile": { "tilesetUid": 52, "x": 160, "y": 400, "w": 192, "h": 224 },
@@ -8142,8 +8234,8 @@
 								"id": "V_String",
 								"params": ["Red"]
 							}] }],
-							"__worldX": 5048,
-							"__worldY": -1288
+							"__worldX": 5064,
+							"__worldY": -1240
 						},
 						{
 							"__identifier": "MossDecoration",
@@ -8410,7 +8502,7 @@
 						},
 						{
 							"__identifier": "MossWall",
-							"__grid": [66,55],
+							"__grid": [66,58],
 							"__pivot": [0.5,0.5],
 							"__tags": ["Internal_Wall"],
 							"__tile": { "tilesetUid": 52, "x": 160, "y": 400, "w": 192, "h": 224 },
@@ -8425,11 +8517,11 @@
 								"params": ["Red"]
 							}] }],
 							"__worldX": 4904,
-							"__worldY": -1272
+							"__worldY": -1224
 						},
 						{
 							"__identifier": "MossWall",
-							"__grid": [86,54],
+							"__grid": [86,57],
 							"__pivot": [0.5,0.5],
 							"__tags": ["Internal_Wall"],
 							"__tile": { "tilesetUid": 52, "x": 160, "y": 400, "w": 192, "h": 224 },
@@ -8444,7 +8536,7 @@
 								"params": ["Red"]
 							}] }],
 							"__worldX": 5224,
-							"__worldY": -1288
+							"__worldY": -1240
 						},
 						{
 							"__identifier": "Wall",
@@ -8709,7 +8801,7 @@
 					"entityInstances": [
 						{
 							"__identifier": "Teleporter",
-							"__grid": [8,65],
+							"__grid": [12,65],
 							"__pivot": [0.5,0.5],
 							"__tags": ["Floor_Interactable"],
 							"__tile": null,
@@ -8740,7 +8832,7 @@
 						},
 						{
 							"__identifier": "Teleporter",
-							"__grid": [152,129],
+							"__grid": [152,115],
 							"__pivot": [0.5,0.5],
 							"__tags": ["Floor_Interactable"],
 							"__tile": null,
@@ -8768,6 +8860,44 @@
 							],
 							"__worldX": 5060,
 							"__worldY": -1236
+						},
+						{
+							"__identifier": "Control_PNG_entity",
+							"__grid": [210,83],
+							"__pivot": [0,0],
+							"__tags": ["Floor_Interactable"],
+							"__tile": null,
+							"__smartColor": "#3E8948",
+							"iid": "3521f570-fa90-11f0-aace-0b275f52bc25",
+							"width": 400,
+							"height": 280,
+							"defUid": 63,
+							"px": [1680,664],
+							"fieldInstances": [{ "__identifier": "ControlPictureType", "__type": "LocalEnum.ControlPictureType", "__value": "COLOUR_AFFECTS", "__tile": null, "defUid": 65, "realEditorValues": [{
+								"id": "V_String",
+								"params": ["COLOUR_AFFECTS"]
+							}] }],
+							"__worldX": 5520,
+							"__worldY": -1496
+						},
+						{
+							"__identifier": "Control_PNG_entity",
+							"__grid": [213,29],
+							"__pivot": [0,0],
+							"__tags": ["Floor_Interactable"],
+							"__tile": null,
+							"__smartColor": "#3E8948",
+							"iid": "37d0c1c0-fa90-11f0-aace-5bd82ae6f60d",
+							"width": 400,
+							"height": 280,
+							"defUid": 63,
+							"px": [1704,232],
+							"fieldInstances": [{ "__identifier": "ControlPictureType", "__type": "LocalEnum.ControlPictureType", "__value": "ARROW_NO_RED", "__tile": null, "defUid": 65, "realEditorValues": [{
+								"id": "V_String",
+								"params": ["ARROW_NO_RED"]
+							}] }],
+							"__worldX": 5544,
+							"__worldY": -1928
 						}
 					]
 				},
@@ -9659,7 +9789,7 @@
 						},
 						{
 							"__identifier": "Teleporter",
-							"__grid": [151,20],
+							"__grid": [151,23],
 							"__pivot": [0.5,0.5],
 							"__tags": ["Floor_Interactable"],
 							"__tile": null,
