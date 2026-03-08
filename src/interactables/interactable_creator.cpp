@@ -1,7 +1,7 @@
 #include "ecs/registry.hpp"
 #include "interactables/interactable_components.hpp"
 #include "interactables/interactable_creator.hpp"
-#include "world_init.hpp"
+#include "shapes/shape_build_init.hpp"
 #include <string>
 #include <vector>
 #include <iostream>
