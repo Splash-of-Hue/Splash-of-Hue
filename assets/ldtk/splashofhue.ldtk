@@ -11,7 +11,7 @@
 	"iid": "53e64810-d380-11f0-a1bc-4d26a5cd15e3",
 	"jsonVersion": "1.5.3",
 	"appBuildId": 473703,
-	"nextUid": 66,
+	"nextUid": 68,
 	"identifierStyle": "Capitalize",
 	"toc": [{
 		"identifier": "Teleporter",
@@ -1046,7 +1046,7 @@
 			"allowOutOfBounds": false,
 			"doc": null,
 			"width": 200,
-			"height": 100,
+			"height": 200,
 			"resizableX": false,
 			"resizableY": false,
 			"minWidth": null,
@@ -1119,17 +1119,17 @@
 					"canBeNull": false,
 					"arrayMinLength": null,
 					"arrayMaxLength": null,
-					"editorDisplayMode": "Hidden",
-					"editorDisplayScale": 1,
+					"editorDisplayMode": "ValueOnly",
+					"editorDisplayScale": 0.99,
 					"editorDisplayPos": "Above",
 					"editorLinkStyle": "StraightArrow",
 					"editorDisplayColor": null,
-					"editorAlwaysShow": false,
+					"editorAlwaysShow": true,
 					"editorShowInWorld": true,
 					"editorCutLongValues": true,
 					"editorTextSuffix": null,
 					"editorTextPrefix": null,
-					"useForSmartColor": false,
+					"useForSmartColor": true,
 					"exportToToc": false,
 					"searchable": false,
 					"min": null,
@@ -1194,10 +1194,10 @@
 					"arrayMaxLength": null,
 					"editorDisplayMode": "NameAndValue",
 					"editorDisplayScale": 1,
-					"editorDisplayPos": "Above",
+					"editorDisplayPos": "Center",
 					"editorLinkStyle": "StraightArrow",
 					"editorDisplayColor": null,
-					"editorAlwaysShow": false,
+					"editorAlwaysShow": true,
 					"editorShowInWorld": true,
 					"editorCutLongValues": true,
 					"editorTextSuffix": null,
@@ -1618,8 +1618,27 @@
 			"spacing": 0,
 			"padding": 0,
 			"tags": [],
-			"tagsSourceEnumUid": null,
-			"enumTags": [],
+			"tagsSourceEnumUid": 67,
+			"enumTags": [{
+				"enumValueId": "BoundingBox",
+				"tileIds": [
+					66,67,68,69,74,75,76,77,82,83,84,85,90,91,92,93,97,98,99,100,101,102,105,106,107,108,109,110,113,114,115,116,117,118,121,
+					122,123,124,125,126,129,130,131,132,133,134,137,138,139,140,141,142,145,146,147,148,149,150,153,154,155,156,157,158,161,162,163,164,165,166,
+					169,170,171,172,173,174,177,178,179,180,181,182,185,186,187,188,189,190,195,196,203,204,211,212,219,220,322,323,324,325,330,331,332,333,353,
+					354,355,356,357,358,361,362,363,364,365,366,385,386,387,388,389,390,393,394,395,396,397,398,402,403,404,405,417,418,419,420,421,422,425,426,
+					427,428,429,430,433,434,435,436,437,438,451,452,459,460,466,467,468,469,843,844,845,846,847,848,849,850,851,852,875,876,877,878,879,880,881,
+					882,883,884,907,908,909,910,911,912,913,914,915,916,939,940,941,942,943,944,945,946,947,948,971,972,973,974,975,976,977,978,979,980,1003,1004,
+					1005,1006,1007,1008,1009,1010,1011,1012,1035,1036,1037,1038,1039,1040,1041,1042,1043,1044,1067,1068,1069,1070,1071,1072,1073,1074,1075,1076,1099,1100,1101,1102,1103,1104,1105,
+					1106,1107,1108,1131,1132,1133,1134,1135,1136,1137,1138,1139,1140,1156,1163,1164,1165,1166,1167,1168,1169,1170,1171,1172,1179,1187,1188,1189,1195,1196,1197,1198,1199,1200,1201,
+					1202,1203,1204,1210,1211,1212,1219,1220,1221,1227,1228,1229,1230,1231,1232,1233,1234,1235,1236,1242,1243,1244,1251,1252,1253,1274,1275,1276,1283,1284,1285,1306,1307,1308,1315,
+					1316,1317,1338,1339,1340,1347,1348,1349,1354,1355,1356,1357,1358,1359,1360,1361,1362,1363,1364,1370,1371,1372,1379,1380,1381,1386,1387,1388,1389,1390,1391,1392,1393,1394,1395,
+					1396,1402,1403,1404,1411,1412,1413,1418,1419,1420,1421,1422,1423,1424,1425,1426,1427,1428,1434,1435,1436,1443,1444,1445,1450,1451,1452,1453,1454,1455,1456,1457,1458,1459,1460,
+					1466,1467,1468,1475,1476,1477,1482,1483,1484,1485,1486,1487,1488,1489,1490,1491,1492,1498,1499,1500,1507,1508,1509,1514,1515,1516,1517,1518,1519,1520,1521,1522,1523,1524,1530,
+					1531,1532,1539,1540,1541,1547,1548,1549,1550,1551,1552,1553,1554,1555,1556,1562,1563,1564,1571,1572,1573,1579,1580,1581,1582,1583,1584,1585,1586,1587,1588,1594,1595,1596,1603,
+					1604,1605,1611,1612,1613,1614,1615,1616,1617,1618,1619,1620,1626,1627,1628,1635,1636,1637,1643,1644,1645,1646,1647,1648,1649,1650,1651,1652,1658,1659,1660,1667,1668,1669,1675,
+					1676,1677,1678,1679,1680,1681,1682,1683,1684,1690,1691,1692,1699,1700,1701,1707,1708,1709,1710,1711,1712,1713,1714,1715,1716,1722,1723,1724
+				]
+			}],
 			"customData": [],
 			"savedSelections": [],
 			"cachedPixelData": {
@@ -1628,7 +1647,7 @@
 			}
 		}
 	], "enums": [
-		{ "identifier": "MapTileType", "uid": 14, "values": [{ "id": "Wall", "tileRect": null, "color": 12470831 }], "iconTilesetUid": null, "externalRelPath": null, "externalFileChecksum": null, "tags": [] },
+		{ "identifier": "MapTileType", "uid": 14, "values": [{ "id": "Wall", "tileRect": null, "color": 12470831 }], "iconTilesetUid": null, "externalRelPath": null, "externalFileChecksum": null, "tags": ["Tilemaps"] },
 		{ "identifier": "CreatureType", "uid": 15, "values": [
 			{ "id": "Sawfish", "tileRect": null, "color": 12668724 },
 			{ "id": "JPCrab", "tileRect": { "tilesetUid": 16, "x": 0, "y": 0, "w": 256, "h": 256 }, "color": 14120515 },
@@ -1636,7 +1655,7 @@
 			{ "id": "PShrimp", "tileRect": null, "color": 14984818 },
 			{ "id": "Whale", "tileRect": null, "color": 7552569 },
 			{ "id": "Anglerfish", "tileRect": null, "color": 4073265 }
-		], "iconTilesetUid": 16, "externalRelPath": null, "externalFileChecksum": null, "tags": [] },
+		], "iconTilesetUid": 16, "externalRelPath": null, "externalFileChecksum": null, "tags": ["Creatures"] },
 		{ "identifier": "ColorState", "uid": 26, "values": [
 			{ "id": "Neutral", "tileRect": null, "color": 16777215 },
 			{ "id": "Blue", "tileRect": null, "color": 2364387 },
@@ -1662,7 +1681,8 @@
 			{ "id": "ARROW_RED", "tileRect": null, "color": 15389866 },
 			{ "id": "ARROW_NO_RED", "tileRect": null, "color": 14984818 },
 			{ "id": "COLOUR_AFFECTS", "tileRect": null, "color": 7552569 }
-		], "iconTilesetUid": null, "externalRelPath": null, "externalFileChecksum": null, "tags": [] }
+		], "iconTilesetUid": null, "externalRelPath": null, "externalFileChecksum": null, "tags": ["UI"] },
+		{ "identifier": "GeneralTilemapType", "uid": 67, "values": [{ "id": "BoundingBox", "tileRect": null, "color": 12470831 }], "iconTilesetUid": null, "externalRelPath": null, "externalFileChecksum": null, "tags": ["Tilemaps"] }
 	], "externalEnums": [], "levelFields": [] },
 	"levels": [
 		{
@@ -1903,6 +1923,36 @@
 							"fieldInstances": [{ "__identifier": "ControlPictureType", "__type": "LocalEnum.ControlPictureType", "__value": "WASD", "__tile": null, "defUid": 65, "realEditorValues": [] }],
 							"__worldX": 1488,
 							"__worldY": 536
+						},
+						{
+							"__identifier": "MossToggle",
+							"__grid": [112,53],
+							"__pivot": [0.5,0.5],
+							"__tags": ["Floor_Interactable"],
+							"__tile": { "tilesetUid": 52, "x": 144, "y": 16, "w": 112, "h": 96 },
+							"__smartColor": "#2413E3",
+							"iid": "a2942fc0-fa90-11f0-9c5c-df961bea79bd",
+							"width": 200,
+							"height": 200,
+							"defUid": 46,
+							"px": [900,428],
+							"fieldInstances": [
+								{ "__identifier": "ConnectedWalls", "__type": "Array<EntityRef>", "__value": [{
+									"entityIid": "496a6f90-fa90-11f0-aace-2df8892a2ee1",
+									"layerIid": "2091ada1-fa90-11f0-95ec-5305befd8ab4",
+									"levelIid": "2091ada0-fa90-11f0-95ec-63798b15b604",
+									"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787"
+								}], "__tile": null, "defUid": 47, "realEditorValues": [{
+									"id": "V_String",
+									"params": ["496a6f90-fa90-11f0-aace-2df8892a2ee1"]
+								}] },
+								{ "__identifier": "ColorState", "__type": "LocalEnum.ColorState", "__value": "Blue", "__tile": null, "defUid": 50, "realEditorValues": [{
+									"id": "V_String",
+									"params": ["Blue"]
+								}] }
+							],
+							"__worldX": 900,
+							"__worldY": 428
 						}
 					]
 				},
@@ -7416,10 +7466,10 @@
 							"__pivot": [0.5,0.5],
 							"__tags": ["Floor_Interactable"],
 							"__tile": { "tilesetUid": 52, "x": 144, "y": 16, "w": 112, "h": 96 },
-							"__smartColor": "#70C16A",
+							"__smartColor": "#BE4A2F",
 							"iid": "63874fb0-fa90-11f0-aace-b3cb3c1d4a9f",
 							"width": 200,
-							"height": 100,
+							"height": 200,
 							"defUid": 46,
 							"px": [1260,460],
 							"fieldInstances": [
