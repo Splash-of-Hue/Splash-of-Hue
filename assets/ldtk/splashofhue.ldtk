@@ -1923,36 +1923,6 @@
 							"fieldInstances": [{ "__identifier": "ControlPictureType", "__type": "LocalEnum.ControlPictureType", "__value": "WASD", "__tile": null, "defUid": 65, "realEditorValues": [] }],
 							"__worldX": 1488,
 							"__worldY": 536
-						},
-						{
-							"__identifier": "MossToggle",
-							"__grid": [112,53],
-							"__pivot": [0.5,0.5],
-							"__tags": ["Floor_Interactable"],
-							"__tile": { "tilesetUid": 52, "x": 144, "y": 16, "w": 112, "h": 96 },
-							"__smartColor": "#2413E3",
-							"iid": "a2942fc0-fa90-11f0-9c5c-df961bea79bd",
-							"width": 200,
-							"height": 200,
-							"defUid": 46,
-							"px": [900,428],
-							"fieldInstances": [
-								{ "__identifier": "ConnectedWalls", "__type": "Array<EntityRef>", "__value": [{
-									"entityIid": "496a6f90-fa90-11f0-aace-2df8892a2ee1",
-									"layerIid": "2091ada1-fa90-11f0-95ec-5305befd8ab4",
-									"levelIid": "2091ada0-fa90-11f0-95ec-63798b15b604",
-									"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787"
-								}], "__tile": null, "defUid": 47, "realEditorValues": [{
-									"id": "V_String",
-									"params": ["496a6f90-fa90-11f0-aace-2df8892a2ee1"]
-								}] },
-								{ "__identifier": "ColorState", "__type": "LocalEnum.ColorState", "__value": "Blue", "__tile": null, "defUid": 50, "realEditorValues": [{
-									"id": "V_String",
-									"params": ["Blue"]
-								}] }
-							],
-							"__worldX": 900,
-							"__worldY": 428
 						}
 					]
 				},
