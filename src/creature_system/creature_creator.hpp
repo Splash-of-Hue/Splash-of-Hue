@@ -21,7 +21,7 @@ Entity createAnglerfish(vec2 position, float width, float height, COLOUR_STATE c
 Entity createCrab(vec2 position, float width, float height, COLOUR_STATE color_state);
 Entity createMinnows(vec2 position, float width, float height, COLOUR_STATE color_state);
 Entity createSawfish(vec2 position, float width, float height, COLOUR_STATE color_state);
-Entity createShrimp(vec2 position, float width, float height, COLOUR_STATE color_state, DIRECTION curr_direction_facing = DIRECTION::UP, int num_arms = 2);
+Entity createShrimp(const int id, vec2 position, float width, float height, COLOUR_STATE color_state, DIRECTION curr_direction_facing = DIRECTION::UP, int num_arms = 2);
 Entity createWhale(vec2 position, float width, float height, COLOUR_STATE color_state);
 
 // Helpers

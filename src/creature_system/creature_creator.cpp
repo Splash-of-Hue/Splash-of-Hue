@@ -254,7 +254,7 @@ void createOneArmShrimp(Shrimp& shrimp_component, DIRECTION curr_direction_facin
     }
 }
 
-Entity createShrimp(vec2 position, float width, float height, COLOUR_STATE color_state, DIRECTION curr_direction_facing /* = UP */, int num_arms /* = 2 */)
+Entity createShrimp(const int id, vec2 position, float width, float height, COLOUR_STATE color_state, DIRECTION curr_direction_facing /* = UP */, int num_arms /* = 2 */)
 {
     Entity shrimp = Entity();
 
@@ -314,6 +314,14 @@ Entity createShrimp(vec2 position, float width, float height, COLOUR_STATE color
     CreatureBehaviour& creatureBehaviour = registry.creatureBehaviours.emplace(shrimp);
     CreatureBehaviourTreeBuilder builder;
     creatureBehaviour.behaviour_tree = builder.buildShrimpTree();
+    
+    for (auto arm_color : shrimp_component.shrimp_arms)
+    {
+        for (auto arm : arm_color.second)
+        {
+            registry.levelEntities.insert(arm, { id });
+        }
+    }
     
     return shrimp;
 }

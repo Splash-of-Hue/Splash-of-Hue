@@ -306,7 +306,7 @@ void load_creatures(const ldtk::Layer& layer)
 				const DIRECTION& direction_state = direction_type_from_string(direction_enum_type.value().name);
 				const ldtk::Field<int> arm_count = ldtk_creature_entity.getField<ldtk::FieldType::Int>("ArmCount");
 
-				creature_entity = createShrimp(position, width, height, color_state, direction_state, arm_count.value());
+				creature_entity = createShrimp(layer.level->uid, position, width, height, color_state, direction_state, arm_count.value());
 			}
 			break;
 
@@ -477,7 +477,7 @@ void load_box(const ldtk::Entity& box_entity)
 {
 	const ldtk::IntPoint& world_pos = box_entity.getWorldPosition();
 	const ldtk::IntPoint& entity_size = box_entity.getSize();
-	const vec2 position = vec2(world_pos.x * LEVEL_TO_SCREEN_SCALE.x, world_pos.y * LEVEL_TO_SCREEN_SCALE.y);
+	const vec2 position = vec2((world_pos.x + entity_size.x  / 2) * LEVEL_TO_SCREEN_SCALE.x, (world_pos.y + entity_size.x / 2) * LEVEL_TO_SCREEN_SCALE.y);
 	const float width = entity_size.x * LEVEL_TO_SCREEN_SCALE.x;
 	const float height = entity_size.y * LEVEL_TO_SCREEN_SCALE.y;
 	Entity box = createBox(position, width, height);
