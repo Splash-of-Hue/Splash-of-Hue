@@ -55,7 +55,6 @@ const std::map<std::string, ENTITY_TYPE> entity_type_string_to_enum_map = {
 	{ "ColourOrb", ENTITY_TYPE::COLOUR_ORB },
 	{ "Box", ENTITY_TYPE::BOX },
 	{ "Control_PNG_entity", ENTITY_TYPE::CONTROL_PNG_ENTITY },
-	// Control_PNG_entity
 };
 
 inline ENTITY_TYPE entity_type_from_string(const std::string entity_string)
