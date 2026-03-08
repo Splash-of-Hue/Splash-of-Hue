@@ -23,7 +23,6 @@ void Transform::translate(vec2 offset)
 
 bool gl_has_errors()
 {
-	return false;
 	GLenum error = glGetError();
 
 	if (error == GL_NO_ERROR) return false;
