@@ -16,5 +16,6 @@ public:
 
 private:
 	void checkIfInRadius();
+	bool checkIfInRadiusHelper(Entity& entity, Entity& radius_entity);
 	void handle_movement(float elapsed_ms);
 };

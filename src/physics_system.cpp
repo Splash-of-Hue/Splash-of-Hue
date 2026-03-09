@@ -155,40 +155,28 @@ void light_emission_collisions(Entity& entity_i, Entity& entity_j)
 			LightEmission& light_emission_component = registry.lightEmissions.get(light_emission_entity);
 			Entity& source_entity = light_emission_component.lightSourceEntity;
 
+			if (!registry.inRadius.has(other_entity))
+			{
+				registry.inRadius.emplace(other_entity);
+			}
+
+			InRadius& in_radius_component = registry.inRadius.get(other_entity);
 			if (registry.players.has(source_entity))
 			{
-				if (!registry.inPlayerRadius.has(other_entity))
-				{
-					registry.inPlayerRadius.emplace(other_entity);
-				}
-
-				InPlayerRadius& in_player_radius_component = registry.inPlayerRadius.get(other_entity);
-				in_player_radius_component.colour = colour_to_turn_into;
-				in_player_radius_component.radius_entity = light_emission_entity;
+				in_radius_component.inPlayerRadius = true;
+				in_radius_component.playerRadius = light_emission_entity;
 			}
 
 			if (registry.creatures.has(source_entity))
 			{
-				if (!registry.inCreatureRadius.has(other_entity))
-				{
-					registry.inCreatureRadius.emplace(other_entity);
-				}
-
-				InCreatureRadius& in_creature_radius_component = registry.inCreatureRadius.get(other_entity);
-				in_creature_radius_component.colour = colour_to_turn_into;
-				in_creature_radius_component.radius_entity = light_emission_entity;
+				in_radius_component.inCreatureRadius = true;
+				in_radius_component.creatureRadius = light_emission_entity;
 			}
 
 			if (registry.interactables.has(source_entity))
 			{
-				if (!registry.inInteractableRadius.has(other_entity))
-				{
-					registry.inInteractableRadius.emplace(other_entity);
-				}
-
-				InInteractableRadius& in_interactable_radius_component = registry.inInteractableRadius.get(other_entity);
-				in_interactable_radius_component.colour = colour_to_turn_into;
-				in_interactable_radius_component.radius_entity = light_emission_entity;
+				in_radius_component.inInteractableRadius = true;
+				in_radius_component.interactableRadius = light_emission_entity;
 			}
 		}
 	}
@@ -634,43 +622,34 @@ void PhysicsSystem::handle_movement(float elapsed_ms)
 
 void PhysicsSystem::checkIfInRadius()
 {
-	for (Entity& entity : registry.inPlayerRadius.entities)
+	for (Entity& entity : registry.inRadius.entities)
 	{
-		InPlayerRadius& in_player_radius_component = registry.inPlayerRadius.get(entity);
-		Entity& radius_entity = in_player_radius_component.radius_entity;
-		if (registry.sizes.has(radius_entity))
+		InRadius& in_radius_component = registry.inRadius.get(entity);
+		if (in_radius_component.inPlayerRadius)
 		{
-			if (!box_collides(entity, radius_entity))
-			{
-				registry.inPlayerRadius.remove(entity);
-			}
-		} 
-		else
-		{
-			registry.inPlayerRadius.remove(entity);
+			in_radius_component.inPlayerRadius = checkIfInRadiusHelper(entity, in_radius_component.playerRadius);
 		}
-		
-	}
-
-	for (Entity& entity : registry.inCreatureRadius.entities)
-	{
-		InCreatureRadius& in_creature_radius_component = registry.inCreatureRadius.get(entity);
-		Entity& radius_entity = in_creature_radius_component.radius_entity;
-
-		if (!box_collides(entity, radius_entity))
+		if (in_radius_component.inCreatureRadius)
 		{
-			registry.inPlayerRadius.remove(entity);
+			in_radius_component.inCreatureRadius = checkIfInRadiusHelper(entity, in_radius_component.creatureRadius);
+		}
+		if (in_radius_component.inCreatureRadius)
+		{
+			in_radius_component.inCreatureRadius = checkIfInRadiusHelper(entity, in_radius_component.interactableRadius);
 		}
 	}
+}
 
-	for (Entity& entity : registry.inInteractableRadius.entities)
+bool PhysicsSystem::checkIfInRadiusHelper(Entity& entity, Entity& radius_entity)
+{
+	if (registry.sizes.has(radius_entity))
 	{
-		InInteractableRadius& in_interactable_radius_component = registry.inInteractableRadius.get(entity);
-		Entity& radius_entity = in_interactable_radius_component.radius_entity;
-
 		if (!box_collides(entity, radius_entity))
 		{
-			registry.inPlayerRadius.remove(entity);
+			return false;
 		}
+	}
+	else {
+		return false;
 	}
 }
