@@ -234,9 +234,9 @@ void ColourSystem::changeLightEmissions(Entity& player, int player_colour_state,
 {
 	//if neutral, delete colour circle
 	if (player_colour_state == static_cast<int>(COLOUR_STATE::NEUTRAL)) {
-		for (Entity& entity_in_player_colour_radius : registry.inPlayerRadius.entities)
+		for (Entity& entity_in_player_colour_radius : registry.inRadius.entities)
 		{
-			registry.inPlayerRadius.remove(entity_in_player_colour_radius);
+			registry.inRadius.get(entity_in_player_colour_radius).inPlayerRadius = false;
 		}
 		registry.lightSources.remove(player);
 		registry.remove_all_components_of(players_light_emission);
