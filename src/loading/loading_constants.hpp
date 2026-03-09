@@ -2,9 +2,10 @@
 #include <common.hpp>
 #include <creature_system/creature_constants.hpp>
 #include <ecs/components.hpp>
-#include <map>
-#include <string>
 #include <interactables/interactable_constants.hpp>
+#include <map>
+#include <map/map_constants.hpp>
+#include <string>
 
 // Currently just for loading rooms, but intentionally extendable
 enum class LOAD_TYPE
@@ -115,6 +116,24 @@ inline COLOUR_STATE color_state_from_string(const std::string color_string)
 {
 	const auto& search = color_state_string_enum_map.find(color_string);
 	return search != color_state_string_enum_map.end() ? search->second : COLOUR_STATE::NEUTRAL;
+};
+
+const std::map<std::string, TEXTURE_ASSET_ID> tile_layer_texture_string_enum_map = {
+	{ "Floor", TEXTURE_ASSET_ID::ROOMS },
+};
+
+const std::map<std::string, std::map<std::string, TILE_TYPE>> tile_layer_tags_string_enum_map = {
+	{ "Floor", {
+		{ "Wall", TILE_TYPE::WALL }
+	}}
+};
+
+inline std::pair<TEXTURE_ASSET_ID, std::map<std::string, TILE_TYPE>> get_tile_layer_data_from_string(const std::string tile_layer_string)
+{
+	return {
+		tile_layer_texture_string_enum_map.at(tile_layer_string),
+		tile_layer_tags_string_enum_map.at(tile_layer_string),
+	};
 };
 
 // LDtk Constants

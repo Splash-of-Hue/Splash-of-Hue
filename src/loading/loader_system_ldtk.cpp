@@ -96,7 +96,7 @@ void LoaderSystem::load_level(int level_uid)
 	std::vector<Entity> level_wall_tile_entities;
 	for (Entity& level_tile_entity : registry.levelTiles.entities)
 	{
-		if (registry.levelTiles.get(level_tile_entity).level_uid == level_uid && registry.mapTiles.get(level_tile_entity).tile_type == MAP_TILE_TYPE::WALL)
+		if (registry.levelTiles.get(level_tile_entity).level_uid == level_uid && registry.mapTiles.get(level_tile_entity).tile_type == TILE_TYPE::WALL)
 		{
 			level_wall_tile_entities.push_back(level_tile_entity);
 		}
@@ -178,20 +178,24 @@ void load_tile_layer(const ldtk::Layer& layer)
 			tile_size / (float)tileset_texture_size.x,
 			tile_size / (float)tileset_texture_size.y
 		};
-		// TODO qEQqmtkO: Tile layers won't always be the map, move elsewhere
-		MAP_TILE_TYPE map_tile_type = MAP_TILE_TYPE::DEFAULT;
+
+		// Get the tile data based on which tile layer thi sis
+		const std::pair<TEXTURE_ASSET_ID, std::map<std::string, TILE_TYPE>> tile_layer_data = get_tile_layer_data_from_string(layer.getName());
+		const TEXTURE_ASSET_ID tile_layer_texture = tile_layer_data.first;
+		const std::map<std::string, TILE_TYPE> tile_layer_tags = tile_layer_data.second;
+		// Get tile tags to loop through
+		TILE_TYPE map_tile_type = TILE_TYPE::DEFAULT;
 		const auto& tile_tags = layer_tileset.getTileEnumTags(tile.tileId);
 
 		for (const auto& tile_tag : tile_tags)
 		{
-			if (tile_tag.get().name == "Wall")
-			{
-				map_tile_type = map_tile_type | MAP_TILE_TYPE::WALL;
-			}
+			const std::string tag_name = tile_tag.get().name;
+			const TILE_TYPE tile_type = tile_layer_tags.at(tag_name);
+			map_tile_type = map_tile_type | TILE_TYPE::WALL;
 		}
 
 		// TODO mgydr9IJ: Get texture ID dynamically instead of always using ROOMS
-		Entity& map_tile_entity = createMapTile(tile.tileId, TEXTURE_ASSET_ID::ROOMS, ivec2(tile_position.x, tile_position.y), destination_rect, source_rect, map_tile_type);
+		Entity& map_tile_entity = createMapTile(tile.tileId, tile_layer_texture, ivec2(tile_position.x, tile_position.y), destination_rect, source_rect, map_tile_type);
 		registry.levelTiles.insert(map_tile_entity, { layer.level->uid });
 	}
 }
