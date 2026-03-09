@@ -13,7 +13,11 @@ Entity create_text(std::string text_string, vec2 position, vec2 scale, vec4 colo
 	registry.positions.insert(entity, { position });
 	registry.scales.insert(entity, { scale });
 	registry.colors.insert(entity, { color });
-	registry.renderRequests.insert(entity, { EFFECT_ASSET_ID::FONT, GEOMETRY_BUFFER_ID::SCREEN_TEXT });
+	registry.renderRequests.insert(entity, {
+		EFFECT_ASSET_ID::FONT,
+		GEOMETRY_BUFFER_ID::SCREEN_TEXT,
+		RENDER_LAYER::UI
+    });
 
 	return entity;
 }
