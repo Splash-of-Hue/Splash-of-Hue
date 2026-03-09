@@ -40,10 +40,10 @@ Entity createMossWall(const int level_uid, std::string id, vec2 position, vec2 s
 	return moss_wall_entity;
 }
 
-Entity createMapTile(int tile_id, TEXTURE_ASSET_ID texture_id, ivec2 tile_position, vec4 dest_rect, vec4 source_rect, MAP_TILE_TYPE map_tile_type)
+Entity createMapTile(int tile_id, TEXTURE_ASSET_ID texture_id, ivec2 tile_position, vec4 dest_rect, vec4 source_rect, TILE_TYPE tile_type)
 {
 	Entity map_tile_entity;
-	MapTile map_tile = { tile_id, tile_position, map_tile_type };
+	MapTile map_tile = { tile_id, tile_position, tile_type };
 	registry.mapTiles.insert(map_tile_entity, map_tile);
 	registry.positions.insert(map_tile_entity, { dest_rect.x, dest_rect.y });
 	registry.scales.insert(map_tile_entity, { dest_rect.p, dest_rect.q });
