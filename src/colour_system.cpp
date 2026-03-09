@@ -276,6 +276,8 @@ void ColourSystem::changeLightEmissions(Entity& player, int player_colour_state,
 
 		RenderRequest& light_emission_render_request = registry.renderRequests.get(players_light_emission);
 		light_emission_render_request.used_geometry = GEOMETRY_BUFFER_ID::GRADIENT_CIRCLE;
+		light_emission_render_request.layer = RENDER_LAYER::PLAYER;
+		registry.scales.emplace(players_light_emission);
 
 		ColourState& colour_circle_colour_state = registry.colourStates.emplace(players_light_emission);
 		light_emission_component.lightSourceEntity = player;
