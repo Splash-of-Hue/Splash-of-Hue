@@ -31,10 +31,10 @@ public:
 	static BEHAVIOUR_TREE_STATUS requestNewPath(Entity& creature, float elapsed_ms);
 	static BEHAVIOUR_TREE_STATUS requestNewRandomPath(Entity& creature, float elapsed_ms);
 	// Colour
-	static BEHAVIOUR_TREE_STATUS makeBlue(Entity& creature, float elapsed_ms);
-	static BEHAVIOUR_TREE_STATUS makeNeutral(Entity& creature, float elapsed_ms);
-	static BEHAVIOUR_TREE_STATUS makeRed(Entity& creature, float elapsed_ms);
 	static BEHAVIOUR_TREE_STATUS makeColour(Entity& creature, COLOUR_STATE colour_state);
+	static BEHAVIOUR_TREE_STATUS makeBlue(Entity& creature, float elapsed_ms);
+	static BEHAVIOUR_TREE_STATUS makeRed(Entity& creature, float elapsed_ms);
+	static BEHAVIOUR_TREE_STATUS makeNeutral(Entity& creature, float elapsed_ms);
 	// Movement
 	static BEHAVIOUR_TREE_STATUS chargeAtTarget(Entity& charger, float elapsed_ms);
 	static BEHAVIOUR_TREE_STATUS stopCreatureMovement(Entity& creature, float elapsed_ms);
@@ -51,12 +51,12 @@ public:
 	static BEHAVIOUR_TREE_STATUS redArms(Entity& follower, float elapsed_ms);
 
 	// Sawfish Behaviour Actions
-	static BEHAVIOUR_TREE_STATUS aimAtTarget(Entity& follower, float elapsed_ms);
 	static BEHAVIOUR_TREE_STATUS applyCharging(Entity& creature, float elapsed_ms);
+	static BEHAVIOUR_TREE_STATUS removeCharging(Entity& creature, float elapsed_ms);
 	static BEHAVIOUR_TREE_STATUS applyDizzy(Entity& creature, float elapsed_ms);
 	static BEHAVIOUR_TREE_STATUS beDizzy(Entity& follower, float elapsed_ms);
-	static BEHAVIOUR_TREE_STATUS removeCharging(Entity& creature, float elapsed_ms);
 	static BEHAVIOUR_TREE_STATUS removeDizzy(Entity& creature, float elapsed_ms);
+	static BEHAVIOUR_TREE_STATUS aimAtTarget(Entity& follower, float elapsed_ms);
 	static BEHAVIOUR_TREE_STATUS sawfishChargeAtTarget(Entity& follower, float elapsed_ms);
 
 	// ===== Decorator Node Functions =====

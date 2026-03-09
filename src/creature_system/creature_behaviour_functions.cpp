@@ -7,21 +7,6 @@
 CreatureBehaviourFunctions creatureBehaviourFunctions;
 
 // ===== Colour Action Nodes =====
-BEHAVIOUR_TREE_STATUS CreatureBehaviourFunctions::makeBlue(Entity& creature, float elapsed_ms)
-{
-	return makeColour(creature, COLOUR_STATE::BLUE);
-}
-
-BEHAVIOUR_TREE_STATUS CreatureBehaviourFunctions::makeNeutral(Entity& creature, float elapsed_ms)
-{
-	return makeColour(creature, COLOUR_STATE::NEUTRAL);
-}
-
-BEHAVIOUR_TREE_STATUS CreatureBehaviourFunctions::makeRed(Entity& creature, float elapsed_ms)
-{
-	return makeColour(creature, COLOUR_STATE::RED);
-}
-
 BEHAVIOUR_TREE_STATUS CreatureBehaviourFunctions::makeColour(Entity& creature, COLOUR_STATE colour_state)
 {
 	if (!registry.colourStates.has(creature))
@@ -38,6 +23,21 @@ BEHAVIOUR_TREE_STATUS CreatureBehaviourFunctions::makeColour(Entity& creature, C
 	color = color_from_state;
 
 	return BEHAVIOUR_TREE_STATUS::SUCCESS;
+}
+
+BEHAVIOUR_TREE_STATUS CreatureBehaviourFunctions::makeBlue(Entity& creature, float elapsed_ms)
+{
+	return makeColour(creature, COLOUR_STATE::BLUE);
+}
+
+BEHAVIOUR_TREE_STATUS CreatureBehaviourFunctions::makeRed(Entity& creature, float elapsed_ms)
+{
+	return makeColour(creature, COLOUR_STATE::RED);
+}
+
+BEHAVIOUR_TREE_STATUS CreatureBehaviourFunctions::makeNeutral(Entity& creature, float elapsed_ms)
+{
+	return makeColour(creature, COLOUR_STATE::NEUTRAL);
 }
 
 //  ===== Movement Action Nodes =====
