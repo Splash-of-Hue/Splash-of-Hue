@@ -113,8 +113,8 @@ void RenderSystem::drawText(Entity entity, const mat4& projection)
 }
 
 // TODO 1ch6Q0BE: Remove function
-void RenderSystem::drawShape(Entity entity,
-							 const mat3& projection) {
+void RenderSystem::drawShape(Entity entity, const mat3& projection)
+{
 
 	vec2& position = registry.positions.get(entity);
 	Size& size_component = registry.sizes.get(entity);
@@ -207,8 +207,8 @@ void RenderSystem::drawShape(Entity entity,
 	gl_has_errors();
 }
 
-void RenderSystem::drawGridLine(Entity entity,
-								const mat3& projection) {
+void RenderSystem::drawGridLine(Entity entity, const mat3& projection)
+{
 
 	GridLine& gridLine = registry.gridLines.get(entity);
 
@@ -246,7 +246,7 @@ void RenderSystem::drawGridLine(Entity entity,
 		GLint in_position_loc = glGetAttribLocation(program, "in_position");
 		gl_has_errors();
 
-		GLint in_color_loc    = glGetAttribLocation(program, "in_color");
+		GLint in_color_loc = glGetAttribLocation(program, "in_color");
 		gl_has_errors();
 
 		glEnableVertexAttribArray(in_position_loc);
@@ -294,8 +294,7 @@ void RenderSystem::drawGridLine(Entity entity,
 	gl_has_errors();
 }
 
-void RenderSystem::drawTexturedMesh(Entity entity,
-									const mat3 &projection)
+void RenderSystem::drawTexturedMesh(Entity entity, const mat3& projection)
 {
 	vec2& position = registry.positions.get(entity);
 	vec2& scale = registry.scales.get(entity);
@@ -309,14 +308,14 @@ void RenderSystem::drawTexturedMesh(Entity entity,
 	if (!registry.ignoredByCamera.has(entity))
 	{
 		const vec2& camera_position = registry.positions.get(registry.cameras.entities[0]);
-		transform.translate(window_center()-camera_position);
+		transform.translate(window_center() - camera_position);
 	}
 
 	transform.scale(scale);
 	transform.rotate(radians(angle.degrees));
 
 	assert(registry.renderRequests.has(entity));
-	const RenderRequest &render_request = registry.renderRequests.get(entity);
+	const RenderRequest& render_request = registry.renderRequests.get(entity);
 
 	const GLuint used_effect_enum = (GLuint)render_request.used_effect;
 	assert(used_effect_enum != (GLuint)EFFECT_ASSET_ID::EFFECT_COUNT);
@@ -345,13 +344,13 @@ void RenderSystem::drawTexturedMesh(Entity entity,
 
 		glEnableVertexAttribArray(in_position_loc);
 		glVertexAttribPointer(in_position_loc, 3, GL_FLOAT, GL_FALSE,
-							  sizeof(TexturedVertex), (void *)0);
+							  sizeof(TexturedVertex), (void*)0);
 		gl_has_errors();
 
 		glEnableVertexAttribArray(in_texcoord_loc);
 		glVertexAttribPointer(
 			in_texcoord_loc, 2, GL_FLOAT, GL_FALSE, sizeof(TexturedVertex),
-			(void *)sizeof(
+			(void*)sizeof(
 			vec3)); // note the stride to skip the preceeding vertex position
 
 		// Enabling and binding texture to slot 0
@@ -374,12 +373,12 @@ void RenderSystem::drawTexturedMesh(Entity entity,
 
 		glEnableVertexAttribArray(in_position_loc);
 		glVertexAttribPointer(in_position_loc, 3, GL_FLOAT, GL_FALSE,
-							  sizeof(ColoredVertex), (void *)0);
+							  sizeof(ColoredVertex), (void*)0);
 		gl_has_errors();
 
 		glEnableVertexAttribArray(in_color_loc);
 		glVertexAttribPointer(in_color_loc, 3, GL_FLOAT, GL_FALSE,
-							  sizeof(ColoredVertex), (void *)sizeof(vec3));
+							  sizeof(ColoredVertex), (void*)sizeof(vec3));
 		gl_has_errors();
 	}
 	else
@@ -390,7 +389,7 @@ void RenderSystem::drawTexturedMesh(Entity entity,
 	// Getting uniform locations for glUniform* calls
 	GLint color_uloc = glGetUniformLocation(program, "fcolor");
 	const vec4 color = registry.colors.has(entity) ? registry.colors.get(entity) : vec4(1);
-	glUniform4fv(color_uloc, 1, (float *)&color);
+	glUniform4fv(color_uloc, 1, (float*)&color);
 	gl_has_errors();
 
 	// Getting the size and area to drawn from the source
@@ -410,11 +409,11 @@ void RenderSystem::drawTexturedMesh(Entity entity,
 	glGetIntegerv(GL_CURRENT_PROGRAM, &currProgram);
 	// Setting uniform values to the currently bound program
 	GLuint transform_loc = glGetUniformLocation(currProgram, "transform");
-	glUniformMatrix3fv(transform_loc, 1, GL_FALSE, (float *)&transform.mat);
+	glUniformMatrix3fv(transform_loc, 1, GL_FALSE, (float*)&transform.mat);
 	gl_has_errors();
 
 	GLuint projection_loc = glGetUniformLocation(currProgram, "projection");
-	glUniformMatrix3fv(projection_loc, 1, GL_FALSE, (float *)&projection);
+	glUniformMatrix3fv(projection_loc, 1, GL_FALSE, (float*)&projection);
 	gl_has_errors();
 
 	// Drawing of num_indices/3 triangles specified in the index buffer
@@ -459,7 +458,7 @@ void RenderSystem::drawToScreen()
 	const GLuint vignette_program = effects[(GLuint)EFFECT_ASSET_ID::VIGNETTE];
 
 	// set clock
-	GLuint time_uloc       = glGetUniformLocation(vignette_program, "time");
+	GLuint time_uloc = glGetUniformLocation(vignette_program, "time");
 	GLuint dead_timer_uloc = glGetUniformLocation(vignette_program, "darken_screen_factor");
 
 	glUniform1f(time_uloc, (float)(glfwGetTime() * 10.0f));
@@ -468,7 +467,7 @@ void RenderSystem::drawToScreen()
 	// same VBO)
 	GLint in_position_loc = glGetAttribLocation(vignette_program, "in_position");
 	glEnableVertexAttribArray(in_position_loc);
-	glVertexAttribPointer(in_position_loc, 3, GL_FLOAT, GL_FALSE, sizeof(vec3), (void *)0);
+	glVertexAttribPointer(in_position_loc, 3, GL_FLOAT, GL_FALSE, sizeof(vec3), (void*)0);
 	gl_has_errors();
 
 	// Bind our texture in Texture Unit 0
@@ -577,10 +576,10 @@ void RenderSystem::draw()
 mat3 RenderSystem::createProjectionMatrix()
 {
 	// fake projection matrix, scaled to window coordinates
-	float left   = 0.f;
-	float top    = 0.f;
-	float right  = (float) WINDOW_WIDTH_PX;
-	float bottom = (float) WINDOW_HEIGHT_PX;
+	float left = 0.f;
+	float top = 0.f;
+	float right = (float)WINDOW_WIDTH_PX;
+	float bottom = (float)WINDOW_HEIGHT_PX;
 
 	float sx = 2.f / (right - left);
 	float sy = 2.f / (top - bottom);
