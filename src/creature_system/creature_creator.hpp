@@ -7,6 +7,7 @@
 #include "renderer/render_constants.hpp"
 
 void addGeneralCreatureComponents(
+	const int level_uid,
 	Entity creature, 
 	vec2 position, 
 	float width, 
@@ -17,12 +18,12 @@ void addGeneralCreatureComponents(
 	bool shouldHaveInelasticCollision = true
 );
 
-Entity createAnglerfish(vec2 position, float width, float height, COLOUR_STATE color_state);
-Entity createCrab(vec2 position, float width, float height, COLOUR_STATE color_state);
-Entity createMinnows(vec2 position, float width, float height, COLOUR_STATE color_state);
-Entity createSawfish(vec2 position, float width, float height, COLOUR_STATE color_state);
-Entity createShrimp(const int id, vec2 position, float width, float height, COLOUR_STATE color_state, DIRECTION curr_direction_facing = DIRECTION::UP, int num_arms = 2);
-Entity createWhale(vec2 position, float width, float height, COLOUR_STATE color_state);
+Entity createAnglerfish(const int level_uid, vec2 position, float width, float height, COLOUR_STATE color_state);
+Entity createCrab(const int level_uid, vec2 position, float width, float height, COLOUR_STATE color_state);
+Entity createMinnows(const int level_uid, vec2 position, float width, float height, COLOUR_STATE color_state);
+Entity createSawfish(const int level_uid, vec2 position, float width, float height, COLOUR_STATE color_state);
+Entity createShrimp(const int level_uid, vec2 position, float width, float height, COLOUR_STATE color_state, DIRECTION curr_direction_facing = DIRECTION::UP, int num_arms = 2);
+Entity createWhale(const int level_uid, vec2 position, float width, float height, COLOUR_STATE color_state);
 
 // Helpers
 Entity createLeftArm(vec2 shrimp_position, float shrimp_width, vec4 colour);

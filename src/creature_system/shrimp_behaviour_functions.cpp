@@ -45,7 +45,7 @@ BEHAVIOUR_TREE_STATUS CreatureBehaviourFunctions::enableCollidableComponent(std:
 		collidable.inelastic = true;
 
 		vec4& colour = registry.colors.get(entity);
-		//colour.a = 1.0f; // set invisible
+		// colour.a = 1.0f; // set visible, uncomment to test shrimp arms
 	}
 
 	return BEHAVIOUR_TREE_STATUS::SUCCESS;
