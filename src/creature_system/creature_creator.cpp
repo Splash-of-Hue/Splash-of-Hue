@@ -332,6 +332,16 @@ Entity createSawfish(const int level_uid, vec2 position, float width, float heig
     Entity sawfish = Entity();
 
 	addGeneralCreatureComponents(level_uid, sawfish, position, width, height, color_state, CREATURETYPE::SAWFISH, TEXTURE_ASSET_ID::SAWFISH);
+    registry.sawfishes.emplace(sawfish);
+
+    PolygonMesh& sawfish_hitbox = registry.polygons.emplace(sawfish);
+    float half_height = height * 0.25;
+    float half_width = width * 0.25;
+    sawfish_hitbox.vertices.push_back(vec2(position.x - half_width, position.y - half_height));
+    sawfish_hitbox.vertices.push_back(vec2(position.x + half_width, position.y - half_height));
+    sawfish_hitbox.vertices.push_back(vec2(position.x + half_width, position.y + half_height));
+    sawfish_hitbox.vertices.push_back(vec2(position.x - half_width, position.y + half_height));
+    sawfish_hitbox.centre = position;
 
     Pathfinder& pathfinder = registry.pathfinders.emplace(sawfish);
     pathfinder.target = registry.players.entities[0];
@@ -346,7 +356,7 @@ Entity createSawfish(const int level_uid, vec2 position, float width, float heig
         1
     };
     registry.animatables.insert(sawfish, animatable);
-   
+    
     return sawfish;
 }
 

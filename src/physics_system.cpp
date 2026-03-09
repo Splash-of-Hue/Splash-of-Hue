@@ -555,8 +555,12 @@ void PhysicsSystem::step(float elapsed_ms)
 				if (!registry.lightEmissions.has(entity_i) && !registry.lightEmissions.has(entity_j)) {
 					continue;
 				}
-				
 			}
+			//Two sawfishes should not collide 
+			if (registry.sawfishes.has(entity_i) && registry.sawfishes.has(entity_j)) {
+				continue;
+			}
+
 			if (registry.polygons.has(entity_i) || registry.polygons.has(entity_j)) 
 			{
 				vec3 penetration = mesh_collides(entity_i, entity_j);

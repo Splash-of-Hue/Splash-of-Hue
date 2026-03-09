@@ -108,6 +108,7 @@ public:
 	// Spawnables
 	ComponentContainer<Creature> creatures;
 	ComponentContainer<Shrimp> shrimps;
+	ComponentContainer<Sawfish> sawfishes;
 
 	// constructor that adds all containers for looping over them
 	ECSRegistry()
@@ -199,6 +200,7 @@ public:
 		// Spawnables
 		registry_list.push_back(&creatures);
 		registry_list.push_back(&shrimps);
+		registry_list.push_back(&sawfishes);
 	}
 
 	void clear_all_components()
