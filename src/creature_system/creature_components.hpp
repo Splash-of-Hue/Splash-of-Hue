@@ -52,12 +52,32 @@ struct Pathfinder
 	Entity target;
 };
 
-struct Charging
+struct IsInInelasticCollision
 {
 
 };
 
-struct IsInInelasticCollision
+//Todo SPoplE91 - find a way to consolidate
+struct InPlayerRadius
+{
+	Entity radius_entity;
+	COLOUR_STATE colour = COLOUR_STATE::NEUTRAL;
+};
+
+struct InCreatureRadius
+{
+	Entity radius_entity;
+	COLOUR_STATE colour = COLOUR_STATE::NEUTRAL;
+};
+
+struct InInteractableRadius
+{
+	Entity radius_entity;
+	COLOUR_STATE colour = COLOUR_STATE::NEUTRAL;
+};
+
+//Sawfish-specific components
+struct Charging
 {
 
 };
