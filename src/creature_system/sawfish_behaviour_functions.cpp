@@ -14,27 +14,13 @@ BEHAVIOUR_TREE_STATUS CreatureBehaviourFunctions::aimAtTarget(Entity& charger, f
 
 	Angle& charger_angle = registry.angles.get(charger);
 
-	float radAngle = atan((charger_position.x - targeted_entity_position.x) / (targeted_entity_position.y - charger_position.y));
-	float degAngle = radAngle * 180 / M_PI;
+	float degAngle = atan((charger_position.x - targeted_entity_position.x) / (targeted_entity_position.y - charger_position.y)) * 180 / M_PI;
+
 	if (targeted_entity_position.y - charger_position.y < 0) {
 		degAngle = -90 + degAngle;
 	}
 	else {
 		degAngle = 90 + degAngle;
-	}
-
-	//rotate polygon mesh if change in degrees is non-negligible
-	if (registry.polygons.has(charger) && abs(degAngle - charger_angle.degrees) > 10.f) {
-		PolygonMesh& polygon = registry.polygons.get(charger);
-
-		for (vec2& v : polygon.vertices) {
-			vec2 dist_from_centre = v - polygon.centre;
-			float c = cosf(radAngle);
-			float s = sinf(radAngle);
-			float rotated_x = dist_from_centre.x * c + dist_from_centre.y * s;
-			float rotated_y = dist_from_centre.x * s - dist_from_centre.y * c;
-			v = polygon.centre + vec2{ rotated_x, rotated_y };
-		}
 	}
 
 	charger_angle.degrees = degAngle;

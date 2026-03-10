@@ -535,10 +535,24 @@ void handle_inelastic_collision_mesh(Entity& entity_i, Entity& entity_j, vec3 pe
 	pos_to_correct->y += (penetration.x * penetration.z * sign);
 }
 
+void handle_rotation(Entity& e) {
+	PolygonMesh& polygon = registry.polygons.get(e);
+	float radAngle = registry.angles.get(e).degrees * M_PI / 180.f;
+	for (vec2& v : polygon.vertices) {
+		vec2 dist_from_centre = v - polygon.centre;
+		float c = cosf(radAngle);
+		float s = sinf(radAngle);
+		float rotated_x = dist_from_centre.x * c + dist_from_centre.y * s;
+		float rotated_y = dist_from_centre.x * s - dist_from_centre.y * c;
+		v = polygon.centre + vec2{ rotated_x, rotated_y };
+	}
+}
 void PhysicsSystem::step(float elapsed_ms)
 {
 	handle_movement(elapsed_ms);
 	checkIfInRadius();
+
+	
 	// check for collisions between all collidable entities
 	ComponentContainer<Collidable>& collidables = registry.collidables;
 	for (uint i = 0; i < collidables.components.size(); i++)
@@ -632,6 +646,9 @@ void PhysicsSystem::handle_movement(float elapsed_ms)
 				v += change_in_pos;
 			}
 			polygon.centre = pos;
+		}
+		if (registry.angles.has(e)) {
+			handle_rotation(e);
 		}
 	}
 }
