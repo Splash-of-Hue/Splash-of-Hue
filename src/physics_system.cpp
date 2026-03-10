@@ -552,7 +552,6 @@ void PhysicsSystem::step(float elapsed_ms)
 	handle_movement(elapsed_ms);
 	checkIfInRadius();
 
-	
 	// check for collisions between all collidable entities
 	ComponentContainer<Collidable>& collidables = registry.collidables;
 	for (uint i = 0; i < collidables.components.size(); i++)
@@ -569,10 +568,6 @@ void PhysicsSystem::step(float elapsed_ms)
 				if (!registry.lightEmissions.has(entity_i) && !registry.lightEmissions.has(entity_j)) {
 					continue;
 				}
-			}
-			//Two sawfishes should not collide 
-			if (registry.sawfishes.has(entity_i) && registry.sawfishes.has(entity_j)) {
-				continue;
 			}
 
 			if (registry.polygons.has(entity_i) || registry.polygons.has(entity_j)) 
@@ -647,7 +642,7 @@ void PhysicsSystem::handle_movement(float elapsed_ms)
 			}
 			polygon.centre = pos;
 		}
-		if (registry.angles.has(e)) {
+		if (registry.angles.has(e) && registry.polygons.has(e)) {
 			handle_rotation(e);
 		}
 	}
