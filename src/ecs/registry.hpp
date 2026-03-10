@@ -84,7 +84,8 @@ public:
 	ComponentContainer<InCreatureRadius> inCreatureRadius;
 	ComponentContainer<InInteractableRadius> inInteractableRadius;
 	ComponentContainer<InPlayerRadius> inPlayerRadius;
-	ComponentContainer<PolygonMesh> polygons;
+	ComponentContainer<PolygonMesh> hitboxes;
+	ComponentContainer<HurtBox> hurtboxes;
 	// Physics - Movement / Transforms
 	ComponentContainer<Angle> angles;
 	ComponentContainer<vec2> positions;
@@ -176,7 +177,8 @@ public:
 		registry_list.push_back(&inCreatureRadius);
 		registry_list.push_back(&inInteractableRadius);
 		registry_list.push_back(&inPlayerRadius);
-		registry_list.push_back(&polygons);
+		registry_list.push_back(&hitboxes);
+		registry_list.push_back(&hurtboxes);
 		// Physics - Movement / Transforms
 		registry_list.push_back(&angles);
 		registry_list.push_back(&positions);

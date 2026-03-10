@@ -42,7 +42,7 @@ Entity PlayerControllerSystem::create_player()
 	Collidable& collidable = registry.collidables.emplace(player_entity);
 	collidable.inelastic = true;
 	
-	PolygonMesh& polygon = registry.polygons.emplace(player_entity);
+	PolygonMesh& polygon = registry.hitboxes.emplace(player_entity);
 	polygon.centre = pos;
 	polygon.vertices.push_back(vec2(pos.x, pos.y - size.height * 0.45f)); // bottom
 	polygon.vertices.push_back(vec2(pos.x + size.width * 0.45f, pos.y + size.height * 0.45f)); // top right

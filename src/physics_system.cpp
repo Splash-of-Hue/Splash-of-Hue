@@ -246,7 +246,32 @@ void light_emission_collisions(Entity& entity_i, Entity& entity_j)
 
 	}
 }
-
+void handle_hurt_collision(Entity& entity_i, Entity& entity_j) {
+	//todo - change to sawfish once there are more creatures than sawfish
+	if (registry.players.has(entity_i) && registry.creatures.has(entity_j) || registry.players.has(entity_j) && registry.creatures.has(entity_i))
+	{
+		Entity& eP = registry.players.has(entity_i) ? entity_i : entity_j;
+		Entity& eS = registry.creatures.has(entity_i) ? entity_i : entity_j;
+		//make it so only sawfish kills
+		if (!registry.shrimps.has(eS))
+		{
+			if (registry.colourStates.has(eS))
+			{
+				ColourState& csS = registry.colourStates.get(eS);
+				if (csS.curr_colour_state == COLOUR_STATE::RED)
+				{
+					if (registry.chargers.has(eS))
+					{
+						if (!registry.deathTimers.has(eP))
+						{
+							registry.deathTimers.emplace(eP);
+						}
+					}
+				}
+			}
+		}
+	}
+}
 void handle_misc_collision(Entity& entity_i, Entity& entity_j)
 {
 	if (registry.creatures.has(entity_i) || registry.creatures.has(entity_j))
@@ -323,30 +348,7 @@ void handle_misc_collision(Entity& entity_i, Entity& entity_j)
 		registry.changeMapLevelRequests.insert(change_map_request_entity, level_change_request);
 	}
 
-	//todo - change to sawfish once there are more creatures than sawfish
-	if (registry.players.has(entity_i) && registry.creatures.has(entity_j) || registry.players.has(entity_j) && registry.creatures.has(entity_i))
-	{
-		Entity& eP = registry.players.has(entity_i) ? entity_i : entity_j;
-		Entity& eS = registry.creatures.has(entity_i) ? entity_i : entity_j;
-		//make it so only sawfish kills
-		if (!registry.shrimps.has(eS))
-		{
-			if (registry.colourStates.has(eS))
-			{
-				ColourState& csS = registry.colourStates.get(eS);
-				if (csS.curr_colour_state == COLOUR_STATE::RED)
-				{
-					if (registry.chargers.has(eS))
-					{
-						if (!registry.deathTimers.has(eP))
-						{
-							registry.deathTimers.emplace(eP);
-						}
-					}
-				}
-			}
-		}
-	}
+	handle_hurt_collision(entity_i, entity_j);
 }
 
 void handle_inelastic_collision_box(Entity& entity_i, Entity& entity_j) 
@@ -492,14 +494,14 @@ vec3 mesh_collides(const Entity& entity1, const Entity& entity2)
 {
 	PolygonMesh a;
 	PolygonMesh b;
-	if (registry.polygons.has(entity1)) {
-		a = registry.polygons.get(entity1);
+	if (registry.hitboxes.has(entity1)) {
+		a = registry.hitboxes.get(entity1);
 	} else 
 	{
 		a = findHitbox(entity1);
 	}
-	if (registry.polygons.has(entity2)) {
-		b = registry.polygons.get(entity2);
+	if (registry.hitboxes.has(entity2)) {
+		b = registry.hitboxes.get(entity2);
 	}
 	else
 	{
@@ -535,9 +537,7 @@ void handle_inelastic_collision_mesh(Entity& entity_i, Entity& entity_j, vec3 pe
 	pos_to_correct->y += (penetration.x * penetration.z * sign);
 }
 
-void handle_rotation(Entity& e) {
-	PolygonMesh& polygon = registry.polygons.get(e);
-	float radAngle = registry.angles.get(e).degrees * M_PI / 180.f;
+void handle_rotation(PolygonMesh& polygon, float radAngle) {
 	float c = cosf(radAngle);
 	float s = sinf(radAngle);
 	for (vec2& v : polygon.vertices) {
@@ -569,8 +569,16 @@ void PhysicsSystem::step(float elapsed_ms)
 					continue;
 				}
 			}
+			if (registry.hurtboxes.has(entity_i) || registry.hurtboxes.has(entity_j))
+			{
+				vec3 penetration = mesh_collides(entity_i, entity_j);
 
-			if (registry.polygons.has(entity_i) || registry.polygons.has(entity_j)) 
+				if (penetration.x != 0) {
+					handle_hurt_collision(entity_i, entity_j);
+				}
+			}
+
+			if (registry.hitboxes.has(entity_i) || registry.hitboxes.has(entity_j)) 
 			{
 				vec3 penetration = mesh_collides(entity_i, entity_j);
 
@@ -633,8 +641,8 @@ void PhysicsSystem::handle_movement(float elapsed_ms)
 		float step = elapsed_ms * ONE_THOUSANDTH;
 		pos += (vel*step);
 
-		if (registry.polygons.has(e)) {
-			PolygonMesh& polygon = registry.polygons.get(e);
+		if (registry.hitboxes.has(e)) {
+			PolygonMesh& polygon = registry.hitboxes.get(e);
 			vec2& pos = registry.positions.get(e);
 			vec2 change_in_pos = pos - polygon.centre;
 			for (vec2& v : polygon.vertices) {
@@ -642,8 +650,14 @@ void PhysicsSystem::handle_movement(float elapsed_ms)
 			}
 			polygon.centre = pos;
 		}
-		if (registry.angles.has(e) && registry.polygons.has(e)) {
-			handle_rotation(e);
+		if (registry.angles.has(e)) {
+			float radAngle = registry.angles.get(e).degrees * M_PI / 180.f;
+			if (registry.hitboxes.has(e)) {
+				handle_rotation(registry.hitboxes.get(e), radAngle);
+			}
+			if (registry.hurtboxes.has(e)) {
+				handle_rotation(registry.hurtboxes.get(e).mesh, radAngle);
+			}
 		}
 	}
 }
