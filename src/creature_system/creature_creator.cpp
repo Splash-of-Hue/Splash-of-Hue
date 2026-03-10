@@ -335,12 +335,12 @@ Entity createSawfish(const int level_uid, vec2 position, float width, float heig
     registry.sawfishes.emplace(sawfish);
 
     PolygonMesh& sawfish_hitbox = registry.polygons.emplace(sawfish);
-    float half_height = height * 0.25;
-    float half_width = width * 0.25;
-    sawfish_hitbox.vertices.push_back(vec2(position.x - half_width, position.y - half_height));
-    sawfish_hitbox.vertices.push_back(vec2(position.x + half_width, position.y - half_height));
-    sawfish_hitbox.vertices.push_back(vec2(position.x + half_width, position.y + half_height));
-    sawfish_hitbox.vertices.push_back(vec2(position.x - half_width, position.y + half_height));
+    float quarter_height = height * 0.25;
+    float quarter_width = width * 0.25;
+    sawfish_hitbox.vertices.push_back(vec2(position.x - quarter_width, position.y - quarter_height));
+    sawfish_hitbox.vertices.push_back(vec2(position.x + quarter_width, position.y - quarter_height));
+    sawfish_hitbox.vertices.push_back(vec2(position.x + quarter_width, position.y + quarter_height));
+    sawfish_hitbox.vertices.push_back(vec2(position.x - quarter_width, position.y + quarter_height));
     sawfish_hitbox.centre = position;
 
     Pathfinder& pathfinder = registry.pathfinders.emplace(sawfish);
