@@ -331,7 +331,7 @@ Entity createSawfish(const int level_uid, vec2 position, float width, float heig
 {
     Entity sawfish = Entity();
 
-	addGeneralCreatureComponents(level_uid, sawfish, position, width, height, color_state, CREATURETYPE::SAWFISH, TEXTURE_ASSET_ID::SAWFISH);
+    addGeneralCreatureComponents(level_uid, sawfish, position, width, height, color_state, CREATURETYPE::SAWFISH, TEXTURE_ASSET_ID::SAWFISH);
     registry.sawfishes.emplace(sawfish);
 
     PolygonMesh& sawfish_hitbox = registry.polygons.emplace(sawfish);
