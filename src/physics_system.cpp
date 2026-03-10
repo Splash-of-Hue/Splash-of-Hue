@@ -538,10 +538,10 @@ void handle_inelastic_collision_mesh(Entity& entity_i, Entity& entity_j, vec3 pe
 void handle_rotation(Entity& e) {
 	PolygonMesh& polygon = registry.polygons.get(e);
 	float radAngle = registry.angles.get(e).degrees * M_PI / 180.f;
+	float c = cosf(radAngle);
+	float s = sinf(radAngle);
 	for (vec2& v : polygon.vertices) {
 		vec2 dist_from_centre = v - polygon.centre;
-		float c = cosf(radAngle);
-		float s = sinf(radAngle);
 		float rotated_x = dist_from_centre.x * c + dist_from_centre.y * s;
 		float rotated_y = dist_from_centre.x * s - dist_from_centre.y * c;
 		v = polygon.centre + vec2{ rotated_x, rotated_y };
