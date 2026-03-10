@@ -38,9 +38,6 @@ bool isCircleInRect(vec2 posC, float radiusC, vec2 point1, vec2 point2, vec2 poi
 
 bool isLineInRangeOfCircle(vec2 posC, float radiusC, vec2 point1, vec2 point2)
 {
-	//std::cout << "CirclePos: " << "{ " << posC.x << ", " << posC.y << " }" << std::endl;
-	//std::cout << "Point1Pos: " << "{ " << point1.x << ", " << point2.y << " }" << std::endl;
-	//std::cout << "Point2Pos: " << "{ " << point2.x << ", " << point2.y << " }" << std::endl;
 	//calculation taken from https://stackoverflow.com/questions/401847/circle-rectangle-collision-detection-intersection
 
 	float distance = 0;
@@ -239,7 +236,7 @@ void light_emission_collisions(Entity& entity_i, Entity& entity_j)
 		Entity& mushroom = registry.mushrooms.has(entity_i) ? entity_i : entity_j;
 		Entity& radius = registry.mushrooms.has(entity_j) ? entity_i : entity_j;
 
-
+		
 		ColourState& mushroom_colour_state = registry.colourStates.get(mushroom);
 		ColourState& radius_colour_state = registry.colourStates.get(radius);
 
@@ -286,6 +283,10 @@ void light_emission_collisions(Entity& entity_i, Entity& entity_j)
 		ColourState& light_emission_colour_state = registry.colourStates.get(mushroom_light_emission);
 		light_emission_colour_state.prev_colour_state = light_emission_colour_state.curr_colour_state;
 		light_emission_colour_state.curr_colour_state = COLOUR_STATE(radius_colour_state.curr_colour_state);
+		
+		mushroom_colour_state.prev_colour_state = mushroom_colour_state.curr_colour_state;
+		mushroom_colour_state.curr_colour_state = COLOUR_STATE(radius_colour_state.curr_colour_state);
+
 		assert(!registry.colourPalettes.entities.empty() && "Colour palette should be initialized");
 
 		Entity palette_entity = registry.colourPalettes.entities[0];

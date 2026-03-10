@@ -306,8 +306,6 @@ void ColourSystem::updateEmissions(float elapsed_ms)
 		light_emission_position = source_position + light_emission_component.offset;
 
 		Size& light_emission_size = registry.sizes.get(light_emission_entity);
-		std::cout << light_emission_size.height << " " << light_emission_size.width << std::endl;
-		std::cout << light_emission_component.MAX_RADIUS << std::endl;
 		if (light_emission_size.width < light_emission_component.MAX_RADIUS){
 			light_emission_size.width = min(light_emission_component.MAX_RADIUS,
 											light_emission_size.width + light_emission_component.MAX_RADIUS * elapsed_ms / light_emission_component.TIME_TO_GROW);
