@@ -72,12 +72,24 @@ Entity createColourOrb(vec2 position, float radius, COLOUR_STATE colour_state)
 Entity createMushroom(vec2 position, float radius, COLOUR_STATE colour_state)
 {
 
-	Size size = { 2.0f * radius, 2.0f * radius };
+	Size size = { radius, radius };
 	Entity mushroom = addGeneralInteractableComponents(position, size, INTERACTABLE_TYPE::MUSHROOM);
 	registry.collectables.emplace(mushroom);
 	Collidable& collidable = registry.collidables.emplace(mushroom);
 	collidable.inelastic = true;
-
+	registry.circles.emplace(mushroom);
+	registry.mushrooms.emplace(mushroom);
+	registry.scales.insert(mushroom, vec2(size.width, size.height));
+	registry.colourStates.insert(mushroom, { colour_state, colour_state });
+	registry.colors.insert(mushroom, vec4(1.f, 0.f, 0.f, 1.0f));
+	registry.renderRequests.insert(
+		mushroom,
+		{
+			EFFECT_ASSET_ID::DEFAULT,
+			GEOMETRY_BUFFER_ID::CIRCLE,
+			RENDER_LAYER::FLOOR_INTERACTABLES
+		}
+	);
 	return mushroom;
 }
 

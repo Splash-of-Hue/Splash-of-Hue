@@ -122,14 +122,8 @@ bool box_collides(const Entity& entity1, const Entity& entity2)
 //TODO gRCmzvrs - make more generalized once outside of tutorial
 bool is_light_emission_collision(Entity& entity_i, Entity& entity_j)
 {
-	if ((registry.lightEmissions.has(entity_i) && registry.creatures.has(entity_j)) ||
-		registry.lightEmissions.has(entity_j) && registry.creatures.has(entity_i))
-	{
-		return true;
-	}
-
-	if ((registry.lightEmissions.has(entity_i) && registry.mossToggles.has(entity_j)) ||
-		registry.lightEmissions.has(entity_j) && registry.mossToggles.has(entity_i))
+	if ((registry.lightEmissions.has(entity_i) && registry.colourStates.has(entity_j)) ||
+		registry.lightEmissions.has(entity_j) && registry.colourStates.has(entity_i))
 	{
 		return true;
 	}
@@ -145,6 +139,12 @@ void light_emission_collisions(Entity& entity_i, Entity& entity_j)
 
 	Entity& light_emission_entity = registry.lightEmissions.has(entity_i) ? entity_i : entity_j;
 	Entity& other_entity = registry.lightEmissions.has(entity_i) ? entity_j : entity_i;
+
+	LightEmission& light_emission_component = registry.lightEmissions.get(light_emission_entity);
+	if (light_emission_component.lightSourceEntity == other_entity)
+	{
+		return;
+	}
 
 	if (registry.creatures.has(other_entity))
 	{
@@ -232,6 +232,73 @@ void light_emission_collisions(Entity& entity_i, Entity& entity_j)
 			}
 		}
 
+	}
+
+	if (registry.mushrooms.has(entity_i) || registry.mushrooms.has(entity_j))
+	{
+		Entity& mushroom = registry.mushrooms.has(entity_i) ? entity_i : entity_j;
+		Entity& radius = registry.mushrooms.has(entity_j) ? entity_i : entity_j;
+
+
+		ColourState& mushroom_colour_state = registry.colourStates.get(mushroom);
+		ColourState& radius_colour_state = registry.colourStates.get(radius);
+
+		if (mushroom_colour_state.curr_colour_state == radius_colour_state.curr_colour_state)
+		{
+			return;
+		}
+
+		vec2 mushroom_position = registry.positions.get(mushroom);
+		vec4 light_emission_colour = DEFAULT_COLOUR_VEC4;
+
+		if (!registry.lightSources.has(mushroom))
+		{
+			LightSource& light_source_component = registry.lightSources.emplace(mushroom);
+			Entity& mushroom_light_emission = createCircle(mushroom_position, 1.f, RENDER_LAYER::FLOOR_INTERACTABLES, light_emission_colour);
+			light_source_component.lightEmissionEntity = mushroom_light_emission;
+			
+			Collidable& light_emission_collidable_component = registry.collidables.emplace(mushroom_light_emission);
+			light_emission_collidable_component.overlay = true;
+			light_emission_collidable_component.inelastic = false;
+
+			LightEmission& light_emission_component = registry.lightEmissions.emplace(mushroom_light_emission);
+			light_emission_component.MAX_RADIUS = 300.f;
+			light_emission_component.TIME_TO_GROW = 1000.f;
+
+			RenderRequest& light_emission_render_request = registry.renderRequests.get(mushroom_light_emission);
+			light_emission_render_request.used_geometry = GEOMETRY_BUFFER_ID::GRADIENT_CIRCLE;
+
+			ColourState& colour_circle_colour_state = registry.colourStates.emplace(mushroom_light_emission);
+			light_emission_component.lightSourceEntity = mushroom;
+		}
+		else 
+		{
+			LightSource& light_source_component = registry.lightSources.get(mushroom);
+			Entity& mushroom_light_emission = light_source_component.lightEmissionEntity;
+			Size& colour_circle_size = registry.sizes.get(mushroom_light_emission);
+			colour_circle_size.width = 0;
+			colour_circle_size.height = 0;
+		}
+
+		LightSource& light_source_component = registry.lightSources.get(mushroom);
+		Entity& mushroom_light_emission = light_source_component.lightEmissionEntity;
+
+		ColourState& light_emission_colour_state = registry.colourStates.get(mushroom_light_emission);
+		light_emission_colour_state.prev_colour_state = light_emission_colour_state.curr_colour_state;
+		light_emission_colour_state.curr_colour_state = COLOUR_STATE(radius_colour_state.curr_colour_state);
+		assert(!registry.colourPalettes.entities.empty() && "Colour palette should be initialized");
+
+		Entity palette_entity = registry.colourPalettes.entities[0];
+		const ColourPalette& palette = registry.colourPalettes.get(palette_entity);
+
+		if (palette.state_to_colour.count(radius_colour_state.curr_colour_state) == 0) return;
+
+		vec4 color = palette.state_to_colour.at(radius_colour_state.curr_colour_state);
+
+		if (!registry.colors.has(mushroom_light_emission)) {
+			registry.colors.emplace(mushroom_light_emission);
+		}
+		registry.colors.get(mushroom_light_emission) = color;
 	}
 }
 

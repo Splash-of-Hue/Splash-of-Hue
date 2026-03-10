@@ -294,16 +294,18 @@ void ColourSystem::updateEmissions(float elapsed_ms)
 {
 	for (Entity& light_emission_entity : registry.lightEmissions.entities)
 	{
+		
 		//circle updates to location of whatever its attached to
 		vec2& light_emission_position = registry.positions.get(light_emission_entity);
 		
 		LightEmission& light_emission_component = registry.lightEmissions.get(light_emission_entity);
 		Entity& source_entity = light_emission_component.lightSourceEntity;
 		vec2& source_position = registry.positions.get(source_entity);
-		
 		light_emission_position = source_position;
 
 		Size& light_emission_size = registry.sizes.get(light_emission_entity);
+		std::cout << light_emission_size.height << " " << light_emission_size.width << std::endl;
+		std::cout << light_emission_component.MAX_RADIUS << std::endl;
 		if (light_emission_size.width < light_emission_component.MAX_RADIUS){
 			light_emission_size.width = min(light_emission_component.MAX_RADIUS,
 											light_emission_size.width + light_emission_component.MAX_RADIUS * elapsed_ms / light_emission_component.TIME_TO_GROW);
