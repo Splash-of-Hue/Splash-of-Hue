@@ -39,7 +39,6 @@ class RenderSystem {
 		textures_path("Coral Tree.png"),
 		textures_path("moss-sheet.png"),
 		textures_path("Rooms.png"),
-		textures_path("Control_Sheet.png"),
 	};
 
 	std::array<GLuint, effect_count> effects;

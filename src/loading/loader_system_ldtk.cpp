@@ -327,7 +327,6 @@ void load_floor_interactables(const ldtk::Layer& layer)
 	// iterate on Enemy entities
 	for (const ldtk::Entity& floor_interactable_entity : layer.allEntities())
 	{
-		std::cout << "Floor interactable entity: " << floor_interactable_entity.getName() << std::endl; // ADD THIS
 		const std::string floor_interactable_entity_type_string = floor_interactable_entity.getName();
 		ENTITY_TYPE floor_interactable_entity_type = entity_type_from_string(floor_interactable_entity_type_string);
 
@@ -344,9 +343,6 @@ void load_floor_interactables(const ldtk::Layer& layer)
 				continue;
 			case ENTITY_TYPE::BOX:
 				load_box(floor_interactable_entity);
-				continue;
-			case ENTITY_TYPE::CONTROL_PNG_ENTITY:
-				load_control_pictures(floor_interactable_entity);
 				continue;
 			default:
 				continue;
@@ -480,18 +476,6 @@ void load_box(const ldtk::Entity& box_entity)
 	const vec2 size = scale_to_level(vec2(entity_size.x, entity_size.y));
 	Entity box = createBox(position, size.x, size.y);
 	registry.levelEntities.insert(box, { box_entity.layer->level->uid });
-}
-
-void load_control_pictures(const ldtk::Entity& control_picture_entity)
-{
-	const ldtk::Field<ldtk::EnumValue>& control_type_field = control_picture_entity.getField<ldtk::EnumValue>("ControlPictureType");
-	const CONTROL_PNG_TYPE control_png_type = control_png_type_from_string(control_type_field.value().name);
-	const ldtk::IntPoint& world_pos = control_picture_entity.getWorldPosition();
-	const ldtk::IntPoint& entity_size = control_picture_entity.getSize();
-	const vec2 position = scale_to_level(vec2(world_pos.x, world_pos.y));
-	const vec2 size = scale_to_level(vec2(entity_size.x, entity_size.y));
-	Entity control_entity = createFloorPictureControls(position, size.x, size.y, control_png_type);
-	registry.levelEntities.insert(control_entity, { control_picture_entity.layer->level->uid });
 }
 
 void LoaderSystem::unload_level(int level_uid)
