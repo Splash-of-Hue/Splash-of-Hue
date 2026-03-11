@@ -4,7 +4,6 @@
 #include <ecs/components.hpp>
 #include <map>
 #include <string>
-#include <interactables/interactable_constants.hpp>
 
 // Currently just for loading rooms, but intentionally extendable
 enum class LOAD_TYPE
