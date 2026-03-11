@@ -1,7 +1,7 @@
 #include "controllers/player_controller_system.hpp"
 #include "controls/control_constants.hpp"
 #include "ecs/registry.hpp"
-#include "world_init.hpp"
+#include "shapes/shape_build_init.hpp"
 #include <iostream>
 
 Entity PlayerControllerSystem::create_player()
