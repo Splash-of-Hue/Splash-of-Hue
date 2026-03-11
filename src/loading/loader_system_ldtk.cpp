@@ -110,10 +110,10 @@ void LoaderSystem::load_level(int level_uid)
 	{
 		for (int grid_y = 0; grid_y < quantize_grid_size.y; grid_y++)
 		{
-			// Get the world space coordinate
-			const vec2 quantize_world_position = scale_to_level(
-				vec2(level_world_position.x + level_quantize_size, level_world_position.y + level_quantize_size) / 2.0f
-			) + vec2(grid_x, grid_y) * float(level_quantize_size);
+			// Get the world space coordinate and offset by half the quantize size to center it
+			vec2 quantize_world_position = scale_to_level(vec2(level_world_position.x, level_world_position.y) + vec2(level_quantize_size) / 2.0f);
+			// Offset by the grid number scaled by the cell size
+			quantize_world_position += vec2(grid_x, grid_y) * float(level_quantize_size);
 
 			// Check if this coordinate is in any of the wall tiles
 			bool is_in_wall = false;
@@ -283,21 +283,21 @@ void load_creatures(const ldtk::Layer& layer)
 		{
 			case CREATURETYPE::ANGLERFISH:
 				// TODO nsTuVKMT: Check if this specific one already exists since it can move
-				creature_entity = createAnglerfish(level_uid, position, width, height, color_state);
+				creature_entity = createAnglerfish(level_uid, position, size.x, size.y, color_state);
 				registry.currentLevels.insert(creature_entity, { level_uid });
 				break;
 
 			case CREATURETYPE::CRAB:
-				creature_entity = createCrab(level_uid, position, width, height, color_state);
+				creature_entity = createCrab(level_uid, position, size.x, size.y, color_state);
 				break;
 
 			case CREATURETYPE::MINNOWS:
-				creature_entity = createMinnows(level_uid, position, width, height, color_state);
+				creature_entity = createMinnows(level_uid, position, size.x, size.y, color_state);
 				break;
 
 			case CREATURETYPE::SAWFISH:
 				// TODO nsTuVKMT: Check if this specific one already exists since it can move
-				creature_entity = createSawfish(level_uid, position, width, height, color_state);
+				creature_entity = createSawfish(level_uid, position, size.x, size.y, color_state);
 				registry.currentLevels.insert(creature_entity, { level_uid });
 				break;
 
@@ -307,12 +307,12 @@ void load_creatures(const ldtk::Layer& layer)
 				const DIRECTION& direction_state = direction_type_from_string(direction_enum_type.value().name);
 				const ldtk::Field<int> arm_count = ldtk_creature_entity.getField<ldtk::FieldType::Int>("ArmCount");
 
-				creature_entity = createShrimp(level_uid, position, width, height, color_state, direction_state, arm_count.value());
+				creature_entity = createShrimp(level_uid, position, size.x, size.y, color_state, direction_state, arm_count.value());
 			}
 			break;
 
 			case CREATURETYPE::WHALE:
-				creature_entity = createWhale(level_uid, position, width, height, color_state);
+				creature_entity = createWhale(level_uid, position, size.x, size.y, color_state);
 				break;
 
 			default:
