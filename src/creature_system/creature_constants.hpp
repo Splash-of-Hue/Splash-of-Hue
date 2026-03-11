@@ -45,8 +45,8 @@ enum SHRIMP_ARM_COLOUR
 	RED = BLUE + 1
 };
 
-const float SHRIMP_ARM_TRANSLATION_X = 50.0f; // How much to translate the shrimp arm away from the body on the x axis
-const float SHRIMP_ARM_TRANSLATION_Y = 50.0f; // How much to translate the shrimp arm away from the body on the y axis
+const float SHRIMP_ARM_TRANSLATION_X = 80.0f; // How much to translate the shrimp arm away from the body on the x axis
+const float SHRIMP_ARM_TRANSLATION_Y = 80.0f; // How much to translate the shrimp arm away from the body on the y axis
 
 struct Whale
 {

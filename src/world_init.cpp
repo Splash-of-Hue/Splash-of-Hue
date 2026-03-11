@@ -1,4 +1,4 @@
-#include "shape_build_init.hpp"
+#include "world_init.hpp"
 #include "ecs/registry.hpp"
 #include <iostream>
 

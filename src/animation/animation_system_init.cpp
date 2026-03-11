@@ -249,34 +249,6 @@ void AnimationSystem::init()
 
 		}
 	);
-	generate_animation(
-		ANIMATABLE_TYPE::CONTROLS_SHEET,
-		ANIMATION_TRIGGER::WASD,
-		{
-			{ TEXTURE_ASSET_ID::CONTROLS_SHEET, RenderSourceRect { vec2(0.0f, 0.0f), vec2(1.0f, 0.25f) }}
-		}
-	);
-	generate_animation(
-		ANIMATABLE_TYPE::CONTROLS_SHEET,
-		ANIMATION_TRIGGER::ARROW_NO_RED,
-		{
-			{ TEXTURE_ASSET_ID::CONTROLS_SHEET, RenderSourceRect { vec2(0.0f, 0.25f), vec2(1.0f, 0.25f) }}
-		}
-	);
-	generate_animation(
-		ANIMATABLE_TYPE::CONTROLS_SHEET,
-		ANIMATION_TRIGGER::ARROW_RED,
-		{
-			{ TEXTURE_ASSET_ID::CONTROLS_SHEET, RenderSourceRect { vec2(0.0f, 0.5f), vec2(1.0f, 0.25) }}
-		}
-	);
-	generate_animation(
-		ANIMATABLE_TYPE::CONTROLS_SHEET,
-		ANIMATION_TRIGGER::COLOUR_AFFECTS,
-		{
-			{ TEXTURE_ASSET_ID::CONTROLS_SHEET, RenderSourceRect { vec2(0.0f, 0.75f), vec2(1.0f, 0.25) }}
-		}
-	);
 }
 
 void AnimationSystem::generate_animation(

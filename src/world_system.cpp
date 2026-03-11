@@ -1,6 +1,6 @@
 // Header
 #include "world_system.hpp"
-#include "shapes/shape_build_init.hpp"
+#include "world_init.hpp"
 
 // stlib
 #include <cassert>

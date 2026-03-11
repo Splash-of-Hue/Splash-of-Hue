@@ -2,7 +2,7 @@
 #include "interactables/interactable_components.hpp"
 #include "map/map_constants.hpp"
 #include "physics_system.hpp"
-#include "shapes/shape_build_init.hpp"
+#include "world_init.hpp"
 #include <algorithm>
 #include <iostream>
 #include <math.h>
