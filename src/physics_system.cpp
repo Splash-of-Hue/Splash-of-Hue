@@ -627,20 +627,20 @@ void PhysicsSystem::checkIfInRadius()
 		InRadius& in_radius_component = registry.inRadius.get(entity);
 		if (in_radius_component.inPlayerRadius)
 		{
-			in_radius_component.inPlayerRadius = checkIfInRadiusHelper(entity, in_radius_component.playerRadius);
+			in_radius_component.inPlayerRadius = checkIfCollidingRadius(entity, in_radius_component.playerRadius);
 		}
 		if (in_radius_component.inCreatureRadius)
 		{
-			in_radius_component.inCreatureRadius = checkIfInRadiusHelper(entity, in_radius_component.creatureRadius);
+			in_radius_component.inCreatureRadius = checkIfCollidingRadius(entity, in_radius_component.creatureRadius);
 		}
 		if (in_radius_component.inCreatureRadius)
 		{
-			in_radius_component.inCreatureRadius = checkIfInRadiusHelper(entity, in_radius_component.interactableRadius);
+			in_radius_component.inCreatureRadius = checkIfCollidingRadius(entity, in_radius_component.interactableRadius);
 		}
 	}
 }
 
-bool PhysicsSystem::checkIfInRadiusHelper(Entity& entity, Entity& radius_entity)
+bool PhysicsSystem::checkIfCollidingRadius(Entity& entity, Entity& radius_entity)
 {
 	if (registry.sizes.has(radius_entity))
 	{
