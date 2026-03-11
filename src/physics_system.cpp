@@ -652,4 +652,6 @@ bool PhysicsSystem::checkIfCollidingRadius(Entity& entity, Entity& radius_entity
 	else {
 		return false;
 	}
+
+	return true;
 }
