@@ -3,7 +3,7 @@
 #include "map/map_build_init.hpp"
 #include "map_components.hpp"
 #include "renderer/render_constants.hpp"
-#include "world_init.hpp"
+#include "shapes/shape_build_init.hpp"
 #include <string>
 
 Entity createMossWall(const int level_uid, std::string id, vec2 position, vec2 size, COLOUR_STATE color_state)

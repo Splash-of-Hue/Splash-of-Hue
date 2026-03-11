@@ -5,7 +5,7 @@
 #include "ecs/tiny_ecs.hpp"
 #include "ecs/components.hpp"
 #include "ecs/registry.hpp"
-#include "world_init.hpp"
+#include "shapes/shape_build_init.hpp"
 #include <iostream>
 #include <vector>
 
