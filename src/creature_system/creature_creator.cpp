@@ -3,6 +3,7 @@
 #include "shapes/shape_build_init.hpp"
 #include "creature_system/creature_behaviour_tree_builder.hpp"
 #include "creature_system/creature_components.hpp"
+#include <iostream>
 
 /*
 
@@ -10,7 +11,7 @@
 
 */
 
-void addGeneralCreatureComponents(Entity creature, vec2 position, float width, float height, COLOUR_STATE color_state, CREATURETYPE creature_type, TEXTURE_ASSET_ID texture_asset_id, bool shouldHaveInelasticCollision /* = true */) {
+void addGeneralCreatureComponents(const int level_uid, Entity creature, vec2 position, float width, float height, COLOUR_STATE color_state, CREATURETYPE creature_type, TEXTURE_ASSET_ID texture_asset_id, bool shouldHaveInelasticCollision /* = true */) {
     const ColourPalette& palette = registry.colourPalettes.components[0];
     vec4 color = palette.state_to_colour.at(color_state);
 
@@ -29,6 +30,7 @@ void addGeneralCreatureComponents(Entity creature, vec2 position, float width, f
     registry.scales.insert(creature, vec2(2.0f * GRID_CELL_WIDTH_PX, 2.0f * GRID_CELL_HEIGHT_PX));
     registry.sizes.insert(creature, Size{ width, height });
     registry.velocities.emplace(creature);
+    registry.levelEntities.insert(creature, { level_uid });
     
     registry.renderRequests.insert(creature, {
         EFFECT_ASSET_ID::TEXTURED,
@@ -37,11 +39,11 @@ void addGeneralCreatureComponents(Entity creature, vec2 position, float width, f
     });
 }
 
-Entity createAnglerfish(vec2 position, float width, float height, COLOUR_STATE color_state)
+Entity createAnglerfish(const int level_uid, vec2 position, float width, float height, COLOUR_STATE color_state)
 {
     Entity anglerfish = Entity();
 
-    addGeneralCreatureComponents(anglerfish, position, width, height, color_state, CREATURETYPE::ANGLERFISH, TEXTURE_ASSET_ID::ANGLERFISH_01);
+    addGeneralCreatureComponents(level_uid, anglerfish, position, width, height, color_state, CREATURETYPE::ANGLERFISH, TEXTURE_ASSET_ID::ANGLERFISH_01);
 
     Pathfinder& pathfinder = registry.pathfinders.emplace(anglerfish);
     pathfinder.target = registry.players.entities[0];
@@ -53,12 +55,12 @@ Entity createAnglerfish(vec2 position, float width, float height, COLOUR_STATE c
     return anglerfish;
 }
 
-Entity createCrab(vec2 position, float width, float height, COLOUR_STATE color_state)
+Entity createCrab(const int level_uid, vec2 position, float width, float height, COLOUR_STATE color_state)
 {
     Entity crab = Entity();
 
     // TODO add dedicated crab asset and texture ID
-	addGeneralCreatureComponents(crab, position, width, height, color_state, CREATURETYPE::CRAB, TEXTURE_ASSET_ID::CREATURES);
+	addGeneralCreatureComponents(level_uid, crab, position, width, height, color_state, CREATURETYPE::CRAB, TEXTURE_ASSET_ID::CREATURES);
     
     CreatureBehaviour& creatureBehaviour = registry.creatureBehaviours.emplace(crab);
     CreatureBehaviourTreeBuilder builder;
@@ -67,11 +69,11 @@ Entity createCrab(vec2 position, float width, float height, COLOUR_STATE color_s
     return crab;
 }
 
-Entity createMinnows(vec2 position, float width, float height, COLOUR_STATE color_state)
+Entity createMinnows(const int level_uid, vec2 position, float width, float height, COLOUR_STATE color_state)
 {
     Entity minnows = Entity();
     
-	addGeneralCreatureComponents(minnows, position, width, height, color_state, CREATURETYPE::MINNOWS, TEXTURE_ASSET_ID::MINNOW_01);
+	addGeneralCreatureComponents(level_uid, minnows, position, width, height, color_state, CREATURETYPE::MINNOWS, TEXTURE_ASSET_ID::MINNOW_01);
 
     CreatureBehaviour& creatureBehaviour = registry.creatureBehaviours.emplace(minnows);
     CreatureBehaviourTreeBuilder builder;
@@ -80,7 +82,7 @@ Entity createMinnows(vec2 position, float width, float height, COLOUR_STATE colo
     return minnows;
 }
 
-// Todo: AkWAGMV1 cleanup and make just createArm
+// Todo: AkWAGMV1 cleanup and make just createArm, cleanup hardcoded values
 // Todo: yz2rEB5j, this function is a helper, make private
 // Todo: ojg8otlR, replace rectangle with polygon mesh
 // Todo: SibWWzX3, set arms to be invisible
@@ -88,7 +90,7 @@ Entity createMinnows(vec2 position, float width, float height, COLOUR_STATE colo
 Entity createLeftArm(vec2 shrimp_position, float shrimp_width, vec4 colour)
 {
     float left_arm_x = shrimp_position.x - SHRIMP_ARM_TRANSLATION_X;
-    float left_arm_y = shrimp_position.y;
+    float left_arm_y = shrimp_position.y + 5.0f;
 
     Entity& armEntity = createRectangle(vec2(left_arm_x, left_arm_y), shrimp_width, shrimp_width / 4, RENDER_LAYER::CREATURES, colour);
     
@@ -96,7 +98,7 @@ Entity createLeftArm(vec2 shrimp_position, float shrimp_width, vec4 colour)
     return armEntity;
 }
 
-// Todo: AkWAGMV1 cleanup and make just createArm
+// Todo: AkWAGMV1 cleanup and make just createArm, cleanup hardcoded values
 // Todo: yz2rEB5j, this function is a helper, make private
 // Todo: ojg8otlR, replace rectangle with polygon mesh
 // Todo: SibWWzX3, set arms to be invisible
@@ -104,39 +106,39 @@ Entity createLeftArm(vec2 shrimp_position, float shrimp_width, vec4 colour)
 Entity createRightArm(vec2 shrimp_position, float shrimp_width, vec4 colour)
 {
     float right_arm_x = shrimp_position.x + SHRIMP_ARM_TRANSLATION_X;
-    float right_arm_y = shrimp_position.y;
+    float right_arm_y = shrimp_position.y + 5.0f;
 
     Entity& armEntity = createRectangle(vec2(right_arm_x, right_arm_y), shrimp_width, shrimp_width / 4, RENDER_LAYER::CREATURES, colour);
     registry.collidables.emplace(armEntity);
     return armEntity;
 }
 
-// Todo: AkWAGMV1 cleanup and make just createArm
+// Todo: AkWAGMV1 cleanup and make just createArm, cleanup hardcoded values
 // Todo: yz2rEB5j, this function is a helper, make private
 // Todo: ojg8otlR, replace rectangle with polygon mesh
 // Todo: SibWWzX3, set arms to be invisible
 // For the sake of simplicity + time for M2, just use the shrimp width to make a rectangle
 Entity createUpArm(vec2 shrimp_position, float shrimp_width, vec4 colour)
 {
-    float up_arm_x = shrimp_position.x;
+    float up_arm_x = shrimp_position.x + 10.0f;
     float up_arm_y = shrimp_position.y - SHRIMP_ARM_TRANSLATION_Y;
 
-    Entity& armEntity = createRectangle(vec2(up_arm_x, up_arm_y), shrimp_width / 4, shrimp_width, RENDER_LAYER::CREATURES, colour);
+    Entity& armEntity = createRectangle(vec2(up_arm_x, up_arm_y), shrimp_width / 4, shrimp_width - (shrimp_width / 4), RENDER_LAYER::CREATURES, colour);
     registry.collidables.emplace(armEntity);
     return armEntity;
 }
 
-// Todo: AkWAGMV1 cleanup and make just createArm
+// Todo: AkWAGMV1 cleanup and make just createArm, cleanup hardcoded values
 // Todo: yz2rEB5j, this function is a helper, make private
 // Todo: ojg8otlR, replace rectangle with polygon mesh
 // Todo: SibWWzX3, set arms to be invisible
 // For the sake of simplicity + time for M2, just use the shrimp width to make a rectangle
 Entity createDownArm(vec2 shrimp_position, float shrimp_width, vec4 colour)
 {
-    float down_arm_x = shrimp_position.x;
-    float down_arm_y = shrimp_position.y + SHRIMP_ARM_TRANSLATION_Y;
+    float down_arm_x = shrimp_position.x - 10.0;
+    float down_arm_y = shrimp_position.y + SHRIMP_ARM_TRANSLATION_Y + 20.0f; // translate a bit extra to accommodate for body
 
-    Entity& armEntity = createRectangle(vec2(down_arm_x, down_arm_y), shrimp_width / 4, shrimp_width, RENDER_LAYER::CREATURES, colour);
+    Entity& armEntity = createRectangle(vec2(down_arm_x, down_arm_y), shrimp_width / 4, shrimp_width - (shrimp_width / 4), RENDER_LAYER::CREATURES, colour);
     registry.collidables.emplace(armEntity);
     return armEntity;
 }
@@ -254,15 +256,15 @@ void createOneArmShrimp(Shrimp& shrimp_component, DIRECTION curr_direction_facin
     }
 }
 
-Entity createShrimp(const int id, vec2 position, float width, float height, COLOUR_STATE color_state, DIRECTION curr_direction_facing /* = UP */, int num_arms /* = 2 */)
+Entity createShrimp(const int level_uid, vec2 position, float width, float height, COLOUR_STATE color_state, DIRECTION curr_direction_facing /* = UP */, int num_arms /* = 2 */)
 {
     Entity shrimp = Entity();
 
-    addGeneralCreatureComponents(shrimp, position, width, height, color_state, CREATURETYPE::SHRIMP, TEXTURE_ASSET_ID::PISTOL_SHRIMP_01, false);
+    addGeneralCreatureComponents(level_uid, shrimp, position, width, height, color_state, CREATURETYPE::SHRIMP, TEXTURE_ASSET_ID::PISTOL_SHRIMP_01, false);
     registry.scales.get(shrimp) = vec2(5.0f * GRID_CELL_WIDTH_PX, 5.0f * GRID_CELL_HEIGHT_PX);
 
     Shrimp& shrimp_component = registry.shrimps.emplace(shrimp); // direction tracking component
-    assert((num_arms == 1 || num_arms == 2) && "shrimp can only be initialized with 1, 2, or 3 arms at this time");
+    assert((num_arms == 1 || num_arms == 2) && "shrimp can only be initialized with 1, or 2 arms at this time");
     shrimp_component.num_arms = num_arms;
 
     // Todo: AkWAGMV1 cleanup and turn switch into an iterator
@@ -282,6 +284,16 @@ Entity createShrimp(const int id, vec2 position, float width, float height, COLO
         break;
     }    
 
+    // Todo: AkWAGMV1 cleanup and just add the component every time we createArm instead of this
+    // Add the arms to the level entities so they'll be unloaded later
+    for (auto& [colour, arm_entities] : shrimp_component.shrimp_arms)
+    {
+        for (Entity& arm_entity : arm_entities)
+        {
+            LevelEntity& arm_level_entity = registry.levelEntities.emplace(arm_entity);
+            arm_level_entity.level_uid = level_uid;
+        }
+    }
 
     ANIMATABLE_TYPE shrimp_anim_type;
     switch (curr_direction_facing)
@@ -315,22 +327,14 @@ Entity createShrimp(const int id, vec2 position, float width, float height, COLO
     CreatureBehaviourTreeBuilder builder;
     creatureBehaviour.behaviour_tree = builder.buildShrimpTree();
     
-    for (auto arm_color : shrimp_component.shrimp_arms)
-    {
-        for (auto arm : arm_color.second)
-        {
-            registry.levelEntities.insert(arm, { id });
-        }
-    }
-    
     return shrimp;
 }
 
-Entity createSawfish(vec2 position, float width, float height, COLOUR_STATE color_state)
+Entity createSawfish(const int level_uid, vec2 position, float width, float height, COLOUR_STATE color_state)
 {
     Entity sawfish = Entity();
 
-	addGeneralCreatureComponents(sawfish, position, width, height, color_state, CREATURETYPE::SAWFISH, TEXTURE_ASSET_ID::SAWFISH);
+	addGeneralCreatureComponents(level_uid, sawfish, position, width, height, color_state, CREATURETYPE::SAWFISH, TEXTURE_ASSET_ID::SAWFISH);
 
     Pathfinder& pathfinder = registry.pathfinders.emplace(sawfish);
     pathfinder.target = registry.players.entities[0];
@@ -349,11 +353,11 @@ Entity createSawfish(vec2 position, float width, float height, COLOUR_STATE colo
     return sawfish;
 }
 
-Entity createWhale(vec2 position, float width, float height, COLOUR_STATE color_state)
+Entity createWhale(const int level_uid, vec2 position, float width, float height, COLOUR_STATE color_state)
 {
     Entity whale = Entity();
 
-	addGeneralCreatureComponents(whale, position, width, height, color_state, CREATURETYPE::WHALE, TEXTURE_ASSET_ID::WHALE_01);
+	addGeneralCreatureComponents(level_uid, whale, position, width, height, color_state, CREATURETYPE::WHALE, TEXTURE_ASSET_ID::WHALE_01);
 
     CreatureBehaviour& creatureBehaviour = registry.creatureBehaviours.emplace(whale);
     CreatureBehaviourTreeBuilder builder;

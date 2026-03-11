@@ -55,7 +55,6 @@ const std::map<std::string, ENTITY_TYPE> entity_type_string_to_enum_map = {
 	{ "Wall", ENTITY_TYPE::WALL },
 	{ "ColourOrb", ENTITY_TYPE::COLOUR_ORB },
 	{ "Box", ENTITY_TYPE::BOX },
-	{ "Control_PNG_entity", ENTITY_TYPE::CONTROL_PNG_ENTITY },
 };
 
 inline ENTITY_TYPE entity_type_from_string(const std::string entity_string)
@@ -90,20 +89,6 @@ inline DIRECTION direction_type_from_string(const std::string direction_string)
 {
 	const auto& search = direction_string_enum_map.find(direction_string);
 	return search != direction_string_enum_map.end() ? search->second : DIRECTION::UP; // defaults to UP
-};
-
-const std::map<std::string, CONTROL_PNG_TYPE> control_png_string_enum_map = {
-	{ "Invalid", CONTROL_PNG_TYPE::INVALID },
-	{ "WASD", CONTROL_PNG_TYPE::WASD },
-	{ "ARROW_RED", CONTROL_PNG_TYPE::ARROW_RED },
-	{ "ARROW_NO_RED", CONTROL_PNG_TYPE::ARROW_NO_RED },
-	{ "COLOUR_AFFECTS", CONTROL_PNG_TYPE::COLOUR_AFFECTS}
-};
-
-inline CONTROL_PNG_TYPE control_png_type_from_string(const std::string control_png_string)
-{
-	const auto& search = control_png_string_enum_map.find(control_png_string);
-	return search != control_png_string_enum_map.end() ? search->second : CONTROL_PNG_TYPE::INVALID;
 };
 
 const std::map<std::string, COLOUR_STATE> color_state_string_enum_map = {

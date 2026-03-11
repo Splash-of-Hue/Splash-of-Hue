@@ -110,10 +110,10 @@ void LoaderSystem::load_level(int level_uid)
 	{
 		for (int grid_y = 0; grid_y < quantize_grid_size.y; grid_y++)
 		{
-			// Get the world space coordinate
-			const vec2 quantize_world_position = scale_to_level(
-				vec2(level_world_position.x + level_quantize_size, level_world_position.y + level_quantize_size) / 2.0f
-			) + vec2(grid_x, grid_y) * float(level_quantize_size);
+			// Get the world space coordinate and offset by half the quantize size to center it
+			vec2 quantize_world_position = scale_to_level(vec2(level_world_position.x, level_world_position.y) + vec2(level_quantize_size) / 2.0f);
+			// Offset by the grid number scaled by the cell size
+			quantize_world_position += vec2(grid_x, grid_y) * float(level_quantize_size);
 
 			// Check if this coordinate is in any of the wall tiles
 			bool is_in_wall = false;
@@ -281,27 +281,28 @@ void load_creatures(const ldtk::Layer& layer)
 		const vec2 position = scale_to_level(vec2(creature_world_position.x, creature_world_position.y));
 		const vec2 size = scale_to_level(vec2(creature_size.x, creature_size.y));
 		Entity creature_entity;
+		const int level_uid = layer.level->uid;
 
 		switch (creature_type)
 		{
 			case CREATURETYPE::ANGLERFISH:
 				// TODO nsTuVKMT: Check if this specific one already exists since it can move
-				creature_entity = createAnglerfish(position, size.x, size.y, color_state);
-				registry.currentLevels.insert(creature_entity, { layer.level->uid });
+				creature_entity = createAnglerfish(level_uid, position, size.x, size.y, color_state);
+				registry.currentLevels.insert(creature_entity, { level_uid });
 				break;
 
 			case CREATURETYPE::CRAB:
-				creature_entity = createCrab(position, size.x, size.y, color_state);
+				creature_entity = createCrab(level_uid , position, size.x, size.y, color_state);
 				break;
 
 			case CREATURETYPE::MINNOWS:
-				creature_entity = createMinnows(position, size.x, size.y, color_state);
+				creature_entity = createMinnows(level_uid, position, size.x, size.y, color_state);
 				break;
 
 			case CREATURETYPE::SAWFISH:
 				// TODO nsTuVKMT: Check if this specific one already exists since it can move
-				creature_entity = createSawfish(position, size.x, size.y, color_state);
-				registry.currentLevels.insert(creature_entity, { layer.level->uid });
+				creature_entity = createSawfish(level_uid, position, size.x, size.y, color_state);
+				registry.currentLevels.insert(creature_entity, { level_uid });
 				break;
 
 			case CREATURETYPE::SHRIMP:
@@ -310,20 +311,18 @@ void load_creatures(const ldtk::Layer& layer)
 				const DIRECTION& direction_state = direction_type_from_string(direction_enum_type.value().name);
 				const ldtk::Field<int> arm_count = ldtk_creature_entity.getField<ldtk::FieldType::Int>("ArmCount");
 
-				creature_entity = createShrimp(layer.level->uid, position, size.x, size.y, color_state, direction_state, arm_count.value());
+				creature_entity = createShrimp(level_uid, position, size.x, size.y, color_state, direction_state, arm_count.value());
 			}
 			break;
 
 			case CREATURETYPE::WHALE:
-				creature_entity = createWhale(position, size.x, size.y, color_state);
+				creature_entity = createWhale(level_uid, position, size.x, size.y, color_state);
 				break;
 
 			default:
 				std::cerr << "WARNING: unknown creature type, skipping." << std::endl;
 				break;
 		}
-
-		registry.levelEntities.insert(creature_entity, { layer.level->uid });
 	}
 }
 
@@ -332,7 +331,6 @@ void load_floor_interactables(const ldtk::Layer& layer)
 	// iterate on Enemy entities
 	for (const ldtk::Entity& floor_interactable_entity : layer.allEntities())
 	{
-		std::cout << "Floor interactable entity: " << floor_interactable_entity.getName() << std::endl; // ADD THIS
 		const std::string floor_interactable_entity_type_string = floor_interactable_entity.getName();
 		ENTITY_TYPE floor_interactable_entity_type = entity_type_from_string(floor_interactable_entity_type_string);
 
@@ -349,9 +347,6 @@ void load_floor_interactables(const ldtk::Layer& layer)
 				continue;
 			case ENTITY_TYPE::BOX:
 				load_box(floor_interactable_entity);
-				continue;
-			case ENTITY_TYPE::CONTROL_PNG_ENTITY:
-				load_control_pictures(floor_interactable_entity);
 				continue;
 			default:
 				continue;
@@ -480,23 +475,11 @@ void load_box(const ldtk::Entity& box_entity)
 {
 	const ldtk::IntPoint& world_pos = box_entity.getWorldPosition();
 	const ldtk::IntPoint& entity_size = box_entity.getSize();
-	vec2 position = vec2(world_pos.x + entity_size.x, world_pos.y + entity_size.y) / 2.0f;
+	vec2 position = vec2(world_pos.x, world_pos.y) + vec2(entity_size.x, entity_size.y) / 2.0f;
 	position = scale_to_level(position);
 	const vec2 size = scale_to_level(vec2(entity_size.x, entity_size.y));
 	Entity box = createBox(position, size.x, size.y);
 	registry.levelEntities.insert(box, { box_entity.layer->level->uid });
-}
-
-void load_control_pictures(const ldtk::Entity& control_picture_entity)
-{
-	const ldtk::Field<ldtk::EnumValue>& control_type_field = control_picture_entity.getField<ldtk::EnumValue>("ControlPictureType");
-	const CONTROL_PNG_TYPE control_png_type = control_png_type_from_string(control_type_field.value().name);
-	const ldtk::IntPoint& world_pos = control_picture_entity.getWorldPosition();
-	const ldtk::IntPoint& entity_size = control_picture_entity.getSize();
-	const vec2 position = scale_to_level(vec2(world_pos.x, world_pos.y));
-	const vec2 size = scale_to_level(vec2(entity_size.x, entity_size.y));
-	Entity control_entity = createFloorPictureControls(position, size.x, size.y, control_png_type);
-	registry.levelEntities.insert(control_entity, { control_picture_entity.layer->level->uid });
 }
 
 void LoaderSystem::unload_level(int level_uid)
