@@ -31,41 +31,10 @@ struct ColourMenuState {
 	bool just_closed = false;
 };
 
-struct ColourMenuInput {
+struct ColourMenuInput
+{
 	int direction = 0;
 };
-
-struct Deadly
-{
-
-};
-
-
-//////////////////////////////////////////////////////////
-// Tower
-struct Tower {
-	float range;	// for vision / detection
-	float timer_ms;	// when to shoot - this could also be a separate timer component...
-};
-
-// Invader
-struct Invader {
-	int health;
-};
-
-// Projectile
-struct Projectile {
-	int damage;
-};
-
-
-
-// used for edible entities
-struct Eatable
-{
-
-};
-
 
 // Stucture to store collision information
 struct Collision
@@ -103,12 +72,6 @@ struct ScreenState
 struct DebugComponent
 {
 	// Note, an empty struct has size 1
-};
-
-// used to hold grid line start and end positions
-struct GridLine {
-	vec2 start_pos = { 0,  0 };
-	vec2 end_pos = { 10, 10 };	// default to diagonal line
 };
 
 struct DeathTimer
