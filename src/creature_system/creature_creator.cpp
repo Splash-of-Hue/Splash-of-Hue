@@ -346,7 +346,7 @@ Entity createSawfish(const int level_uid, vec2 position, float width, float heig
     HurtBox& sawfish_hurtbox = registry.hurtboxes.emplace(sawfish);
     sawfish_hurtbox.mesh.vertices.push_back(vec2(position.x + quarter_width, position.y - quarter_height));
     sawfish_hurtbox.mesh.vertices.push_back(vec2(position.x + quarter_width, position.y + quarter_height));
-    sawfish_hurtbox.mesh.vertices.push_back(vec2(position.x + (quarter_width*2), position.y));
+    sawfish_hurtbox.mesh.vertices.push_back(vec2(position.x + (quarter_width*1.5), position.y));
     sawfish_hurtbox.mesh.centre = position;
 
     Pathfinder& pathfinder = registry.pathfinders.emplace(sawfish);
