@@ -28,3 +28,8 @@ void load_box(const ldtk::Entity& box_entity);
 void load_extra_entities(const ldtk::Layer& layer);
 void set_initial_player_position(const ldtk::Entity& initial_player_position_entity);
 void load_wall(const ldtk::Entity& wall_entity);
+
+const inline vec2 scale_to_level(vec2 input)
+{
+	return input * LEVEL_TO_SCREEN_SCALE;
+}
