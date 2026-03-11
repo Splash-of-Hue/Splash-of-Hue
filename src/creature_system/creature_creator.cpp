@@ -4,7 +4,6 @@
 #include "creature_system/creature_behaviour_tree_builder.hpp"
 #include "creature_system/creature_components.hpp"
 #include <iostream>
-
 /*
 
     Todo: yz2rEB5j : turn the helper functions into private functions so they can't be accidentally called
@@ -31,7 +30,6 @@ void addGeneralCreatureComponents(const int level_uid, Entity creature, vec2 pos
     registry.sizes.insert(creature, Size{ width, height });
     registry.velocities.emplace(creature);
     registry.levelEntities.insert(creature, { level_uid });
-    
     registry.renderRequests.insert(creature, {
         EFFECT_ASSET_ID::TEXTURED,
         GEOMETRY_BUFFER_ID::SPRITE,
@@ -93,7 +91,6 @@ Entity createLeftArm(vec2 shrimp_position, float shrimp_width, vec4 colour)
     float left_arm_y = shrimp_position.y + 5.0f;
 
     Entity& armEntity = createRectangle(vec2(left_arm_x, left_arm_y), shrimp_width, shrimp_width / 4, RENDER_LAYER::CREATURES, colour);
-    
     registry.collidables.emplace(armEntity);
     return armEntity;
 }
@@ -256,7 +253,7 @@ void createOneArmShrimp(Shrimp& shrimp_component, DIRECTION curr_direction_facin
     }
 }
 
-Entity createShrimp(const int level_uid, vec2 position, float width, float height, COLOUR_STATE color_state, DIRECTION curr_direction_facing /* = UP */, int num_arms /* = 2 */)
+Entity createShrimp(const int level_uid, vec2 position, float width, float height, COLOUR_STATE color_state,  DIRECTION curr_direction_facing /* = UP */, int num_arms /* = 2 */)
 {
     Entity shrimp = Entity();
 

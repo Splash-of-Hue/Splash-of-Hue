@@ -292,7 +292,7 @@ void load_creatures(const ldtk::Layer& layer)
 				break;
 
 			case CREATURETYPE::CRAB:
-				creature_entity = createCrab(level_uid , position, size.x, size.y, color_state);
+				creature_entity = createCrab(level_uid, position, size.x, size.y, color_state);
 				break;
 
 			case CREATURETYPE::MINNOWS:
