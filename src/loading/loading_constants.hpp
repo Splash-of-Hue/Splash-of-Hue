@@ -1,10 +1,9 @@
 #pragma once
-#include <common.hpp>
-#include <creature_system/creature_constants.hpp>
-#include <ecs/components.hpp>
-#include <interactables/interactable_constants.hpp>
+#include "common.hpp"
+#include "creature_system/creature_constants.hpp"
+#include "ecs/components.hpp"
+#include "map/map_constants.hpp"
 #include <map>
-#include <map/map_constants.hpp>
 #include <string>
 
 // Currently just for loading rooms, but intentionally extendable
