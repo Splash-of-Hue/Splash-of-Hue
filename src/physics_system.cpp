@@ -644,14 +644,11 @@ bool PhysicsSystem::checkIfCollidingRadius(Entity& entity, Entity& radius_entity
 {
 	if (registry.sizes.has(radius_entity))
 	{
-		if (!box_collides(entity, radius_entity))
+		if (box_collides(entity, radius_entity))
 		{
-			return false;
+			return true;
 		}
 	}
-	else {
-		return false;
-	}
 
-	return true;
+	return false;
 }
