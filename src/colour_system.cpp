@@ -273,6 +273,7 @@ void ColourSystem::changeLightEmissions(Entity& player, int player_colour_state,
 		LightEmission& light_emission_component = registry.lightEmissions.emplace(players_light_emission);
 		light_emission_component.MAX_RADIUS = 150.f;
 		light_emission_component.TIME_TO_GROW = 1000.f;
+		light_emission_component.offset = { 0.f, 0.f };    //change these numbers to test light emission offset of the player.
 
 		RenderRequest& light_emission_render_request = registry.renderRequests.get(players_light_emission);
 		light_emission_render_request.used_geometry = GEOMETRY_BUFFER_ID::GRADIENT_CIRCLE;
@@ -301,7 +302,7 @@ void ColourSystem::updateEmissions(float elapsed_ms)
 		Entity& source_entity = light_emission_component.lightSourceEntity;
 		vec2& source_position = registry.positions.get(source_entity);
 		
-		light_emission_position = source_position;
+		light_emission_position = source_position + light_emission_component.offset;
 
 		Size& light_emission_size = registry.sizes.get(light_emission_entity);
 		if (light_emission_size.width < light_emission_component.MAX_RADIUS){

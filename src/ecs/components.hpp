@@ -112,6 +112,7 @@ struct LightEmission
 	Entity lightSourceEntity;
 	float MAX_RADIUS = 100.f;
 	float TIME_TO_GROW = 1000.f;
+	vec2 offset;
 };
 
 struct LightSource 
