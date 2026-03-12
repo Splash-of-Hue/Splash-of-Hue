@@ -47,7 +47,7 @@ Entity PlayerControllerSystem::create_player()
 	polygon.vertices.push_back(vec2(pos.x, pos.y - size.height * 0.45f)); // bottom
 	polygon.vertices.push_back(vec2(pos.x + size.width * 0.45f, pos.y + size.height * 0.45f)); // top right
 	polygon.vertices.push_back(vec2(pos.x - size.width * 0.45f, pos.y + size.height * 0.45f)); // top left
-
+	polygon.base_vertices = polygon.vertices;
 
 	return player_entity;
 }

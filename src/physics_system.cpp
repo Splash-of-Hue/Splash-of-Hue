@@ -416,7 +416,7 @@ PolygonMesh findHitbox(const Entity& e)
 	vertices.push_back({vec2(pos.x + half_width, pos.y - half_height) }); // bottom
 	vertices.push_back(vec2(pos.x + half_width, pos.y + half_height)); // top right
 	vertices.push_back(vec2(pos.x - half_width, pos.y + half_height)); // top left
-	PolygonMesh& polygon = PolygonMesh{vertices, pos };
+	PolygonMesh& polygon = PolygonMesh{vertices, vertices, pos};
 
 	return polygon;
 }
@@ -546,17 +546,20 @@ void handle_inelastic_collision_mesh(Entity& entity_i, Entity& entity_j, vec3 pe
 void rotatePolygon(PolygonMesh& polygon, float radAngle) {
 	float c = cosf(radAngle);
 	float s = sinf(radAngle);
-	for (vec2& v : polygon.vertices) {
-		vec2 dist_from_centre = v - polygon.centre;
+	for (int i = 0; i < polygon.vertices.size(); i++) {
+		vec2 dist_from_centre = polygon.base_vertices[i] - polygon.centre;
 		float rotated_x = dist_from_centre.x * c + dist_from_centre.y * s;
 		float rotated_y = dist_from_centre.x * s - dist_from_centre.y * c;
-		v = polygon.centre + vec2{ rotated_x, rotated_y };
+		polygon.vertices[i] = polygon.centre + vec2{rotated_x, rotated_y};
 	}
 }
 
 void movePolygon(PolygonMesh& polygon, vec2& pos) {
 	vec2 change_in_pos = pos - polygon.centre;
 	for (vec2& v : polygon.vertices) {
+		v += change_in_pos;
+	}
+	for (vec2& v : polygon.base_vertices) {
 		v += change_in_pos;
 	}
 	polygon.centre = pos;
