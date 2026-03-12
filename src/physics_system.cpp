@@ -256,7 +256,6 @@ void handle_hurt_collision(Entity& entity_i, Entity& entity_j) {
 		if (!registry.creatureInelasticCollisions.has(entity_creature))
 		{
 			Collidable& other_collidable = registry.collidables.get(entity_other);
-			//don't get dizzy if colliding with another creature
 			if (other_collidable.inelastic)
 			{
 				registry.creatureInelasticCollisions.emplace(entity_creature);
