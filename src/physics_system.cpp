@@ -559,11 +559,9 @@ void movePolygon(PolygonMesh& polygon, vec2& pos) {
 	if (change_in_pos.x == 0 && change_in_pos.y == 0) {
 		return;
 	}
-	for (vec2& v : polygon.vertices) {
-		v += change_in_pos;
-	}
-	for (vec2& v : polygon.base_vertices) {
-		v += change_in_pos;
+	for (int i = 0; i < polygon.vertices.size(); i++) {
+		polygon.vertices[i] += change_in_pos;
+		polygon.base_vertices[i] += change_in_pos;
 	}
 	polygon.centre = pos;
 }
