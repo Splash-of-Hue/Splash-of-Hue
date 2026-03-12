@@ -556,6 +556,9 @@ void rotatePolygon(PolygonMesh& polygon, float radAngle) {
 
 void movePolygon(PolygonMesh& polygon, vec2& pos) {
 	vec2 change_in_pos = pos - polygon.centre;
+	if (change_in_pos.x == 0 && change_in_pos.y == 0) {
+		return;
+	}
 	for (vec2& v : polygon.vertices) {
 		v += change_in_pos;
 	}
