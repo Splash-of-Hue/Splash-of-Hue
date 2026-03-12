@@ -1,6 +1,6 @@
 #include "creature_system/creature_creator.hpp"
 #include "ecs/registry.hpp"
-#include "world_init.hpp"
+#include "shapes/shape_build_init.hpp"
 #include "creature_system/creature_behaviour_tree_builder.hpp"
 #include "creature_system/creature_components.hpp"
 #include <iostream>
