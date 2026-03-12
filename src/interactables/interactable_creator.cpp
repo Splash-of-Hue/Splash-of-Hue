@@ -69,6 +69,55 @@ Entity createColourOrb(vec2 position, float radius, COLOUR_STATE colour_state)
 	return colourOrb;
 }
 
+Entity createFloorPictureControls(vec2 position, float width, float height, CONTROL_PNG_TYPE control_png_type)
+{
+	Size size = { width, height };
+	Entity control_entity = addGeneralInteractableComponents(position, size, INTERACTABLE_TYPE::CONTROLS);
+
+	registry.renderRequests.insert(
+		control_entity,
+		{
+			EFFECT_ASSET_ID::TEXTURED,
+			GEOMETRY_BUFFER_ID::SPRITE,
+			RENDER_LAYER::FLOOR_DECORATIONS
+		}
+	);
+
+	ANIMATION_TRIGGER trigger;
+	switch (control_png_type)
+	{
+	case CONTROL_PNG_TYPE::WASD:
+		trigger = ANIMATION_TRIGGER::WASD;
+		break;
+	case CONTROL_PNG_TYPE::ARROW_NO_RED:
+		trigger = ANIMATION_TRIGGER::ARROW_NO_RED;
+		break;
+	case CONTROL_PNG_TYPE::ARROW_RED:
+		trigger = ANIMATION_TRIGGER::ARROW_RED;
+		break;
+	case CONTROL_PNG_TYPE::COLOUR_AFFECTS:
+		trigger = ANIMATION_TRIGGER::COLOUR_AFFECTS;
+		break;
+	default:
+		trigger = ANIMATION_TRIGGER::WASD;
+		break;
+	}
+
+	const Animatable animatable = {
+		ANIMATABLE_TYPE::CONTROLS_SHEET,
+		ANIMATION_BEHAVIOR::LOOP,
+		trigger,
+		1
+	};
+
+	registry.animatables.insert(control_entity, animatable);
+	registry.textured.insert(control_entity, { TEXTURE_ASSET_ID::CONTROLS_SHEET });
+	registry.scales.insert(control_entity, vec2(width, height));
+	registry.angles.emplace(control_entity);
+
+	return control_entity;
+}
+
 Entity createMushroom(vec2 position, float radius, COLOUR_STATE colour_state)
 {
 
