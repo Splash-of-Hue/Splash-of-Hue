@@ -3804,7 +3804,7 @@
 						},
 						{
 							"__identifier": "Control_PNG_entity",
-							"__grid": [55,71],
+							"__grid": [77,67],
 							"__pivot": [0,0],
 							"__tags": ["Floor_Interactable"],
 							"__tile": null,
@@ -3813,13 +3813,13 @@
 							"width": 400,
 							"height": 280,
 							"defUid": 63,
-							"px": [440,568],
+							"px": [616,536],
 							"fieldInstances": [{ "__identifier": "ControlPictureType", "__type": "LocalEnum.ControlPictureType", "__value": "ARROW_RED", "__tile": null, "defUid": 65, "realEditorValues": [{
 								"id": "V_String",
 								"params": ["ARROW_RED"]
 							}] }],
-							"__worldX": 2360,
-							"__worldY": -512
+							"__worldX": 2536,
+							"__worldY": -544
 						}
 					]
 				},
@@ -8863,7 +8863,7 @@
 						},
 						{
 							"__identifier": "Control_PNG_entity",
-							"__grid": [133,73],
+							"__grid": [133,83],
 							"__pivot": [0,0],
 							"__tags": ["Floor_Interactable"],
 							"__tile": null,
@@ -8872,17 +8872,17 @@
 							"width": 400,
 							"height": 280,
 							"defUid": 63,
-							"px": [1064,584],
+							"px": [1064,664],
 							"fieldInstances": [{ "__identifier": "ControlPictureType", "__type": "LocalEnum.ControlPictureType", "__value": "COLOUR_AFFECTS", "__tile": null, "defUid": 65, "realEditorValues": [{
 								"id": "V_String",
 								"params": ["COLOUR_AFFECTS"]
 							}] }],
 							"__worldX": 4904,
-							"__worldY": -1576
+							"__worldY": -1496
 						},
 						{
 							"__identifier": "Control_PNG_entity",
-							"__grid": [133,33],
+							"__grid": [133,43],
 							"__pivot": [0,0],
 							"__tags": ["Floor_Interactable"],
 							"__tile": null,
@@ -8891,13 +8891,13 @@
 							"width": 400,
 							"height": 280,
 							"defUid": 63,
-							"px": [1064,264],
+							"px": [1064,344],
 							"fieldInstances": [{ "__identifier": "ControlPictureType", "__type": "LocalEnum.ControlPictureType", "__value": "ARROW_NO_RED", "__tile": null, "defUid": 65, "realEditorValues": [{
 								"id": "V_String",
 								"params": ["ARROW_NO_RED"]
 							}] }],
 							"__worldX": 4904,
-							"__worldY": -1896
+							"__worldY": -1816
 						}
 					]
 				},
