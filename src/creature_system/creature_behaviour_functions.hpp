@@ -31,7 +31,6 @@ public:
 	static BEHAVIOUR_TREE_STATUS requestNewPath(Entity& creature, float elapsed_ms);
 	static BEHAVIOUR_TREE_STATUS requestNewRandomPath(Entity& creature, float elapsed_ms);
 	// Colour
-	static BEHAVIOUR_TREE_STATUS makeColour(Entity& creature, COLOUR_STATE colour_state);
 	static BEHAVIOUR_TREE_STATUS makeBlue(Entity& creature, float elapsed_ms);
 	static BEHAVIOUR_TREE_STATUS makeRed(Entity& creature, float elapsed_ms);
 	static BEHAVIOUR_TREE_STATUS makeNeutral(Entity& creature, float elapsed_ms);
@@ -62,7 +61,6 @@ public:
 	// ===== Decorator Node Functions =====
 	// Colour
 	//todo: https://trello.com/c/SPoplE91/184-1-consolidate-inxradius-components
-	static BEHAVIOUR_TREE_STATUS isCreatureWithinColourRadiusHelper(Entity& creature, bool& inRadius, Entity& radius_entity, COLOUR_STATE colour_state);
 	static BEHAVIOUR_TREE_STATUS isCreatureWithinAnyColourRadius(Entity& creature, float elapsed_ms);
 	static BEHAVIOUR_TREE_STATUS isCreatureWithinPlayerBlueColourRadius(Entity& creature, float elapsed_ms);
 	static BEHAVIOUR_TREE_STATUS isCreatureWithinPlayerRedColourRadius(Entity& creature, float elapsed_ms);
@@ -85,7 +83,8 @@ public:
 
 private:
 	// ===== NODE HELPERS =====
-
+	static BEHAVIOUR_TREE_STATUS makeColour(Entity& creature, COLOUR_STATE colour_state);
+	static BEHAVIOUR_TREE_STATUS isCreatureWithinSpecificColourRadius(Entity& creature, bool& inRadius, std::vector<Entity>& radius_list, COLOUR_STATE colour_state);
 	// Shrimp helpers
 	static BEHAVIOUR_TREE_STATUS disableCollidableComponent(std::vector<Entity>& entityList);
 	static BEHAVIOUR_TREE_STATUS enableCollidableComponent(std::vector<Entity>& entityList);

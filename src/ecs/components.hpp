@@ -162,7 +162,7 @@ struct InRadius
 	bool inPlayerRadius = false;
 	bool inCreatureRadius = false;
 	bool inInteractableRadius = false;
-	Entity playerRadius;
-	Entity creatureRadius;
-	Entity interactableRadius;
+	std::vector<Entity> playerRadius;
+	std::vector<Entity> creatureRadius;
+	std::vector<Entity> interactableRadius;
 };
