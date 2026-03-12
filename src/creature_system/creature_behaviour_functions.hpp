@@ -84,7 +84,7 @@ public:
 private:
 	// ===== NODE HELPERS =====
 	static BEHAVIOUR_TREE_STATUS makeColour(Entity& creature, COLOUR_STATE colour_state);
-	static BEHAVIOUR_TREE_STATUS isCreatureWithinSpecificColourRadius(Entity& creature, bool& inRadius, Entity& radius_entity, COLOUR_STATE colour_state);
+	static BEHAVIOUR_TREE_STATUS isCreatureWithinSpecificColourRadius(Entity& creature, bool& inRadius, std::vector<Entity>& radius_list, COLOUR_STATE colour_state);
 	// Shrimp helpers
 	static BEHAVIOUR_TREE_STATUS disableCollidableComponent(std::vector<Entity>& entityList);
 	static BEHAVIOUR_TREE_STATUS enableCollidableComponent(std::vector<Entity>& entityList);

@@ -24,26 +24,29 @@ BEHAVIOUR_TREE_STATUS CreatureBehaviourFunctions::isCreatureWithinAnyColourRadiu
 	return BEHAVIOUR_TREE_STATUS::FAILURE;
 }
 
-BEHAVIOUR_TREE_STATUS CreatureBehaviourFunctions::isCreatureWithinSpecificColourRadius(Entity& creature, bool& inRadius, Entity& radius_entity, COLOUR_STATE colour_state)
+BEHAVIOUR_TREE_STATUS CreatureBehaviourFunctions::isCreatureWithinSpecificColourRadius(Entity& creature, bool& inRadius, std::vector<Entity>& radius_list, COLOUR_STATE colour_state)
 {
 	if (!inRadius)
 	{
 		return BEHAVIOUR_TREE_STATUS::FAILURE;
 	}
 
-	if (!registry.colourStates.has(radius_entity))
+	for (Entity& entity : radius_list)
 	{
-		return BEHAVIOUR_TREE_STATUS::FAILURE;
+		if (!registry.colourStates.has(entity))
+		{
+			return BEHAVIOUR_TREE_STATUS::FAILURE;
+		}
+
+		ColourState& radius_colour_state = registry.colourStates.get(entity);
+
+		if (radius_colour_state.curr_colour_state == colour_state)
+		{
+			return BEHAVIOUR_TREE_STATUS::SUCCESS;
+		}
 	}
 
-	ColourState& radius_colour_state = registry.colourStates.get(radius_entity);
-
-	if (radius_colour_state.curr_colour_state != colour_state)
-	{
-		return BEHAVIOUR_TREE_STATUS::FAILURE;
-	}
-
-	return BEHAVIOUR_TREE_STATUS::SUCCESS;
+	return BEHAVIOUR_TREE_STATUS::FAILURE;
 }
 
 BEHAVIOUR_TREE_STATUS CreatureBehaviourFunctions::isCreatureWithinPlayerBlueColourRadius(Entity& creature, float elapsed_ms)

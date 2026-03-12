@@ -137,6 +137,18 @@ bool is_light_emission_collision(Entity& entity_i, Entity& entity_j)
 	return false;
 }
 
+bool inRadiusList(Entity& emission_entity, std::vector<Entity>& radius_list)
+{
+	for (Entity& receiving_entity : radius_list)
+	{
+		if (receiving_entity.id() == emission_entity.id())
+		{
+			return true;
+		}
+	}
+
+	return false;
+}
 
 void light_emission_collisions(Entity& entity_i, Entity& entity_j) 
 {
@@ -164,19 +176,28 @@ void light_emission_collisions(Entity& entity_i, Entity& entity_j)
 			if (registry.players.has(source_entity))
 			{
 				in_radius_component.inPlayerRadius = true;
-				in_radius_component.playerRadius = light_emission_entity;
+				if (!inRadiusList(light_emission_entity, in_radius_component.playerRadius))
+				{
+					in_radius_component.playerRadius.push_back(light_emission_entity);
+				}
 			}
 
 			if (registry.creatures.has(source_entity))
 			{
-				in_radius_component.inCreatureRadius = true;
-				in_radius_component.creatureRadius = light_emission_entity;
+				in_radius_component.inPlayerRadius = true;
+				if (!inRadiusList(light_emission_entity, in_radius_component.creatureRadius))
+				{
+					in_radius_component.creatureRadius.push_back(light_emission_entity);
+				}
 			}
 
 			if (registry.interactables.has(source_entity))
 			{
-				in_radius_component.inInteractableRadius = true;
-				in_radius_component.interactableRadius = light_emission_entity;
+				in_radius_component.inPlayerRadius = true;
+				if (!inRadiusList(light_emission_entity, in_radius_component.interactableRadius))
+				{
+					in_radius_component.interactableRadius.push_back(light_emission_entity);
+				}
 			}
 		}
 	}
@@ -627,28 +648,54 @@ void PhysicsSystem::checkIfInRadius()
 		InRadius& in_radius_component = registry.inRadius.get(entity);
 		if (in_radius_component.inPlayerRadius)
 		{
-			in_radius_component.inPlayerRadius = checkIfCollidingRadius(entity, in_radius_component.playerRadius);
+			checkIfCollidingRadius(entity, in_radius_component.playerRadius);
+			if (in_radius_component.playerRadius.size() == 0)
+			{
+				in_radius_component.inPlayerRadius = false;
+			}
 		}
 		if (in_radius_component.inCreatureRadius)
 		{
-			in_radius_component.inCreatureRadius = checkIfCollidingRadius(entity, in_radius_component.creatureRadius);
+			checkIfCollidingRadius(entity, in_radius_component.creatureRadius);
+			if (in_radius_component.creatureRadius.size() == 0)
+			{
+				in_radius_component.inCreatureRadius = false;
+			}
 		}
-		if (in_radius_component.inCreatureRadius)
+		if (in_radius_component.inInteractableRadius)
 		{
-			in_radius_component.inCreatureRadius = checkIfCollidingRadius(entity, in_radius_component.interactableRadius);
+			checkIfCollidingRadius(entity, in_radius_component.interactableRadius);
+			if (in_radius_component.interactableRadius.size() == 0)
+			{
+				in_radius_component.inInteractableRadius = false;
+			}
 		}
 	}
 }
 
-bool PhysicsSystem::checkIfCollidingRadius(Entity& entity, Entity& radius_entity)
+void PhysicsSystem::checkIfCollidingRadius(Entity& entity, std::vector<Entity>& radius_list)
 {
-	if (registry.sizes.has(radius_entity))
+	std::vector<int> indexesToErase;
+	int indexToErase = 0;
+	for (Entity& radius_entity : radius_list)
 	{
-		if (box_collides(entity, radius_entity))
+		if (registry.sizes.has(radius_entity))
 		{
-			return true;
+			if (!box_collides(entity, radius_entity))
+			{
+				indexesToErase.push_back(indexToErase);
+			}
+		}
+		else 
+		{
+			indexesToErase.push_back(indexToErase);
 		}
 	}
-
-	return false;
+	
+	for (int index : indexesToErase)
+	{
+		radius_list.erase(radius_list.begin() + index);
+	}
+	
+	return;
 }
