@@ -85,7 +85,7 @@ public:
 	ComponentContainer<InInteractableRadius> inInteractableRadius;
 	ComponentContainer<InPlayerRadius> inPlayerRadius;
 	ComponentContainer<PolygonMesh> hitboxes;
-	ComponentContainer<HurtBox> hurtboxes;
+	ComponentContainer<PolygonMesh> hurtboxes;
 	// Physics - Movement / Transforms
 	ComponentContainer<Angle> angles;
 	ComponentContainer<vec2> positions;

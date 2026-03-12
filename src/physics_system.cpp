@@ -508,10 +508,10 @@ vec3 mesh_collides(const Entity& entity1, const Entity& entity2,  bool isHurtCol
 	} 
 	if (isHurtCollision) {
 		if (registry.hurtboxes.has(entity1)) {
-			a = registry.hurtboxes.get(entity1).mesh;
+			a = registry.hurtboxes.get(entity1);
 		}
 		if (registry.hurtboxes.has(entity2)) {
-			b = registry.hurtboxes.get(entity2).mesh;
+			b = registry.hurtboxes.get(entity2);
 		}
 	}
 	return (axisCollision(a, b));
@@ -663,7 +663,7 @@ void PhysicsSystem::handle_movement(float elapsed_ms)
 			movePolygon(registry.hitboxes.get(e), pos);
 		}
 		if (registry.hurtboxes.has(e)) {
-			movePolygon(registry.hurtboxes.get(e).mesh, pos);
+			movePolygon(registry.hurtboxes.get(e), pos);
 		}
 		if (registry.angles.has(e)) {
 			float radAngle = registry.angles.get(e).degrees * M_PI / 180.f;
@@ -671,7 +671,7 @@ void PhysicsSystem::handle_movement(float elapsed_ms)
 				rotatePolygon(registry.hitboxes.get(e), radAngle);
 			}
 			if (registry.hurtboxes.has(e)) {
-				rotatePolygon(registry.hurtboxes.get(e).mesh, radAngle);
+				rotatePolygon(registry.hurtboxes.get(e), radAngle);
 			}
 		}
 	}

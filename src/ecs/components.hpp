@@ -145,11 +145,6 @@ struct PolygonMesh
 	vec2 centre;
 };
 
-struct HurtBox
-{
-	PolygonMesh mesh;
-};
-
 struct LightEmission 
 {
 	Entity lightSourceEntity;

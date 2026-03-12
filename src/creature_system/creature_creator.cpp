@@ -344,12 +344,12 @@ Entity createSawfish(const int level_uid, vec2 position, float width, float heig
     sawfish_hitbox.centre = position;
     sawfish_hitbox.base_vertices = sawfish_hitbox.vertices;
 
-    HurtBox& sawfish_hurtbox = registry.hurtboxes.emplace(sawfish);
-    sawfish_hurtbox.mesh.vertices.push_back(vec2(position.x + quarter_width, position.y - quarter_height*0.5));
-    sawfish_hurtbox.mesh.vertices.push_back(vec2(position.x + quarter_width, position.y + quarter_height*0.5));
-    sawfish_hurtbox.mesh.vertices.push_back(vec2(position.x + (quarter_width*1.5), position.y));
-    sawfish_hurtbox.mesh.centre = position;
-    sawfish_hurtbox.mesh.base_vertices = sawfish_hurtbox.mesh.vertices;
+    PolygonMesh& sawfish_hurtbox = registry.hurtboxes.emplace(sawfish);
+    sawfish_hurtbox.vertices.push_back(vec2(position.x + quarter_width, position.y - quarter_height*0.5));
+    sawfish_hurtbox.vertices.push_back(vec2(position.x + quarter_width, position.y + quarter_height*0.5));
+    sawfish_hurtbox.vertices.push_back(vec2(position.x + (quarter_width*1.5), position.y));
+    sawfish_hurtbox.centre = position;
+    sawfish_hurtbox.base_vertices = sawfish_hurtbox.vertices;
 
     Pathfinder& pathfinder = registry.pathfinders.emplace(sawfish);
     pathfinder.target = registry.players.entities[0];
