@@ -37,6 +37,7 @@ Entity PlayerControllerSystem::create_player()
 	vec2 velocity = { 0.0f, 0.0f };
 	player_movement = vec2(0);
 	registry.players.emplace(player_entity);
+	registry.canEmitRadius.emplace(player_entity);
 	registry.velocities.insert(player_entity, velocity);
 	registry.colourStates.emplace(player_entity, player_color_state);
 	Collidable& collidable = registry.collidables.emplace(player_entity);

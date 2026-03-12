@@ -166,3 +166,8 @@ struct InRadius
 	std::vector<Entity> creatureRadius;
 	std::vector<Entity> interactableRadius;
 };
+
+struct CanEmitRadius
+{
+
+};

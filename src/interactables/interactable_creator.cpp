@@ -82,6 +82,7 @@ Entity createMushroom(vec2 position, float radius, COLOUR_STATE colour_state)
 	registry.scales.insert(mushroom, vec2(size.width, size.height));
 	registry.colourStates.insert(mushroom, { colour_state, colour_state });
 	registry.colors.insert(mushroom, vec4(1.f, 0.f, 0.f, 1.0f));
+	registry.canEmitRadius.emplace(mushroom);
 	registry.renderRequests.insert(
 		mushroom,
 		{

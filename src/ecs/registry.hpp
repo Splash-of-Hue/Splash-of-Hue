@@ -43,6 +43,7 @@ public:
 	ComponentContainer<Animation> animations;
 	ComponentContainer<Textured> textured;
 	// Colour System
+	ComponentContainer<CanEmitRadius> canEmitRadius;
 	ComponentContainer<vec4> colors;
 	ComponentContainer<ColourState> colourStates;
 	ComponentContainer<ColourWheel> colourWheels;
@@ -132,6 +133,7 @@ public:
 		registry_list.push_back(&animations);
 		registry_list.push_back(&textured);
 		// Colour System
+		registry_list.push_back(&canEmitRadius);
 		registry_list.push_back(&colors);
 		registry_list.push_back(&colourStates);
 		registry_list.push_back(&colourWheels);

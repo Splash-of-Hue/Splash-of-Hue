@@ -186,20 +186,25 @@ void ColourSystem::applyColorToPlayer(COLOUR_STATE colour)
 	if (!registry.colourStates.has(player)) {
 		registry.colourStates.emplace(player);
 	}
+
 	ColourState& player_colour_state = registry.colourStates.get(player);
-	player_colour_state.prev_colour_state = player_colour_state.curr_colour_state;
-	player_colour_state.curr_colour_state = colour;
+	if (player_colour_state.curr_colour_state != colour)
+	{
+		player_colour_state.prev_colour_state = player_colour_state.curr_colour_state;
+		player_colour_state.curr_colour_state = colour;
+
+		//TODO: https://trello.com/c/XWeiA55L/149-1-colour-menu-ui-always-visible
+		setEntityVisualColour(player, colour);
+		changeLightEmissions(player, colour, 150);
+		std::cout << "Player colour set to: " << static_cast<int>(colour) << std::endl;
+	}
 	
-	//TODO: https://trello.com/c/XWeiA55L/149-1-colour-menu-ui-always-visible
-	setEntityVisualColour(player, colour);
-	changeLightEmissions(player, static_cast<int>(player_colour_state.curr_colour_state), static_cast<int>(player_colour_state.prev_colour_state));
-	std::cout << "Player colour set to: " << static_cast<int>(colour) << std::endl;
 }
 
 void ColourSystem::step(float elapsed_ms)
 {
 	(void)elapsed_ms; // unused for now
-
+	checkForDifferentEmissions();
 	std::vector<Entity> to_remove;
 	for (Entity& entity : registry.controls.entities)
 	{
@@ -230,72 +235,141 @@ void ColourSystem::step(float elapsed_ms)
 	updateEmissions(elapsed_ms);
 }
 
-void ColourSystem::changeLightEmissions(Entity& player, int player_colour_state, int player_colour_state_prev)
+void ColourSystem::checkForDifferentEmissions()
+{
+	for (Entity& entity : registry.canEmitRadius.entities)
+	{
+		if (registry.inRadius.has(entity))
+		{
+			InRadius& in_radius_component = registry.inRadius.get(entity);
+
+			if (in_radius_component.inCreatureRadius)
+			{
+				Entity& recent_creature_radius_entity = in_radius_component.creatureRadius[0];
+
+				ColourState& entity_colour_state = registry.colourStates.get(entity);
+				ColourState& radius_colour_state = registry.colourStates.get(recent_creature_radius_entity);
+
+				if (entity_colour_state.curr_colour_state != radius_colour_state.curr_colour_state)
+				{
+					entity_colour_state.prev_colour_state = entity_colour_state.curr_colour_state;
+					entity_colour_state.curr_colour_state = radius_colour_state.curr_colour_state;
+					int radius_size = 0;
+					if (registry.mushrooms.has(entity))
+						radius_size = 300;
+					changeLightEmissions(entity, radius_colour_state.curr_colour_state, radius_size);
+				}
+			}
+
+			else if (in_radius_component.inPlayerRadius)
+			{
+				Entity& recent_player_radius_entity = in_radius_component.playerRadius[0];
+
+				ColourState& entity_colour_state = registry.colourStates.get(entity);
+				ColourState& radius_colour_state = registry.colourStates.get(recent_player_radius_entity);
+				if (entity_colour_state.curr_colour_state != radius_colour_state.curr_colour_state)
+				{
+					entity_colour_state.prev_colour_state = entity_colour_state.curr_colour_state;
+					entity_colour_state.curr_colour_state = radius_colour_state.curr_colour_state;
+					int radius_size = 0;
+					if (registry.mushrooms.has(entity))
+						radius_size = 300;
+					changeLightEmissions(entity, radius_colour_state.curr_colour_state, radius_size);
+				}
+			}
+
+			else if (in_radius_component.inInteractableRadius)
+			{
+				Entity& recent_interactable_radius_entity = in_radius_component.interactableRadius[0];
+
+				ColourState& entity_colour_state = registry.colourStates.get(entity);
+				ColourState& radius_colour_state = registry.colourStates.get(recent_interactable_radius_entity);
+
+				if (entity_colour_state.curr_colour_state != radius_colour_state.curr_colour_state)
+				{
+					entity_colour_state.prev_colour_state = entity_colour_state.curr_colour_state;
+					entity_colour_state.curr_colour_state = radius_colour_state.curr_colour_state;
+					int radius_size = 0;
+					if (registry.mushrooms.has(entity))
+						radius_size = 300;
+					changeLightEmissions(entity, radius_colour_state.curr_colour_state, radius_size);
+				}
+			}
+			else
+			{
+				ColourState& entity_colour_state = registry.colourStates.get(entity);
+				entity_colour_state.prev_colour_state = entity_colour_state.curr_colour_state;
+				entity_colour_state.curr_colour_state = COLOUR_STATE::NEUTRAL;
+				registry.inRadius.remove(entity);
+				int radius_size = 0;
+
+				radius_size = 300;
+				changeLightEmissions(entity, COLOUR_STATE::NEUTRAL, radius_size);
+			}
+		}
+	}
+}
+
+
+void ColourSystem::changeLightEmissions(Entity& entity, COLOUR_STATE colour_state_to_turn_to, int radius_size)
 {
 	//if neutral, delete colour circle
-	if (player_colour_state == static_cast<int>(COLOUR_STATE::NEUTRAL)) {
-		for (Entity& entity_in_player_colour_radius : registry.inRadius.entities)
-		{
-			registry.inRadius.get(entity_in_player_colour_radius).inPlayerRadius = false;
-		}
-		registry.lightSources.remove(player);
-		registry.remove_all_components_of(players_light_emission);
+	if (colour_state_to_turn_to == COLOUR_STATE::NEUTRAL && registry.lightSources.has(entity)) {
+		registry.remove_all_components_of(registry.lightSources.get(entity).lightEmissionEntity);
+		registry.lightSources.remove(entity);
 		return;
 	}
-
-	//if same colour, don't reanimate
-	if (player_colour_state == player_colour_state_prev)
-	{
-		return;
-	}
+	
 	//if player already has light emission, but the light is a different colour,
 	//make size 0, so that you can see the regrowing of the circle
-	if (registry.lightSources.has(player))
+	if (registry.lightSources.has(entity))
 	{
-		LightSource& light_source_component = registry.lightSources.get(player);
-		players_light_emission = light_source_component.lightEmissionEntity;
-		Size& colour_circle_size = registry.sizes.get(players_light_emission);
+		LightSource& light_source_component = registry.lightSources.get(entity);
+		Entity& light_emission_entity = light_source_component.lightEmissionEntity;
+		Size& colour_circle_size = registry.sizes.get(light_emission_entity);
 		colour_circle_size.width = 0;
 		colour_circle_size.height = 0;
 	}
 
 	//create lightsource if player does not have one
 	else {
-		vec2& player_position = registry.positions.get(player);
+		vec2& position = registry.positions.get(entity);
 		vec4 light_emission_colour = DEFAULT_COLOUR_VEC4;
 		light_emission_colour.a = 0.2f;
 
-		players_light_emission = createCircle(player_position, 1.f, RENDER_LAYER::PLAYER, light_emission_colour);
-		Collidable& light_emission_collidable_component = registry.collidables.emplace(players_light_emission);
+		Entity& light_emission_entity = createCircle(position, 1.f, RENDER_LAYER::PLAYER, light_emission_colour);
+		Collidable& light_emission_collidable_component = registry.collidables.emplace(light_emission_entity);
 		light_emission_collidable_component.overlay = true;
 		light_emission_collidable_component.inelastic = false;
 
-		LightEmission& light_emission_component = registry.lightEmissions.emplace(players_light_emission);
-		light_emission_component.MAX_RADIUS = 150.f;
+		LightEmission& light_emission_component = registry.lightEmissions.emplace(light_emission_entity);
+		light_emission_component.MAX_RADIUS = radius_size;
 		light_emission_component.TIME_TO_GROW = 1000.f;
 		light_emission_component.offset = { 0.f, 0.f };    //change these numbers to test light emission offset of the player.
 
-		RenderRequest& light_emission_render_request = registry.renderRequests.get(players_light_emission);
+		RenderRequest& light_emission_render_request = registry.renderRequests.get(light_emission_entity);
 		light_emission_render_request.used_geometry = GEOMETRY_BUFFER_ID::GRADIENT_CIRCLE;
 
-		ColourState& colour_circle_colour_state = registry.colourStates.emplace(players_light_emission);
-		light_emission_component.lightSourceEntity = player;
+		ColourState& colour_circle_colour_state = registry.colourStates.emplace(light_emission_entity);
+		light_emission_component.lightSourceEntity = entity;
 
-		LightSource& light_source_component = registry.lightSources.emplace(player);
-		light_source_component.lightEmissionEntity = players_light_emission;
+		LightSource& light_source_component = registry.lightSources.emplace(entity);
+		light_source_component.lightEmissionEntity = light_emission_entity;
 	}
 
-	ColourState& light_emission_colour_state = registry.colourStates.get(players_light_emission);
+	Entity& light_emission_entity = registry.lightSources.get(entity).lightEmissionEntity;
+
+	ColourState& light_emission_colour_state = registry.colourStates.get(light_emission_entity);
 	light_emission_colour_state.prev_colour_state = light_emission_colour_state.curr_colour_state;
-	light_emission_colour_state.curr_colour_state = COLOUR_STATE(player_colour_state);
-	setEntityVisualColour(players_light_emission, COLOUR_STATE(player_colour_state));
+	light_emission_colour_state.curr_colour_state = colour_state_to_turn_to;
+	setEntityVisualColour(light_emission_entity, colour_state_to_turn_to);
+	
 }
 
 void ColourSystem::updateEmissions(float elapsed_ms)
 {
 	for (Entity& light_emission_entity : registry.lightEmissions.entities)
 	{
-		
 		//circle updates to location of whatever its attached to
 		vec2& light_emission_position = registry.positions.get(light_emission_entity);
 		
@@ -306,7 +380,8 @@ void ColourSystem::updateEmissions(float elapsed_ms)
 		light_emission_position = source_position + light_emission_component.offset;
 
 		Size& light_emission_size = registry.sizes.get(light_emission_entity);
-		if (light_emission_size.width < light_emission_component.MAX_RADIUS){
+		if (light_emission_size.width < light_emission_component.MAX_RADIUS)
+		{
 			light_emission_size.width = min(light_emission_component.MAX_RADIUS,
 											light_emission_size.width + light_emission_component.MAX_RADIUS * elapsed_ms / light_emission_component.TIME_TO_GROW);
 			light_emission_size.height = min(light_emission_component.MAX_RADIUS,
