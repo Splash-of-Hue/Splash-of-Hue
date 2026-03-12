@@ -345,9 +345,9 @@ Entity createSawfish(const int level_uid, vec2 position, float width, float heig
     sawfish_hitbox.base_vertices = sawfish_hitbox.vertices;
 
     PolygonMesh& sawfish_hurtbox = registry.hurtboxes.emplace(sawfish);
-    sawfish_hurtbox.vertices.push_back(vec2(position.x + quarter_width, position.y - quarter_height*0.5));
-    sawfish_hurtbox.vertices.push_back(vec2(position.x + quarter_width, position.y + quarter_height*0.5));
-    sawfish_hurtbox.vertices.push_back(vec2(position.x + (quarter_width*1.5), position.y));
+    sawfish_hurtbox.vertices.push_back(vec2(position.x + quarter_width, position.y - quarter_height));
+    sawfish_hurtbox.vertices.push_back(vec2(position.x + quarter_width, position.y + quarter_height));
+    sawfish_hurtbox.vertices.push_back(vec2(position.x + (quarter_width*2), position.y));
     sawfish_hurtbox.centre = position;
     sawfish_hurtbox.base_vertices = sawfish_hurtbox.vertices;
 
