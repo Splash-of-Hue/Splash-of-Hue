@@ -1890,7 +1890,7 @@
 						},
 						{
 							"__identifier": "Control_PNG_entity",
-							"__grid": [186,67],
+							"__grid": [112,53],
 							"__pivot": [0,0],
 							"__tags": ["Floor_Interactable"],
 							"__tile": null,
@@ -1899,10 +1899,10 @@
 							"width": 400,
 							"height": 280,
 							"defUid": 63,
-							"px": [1488,536],
+							"px": [896,424],
 							"fieldInstances": [{ "__identifier": "ControlPictureType", "__type": "LocalEnum.ControlPictureType", "__value": "WASD", "__tile": null, "defUid": 65, "realEditorValues": [] }],
-							"__worldX": 1488,
-							"__worldY": 536
+							"__worldX": 896,
+							"__worldY": 424
 						}
 					]
 				},
@@ -2749,7 +2749,7 @@
 						},
 						{
 							"__identifier": "Control_PNG_entity",
-							"__grid": [210,53],
+							"__grid": [132,52],
 							"__pivot": [0,0],
 							"__tags": ["Floor_Interactable"],
 							"__tile": null,
@@ -2758,13 +2758,13 @@
 							"width": 400,
 							"height": 280,
 							"defUid": 63,
-							"px": [1680,424],
+							"px": [1056,416],
 							"fieldInstances": [{ "__identifier": "ControlPictureType", "__type": "LocalEnum.ControlPictureType", "__value": "ARROW_NO_RED", "__tile": null, "defUid": 65, "realEditorValues": [{
 								"id": "V_String",
 								"params": ["ARROW_NO_RED"]
 							}] }],
-							"__worldX": 1680,
-							"__worldY": -656
+							"__worldX": 1056,
+							"__worldY": -664
 						}
 					]
 				},
@@ -3804,7 +3804,7 @@
 						},
 						{
 							"__identifier": "Control_PNG_entity",
-							"__grid": [16,53],
+							"__grid": [55,71],
 							"__pivot": [0,0],
 							"__tags": ["Floor_Interactable"],
 							"__tile": null,
@@ -3813,13 +3813,13 @@
 							"width": 400,
 							"height": 280,
 							"defUid": 63,
-							"px": [128,424],
+							"px": [440,568],
 							"fieldInstances": [{ "__identifier": "ControlPictureType", "__type": "LocalEnum.ControlPictureType", "__value": "ARROW_RED", "__tile": null, "defUid": 65, "realEditorValues": [{
 								"id": "V_String",
 								"params": ["ARROW_RED"]
 							}] }],
-							"__worldX": 2048,
-							"__worldY": -656
+							"__worldX": 2360,
+							"__worldY": -512
 						}
 					]
 				},
@@ -8863,7 +8863,7 @@
 						},
 						{
 							"__identifier": "Control_PNG_entity",
-							"__grid": [210,83],
+							"__grid": [133,73],
 							"__pivot": [0,0],
 							"__tags": ["Floor_Interactable"],
 							"__tile": null,
@@ -8872,17 +8872,17 @@
 							"width": 400,
 							"height": 280,
 							"defUid": 63,
-							"px": [1680,664],
+							"px": [1064,584],
 							"fieldInstances": [{ "__identifier": "ControlPictureType", "__type": "LocalEnum.ControlPictureType", "__value": "COLOUR_AFFECTS", "__tile": null, "defUid": 65, "realEditorValues": [{
 								"id": "V_String",
 								"params": ["COLOUR_AFFECTS"]
 							}] }],
-							"__worldX": 5520,
-							"__worldY": -1496
+							"__worldX": 4904,
+							"__worldY": -1576
 						},
 						{
 							"__identifier": "Control_PNG_entity",
-							"__grid": [213,29],
+							"__grid": [133,33],
 							"__pivot": [0,0],
 							"__tags": ["Floor_Interactable"],
 							"__tile": null,
@@ -8891,13 +8891,13 @@
 							"width": 400,
 							"height": 280,
 							"defUid": 63,
-							"px": [1704,232],
+							"px": [1064,264],
 							"fieldInstances": [{ "__identifier": "ControlPictureType", "__type": "LocalEnum.ControlPictureType", "__value": "ARROW_NO_RED", "__tile": null, "defUid": 65, "realEditorValues": [{
 								"id": "V_String",
 								"params": ["ARROW_NO_RED"]
 							}] }],
-							"__worldX": 5544,
-							"__worldY": -1928
+							"__worldX": 4904,
+							"__worldY": -1896
 						}
 					]
 				},
