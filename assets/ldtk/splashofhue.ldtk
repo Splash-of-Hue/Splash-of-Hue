@@ -11,7 +11,6 @@
 	"iid": "53e64810-d380-11f0-a1bc-4d26a5cd15e3",
 	"jsonVersion": "1.5.3",
 	"appBuildId": 473703,
-	"nextUid": 68,
 	"nextUid": 66,
 	"identifierStyle": "Capitalize",
 	"toc": [{
@@ -1445,14 +1444,14 @@
 			"fieldDefs": []
 		},
 		{
-			"identifier": "Mushroom",
+			"identifier": "Control_PNG_entity",
 			"uid": 63,
 			"tags": ["Floor_Interactable"],
 			"exportToToc": false,
 			"allowOutOfBounds": false,
 			"doc": null,
-			"width": 100,
-			"height": 100,
+			"width": 400,
+			"height": 280,
 			"resizableX": false,
 			"resizableY": false,
 			"minWidth": null,
@@ -1464,8 +1463,8 @@
 			"fillOpacity": 1,
 			"lineOpacity": 1,
 			"hollow": false,
-			"color": "#DF000C",
-			"renderMode": "Ellipse",
+			"color": "#3E8948",
+			"renderMode": "Rectangle",
 			"showName": true,
 			"tilesetId": null,
 			"tileRenderMode": "FitInside",
@@ -1479,11 +1478,11 @@
 			"pivotY": 0,
 			"fieldDefs": [
 				{
-					"identifier": "ColorState",
+					"identifier": "ControlPictureType",
 					"doc": null,
-					"__type": "LocalEnum.ColorState",
+					"__type": "LocalEnum.ControlPictureType",
 					"uid": 65,
-					"type": "F_Enum(26)",
+					"type": "F_Enum(64)",
 					"isArray": false,
 					"canBeNull": false,
 					"arrayMinLength": null,
@@ -1507,7 +1506,7 @@
 					"acceptFileTypes": null,
 					"defaultOverride": {
 						"id": "V_String",
-						"params": ["Neutral"]
+						"params": ["WASD"]
 					},
 					"textLanguageMode": null,
 					"symmetricalRef": false,
@@ -1656,7 +1655,14 @@
 			{ "id": "Triple_Vertical", "tileRect": { "tilesetUid": 52, "x": 128, "y": 336, "w": 32, "h": 48 }, "color": 14984818 },
 			{ "id": "Triple_Horizontal", "tileRect": { "tilesetUid": 52, "x": 128, "y": 304, "w": 48, "h": 32 }, "color": 7552569 },
 			{ "id": "Quadruple", "tileRect": { "tilesetUid": 52, "x": 128, "y": 256, "w": 48, "h": 48 }, "color": 4073265 }
-		], "iconTilesetUid": 52, "externalRelPath": null, "externalFileChecksum": null, "tags": [] }
+		], "iconTilesetUid": 52, "externalRelPath": null, "externalFileChecksum": null, "tags": [] },
+		{ "identifier": "ControlPictureType", "uid": 64, "values": [
+			{ "id": "Invalid", "tileRect": null, "color": 12470831 },
+			{ "id": "WASD", "tileRect": null, "color": 14120515 },
+			{ "id": "ARROW_RED", "tileRect": null, "color": 15389866 },
+			{ "id": "ARROW_NO_RED", "tileRect": null, "color": 14984818 },
+			{ "id": "COLOUR_AFFECTS", "tileRect": null, "color": 7552569 }
+		], "iconTilesetUid": null, "externalRelPath": null, "externalFileChecksum": null, "tags": [] }
 	], "externalEnums": [], "levelFields": [] },
 	"levels": [
 		{
@@ -1883,58 +1889,20 @@
 							"__worldY": 108
 						},
 						{
-							"__identifier": "Mushroom",
-							"__grid": [72,35],
+							"__identifier": "Control_PNG_entity",
+							"__grid": [112,53],
 							"__pivot": [0,0],
 							"__tags": ["Floor_Interactable"],
 							"__tile": null,
-							"__smartColor": "#DF000C",
-							"iid": "6a630040-fa90-11f0-86b6-43079e5c992a",
-							"width": 100,
-							"height": 100,
+							"__smartColor": "#3E8948",
+							"iid": "2a99e220-fa90-11f0-aace-f7ed8650355c",
+							"width": 400,
+							"height": 280,
 							"defUid": 63,
-							"px": [576,280],
-							"fieldInstances": [{ "__identifier": "ColorState", "__type": "LocalEnum.ColorState", "__value": "Neutral", "__tile": null, "defUid": 65, "realEditorValues": [] }],
-							"__worldX": 576,
-							"__worldY": 280
-						},
-						{
-							"__identifier": "ColourOrb",
-							"__grid": [95,59],
-							"__pivot": [0,0],
-							"__tags": ["Floor_Interactable"],
-							"__tile": null,
-							"__smartColor": "#3E2731",
-							"iid": "a5bf8f20-fa90-11f0-88ed-c712b9e2970c",
-							"width": 70,
-							"height": 70,
-							"defUid": 52,
-							"px": [760,472],
-							"fieldInstances": [{ "__identifier": "ColorState", "__type": "LocalEnum.ColorState", "__value": "Blue", "__tile": null, "defUid": 53, "realEditorValues": [{
-								"id": "V_String",
-								"params": ["Blue"]
-							}] }],
-							"__worldX": 760,
-							"__worldY": 472
-						},
-						{
-							"__identifier": "ColourOrb",
-							"__grid": [119,59],
-							"__pivot": [0,0],
-							"__tags": ["Floor_Interactable"],
-							"__tile": null,
-							"__smartColor": "#3E2731",
-							"iid": "a68e50d0-fa90-11f0-88ed-ffd38e3a480f",
-							"width": 70,
-							"height": 70,
-							"defUid": 52,
-							"px": [952,472],
-							"fieldInstances": [{ "__identifier": "ColorState", "__type": "LocalEnum.ColorState", "__value": "Red", "__tile": null, "defUid": 53, "realEditorValues": [{
-								"id": "V_String",
-								"params": ["Red"]
-							}] }],
-							"__worldX": 952,
-							"__worldY": 472
+							"px": [896,424],
+							"fieldInstances": [{ "__identifier": "ControlPictureType", "__type": "LocalEnum.ControlPictureType", "__value": "WASD", "__tile": null, "defUid": 65, "realEditorValues": [] }],
+							"__worldX": 896,
+							"__worldY": 424
 						}
 					]
 				},
@@ -2778,6 +2746,25 @@
 							}] }],
 							"__worldX": 872,
 							"__worldY": -640
+						},
+						{
+							"__identifier": "Control_PNG_entity",
+							"__grid": [132,52],
+							"__pivot": [0,0],
+							"__tags": ["Floor_Interactable"],
+							"__tile": null,
+							"__smartColor": "#3E8948",
+							"iid": "2db10d30-fa90-11f0-aace-3d3984586c10",
+							"width": 400,
+							"height": 280,
+							"defUid": 63,
+							"px": [1056,416],
+							"fieldInstances": [{ "__identifier": "ControlPictureType", "__type": "LocalEnum.ControlPictureType", "__value": "ARROW_NO_RED", "__tile": null, "defUid": 65, "realEditorValues": [{
+								"id": "V_String",
+								"params": ["ARROW_NO_RED"]
+							}] }],
+							"__worldX": 1056,
+							"__worldY": -664
 						}
 					]
 				},
@@ -3814,6 +3801,25 @@
 							"fieldInstances": [],
 							"__worldX": 3672,
 							"__worldY": -944
+						},
+						{
+							"__identifier": "Control_PNG_entity",
+							"__grid": [55,71],
+							"__pivot": [0,0],
+							"__tags": ["Floor_Interactable"],
+							"__tile": null,
+							"__smartColor": "#3E8948",
+							"iid": "31239eb0-fa90-11f0-aace-4da9f975fbb2",
+							"width": 400,
+							"height": 280,
+							"defUid": 63,
+							"px": [440,568],
+							"fieldInstances": [{ "__identifier": "ControlPictureType", "__type": "LocalEnum.ControlPictureType", "__value": "ARROW_RED", "__tile": null, "defUid": 65, "realEditorValues": [{
+								"id": "V_String",
+								"params": ["ARROW_RED"]
+							}] }],
+							"__worldX": 2360,
+							"__worldY": -512
 						}
 					]
 				},
@@ -4822,7 +4828,7 @@
 					"entityInstances": [
 						{
 							"__identifier": "PShrimp",
-							"__grid": [21,26],
+							"__grid": [18,26],
 							"__pivot": [0.5,0.5],
 							"__tags": ["Creature"],
 							"__tile": null,
@@ -4831,7 +4837,7 @@
 							"width": 256,
 							"height": 128,
 							"defUid": 22,
-							"px": [344,424],
+							"px": [296,424],
 							"fieldInstances": [
 								{ "__identifier": "CreatureType", "__type": "LocalEnum.CreatureType", "__value": "PShrimp", "__tile": null, "defUid": 25, "realEditorValues": [] },
 								{ "__identifier": "ColorState", "__type": "LocalEnum.ColorState", "__value": "Neutral", "__tile": null, "defUid": 30, "realEditorValues": [] },
@@ -4841,7 +4847,7 @@
 								}] },
 								{ "__identifier": "ArmCount", "__type": "Int", "__value": 2, "__tile": null, "defUid": 39, "realEditorValues": [] }
 							],
-							"__worldX": 344,
+							"__worldX": 296,
 							"__worldY": -1736
 						},
 						{
@@ -5018,25 +5024,6 @@
 							"fieldInstances": [],
 							"__worldX": 1112,
 							"__worldY": -1856
-						},
-						{
-							"__identifier": "Mushroom",
-							"__grid": [57,71],
-							"__pivot": [0,0],
-							"__tags": ["Floor_Interactable"],
-							"__tile": null,
-							"__smartColor": "#DF000C",
-							"iid": "1f187100-fa90-11f0-8aa8-d55bf3febe39",
-							"width": 100,
-							"height": 100,
-							"defUid": 63,
-							"px": [456,568],
-							"fieldInstances": [{ "__identifier": "ColorState", "__type": "LocalEnum.ColorState", "__value": "Neutral", "__tile": null, "defUid": 65, "realEditorValues": [{
-								"id": "V_String",
-								"params": ["Neutral"]
-							}] }],
-							"__worldX": 456,
-							"__worldY": -1592
 						}
 					]
 				},
@@ -8873,6 +8860,44 @@
 							],
 							"__worldX": 5060,
 							"__worldY": -1236
+						},
+						{
+							"__identifier": "Control_PNG_entity",
+							"__grid": [133,73],
+							"__pivot": [0,0],
+							"__tags": ["Floor_Interactable"],
+							"__tile": null,
+							"__smartColor": "#3E8948",
+							"iid": "3521f570-fa90-11f0-aace-0b275f52bc25",
+							"width": 400,
+							"height": 280,
+							"defUid": 63,
+							"px": [1064,584],
+							"fieldInstances": [{ "__identifier": "ControlPictureType", "__type": "LocalEnum.ControlPictureType", "__value": "COLOUR_AFFECTS", "__tile": null, "defUid": 65, "realEditorValues": [{
+								"id": "V_String",
+								"params": ["COLOUR_AFFECTS"]
+							}] }],
+							"__worldX": 4904,
+							"__worldY": -1576
+						},
+						{
+							"__identifier": "Control_PNG_entity",
+							"__grid": [133,33],
+							"__pivot": [0,0],
+							"__tags": ["Floor_Interactable"],
+							"__tile": null,
+							"__smartColor": "#3E8948",
+							"iid": "37d0c1c0-fa90-11f0-aace-5bd82ae6f60d",
+							"width": 400,
+							"height": 280,
+							"defUid": 63,
+							"px": [1064,264],
+							"fieldInstances": [{ "__identifier": "ControlPictureType", "__type": "LocalEnum.ControlPictureType", "__value": "ARROW_NO_RED", "__tile": null, "defUid": 65, "realEditorValues": [{
+								"id": "V_String",
+								"params": ["ARROW_NO_RED"]
+							}] }],
+							"__worldX": 4904,
+							"__worldY": -1896
 						}
 					]
 				},
