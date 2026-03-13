@@ -237,7 +237,7 @@ void ColourSystem::step(float elapsed_ms)
 
 void ColourSystem::checkForDifferentEmissions()
 {
-	for (Entity& entity : registry.canEmitRadius.entities)
+	for (Entity& entity : registry.lightSources.entities)
 	{
 		if (registry.inRadius.has(entity))
 		{
@@ -295,17 +295,18 @@ void ColourSystem::checkForDifferentEmissions()
 					changeLightEmissions(entity, radius_colour_state.curr_colour_state, radius_size);
 				}
 			}
-			else
+		}
+		else
+		{
+			if (!registry.players.has(entity))
 			{
 				ColourState& entity_colour_state = registry.colourStates.get(entity);
 				entity_colour_state.prev_colour_state = entity_colour_state.curr_colour_state;
 				entity_colour_state.curr_colour_state = COLOUR_STATE::NEUTRAL;
-				registry.inRadius.remove(entity);
-				int radius_size = 0;
 
-				radius_size = 300;
-				changeLightEmissions(entity, COLOUR_STATE::NEUTRAL, radius_size);
+				changeLightEmissions(entity, COLOUR_STATE::NEUTRAL, 0);
 			}
+			
 		}
 	}
 }
@@ -320,9 +321,9 @@ void ColourSystem::changeLightEmissions(Entity& entity, COLOUR_STATE colour_stat
 		return;
 	}
 	
-	//if player already has light emission, but the light is a different colour,
+	//if entity already has light emission, but the light is a different colour,
 	//make size 0, so that you can see the regrowing of the circle
-	if (registry.lightSources.has(entity))
+	if (registry.lightSources.has(entity) && registry.lightSources.get(entity).isEmitting)
 	{
 		LightSource& light_source_component = registry.lightSources.get(entity);
 		Entity& light_emission_entity = light_source_component.lightEmissionEntity;
@@ -331,30 +332,9 @@ void ColourSystem::changeLightEmissions(Entity& entity, COLOUR_STATE colour_stat
 		colour_circle_size.height = 0;
 	}
 
-	//create lightsource if player does not have one
+	//create lightsource if entity does not have one
 	else {
-		vec2& position = registry.positions.get(entity);
-		vec4 light_emission_colour = DEFAULT_COLOUR_VEC4;
-		light_emission_colour.a = 0.2f;
-
-		Entity& light_emission_entity = createCircle(position, 1.f, RENDER_LAYER::PLAYER, light_emission_colour);
-		Collidable& light_emission_collidable_component = registry.collidables.emplace(light_emission_entity);
-		light_emission_collidable_component.overlay = true;
-		light_emission_collidable_component.inelastic = false;
-
-		LightEmission& light_emission_component = registry.lightEmissions.emplace(light_emission_entity);
-		light_emission_component.MAX_RADIUS = radius_size;
-		light_emission_component.TIME_TO_GROW = 1000.f;
-		light_emission_component.offset = { 0.f, 0.f };    //change these numbers to test light emission offset of the player.
-
-		RenderRequest& light_emission_render_request = registry.renderRequests.get(light_emission_entity);
-		light_emission_render_request.used_geometry = GEOMETRY_BUFFER_ID::GRADIENT_CIRCLE;
-
-		ColourState& colour_circle_colour_state = registry.colourStates.emplace(light_emission_entity);
-		light_emission_component.lightSourceEntity = entity;
-
-		LightSource& light_source_component = registry.lightSources.emplace(entity);
-		light_source_component.lightEmissionEntity = light_emission_entity;
+		createNewEmission(entity, radius_size);
 	}
 
 	Entity& light_emission_entity = registry.lightSources.get(entity).lightEmissionEntity;
@@ -388,4 +368,33 @@ void ColourSystem::updateEmissions(float elapsed_ms)
 				light_emission_size.height + light_emission_component.MAX_RADIUS * elapsed_ms / light_emission_component.TIME_TO_GROW);
 		}
 	}
+}
+
+void ColourSystem::createNewEmission(Entity& entity, int radius_size)
+{
+	vec2& position = registry.positions.get(entity);
+	vec4 light_emission_colour = DEFAULT_COLOUR_VEC4;
+	light_emission_colour.a = 0.2f;
+
+	Entity& light_emission_entity = createCircle(position, 1.f, RENDER_LAYER::PLAYER, light_emission_colour);
+	Collidable& light_emission_collidable_component = registry.collidables.emplace(light_emission_entity);
+	light_emission_collidable_component.overlay = true;
+	light_emission_collidable_component.inelastic = false;
+
+	LightEmission& light_emission_component = registry.lightEmissions.emplace(light_emission_entity);
+	light_emission_component.MAX_RADIUS = radius_size;
+	light_emission_component.TIME_TO_GROW = 1000.f;
+	light_emission_component.offset = { 0.f, 0.f };    //change these numbers to test light emission offset of the player.
+
+	RenderRequest& light_emission_render_request = registry.renderRequests.get(light_emission_entity);
+	light_emission_render_request.used_geometry = GEOMETRY_BUFFER_ID::GRADIENT_CIRCLE;
+
+	ColourState& colour_circle_colour_state = registry.colourStates.emplace(light_emission_entity);
+	light_emission_component.lightSourceEntity = entity;
+
+	if(!registry.lightSources.has(entity))
+		registry.lightSources.emplace(entity);
+	LightSource& light_source_component = registry.lightSources.get(entity);
+	light_source_component.lightEmissionEntity = light_emission_entity;
+	light_source_component.isEmitting = true;
 }

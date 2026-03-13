@@ -117,6 +117,9 @@ struct LightEmission
 
 struct LightSource 
 {
+	//we give the mushroom LightSource in physics system, but we create the emission in colour system. 
+	//This bool exists so we know what has a light source, but doesnt have an emission
+	bool isEmitting = false;
 	Entity lightEmissionEntity;
 };
 
@@ -128,9 +131,4 @@ struct InRadius
 	std::vector<Entity> playerRadius;
 	std::vector<Entity> creatureRadius;
 	std::vector<Entity> interactableRadius;
-};
-
-struct CanEmitRadius
-{
-
 };

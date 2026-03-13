@@ -34,7 +34,8 @@ private:
 	void openColourMenu();
 	void closeColourMenu();
 	void setEntityVisualColour(Entity entity, COLOUR_STATE colour_state);
-	void ColourSystem::checkForDifferentEmissions();
-	void ColourSystem::changeLightEmissions(Entity& entity, COLOUR_STATE colour_state_to_turn_to, int radius_size);
-	void ColourSystem::updateEmissions(float elapsed_ms);
+	void checkForDifferentEmissions();
+	void changeLightEmissions(Entity& entity, COLOUR_STATE colour_state_to_turn_to, int radius_size);
+	void updateEmissions(float elapsed_ms);
+	void createNewEmission(Entity& entity, int radius_size);
 };

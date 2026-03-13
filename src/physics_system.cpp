@@ -156,46 +156,43 @@ void light_emission_collisions(Entity& entity_i, Entity& entity_j)
 		return;
 	}
 
-	if (registry.creatures.has(other_entity))
+	if (registry.creatures.has(other_entity) && registry.colourStates.has(other_entity))
 	{
-		if (registry.colourStates.has(other_entity))
+		COLOUR_STATE& colour_to_turn_into = registry.colourStates.get(light_emission_entity).curr_colour_state;
+
+		LightEmission& light_emission_component = registry.lightEmissions.get(light_emission_entity);
+		Entity& source_entity = light_emission_component.lightSourceEntity;
+
+		if (!registry.inRadius.has(other_entity))
 		{
-			COLOUR_STATE& colour_to_turn_into = registry.colourStates.get(light_emission_entity).curr_colour_state;
+			registry.inRadius.emplace(other_entity);
+		}
 
-			LightEmission& light_emission_component = registry.lightEmissions.get(light_emission_entity);
-			Entity& source_entity = light_emission_component.lightSourceEntity;
-
-			if (!registry.inRadius.has(other_entity))
+		InRadius& in_radius_component = registry.inRadius.get(other_entity);
+		if (registry.players.has(source_entity))
+		{
+			in_radius_component.inPlayerRadius = true;
+			if (!inRadiusList(light_emission_entity, in_radius_component.playerRadius))
 			{
-				registry.inRadius.emplace(other_entity);
+				in_radius_component.playerRadius.push_back(light_emission_entity);
 			}
+		}
 
-			InRadius& in_radius_component = registry.inRadius.get(other_entity);
-			if (registry.players.has(source_entity))
+		if (registry.creatures.has(source_entity))
+		{
+			in_radius_component.inCreatureRadius = true;
+			if (!inRadiusList(light_emission_entity, in_radius_component.creatureRadius))
 			{
-				in_radius_component.inPlayerRadius = true;
-				if (!inRadiusList(light_emission_entity, in_radius_component.playerRadius))
-				{
-					in_radius_component.playerRadius.push_back(light_emission_entity);
-				}
+				in_radius_component.creatureRadius.push_back(light_emission_entity);
 			}
+		}
 
-			if (registry.creatures.has(source_entity))
+		if (registry.interactables.has(source_entity))
+		{
+			in_radius_component.inInteractableRadius = true;
+			if (!inRadiusList(light_emission_entity, in_radius_component.interactableRadius))
 			{
-				in_radius_component.inCreatureRadius = true;
-				if (!inRadiusList(light_emission_entity, in_radius_component.creatureRadius))
-				{
-					in_radius_component.creatureRadius.push_back(light_emission_entity);
-				}
-			}
-
-			if (registry.interactables.has(source_entity))
-			{
-				in_radius_component.inInteractableRadius = true;
-				if (!inRadiusList(light_emission_entity, in_radius_component.interactableRadius))
-				{
-					in_radius_component.interactableRadius.push_back(light_emission_entity);
-				}
+				in_radius_component.interactableRadius.push_back(light_emission_entity);
 			}
 		}
 	}
@@ -268,7 +265,6 @@ void light_emission_collisions(Entity& entity_i, Entity& entity_j)
 			InRadius& in_radius_component = registry.inRadius.get(mushroom);
 			LightEmission& light_emission_component = registry.lightEmissions.get(radius);
 			Entity& source_entity = light_emission_component.lightSourceEntity;
-
 			if (registry.players.has(source_entity))
 			{
 				in_radius_component.inPlayerRadius = true;
@@ -294,6 +290,11 @@ void light_emission_collisions(Entity& entity_i, Entity& entity_j)
 				{
 					in_radius_component.interactableRadius.push_back(light_emission_entity);
 				}
+			}
+
+			if (!registry.lightSources.has(mushroom) && (in_radius_component.inPlayerRadius || in_radius_component.inCreatureRadius || in_radius_component.inInteractableRadius))
+			{
+				registry.lightSources.emplace(mushroom);
 			}
 		}
 		
@@ -713,6 +714,11 @@ void PhysicsSystem::checkIfInRadius()
 			{
 				in_radius_component.inInteractableRadius = false;
 			}
+		}
+
+		if (!in_radius_component.inPlayerRadius && !in_radius_component.inCreatureRadius && !in_radius_component.inInteractableRadius)
+		{
+			registry.inRadius.remove(entity);
 		}
 	}
 }
