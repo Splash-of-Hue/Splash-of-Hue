@@ -119,6 +119,7 @@ struct LightSource
 {
 	Entity lightEmissionEntity;
 };
+
 //Todo SPoplE91 - find a way to consolidate
 struct InPlayerRadius
 {
