@@ -137,6 +137,7 @@ bool is_light_emission_collision(Entity& entity_i, Entity& entity_j)
 	return false;
 }
 
+//todo: https://trello.com/c/tXEZLSr7/229-1-optimize-inradiuslist-in-physicssystemcpp
 bool inRadiusList(Entity& emission_entity, std::vector<Entity>& radius_list)
 {
 	for (Entity& receiving_entity : radius_list)
@@ -679,14 +680,7 @@ void PhysicsSystem::checkIfCollidingRadius(Entity& entity, std::vector<Entity>& 
 	int indexToErase = 0;
 	for (Entity& radius_entity : radius_list)
 	{
-		if (registry.sizes.has(radius_entity))
-		{
-			if (!box_collides(entity, radius_entity))
-			{
-				indexesToErase.push_back(indexToErase);
-			}
-		}
-		else 
+		if (!registry.sizes.has(radius_entity) || !box_collides(entity, radius_entity))
 		{
 			indexesToErase.push_back(indexToErase);
 		}
