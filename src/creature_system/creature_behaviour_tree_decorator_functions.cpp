@@ -9,73 +9,92 @@
 //todo: https://trello.com/c/SPoplE91/184-1-consolidate-inxradius-components
 BEHAVIOUR_TREE_STATUS CreatureBehaviourFunctions::isCreatureWithinAnyColourRadius(Entity& creature, float elapsed_ms)
 {
-	return BEHAVIOUR_TREE_STATUS::SUCCESS;
+	if (!registry.inRadius.has(creature))
+	{
+		return BEHAVIOUR_TREE_STATUS::FAILURE;
+	}
+
+	InRadius& in_radius_component = registry.inRadius.get(creature);
+	
+	if (in_radius_component.inPlayerRadius || in_radius_component.inCreatureRadius || in_radius_component.inInteractableRadius)
+	{
+		return BEHAVIOUR_TREE_STATUS::SUCCESS;
+	}
+	
+	return BEHAVIOUR_TREE_STATUS::FAILURE;
 }
 
-//todo: https://trello.com/c/SPoplE91/184-1-consolidate-inxradius-components
-BEHAVIOUR_TREE_STATUS CreatureBehaviourFunctions::isCreatureWithinBluePlayerColourRadius(Entity& creature, float elapsed_ms)
+BEHAVIOUR_TREE_STATUS CreatureBehaviourFunctions::isCreatureWithinSpecificColourRadius(Entity& creature, bool& inRadius, std::vector<Entity>& radius_list, COLOUR_STATE colour_state)
 {
-	if (registry.inPlayerRadius.has(creature))
+	if (!inRadius)
 	{
-		InPlayerRadius& in_player_radius_component = registry.inPlayerRadius.get(creature);
-		Entity& radius_entity = in_player_radius_component.radius_entity;
+		return BEHAVIOUR_TREE_STATUS::FAILURE;
+	}
 
-		ColourState& radius_colour_state = registry.colourStates.get(radius_entity);
+	for (Entity& entity : radius_list)
+	{
+		if (!registry.colourStates.has(entity))
+		{
+			return BEHAVIOUR_TREE_STATUS::FAILURE;
+		}
 
-		if (radius_colour_state.curr_colour_state == COLOUR_STATE::BLUE)
+		ColourState& radius_colour_state = registry.colourStates.get(entity);
+
+		if (radius_colour_state.curr_colour_state == colour_state)
 		{
 			return BEHAVIOUR_TREE_STATUS::SUCCESS;
 		}
 	}
+
 	return BEHAVIOUR_TREE_STATUS::FAILURE;
 }
 
-//todo: https://trello.com/c/SPoplE91/184-1-consolidate-inxradius-components
-BEHAVIOUR_TREE_STATUS CreatureBehaviourFunctions::isCreatureWithinCreatureColourRadius(Entity& creature, float elapsed_ms)
+BEHAVIOUR_TREE_STATUS CreatureBehaviourFunctions::isCreatureWithinPlayerBlueColourRadius(Entity& creature, float elapsed_ms)
 {
-	if (registry.inCreatureRadius.has(creature))
-	{
-		return BEHAVIOUR_TREE_STATUS::SUCCESS;
-	}
-	return BEHAVIOUR_TREE_STATUS::FAILURE;
+	if (!registry.inRadius.has(creature))
+		return BEHAVIOUR_TREE_STATUS::FAILURE;
+	InRadius& in_radius_component = registry.inRadius.get(creature);
+	return isCreatureWithinSpecificColourRadius(creature, in_radius_component.inPlayerRadius, in_radius_component.playerRadius, COLOUR_STATE::BLUE);
 }
 
-//todo: https://trello.com/c/SPoplE91/184-1-consolidate-inxradius-components
-BEHAVIOUR_TREE_STATUS CreatureBehaviourFunctions::isCreatureWithinInteractableColourRadius(Entity& creature, float elapsed_ms)
+BEHAVIOUR_TREE_STATUS CreatureBehaviourFunctions::isCreatureWithinPlayerRedColourRadius(Entity& creature, float elapsed_ms)
 {
-	if (registry.inInteractableRadius.has(creature))
-	{
-		return BEHAVIOUR_TREE_STATUS::SUCCESS;
-	}
-	return BEHAVIOUR_TREE_STATUS::FAILURE;
+	if (!registry.inRadius.has(creature))
+		return BEHAVIOUR_TREE_STATUS::FAILURE;
+	InRadius& in_radius_component = registry.inRadius.get(creature);
+	return isCreatureWithinSpecificColourRadius(creature, in_radius_component.inPlayerRadius, in_radius_component.playerRadius, COLOUR_STATE::RED);
 }
 
-//todo: https://trello.com/c/SPoplE91/184-1-consolidate-inxradius-components
-BEHAVIOUR_TREE_STATUS CreatureBehaviourFunctions::isCreatureWithinPlayerColourRadius(Entity& creature, float elapsed_ms)
+BEHAVIOUR_TREE_STATUS CreatureBehaviourFunctions::isCreatureWithinCreatureBlueColourRadius(Entity& creature, float elapsed_ms)
 {
-	if (registry.inPlayerRadius.has(creature))
-	{
-		return BEHAVIOUR_TREE_STATUS::SUCCESS;
-	}
-	return BEHAVIOUR_TREE_STATUS::FAILURE;
+	if (!registry.inRadius.has(creature))
+		return BEHAVIOUR_TREE_STATUS::FAILURE;
+	InRadius& in_radius_component = registry.inRadius.get(creature);
+	return isCreatureWithinSpecificColourRadius(creature, in_radius_component.inCreatureRadius, in_radius_component.creatureRadius, COLOUR_STATE::BLUE);
 }
 
-//todo: https://trello.com/c/SPoplE91/184-1-consolidate-inxradius-components
-BEHAVIOUR_TREE_STATUS CreatureBehaviourFunctions::isCreatureWithinRedPlayerColourRadius(Entity& creature, float elapsed_ms)
+BEHAVIOUR_TREE_STATUS CreatureBehaviourFunctions::isCreatureWithinCreatureRedColourRadius(Entity& creature, float elapsed_ms)
 {
-	if (registry.inPlayerRadius.has(creature))
-	{
-		InPlayerRadius& in_player_radius_component = registry.inPlayerRadius.get(creature);
-		Entity& radius_entity = in_player_radius_component.radius_entity;
+	if (!registry.inRadius.has(creature))
+		return BEHAVIOUR_TREE_STATUS::FAILURE;
+	InRadius& in_radius_component = registry.inRadius.get(creature);
+	return isCreatureWithinSpecificColourRadius(creature, in_radius_component.inCreatureRadius, in_radius_component.creatureRadius, COLOUR_STATE::RED);
+}
 
-		ColourState& radius_colour_state = registry.colourStates.get(radius_entity);
+BEHAVIOUR_TREE_STATUS CreatureBehaviourFunctions::isCreatureWithinInteractableBlueColourRadius(Entity& creature, float elapsed_ms)
+{
+	if (!registry.inRadius.has(creature))
+		return BEHAVIOUR_TREE_STATUS::FAILURE;
+	InRadius& in_radius_component = registry.inRadius.get(creature);
+	return isCreatureWithinSpecificColourRadius(creature, in_radius_component.inInteractableRadius, in_radius_component.interactableRadius, COLOUR_STATE::BLUE);
+}
 
-		if (radius_colour_state.curr_colour_state == COLOUR_STATE::RED)
-		{
-			return BEHAVIOUR_TREE_STATUS::SUCCESS;
-		}
-	}
-	return BEHAVIOUR_TREE_STATUS::FAILURE;
+BEHAVIOUR_TREE_STATUS CreatureBehaviourFunctions::isCreatureWithinInteractableRedColourRadius(Entity& creature, float elapsed_ms)
+{
+	if (!registry.inRadius.has(creature))
+		return BEHAVIOUR_TREE_STATUS::FAILURE;
+	InRadius& in_radius_component = registry.inRadius.get(creature);
+	return isCreatureWithinSpecificColourRadius(creature, in_radius_component.inInteractableRadius, in_radius_component.interactableRadius, COLOUR_STATE::RED);
 }
 
 BEHAVIOUR_TREE_STATUS CreatureBehaviourFunctions::isInBlueState(Entity& creature, float elapsed_ms)

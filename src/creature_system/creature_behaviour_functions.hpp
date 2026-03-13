@@ -31,7 +31,6 @@ public:
 	static BEHAVIOUR_TREE_STATUS requestNewPath(Entity& creature, float elapsed_ms);
 	static BEHAVIOUR_TREE_STATUS requestNewRandomPath(Entity& creature, float elapsed_ms);
 	// Colour
-	static BEHAVIOUR_TREE_STATUS makeColour(Entity& creature, COLOUR_STATE colour_state);
 	static BEHAVIOUR_TREE_STATUS makeBlue(Entity& creature, float elapsed_ms);
 	static BEHAVIOUR_TREE_STATUS makeRed(Entity& creature, float elapsed_ms);
 	static BEHAVIOUR_TREE_STATUS makeNeutral(Entity& creature, float elapsed_ms);
@@ -63,11 +62,12 @@ public:
 	// Colour
 	//todo: https://trello.com/c/SPoplE91/184-1-consolidate-inxradius-components
 	static BEHAVIOUR_TREE_STATUS isCreatureWithinAnyColourRadius(Entity& creature, float elapsed_ms);
-	static BEHAVIOUR_TREE_STATUS isCreatureWithinBluePlayerColourRadius(Entity& creature, float elapsed_ms);
-	static BEHAVIOUR_TREE_STATUS isCreatureWithinCreatureColourRadius(Entity& creature, float elapsed_ms);
-	static BEHAVIOUR_TREE_STATUS isCreatureWithinInteractableColourRadius(Entity& creature, float elapsed_ms);
-	static BEHAVIOUR_TREE_STATUS isCreatureWithinPlayerColourRadius(Entity& creature, float elapsed_ms);
-	static BEHAVIOUR_TREE_STATUS isCreatureWithinRedPlayerColourRadius(Entity& creature, float elapsed_ms);
+	static BEHAVIOUR_TREE_STATUS isCreatureWithinPlayerBlueColourRadius(Entity& creature, float elapsed_ms);
+	static BEHAVIOUR_TREE_STATUS isCreatureWithinPlayerRedColourRadius(Entity& creature, float elapsed_ms);
+	static BEHAVIOUR_TREE_STATUS isCreatureWithinCreatureBlueColourRadius(Entity& creature, float elapsed_ms);
+	static BEHAVIOUR_TREE_STATUS isCreatureWithinCreatureRedColourRadius(Entity& creature, float elapsed_ms);
+	static BEHAVIOUR_TREE_STATUS isCreatureWithinInteractableBlueColourRadius(Entity& creature, float elapsed_ms);
+	static BEHAVIOUR_TREE_STATUS isCreatureWithinInteractableRedColourRadius(Entity& creature, float elapsed_ms);
 	static BEHAVIOUR_TREE_STATUS isInBlueState(Entity& creature, float elapsed_ms);
 	static BEHAVIOUR_TREE_STATUS isInNeutralState(Entity& creature, float elapsed_ms);
 	static BEHAVIOUR_TREE_STATUS isInRedState(Entity& creature, float elapsed_ms);
@@ -83,7 +83,8 @@ public:
 
 private:
 	// ===== NODE HELPERS =====
-
+	static BEHAVIOUR_TREE_STATUS makeColour(Entity& creature, COLOUR_STATE colour_state);
+	static BEHAVIOUR_TREE_STATUS isCreatureWithinSpecificColourRadius(Entity& creature, bool& inRadius, std::vector<Entity>& radius_list, COLOUR_STATE colour_state);
 	// Shrimp helpers
 	static BEHAVIOUR_TREE_STATUS disableCollidableComponent(std::vector<Entity>& entityList);
 	static BEHAVIOUR_TREE_STATUS enableCollidableComponent(std::vector<Entity>& entityList);
