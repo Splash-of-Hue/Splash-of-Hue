@@ -725,17 +725,17 @@ void PhysicsSystem::checkIfInRadius()
 
 void PhysicsSystem::checkIfCollidingRadius(Entity& entity, std::vector<Entity>& radius_list)
 {
-	std::vector<int> indexesToErase;
+	std::vector<int> indicesToErase;
 	int indexToErase = 0;
 	for (Entity& radius_entity : radius_list)
 	{
 		if (!registry.sizes.has(radius_entity) || !box_collides(entity, radius_entity))
 		{
-			indexesToErase.push_back(indexToErase);
+			indicesToErase.push_back(indexToErase);
 		}
 	}
 	
-	for (int index : indexesToErase)
+	for (int index : indicesToErase)
 	{
 		radius_list.erase(radius_list.begin() + index);
 	}
