@@ -488,10 +488,17 @@ void load_box(const ldtk::Entity& box_entity)
 void load_mushroom(const ldtk::Entity& mushroom_entity)
 {
 	const ldtk::IntPoint& world_pos = mushroom_entity.getWorldPosition();
-	const ldtk::IntPoint& entity_size = mushroom_entity.getSize();
+
+	const ldtk::Field<ldtk::EnumValue>& color_state_field = mushroom_entity.getField<ldtk::EnumValue>("ColorState");
+	const COLOUR_STATE colour_state = color_state_from_string(color_state_field.value().name);
+
+	const ldtk::Field<ldtk::EnumValue>& mushroom_size_field = mushroom_entity.getField<ldtk::EnumValue>("MushroomSize");
+	const float mushroom_size = mushroom_size_from_string(mushroom_size_field.value().name);
+
 	const vec2 position = vec2(world_pos.x * LEVEL_TO_SCREEN_SCALE.x, world_pos.y * LEVEL_TO_SCREEN_SCALE.y);
-	const float width = entity_size.x * LEVEL_TO_SCREEN_SCALE.x;
-	Entity mushroom = createMushroom(position, width, COLOUR_STATE::NEUTRAL);
+	const float width = mushroom_size * LEVEL_TO_SCREEN_SCALE.x;
+	Entity mushroom = createMushroom(position, width, colour_state);
+
 	registry.levelEntities.insert(mushroom, { mushroom_entity.layer->level->uid });
 }
 

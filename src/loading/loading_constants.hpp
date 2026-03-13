@@ -103,6 +103,18 @@ inline COLOUR_STATE color_state_from_string(const std::string color_string)
 	return search != color_state_string_enum_map.end() ? search->second : COLOUR_STATE::NEUTRAL;
 };
 
+const std::map<std::string, float> mushroom_size_string_enum_map = {
+	{ "Small", 75 },
+	{ "Medium", 125 },
+	{ "Large", 200 },
+};
+
+inline float mushroom_size_from_string(const std::string color_string)
+{
+	const auto& search = mushroom_size_string_enum_map.find(color_string);
+	return search != mushroom_size_string_enum_map.end() ? search->second : 125;
+};
+
 const std::map<std::string, TEXTURE_ASSET_ID> tile_layer_texture_string_enum_map = {
 	{ "Floor", TEXTURE_ASSET_ID::ROOMS },
 };
