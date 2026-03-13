@@ -21,6 +21,36 @@ void ColourSystem::initialize_palette()
 		registry.colourPalettes.emplace(colour_palette_entity);
 	}
 }
+void ColourSystem::initialize_colour_indicator()
+{
+	Entity indicator = Entity();
+
+	vec2 position = vec2(WINDOW_WIDTH_PX * 0.06f, WINDOW_HEIGHT_PX * 0.90f);
+	float size = WINDOW_HEIGHT_PX * 0.20f;
+
+	registry.positions.insert(indicator, position);
+	registry.sizes.insert(indicator, { size, size });
+	registry.scales.insert(indicator, vec2(size, size));  
+	registry.angles.insert(indicator, { 0.f });   
+	registry.ignoredByCamera.emplace(indicator);
+
+	Textured& textured = registry.textured.emplace(indicator);
+	textured.used_texture = TEXTURE_ASSET_ID::COLOUR_INDICATOR;
+
+	registry.renderRequests.insert(indicator, {
+		EFFECT_ASSET_ID::TEXTURED,
+		GEOMETRY_BUFFER_ID::SPRITE
+		});
+
+	Animatable animatable;
+	animatable.type = ANIMATABLE_TYPE::COLOUR_INDICATOR;
+	animatable.behavior = ANIMATION_BEHAVIOR::LOOP;
+	animatable.current_trigger = ANIMATION_TRIGGER::COLOUR_NEUTRAL;
+	animatable.frame_rate = 6;
+	registry.animatables.insert(indicator, animatable);
+
+	registry.colourIndicatorUIs.emplace(indicator);
+}
 void ColourSystem::setEntityVisualColour(Entity entity, COLOUR_STATE colour_state) {
 	assert(!registry.colourPalettes.entities.empty() && "Colour palette should be initialized");
 
@@ -193,6 +223,24 @@ void ColourSystem::applyColorToPlayer(COLOUR_STATE colour)
 	//TODO: https://trello.com/c/XWeiA55L/149-1-colour-menu-ui-always-visible
 	setEntityVisualColour(player, colour);
 	changeLightEmissions(player, static_cast<int>(player_colour_state.curr_colour_state), static_cast<int>(player_colour_state.prev_colour_state));
+
+	if (!registry.colourIndicatorUIs.entities.empty())
+	{
+		Entity indicator = registry.colourIndicatorUIs.entities[0];
+
+		ANIMATION_TRIGGER trigger;
+		switch (colour) {
+		case COLOUR_STATE::RED:  trigger = ANIMATION_TRIGGER::COLOUR_RED;     break;
+		case COLOUR_STATE::BLUE: trigger = ANIMATION_TRIGGER::COLOUR_BLUE;    break;
+		default:                 trigger = ANIMATION_TRIGGER::COLOUR_NEUTRAL; break;
+		}
+
+		Animatable& animatable = registry.animatables.get(indicator);
+		animatable.current_trigger = trigger;
+		animatable.current_frame = 0;
+		animatable.time_on_current_frame = 0;
+	}
+
 	std::cout << "Player colour set to: " << static_cast<int>(colour) << std::endl;
 }
 

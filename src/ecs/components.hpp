@@ -36,6 +36,8 @@ struct ColourMenuInput
 	int direction = 0;
 };
 
+struct ColourIndicatorUI {};
+
 // Stucture to store collision information
 struct Collision
 {

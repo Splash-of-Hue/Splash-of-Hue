@@ -42,6 +42,7 @@ public:
 	ComponentContainer<ColourMenuInput> colourMenuInputs;
 	ComponentContainer<LightEmission> lightEmissions;
 	ComponentContainer<LightSource> lightSources;
+	ComponentContainer<ColourIndicatorUI> colourIndicatorUIs;
 	// Controls
 	ComponentContainer<Control> controls;
 	ComponentContainer<Input> inputs;
@@ -126,6 +127,7 @@ public:
 		registry_list.push_back(&colourMenuInputs);
 		registry_list.push_back(&lightEmissions);
 		registry_list.push_back(&lightSources);
+		registry_list.push_back(&colourIndicatorUIs);
 		// Controls
 		registry_list.push_back(&controls);
 		registry_list.push_back(&inputs);

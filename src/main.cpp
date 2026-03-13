@@ -65,6 +65,7 @@ int main()
 	colour_system.initialize_palette();
 	world_system.init(&renderer_system);
 	animation_system.init();
+	colour_system.initialize_colour_indicator();
 	// variable timestep loop
 	auto t = Clock::now();
 	while (!world_system.is_over()) {

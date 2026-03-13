@@ -12,6 +12,8 @@ public:
 
 	void initialize_palette();
 
+	void initialize_colour_indicator();
+
 	void pollMenuState();
 
 	void pollColourMenuInput(Control control);
