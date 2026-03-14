@@ -77,6 +77,9 @@ void LoaderSystem::load_level(int level_uid)
 
 	for (const ldtk::Layer& layer : level_layers)
 	{
+		// Make an entity for the level
+
+
 		switch (layer.getType())
 		{
 			case ldtk::LayerType::AutoLayer:
@@ -94,7 +97,7 @@ void LoaderSystem::load_level(int level_uid)
 	
 	// TODO rUJfFQQT: This is extremely inefficient. Use polygons to better improve this
 	std::vector<Entity> level_wall_tile_entities;
-	for (Entity& level_tile_entity : registry.levelTiles.entities)
+	for (Entity& level_tile_entity : registry.mapTiles.entities)
 	{
 		if (registry.levelTiles.get(level_tile_entity).level_uid == level_uid && registry.mapTiles.get(level_tile_entity).tile_type == TILE_TYPE::WALL)
 		{

@@ -89,11 +89,13 @@ public:
 	// Rendering
 	ComponentContainer<Camera> cameras;
 	ComponentContainer<ChangeCameraTargetRequest> changeCameraTargetRequests;
+	ComponentContainer<DynamicallyLoadedImage> loadedImages;
 	ComponentContainer<IgnoresCamera> ignoredByCamera;
 	ComponentContainer<Mesh*> meshPtrs;
 	ComponentContainer<RenderRequest> renderRequests;
 	ComponentContainer<RenderSourceRect> renderSourceRects;
 	ComponentContainer<ScreenState> screenStates;
+	ComponentContainer<TextureLoadRequest> textureLoadRequests;
 	// Shapes
 	ComponentContainer<Circle> circles; // TODO 1ch6Q0BE: Remove
 	ComponentContainer<Rect> rectangles; // TODO 1ch6Q0BE: Remove

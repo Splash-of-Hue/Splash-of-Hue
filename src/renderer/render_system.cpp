@@ -5,8 +5,157 @@
 
 // internal
 #include "common.hpp"
-#include "renderer/render_system.hpp"
 #include "ecs/registry.hpp"
+#include "ecs/registry.hpp"
+#include "renderer/render_system.hpp"
+#include "renderer/render_system.hpp"
+#include <stb_image.h>
+#include <string>
+#include <vector>
+
+//
+void RenderSystem::drawText(Entity entity, const mat4& projection)
+{
+	// Make a copy of the position so we can change it
+	auto position = registry.positions.get(entity);
+	auto& scale = registry.scales.get(entity);
+	auto& text_string = registry.texts.get(entity).text;
+	auto& font_face = registry.texts.get(entity).font_face;
+
+	// Transformation code, see Rendering and Transformation in the template
+	// specification for more info Incrementally updates transformation matrix,
+	// thus ORDER IS IMPORTANT
+	Transform transform;
+	transform.translate(position);
+
+	assert(registry.renderRequests.has(entity));
+	const RenderRequest& render_request = registry.renderRequests.get(entity);
+
+	const GLuint used_effect_enum = (GLuint)render_request.used_effect;
+	assert(used_effect_enum == (GLuint)EFFECT_ASSET_ID::FONT);
+	const GLuint program = (GLuint)effects[used_effect_enum];
+
+	// setting shaders
+	glUseProgram(program);
+	gl_has_errors();
+
+	assert(render_request.used_geometry == GEOMETRY_BUFFER_ID::SCREEN_TEXT);
+	const GLuint vbo = vertex_buffers[(GLuint)render_request.used_geometry];
+	// Setting vertex and index buffers
+	glBindBuffer(GL_ARRAY_BUFFER, vbo);
+	gl_has_errors();
+
+	// Getting uniform locations for glUniform* calls
+	GLint color_uloc = glGetUniformLocation(program, "textColor");
+	const vec4 color = registry.colors.has(entity) ? registry.colors.get(entity) : vec4(1);
+	// CK: std::cout << "line color: " << color.r << ", " << color.g << ", " << color.b << std::endl;
+	glUniform4fv(color_uloc, 1, (float*)&color);
+	gl_has_errors();
+
+
+	GLint currProgram;
+	glGetIntegerv(GL_CURRENT_PROGRAM, &currProgram);
+	// Setting uniform values to the currently bound program
+	GLuint transform_loc = glGetUniformLocation(currProgram, "transform");
+	glUniformMatrix3fv(transform_loc, 1, GL_FALSE, (float*)&transform.mat);
+	gl_has_errors();
+
+	GLuint projection_loc = glGetUniformLocation(currProgram, "projection");
+	glUniformMatrix4fv(projection_loc, 1, GL_FALSE, (float*)&projection);
+	gl_has_errors();
+
+	GLint in_vertex_loc = glGetAttribLocation(program, "vertex");
+	glEnableVertexAttribArray(in_vertex_loc);
+	glVertexAttribPointer(in_vertex_loc, 4, GL_FLOAT, GL_FALSE, 4 * sizeof(float), 0);
+	gl_has_errors();
+
+	const auto& font = font_characters[font_face];
+	// iterate through characters of the text string
+	std::string::const_iterator c;
+
+	for (c = text_string.begin(); c != text_string.end(); c++)
+	{
+		gl_has_errors();
+		Character ch = font.at(*c);
+		float xpos = position.x + ch.Bearing.x * scale.x;
+		float ypos = position.y - (ch.Size.y - ch.Bearing.y) * scale.y;
+
+		float w = ch.Size.x * scale.x;
+		float h = ch.Size.y * scale.y;
+
+		// update VBO for each character
+		float vertices[6][4] = {
+			{ xpos,     ypos + h,   0.0f, 0.0f },
+			{ xpos,     ypos,       0.0f, 1.0f },
+			{ xpos + w, ypos,       1.0f, 1.0f },
+
+			{ xpos,     ypos + h,   0.0f, 0.0f },
+			{ xpos + w, ypos,       1.0f, 1.0f },
+			{ xpos + w, ypos + h,   1.0f, 0.0f }
+		};
+
+		// bind current char texture
+		glBindTexture(GL_TEXTURE_2D, ch.TextureID);
+		gl_has_errors();
+		// std::cout << "binding texture: " << ch.character << " = " << ch.TextureID << std::endl;
+
+		// update content of VBO memory
+		glBindBuffer(GL_ARRAY_BUFFER, vbo);
+		glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(vertices), vertices);
+		glBindBuffer(GL_ARRAY_BUFFER, 0);
+		gl_has_errors();
+
+		// render quad
+		glDrawArrays(GL_TRIANGLES, 0, 6);
+		gl_has_errors();
+
+		// advance position for next glyph (note that advance is number of 1/64 pixels)
+		position.x += (ch.Advance >> 6) * scale.x; // bitshift by 6 to get value in pixels (2^6 = 64)
+		gl_has_errors();
+	}
+
+	glBindTexture(GL_TEXTURE_2D, 0);
+}
+
+void RenderSystem::load_texture(const TextureLoadRequest& texture_load_request)
+{
+	// Load in the image from path
+	ivec2& dimensions = ivec2(0);
+	stbi_uc* data;
+	data = stbi_load(texture_load_request.path.c_str(), &dimensions.x, &dimensions.y, NULL, 4);
+
+	if (data == NULL)
+	{
+		const std::string message = "Could not load the file " + texture_load_request.path + ".";
+		fprintf(stderr, "%s", message.c_str());
+		assert(false);
+	}
+
+	// Generate texture
+	unsigned int texture_id;
+	glGenTextures(1, &texture_id);
+	glBindTexture(GL_TEXTURE_2D, texture_id);
+	// Set images properties
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, dimensions.x, dimensions.y, 0, GL_RGBA, GL_UNSIGNED_BYTE, data);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	// Check for errors and free memory
+	gl_has_errors();
+	stbi_image_free(data);
+	gl_has_errors();
+	// If it worked, keep a reference to it in a component
+	Entity loaded_image_entity;
+	registry.loadedImages.insert(loaded_image_entity,
+								 {
+									 texture_load_request.uid,
+									 texture_id,
+									 texture_load_request.path,
+									 dimensions,
+								 });
+
+	// Reset back
+	glBindTexture(GL_TEXTURE_2D, 0);
+}
 
 // TODO 1ch6Q0BE: Remove function
 void RenderSystem::drawShape(Entity entity,
@@ -121,114 +270,116 @@ void RenderSystem::drawTexturedMesh(Entity entity,
 		transform.translate(window_center()-camera_position);
 	}
 
-	transform.scale(scale);
-	transform.rotate(radians(angle.degrees));
+		transform.scale(scale);
+		transform.rotate(radians(angle.degrees));
+		// Create the textured vertex and add it to our vertices
 
-	assert(registry.renderRequests.has(entity));
-	const RenderRequest &render_request = registry.renderRequests.get(entity);
+		// Loop over the 4 vertices in the 
 
-	const GLuint used_effect_enum = (GLuint)render_request.used_effect;
-	assert(used_effect_enum != (GLuint)EFFECT_ASSET_ID::EFFECT_COUNT);
-	const GLuint program = (GLuint)effects[used_effect_enum];
+		for (TexturedVertex textured_vertex : textured_vertices)
+		{
+			textured_vertex.position = transform.mat * textured_vertex.position;
+			batch_texture_vertices.push_back(textured_vertex);
+		}
+	}
+
+	// Do the same as above but with the current program and texture
+	if (!batch_texture_vertices.empty())
+	{
+		// Update the buffer for the new batch
+		glBindBuffer(GL_ARRAY_BUFFER, vbo);
+		glBufferSubData(GL_ARRAY_BUFFER, 0, batch_texture_vertices.size() * sizeof(TexturedVertex), batch_texture_vertices.data());
+		// Update the state
+		glUseProgram(current_program);
+		glBindTexture(GL_TEXTURE_2D, current_texture);
+		// 
+		
+		// Batch draw
+		glDrawArrays(GL_TRIANGLES, 0, batch_texture_vertices.size());
+	}	
+
+	//GLint color_uloc = uniform_locations[program]["fcolor"];
+	//const vec4 color = registry.colors.has(entity) ? registry.colors.get(entity) : vec4(1);
+	//glUniform4fv(source_rect_uloc, 1, (float*)&render_source_rect);
+
+	//GLint source_rect_uloc = uniform_locations[program]["source_rect"];
+	//const RenderSourceRect& render_source_rect = registry.renderSourceRects.has(entity) ? registry.renderSourceRects.get(entity) : RenderSourceRect();
+	//glUniform4fv(source_rect_uloc, 1, (float*)&render_source_rect);
+
+
 
 	// Setting shaders
-	glUseProgram(program);
-	gl_has_errors();
+	//glUseProgram(program);
+	//gl_has_errors();
 
-	assert(render_request.used_geometry != GEOMETRY_BUFFER_ID::GEOMETRY_COUNT);
-	const GLuint vbo = vertex_buffers[(GLuint)render_request.used_geometry];
-	const GLuint ibo = index_buffers[(GLuint)render_request.used_geometry];
+	//assert(render_request.used_geometry != GEOMETRY_BUFFER_ID::GEOMETRY_COUNT);
+	//const GLuint vbo = vertex_buffers[(GLuint)render_request.used_geometry];
+	//const GLuint ibo = index_buffers[(GLuint)render_request.used_geometry];
 
-	// Setting vertex and index buffers
-	glBindBuffer(GL_ARRAY_BUFFER, vbo);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo);
-	gl_has_errors();
+	//// Setting vertex and index buffers
+	//glBindBuffer(GL_ARRAY_BUFFER, vbo);
+	//glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo);
+	//gl_has_errors();
 
-	// texture-mapped entities - use data location as in the vertex buffer
-	if (render_request.used_effect == EFFECT_ASSET_ID::TEXTURED)
-	{
-		GLint in_position_loc = glGetAttribLocation(program, "in_position");
-		GLint in_texcoord_loc = glGetAttribLocation(program, "in_texcoord");
-		gl_has_errors();
-		assert(in_texcoord_loc >= 0);
+	//GLint in_position_loc = attribute_locations[program]["in_position"];
+	//GLint in_texcoord_loc = attribute_locations[program]["in_texcoord"];
+	//gl_has_errors();
+	//assert(in_texcoord_loc >= 0);
+	//glEnableVertexAttribArray(in_position_loc);
+	//glVertexAttribPointer(in_position_loc, 3, GL_FLOAT, GL_FALSE,
+	//						sizeof(TexturedVertex), (void*)0);
+	//gl_has_errors();
 
-		glEnableVertexAttribArray(in_position_loc);
-		glVertexAttribPointer(in_position_loc, 3, GL_FLOAT, GL_FALSE,
-							  sizeof(TexturedVertex), (void *)0);
-		gl_has_errors();
+	//glEnableVertexAttribArray(in_texcoord_loc);
+	//glVertexAttribPointer(
+	//	in_texcoord_loc, 2, GL_FLOAT, GL_FALSE, sizeof(TexturedVertex),
+	//	(void*)sizeof(
+	//	vec3)); // note the stride to skip the preceeding vertex position
 
-		glEnableVertexAttribArray(in_texcoord_loc);
-		glVertexAttribPointer(
-			in_texcoord_loc, 2, GL_FLOAT, GL_FALSE, sizeof(TexturedVertex),
-			(void *)sizeof(
-				vec3)); // note the stride to skip the preceeding vertex position
+	//// Enabling and binding texture to slot 0
+	//glActiveTexture(GL_TEXTURE0);
+	//gl_has_errors();
 
-		// Enabling and binding texture to slot 0
-		glActiveTexture(GL_TEXTURE0);
-		gl_has_errors();
+	//assert(registry.textured.has(entity));
+	//GLuint texture_id =
+	//	texture_gl_handles[(GLuint)registry.textured.get(entity).used_texture];
 
-		assert(registry.textured.has(entity));
-		GLuint texture_id =
-			texture_gl_handles[(GLuint)registry.textured.get(entity).used_texture];
+	//glBindTexture(GL_TEXTURE_2D, texture_id);
+	//gl_has_errors();
+	//
 
-		glBindTexture(GL_TEXTURE_2D, texture_id);
-		gl_has_errors();
-	}
-	// .obj entities
-	else if (render_request.used_effect == EFFECT_ASSET_ID::DEFAULT)
-	{
-		GLint in_position_loc = glGetAttribLocation(program, "in_position");
-		GLint in_color_loc = glGetAttribLocation(program, "in_color");
-		gl_has_errors();
 
-		glEnableVertexAttribArray(in_position_loc);
-		glVertexAttribPointer(in_position_loc, 3, GL_FLOAT, GL_FALSE,
-							  sizeof(ColoredVertex), (void *)0);
-		gl_has_errors();
+	//GLint color_uloc = uniform_locations[program]["fcolor"];
+	//const vec4 color = registry.colors.has(entity) ? registry.colors.get(entity) : vec4(1);
+	//glUniform4fv(color_uloc, 1, (float*)&color);
 
-		glEnableVertexAttribArray(in_color_loc);
-		glVertexAttribPointer(in_color_loc, 3, GL_FLOAT, GL_FALSE,
-							  sizeof(ColoredVertex), (void *)sizeof(vec3));
-		gl_has_errors();
-	}
-	else
-	{
-		assert(false && "Type of render request not supported");
-	}
+	//// Getting the size and area to drawn from the source
+	//GLint source_rect_uloc = uniform_locations[program]["source_rect"];
+	//const RenderSourceRect& render_source_rect = registry.renderSourceRects.has(entity) ? registry.renderSourceRects.get(entity) : RenderSourceRect();
+	//glUniform4fv(source_rect_uloc, 1, (float*)&render_source_rect);
 
-	// Getting uniform locations for glUniform* calls
-	GLint color_uloc = glGetUniformLocation(program, "fcolor");
-	const vec4 color = registry.colors.has(entity) ? registry.colors.get(entity) : vec4(1);
-	glUniform4fv(color_uloc, 1, (float *)&color);
-	gl_has_errors();
+	//// Get number of indices from index buffer, which has elements uint16_t
+	//GLint size = 0;
+	//glGetBufferParameteriv(GL_ELEMENT_ARRAY_BUFFER, GL_BUFFER_SIZE, &size);
+	//gl_has_errors();
 
-	// Getting the size and area to drawn from the source
-	GLint source_rect_uloc = glGetUniformLocation(program, "source_rect");
-	const RenderSourceRect& render_source_rect = registry.renderSourceRects.has(entity) ? registry.renderSourceRects.get(entity) : RenderSourceRect();
-	glUniform4fv(source_rect_uloc, 1, (float*)&render_source_rect);
+	//GLsizei num_indices = size / sizeof(uint16_t);
+	//// GLsizei num_triangles = num_indices / 3;
 
-	// Get number of indices from index buffer, which has elements uint16_t
-	GLint size = 0;
-	glGetBufferParameteriv(GL_ELEMENT_ARRAY_BUFFER, GL_BUFFER_SIZE, &size);
-	gl_has_errors();
+	//GLint currProgram;
+	//glGetIntegerv(GL_CURRENT_PROGRAM, &currProgram);
+	//// Setting uniform values to the currently bound program
+	//GLint transform_loc = uniform_locations[program]["transform"];
+	//glUniformMatrix3fv(transform_loc, 1, GL_FALSE, (float*)&transform.mat);
+	//gl_has_errors();
 
-	GLsizei num_indices = size / sizeof(uint16_t);
-	// GLsizei num_triangles = num_indices / 3;
+	//GLint projection_loc = uniform_locations[program]["projection"];
+	//glUniformMatrix3fv(projection_loc, 1, GL_FALSE, (float*)&projection);
+	//gl_has_errors();
 
-	GLint currProgram;
-	glGetIntegerv(GL_CURRENT_PROGRAM, &currProgram);
-	// Setting uniform values to the currently bound program
-	GLuint transform_loc = glGetUniformLocation(currProgram, "transform");
-	glUniformMatrix3fv(transform_loc, 1, GL_FALSE, (float *)&transform.mat);
-	gl_has_errors();
-
-	GLuint projection_loc = glGetUniformLocation(currProgram, "projection");
-	glUniformMatrix3fv(projection_loc, 1, GL_FALSE, (float *)&projection);
-	gl_has_errors();
-
-	// Drawing of num_indices/3 triangles specified in the index buffer
-	glDrawElements(GL_TRIANGLES, num_indices, GL_UNSIGNED_SHORT, nullptr);
-	gl_has_errors();
+	//// Drawing of num_indices/3 triangles specified in the index buffer
+	//glDrawElements(GL_TRIANGLES, num_indices, GL_UNSIGNED_SHORT, nullptr);
+	//gl_has_errors();
 }
 
 // first draw to an intermediate texture,
@@ -348,17 +499,43 @@ void RenderSystem::draw()
 		}
 	);
 
+	registry.textured.sort([&]
+	(Entity texture_a_entity, Entity texture_b_entity)
+	{
+		const RenderRequest& a_render_request = registry.renderRequests.get(texture_a_entity);
+		const RenderRequest& b_render_request = registry.renderRequests.get(texture_b_entity);
+
+		// Sort first by layer
+		if (a_render_request.layer != b_render_request.layer)
+		{
+			return a_render_request.layer < a_render_request.layer;
+		}
+
+		const TEXTURE_ASSET_ID& a_texture_id = registry.textured.get(texture_a_entity).used_texture;
+		const TEXTURE_ASSET_ID& b_texture_id = registry.textured.get(texture_b_entity).used_texture;
+
+		// Then sort by texture if they share a layer
+		if (a_texture_id != b_texture_id)
+		{
+			return a_texture_id < b_texture_id;
+		}
+
+		// If they are the same layer and same texture, check if we are using different shaders
+		return a_render_request.used_effect < a_render_request.used_effect;
+	}
+	);
+
+
+	drawTextures(projection_2D);
+
 	// draw all entities with a render request to the frame buffer
 	for (Entity entity : registry.renderRequests.entities)
 	{
-		// filter to entities that have a motion component
-		if (registry.textured.has(entity))
-		{
-			// Note, its not very efficient to access elements indirectly via the entity
-			// albeit iterating through all Sprites in sequence. A good point to optimize
-			drawTexturedMesh(entity, projection_2D);
-		}
 		// draw grid lines separately, as they do not have motion but need to be rendered
+		if (registry.gridLines.has(entity))
+		{
+			drawGridLine(entity, projection_2D);
+		}
 		else if (registry.rectangles.has(entity) || registry.circles.has(entity))
 		{
 			drawShape(entity, projection_2D);
@@ -372,6 +549,17 @@ void RenderSystem::draw()
 	// flicker-free display with a double buffer
 	glfwSwapBuffers(window);
 	gl_has_errors();
+
+	// Create any texture load requests
+	if (registry.textureLoadRequests.size() > 0)
+	{
+		for (TextureLoadRequest& texture_load_request : registry.textureLoadRequests.components)
+		{
+			load_texture(texture_load_request);
+		}
+
+		registry.textureLoadRequests.clear();
+	}
 }
 
 mat3 RenderSystem::createProjectionMatrix()

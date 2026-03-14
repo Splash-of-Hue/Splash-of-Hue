@@ -61,3 +61,25 @@ struct Mesh
 	std::vector<ColoredVertex> vertices;
 	std::vector<uint16_t> vertex_indices;
 };
+
+/// Images that are loaded in from external data at runtime
+struct DynamicallyLoadedImage
+{
+	/// <summary>
+	/// The unique ID of the request, this is to help later find what what requested
+	/// </summary>
+	std::string uid;
+	/// <summary>
+	/// The ID of the texture generated. This won't be known by the requester but is required.
+	/// </summary>
+	unsigned int texture_id;
+	std::string path;
+	ivec2 dimensions;
+};
+
+// A request to load a dynamically loaded image
+struct TextureLoadRequest
+{
+	std::string uid;
+	std::string path;
+};
