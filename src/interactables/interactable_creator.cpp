@@ -71,7 +71,6 @@ Entity createColourOrb(vec2 position, float radius, COLOUR_STATE colour_state)
 
 Entity createMushroom(vec2 position, float radius, COLOUR_STATE colour_state, MUSHROOM_SIZE mushroom_size)
 {
-
 	switch (mushroom_size)
 	{
 		case MUSHROOM_SIZE::SMALL:
