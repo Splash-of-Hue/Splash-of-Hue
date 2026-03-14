@@ -58,6 +58,10 @@ public:
 	static BEHAVIOUR_TREE_STATUS aimAtTarget(Entity& follower, float elapsed_ms);
 	static BEHAVIOUR_TREE_STATUS sawfishChargeAtTarget(Entity& follower, float elapsed_ms);
 
+	//Crab behaviour Actions
+	static BEHAVIOUR_TREE_STATUS slideForwards(Entity& creature, float elapsed_ms);
+	static BEHAVIOUR_TREE_STATUS slideBackwards(Entity& creature, float elapsed_ms);
+
 	// ===== Decorator Node Functions =====
 	// Colour
 	//todo: https://trello.com/c/SPoplE91/184-1-consolidate-inxradius-components
@@ -81,6 +85,8 @@ public:
 	static BEHAVIOUR_TREE_STATUS isCharging(Entity& creature, float elapsed_ms);
 	static BEHAVIOUR_TREE_STATUS isDizzy(Entity& creature, float elapsed_ms);
 
+	// Crab Decorator functions
+	static BEHAVIOUR_TREE_STATUS isSliding(Entity& creature, float elapsed_ms);
 private:
 	// ===== NODE HELPERS =====
 	static BEHAVIOUR_TREE_STATUS makeColour(Entity& creature, COLOUR_STATE colour_state);

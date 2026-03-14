@@ -48,13 +48,30 @@ Entity CreatureCreator::createAnglerfish(const int level_uid, vec2 position, flo
     return anglerfish;
 }
 
-Entity CreatureCreator::createCrab(const int level_uid, vec2 position, float width, float height, COLOUR_STATE color_state)
+Entity CreatureCreator::createCrab(const int level_uid, vec2 position, float width, float height, COLOUR_STATE color_state, DIRECTION curr_direction_facing)
 {
     Entity crab = Entity();
 
     // TODO add dedicated crab asset and texture ID
-	addGeneralCreatureComponents(level_uid, crab, position, width, height, color_state, CREATURETYPE::CRAB, TEXTURE_ASSET_ID::CREATURES);
+    // TODO: ocWt9dv
+	addGeneralCreatureComponents(level_uid, crab, position, width, height, color_state, CREATURETYPE::CRAB, TEXTURE_ASSET_ID::SAWFISH);
+    Angle& direction_facing = registry.angles.get(crab);
     
+    if (curr_direction_facing == DIRECTION::UP) {
+        direction_facing.degrees = M_PI / 2;
+    }
+    else if (curr_direction_facing == DIRECTION::DOWN) {
+        direction_facing.degrees = M_PI * 3 / 2;
+    }
+    else if (curr_direction_facing == DIRECTION::RIGHT) {
+        direction_facing.degrees = 0;
+    }
+    else {
+        direction_facing.degrees = M_PI;
+    }
+
+    registry.breakables.emplace(crab);
+
     CreatureBehaviour& creatureBehaviour = registry.creatureBehaviours.emplace(crab);
     CreatureBehaviourTreeBuilder builder;
     creatureBehaviour.behaviour_tree = builder.buildCrabTree();
