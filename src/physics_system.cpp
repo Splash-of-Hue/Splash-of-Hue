@@ -74,7 +74,7 @@ void handleMushrooms(Entity& entity_i, Entity& entity_j)
 {
 	Entity& mushroom_entity = registry.mushrooms.has(entity_i) ? entity_i : entity_j;
 	Entity& emission_entity = registry.mushrooms.has(entity_j) ? entity_i : entity_j;
-	std::cout << (int)registry.mushrooms.get(mushroom_entity).size << std::endl;
+
 	LightEmission& emission_component = registry.lightEmissions.get(emission_entity);
 	if (emission_component.lightSourceEntity == mushroom_entity)
 	{
