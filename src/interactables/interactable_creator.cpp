@@ -69,16 +69,32 @@ Entity createColourOrb(vec2 position, float radius, COLOUR_STATE colour_state)
 	return colourOrb;
 }
 
-Entity createMushroom(vec2 position, float radius, COLOUR_STATE colour_state)
+Entity createMushroom(vec2 position, float radius, COLOUR_STATE colour_state, MUSHROOM_SIZE mushroom_size)
 {
 
+	switch (mushroom_size)
+	{
+		case MUSHROOM_SIZE::SMALL:
+			radius = 25.f;
+			break;
+		case MUSHROOM_SIZE::MEDIUM:
+			radius = 100.f;
+			break;
+		case MUSHROOM_SIZE::LARGE:
+			radius = 200.f;
+			break;
+	}
+		
 	Size size = { radius, radius };
 	Entity mushroom = addGeneralInteractableComponents(position, size, INTERACTABLE_TYPE::MUSHROOM);
 	registry.collectables.emplace(mushroom);
 	Collidable& collidable = registry.collidables.emplace(mushroom);
 	collidable.inelastic = true;
 	registry.circles.emplace(mushroom);
-	registry.mushrooms.emplace(mushroom);
+
+	Mushroom& mushroom_component = registry.mushrooms.emplace(mushroom);
+	mushroom_component.size = mushroom_size;
+
 	registry.scales.insert(mushroom, vec2(size.width, size.height));
 	registry.colourStates.insert(mushroom, { colour_state, colour_state });
 	registry.colors.insert(mushroom, vec4(0.f, 1.f, 0.f, 1.0f));

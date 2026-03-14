@@ -14,6 +14,7 @@
 #include "interactables/interactable_system.hpp"
 #include "loading/loader_system.hpp"
 #include "colour_system.hpp"
+#include "emission_system.hpp"
 #include "physics_system.hpp"
 #include "renderer/render_system.hpp"
 #include "world_system.hpp"
@@ -41,6 +42,7 @@ int main()
 	ControlInputConversionSystem control_input_conversion_system;
 	PlayerControllerSystem player_controller_system;
 	ColourSystem colour_system;
+	EmissionSystem emission_system;
 	CreatureBehaviourSystem creature_behaviour_system;
 	CameraSystem camera_system;
 	MapSystem map_system;
@@ -89,6 +91,7 @@ int main()
 		ai_system.step(elapsed_ms);
 		creature_behaviour_system.step(elapsed_ms);
 		physics_system.step(DT);
+		emission_system.step(elapsed_ms);
 		animation_system.step(elapsed_ms);
 		world_system.handle_behaviour_change();
 		interactable_system.step(elapsed_ms);

@@ -16,7 +16,6 @@ public:
 	}
 
 private:
-	bool inRadiusList(Entity& emission_entity, std::vector<Entity>& radius_list);
 	void checkIfInRadius();
 	void checkIfCollidingRadius(Entity& entity, std::vector<Entity>& radius_list);
 	void handle_movement(float elapsed_ms);

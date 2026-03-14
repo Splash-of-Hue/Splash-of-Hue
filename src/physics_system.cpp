@@ -8,6 +8,104 @@
 #include <math.h>
 #include <numeric>
 
+
+//todo: https://trello.com/c/tXEZLSr7/229-1-optimize-inradiuslist-in-physicssystemcpp
+bool inRadiusList(Entity& emission_entity, std::vector<Entity>& radius_list)
+{
+	for (Entity& receiving_entity : radius_list)
+	{
+		if (receiving_entity.id() == emission_entity.id())
+		{
+			return true;
+		}
+	}
+
+	return false;
+}
+
+template <typename ComponentInterface>
+void addSpecificRadiusCollision(Entity& entity_in_emission, Entity& emission_entity, ComponentInterface& container, bool& inRadius, std::vector<Entity>& radiusList)
+{
+	if (inRadiusList(emission_entity, radiusList))
+	{
+		return;
+	}
+
+	LightEmission& light_emission_component = registry.lightEmissions.get(emission_entity);
+	Entity& source_entity = light_emission_component.lightSourceEntity;
+
+	if (container.has(source_entity))
+	{
+		inRadius = true;
+		radiusList.push_back(emission_entity);
+	}
+
+}
+
+void addRadiusCollisionToEntity(Entity& entity_in_emission, Entity& emission_entity)
+{
+	if (!registry.inRadius.has(entity_in_emission))
+	{
+		registry.inRadius.emplace(entity_in_emission);
+	}
+
+	InRadius& in_radius_component = registry.inRadius.get(entity_in_emission);
+
+	addSpecificRadiusCollision(entity_in_emission, emission_entity, registry.players, in_radius_component.inPlayerRadius, in_radius_component.playerRadius);
+	addSpecificRadiusCollision(entity_in_emission, emission_entity, registry.creatures, in_radius_component.inCreatureRadius, in_radius_component.creatureRadius);
+	addSpecificRadiusCollision(entity_in_emission, emission_entity, registry.interactables, in_radius_component.inInteractableRadius, in_radius_component.interactableRadius);
+
+	return;
+}
+
+void changeColourGivenPriority(ColourState& entity_colour_state, bool& inRadius1, std::vector<Entity>& radiusList1, bool& inRadius2, std::vector<Entity>& radiusList2, bool& inRadius3, std::vector<Entity>& radiusList3)
+{
+	if (inRadius1)
+		entity_colour_state.curr_colour_state = registry.colourStates.get(radiusList1[0]).curr_colour_state;
+	else if (inRadius2)
+		entity_colour_state.curr_colour_state = registry.colourStates.get(radiusList2[0]).curr_colour_state;
+	else if (inRadius3)
+		entity_colour_state.curr_colour_state = registry.colourStates.get(radiusList3[0]).curr_colour_state;
+	return;
+}
+
+//TODO: when cleaning up physics, move this to a group of "handleX" functions
+void handleMushrooms(Entity& entity_i, Entity& entity_j)
+{
+	Entity& mushroom_entity = registry.mushrooms.has(entity_i) ? entity_i : entity_j;
+	Entity& emission_entity = registry.mushrooms.has(entity_j) ? entity_i : entity_j;
+	std::cout << (int)registry.mushrooms.get(mushroom_entity).size << std::endl;
+	LightEmission& emission_component = registry.lightEmissions.get(emission_entity);
+	if (emission_component.lightSourceEntity == mushroom_entity)
+	{
+		return;
+	}
+	addRadiusCollisionToEntity(mushroom_entity, emission_entity);
+
+	if (!registry.lightSources.has(mushroom_entity))
+	{
+		registry.needsToEmits.emplace(mushroom_entity);
+	}
+
+	ColourState& mushroom_colour_state = registry.colourStates.get(mushroom_entity);
+	ColourState& emission_colour_state = registry.colourStates.get(emission_entity);
+
+	if (mushroom_colour_state.curr_colour_state == emission_colour_state.curr_colour_state)
+	{
+		return;
+	}
+
+	InRadius& in_radius_component = registry.inRadius.get(mushroom_entity);
+	changeColourGivenPriority(mushroom_colour_state, in_radius_component.inCreatureRadius, in_radius_component.creatureRadius,
+		in_radius_component.inPlayerRadius, in_radius_component.playerRadius,
+		in_radius_component.inInteractableRadius, in_radius_component.interactableRadius);
+
+	if (!registry.needsToChangeColourStates.has(mushroom_entity))
+	{
+		registry.needsToChangeColourStates.emplace(mushroom_entity);
+	}
+}
+
 // Returns the local bounding coordinates scaled by the current size of the entity
 vec4 get_bounding_box(const Entity& entity)
 {
@@ -128,20 +226,6 @@ bool is_light_emission_collision(Entity& entity_i, Entity& entity_j)
 	return false;
 }
 
-//todo: https://trello.com/c/tXEZLSr7/229-1-optimize-inradiuslist-in-physicssystemcpp
-bool inRadiusList(Entity& emission_entity, std::vector<Entity>& radius_list)
-{
-	for (Entity& receiving_entity : radius_list)
-	{
-		if (receiving_entity.id() == emission_entity.id())
-		{
-			return true;
-		}
-	}
-
-	return false;
-}
-
 void light_emission_collisions(Entity& entity_i, Entity& entity_j) 
 {
 	vec2& posI = registry.positions.get(entity_i);
@@ -252,52 +336,7 @@ void light_emission_collisions(Entity& entity_i, Entity& entity_j)
 
 	if (registry.mushrooms.has(entity_i) || registry.mushrooms.has(entity_j))
 	{
-		Entity& mushroom = registry.mushrooms.has(entity_i) ? entity_i : entity_j;
-		Entity& radius = registry.mushrooms.has(entity_j) ? entity_i : entity_j;
-
-		if (registry.lightEmissions.get(radius).lightSourceEntity != mushroom)
-		{
-			if (!registry.inRadius.has(mushroom))
-			{
-				registry.inRadius.emplace(mushroom);
-			}
-
-			InRadius& in_radius_component = registry.inRadius.get(mushroom);
-			LightEmission& light_emission_component = registry.lightEmissions.get(radius);
-			Entity& source_entity = light_emission_component.lightSourceEntity;
-			if (registry.players.has(source_entity))
-			{
-				in_radius_component.inPlayerRadius = true;
-				if (!inRadiusList(light_emission_entity, in_radius_component.playerRadius))
-				{
-					in_radius_component.playerRadius.push_back(light_emission_entity);
-				}
-			}
-
-			if (registry.creatures.has(source_entity))
-			{
-				in_radius_component.inCreatureRadius = true;
-				if (!inRadiusList(light_emission_entity, in_radius_component.creatureRadius))
-				{
-					in_radius_component.creatureRadius.push_back(light_emission_entity);
-				}
-			}
-
-			if (registry.interactables.has(source_entity))
-			{
-				in_radius_component.inInteractableRadius = true;
-				if (!inRadiusList(light_emission_entity, in_radius_component.interactableRadius))
-				{
-					in_radius_component.interactableRadius.push_back(light_emission_entity);
-				}
-			}
-
-			if (!registry.lightSources.has(mushroom) && (in_radius_component.inPlayerRadius || in_radius_component.inCreatureRadius || in_radius_component.inInteractableRadius))
-			{
-				registry.lightSources.emplace(mushroom);
-			}
-		}
-		
+		handleMushrooms(entity_i, entity_j);
 	}
 }
 
@@ -718,7 +757,17 @@ void PhysicsSystem::checkIfInRadius()
 
 		if (!in_radius_component.inPlayerRadius && !in_radius_component.inCreatureRadius && !in_radius_component.inInteractableRadius)
 		{
+			if (registry.mushrooms.has(entity))
+			{
+				registry.needsToRemoveEmissions.emplace(entity);
+			}
+
+			ColourState& colour_state = registry.colourStates.get(entity);
+			colour_state.prev_colour_state = colour_state.curr_colour_state;
+			colour_state.curr_colour_state = COLOUR_STATE::NEUTRAL;
 			registry.inRadius.remove(entity);
+			
+			
 		}
 	}
 }

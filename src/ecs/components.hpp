@@ -107,22 +107,6 @@ struct PolygonMesh
 	vec2 centre;
 };
 
-struct LightEmission 
-{
-	Entity lightSourceEntity;
-	float MAX_RADIUS = 100.f;
-	float TIME_TO_GROW = 1000.f;
-	vec2 offset;
-};
-
-struct LightSource 
-{
-	//we give the mushroom LightSource in physics system, but we create the emission in colour system. 
-	//This bool exists so we know what has a light source, but doesnt have an emission
-	bool isEmitting = false;
-	Entity lightEmissionEntity;
-};
-
 struct InRadius
 {
 	bool inPlayerRadius = false;
@@ -131,4 +115,32 @@ struct InRadius
 	std::vector<Entity> playerRadius;
 	std::vector<Entity> creatureRadius;
 	std::vector<Entity> interactableRadius;
+};
+
+struct LightEmission
+{
+	Entity lightSourceEntity;
+	float MAX_RADIUS = 100.f;
+	float TIME_TO_GROW = 1000.f;
+	vec2 offset;
+};
+
+struct LightSource
+{
+	Entity lightEmissionEntity;
+};
+
+struct NeedsToEmit
+{
+
+};
+
+struct NeedsToChangeColourState
+{
+
+};
+
+struct NeedsToRemoveEmission
+{
+
 };

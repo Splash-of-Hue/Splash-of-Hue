@@ -40,8 +40,12 @@ public:
 	ComponentContainer<ColourPalette> colourPalettes;
 	ComponentContainer<ColourMenuState> colourMenuStates;
 	ComponentContainer<ColourMenuInput> colourMenuInputs;
+	// Emission System
 	ComponentContainer<LightEmission> lightEmissions;
 	ComponentContainer<LightSource> lightSources;
+	ComponentContainer<NeedsToChangeColourState> needsToChangeColourStates;
+	ComponentContainer<NeedsToEmit> needsToEmits;
+	ComponentContainer<NeedsToRemoveEmission> needsToRemoveEmissions;
 	// Controls
 	ComponentContainer<Control> controls;
 	ComponentContainer<Input> inputs;
@@ -122,8 +126,12 @@ public:
 		registry_list.push_back(&colourPalettes);
 		registry_list.push_back(&colourMenuStates);
 		registry_list.push_back(&colourMenuInputs);
+		// Emissions
 		registry_list.push_back(&lightEmissions);
 		registry_list.push_back(&lightSources);
+		registry_list.push_back(&needsToChangeColourStates);
+		registry_list.push_back(&needsToEmits);
+		registry_list.push_back(&needsToRemoveEmissions);
 		// Controls
 		registry_list.push_back(&controls);
 		registry_list.push_back(&inputs);

@@ -2,6 +2,7 @@
 #include "common.hpp"
 #include "creature_system/creature_constants.hpp"
 #include "ecs/components.hpp"
+#include "interactables/interactable_components.hpp"
 #include "map/map_constants.hpp"
 #include <map>
 #include <string>
@@ -103,16 +104,16 @@ inline COLOUR_STATE color_state_from_string(const std::string color_string)
 	return search != color_state_string_enum_map.end() ? search->second : COLOUR_STATE::NEUTRAL;
 };
 
-const std::map<std::string, float> mushroom_size_string_enum_map = {
-	{ "Small", 75 },
-	{ "Medium", 125 },
-	{ "Large", 200 },
+const std::map<std::string, MUSHROOM_SIZE> mushroom_size_string_enum_map = {
+	{ "Small", MUSHROOM_SIZE::SMALL },
+	{ "Medium", MUSHROOM_SIZE::MEDIUM },
+	{ "Large", MUSHROOM_SIZE::LARGE },
 };
 
-inline float mushroom_size_from_string(const std::string color_string)
+inline MUSHROOM_SIZE mushroom_size_from_string(const std::string color_string)
 {
 	const auto& search = mushroom_size_string_enum_map.find(color_string);
-	return search != mushroom_size_string_enum_map.end() ? search->second : 125;
+	return search != mushroom_size_string_enum_map.end() ? search->second : MUSHROOM_SIZE::SMALL;
 };
 
 const std::map<std::string, TEXTURE_ASSET_ID> tile_layer_texture_string_enum_map = {
