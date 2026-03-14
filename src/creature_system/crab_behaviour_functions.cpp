@@ -5,9 +5,9 @@
 BEHAVIOUR_TREE_STATUS CreatureBehaviourFunctions::slideForwards(Entity& creature, float elapsed_ms)
 {
 	vec2& velocity = registry.velocities.get(creature);
-	Angle& direction_facing = registry.angles.get(creature); 
+	vec2& direction = registry.directions.get(creature);
 
-	velocity = vec2{ cos(direction_facing.degrees) * (PLAYER_SPEED), sin(direction_facing.degrees) * (PLAYER_SPEED) };
+	velocity = vec2{ direction.x * (PLAYER_SPEED), direction.y * (PLAYER_SPEED) };
 
 	return BEHAVIOUR_TREE_STATUS::SUCCESS;
 }
@@ -15,8 +15,8 @@ BEHAVIOUR_TREE_STATUS CreatureBehaviourFunctions::slideForwards(Entity& creature
 BEHAVIOUR_TREE_STATUS CreatureBehaviourFunctions::slideBackwards(Entity& creature, float elapsed_ms)
 {
 	vec2& velocity = registry.velocities.get(creature);
-	Angle& direction_facing = registry.angles.get(creature); 
-	velocity = vec2{ cos(direction_facing.degrees) * (-PLAYER_SPEED), sin(direction_facing.degrees) * (-PLAYER_SPEED) };
+	vec2& direction = registry.directions.get(creature);
+	velocity = vec2{ direction.x * (-PLAYER_SPEED), direction.y * (-PLAYER_SPEED) };
 
 	return BEHAVIOUR_TREE_STATUS::SUCCESS;
 }

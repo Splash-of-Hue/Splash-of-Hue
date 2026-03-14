@@ -377,15 +377,17 @@ void handle_inelastic_collision_box(Entity& entity_i, Entity& entity_j)
 	float y_depth = box1[1] < box2[1] ? box1[1] - box2[0] : box2[1] - box1[0];
 	x_depth = fmaxf(0, x_depth);
 	y_depth = fmaxf(0, y_depth);
-	float dir = pos_to_correct->x < other_pos->x && pos_to_correct->y < other_pos->y ? -1.f : 1.f;
+	float dir = 1.f;
 
 	if (registry.velocities.has(entity_i) && registry.velocities.has(entity_j)) {
 		if (registry.velocities.get(entity_i) != vec2{ 0.f, 0.f } && registry.velocities.get(entity_j) != vec2{ 0.f, 0.f }) {
 			if (x_depth < y_depth) {
+				dir = pos_to_correct->x < other_pos->x ? -1.f : 1.f;
 				pos_to_correct->x += x_depth * dir *0.5;
 				other_pos->x -= dir * x_depth * 0.5;
 			}
 			else {
+				dir = pos_to_correct->y < other_pos->y ? -1.f : 1.f;
 				pos_to_correct->y += y_depth * dir * 0.5;
 				other_pos->y -= dir * y_depth * 0.5;
 			}
@@ -395,11 +397,13 @@ void handle_inelastic_collision_box(Entity& entity_i, Entity& entity_j)
 	}
 	if (x_depth < y_depth)
 	{
+		dir = pos_to_correct->x < other_pos->x ? -1.f : 1.f;
 		pos_to_correct->x += x_depth*dir;
 
 	}
 	else
 	{
+		dir = pos_to_correct->y < other_pos->y ? -1.f : 1.f;
 		pos_to_correct->y += y_depth*dir;
 	}
 }
