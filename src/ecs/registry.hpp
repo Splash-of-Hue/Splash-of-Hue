@@ -21,15 +21,6 @@ class ECSRegistry
 
 public:
 	// Manually created list of all components this game has
-
-	// A1
-	ComponentContainer<Deadly> deadlys;
-	ComponentContainer<DeathTimer> deathTimers; // TODO X4tDLE6K: remove
-	ComponentContainer<Eatable> eatables; // TODO X4tDLE6K: remove
-	ComponentContainer<GridLine> gridLines; // TODO X4tDLE6K: remove
-	ComponentContainer<Invader> invaders; // TODO X4tDLE6K: remove
-	ComponentContainer<Projectile> projectiles; // TODO X4tDLE6K: remove
-	ComponentContainer<Tower> towers; // TODO X4tDLE6K: remove
 	// AI
 	ComponentContainer<Charging> chargers;
 	ComponentContainer<CreatureBehaviour> creatureBehaviours;
@@ -82,9 +73,7 @@ public:
 	ComponentContainer<ChangeBehaviour> change_behaviours;
 	ComponentContainer<Collidable> collidables;
 	ComponentContainer<Collision> collisions;
-	ComponentContainer<InCreatureRadius> inCreatureRadius;
-	ComponentContainer<InInteractableRadius> inInteractableRadius;
-	ComponentContainer<InPlayerRadius> inPlayerRadius;
+	ComponentContainer<InRadius> inRadius;
 	ComponentContainer<PolygonMesh> polygons;
 	// Physics - Movement / Transforms
 	ComponentContainer<Angle> angles;
@@ -93,6 +82,7 @@ public:
 	ComponentContainer<Size> sizes;
 	ComponentContainer<vec2> velocities;
 	// Player
+	ComponentContainer<DeathTimer> deathTimers;
 	ComponentContainer<PlayerCreateRequests> playerCreateRequests;
 	ComponentContainer<Player> players;
 	// Rendering
@@ -115,14 +105,6 @@ public:
 	// constructor that adds all containers for looping over them
 	ECSRegistry()
 	{
-		// A1
-		registry_list.push_back(&deadlys);
-		registry_list.push_back(&deathTimers); // TODO X4tDLE6K: remove
-		registry_list.push_back(&eatables); // TODO X4tDLE6K: remove
-		registry_list.push_back(&gridLines); // TODO X4tDLE6K: remove
-		registry_list.push_back(&invaders); // TODO X4tDLE6K: remove
-		registry_list.push_back(&projectiles); // TODO X4tDLE6K: remove
-		registry_list.push_back(&towers); // TODO X4tDLE6K: remove
 		// AI
 		registry_list.push_back(&chargers);
 		registry_list.push_back(&creatureBehaviours);
@@ -175,9 +157,7 @@ public:
 		registry_list.push_back(&change_behaviours);
 		registry_list.push_back(&collidables);
 		registry_list.push_back(&collisions);
-		registry_list.push_back(&inCreatureRadius);
-		registry_list.push_back(&inInteractableRadius);
-		registry_list.push_back(&inPlayerRadius);
+		registry_list.push_back(&inRadius);
 		registry_list.push_back(&polygons);
 		// Physics - Movement / Transforms
 		registry_list.push_back(&angles);
@@ -186,6 +166,7 @@ public:
 		registry_list.push_back(&sizes);
 		registry_list.push_back(&velocities);
 		// Player
+		registry_list.push_back(&deathTimers);
 		registry_list.push_back(&playerCreateRequests);
 		registry_list.push_back(&players);
 		// Rendering
