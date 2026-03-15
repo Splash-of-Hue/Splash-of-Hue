@@ -7,6 +7,7 @@
 #include "controllers/player_components.hpp"
 #include "controls/control_components.hpp"
 #include "creature_system/creature_components.hpp"
+#include "game_state/game_state_component.hpp"
 #include "input/input_components.hpp"
 #include "interactables/interactable_components.hpp"
 #include "loading/loading_components.hpp"
@@ -49,6 +50,8 @@ public:
 	ComponentContainer<InputClearRequest> inputClearRequests;
 	// Debug
 	ComponentContainer<DebugComponent> debugComponents;
+	// General
+	ComponentContainer<GameStateChangeRequest> game_state_change_requests;
 	// Interactables
 	ComponentContainer<Box> boxes;
 	ComponentContainer<Breakable> breakables;
@@ -133,6 +136,8 @@ public:
 		registry_list.push_back(&inputClearRequests);
 		// Debug
 		registry_list.push_back(&debugComponents);
+		// General
+		registry_list.push_back(&game_state_change_requests);
 		// Interactables
 		registry_list.push_back(&boxes);
 		registry_list.push_back(&breakables);
