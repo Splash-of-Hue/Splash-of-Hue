@@ -98,7 +98,7 @@ int main()
 		float elapsed_ms =
 			(float)(std::chrono::duration_cast<std::chrono::microseconds>(now - t)).count() / 1000;
 		t = now;
-
+		// Update and draw loop
 		game_state_system.step(elapsed_ms);
 		world_system.handle_behaviour_change();
 		renderer_system.draw();
