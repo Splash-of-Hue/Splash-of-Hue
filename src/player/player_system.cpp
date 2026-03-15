@@ -64,5 +64,4 @@ void PlayerSystem::create_player(int level_uid, vec2 position)
 	polygon.vertices.push_back(vec2(position.x, position.y - size.height * 0.15f)); // bottom
 	polygon.vertices.push_back(vec2(position.x + size.width * 0.45f, position.y + size.height * 0.45f)); // top right
 	polygon.vertices.push_back(vec2(position.x - size.width * 0.45f, position.y + size.height * 0.45f)); // top left
-
 }
