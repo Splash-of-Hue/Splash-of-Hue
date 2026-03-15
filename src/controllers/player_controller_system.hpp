@@ -1,7 +1,8 @@
 #pragma once
 #include "common.hpp"
+#include "ecs/system.hpp"
 
-class PlayerControllerSystem
+class PlayerControllerSystem : public SystemInterface
 {
 private:
 	vec2 player_movement;

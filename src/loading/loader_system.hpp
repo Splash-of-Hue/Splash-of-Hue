@@ -1,7 +1,8 @@
 #pragma once
 #include "ecs/registry.hpp"
+#include "ecs/system.hpp"
 
-class LoaderSystem
+class LoaderSystem : public SystemInterface
 {
 private:
 	void load_level(int level_uid);

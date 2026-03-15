@@ -2,12 +2,13 @@
 
 #include "common.hpp"
 #include "ecs/registry.hpp"
+#include "ecs/system.hpp"
 #include "input/input_constants.hpp"
 #include <map>
 #include <set>
 #include <string>
 
-class InputSystem
+class InputSystem : public SystemInterface
 {
 private:
 	// Window handle

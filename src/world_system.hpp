@@ -13,10 +13,11 @@
 
 #include "renderer/render_system.hpp"
 #include "input/input_system.hpp"
+#include "ecs/system.hpp"
 
 // Container for all our entities and game logic.
 // Individual rendering / updates are deferred to the update() methods.
-class WorldSystem
+class WorldSystem : public SystemInterface
 {
 public:
 	WorldSystem();

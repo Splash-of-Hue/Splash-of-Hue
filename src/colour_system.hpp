@@ -4,8 +4,9 @@
 #include "ecs/components.hpp"
 #include "common.hpp"
 #include "controls/control_components.hpp"
+#include "ecs/system.hpp"
 
-class ColourSystem
+class ColourSystem : public SystemInterface
 {
 public:
 	ColourSystem();

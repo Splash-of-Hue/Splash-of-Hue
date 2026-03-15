@@ -3,10 +3,11 @@
 #include "animation_components.hpp"
 #include "animation_constants.hpp"
 #include "ecs/entity.hpp"
+#include "ecs/system.hpp"
 #include <map>
 #include <vector>
 
-class AnimationSystem
+class AnimationSystem : public SystemInterface
 {
 private:
 	std::map<ANIMATABLE_TYPE, std::map<ANIMATION_TRIGGER, unsigned int>> animation_entity_map;
