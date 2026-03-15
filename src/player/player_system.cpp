@@ -55,7 +55,6 @@ void PlayerSystem::create_player(int level_uid, vec2 position)
 	registry.colourStates.emplace(player_entity, player_color_state);
 	Collidable& collidable = registry.collidables.emplace(player_entity);
 	collidable.inelastic = true;
-
 	// Add mesh to player, default is triangle
 	PolygonMesh& polygon = registry.polygons.emplace(player_entity);
 	polygon.centre = position;
