@@ -104,7 +104,7 @@ Control ControlInputConversionSystem::convert_joystick_input(const Input& input)
 {
 	int type = input.value_1;
 	bool is_axis_input = type == SOH_AXIS_INPUT_TYPE;
-	int button = is_axis_input ? type : input.value_2;
+	int button = input.value_2;
 	int action = is_axis_input ? GLFW_PRESS : input.value_3;
 	std::string error_message = "Pressed invalid joystick input: " + std::to_string(button);
 	Control& control = generate_control(joystick_control_map, button, action, error_message);
