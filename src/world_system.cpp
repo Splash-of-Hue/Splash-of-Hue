@@ -141,8 +141,6 @@ void WorldSystem::step(float elapsed_ms_since_last_update) {
 
 	assert(registry.screenStates.components.size() <= 1);
     ScreenState &screen = registry.screenStates.components[0];
-
-	return;
 }
 
 // Reset the world state to its initial state
