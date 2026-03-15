@@ -4,7 +4,6 @@
 #include "animation/animation_components.hpp"
 #include "camera/camera_components.hpp"
 #include "components.hpp"
-#include "controllers/player_components.hpp"
 #include "controls/control_components.hpp"
 #include "creature_system/creature_components.hpp"
 #include "game_state/game_state_component.hpp"
@@ -12,6 +11,7 @@
 #include "interactables/interactable_components.hpp"
 #include "loading/loading_components.hpp"
 #include "map/map_components.hpp"
+#include "player/player_components.hpp"
 #include "renderer/render_components.hpp"
 #include "text/text_components.hpp"
 
@@ -86,7 +86,7 @@ public:
 	ComponentContainer<vec2> velocities;
 	// Player
 	ComponentContainer<DeathTimer> deathTimers;
-	ComponentContainer<PlayerCreateRequests> playerCreateRequests;
+	ComponentContainer<PlayerCreateRequest> playerCreateRequests;
 	ComponentContainer<Player> players;
 	// Rendering
 	ComponentContainer<Camera> cameras;

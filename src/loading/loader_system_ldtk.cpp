@@ -249,20 +249,12 @@ void load_extra_entities(const ldtk::Layer& layer)
 
 void set_initial_player_position(const ldtk::Entity& initial_player_position_entity)
 {
-	// Otherwise, this is the first time the level is loaded so use the initial position
-	Entity& player_entity = registry.players.entities[0];
-
-	// Player is already loaded, don't need to set initial position
-	if (registry.players.get(player_entity).is_loaded)
-	{
-		return;
-	}
-
-	registry.currentLevels.get(player_entity).level_uid = initial_player_position_entity.layer->level->uid;
+	int level_uid = initial_player_position_entity.layer->level->uid;
 	const ldtk::IntPoint& initial_player_world_position = initial_player_position_entity.getWorldPosition();
 	vec2 initial_player_position = scale_to_level(vec2(initial_player_world_position.x, initial_player_world_position.y));
-	registry.positions.get(player_entity) = initial_player_position;
-	registry.players.get(player_entity).is_loaded = true;
+	// Request a player be made
+	Entity player_create_request_entity;
+	registry.playerCreateRequests.insert(player_create_request_entity, { level_uid, initial_player_position });
 }
 
 void load_creatures(const ldtk::Layer& layer)

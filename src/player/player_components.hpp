@@ -10,7 +10,8 @@ struct Player
 	bool red_unlocked = false;
 };
 
-struct PlayerCreateRequests
+struct PlayerCreateRequest
 {
-
+	int level_uid;
+	vec2 starting_position;
 };
