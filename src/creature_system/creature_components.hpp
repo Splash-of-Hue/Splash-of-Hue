@@ -38,6 +38,10 @@ struct Shrimp
 	std::unordered_map<SHRIMP_ARM_COLOUR, std::vector<Entity>> shrimp_arms;
 };
 
+struct Minnow_Leader
+{ // could have a pointer to leader minnow
+};
+
 struct Pathfinder
 {
 	float minimum_distance_to_target = 70.0f;

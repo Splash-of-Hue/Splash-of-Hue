@@ -22,10 +22,6 @@ struct Crab
 {
 };
 
-struct Minnows
-{ // could have a pointer to leader minnow
-};
-
 struct Sawfish
 {
 };

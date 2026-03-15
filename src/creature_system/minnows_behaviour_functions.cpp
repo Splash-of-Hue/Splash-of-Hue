@@ -4,7 +4,7 @@
 /*
 
 MINNOW-SPECIFIC BEHAVIOUR FUNCTIONS WILL GO HERE
-
+https://medium.com/better-programming/mastering-flock-simulation-with-boids-c-opengl-and-imgui-5a3ddd9cb958
 Trello 1vUDbywx
 
 */
