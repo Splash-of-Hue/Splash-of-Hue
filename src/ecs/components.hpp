@@ -119,21 +119,13 @@ struct LightSource
 {
 	Entity lightEmissionEntity;
 };
-//Todo SPoplE91 - find a way to consolidate
-struct InPlayerRadius
-{
-	Entity radius_entity;
-	COLOUR_STATE colour = COLOUR_STATE::NEUTRAL;
-};
 
-struct InCreatureRadius
+struct InRadius
 {
-	Entity radius_entity;
-	COLOUR_STATE colour = COLOUR_STATE::NEUTRAL;
-};
-
-struct InInteractableRadius
-{
-	Entity radius_entity;
-	COLOUR_STATE colour = COLOUR_STATE::NEUTRAL;
+	bool inPlayerRadius = false;
+	bool inCreatureRadius = false;
+	bool inInteractableRadius = false;
+	std::vector<Entity> playerRadius;
+	std::vector<Entity> creatureRadius;
+	std::vector<Entity> interactableRadius;
 };

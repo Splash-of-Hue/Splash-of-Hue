@@ -72,9 +72,7 @@ public:
 	ComponentContainer<ChangeBehaviour> change_behaviours;
 	ComponentContainer<Collidable> collidables;
 	ComponentContainer<Collision> collisions;
-	ComponentContainer<InCreatureRadius> inCreatureRadius;
-	ComponentContainer<InInteractableRadius> inInteractableRadius;
-	ComponentContainer<InPlayerRadius> inPlayerRadius;
+	ComponentContainer<InRadius> inRadius;
 	ComponentContainer<PolygonMesh> polygons;
 	// Physics - Movement / Transforms
 	ComponentContainer<Angle> angles;
@@ -156,9 +154,7 @@ public:
 		registry_list.push_back(&change_behaviours);
 		registry_list.push_back(&collidables);
 		registry_list.push_back(&collisions);
-		registry_list.push_back(&inCreatureRadius);
-		registry_list.push_back(&inInteractableRadius);
-		registry_list.push_back(&inPlayerRadius);
+		registry_list.push_back(&inRadius);
 		registry_list.push_back(&polygons);
 		// Physics - Movement / Transforms
 		registry_list.push_back(&angles);
