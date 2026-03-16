@@ -23,6 +23,7 @@ public:
 	// Manually created list of all components this game has
 	// AI
 	ComponentContainer<Boid_Overseer> boidOverseers;
+	ComponentContainer<Boid> boid_minnows; 
 	ComponentContainer<Charging> chargers;
 	ComponentContainer<CreatureBehaviour> creatureBehaviours;
 	ComponentContainer<CreatureBehaviourCooldown> creatureBehaviourCooldowns;
@@ -106,6 +107,7 @@ public:
 	{
 		// AI
 		registry_list.push_back(&boidOverseers);
+		registry_list.push_back(&boid_minnows);
 		registry_list.push_back(&chargers);
 		registry_list.push_back(&creatureBehaviours);
 		registry_list.push_back(&creatureBehaviourCooldowns);

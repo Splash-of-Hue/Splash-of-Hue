@@ -67,6 +67,43 @@ Entity CreatureCreator::createMinnows(const int level_uid, vec2 position, float 
     Entity minnows = Entity();
     
 	addGeneralCreatureComponents(level_uid, minnows, position, width, height, color_state, CREATURETYPE::MINNOWS, TEXTURE_ASSET_ID::MINNOW_01);
+    Boid_Overseer& minnow_overseer = registry.boidOverseers.emplace(minnows);
+    
+    for (int i = 0; i < 100; i++)
+    {
+        Entity minnow_follower;
+        registry.boid_minnows.emplace(minnow_follower);
+
+        if (i % 2 == 0)
+            addGeneralCreatureComponents(level_uid, minnow_follower, vec2((position.x + i * 2), (position.y + i * 2)), width, height, color_state, CREATURETYPE::MINNOWS, TEXTURE_ASSET_ID::MINNOW_01);
+
+        else
+            addGeneralCreatureComponents(level_uid, minnow_follower, vec2((position.x - i + i), (position.y - i)), width, height, color_state, CREATURETYPE::MINNOWS, TEXTURE_ASSET_ID::MINNOW_01);
+
+        Collidable& collidable = registry.collidables.get(minnow_follower);
+        collidable.inelastic = false;
+        collidable.overlay = false;
+
+        vec2& scaleminnow = registry.scales.get(minnow_follower);
+        scaleminnow = vec2(0.5f * GRID_CELL_WIDTH_PX, 0.5f * GRID_CELL_HEIGHT_PX);
+
+        //vec2 minnow_pos = registry.positions.insert(minnow_follower, vec2((position.x + i), (position.y + i)));
+        //registry.velocities.emplace(minnow_follower);
+
+        //registry.levelEntities.insert(minnow_follower, { level_uid });
+
+        //Size size = { 5, 5 };
+        //registry.sizes.insert(minnow_follower, size);
+        //registry.scales.insert(minnow_follower, vec2(0.5f * GRID_CELL_WIDTH_PX, 0.5f * GRID_CELL_HEIGHT_PX));
+        //registry.circles.emplace(minnow_follower);
+        //registry.colors.emplace(minnow_follower, DEFAULT_COLOUR_VEC4);
+        //registry.renderRequests.insert(minnow_follower, {
+        //    EFFECT_ASSET_ID::TEXTURED,
+        //    GEOMETRY_BUFFER_ID::SPRITE,
+        //    RENDER_LAYER::CREATURES,
+        //    });
+    }
+
 
     CreatureBehaviour& creatureBehaviour = registry.creatureBehaviours.emplace(minnows);
     CreatureBehaviourTreeBuilder builder;

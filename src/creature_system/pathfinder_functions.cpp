@@ -7,7 +7,13 @@
 #include "creature_system/creature_behaviour_functions.hpp"
 #include "creature_system/creature_behaviour_system.hpp"
 #include "creature_system/creature_components.hpp"
-#include <ai/pathfinding.hpp>
+#include "ai/pathfinding.hpp"
+#include "ai/boid_system.cpp"
+
+BEHAVIOUR_TREE_STATUS CreatureBehaviourFunctions::minnowTest(Entity& creature, float elapsed_ms)
+{
+	return BEHAVIOUR_TREE_STATUS::SUCCESS;
+}
 
 // todo: https://trello.com/c/Qj457xrS/105-2-creature-behaviour-system-a-pathfinding
 BEHAVIOUR_TREE_STATUS CreatureBehaviourFunctions::aStarFollowTarget(Entity& follower, float elapsed_ms)

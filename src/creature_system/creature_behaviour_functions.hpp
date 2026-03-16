@@ -23,6 +23,7 @@ class CreatureBehaviourFunctions
 public:
 	// Pathfinder, TEMPORARY to be discontinued once A* pathfinding is implemented. (Qj457xrS)
 	bool follow_player(float elapsed_ms, Entity& follower);
+	static BEHAVIOUR_TREE_STATUS minnowTest(Entity& creature, float elapsed_ms);
 
 	// ===== Action Node Functions =====
 	// Pathing

@@ -31,7 +31,12 @@ BehaviourTree CreatureBehaviourTreeBuilder::buildCrabTree()
 
 BehaviourTree CreatureBehaviourTreeBuilder::buildMinnowTree()
 {
-	return BehaviourTree();
+	BehaviourTreeBuilder builder;
+	int root_index =
+		Root(builder,
+			Action(builder, creatureBehaviourFunctions.minnowTest));
+
+	return builder.build(root_index);
 }
 
 BehaviourTree CreatureBehaviourTreeBuilder::buildSawfishTree()
