@@ -1,5 +1,6 @@
 #include "common.hpp"
 #include <iostream>
+#include <filesystem>
 #ifdef _WIN32
 #include <windows.h>
 #endif
@@ -7,7 +8,6 @@
 #include <mach-o/dyld.h>
 #include <limits.h>
 #endif
-#include <filesystem>
 
 // Note, we could also use the functions from GLM but we write the transformations here to show the uderlying math
 void Transform::scale(vec2 scale)
