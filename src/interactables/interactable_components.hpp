@@ -25,13 +25,13 @@ struct OrbCollected {
 enum class MUSHROOM_SIZE 
 {
 	SMALL = 0,
-	MEDIUM = 1,
-	LARGE = 2
+	MEDIUM = SMALL + 1,
+	LARGE = MEDIUM + 1
 };
 
 struct Mushroom
 {
-	MUSHROOM_SIZE size = MUSHROOM_SIZE::MEDIUM;
+	MUSHROOM_SIZE size = DEFAULT_MUSHROOM_SIZE;
 };
 
 struct MossToggle

@@ -84,7 +84,7 @@ void handleMushrooms(Entity& entity_i, Entity& entity_j)
 
 	if (!registry.lightSources.has(mushroom_entity))
 	{
-		registry.needsToEmits.emplace(mushroom_entity);
+		registry.markedForEmissionCreation.emplace(mushroom_entity);
 	}
 
 	ColourState& mushroom_colour_state = registry.colourStates.get(mushroom_entity);
@@ -100,9 +100,9 @@ void handleMushrooms(Entity& entity_i, Entity& entity_j)
 		in_radius_component.inPlayerRadius, in_radius_component.playerRadius,
 		in_radius_component.inInteractableRadius, in_radius_component.interactableRadius);
 
-	if (!registry.needsToChangeColourStates.has(mushroom_entity))
+	if (!registry.markedForEmissionColourChanges.has(mushroom_entity))
 	{
-		registry.needsToChangeColourStates.emplace(mushroom_entity);
+		registry.markedForEmissionColourChanges.emplace(mushroom_entity);
 	}
 }
 
@@ -759,7 +759,7 @@ void PhysicsSystem::checkIfInRadius()
 		{
 			if (registry.mushrooms.has(entity))
 			{
-				registry.needsToRemoveEmissions.emplace(entity);
+				registry.markedForEmissionRemoval.emplace(entity);
 			}
 
 			ColourState& colour_state = registry.colourStates.get(entity);

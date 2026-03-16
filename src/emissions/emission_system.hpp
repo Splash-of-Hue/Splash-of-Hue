@@ -8,16 +8,14 @@
 class EmissionSystem
 {
 public:
-
 	void step(float elapsed_ms);
 	EmissionSystem()
 	{
 	}
 
 private:
-	void removeEmissions();
-	void createNewEmissions();
-	void changeDifferentEmissions();
-	void updateCurrentEmissions(float elapsed_ms);
-
+	void remove_emissions();
+	void create_new_emissions();
+	void change_emission_colour();
+	void update_emission_position_size(float elapsed_ms);
 };

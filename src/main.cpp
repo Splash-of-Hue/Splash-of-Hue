@@ -14,7 +14,7 @@
 #include "interactables/interactable_system.hpp"
 #include "loading/loader_system.hpp"
 #include "colour_system.hpp"
-#include "emission_system.hpp"
+#include "emissions/emission_system.hpp"
 #include "physics_system.hpp"
 #include "renderer/render_system.hpp"
 #include "world_system.hpp"

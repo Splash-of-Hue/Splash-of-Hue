@@ -130,17 +130,17 @@ struct LightSource
 	Entity lightEmissionEntity;
 };
 
-struct NeedsToEmit
+struct MarkedForEmissionCreation
 {
 
 };
 
-struct NeedsToChangeColourState
+struct MarkedForEmissionColourChange
 {
 
 };
 
-struct NeedsToRemoveEmission
+struct MarkedForEmissionRemoval
 {
 
 };

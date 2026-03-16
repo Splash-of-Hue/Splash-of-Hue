@@ -195,39 +195,39 @@ void ColourSystem::applyColorToPlayer(COLOUR_STATE colour)
 
 		//TODO: https://trello.com/c/XWeiA55L/149-1-colour-menu-ui-always-visible
 		setEntityVisualColour(player, colour);
-		std::cout << "Player colour set to: " << static_cast<int>(colour) << std::endl;
-		if (colour == COLOUR_STATE::NEUTRAL && !registry.needsToRemoveEmissions.has(player))
+
+		if (colour == COLOUR_STATE::NEUTRAL && !registry.markedForEmissionRemoval.has(player))
 		{
-			registry.needsToRemoveEmissions.emplace(player);
+			registry.markedForEmissionRemoval.emplace(player);
 			return;
 		}
 
-		if (!registry.lightSources.has(player) && !registry.needsToEmits.has(player))
+		if (!registry.lightSources.has(player) && !registry.markedForEmissionCreation.has(player))
 		{
-			registry.needsToEmits.emplace(player);
+			registry.markedForEmissionCreation.emplace(player);
 		}
-		if (!registry.needsToChangeColourStates.has(player))
+
+		if (!registry.markedForEmissionColourChanges.has(player))
 		{
-			registry.needsToChangeColourStates.emplace(player);
-		}
-		
-		
+			registry.markedForEmissionColourChanges.emplace(player);
+		}	
 	}
-	
 }
 
 void ColourSystem::changeEmissionColour()
 {
-	for (Entity& source_entity : registry.needsToChangeColourStates.entities)
+	for (Entity& source_entity : registry.markedForEmissionColourChanges.entities)
 	{
+		if (!registry.lightSources.has(source_entity))
+			return;
 		LightSource& light_source_component = registry.lightSources.get(source_entity);
 		Entity& emission_entity = light_source_component.lightEmissionEntity;
-
+		if (!registry.colourStates.has(emission_entity))
+			return;
 		ColourState& emission_colour_state = registry.colourStates.get(emission_entity);
 		setEntityVisualColour(emission_entity, emission_colour_state.curr_colour_state);
 	}
 }
-
 
 void ColourSystem::step(float elapsed_ms)
 {

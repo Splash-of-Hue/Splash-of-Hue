@@ -501,7 +501,6 @@ void load_mushroom(const ldtk::Entity& mushroom_entity)
 	const vec2 position = vec2(world_pos.x * LEVEL_TO_SCREEN_SCALE.x, world_pos.y * LEVEL_TO_SCREEN_SCALE.y);
 	const float width = size.x * LEVEL_TO_SCREEN_SCALE.x;
 
-
 	Entity mushroom = createMushroom(position, width, colour_state, mushroom_size);
 
 	registry.levelEntities.insert(mushroom, { mushroom_entity.layer->level->uid });
