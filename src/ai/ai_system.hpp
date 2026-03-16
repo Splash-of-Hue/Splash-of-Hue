@@ -9,4 +9,7 @@ class AISystem
 public:
 	void step(float elapsed_ms);
 	std::vector<vec2> generatePath(Entity pathfinder_entity);
+private:
+	// Boids
+	void updateBoids(float elapsed_ms);
 };
