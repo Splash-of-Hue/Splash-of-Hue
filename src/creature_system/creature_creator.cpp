@@ -1,16 +1,11 @@
 #include "creature_system/creature_creator.hpp"
 #include "ecs/registry.hpp"
-#include "world_init.hpp"
+#include "shapes/shape_build_init.hpp"
 #include "creature_system/creature_behaviour_tree_builder.hpp"
 #include "creature_system/creature_components.hpp"
 #include <iostream>
-/*
 
-    Todo: yz2rEB5j : turn the helper functions into private functions so they can't be accidentally called
-
-*/
-
-void addGeneralCreatureComponents(const int level_uid, Entity creature, vec2 position, float width, float height, COLOUR_STATE color_state, CREATURETYPE creature_type, TEXTURE_ASSET_ID texture_asset_id, bool shouldHaveInelasticCollision /* = true */) {
+void CreatureCreator::addGeneralCreatureComponents(const int level_uid, Entity creature, vec2 position, float width, float height, COLOUR_STATE color_state, CREATURETYPE creature_type, TEXTURE_ASSET_ID texture_asset_id, bool shouldHaveInelasticCollision /* = true */) {
     const ColourPalette& palette = registry.colourPalettes.components[0];
     vec4 color = palette.state_to_colour.at(color_state);
 
@@ -37,7 +32,7 @@ void addGeneralCreatureComponents(const int level_uid, Entity creature, vec2 pos
     });
 }
 
-Entity createAnglerfish(const int level_uid, vec2 position, float width, float height, COLOUR_STATE color_state)
+Entity CreatureCreator::createAnglerfish(const int level_uid, vec2 position, float width, float height, COLOUR_STATE color_state)
 {
     Entity anglerfish = Entity();
 
@@ -53,7 +48,7 @@ Entity createAnglerfish(const int level_uid, vec2 position, float width, float h
     return anglerfish;
 }
 
-Entity createCrab(const int level_uid, vec2 position, float width, float height, COLOUR_STATE color_state)
+Entity CreatureCreator::createCrab(const int level_uid, vec2 position, float width, float height, COLOUR_STATE color_state)
 {
     Entity crab = Entity();
 
@@ -67,7 +62,7 @@ Entity createCrab(const int level_uid, vec2 position, float width, float height,
     return crab;
 }
 
-Entity createMinnows(const int level_uid, vec2 position, float width, float height, COLOUR_STATE color_state)
+Entity CreatureCreator::createMinnows(const int level_uid, vec2 position, float width, float height, COLOUR_STATE color_state)
 {
     Entity minnows = Entity();
     
@@ -81,11 +76,10 @@ Entity createMinnows(const int level_uid, vec2 position, float width, float heig
 }
 
 // Todo: AkWAGMV1 cleanup and make just createArm, cleanup hardcoded values
-// Todo: yz2rEB5j, this function is a helper, make private
 // Todo: ojg8otlR, replace rectangle with polygon mesh
 // Todo: SibWWzX3, set arms to be invisible
 // For the sake of simplicity + time for M2, just use the shrimp width to make a rectangle
-Entity createLeftArm(vec2 shrimp_position, float shrimp_width, vec4 colour)
+Entity CreatureCreator::createLeftArm(vec2 shrimp_position, float shrimp_width, vec4 colour)
 {
     float left_arm_x = shrimp_position.x - SHRIMP_ARM_TRANSLATION_X;
     float left_arm_y = shrimp_position.y + 5.0f;
@@ -96,11 +90,10 @@ Entity createLeftArm(vec2 shrimp_position, float shrimp_width, vec4 colour)
 }
 
 // Todo: AkWAGMV1 cleanup and make just createArm, cleanup hardcoded values
-// Todo: yz2rEB5j, this function is a helper, make private
 // Todo: ojg8otlR, replace rectangle with polygon mesh
 // Todo: SibWWzX3, set arms to be invisible
 // For the sake of simplicity + time for M2, just use the shrimp width to make a rectangle
-Entity createRightArm(vec2 shrimp_position, float shrimp_width, vec4 colour)
+Entity CreatureCreator::createRightArm(vec2 shrimp_position, float shrimp_width, vec4 colour)
 {
     float right_arm_x = shrimp_position.x + SHRIMP_ARM_TRANSLATION_X;
     float right_arm_y = shrimp_position.y + 5.0f;
@@ -111,11 +104,10 @@ Entity createRightArm(vec2 shrimp_position, float shrimp_width, vec4 colour)
 }
 
 // Todo: AkWAGMV1 cleanup and make just createArm, cleanup hardcoded values
-// Todo: yz2rEB5j, this function is a helper, make private
 // Todo: ojg8otlR, replace rectangle with polygon mesh
 // Todo: SibWWzX3, set arms to be invisible
 // For the sake of simplicity + time for M2, just use the shrimp width to make a rectangle
-Entity createUpArm(vec2 shrimp_position, float shrimp_width, vec4 colour)
+Entity CreatureCreator::createUpArm(vec2 shrimp_position, float shrimp_width, vec4 colour)
 {
     float up_arm_x = shrimp_position.x + 10.0f;
     float up_arm_y = shrimp_position.y - SHRIMP_ARM_TRANSLATION_Y;
@@ -126,11 +118,10 @@ Entity createUpArm(vec2 shrimp_position, float shrimp_width, vec4 colour)
 }
 
 // Todo: AkWAGMV1 cleanup and make just createArm, cleanup hardcoded values
-// Todo: yz2rEB5j, this function is a helper, make private
 // Todo: ojg8otlR, replace rectangle with polygon mesh
 // Todo: SibWWzX3, set arms to be invisible
 // For the sake of simplicity + time for M2, just use the shrimp width to make a rectangle
-Entity createDownArm(vec2 shrimp_position, float shrimp_width, vec4 colour)
+Entity CreatureCreator::createDownArm(vec2 shrimp_position, float shrimp_width, vec4 colour)
 {
     float down_arm_x = shrimp_position.x - 10.0;
     float down_arm_y = shrimp_position.y + SHRIMP_ARM_TRANSLATION_Y + 20.0f; // translate a bit extra to accommodate for body
@@ -150,7 +141,7 @@ void createThreeArmShrimp(Shrimp& shrimp_component, DIRECTION curr_direction_fac
 */
 
 // Todo: AkWAGMV1 cleanup and turn into an iterator within createShrimp
-void createTwoArmShrimp(Shrimp& shrimp_component, DIRECTION curr_direction_facing, vec2 shrimp_position, float shrimp_width, float shrimp_height)
+void CreatureCreator::createTwoArmShrimp(Shrimp& shrimp_component, DIRECTION curr_direction_facing, vec2 shrimp_position, float shrimp_width, float shrimp_height)
 {
     switch (curr_direction_facing)
     {
@@ -208,7 +199,7 @@ void createTwoArmShrimp(Shrimp& shrimp_component, DIRECTION curr_direction_facin
 }
 
 // Todo: AkWAGMV1 cleanup and turn into an iterator within createShrimp
-void createOneArmShrimp(Shrimp& shrimp_component, DIRECTION curr_direction_facing, vec2 shrimp_position, float shrimp_width, float shrimp_height)
+void CreatureCreator::createOneArmShrimp(Shrimp& shrimp_component, DIRECTION curr_direction_facing, vec2 shrimp_position, float shrimp_width, float shrimp_height)
 {
     switch (curr_direction_facing)
     {
@@ -253,7 +244,7 @@ void createOneArmShrimp(Shrimp& shrimp_component, DIRECTION curr_direction_facin
     }
 }
 
-Entity createShrimp(const int level_uid, vec2 position, float width, float height, COLOUR_STATE color_state,  DIRECTION curr_direction_facing /* = UP */, int num_arms /* = 2 */)
+Entity CreatureCreator::createShrimp(const int level_uid, vec2 position, float width, float height, COLOUR_STATE color_state,  DIRECTION curr_direction_facing /* = UP */, int num_arms /* = 2 */)
 {
     Entity shrimp = Entity();
 
@@ -327,7 +318,7 @@ Entity createShrimp(const int level_uid, vec2 position, float width, float heigh
     return shrimp;
 }
 
-Entity createSawfish(const int level_uid, vec2 position, float width, float height, COLOUR_STATE color_state)
+Entity CreatureCreator::createSawfish(const int level_uid, vec2 position, float width, float height, COLOUR_STATE color_state)
 {
     Entity sawfish = Entity();
 
@@ -368,7 +359,7 @@ Entity createSawfish(const int level_uid, vec2 position, float width, float heig
     return sawfish;
 }
 
-Entity createWhale(const int level_uid, vec2 position, float width, float height, COLOUR_STATE color_state)
+Entity CreatureCreator::createWhale(const int level_uid, vec2 position, float width, float height, COLOUR_STATE color_state)
 {
     Entity whale = Entity();
 

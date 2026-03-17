@@ -52,12 +52,13 @@ struct Pathfinder
 	Entity target;
 };
 
-struct Charging
+struct IsInInelasticCollision
 {
 
 };
 
-struct IsInInelasticCollision
+//Sawfish-specific components
+struct Charging
 {
 
 };

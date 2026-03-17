@@ -1,8 +1,8 @@
-#include <iostream>
 #include "ai_system.hpp"
-#include "world_init.hpp"
-#include "pathfinding.hpp"
 #include "common.hpp"
+#include "pathfinding.hpp"
+#include "shapes/shape_build_init.hpp"
+#include <iostream>
 
 void AISystem::step(float elapsed_ms)
 {
