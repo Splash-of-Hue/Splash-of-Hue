@@ -7,7 +7,7 @@ BEHAVIOUR_TREE_STATUS CreatureBehaviourFunctions::slideForwards(Entity& creature
 	vec2& velocity = registry.velocities.get(creature);
 	vec2& direction = registry.directions.get(creature);
 
-	velocity = vec2{ direction.x * (PLAYER_SPEED), direction.y * (PLAYER_SPEED) };
+	velocity = direction * PLAYER_SPEED;
 
 	return BEHAVIOUR_TREE_STATUS::SUCCESS;
 }
