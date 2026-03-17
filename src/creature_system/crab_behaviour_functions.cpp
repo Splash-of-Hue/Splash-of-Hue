@@ -24,7 +24,7 @@ BEHAVIOUR_TREE_STATUS CreatureBehaviourFunctions::slideBackwards(Entity& creatur
 // ====== Decorator Nodes ======
 BEHAVIOUR_TREE_STATUS CreatureBehaviourFunctions::isSliding(Entity& creature, float elapsed_ms)
 {
-	if (registry.velocities.get(creature).x != 0.f || registry.velocities.get(creature).y != 0.f) {
+	if (registry.velocities.get(creature) != vec2(0)) {
 		return BEHAVIOUR_TREE_STATUS::SUCCESS;
 	}
 	return BEHAVIOUR_TREE_STATUS::FAILURE;
