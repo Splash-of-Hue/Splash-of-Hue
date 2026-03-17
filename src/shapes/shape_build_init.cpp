@@ -1,25 +1,6 @@
-#include "world_init.hpp"
+#include "shapes/shape_build_init.hpp"
 #include "ecs/registry.hpp"
 #include <iostream>
-
-Entity createGridLine(vec2 start_pos, vec2 end_pos)
-{
-	Entity entity = Entity();
-
-	registry.gridLines.insert(entity, { start_pos, end_pos });
-
-	registry.renderRequests.insert(
-		entity,
-		{
-			EFFECT_ASSET_ID::DEFAULT,
-			GEOMETRY_BUFFER_ID::GRADIENT_CIRCLE
-		}
-	);
-
-	registry.colors.emplace(entity, vec4(1.0f, 0.0f, 0.0f, 1.0f));
-
-	return entity;
-}
 
 Entity createLine(vec2 position, vec2 scale)
 {

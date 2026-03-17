@@ -4,12 +4,15 @@
 #include <utility>
 
 #include "common.hpp"
-#include "renderer/render_components.hpp"
 #include "ecs/tiny_ecs.hpp"
+#include "renderer/render_components.hpp"
+#include <map>
+#include <text/text_constants.hpp>
 
 // System responsible for setting up OpenGL and for rendering all the
 // visual entities in the game
-class RenderSystem {
+class RenderSystem
+{
 	/**
 	 * The following arrays store the assets the game will use. They are loaded
 	 * at initialization and are assumed to not be modified by the render loop.
@@ -27,13 +30,20 @@ class RenderSystem {
 		// specify meshes of other assets here
 	};
 
+	// The font paths and default font size
+	const std::array<std::pair<std::string, unsigned int>, font_count> font_paths = {
+		{
+			{ font_path("Aloja Extended.ttf"), 48 },
+		},
+	};
+
 	// Make sure these paths remain in sync with the associated enumerators (see TEXTURE_ASSET_ID).
 	const std::array<std::string, texture_count> texture_paths = {
 		textures_path("Sheap_01.png"),
 		textures_path("Creatures.png"),
 		textures_path("sawfish-sheet.png"),
 		textures_path("Whale.png"),
-		textures_path("P_Shrimp_Sheet.png"),
+		textures_path("P_Shrimp_Sheet_resized.png"),
 		textures_path("Minnow.png"),
 		textures_path("Anglerfish.png"),
 		textures_path("Coral Tree.png"),
@@ -47,7 +57,8 @@ class RenderSystem {
 		shader_path("default"),
 		shader_path("coloured"),
 		shader_path("textured"),
-		shader_path("vignette")
+		shader_path("vignette"),
+		shader_path("font")
 	};
 
 	std::array<GLuint, geometry_count> vertex_buffers;
@@ -59,7 +70,9 @@ public:
 	bool init(GLFWwindow* window);
 
 	template <class T>
-	void bindVBOandIBO(GEOMETRY_BUFFER_ID gid, std::vector<T> vertices, std::vector<uint16_t> indices);
+	void bindVBOandIBO(GEOMETRY_BUFFER_ID gid, std::vector<T> vertices, std::vector<uint16_t> indices, GLenum usage);
+
+	void initializeGlFonts();
 
 	void initializeGlTextures();
 
@@ -87,20 +100,21 @@ public:
 
 private:
 	// Internal drawing functions for each entity type
+	void drawText(Entity entity, const mat4& projection);
 	void drawShape(Entity entity, const mat3& projection); // TODO 1ch6Q0BE: Remove
 	void drawGridLine(Entity entity, const mat3& projection);
 	void drawTexturedMesh(Entity entity, const mat3& projection);
 	void drawToScreen();
-
 	// Window handle
 	GLFWwindow* window;
-
 	// Screen texture handles
 	GLuint frame_buffer;
 	GLuint off_screen_render_buffer_color;
 	GLuint off_screen_render_buffer_depth;
-
+	// Reference to the entity for screen state
 	Entity screen_state_entity;
+	// A map for each font and character
+	std::map<FONT_ID, std::map<char, Character>> font_characters;
 };
 
 bool loadEffectFromFile(

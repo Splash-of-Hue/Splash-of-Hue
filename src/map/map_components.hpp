@@ -12,7 +12,7 @@ struct MapTile
 {
 	int id;
 	ivec2 coordinate;
-	MAP_TILE_TYPE tile_type;
+	TILE_TYPE tile_type;
 };
 
 // Associates a maptile to the level it is in

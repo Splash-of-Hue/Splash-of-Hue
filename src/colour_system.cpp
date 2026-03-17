@@ -5,7 +5,7 @@
 #include "ecs/tiny_ecs.hpp"
 #include "ecs/components.hpp"
 #include "ecs/registry.hpp"
-#include "world_init.hpp"
+#include "shapes/shape_build_init.hpp"
 #include <iostream>
 #include <vector>
 
@@ -234,9 +234,9 @@ void ColourSystem::changeLightEmissions(Entity& player, int player_colour_state,
 {
 	//if neutral, delete colour circle
 	if (player_colour_state == static_cast<int>(COLOUR_STATE::NEUTRAL)) {
-		for (Entity& entity_in_player_colour_radius : registry.inPlayerRadius.entities)
+		for (Entity& entity_in_player_colour_radius : registry.inRadius.entities)
 		{
-			registry.inPlayerRadius.remove(entity_in_player_colour_radius);
+			registry.inRadius.get(entity_in_player_colour_radius).inPlayerRadius = false;
 		}
 		registry.lightSources.remove(player);
 		registry.remove_all_components_of(players_light_emission);
@@ -273,9 +273,12 @@ void ColourSystem::changeLightEmissions(Entity& player, int player_colour_state,
 		LightEmission& light_emission_component = registry.lightEmissions.emplace(players_light_emission);
 		light_emission_component.MAX_RADIUS = 150.f;
 		light_emission_component.TIME_TO_GROW = 1000.f;
+		light_emission_component.offset = { 0.f, 0.f };    //change these numbers to test light emission offset of the player.
 
 		RenderRequest& light_emission_render_request = registry.renderRequests.get(players_light_emission);
 		light_emission_render_request.used_geometry = GEOMETRY_BUFFER_ID::GRADIENT_CIRCLE;
+		light_emission_render_request.layer = RENDER_LAYER::PLAYER;
+		registry.scales.emplace(players_light_emission);
 
 		ColourState& colour_circle_colour_state = registry.colourStates.emplace(players_light_emission);
 		light_emission_component.lightSourceEntity = player;
@@ -301,7 +304,7 @@ void ColourSystem::updateEmissions(float elapsed_ms)
 		Entity& source_entity = light_emission_component.lightSourceEntity;
 		vec2& source_position = registry.positions.get(source_entity);
 		
-		light_emission_position = source_position;
+		light_emission_position = source_position + light_emission_component.offset;
 
 		Size& light_emission_size = registry.sizes.get(light_emission_entity);
 		if (light_emission_size.width < light_emission_component.MAX_RADIUS){
