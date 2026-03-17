@@ -40,7 +40,7 @@ void PauseMenu::move(DIRECTION direction)
 
 	// Make sure to wrap
 	current_option_selected = (options.size() + current_option_selected + index_shift) % options.size();
-	registry.positions.get(menu_selector_entity) = pause_menu_position + get_selector_position();
+	registry.positions.get(menu_selector_entity) = get_selector_position();
 
 	// TODO: Move graphical selectors, for testing, change color
 
@@ -48,15 +48,6 @@ void PauseMenu::move(DIRECTION direction)
 
 void PauseMenu::enable()
 {
-	Entity backdrop_entity = createRectangle(vec2(0), vec2(WINDOW_WIDTH_PX, WINDOW_HEIGHT_PX), RENDER_LAYER::UI_BACKGROUND, TRANSLUCENT_BLACK_COLOUR);
-	int player_current_level_uid = registry.currentLevels.get(registry.players.entities[0]).level_uid;
-
-	// Search the levels until we find the right one
-	for (Level& level : registry.levels.components)
-	{
-		pause_menu_position = level.coordinate * ivec2(WINDOW_WIDTH_PX, WINDOW_HEIGHT_PX);
-	}
-
 	current_option_selected = 0;
 	Entity& backdrop_entity = create_backdrop();
 	// Add to a list to destroy when disabled
@@ -113,9 +104,10 @@ Entity PauseMenu::create_menu_option(std::string text, int index)
 
 Entity PauseMenu::create_backdrop()
 {
-	Entity backdrop_entity = createRectangle(pause_menu_position, vec2(WINDOW_WIDTH_PX, WINDOW_HEIGHT_PX), RENDER_LAYER::UI_BACKGROUND, TRANSLUCENT_BLACK_COLOUR);
+	Entity backdrop_entity = createRectangle(vec2(0), vec2(WINDOW_WIDTH_PX, WINDOW_HEIGHT_PX), RENDER_LAYER::UI_BACKGROUND, TRANSLUCENT_BLACK_COLOUR);
 	// Add to a list to destroy when disabled
 	registry.renderRequests.get(backdrop_entity).layer = RENDER_LAYER::UI_BACKGROUND;
+	registry.ignoredByCamera.emplace(backdrop_entity);
 
 	return backdrop_entity;
 }
@@ -127,8 +119,9 @@ Entity PauseMenu::create_menu_selector_icon()
 	registry.scales.insert(menu_selector_entity, vec2(selector_size));
 	registry.sizes.insert(menu_selector_entity, { selector_size, selector_size });
 	// Find the current option and place the selector based on that
-	registry.positions.insert(menu_selector_entity, pause_menu_position + get_selector_position());
+	registry.positions.insert(menu_selector_entity, get_selector_position());
 	registry.textured.insert(menu_selector_entity, { TEXTURE_ASSET_ID::UI_SELECTOR });
+	registry.ignoredByCamera.emplace(menu_selector_entity);
 	registry.renderRequests.insert(
 		menu_selector_entity,
 		{
@@ -159,12 +152,13 @@ Entity PauseMenu::create_menu_corner(int corner_index)
 	corner_position.x += (corner_index % 3) == 0 ? 0 : /* For now add random width */ 200.0f;
 	// The y position is shared between 0/1 and 2/3
 	corner_position.y -= corner_index < 2 ? 0 : (MENU_OPTION_SPACING.y * menu_option_entities.size());
-	registry.positions.insert(menu_corner_entity, pause_menu_position + corner_position);
+	registry.positions.insert(menu_corner_entity, corner_position);
 	// The rest is normal
+	registry.ignoredByCamera.emplace(menu_corner_entity);
 	registry.textured.insert(menu_corner_entity, { TEXTURE_ASSET_ID::UI_MENU_CORNER });
 	registry.renderRequests.insert(
 		menu_corner_entity,
-{
+		{
 		EFFECT_ASSET_ID::TEXTURED,
 		GEOMETRY_BUFFER_ID::SPRITE,
 		RENDER_LAYER::UI,

@@ -26,7 +26,7 @@ private:
 	std::vector<Entity> menu_option_entities;
 	Entity menu_selector_entity;
 	std::vector<std::pair<std::string, std::function<void()>>> options =
-		{
+	{
 		{
 			"CONTINUE",
 			[&]() { registry.menu_toggle_requests.insert(Entity(), { MENU_TYPE::PAUSE_MENU }); }
