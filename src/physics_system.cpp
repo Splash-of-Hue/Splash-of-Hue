@@ -548,7 +548,7 @@ void rotatePolygon(PolygonMesh& polygon, float radAngle) {
 		vec2 dist_from_centre = polygon.base_vertices[i] - polygon.centre;
 		float rotated_x = dist_from_centre.x * c + dist_from_centre.y * s;
 		float rotated_y = dist_from_centre.x * s - dist_from_centre.y * c;
-		polygon.vertices[i] = polygon.centre + vec2{rotated_x, rotated_y};
+		polygon.vertices[i] = polygon.centre + vec2( rotated_x, rotated_y );
 	}
 }
 
