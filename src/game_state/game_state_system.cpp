@@ -10,7 +10,7 @@ void GameStateSystem::init()
 	current_state = INITIAL_GAME_STATE;
 
 	// Initialize each set for each state
-	for (int i = 0; i < (int)GAME_STATE::GAME_STATE_COUNT; i++)
+	for (int i = 0; i < static_cast<int>(GAME_STATE::GAME_STATE_COUNT); i++)
 	{
 		state_systems[(GAME_STATE)i] = {};
 	}
