@@ -74,7 +74,6 @@ int main()
 	world_system.init(&renderer_system);
 	animation_system.init();
 	game_state_system.init();
-	ui_system.init();
 	// Register when each system is used
 	game_state_system.register_system(&camera_system, { GAME_STATE::PLAYING });
 	game_state_system.register_system(&input_system);

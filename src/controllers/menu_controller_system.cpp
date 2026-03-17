@@ -1,6 +1,7 @@
 #include "controllers/menu_controller_system.hpp"
 #include "controls/control_constants.hpp"
 #include "ecs/registry.hpp"
+#include "game_state/game_state_constants.hpp"
 
 void MenuControllerSystem::step(float elapsed_ms)
 {
@@ -10,12 +11,15 @@ void MenuControllerSystem::step(float elapsed_ms)
 	{
 		Control& control = registry.controls.get(entity);
 
+		// There are no actions we wish to take not at the end so far
+		if (control.phase != CONTROL_PHASE::END)
+		{
+			continue;
+		}
+
 		if (control.type == CONTROL_TYPE::PAUSE)
 		{
-			if (control.phase != CONTROL_PHASE::END)
-			{
-				registry.menu_toggle_requests.insert(Entity(), { MENU_TYPE::PAUSE_MENU });
-			}
+			registry.menu_toggle_requests.insert(Entity(), { MENU_TYPE::PAUSE_MENU });
 		}
 		else if (control.type == CONTROL_TYPE::MOVE)
 		{
@@ -33,7 +37,7 @@ void MenuControllerSystem::step(float elapsed_ms)
 	}
 
 	// If neither input is large enough to matter, we are done
-	if (max(input_movement.x, input_movement.y) < MENU_MOVE_STOCK_DEADZONE)
+	if (max(abs(input_movement.x), abs(input_movement.y)) < MENU_MOVE_STOCK_DEADZONE)
 	{
 		return;
 	}
@@ -41,7 +45,7 @@ void MenuControllerSystem::step(float elapsed_ms)
 	MENU_ACTION menu_action = MENU_ACTION::INVALID;
 
 	// Check which axis is bigger
-	if (input_movement.x > input_movement.y)
+	if (abs(input_movement.x) > abs(input_movement.y))
 	{
 		menu_action = input_movement.x < 0 ? MENU_ACTION::MOVE_LEFT : MENU_ACTION::MOVE_RIGHT;
 	}
@@ -50,5 +54,5 @@ void MenuControllerSystem::step(float elapsed_ms)
 		menu_action = input_movement.y < 0 ? MENU_ACTION::MOVE_UP : MENU_ACTION::MOVE_DOWN;
 	}
 
-	registry.menu_toggle_requests.insert(Entity(), { MENU_TYPE::PAUSE_MENU });
+	registry.menu_actions.insert(Entity(), { menu_action });
 }

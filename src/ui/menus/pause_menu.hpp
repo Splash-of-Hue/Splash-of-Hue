@@ -23,7 +23,10 @@ private:
 	const vec2 MENU_OPTION_SPACING = vec2(0, -50);
 	int current_option_selected = 0;
 	std::vector<Entity> menu_entities;
-	std::vector<std::pair<std::string, std::function<void()>>> options = {
+	std::vector<Entity> menu_option_entities;
+	Entity menu_selector_entity;
+	std::vector<std::pair<std::string, std::function<void()>>> options =
+		{
 		{
 			"CONTINUE",
 			[&]() { registry.menu_toggle_requests.insert(Entity(), { MENU_TYPE::PAUSE_MENU }); }
@@ -34,6 +37,9 @@ private:
 		},
 	};
 
+	Entity create_backdrop();
 	Entity create_menu_option(std::string text, int index);
-	Entity create_menu_corners();
+	Entity create_menu_selector_icon();
+	Entity create_menu_corner(int corner_index);
+	vec2 get_selector_position();
 };

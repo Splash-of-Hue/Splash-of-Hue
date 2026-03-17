@@ -3,16 +3,19 @@
 #include "ui_components.hpp"
 #include "ui_constants.hpp"
 #include <map>
+#include "menus/pause_menu.hpp"
 
 class UiSystem : public SystemInterface
 {
 public:
-	void init();
+	UiSystem()
+	{
+		menu_references[MENU_TYPE::PAUSE_MENU] = &pause_menu;
+	}
+
 	void step(float elapsed_ms);
 
 private:
-	std::vector<Menu*> menus;
-	std::map<MENU_TYPE, int> menu_indices;
-
-	//std::map<MENU_TYPE, Menu*> menus;
+	std::map<MENU_TYPE, Menu*> menu_references;
+	PauseMenu pause_menu;
 };

@@ -4,7 +4,7 @@
 
 struct Menu
 {
-	bool active;
+	bool active = false;
 	virtual void select() = 0;
 	virtual void cancel() = 0;
 	virtual void move(DIRECTION direction) = 0;
