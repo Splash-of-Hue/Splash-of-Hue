@@ -414,7 +414,7 @@ PolygonMesh findHitbox(const Entity& e)
 	vertices.push_back({ vec2(pos.x + half_width, pos.y - half_height) }); // bottom
 	vertices.push_back(vec2(pos.x + half_width, pos.y + half_height)); // top right
 	vertices.push_back(vec2(pos.x - half_width, pos.y + half_height)); // top left
-	PolygonMesh& polygon = PolygonMesh{vertices, vertices, pos};
+	PolygonMesh polygon = PolygonMesh{ vertices, vertices, pos };
 
 	return polygon;
 }
