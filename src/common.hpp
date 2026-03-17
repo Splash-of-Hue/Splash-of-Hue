@@ -26,6 +26,7 @@ using namespace glm;
 #include "../ext/project_path.hpp"
 inline std::string asset_path() { return std::string(PROJECT_SOURCE_DIR) + "assets"; };
 inline std::string shader_path(const std::string& name) {return std::string(PROJECT_SOURCE_DIR) + "/shaders/" + name;};
+inline std::string font_path(const std::string& name) { return asset_path() + "/fonts/" + std::string(name); };
 inline std::string textures_path(const std::string& name) {return asset_path() + "/textures/" + std::string(name);};
 inline std::string audio_path(const std::string& name) {return asset_path() + "/audio/" + std::string(name);};
 inline std::string mesh_path(const std::string& name) {return asset_path() + "/meshes/" + std::string(name);};
