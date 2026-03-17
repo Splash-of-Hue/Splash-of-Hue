@@ -47,7 +47,7 @@ void PauseMenu::enable()
 {
 	current_option_selected = 0;
 	Entity& backdrop_entity = create_backdrop();
-	// Add to a list to destroy when disabled
+	// Add to a list to keep track of what should be removed when disabled
 	menu_entities.push_back(backdrop_entity);
 
 	for (int i = 0; i < options.size(); i++)
@@ -55,13 +55,13 @@ void PauseMenu::enable()
 		// Create each menu item with the text
 		std::pair<std::string, std::function<void()>> option = options[i];
 		Entity& menu_option = create_menu_option(option.first, i);
-		// Add to a list to destroy when disabled
+		// Add to a list to remove when disabled
 		menu_entities.push_back(menu_option);
-		// Add to list to reference as needed
+		// Add to list to reference as needed for functionality
 		menu_option_entities.push_back(menu_option);
 	}
 
-	// Create the selector and add to the list
+	// Create the selector and add to the list to remove when disabled
 	menu_entities.push_back(create_menu_selector_icon());
 
 	// For each corner, create the pretty outline
@@ -70,6 +70,7 @@ void PauseMenu::enable()
 		menu_entities.push_back(create_menu_corner(i));
 	}
 
+	// Request state change to trigger
 	registry.game_state_change_requests.insert(Entity(), { GAME_STATE::PAUSED });
 	active = true;
 }
@@ -89,13 +90,13 @@ void PauseMenu::disable()
 
 Entity PauseMenu::create_menu_option(std::string text, int index)
 {
+	// TODO HE4XQcbZ: Remove magic numbers and generate dynamically
 	const vec2 manual_offset = vec2(-40, 0);
 	const auto get_menu_position = [&](int index)
 	{
 		return INITIAL_MENU_OPTION_POSITION + MENU_OPTION_SPACING * float(index) + manual_offset;
 	};
 
-	// TODO: Add render layer to text
 	return create_text(text, get_menu_position(index), vec2(1), vec4(1), FONT_ID::BEAUTIDUL_HEARTBEAT);
 }
 
@@ -111,6 +112,7 @@ Entity PauseMenu::create_backdrop()
 
 Entity PauseMenu::create_menu_selector_icon()
 {
+	// TODO HE4XQcbZ: Remove magic numbers and generate dynamically
 	const float selector_size = 50.0f;
 	registry.angles.emplace(menu_selector_entity);
 	registry.scales.insert(menu_selector_entity, vec2(selector_size));
@@ -133,6 +135,7 @@ Entity PauseMenu::create_menu_selector_icon()
 Entity PauseMenu::create_menu_corner(int corner_index)
 {
 	Entity menu_corner_entity;
+	// TODO HE4XQcbZ: Remove magic numbers and generate dynamically
 	const vec2 manual_offset = vec2(100, 40);
 	// Index: 0 = top left, 1 = top right, 2 = bottom right, 3 = bottom left
 	const float corner_size = 50.0f;
@@ -145,8 +148,9 @@ Entity PauseMenu::create_menu_corner(int corner_index)
 	registry.sizes.insert(menu_corner_entity, { corner_size, corner_size });
 	// Position is based on menu options which is screen space, so use world space equivalent
 	vec2 corner_position = vec2(INITIAL_MENU_OPTION_POSITION.x, WINDOW_HEIGHT_PX - INITIAL_MENU_OPTION_POSITION.y) - manual_offset;
+	// TODO HE4XQcbZ: Remove magic numbers and generate dynamically
 	// The x position is shared between 0/3 and 1/2
-	corner_position.x += (corner_index % 3) == 0 ? 0 : /* For now add random width */ 200.0f;
+	corner_position.x += (corner_index % 3) == 0 ? 0 : /* For now add manual width */ 200.0f;
 	// The y position is shared between 0/1 and 2/3
 	corner_position.y -= corner_index < 2 ? 0 : (MENU_OPTION_SPACING.y * menu_option_entities.size());
 	registry.positions.insert(menu_corner_entity, corner_position);
@@ -173,6 +177,7 @@ vec2 PauseMenu::get_selector_position()
 	// so translate to screen space
 	vec2 selector_position = registry.positions.get(current_option_entity);
 	selector_position = vec2(selector_position.x, WINDOW_HEIGHT_PX - selector_position.y);
+	// TODO HE4XQcbZ: Remove magic numbers and generate dynamically
 	//We also need to offset a little bit
 	selector_position -= vec2(30, 20);
 
