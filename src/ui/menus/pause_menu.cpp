@@ -41,9 +41,6 @@ void PauseMenu::move(DIRECTION direction)
 	// Make sure to wrap
 	current_option_selected = (options.size() + current_option_selected + index_shift) % options.size();
 	registry.positions.get(menu_selector_entity) = get_selector_position();
-
-	// TODO: Move graphical selectors, for testing, change color
-
 }
 
 void PauseMenu::enable()
