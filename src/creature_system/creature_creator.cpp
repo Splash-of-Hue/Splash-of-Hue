@@ -57,7 +57,7 @@ Entity CreatureCreator::createCrab(const int level_uid, vec2 position, float wid
 	addGeneralCreatureComponents(level_uid, crab, position, width, height, color_state, CREATURETYPE::CRAB, TEXTURE_ASSET_ID::SAWFISH);
     Angle& direction_facing = registry.angles.get(crab);
     vec2& direction = registry.directions.emplace(crab);
-    direction = vec2{ 0.f, 0.f };
+    direction = vec2(0);
     if (curr_direction_facing == DIRECTION::UP) {
         direction_facing.degrees = 270;
         direction.y = 1.f;
