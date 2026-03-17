@@ -10,7 +10,6 @@ enum class CONTROL_TYPE
 	INVALID,
 	MOVE,
 	CHANGE_COLOR,
-	// TODO Ze15bn1r: Move to game state
 	RESTART,
 	DEBUG,
 	END_GAME,

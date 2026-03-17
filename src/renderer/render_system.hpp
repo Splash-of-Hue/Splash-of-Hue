@@ -34,6 +34,7 @@ class RenderSystem
 	const std::array<std::pair<std::string, unsigned int>, font_count> font_paths = {
 		{
 			{ font_path("Aloja Extended.ttf"), 48 },
+			{ font_path("BeautifulHeartbeat-8562.ttf"), 48 },
 		},
 	};
 
@@ -49,6 +50,8 @@ class RenderSystem
 		textures_path("Coral Tree.png"),
 		textures_path("moss-sheet.png"),
 		textures_path("Rooms.png"),
+		textures_path("ui/selector.png"),
+		textures_path("ui/menu_corner.png"),
 	};
 
 	std::array<GLuint, effect_count> effects;

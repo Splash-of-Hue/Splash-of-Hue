@@ -30,14 +30,6 @@ struct Sawfish
 {
 };
 
-enum DIRECTION
-{
-	UP = 0,
-	DOWN = UP + 1,
-	LEFT = DOWN + 1,
-	RIGHT = LEFT + 1
-};
-
 enum SHRIMP_ARM_COLOUR
 {
 	NEUTRAL = 0,

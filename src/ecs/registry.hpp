@@ -14,6 +14,8 @@
 #include "player/player_components.hpp"
 #include "renderer/render_components.hpp"
 #include "text/text_components.hpp"
+#include "ui/ui_components.hpp"
+#include "window/window_components.hpp"
 
 class ECSRegistry
 {
@@ -52,6 +54,7 @@ public:
 	ComponentContainer<DebugComponent> debugComponents;
 	// General
 	ComponentContainer<GameStateChangeRequest> game_state_change_requests;
+	ComponentContainer<Window> windows;
 	// Interactables
 	ComponentContainer<Box> boxes;
 	ComponentContainer<Breakable> breakables;
@@ -103,6 +106,8 @@ public:
 	ComponentContainer<Creature> creatures;
 	ComponentContainer<Shrimp> shrimps;
 	// UI
+	ComponentContainer<MenuToggleRequest> menu_toggle_requests;
+	ComponentContainer<MenuAction> menu_actions;
 	ComponentContainer<Text> texts;
 
 	// constructor that adds all containers for looping over them

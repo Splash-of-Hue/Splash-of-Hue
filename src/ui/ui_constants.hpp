@@ -1,0 +1,18 @@
+#pragma once
+
+enum class MENU_TYPE
+{
+	INVALID,
+	PAUSE_MENU,
+};
+
+enum class MENU_ACTION
+{
+	INVALID,
+	MOVE_UP,
+	MOVE_DOWN,
+	MOVE_LEFT,
+	MOVE_RIGHT,
+	CONFIRM,
+	CANCEL
+};
