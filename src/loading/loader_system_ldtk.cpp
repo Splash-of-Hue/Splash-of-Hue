@@ -233,7 +233,7 @@ void load_extra_entities(const ldtk::Layer& layer)
 		switch (extra_entity_type)
 		{
 			case ENTITY_TYPE::INITIAL_POSITION:
-				set_initial_player_position(extra_entity);
+				initialize_player(extra_entity);
 				continue;
 			case ENTITY_TYPE::WALL:
 				load_wall(extra_entity);
@@ -247,7 +247,7 @@ void load_extra_entities(const ldtk::Layer& layer)
 	}
 }
 
-void set_initial_player_position(const ldtk::Entity& initial_player_position_entity)
+void initialize_player(const ldtk::Entity& initial_player_position_entity)
 {
 	int level_uid = initial_player_position_entity.layer->level->uid;
 	const ldtk::IntPoint& initial_player_world_position = initial_player_position_entity.getWorldPosition();
