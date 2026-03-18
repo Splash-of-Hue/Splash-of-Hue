@@ -4,9 +4,10 @@
 #include "ecs/tiny_ecs.hpp"
 #include "ecs/components.hpp"
 #include "ecs/registry.hpp"
+#include "ecs/system.hpp"
 
 // A simple physics system that moves rigid bodies and checks for collision
-class PhysicsSystem
+class PhysicsSystem : public SystemInterface
 {
 public:
 	

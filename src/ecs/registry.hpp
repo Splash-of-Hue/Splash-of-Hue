@@ -5,14 +5,16 @@
 #include "ai/ai_components.hpp"
 #include "camera/camera_components.hpp"
 #include "components.hpp"
-#include "controllers/player_components.hpp"
 #include "controls/control_components.hpp"
 #include "creature_system/creature_components.hpp"
+#include "game_state/game_state_component.hpp"
 #include "input/input_components.hpp"
 #include "interactables/interactable_components.hpp"
 #include "loading/loading_components.hpp"
 #include "map/map_components.hpp"
+#include "player/player_components.hpp"
 #include "renderer/render_components.hpp"
+#include "text/text_components.hpp"
 
 class ECSRegistry
 {
@@ -51,6 +53,8 @@ public:
 	ComponentContainer<InputClearRequest> inputClearRequests;
 	// Debug
 	ComponentContainer<DebugComponent> debugComponents;
+	// General
+	ComponentContainer<GameStateChangeRequest> game_state_change_requests;
 	// Interactables
 	ComponentContainer<Box> boxes;
 	ComponentContainer<Breakable> breakables;
@@ -85,7 +89,7 @@ public:
 	ComponentContainer<vec2> velocities;
 	// Player
 	ComponentContainer<DeathTimer> deathTimers;
-	ComponentContainer<PlayerCreateRequests> playerCreateRequests;
+	ComponentContainer<PlayerCreateRequest> playerCreateRequests;
 	ComponentContainer<Player> players;
 	// Rendering
 	ComponentContainer<Camera> cameras;
@@ -101,6 +105,8 @@ public:
 	// Spawnables
 	ComponentContainer<Creature> creatures;
 	ComponentContainer<Shrimp> shrimps;
+	// UI
+	ComponentContainer<Text> texts;
 
 	// constructor that adds all containers for looping over them
 	ECSRegistry()
@@ -135,6 +141,8 @@ public:
 		registry_list.push_back(&inputClearRequests);
 		// Debug
 		registry_list.push_back(&debugComponents);
+		// General
+		registry_list.push_back(&game_state_change_requests);
 		// Interactables
 		registry_list.push_back(&boxes);
 		registry_list.push_back(&breakables);
@@ -185,6 +193,8 @@ public:
 		// Spawnables
 		registry_list.push_back(&creatures);
 		registry_list.push_back(&shrimps);
+		// UI
+		registry_list.push_back(&texts);
 	}
 
 	void clear_all_components()

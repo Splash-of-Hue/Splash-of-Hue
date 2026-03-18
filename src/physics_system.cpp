@@ -547,7 +547,7 @@ void handle_inelastic_collision_mesh(Entity& entity_i, Entity& entity_j, vec3 pe
 
 void PhysicsSystem::step(float elapsed_ms)
 {
-	handle_movement(elapsed_ms);
+	handle_movement(DT);
 	checkIfInRadius();
 	// check for collisions between all collidable entities
 	ComponentContainer<Collidable>& collidables = registry.collidables;

@@ -69,6 +69,8 @@ void MapSystem::step(float elapsed_ms)
 		}
 	}
 
+	Entity game_state_request_entity;
+	registry.game_state_change_requests.insert(game_state_request_entity, { GAME_STATE::LOADING });
 	// Once all load requests are taken care of, remove them
 	changeMapLevelRequestRegistry.clear();
 }
