@@ -342,6 +342,9 @@ void load_floor_interactables(const ldtk::Layer& layer)
 			case ENTITY_TYPE::BOX:
 				load_box(floor_interactable_entity);
 				continue;
+			case ENTITY_TYPE::MUSHROOM:
+				load_mushroom(floor_interactable_entity);
+				continue;
 			default:
 				continue;
 		}
@@ -474,6 +477,25 @@ void load_box(const ldtk::Entity& box_entity)
 	const vec2 size = scale_to_level(vec2(entity_size.x, entity_size.y));
 	Entity box = createBox(position, size.x, size.y);
 	registry.levelEntities.insert(box, { box_entity.layer->level->uid });
+}
+
+void load_mushroom(const ldtk::Entity& mushroom_entity)
+{
+	const ldtk::IntPoint& world_pos = mushroom_entity.getWorldPosition();
+	const ldtk::IntPoint& size = mushroom_entity.getSize();
+
+	const ldtk::Field<ldtk::EnumValue>& color_state_field = mushroom_entity.getField<ldtk::EnumValue>("ColorState");
+	const COLOUR_STATE colour_state = color_state_from_string(color_state_field.value().name);
+	//todo: https://trello.com/c/qB3PaZDl/247-05-create-ldtk-size-general-enum
+	const ldtk::Field<ldtk::EnumValue>& mushroom_size_field = mushroom_entity.getField<ldtk::EnumValue>("MushroomSize");
+	const MUSHROOM_SIZE mushroom_size = mushroom_size_from_string(mushroom_size_field.value().name);
+
+	const vec2 position = vec2(world_pos.x * LEVEL_TO_SCREEN_SCALE.x, world_pos.y * LEVEL_TO_SCREEN_SCALE.y);
+	const float width = size.x * LEVEL_TO_SCREEN_SCALE.x;
+
+	Entity mushroom = createMushroom(position, width, colour_state, mushroom_size);
+
+	registry.levelEntities.insert(mushroom, { mushroom_entity.layer->level->uid });
 }
 
 void LoaderSystem::unload_level(int level_uid)
