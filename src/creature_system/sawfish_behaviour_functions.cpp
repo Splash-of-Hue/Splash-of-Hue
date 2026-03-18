@@ -53,15 +53,7 @@ BEHAVIOUR_TREE_STATUS CreatureBehaviourFunctions::removeDizzy(Entity& creature, 
 
 BEHAVIOUR_TREE_STATUS CreatureBehaviourFunctions::sawfishChargeAtTarget(Entity& charger, float elapsed_ms)
 {
-	Entity& targeted_entity = registry.players.entities[0];
-	vec2& charger_position = registry.positions.get(charger);
-	vec2& targeted_entity_position = registry.positions.get(targeted_entity);
-	vec2 velocity = { targeted_entity_position.x - charger_position.x,targeted_entity_position.y - charger_position.y };
-	double mag = sqrt(velocity.x * velocity.x + velocity.y * velocity.y);
-	velocity *= (1.f / mag);
-	vec2& charger_velocity = registry.velocities.get(charger);
-	charger_velocity = velocity * 1000.f;
-	return BEHAVIOUR_TREE_STATUS::SUCCESS;
+	return chargeAtPlayer(charger, 500);
 }
 
 BEHAVIOUR_TREE_STATUS CreatureBehaviourFunctions::aimAtTarget(Entity& charger, float elapsed_ms)

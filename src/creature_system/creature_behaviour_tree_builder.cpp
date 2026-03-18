@@ -74,6 +74,7 @@ BehaviourTree CreatureBehaviourTreeBuilder::buildSawfishTree()
 							Selector(builder,
 								Decorator(builder, creatureBehaviourFunctions.isCooldownComplete,
 									Sequence(builder,
+										Action(builder, creatureBehaviourFunctions.removeCollision),
 										Action(builder, creatureBehaviourFunctions.removeCooldown),
 										Action(builder, creatureBehaviourFunctions.applyCharging),
 										Action(builder, creatureBehaviourFunctions.sawfishChargeAtTarget)
