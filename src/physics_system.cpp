@@ -379,17 +379,20 @@ void handle_inelastic_collision_box(Entity& entity_i, Entity& entity_j)
 	y_depth = fmaxf(0, y_depth);
 	float dir = 1.f;
 
+	//if two things are moving and collide, split the correction and apply to both
 	if (registry.velocities.has(entity_i) && registry.velocities.has(entity_j)) {
 		if (registry.velocities.get(entity_i) != vec2{ 0.f, 0.f } && registry.velocities.get(entity_j) != vec2{ 0.f, 0.f }) {
 			if (x_depth < y_depth) {
 				dir = pos_to_correct->x < other_pos->x ? -1.f : 1.f;
-				pos_to_correct->x += x_depth * dir *0.5;
-				other_pos->x -= dir * x_depth * 0.5;
+				float x_correction = x_depth * dir * 0.5;
+				pos_to_correct->x += x_correction;
+				other_pos->x -= x_correction;
 			}
 			else {
 				dir = pos_to_correct->y < other_pos->y ? -1.f : 1.f;
-				pos_to_correct->y += y_depth * dir * 0.5;
-				other_pos->y -= dir * y_depth * 0.5;
+				float y_correction = y_depth * dir * 0.5;
+				pos_to_correct->y += y_correction;
+				other_pos->y -= y_correction;
 			}
 			return;
 		}
