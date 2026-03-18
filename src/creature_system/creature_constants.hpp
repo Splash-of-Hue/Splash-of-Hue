@@ -22,6 +22,8 @@ struct Crab
 {
 };
 
+const int NUM_MINNOWS = 100;
+
 struct Sawfish
 {
 };

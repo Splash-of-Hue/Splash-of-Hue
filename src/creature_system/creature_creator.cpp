@@ -71,7 +71,7 @@ Entity CreatureCreator::createMinnows(const int level_uid, vec2 position, float 
 
     Boid_Overseer& minnow_overseer = registry.boidOverseers.emplace(minnows);
     
-    for (int i = 0; i < 100; i++)
+    for (int i = 0; i < NUM_MINNOWS; i++)
     {
         Entity minnow_follower;
         registry.boid_minnows.emplace(minnow_follower);
