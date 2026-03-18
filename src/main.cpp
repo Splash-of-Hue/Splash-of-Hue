@@ -79,6 +79,7 @@ int main()
 	game_state_system.register_system(&input_system);
 	game_state_system.register_system(&control_input_conversion_system);
 	game_state_system.register_system(&player_controller_system, GAME_STATE::PLAYING);
+	game_state_system.register_system(&menu_controller_system, { GAME_STATE::STARTING_SCREEN, GAME_STATE::PLAYING, GAME_STATE::PAUSED });
 	game_state_system.register_system(&player_system, { GAME_STATE::PLAYING });
 	game_state_system.register_system(&loader_system, GAME_STATE::LOADING);
 	game_state_system.register_system(&colour_system, GAME_STATE::PLAYING);
@@ -90,7 +91,6 @@ int main()
 	game_state_system.register_system(&animation_system, { GAME_STATE::PLAYING, GAME_STATE::LOADING });
 	game_state_system.register_system(&interactable_system, GAME_STATE::PLAYING);
 	game_state_system.register_system(&ui_system);
-	game_state_system.register_system(&menu_controller_system, { GAME_STATE::STARTING_SCREEN, GAME_STATE::PLAYING, GAME_STATE::PAUSED });
 
 	// variable timestep loop
 	auto t = Clock::now();
