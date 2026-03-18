@@ -1,4 +1,3 @@
-
 #include "ai_system.hpp"
 
 /*
