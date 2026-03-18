@@ -12,6 +12,7 @@
 #include "loading/loading_components.hpp"
 #include "map/map_components.hpp"
 #include "renderer/render_components.hpp"
+#include "text/text_components.hpp"
 
 class ECSRegistry
 {
@@ -102,6 +103,8 @@ public:
 	// Spawnables
 	ComponentContainer<Creature> creatures;
 	ComponentContainer<Shrimp> shrimps;
+	// UI
+	ComponentContainer<Text> texts;
 
 	// constructor that adds all containers for looping over them
 	ECSRegistry()
@@ -188,6 +191,8 @@ public:
 		// Spawnables
 		registry_list.push_back(&creatures);
 		registry_list.push_back(&shrimps);
+		// UI
+		registry_list.push_back(&texts);
 	}
 
 	void clear_all_components()
