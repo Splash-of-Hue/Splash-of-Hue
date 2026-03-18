@@ -11,13 +11,20 @@ struct Boid
 struct Boid_Overseer
 {
 	// alignment: how much the boids want to align with the avg orientation of the local group
-	float alignment_factor = 1.5;
+	//float alignment_factor = 0.09;
+	//float alignment_factor = 0.03;
+	float alignment_factor = 0.02;
+
 
 	// separation: avoiding being too close to neighbours
-	float separation_factor = 0.2f;
+	//float separation_factor = 4.5f;
+	float separation_factor = 5.5f;
+
 
 	// cohesion: moving towards avg pos of local group
-	float cohesion_factor = 0.5f;
+	//float cohesion_factor = 0.03f;
+	float cohesion_factor = 0.02f;
+
 
 	// Only allow boids to process boids that they can see (e.g. in front of them)
 	float perception_radius = 50.0f;
@@ -25,9 +32,8 @@ struct Boid_Overseer
 	float fov_angle_deg = 180.0f;
 
 	float max_speed = 100.0f;
-	float max_force = 2.0f; 
-	// Maximum number of neighbours a boid can process
-	int max_neighbours = 100;
+	float max_force = 20.0f; 
+	float steering_noise_factor = 0.05f;
 
 	Entity target;
 

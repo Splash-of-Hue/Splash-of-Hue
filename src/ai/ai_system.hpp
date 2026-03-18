@@ -1,7 +1,11 @@
 #pragma once
 
+#include "ai_constants.hpp"
 #include "common.hpp"
 #include "ecs/registry.hpp"
+
+#include <numbers>
+#include <random>
 #include <vector>
 
 class AISystem
