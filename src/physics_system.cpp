@@ -396,7 +396,6 @@ void handle_inelastic_collision_box(Entity& entity_i, Entity& entity_j)
 			}
 			return;
 		}
-		
 	}
 	if (x_depth < y_depth)
 	{
