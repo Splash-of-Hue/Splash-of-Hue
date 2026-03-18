@@ -41,9 +41,9 @@ const std::map<int, std::pair<CONTROL_TYPE, std::vector<float>>> joystick_axis_c
 };
 
 const std::map<int, std::pair<CONTROL_TYPE, std::vector<float>>> joystick_button_control_map = {
-	{ SOH_JOYSTICK_BUTTON_L_SHOULDER, { CONTROL_TYPE::SET_COLOUR , { (float)COLOUR_CONTROL_VALUE::BLUE } } },
-	{ SOH_JOYSTICK_BUTTON_R_SHOULDER, { CONTROL_TYPE::SET_COLOUR, { (float)COLOUR_CONTROL_VALUE::RED } } },
-	{ SOH_JOYSTICK_BUTTON_Y, { CONTROL_TYPE::SET_COLOUR, { (float)COLOUR_CONTROL_VALUE::NEUTRAL} } },
+	{ SOH_JOYSTICK_BUTTON_L_SHOULDER, { CONTROL_TYPE::SET_COLOUR , { static_cast<float>(COLOUR_CONTROL_VALUE::BLUE) } } },
+	{ SOH_JOYSTICK_BUTTON_R_SHOULDER, { CONTROL_TYPE::SET_COLOUR, { static_cast<float>(COLOUR_CONTROL_VALUE::RED) } } },
+	{ SOH_JOYSTICK_BUTTON_Y, { CONTROL_TYPE::SET_COLOUR, { static_cast<float>(COLOUR_CONTROL_VALUE::NEUTRAL) } } },
 	{ SOH_JOYSTICK_BUTTON_A, { CONTROL_TYPE::CONFIRM, { } } },
 	{ SOH_JOYSTICK_BUTTON_B, { CONTROL_TYPE::CANCEL, { } } },
 	{ SOH_JOYSTICK_BUTTON_START, { CONTROL_TYPE::PAUSE, { } } },
@@ -55,9 +55,9 @@ const std::map<int, std::pair<CONTROL_TYPE, std::vector<float>>> gamepad_axis_co
 };
 
 const std::map<int, std::pair<CONTROL_TYPE, std::vector<float>>> gamepad_button_control_map = {
-	{ GLFW_GAMEPAD_BUTTON_X, { CONTROL_TYPE::SET_COLOUR, { (float)COLOUR_CONTROL_VALUE::BLUE } } },
-	{ GLFW_GAMEPAD_BUTTON_B, { CONTROL_TYPE::SET_COLOUR, { (float)COLOUR_CONTROL_VALUE::RED } } },
-	{ GLFW_GAMEPAD_BUTTON_Y, { CONTROL_TYPE::SET_COLOUR, { (float)COLOUR_CONTROL_VALUE::NEUTRAL } } },
+	{ GLFW_GAMEPAD_BUTTON_X, { CONTROL_TYPE::SET_COLOUR, { static_cast<float>(COLOUR_CONTROL_VALUE::BLUE) } } },
+	{ GLFW_GAMEPAD_BUTTON_B, { CONTROL_TYPE::SET_COLOUR, { static_cast<float>(COLOUR_CONTROL_VALUE::RED) } } },
+	{ GLFW_GAMEPAD_BUTTON_Y, { CONTROL_TYPE::SET_COLOUR, { static_cast<float>(COLOUR_CONTROL_VALUE::NEUTRAL) } } },
 	{ GLFW_GAMEPAD_BUTTON_A, { CONTROL_TYPE::CONFIRM, { } } },
 	{ GLFW_GAMEPAD_BUTTON_START, { CONTROL_TYPE::PAUSE, { } } },
 };
@@ -72,10 +72,10 @@ const std::map<int, std::pair<CONTROL_TYPE, std::vector<float>>> keyboard_contro
 	{ GLFW_KEY_ESCAPE, { CONTROL_TYPE::PAUSE, { } } },
 	{ GLFW_KEY_SPACE, { CONTROL_TYPE::CONFIRM, { } } },
 	{ GLFW_KEY_ENTER, { CONTROL_TYPE::CONFIRM, { } } },
-	{ GLFW_KEY_LEFT,  { CONTROL_TYPE::SET_COLOUR, { (float)COLOUR_CONTROL_VALUE::BLUE } } },
-	{ GLFW_KEY_DOWN,  { CONTROL_TYPE::SET_COLOUR, { (float)COLOUR_CONTROL_VALUE::NEUTRAL } } },
-	{ GLFW_KEY_RIGHT, { CONTROL_TYPE::SET_COLOUR, { (float)COLOUR_CONTROL_VALUE::RED } } },
-	{ GLFW_KEY_UP,    { CONTROL_TYPE::SET_COLOUR, { (float)COLOUR_CONTROL_VALUE::NEUTRAL } } },
+	{ GLFW_KEY_LEFT,  { CONTROL_TYPE::SET_COLOUR, { static_cast<float>(COLOUR_CONTROL_VALUE::BLUE) } } },
+	{ GLFW_KEY_DOWN,  { CONTROL_TYPE::SET_COLOUR, { static_cast<float>(COLOUR_CONTROL_VALUE::NEUTRAL) } } },
+	{ GLFW_KEY_RIGHT, { CONTROL_TYPE::SET_COLOUR, { static_cast<float>(COLOUR_CONTROL_VALUE::RED) } } },
+	{ GLFW_KEY_UP,    { CONTROL_TYPE::SET_COLOUR, { static_cast<float>(COLOUR_CONTROL_VALUE::NEUTRAL) } } },
 };
 
 // This is for any mouse inputs with modifiers (i.e. Shift, Alt, Control)
