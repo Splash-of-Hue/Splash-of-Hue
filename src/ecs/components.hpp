@@ -129,18 +129,3 @@ struct LightSource
 {
 	Entity lightEmissionEntity;
 };
-
-struct MarkedForEmissionCreation
-{
-	float MAX_RADIUS;
-};
-
-struct MarkedForEmissionColourChange
-{
-
-};
-
-struct MarkedForEmissionRemoval
-{
-
-};

@@ -44,9 +44,6 @@ public:
 	// Emission System
 	ComponentContainer<LightEmission> lightEmissions;
 	ComponentContainer<LightSource> lightSources;
-	ComponentContainer<MarkedForEmissionColourChange> markedForEmissionColourChanges;
-	ComponentContainer<MarkedForEmissionCreation> markedForEmissionCreation;
-	ComponentContainer<MarkedForEmissionRemoval> markedForEmissionRemoval;
 	// Controls
 	ComponentContainer<Control> controls;
 	ComponentContainer<Input> inputs;
@@ -132,9 +129,6 @@ public:
 		// Emissions
 		registry_list.push_back(&lightEmissions);
 		registry_list.push_back(&lightSources);
-		registry_list.push_back(&markedForEmissionColourChanges);
-		registry_list.push_back(&markedForEmissionCreation);
-		registry_list.push_back(&markedForEmissionRemoval);
 		// Controls
 		registry_list.push_back(&controls);
 		registry_list.push_back(&inputs);
