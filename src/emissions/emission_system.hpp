@@ -4,8 +4,9 @@
 #include "ecs/tiny_ecs.hpp"
 #include "ecs/components.hpp"
 #include "ecs/registry.hpp"
+#include "ecs/system.hpp"
 
-class EmissionSystem
+class EmissionSystem : public SystemInterface
 {
 public:
 	void step(float elapsed_ms);

@@ -1,12 +1,13 @@
 #pragma once
 #include "controls/control_components.hpp"
 #include "controls/control_constants.hpp"
+#include "ecs/system.hpp"
 #include "input/input_components.hpp"
 #include <map>
 #include <set>
 #include <string>
 
-class ControlInputConversionSystem
+class ControlInputConversionSystem : public SystemInterface
 {
 private:
 	std::map<CONTROL_TYPE, float> control_times_ms;
