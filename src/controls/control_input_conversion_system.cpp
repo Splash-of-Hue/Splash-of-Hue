@@ -127,7 +127,7 @@ Control ControlInputConversionSystem::convert_gamepad_input(const Input& input)
 	int button = input.value_2;
 	int action = is_axis_input ? GLFW_PRESS : input.value_3;
 	auto control_map = is_axis_input ? gamepad_axis_control_map : gamepad_button_control_map;
-	std::string error_message = "Pressed invalid joystick input: " + std::to_string(button);
+	std::string error_message = "Pressed invalid gamepad input: " + std::to_string(button);
 	Control& control = generate_control(control_map, button, action, error_message);
 
 	if (is_axis_input)
