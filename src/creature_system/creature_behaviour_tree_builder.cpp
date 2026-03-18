@@ -26,7 +26,122 @@ BehaviourTree CreatureBehaviourTreeBuilder::buildAnglerfishTree()
 
 BehaviourTree CreatureBehaviourTreeBuilder::buildCrabTree()
 {
-	return BehaviourTree();
+	BehaviourTreeBuilder builder;
+	int root_index =
+		Root(builder,
+			Selector(builder,
+				Decorator(builder, creatureBehaviourFunctions.isSliding,
+					Selector(builder,
+						Decorator(builder, creatureBehaviourFunctions.hasCreatureCollided,
+							Sequence(builder,
+								Action(builder, creatureBehaviourFunctions.makeNeutral),
+								Action(builder, creatureBehaviourFunctions.stopCreatureMovement),
+								Action(builder, creatureBehaviourFunctions.removeCollision)
+							)
+						),
+						Action(builder, creatureBehaviourFunctions.returnSuccess)
+					)
+				),
+				
+				Decorator(builder, creatureBehaviourFunctions.isCreatureWithinCreatureRedColourRadius,
+					Selector(builder,
+						Sequence(builder,
+							Action(builder, creatureBehaviourFunctions.makeRed),
+							Action(builder, creatureBehaviourFunctions.slideBackwards)
+						),
+						Decorator(builder, creatureBehaviourFunctions.hasCreatureCollided,
+							Sequence(builder,
+								Action(builder, creatureBehaviourFunctions.makeNeutral),
+								Action(builder, creatureBehaviourFunctions.stopCreatureMovement),
+								Action(builder, creatureBehaviourFunctions.removeCollision)
+							)
+						)
+					)
+				),
+
+				Decorator(builder, creatureBehaviourFunctions.isCreatureWithinCreatureBlueColourRadius,
+					Selector(builder,
+						Sequence(builder,
+							Action(builder, creatureBehaviourFunctions.makeBlue),
+							Action(builder, creatureBehaviourFunctions.slideForwards)
+						),
+						Decorator(builder, creatureBehaviourFunctions.hasCreatureCollided,
+							Sequence(builder,
+								Action(builder, creatureBehaviourFunctions.makeNeutral),
+								Action(builder, creatureBehaviourFunctions.stopCreatureMovement),
+								Action(builder, creatureBehaviourFunctions.removeCollision)
+							)
+						)
+					)
+				),
+
+				Decorator(builder, creatureBehaviourFunctions.isCreatureWithinPlayerRedColourRadius,
+					Selector(builder,
+						Sequence(builder,
+							Action(builder, creatureBehaviourFunctions.makeRed),
+							Action(builder, creatureBehaviourFunctions.slideBackwards)
+						),
+						Decorator(builder, creatureBehaviourFunctions.hasCreatureCollided,
+							Sequence(builder,
+								Action(builder, creatureBehaviourFunctions.makeNeutral),
+								Action(builder, creatureBehaviourFunctions.stopCreatureMovement),
+								Action(builder, creatureBehaviourFunctions.removeCollision)
+							)
+						)
+					)
+				),
+
+				Decorator(builder, creatureBehaviourFunctions.isCreatureWithinPlayerBlueColourRadius,
+					Selector(builder,
+						Sequence(builder,
+							Action(builder, creatureBehaviourFunctions.makeBlue),
+							Action(builder, creatureBehaviourFunctions.slideForwards)
+						),
+						Decorator(builder, creatureBehaviourFunctions.hasCreatureCollided,
+							Sequence(builder,
+								Action(builder, creatureBehaviourFunctions.makeNeutral),
+								Action(builder, creatureBehaviourFunctions.stopCreatureMovement),
+								Action(builder, creatureBehaviourFunctions.removeCollision)
+							)
+						)
+					)
+				),
+
+				Decorator(builder, creatureBehaviourFunctions.isCreatureWithinInteractableRedColourRadius,
+					Selector(builder,
+						Sequence(builder,
+							Action(builder, creatureBehaviourFunctions.makeRed),
+							Action(builder, creatureBehaviourFunctions.slideBackwards)
+						),
+						Decorator(builder, creatureBehaviourFunctions.hasCreatureCollided,
+							Sequence(builder,
+								Action(builder, creatureBehaviourFunctions.makeNeutral),
+								Action(builder, creatureBehaviourFunctions.stopCreatureMovement),
+								Action(builder, creatureBehaviourFunctions.removeCollision)
+							)
+						)
+					)
+				),
+
+				Decorator(builder, creatureBehaviourFunctions.isCreatureWithinInteractableBlueColourRadius,
+					Selector(builder,
+						Sequence(builder,
+							Action(builder, creatureBehaviourFunctions.makeBlue),
+							Action(builder, creatureBehaviourFunctions.slideForwards)
+						),
+						Decorator(builder, creatureBehaviourFunctions.hasCreatureCollided,
+							Sequence(builder,
+								Action(builder, creatureBehaviourFunctions.makeNeutral),
+								Action(builder, creatureBehaviourFunctions.stopCreatureMovement),
+								Action(builder, creatureBehaviourFunctions.removeCollision)
+							)
+						)
+					)
+				)
+			)
+		);
+
+	return builder.build(root_index);
 }
 
 BehaviourTree CreatureBehaviourTreeBuilder::buildMinnowTree()

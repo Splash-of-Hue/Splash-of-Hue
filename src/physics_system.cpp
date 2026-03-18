@@ -259,25 +259,16 @@ void light_emission_collisions(Entity& entity_i, Entity& entity_j)
 
 void handle_misc_collision(Entity& entity_i, Entity& entity_j)
 {
-	if (registry.creatures.has(entity_i) || registry.creatures.has(entity_j))
+	
+	if (registry.breakables.has(entity_i) && registry.chargers.has(entity_j))
 	{
-		Entity& entity_creature = registry.creatures.has(entity_i) ? entity_i : entity_j;
-		Entity& entity_other = registry.creatures.has(entity_j) ? entity_i : entity_j;
-
-		if (!registry.creatureInelasticCollisions.has(entity_creature))
-		{
-			Collidable& other_collidable = registry.collidables.get(entity_other);
-			if (other_collidable.inelastic)
-			{
-				registry.creatureInelasticCollisions.emplace(entity_creature);
-				if (registry.breakables.has(entity_other))
-				{
-					registry.remove_all_components_of(entity_other);
-				}
-			}
-		}
+		registry.remove_all_components_of(entity_i);
 	}
 
+	if (registry.breakables.has(entity_j) && registry.chargers.has(entity_i))
+	{
+		registry.remove_all_components_of(entity_j);
+	}
 	if (registry.colouredWall.has(entity_i) || registry.colouredWall.has(entity_j))
 	{
 		Entity& eCW = registry.colouredWall.has(entity_i) ? entity_i : entity_j;
@@ -378,34 +369,44 @@ void handle_inelastic_collision_box(Entity& entity_i, Entity& entity_j)
 		pos_to_correct = &pos2;
 		other_pos = &pos1;
 	}
-
+	if (registry.velocities.has(entity_i) && registry.velocities.get(entity_i) == vec2(0)) {
+		pos_to_correct = &pos2;
+		other_pos = &pos1;
+	}
 	float x_depth = box1[3] < box2[3] ? box1[3] - box2[2] : box2[3] - box1[2];
 	float y_depth = box1[1] < box2[1] ? box1[1] - box2[0] : box2[1] - box1[0];
 	x_depth = fmaxf(0, x_depth);
 	y_depth = fmaxf(0, y_depth);
+	float dir = 1.f;
 
+	//if two things are moving and collide, split the correction and apply to both
+	if (registry.velocities.has(entity_i) && registry.velocities.has(entity_j)) {
+		if (registry.velocities.get(entity_i) != vec2{ 0.f, 0.f } && registry.velocities.get(entity_j) != vec2{ 0.f, 0.f }) {
+			if (x_depth < y_depth) {
+				dir = pos_to_correct->x < other_pos->x ? -1.f : 1.f;
+				float x_correction = x_depth * dir * 0.5;
+				pos_to_correct->x += x_correction;
+				other_pos->x -= x_correction;
+			}
+			else {
+				dir = pos_to_correct->y < other_pos->y ? -1.f : 1.f;
+				float y_correction = y_depth * dir * 0.5;
+				pos_to_correct->y += y_correction;
+				other_pos->y -= y_correction;
+			}
+			return;
+		}
+	}
 	if (x_depth < y_depth)
 	{
-		if (pos_to_correct->x < other_pos->x)
-		{
-			pos_to_correct->x -= x_depth;
-		}
-		else
-		{
-			pos_to_correct->x += x_depth;
-		}
+		dir = pos_to_correct->x < other_pos->x ? -1.f : 1.f;
+		pos_to_correct->x += x_depth*dir;
 
 	}
 	else
 	{
-		if (pos_to_correct->y < other_pos->y)
-		{
-			pos_to_correct->y -= y_depth;
-		}
-		else
-		{
-			pos_to_correct->y += y_depth;
-		}
+		dir = pos_to_correct->y < other_pos->y ? -1.f : 1.f;
+		pos_to_correct->y += y_depth*dir;
 	}
 }
 
@@ -536,13 +537,18 @@ void handle_inelastic_collision_mesh(Entity& entity_i, Entity& entity_j, vec3 pe
 		pos_to_correct = &pos2;
 		other_pos = &pos1;
 	}
+	if (registry.velocities.has(entity_i) && registry.velocities.get(entity_i) == vec2{ 0.f, 0.f }) {
+		pos_to_correct = &pos2;
+		other_pos = &pos1;
+	}
 	vec2 dir = *pos_to_correct - *other_pos;
-
 	// if the normal points toward the other, flip
 	float dir_check = dir.x * penetration.y + dir.y * penetration.z;
+	
 	float sign = dir_check >= 0 ? 1.0f : -1.0f;
 	pos_to_correct->x += (penetration.x * penetration.y * sign);
 	pos_to_correct->y += (penetration.x * penetration.z * sign);
+	
 }
 
 void PhysicsSystem::step(float elapsed_ms)
@@ -593,6 +599,12 @@ void PhysicsSystem::step(float elapsed_ms)
 					
 					if (registry.collidables.get(entity_i).inelastic && registry.collidables.get(entity_j).inelastic)
 					{
+						if (!registry.creatureInelasticCollisions.has(entity_j) && registry.creatures.has(entity_j)) {
+							registry.creatureInelasticCollisions.emplace(entity_j);
+						}
+						if (!registry.creatureInelasticCollisions.has(entity_i) && registry.creatures.has(entity_i)) {
+							registry.creatureInelasticCollisions.emplace(entity_i);
+						}
 						handle_inelastic_collision_mesh(entity_i, entity_j, penetration);
 					}
 					continue;
@@ -612,6 +624,12 @@ void PhysicsSystem::step(float elapsed_ms)
 				//must both be inelastic for this collision resolution to occur
 				if (registry.collidables.get(entity_i).inelastic && registry.collidables.get(entity_j).inelastic)
 				{
+					if (!registry.creatureInelasticCollisions.has(entity_j) && registry.creatures.has(entity_j)) {
+						registry.creatureInelasticCollisions.emplace(entity_j);
+					}
+					if (!registry.creatureInelasticCollisions.has(entity_i) && registry.creatures.has(entity_i)) {
+						registry.creatureInelasticCollisions.emplace(entity_i);
+					}
 					handle_inelastic_collision_box(entity_i, entity_j);
 				}
 			}
