@@ -77,7 +77,7 @@ void PauseMenu::enable()
 
 void PauseMenu::disable()
 {
-	for (Entity entity : menu_entities)
+	for (Entity& entity : menu_entities)
 	{
 		registry.remove_all_components_of(entity);
 	}
@@ -102,7 +102,7 @@ Entity PauseMenu::create_menu_option(std::string text, int index)
 
 Entity PauseMenu::create_backdrop()
 {
-	Entity backdrop_entity = createRectangle(vec2(0), vec2(WINDOW_WIDTH_PX, WINDOW_HEIGHT_PX), RENDER_LAYER::UI_BACKGROUND, TRANSLUCENT_BLACK_COLOUR);
+	Entity& backdrop_entity = createRectangle(vec2(0), vec2(WINDOW_WIDTH_PX, WINDOW_HEIGHT_PX), RENDER_LAYER::UI_BACKGROUND, TRANSLUCENT_BLACK_COLOUR);
 	// Add to a list to destroy when disabled
 	registry.renderRequests.get(backdrop_entity).layer = RENDER_LAYER::UI_BACKGROUND;
 	registry.ignoredByCamera.emplace(backdrop_entity);
@@ -132,12 +132,12 @@ Entity PauseMenu::create_menu_selector_icon()
 	return menu_selector_entity;
 }
 
+// Index: 0 = top left, 1 = top right, 2 = bottom right, 3 = bottom left
 Entity PauseMenu::create_menu_corner(int corner_index)
 {
 	Entity menu_corner_entity;
 	// TODO HE4XQcbZ: Remove magic numbers and generate dynamically
 	const vec2 manual_offset = vec2(100, 40);
-	// Index: 0 = top left, 1 = top right, 2 = bottom right, 3 = bottom left
 	const float corner_size = 50.0f;
 	// Flip the angle on index 2 and 3
 	float angle = corner_index < 2 ? 0 : 180;
@@ -171,7 +171,7 @@ Entity PauseMenu::create_menu_corner(int corner_index)
 vec2 PauseMenu::get_selector_position()
 {
 	// Get the entity of the currently selected option
-	Entity current_option_entity = menu_option_entities.at(current_option_selected);
+	Entity& current_option_entity = menu_option_entities.at(current_option_selected);
 	// The selection is text which is screen space,
 	// while the selector is a texture which uses world space,
 	// so translate to screen space
