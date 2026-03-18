@@ -255,7 +255,7 @@ void AnimationSystem::init()
 	*/
 	generate_animation(
 		ANIMATABLE_TYPE::COLOUR_INDICATOR,
-		ANIMATION_TRIGGER::COLOUR_BLUE,
+		ANIMATION_TRIGGER::HUD_BLUE,
 		{
 			{ TEXTURE_ASSET_ID::COLOUR_INDICATOR, RenderSourceRect{ vec2(0.0f, 0.0f),   vec2(0.5f, 0.333f) }},
 			{ TEXTURE_ASSET_ID::COLOUR_INDICATOR, RenderSourceRect{ vec2(0.5f, 0.0f),   vec2(0.5f, 0.333f) }}
@@ -263,7 +263,7 @@ void AnimationSystem::init()
 	);
 	generate_animation(
 		ANIMATABLE_TYPE::COLOUR_INDICATOR,
-		ANIMATION_TRIGGER::COLOUR_NEUTRAL,
+		ANIMATION_TRIGGER::HUD_NEUTRAL,
 		{
 			{ TEXTURE_ASSET_ID::COLOUR_INDICATOR, RenderSourceRect{ vec2(0.0f, 0.333f), vec2(0.5f, 0.333f) }},
 			{ TEXTURE_ASSET_ID::COLOUR_INDICATOR, RenderSourceRect{ vec2(0.5f, 0.333f), vec2(0.5f, 0.333f) }}
@@ -271,7 +271,7 @@ void AnimationSystem::init()
 	);
 	generate_animation(
 		ANIMATABLE_TYPE::COLOUR_INDICATOR,
-		ANIMATION_TRIGGER::COLOUR_RED,
+		ANIMATION_TRIGGER::HUD_RED,
 		{
 			{ TEXTURE_ASSET_ID::COLOUR_INDICATOR, RenderSourceRect{ vec2(0.0f, 0.667f), vec2(0.5f, 0.333f) }},
 			{ TEXTURE_ASSET_ID::COLOUR_INDICATOR, RenderSourceRect{ vec2(0.5f, 0.667f), vec2(0.5f, 0.333f) }}

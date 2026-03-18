@@ -10,6 +10,8 @@ class ColourSystem
 public:
 	ColourSystem();
 
+	void init();
+
 	void initialize_palette();
 
 	void initialize_colour_indicator();

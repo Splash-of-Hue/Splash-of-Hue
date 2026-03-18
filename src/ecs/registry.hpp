@@ -36,6 +36,7 @@ public:
 	ComponentContainer<Textured> textured;
 	// Colour System
 	ComponentContainer<vec4> colors;
+	ComponentContainer<ColourIndicatorUI> colourIndicatorUIs;
 	ComponentContainer<ColourState> colourStates;
 	ComponentContainer<ColourWheel> colourWheels;
 	ComponentContainer<ColourPalette> colourPalettes;
@@ -43,7 +44,6 @@ public:
 	ComponentContainer<ColourMenuInput> colourMenuInputs;
 	ComponentContainer<LightEmission> lightEmissions;
 	ComponentContainer<LightSource> lightSources;
-	ComponentContainer<ColourIndicatorUI> colourIndicatorUIs;
 	// Controls
 	ComponentContainer<Control> controls;
 	ComponentContainer<Input> inputs;
@@ -121,6 +121,7 @@ public:
 		registry_list.push_back(&textured);
 		// Colour System
 		registry_list.push_back(&colors);
+		registry_list.push_back(&colourIndicatorUIs);
 		registry_list.push_back(&colourStates);
 		registry_list.push_back(&colourWheels);
 		registry_list.push_back(&colourPalettes);
@@ -128,7 +129,6 @@ public:
 		registry_list.push_back(&colourMenuInputs);
 		registry_list.push_back(&lightEmissions);
 		registry_list.push_back(&lightSources);
-		registry_list.push_back(&colourIndicatorUIs);
 		// Controls
 		registry_list.push_back(&controls);
 		registry_list.push_back(&inputs);

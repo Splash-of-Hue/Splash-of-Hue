@@ -79,5 +79,6 @@ enum class RENDER_LAYER
 	/* End */
 	WALLS_FRONT,
 	FOREGROUND,
+	HUD, 
 	UI
 };

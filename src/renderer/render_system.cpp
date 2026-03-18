@@ -455,10 +455,6 @@ void RenderSystem::draw()
 	// draw all entities with a render request to the frame buffer
 	for (Entity entity : registry.renderRequests.entities)
 	{
-		// ignoring UI entities
-		if (registry.ignoredByCamera.has(entity)) {
-			continue; 
-		}
 		// filter to entities that have a motion component
 		if (registry.textured.has(entity))
 		{
@@ -474,23 +470,6 @@ void RenderSystem::draw()
 		else if (registry.texts.has(entity))
 		{
 			drawText(entity, screen_projection);
-		}
-	}
-
-	// draw UI entities on top
-	for (Entity entity : registry.renderRequests.entities)
-	{
-		if (!registry.ignoredByCamera.has(entity)) {
-			continue;
-		}
-
-		if (registry.textured.has(entity))
-		{
-			drawTexturedMesh(entity, projection_2D);
-		}
-		else if (registry.rectangles.has(entity) || registry.circles.has(entity))
-		{
-			drawShape(entity, projection_2D);
 		}
 	}
 

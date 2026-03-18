@@ -62,10 +62,10 @@ int main()
 	sound_system.init();
 	input_system.init(window);
 	renderer_system.init(window);
-	colour_system.initialize_palette();
+	//colour_system.initialize_palette();
 	world_system.init(&renderer_system);
 	animation_system.init();
-	colour_system.initialize_colour_indicator();
+	colour_system.init();
 	// variable timestep loop
 	auto t = Clock::now();
 	while (!world_system.is_over()) {

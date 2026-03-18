@@ -13,6 +13,12 @@ ColourSystem::ColourSystem()
 {
 }
 
+void ColourSystem::init()
+{
+	initialize_palette();
+	initialize_colour_indicator();
+}
+
 void ColourSystem::initialize_palette()
 {
 	// create palette if missing
@@ -23,7 +29,7 @@ void ColourSystem::initialize_palette()
 }
 void ColourSystem::initialize_colour_indicator()
 {
-	Entity indicator = Entity();
+	Entity& indicator = Entity();
 
 	vec2 position = vec2(WINDOW_WIDTH_PX * 0.06f, WINDOW_HEIGHT_PX * 0.90f);
 	float size = WINDOW_HEIGHT_PX * 0.20f;
@@ -33,19 +39,19 @@ void ColourSystem::initialize_colour_indicator()
 	registry.scales.insert(indicator, vec2(size, size));  
 	registry.angles.insert(indicator, { 0.f });   
 	registry.ignoredByCamera.emplace(indicator);
-
+	// set texture to colour indicator asset
 	Textured& textured = registry.textured.emplace(indicator);
 	textured.used_texture = TEXTURE_ASSET_ID::COLOUR_INDICATOR;
-
 	registry.renderRequests.insert(indicator, {
 		EFFECT_ASSET_ID::TEXTURED,
-		GEOMETRY_BUFFER_ID::SPRITE
+		GEOMETRY_BUFFER_ID::SPRITE,
+		RENDER_LAYER::HUD
 		});
 
 	Animatable animatable;
 	animatable.type = ANIMATABLE_TYPE::COLOUR_INDICATOR;
 	animatable.behavior = ANIMATION_BEHAVIOR::LOOP;
-	animatable.current_trigger = ANIMATION_TRIGGER::COLOUR_NEUTRAL;
+	animatable.current_trigger = ANIMATION_TRIGGER::HUD_NEUTRAL;
 	animatable.frame_rate = 6;
 	registry.animatables.insert(indicator, animatable);
 
@@ -226,14 +232,11 @@ void ColourSystem::applyColorToPlayer(COLOUR_STATE colour)
 
 	if (!registry.colourIndicatorUIs.entities.empty())
 	{
-		Entity indicator = registry.colourIndicatorUIs.entities[0];
+		Entity& indicator = registry.colourIndicatorUIs.entities[0];
 
-		ANIMATION_TRIGGER trigger;
-		switch (colour) {
-		case COLOUR_STATE::RED:  trigger = ANIMATION_TRIGGER::COLOUR_RED;     break;
-		case COLOUR_STATE::BLUE: trigger = ANIMATION_TRIGGER::COLOUR_BLUE;    break;
-		default:                 trigger = ANIMATION_TRIGGER::COLOUR_NEUTRAL; break;
-		}
+		ANIMATION_TRIGGER trigger = colour == COLOUR_STATE::RED ? ANIMATION_TRIGGER::HUD_RED
+			: colour == COLOUR_STATE::BLUE ? ANIMATION_TRIGGER::HUD_BLUE
+			: ANIMATION_TRIGGER::HUD_NEUTRAL;
 
 		Animatable& animatable = registry.animatables.get(indicator);
 		animatable.current_trigger = trigger;
