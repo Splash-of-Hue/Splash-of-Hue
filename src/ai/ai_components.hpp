@@ -10,21 +10,16 @@ struct Boid
 // The overseer of all of its associated boids. 
 struct Boid_Overseer
 {
+	// The following factors can have their parameters adjusted to control how much the group swarms 
+	
 	// alignment: how much the boids want to align with the avg orientation of the local group
-	//float alignment_factor = 0.09;
-	//float alignment_factor = 0.03;
 	float alignment_factor = 0.02;
 
-
 	// separation: avoiding being too close to neighbours
-	//float separation_factor = 4.5f;
 	float separation_factor = 5.5f;
 
-
 	// cohesion: moving towards avg pos of local group
-	//float cohesion_factor = 0.03f;
 	float cohesion_factor = 0.02f;
-
 
 	// Only allow boids to process boids that they can see (e.g. in front of them)
 	float perception_radius = 50.0f;
@@ -35,7 +30,7 @@ struct Boid_Overseer
 	float max_force = 20.0f; 
 	float steering_noise_factor = 0.05f;
 
-	Entity target;
-
-	std::map<Entity, Boid> boids;
+	// Todo: BukbklVV 
+	//Entity target;
+	//std::map<Entity, Boid> boids;
 };
