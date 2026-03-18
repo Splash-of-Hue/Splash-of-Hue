@@ -129,7 +129,7 @@ bool is_light_emission_collision(Entity& entity_i, Entity& entity_j)
 }
 
 //todo: https://trello.com/c/tXEZLSr7/229-1-optimize-inradiuslist-in-physicssystemcpp
-bool inRadiusList(Entity& emission_entity, std::vector<Entity>& radius_list)
+bool checkForRepeatedRadiuses(Entity& emission_entity, std::vector<Entity>& radius_list)
 {
 	for (Entity& receiving_entity : radius_list)
 	{
@@ -145,8 +145,7 @@ bool inRadiusList(Entity& emission_entity, std::vector<Entity>& radius_list)
 template <typename ComponentInterface>
 void addSpecificRadiusCollision(Entity& entity_in_emission, Entity& emission_entity, ComponentInterface& container, bool& inRadius, std::vector<Entity>& radiusList)
 {
-	//If the radius is already in the radiusList, we don't want to add it again. 
-	if (inRadiusList(emission_entity, radiusList))
+	if (checkForRepeatedRadiuses(emission_entity, radiusList))
 	{
 		return;
 	}
@@ -174,22 +173,14 @@ void light_emission_collisions(Entity& entity_i, Entity& entity_j)
 	{
 		return;
 	}
-	//since mushrooms are the only interactable that are actively checking the "inRadius" component, it is okay to apply the inRadius component to ALL interactables,
-	//and assume no behaviour with the non-mushroom interactables will change. When Physics cleanup happens, mossToggle will move to interactables, and this code should
-	//already account for this, so all thats needed to do is adjust the mossToggle code slightly.
-	//side note: i realized the code for applying inRadius to creatures is literally exactly the same, so now creatures is being added to this as well. 
-	if (registry.interactables.has(other_entity) || registry.creatures.has(other_entity))
+	//These three conditions should cover everything we want and don't want to be affect by emissions. Keep an eye on this as more entities are created.
+	if (registry.colourStates.has(other_entity) && !registry.lightEmissions.has(other_entity) && !registry.players.has(other_entity))
 	{
-		//all we do in this if statement is add the inRadius component to the interactable. The steps to properly adding this component are to
-		// - Set the boolean of the type of radius its in to true
-		// - Add the radius to the vector of whatever radius type it is in
-		// For example, if its a player radius, set inPlayerRadius to true, and add the radius entity to playerRadius
+		// Example: if its a player radius, set inPlayerRadius to true, and add the radius entity to playerRadius
 		Entity& source_entity = registry.lightEmissions.get(light_emission_entity).lightSourceEntity;
 		if (!registry.inRadius.has(other_entity))
 			registry.inRadius.emplace(other_entity);
 		InRadius& in_radius_component = registry.inRadius.get(other_entity);
-		//Uses the helper function to add whatever radius this interactable/creature is currently in to its respective radius list
-		//This new code allows for the helper function to only be called once per interaction, rather than checking for all three types. 
 		if (registry.players.has(source_entity))
 			addSpecificRadiusCollision(other_entity, light_emission_entity, registry.players, in_radius_component.inPlayerRadius, in_radius_component.playerRadiusList);
 		else if (registry.creatures.has(source_entity))

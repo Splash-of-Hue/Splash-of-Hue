@@ -494,7 +494,7 @@ void load_mushroom(const ldtk::Entity& mushroom_entity)
 
 	const ldtk::Field<ldtk::EnumValue>& color_state_field = mushroom_entity.getField<ldtk::EnumValue>("ColorState");
 	const COLOUR_STATE colour_state = color_state_from_string(color_state_field.value().name);
-
+	//todo: https://trello.com/c/qB3PaZDl/247-05-create-ldtk-size-general-enum
 	const ldtk::Field<ldtk::EnumValue>& mushroom_size_field = mushroom_entity.getField<ldtk::EnumValue>("MushroomSize");
 	const MUSHROOM_SIZE mushroom_size = mushroom_size_from_string(mushroom_size_field.value().name);
 

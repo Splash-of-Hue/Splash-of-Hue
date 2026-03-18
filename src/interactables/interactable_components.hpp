@@ -24,7 +24,7 @@ struct OrbCollected {
 
 struct Mushroom
 {
-	MUSHROOM_SIZE size = default_mushroom_size;
+	MUSHROOM_SIZE size = DEFAULT_MUSHROOM_SIZE;
 };
 
 struct MossToggle

@@ -31,9 +31,7 @@ private:
 	bool colour_menu_open = false;
 
 	// helper methods (existing)
+	void setEntityVisualColour(Entity entity, COLOUR_STATE colour_state);
 	void openColourMenu();
 	void closeColourMenu();
 };
-
-//moved to public to allow calling from emissions and creature system
-void setEntityVisualColour(Entity entity, COLOUR_STATE colour_state);

@@ -22,7 +22,7 @@ void ColourSystem::initialize_palette()
 		registry.colourPalettes.emplace(colour_palette_entity);
 	}
 }
-void setEntityVisualColour(Entity entity, COLOUR_STATE colour_state) {
+void ColourSystem::setEntityVisualColour(Entity entity, COLOUR_STATE colour_state) {
 	assert(!registry.colourPalettes.entities.empty() && "Colour palette should be initialized");
 
 	Entity palette_entity = registry.colourPalettes.entities[0];
@@ -160,7 +160,7 @@ vec4 ColourSystem::getPaletteColour(COLOUR_STATE state) {
 
 	return palette.state_to_colour.count(state) > 0
 		? palette.state_to_colour.at(state)
-		: DEFAULT_COLOUR_VEC4; 
+		: DEFAULT_COLOUR_VEC4;
 }
 
 void ColourSystem::applyColorToPlayer(COLOUR_STATE colour)
@@ -196,18 +196,17 @@ void ColourSystem::applyColorToPlayer(COLOUR_STATE colour)
 
 		//TODO: https://trello.com/c/XWeiA55L/149-1-colour-menu-ui-always-visible
 		setEntityVisualColour(player, colour);
-		//We will create the players emission here, give it player-specific parameters, and then initialize it in emission_system.cpp
+		//We will create the players emission here, give it player-specific parameters, double link the emission and player, and then initialize it in emission_system.cpp
 		if (!registry.lightSources.has(player))
 		{
-			//creating the emission
 			vec2 player_position = registry.positions.get(player);
 			Entity& emission_entity = createCircle(player_position, 1.f, RENDER_LAYER::PLAYER, DEFAULT_COLOUR_VEC4);
 			LightEmission& light_emission_component = registry.lightEmissions.emplace(emission_entity);
-			//assigning the player-specific parameters
+
 			light_emission_component.MAX_RADIUS = EMISSION_SIZE::PLAYER_EMISSION;
 			light_emission_component.TIME_TO_GROW = TIME_TO_GROW;
 			light_emission_component.offset = EMISSION_OFFSET.at("PLAYER");
-			//double-linking the player and the emission
+
 			light_emission_component.lightSourceEntity = player;
 			LightSource& light_source_component = registry.lightSources.emplace(player);
 			light_source_component.lightEmissionEntity = emission_entity;

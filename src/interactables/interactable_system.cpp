@@ -64,11 +64,10 @@ void InteractableSystem::handle_mushrooms(Entity& mushroom_entity)
 
     if (!registry.lightSources.has(mushroom_entity))
     {
-        //creating the emission
         vec2 mushroom_position = registry.positions.get(mushroom_entity);
         Entity& emission_entity = createCircle(mushroom_position, 1.f, RENDER_LAYER::FLOOR_INTERACTABLES, DEFAULT_COLOUR_VEC4);
         LightEmission& light_emission_component = registry.lightEmissions.emplace(emission_entity);
-        //assigning the mushroom-specific parameters  
+
         switch (registry.mushrooms.get(mushroom_entity).size)
         {
             case MUSHROOM_SIZE::SMALL:
@@ -81,6 +80,7 @@ void InteractableSystem::handle_mushrooms(Entity& mushroom_entity)
                 light_emission_component.MAX_RADIUS = EMISSION_SIZE::MUSHROOM_LARGE_EMISSION;
                 break;
         }
+
         light_emission_component.TIME_TO_GROW = TIME_TO_GROW;
         light_emission_component.offset = EMISSION_OFFSET.at("MUSHROOM");
         //double-linking the mushroom and the emission
@@ -89,10 +89,11 @@ void InteractableSystem::handle_mushrooms(Entity& mushroom_entity)
         light_source_component.lightEmissionEntity = emission_entity;
         
     }
-    //Todo: when the mushroom assets are created, uncomment this line
+    //Todo: when the mushroom assets are created, uncomment this line https://trello.com/c/sAosXtPo/98-1-animation-mushroom
     //setEntityVisualColour(mushroom_entity, colour_state);
 }
 
+//Returns the colour state of the highest-priority radius type (Player, Creature, Interactable)
 COLOUR_STATE InteractableSystem::change_colour_given_priority( bool& inRadius1, std::vector<Entity>& radiusList1, bool& inRadius2, std::vector<Entity>& radiusList2, bool& inRadius3, std::vector<Entity>& radiusList3)
 {
     if (inRadius1)

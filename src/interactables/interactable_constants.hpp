@@ -1,6 +1,5 @@
 #pragma once
 
-#include <map>
 // If adding a new Interactable, add that Interactable as a component in interactable_components.hpp 
 enum class INTERACTABLE_TYPE
 {
@@ -26,4 +25,4 @@ enum class MUSHROOM_WIDTH
 	LARGE = 200
 };
 
-const MUSHROOM_SIZE default_mushroom_size = MUSHROOM_SIZE::MEDIUM;
+const MUSHROOM_SIZE DEFAULT_MUSHROOM_SIZE = MUSHROOM_SIZE::MEDIUM;

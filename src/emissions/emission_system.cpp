@@ -14,30 +14,26 @@ void EmissionSystem::step(float elapsed_ms)
 {
 	for (Entity& emission_entity : registry.lightEmissions.entities)
 	{
-		//An emission that is created through the interactable or colour system will not have any components attached besides lightEmissions
-		//This means if the entity does not have a colour state, we need to initialize the emission first
+		//Colour states is looked at instead of other components to avoid assertion below
 		if (!registry.colourStates.has(emission_entity))
 			initialize_emission(emission_entity);
-		//we can use any component to check if the emission has been initialized, but the colour state is used specifically so that we can assure the 
-		//emission has a colour state for the next step, which is to compare the colour state of the emission and its source, so that we can change the 
-		//emissions colour state accordingly.
+		
 		ColourState& emission_colour_state = registry.colourStates.get(emission_entity);
 		ColourState& source_colour_state = registry.colourStates.get(registry.lightEmissions.get(emission_entity).lightSourceEntity);
 		if (emission_colour_state.curr_colour_state != source_colour_state.curr_colour_state)
 			change_emission_colour_state(emission_entity, source_colour_state.curr_colour_state);
-		//Finally, we want to look at any emission that isnt fully grown yet. If the emission hasn't been deleted due to it being neutral, then it should have a size, 
-		//So we will check to see if it has a size, and if that size is less than its max_radius (which is defined in interactables or colour system.
+		
+		//If emission is neutral, it is deleted, so it won't have size
 		if (registry.sizes.has(emission_entity) && (registry.sizes.get(emission_entity).width < registry.lightEmissions.get(emission_entity).MAX_RADIUS))
 			update_emission_size(emission_entity, elapsed_ms);
-		//Some emissions will be on a moving entity. To deal with this, we will have the position of radius update to the moving entities position. 
-		//If we only look at sources that have a velocity, we won't be updating the position of every single radius on every frame. 
-		//The position of the emission is updated instead of velocity, as travelling through a room with an emission active creates unintended results when using velocity.
+		
+		//If emission is neutral, it is deleted, so it won't have lightEmission
 		if (registry.lightEmissions.has(emission_entity) && registry.velocities.has(registry.lightEmissions.get(emission_entity).lightSourceEntity))
 			update_emission_position(emission_entity);
 	}
 }
 
-//creates a new emission. this function will not change the colour, but will add every component to the emission entity, as well as link the source and the emission.
+// Adds non component-specific properties to emissions
 void EmissionSystem::initialize_emission(Entity& emission_entity)
 {	
 	//assigning collidable hitbox to emission, so that collision with the circle are noticed
@@ -46,15 +42,12 @@ void EmissionSystem::initialize_emission(Entity& emission_entity)
 	light_emission_collidable_component.inelastic = false;
 	//TODO: https://trello.com/c/mBipkaT3/187-1-make-light-emission-look-pretty
 	RenderRequest& light_emission_render_request = registry.renderRequests.get(emission_entity);
-	//Starts as neutral, but will be changed as the for loop will recognize that the colour states of the emission and the source are not equal
 	ColourState& colour_circle_colour_state = registry.colourStates.emplace(emission_entity);
 }
-//this function only changes the state of the emission. Changing the state of emission means deleting the emission if it is neutral, changing the colour state if its red or blue
-//and resetting the size to 0 if its red or blue, allowing the emission to grow.
+
+// Removes emission on neutral state, otherwise changes colour state of emission & resets size for growth
 void EmissionSystem::change_emission_colour_state(Entity& emission_entity, COLOUR_STATE colour_state)
 {
-	//If the entity or player is neutral. We will delete the emission. This is done by removing all components of the emission entity, but also removing the 
-	//light source component from the emitting entity
 	if (colour_state == COLOUR_STATE::NEUTRAL)
 	{
 		Entity& source_entity = registry.lightEmissions.get(emission_entity).lightSourceEntity;
@@ -62,23 +55,33 @@ void EmissionSystem::change_emission_colour_state(Entity& emission_entity, COLOU
 		registry.remove_all_components_of(emission_entity);
 		return;
 	}
-	//Otherwise, we will change the colour state, as well as changing the visual colour by calling colour_system.cpp
+
 	ColourState& emission_colour_state = registry.colourStates.get(emission_entity);
 	Size& emission_size = registry.sizes.get(emission_entity);
 	emission_size.width = 0.f;
 	emission_size.height = 0.f;
 	emission_colour_state.prev_colour_state = emission_colour_state.curr_colour_state;
 	emission_colour_state.curr_colour_state = colour_state;
+	
+	//changes visual colour of entity
+	Entity palette_entity = registry.colourPalettes.entities[0];
+	const ColourPalette& palette = registry.colourPalettes.get(palette_entity);
 
-	setEntityVisualColour(emission_entity, colour_state);
+	if (palette.state_to_colour.count(colour_state) == 0) return;
+
+	vec4 color = palette.state_to_colour.at(colour_state);
+
+	if (!registry.colors.has(emission_entity)) {
+		registry.colors.emplace(emission_entity);
+	}
+	registry.colors.get(emission_entity) = color;
 }
-//seperating the update size and update position increases optimization somewhat. this way, these functions are only called if size needs to be updated, 
-//or if the light source is a moving entity
+
 void EmissionSystem::update_emission_size(Entity& emission_entity, float elapsed_ms)
 {	
 	float max_radius = registry.lightEmissions.get(emission_entity).MAX_RADIUS;
 	float time_to_grow = registry.lightEmissions.get(emission_entity).TIME_TO_GROW;
-	//have the light grow if it is not its maximum size.
+
 	Size& light_emission_size = registry.sizes.get(emission_entity);
 	if (light_emission_size.width < max_radius)
 	{

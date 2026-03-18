@@ -104,6 +104,7 @@ inline COLOUR_STATE color_state_from_string(const std::string color_string)
 	return search != color_state_string_enum_map.end() ? search->second : COLOUR_STATE::NEUTRAL;
 };
 
+//todo: https://trello.com/c/qB3PaZDl/247-05-create-ldtk-size-general-enum
 const std::map<std::string, MUSHROOM_SIZE> mushroom_size_string_enum_map = {
 	{ "Small", MUSHROOM_SIZE::SMALL },
 	{ "Medium", MUSHROOM_SIZE::MEDIUM },
