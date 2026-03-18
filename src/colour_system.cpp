@@ -27,11 +27,12 @@ void ColourSystem::initialize_palette()
 		registry.colourPalettes.emplace(colour_palette_entity);
 	}
 }
+
 void ColourSystem::initialize_colour_indicator()
 {
 	Entity& indicator = Entity();
 
-	vec2 position = vec2(WINDOW_WIDTH_PX * 0.06f, WINDOW_HEIGHT_PX * 0.90f);
+	vec2 position = vec2(WINDOW_WIDTH_PX * COLOUR_INDICATOR_SCREEN_WIDTH, WINDOW_HEIGHT_PX * COLOUR_INDICATOR_SCREEN_HEIGHT);
 	float size = WINDOW_HEIGHT_PX * 0.20f;
 
 	registry.positions.insert(indicator, position);
@@ -57,6 +58,7 @@ void ColourSystem::initialize_colour_indicator()
 
 	registry.colourIndicatorUIs.emplace(indicator);
 }
+
 void ColourSystem::setEntityVisualColour(Entity entity, COLOUR_STATE colour_state) {
 	assert(!registry.colourPalettes.entities.empty() && "Colour palette should be initialized");
 
@@ -72,6 +74,7 @@ void ColourSystem::setEntityVisualColour(Entity entity, COLOUR_STATE colour_stat
 	}
 	registry.colors.get(entity) = color;
 }
+
 void ColourSystem::openColourMenu()
 {
 	vec2 top_left = vec2(WINDOW_WIDTH_PX * 0.05f, WINDOW_HEIGHT_PX * 0.70f);

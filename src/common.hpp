@@ -83,6 +83,9 @@ const vec4 RED_COLOUR_VEC4 = vec4(1.0f, 0.0f, 0.0f, 1.0f);
 const vec4 BLACK_COLOUR_VEC4 = vec4(0.0f, 0.0f, 0.0f, 1.0f);
 const vec4 DEFAULT_COLOUR_VEC4 = WHITE_COLOUR_VEC4;	
 
+const float COLOUR_INDICATOR_SCREEN_WIDTH = 0.06f;
+const float COLOUR_INDICATOR_SCREEN_HEIGHT = 0.9f;
+
 const ivec2 UNIT_UP = vec2(0, -1);
 const ivec2 UNIT_DOWN = vec2(0, 1);
 const ivec2 UNIT_LEFT = vec2(-1, 0);
