@@ -5,6 +5,7 @@
 #include "ecs/tiny_ecs.hpp"
 #include "ecs/components.hpp"
 #include "ecs/registry.hpp"
+#include "emissions/emission_constants.hpp"
 #include "shapes/shape_build_init.hpp"
 #include <iostream>
 #include <vector>
@@ -21,7 +22,7 @@ void ColourSystem::initialize_palette()
 		registry.colourPalettes.emplace(colour_palette_entity);
 	}
 }
-void ColourSystem::setEntityVisualColour(Entity entity, COLOUR_STATE colour_state) {
+void setEntityVisualColour(Entity entity, COLOUR_STATE colour_state) {
 	assert(!registry.colourPalettes.entities.empty() && "Colour palette should be initialized");
 
 	Entity palette_entity = registry.colourPalettes.entities[0];
@@ -195,43 +196,27 @@ void ColourSystem::applyColorToPlayer(COLOUR_STATE colour)
 
 		//TODO: https://trello.com/c/XWeiA55L/149-1-colour-menu-ui-always-visible
 		setEntityVisualColour(player, colour);
-
-		if (colour == COLOUR_STATE::NEUTRAL && !registry.markedForEmissionRemoval.has(player))
+		//We will create the players emission here, give it player-specific parameters, and then initialize it in emission_system.cpp
+		if (!registry.lightSources.has(player))
 		{
-			registry.markedForEmissionRemoval.emplace(player);
-			return;
+			//creating the emission
+			vec2 player_position = registry.positions.get(player);
+			Entity& emission_entity = createCircle(player_position, 1.f, RENDER_LAYER::PLAYER, DEFAULT_COLOUR_VEC4);
+			LightEmission& light_emission_component = registry.lightEmissions.emplace(emission_entity);
+			//assigning the player-specific parameters
+			light_emission_component.MAX_RADIUS = EMISSION_SIZE::PLAYER_EMISSION;
+			light_emission_component.TIME_TO_GROW = TIME_TO_GROW;
+			light_emission_component.offset = EMISSION_OFFSET.at("PLAYER");
+			//double-linking the player and the emission
+			light_emission_component.lightSourceEntity = player;
+			LightSource& light_source_component = registry.lightSources.emplace(player);
+			light_source_component.lightEmissionEntity = emission_entity;
 		}
-
-		if (!registry.lightSources.has(player) && !registry.markedForEmissionCreation.has(player))
-		{
-			registry.markedForEmissionCreation.emplace(player);
-		}
-
-		if (!registry.markedForEmissionColourChanges.has(player))
-		{
-			registry.markedForEmissionColourChanges.emplace(player);
-		}	
-	}
-}
-
-void ColourSystem::changeEmissionColour()
-{
-	for (Entity& source_entity : registry.markedForEmissionColourChanges.entities)
-	{
-		if (!registry.lightSources.has(source_entity))
-			return;
-		LightSource& light_source_component = registry.lightSources.get(source_entity);
-		Entity& emission_entity = light_source_component.lightEmissionEntity;
-		if (!registry.colourStates.has(emission_entity))
-			return;
-		ColourState& emission_colour_state = registry.colourStates.get(emission_entity);
-		setEntityVisualColour(emission_entity, emission_colour_state.curr_colour_state);
 	}
 }
 
 void ColourSystem::step(float elapsed_ms)
 {
-	changeEmissionColour();
 	(void)elapsed_ms; // unused for now
 	std::vector<Entity> to_remove;
 	for (Entity& entity : registry.controls.entities)

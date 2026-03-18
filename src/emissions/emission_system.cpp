@@ -4,149 +4,93 @@
 #include "emission_system.hpp"
 #include "emission_constants.hpp"
 #include "shapes/shape_build_init.hpp"
+#include "colour_system.hpp"
 #include <algorithm>
 #include <iostream>
 #include <math.h>
 #include <numeric>
 
-float getRadiusSize(Entity& source_entity)
-{
-	if (registry.players.has(source_entity))
-		return typeOfEntityToEmissionSize[0];
-
-	if (registry.mushrooms.has(source_entity))
-		return typeOfEntityToEmissionSize[1 + (int)registry.mushrooms.get(source_entity).size];
-
-	return 0;
-}
-
-vec2 getOffset(Entity& source_entity)
-{
-	//todo: once we start rotating the anglerfish, we will need to change this
-	return { 0,0 };
-}
-
-void EmissionSystem::create_new_emissions()
-{
-	for (Entity& source_entity : registry.markedForEmissionCreation.entities)
-	{
-		assert(registry.positions.has(source_entity), "33");
-		vec2& position = registry.positions.get(source_entity);
-		vec4 light_emission_colour = DEFAULT_COLOUR_VEC4;
-		light_emission_colour.a = 0.2f;
-
-		Entity& light_emission_entity = createCircle(position, 1.f, RENDER_LAYER::PLAYER, light_emission_colour);
-		Collidable& light_emission_collidable_component = registry.collidables.emplace(light_emission_entity);
-		light_emission_collidable_component.overlay = true;
-		light_emission_collidable_component.inelastic = false;
-
-		LightEmission& light_emission_component = registry.lightEmissions.emplace(light_emission_entity);
-		light_emission_component.MAX_RADIUS = getRadiusSize(source_entity);
-		light_emission_component.offset = getOffset(source_entity);
-		light_emission_component.TIME_TO_GROW = 1000.f;
-		light_emission_component.lightSourceEntity = source_entity;
-		assert(registry.renderRequests.has(light_emission_entity), "33");
-		RenderRequest& light_emission_render_request = registry.renderRequests.get(light_emission_entity);
-		light_emission_render_request.used_geometry = GEOMETRY_BUFFER_ID::GRADIENT_CIRCLE;
-
-		ColourState& colour_circle_colour_state = registry.colourStates.emplace(light_emission_entity);
-	
-		LightSource& light_source_component = registry.lightSources.emplace(source_entity);
-		light_source_component.lightEmissionEntity = light_emission_entity;
-
-		registry.markedForEmissionCreation.remove(source_entity);
-	}
-}
-
-void EmissionSystem::change_emission_colour()
-{
-	for (Entity& source_entity : registry.markedForEmissionColourChanges.entities)
-	{
-		if (!registry.lightSources.has(source_entity))
-			return;
-		assert(registry.lightSources.has(source_entity), "66");
-		LightSource& light_source_component = registry.lightSources.get(source_entity);
-		Entity& emission_entity = light_source_component.lightEmissionEntity;
-
-		if (!registry.colourStates.has(emission_entity) || !registry.sizes.has(emission_entity) || !registry.colourStates.has(source_entity))
-			return;
-		assert(registry.colourStates.has(source_entity), "72");
-		assert(registry.colourStates.has(emission_entity), "73");
-		ColourState& source_colour_state = registry.colourStates.get(source_entity);
-		ColourState& emission_colour_state = registry.colourStates.get(emission_entity);
-
-		if (source_colour_state.curr_colour_state == emission_colour_state.curr_colour_state)
-		{
-			registry.markedForEmissionColourChanges.remove(source_entity);
-			return;
-		}
-		assert(registry.sizes.has(emission_entity), "72");
-		Size& emission_size = registry.sizes.get(emission_entity);
-		emission_size.width = 0.f;
-		emission_size.height = 0.f;
-
-		emission_colour_state.prev_colour_state = emission_colour_state.curr_colour_state;
-		emission_colour_state.curr_colour_state = source_colour_state.curr_colour_state;
-
-		//we don't remove the markedForEmissionColourChanges so that colour_system.cpp can change the colour of the emission
-	}
-}
-
-void EmissionSystem::update_emission_position_size(float elapsed_ms)
-{
-	for (Entity& light_emission_entity : registry.lightEmissions.entities)
-	{
-		if (!registry.positions.has(light_emission_entity) || !registry.sizes.has(light_emission_entity))
-			return;
-		//circle updates to location of whatever its attached to
-		assert(registry.positions.has(light_emission_entity), "100");
-		vec2& light_emission_position = registry.positions.get(light_emission_entity);
-		assert(registry.lightEmissions.has(light_emission_entity), "102");
-		LightEmission& light_emission_component = registry.lightEmissions.get(light_emission_entity);
-		Entity& source_entity = light_emission_component.lightSourceEntity;
-		assert(registry.positions.has(source_entity), "105");
-		vec2& source_position = registry.positions.get(source_entity);
-
-		light_emission_position = source_position + light_emission_component.offset;
-		assert(registry.sizes.has(light_emission_entity), "109");
-		Size& light_emission_size = registry.sizes.get(light_emission_entity);
-
-		if (light_emission_size.width < light_emission_component.MAX_RADIUS)
-		{
-			light_emission_size.width = min(light_emission_component.MAX_RADIUS,
-				light_emission_size.width + light_emission_component.MAX_RADIUS * elapsed_ms / light_emission_component.TIME_TO_GROW);
-			light_emission_size.height = min(light_emission_component.MAX_RADIUS,
-				light_emission_size.height + light_emission_component.MAX_RADIUS * elapsed_ms / light_emission_component.TIME_TO_GROW);
-		}
-	}
-}
-
-void EmissionSystem::remove_emissions()
-{
-	for (Entity& source_entity : registry.markedForEmissionRemoval.entities)
-	{
-		if (!registry.lightSources.has(source_entity))
-		{
-			return;
-		}
-
-		LightSource& light_source_component = registry.lightSources.get(source_entity);
-		Entity& emission_entity = light_source_component.lightEmissionEntity;
-
-		registry.remove_all_components_of(emission_entity);
-		registry.lightSources.remove(source_entity);
-		registry.markedForEmissionRemoval.remove(source_entity);
-	}
-}
-
 void EmissionSystem::step(float elapsed_ms)
 {
-	//first, we check if there are any entities that are going to emit, but havent yet, give them an emission, but this emission does not have a colour yet
-	create_new_emissions();
-	//then, we look at any sources that have a different colour state than their emission, and change their emission accordingly
-	change_emission_colour();
-	//then, we update their position and size if they need to be changed.
-	update_emission_position_size(elapsed_ms);
-	//finally, we remove any emissions marked as needing to remove emission
-	remove_emissions();
+	for (Entity& emission_entity : registry.lightEmissions.entities)
+	{
+		//An emission that is created through the interactable or colour system will not have any components attached besides lightEmissions
+		//This means if the entity does not have a colour state, we need to initialize the emission first
+		if (!registry.colourStates.has(emission_entity))
+			initialize_emission(emission_entity);
+		//we can use any component to check if the emission has been initialized, but the colour state is used specifically so that we can assure the 
+		//emission has a colour state for the next step, which is to compare the colour state of the emission and its source, so that we can change the 
+		//emissions colour state accordingly.
+		ColourState& emission_colour_state = registry.colourStates.get(emission_entity);
+		ColourState& source_colour_state = registry.colourStates.get(registry.lightEmissions.get(emission_entity).lightSourceEntity);
+		if (emission_colour_state.curr_colour_state != source_colour_state.curr_colour_state)
+			change_emission_colour_state(emission_entity, source_colour_state.curr_colour_state);
+		//Finally, we want to look at any emission that isnt fully grown yet. If the emission hasn't been deleted due to it being neutral, then it should have a size, 
+		//So we will check to see if it has a size, and if that size is less than its max_radius (which is defined in interactables or colour system.
+		if (registry.sizes.has(emission_entity) && (registry.sizes.get(emission_entity).width < registry.lightEmissions.get(emission_entity).MAX_RADIUS))
+			update_emission_size(emission_entity, elapsed_ms);
+		//Some emissions will be on a moving entity. To deal with this, we will have the position of radius update to the moving entities position. 
+		//If we only look at sources that have a velocity, we won't be updating the position of every single radius on every frame. 
+		//The position of the emission is updated instead of velocity, as travelling through a room with an emission active creates unintended results when using velocity.
+		if (registry.lightEmissions.has(emission_entity) && registry.velocities.has(registry.lightEmissions.get(emission_entity).lightSourceEntity))
+			update_emission_position(emission_entity);
+	}
+}
+
+//creates a new emission. this function will not change the colour, but will add every component to the emission entity, as well as link the source and the emission.
+void EmissionSystem::initialize_emission(Entity& emission_entity)
+{	
+	//assigning collidable hitbox to emission, so that collision with the circle are noticed
+	Collidable& light_emission_collidable_component = registry.collidables.emplace(emission_entity);
+	light_emission_collidable_component.overlay = true;
+	light_emission_collidable_component.inelastic = false;
+	//TODO: https://trello.com/c/mBipkaT3/187-1-make-light-emission-look-pretty
+	RenderRequest& light_emission_render_request = registry.renderRequests.get(emission_entity);
+	//Starts as neutral, but will be changed as the for loop will recognize that the colour states of the emission and the source are not equal
+	ColourState& colour_circle_colour_state = registry.colourStates.emplace(emission_entity);
+}
+//this function only changes the state of the emission. Changing the state of emission means deleting the emission if it is neutral, changing the colour state if its red or blue
+//and resetting the size to 0 if its red or blue, allowing the emission to grow.
+void EmissionSystem::change_emission_colour_state(Entity& emission_entity, COLOUR_STATE colour_state)
+{
+	//If the entity or player is neutral. We will delete the emission. This is done by removing all components of the emission entity, but also removing the 
+	//light source component from the emitting entity
+	if (colour_state == COLOUR_STATE::NEUTRAL)
+	{
+		Entity& source_entity = registry.lightEmissions.get(emission_entity).lightSourceEntity;
+		registry.lightSources.remove(source_entity);
+		registry.remove_all_components_of(emission_entity);
+		return;
+	}
+	//Otherwise, we will change the colour state, as well as changing the visual colour by calling colour_system.cpp
+	ColourState& emission_colour_state = registry.colourStates.get(emission_entity);
+	Size& emission_size = registry.sizes.get(emission_entity);
+	emission_size.width = 0.f;
+	emission_size.height = 0.f;
+	emission_colour_state.prev_colour_state = emission_colour_state.curr_colour_state;
+	emission_colour_state.curr_colour_state = colour_state;
+
+	setEntityVisualColour(emission_entity, colour_state);
+}
+//seperating the update size and update position increases optimization somewhat. this way, these functions are only called if size needs to be updated, 
+//or if the light source is a moving entity
+void EmissionSystem::update_emission_size(Entity& emission_entity, float elapsed_ms)
+{	
+	float max_radius = registry.lightEmissions.get(emission_entity).MAX_RADIUS;
+	float time_to_grow = registry.lightEmissions.get(emission_entity).TIME_TO_GROW;
+	//have the light grow if it is not its maximum size.
+	Size& light_emission_size = registry.sizes.get(emission_entity);
+	if (light_emission_size.width < max_radius)
+	{
+		light_emission_size.width = min(max_radius, light_emission_size.width + max_radius * elapsed_ms / time_to_grow);
+		light_emission_size.height = min(max_radius, light_emission_size.height + max_radius * elapsed_ms / time_to_grow);
+	}
+}
+
+void EmissionSystem::update_emission_position(Entity& emission_entity)
+{
+	vec2& source_position = registry.positions.get(registry.lightEmissions.get(emission_entity).lightSourceEntity);
+	vec2& emission_position = registry.positions.get(emission_entity);
+	emission_position.x = source_position.x;
+	emission_position.y = source_position.y;
 }

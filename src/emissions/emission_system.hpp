@@ -9,13 +9,10 @@ class EmissionSystem
 {
 public:
 	void step(float elapsed_ms);
-	EmissionSystem()
-	{
-	}
 
 private:
-	void remove_emissions();
-	void create_new_emissions();
-	void change_emission_colour();
-	void update_emission_position_size(float elapsed_ms);
+	void initialize_emission(Entity& emission_entity);
+	void change_emission_colour_state(Entity& emission_entity, COLOUR_STATE colour_state);
+	void update_emission_size(Entity& emission_entity, float elapsed_ms);
+	void update_emission_position(Entity& emission_entity);
 };

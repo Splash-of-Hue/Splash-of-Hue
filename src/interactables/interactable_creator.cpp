@@ -74,16 +74,15 @@ Entity createMushroom(vec2 position, float radius, COLOUR_STATE colour_state, MU
 	switch (mushroom_size)
 	{
 		case MUSHROOM_SIZE::SMALL:
-			radius = 25.f;
+			radius = static_cast<int>(MUSHROOM_WIDTH::SMALL);
 			break;
 		case MUSHROOM_SIZE::MEDIUM:
-			radius = 100.f;
+			radius = static_cast<int>(MUSHROOM_WIDTH::MEDIUM);
 			break;
 		case MUSHROOM_SIZE::LARGE:
-			radius = 200.f;
+			radius = static_cast<int>(MUSHROOM_WIDTH::LARGE);
 			break;
 	}
-		
 	Size size = { radius, radius };
 	Entity mushroom = addGeneralInteractableComponents(position, size, INTERACTABLE_TYPE::MUSHROOM);
 	registry.collectables.emplace(mushroom);

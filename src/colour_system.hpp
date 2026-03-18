@@ -33,6 +33,7 @@ private:
 	// helper methods (existing)
 	void openColourMenu();
 	void closeColourMenu();
-	void setEntityVisualColour(Entity entity, COLOUR_STATE colour_state);
-	void changeEmissionColour();
 };
+
+//moved to public to allow calling from emissions and creature system
+void setEntityVisualColour(Entity entity, COLOUR_STATE colour_state);

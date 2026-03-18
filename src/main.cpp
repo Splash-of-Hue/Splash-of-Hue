@@ -91,10 +91,10 @@ int main()
 		ai_system.step(elapsed_ms);
 		creature_behaviour_system.step(elapsed_ms);
 		physics_system.step(DT);
-		emission_system.step(elapsed_ms);
 		animation_system.step(elapsed_ms);
 		world_system.handle_behaviour_change();
 		interactable_system.step(elapsed_ms);
+		emission_system.step(elapsed_ms);
 		renderer_system.draw();
 	}
 

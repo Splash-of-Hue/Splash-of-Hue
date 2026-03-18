@@ -22,16 +22,9 @@ struct ColourOrb
 struct OrbCollected {
 };
 
-enum class MUSHROOM_SIZE 
-{
-	SMALL = 0,
-	MEDIUM = SMALL + 1,
-	LARGE = MEDIUM + 1
-};
-
 struct Mushroom
 {
-	MUSHROOM_SIZE size = DEFAULT_MUSHROOM_SIZE;
+	MUSHROOM_SIZE size = default_mushroom_size;
 };
 
 struct MossToggle

@@ -8,104 +8,6 @@
 #include <math.h>
 #include <numeric>
 
-
-//todo: https://trello.com/c/tXEZLSr7/229-1-optimize-inradiuslist-in-physicssystemcpp
-bool inRadiusList(Entity& emission_entity, std::vector<Entity>& radius_list)
-{
-	for (Entity& receiving_entity : radius_list)
-	{
-		if (receiving_entity.id() == emission_entity.id())
-		{
-			return true;
-		}
-	}
-
-	return false;
-}
-
-template <typename ComponentInterface>
-void addSpecificRadiusCollision(Entity& entity_in_emission, Entity& emission_entity, ComponentInterface& container, bool& inRadius, std::vector<Entity>& radiusList)
-{
-	if (inRadiusList(emission_entity, radiusList))
-	{
-		return;
-	}
-
-	LightEmission& light_emission_component = registry.lightEmissions.get(emission_entity);
-	Entity& source_entity = light_emission_component.lightSourceEntity;
-
-	if (container.has(source_entity))
-	{
-		inRadius = true;
-		radiusList.push_back(emission_entity);
-	}
-
-}
-
-void addRadiusCollisionToEntity(Entity& entity_in_emission, Entity& emission_entity)
-{
-	if (!registry.inRadius.has(entity_in_emission))
-	{
-		registry.inRadius.emplace(entity_in_emission);
-	}
-
-	InRadius& in_radius_component = registry.inRadius.get(entity_in_emission);
-
-	addSpecificRadiusCollision(entity_in_emission, emission_entity, registry.players, in_radius_component.inPlayerRadius, in_radius_component.playerRadius);
-	addSpecificRadiusCollision(entity_in_emission, emission_entity, registry.creatures, in_radius_component.inCreatureRadius, in_radius_component.creatureRadius);
-	addSpecificRadiusCollision(entity_in_emission, emission_entity, registry.interactables, in_radius_component.inInteractableRadius, in_radius_component.interactableRadius);
-
-	return;
-}
-
-void changeColourGivenPriority(ColourState& entity_colour_state, bool& inRadius1, std::vector<Entity>& radiusList1, bool& inRadius2, std::vector<Entity>& radiusList2, bool& inRadius3, std::vector<Entity>& radiusList3)
-{
-	if (inRadius1)
-		entity_colour_state.curr_colour_state = registry.colourStates.get(radiusList1[0]).curr_colour_state;
-	else if (inRadius2)
-		entity_colour_state.curr_colour_state = registry.colourStates.get(radiusList2[0]).curr_colour_state;
-	else if (inRadius3)
-		entity_colour_state.curr_colour_state = registry.colourStates.get(radiusList3[0]).curr_colour_state;
-	return;
-}
-
-//TODO: when cleaning up physics, move this to a group of "handleX" functions
-void handleMushrooms(Entity& entity_i, Entity& entity_j)
-{
-	Entity& mushroom_entity = registry.mushrooms.has(entity_i) ? entity_i : entity_j;
-	Entity& emission_entity = registry.mushrooms.has(entity_j) ? entity_i : entity_j;
-
-	LightEmission& emission_component = registry.lightEmissions.get(emission_entity);
-	if (emission_component.lightSourceEntity == mushroom_entity)
-	{
-		return;
-	}
-	addRadiusCollisionToEntity(mushroom_entity, emission_entity);
-
-	if (!registry.lightSources.has(mushroom_entity))
-	{
-		registry.markedForEmissionCreation.emplace(mushroom_entity);
-	}
-
-	ColourState& mushroom_colour_state = registry.colourStates.get(mushroom_entity);
-	ColourState& emission_colour_state = registry.colourStates.get(emission_entity);
-
-	if (mushroom_colour_state.curr_colour_state == emission_colour_state.curr_colour_state)
-	{
-		return;
-	}
-
-	InRadius& in_radius_component = registry.inRadius.get(mushroom_entity);
-	changeColourGivenPriority(mushroom_colour_state, in_radius_component.inCreatureRadius, in_radius_component.creatureRadius,
-		in_radius_component.inPlayerRadius, in_radius_component.playerRadius,
-		in_radius_component.inInteractableRadius, in_radius_component.interactableRadius);
-
-	if (!registry.markedForEmissionColourChanges.has(mushroom_entity))
-	{
-		registry.markedForEmissionColourChanges.emplace(mushroom_entity);
-	}
-}
-
 // Returns the local bounding coordinates scaled by the current size of the entity
 vec4 get_bounding_box(const Entity& entity)
 {
@@ -226,6 +128,39 @@ bool is_light_emission_collision(Entity& entity_i, Entity& entity_j)
 	return false;
 }
 
+//todo: https://trello.com/c/tXEZLSr7/229-1-optimize-inradiuslist-in-physicssystemcpp
+bool inRadiusList(Entity& emission_entity, std::vector<Entity>& radius_list)
+{
+	for (Entity& receiving_entity : radius_list)
+	{
+		if (receiving_entity.id() == emission_entity.id())
+		{
+			return true;
+		}
+	}
+
+	return false;
+}
+
+template <typename ComponentInterface>
+void addSpecificRadiusCollision(Entity& entity_in_emission, Entity& emission_entity, ComponentInterface& container, bool& inRadius, std::vector<Entity>& radiusList)
+{
+	//If the radius is already in the radiusList, we don't want to add it again. 
+	if (inRadiusList(emission_entity, radiusList))
+	{
+		return;
+	}
+
+	LightEmission& light_emission_component = registry.lightEmissions.get(emission_entity);
+	Entity& source_entity = light_emission_component.lightSourceEntity;
+
+	if (container.has(source_entity))
+	{
+		inRadius = true;
+		radiusList.push_back(emission_entity);
+	}
+}
+
 void light_emission_collisions(Entity& entity_i, Entity& entity_j) 
 {
 	vec2& posI = registry.positions.get(entity_i);
@@ -239,48 +174,29 @@ void light_emission_collisions(Entity& entity_i, Entity& entity_j)
 	{
 		return;
 	}
-
-	if (registry.creatures.has(other_entity) && registry.colourStates.has(other_entity))
+	//since mushrooms are the only interactable that are actively checking the "inRadius" component, it is okay to apply the inRadius component to ALL interactables,
+	//and assume no behaviour with the non-mushroom interactables will change. When Physics cleanup happens, mossToggle will move to interactables, and this code should
+	//already account for this, so all thats needed to do is adjust the mossToggle code slightly.
+	//side note: i realized the code for applying inRadius to creatures is literally exactly the same, so now creatures is being added to this as well. 
+	if (registry.interactables.has(other_entity) || registry.creatures.has(other_entity))
 	{
-		COLOUR_STATE& colour_to_turn_into = registry.colourStates.get(light_emission_entity).curr_colour_state;
-
-		LightEmission& light_emission_component = registry.lightEmissions.get(light_emission_entity);
-		Entity& source_entity = light_emission_component.lightSourceEntity;
-
+		//all we do in this if statement is add the inRadius component to the interactable. The steps to properly adding this component are to
+		// - Set the boolean of the type of radius its in to true
+		// - Add the radius to the vector of whatever radius type it is in
+		// For example, if its a player radius, set inPlayerRadius to true, and add the radius entity to playerRadius
+		Entity& source_entity = registry.lightEmissions.get(light_emission_entity).lightSourceEntity;
 		if (!registry.inRadius.has(other_entity))
-		{
 			registry.inRadius.emplace(other_entity);
-		}
-
 		InRadius& in_radius_component = registry.inRadius.get(other_entity);
+		//Uses the helper function to add whatever radius this interactable/creature is currently in to its respective radius list
+		//This new code allows for the helper function to only be called once per interaction, rather than checking for all three types. 
 		if (registry.players.has(source_entity))
-		{
-			in_radius_component.inPlayerRadius = true;
-			if (!inRadiusList(light_emission_entity, in_radius_component.playerRadius))
-			{
-				in_radius_component.playerRadius.push_back(light_emission_entity);
-			}
-		}
-
-		if (registry.creatures.has(source_entity))
-		{
-			in_radius_component.inCreatureRadius = true;
-			if (!inRadiusList(light_emission_entity, in_radius_component.creatureRadius))
-			{
-				in_radius_component.creatureRadius.push_back(light_emission_entity);
-			}
-		}
-
-		if (registry.interactables.has(source_entity))
-		{
-			in_radius_component.inInteractableRadius = true;
-			if (!inRadiusList(light_emission_entity, in_radius_component.interactableRadius))
-			{
-				in_radius_component.interactableRadius.push_back(light_emission_entity);
-			}
-		}
+			addSpecificRadiusCollision(other_entity, light_emission_entity, registry.players, in_radius_component.inPlayerRadius, in_radius_component.playerRadiusList);
+		else if (registry.creatures.has(source_entity))
+			addSpecificRadiusCollision(other_entity, light_emission_entity, registry.creatures, in_radius_component.inCreatureRadius, in_radius_component.creatureRadiusList);
+		else if (registry.interactables.has(source_entity))
+			addSpecificRadiusCollision(other_entity, light_emission_entity, registry.interactables, in_radius_component.inInteractableRadius, in_radius_component.interactableRadiusList);
 	}
-
 	//the button is a circle, is in an overlay? do we walk on top of the button?
 	//is it only our radius that affects the button?
 	//This assumed the button in a circle, and is an overlay, but since we send the rectangle
@@ -332,11 +248,6 @@ void light_emission_collisions(Entity& entity_i, Entity& entity_j)
 			}
 		}
 
-	}
-
-	if (registry.mushrooms.has(entity_i) || registry.mushrooms.has(entity_j))
-	{
-		handleMushrooms(entity_i, entity_j);
 	}
 }
 
@@ -732,24 +643,24 @@ void PhysicsSystem::checkIfInRadius()
 		InRadius& in_radius_component = registry.inRadius.get(entity);
 		if (in_radius_component.inPlayerRadius)
 		{
-			checkIfCollidingRadius(entity, in_radius_component.playerRadius);
-			if (in_radius_component.playerRadius.size() == 0)
+			checkIfCollidingRadius(entity, in_radius_component.playerRadiusList);
+			if (in_radius_component.playerRadiusList.size() == 0)
 			{
 				in_radius_component.inPlayerRadius = false;
 			}
 		}
 		if (in_radius_component.inCreatureRadius)
 		{
-			checkIfCollidingRadius(entity, in_radius_component.creatureRadius);
-			if (in_radius_component.creatureRadius.size() == 0)
+			checkIfCollidingRadius(entity, in_radius_component.creatureRadiusList);
+			if (in_radius_component.creatureRadiusList.size() == 0)
 			{
 				in_radius_component.inCreatureRadius = false;
 			}
 		}
 		if (in_radius_component.inInteractableRadius)
 		{
-			checkIfCollidingRadius(entity, in_radius_component.interactableRadius);
-			if (in_radius_component.interactableRadius.size() == 0)
+			checkIfCollidingRadius(entity, in_radius_component.interactableRadiusList);
+			if (in_radius_component.interactableRadiusList.size() == 0)
 			{
 				in_radius_component.inInteractableRadius = false;
 			}
@@ -757,17 +668,7 @@ void PhysicsSystem::checkIfInRadius()
 
 		if (!in_radius_component.inPlayerRadius && !in_radius_component.inCreatureRadius && !in_radius_component.inInteractableRadius)
 		{
-			if (registry.mushrooms.has(entity))
-			{
-				registry.markedForEmissionRemoval.emplace(entity);
-			}
-
-			ColourState& colour_state = registry.colourStates.get(entity);
-			colour_state.prev_colour_state = colour_state.curr_colour_state;
-			colour_state.curr_colour_state = COLOUR_STATE::NEUTRAL;
-			registry.inRadius.remove(entity);
-			
-			
+			registry.inRadius.remove(entity);	
 		}
 	}
 }

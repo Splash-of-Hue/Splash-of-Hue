@@ -112,9 +112,9 @@ struct InRadius
 	bool inPlayerRadius = false;
 	bool inCreatureRadius = false;
 	bool inInteractableRadius = false;
-	std::vector<Entity> playerRadius;
-	std::vector<Entity> creatureRadius;
-	std::vector<Entity> interactableRadius;
+	std::vector<Entity> playerRadiusList;
+	std::vector<Entity> creatureRadiusList;
+	std::vector<Entity> interactableRadiusList;
 };
 
 struct LightEmission
@@ -132,7 +132,7 @@ struct LightSource
 
 struct MarkedForEmissionCreation
 {
-
+	float MAX_RADIUS;
 };
 
 struct MarkedForEmissionColourChange
