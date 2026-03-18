@@ -2,6 +2,7 @@
 
 #include "colour_system.hpp"
 #include "common.hpp"
+#include "colour_constants.hpp"
 #include "ecs/tiny_ecs.hpp"
 #include "ecs/components.hpp"
 #include "ecs/registry.hpp"

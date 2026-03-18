@@ -1,0 +1,4 @@
+#pragma once
+
+const float COLOUR_INDICATOR_SCREEN_WIDTH = 0.06f;
+const float COLOUR_INDICATOR_SCREEN_HEIGHT = 0.9f;
