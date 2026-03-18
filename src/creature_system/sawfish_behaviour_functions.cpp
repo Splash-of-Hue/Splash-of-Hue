@@ -53,7 +53,7 @@ BEHAVIOUR_TREE_STATUS CreatureBehaviourFunctions::removeDizzy(Entity& creature, 
 
 BEHAVIOUR_TREE_STATUS CreatureBehaviourFunctions::sawfishChargeAtTarget(Entity& charger, float elapsed_ms)
 {
-	return chargeAtPlayer(charger, 500);
+	return chargeAtPlayer(charger, SAWFISH_CHARGING_SPEED);
 }
 
 BEHAVIOUR_TREE_STATUS CreatureBehaviourFunctions::aimAtTarget(Entity& charger, float elapsed_ms)

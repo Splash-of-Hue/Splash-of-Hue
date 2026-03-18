@@ -28,7 +28,11 @@ struct Minnows
 
 struct Sawfish
 {
+	
 };
+
+const float SAWFISH_CHARGING_SPEED = 500.f;
+const float SAWFISH_WANDERING_SPEED = 500.f;
 
 enum DIRECTION
 {
