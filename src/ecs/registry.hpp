@@ -12,6 +12,7 @@
 #include "loading/loading_components.hpp"
 #include "map/map_components.hpp"
 #include "renderer/render_components.hpp"
+#include "text/text_components.hpp"
 
 class ECSRegistry
 {
@@ -73,9 +74,7 @@ public:
 	ComponentContainer<ChangeBehaviour> change_behaviours;
 	ComponentContainer<Collidable> collidables;
 	ComponentContainer<Collision> collisions;
-	ComponentContainer<InCreatureRadius> inCreatureRadius;
-	ComponentContainer<InInteractableRadius> inInteractableRadius;
-	ComponentContainer<InPlayerRadius> inPlayerRadius;
+	ComponentContainer<InRadius> inRadius;
 	ComponentContainer<PolygonMesh> polygons;
 	// Physics - Movement / Transforms
 	ComponentContainer<Angle> angles;
@@ -101,6 +100,8 @@ public:
 	// Spawnables
 	ComponentContainer<Creature> creatures;
 	ComponentContainer<Shrimp> shrimps;
+	// UI
+	ComponentContainer<Text> texts;
 
 	// constructor that adds all containers for looping over them
 	ECSRegistry()
@@ -158,9 +159,7 @@ public:
 		registry_list.push_back(&change_behaviours);
 		registry_list.push_back(&collidables);
 		registry_list.push_back(&collisions);
-		registry_list.push_back(&inCreatureRadius);
-		registry_list.push_back(&inInteractableRadius);
-		registry_list.push_back(&inPlayerRadius);
+		registry_list.push_back(&inRadius);
 		registry_list.push_back(&polygons);
 		// Physics - Movement / Transforms
 		registry_list.push_back(&angles);
@@ -186,6 +185,8 @@ public:
 		// Spawnables
 		registry_list.push_back(&creatures);
 		registry_list.push_back(&shrimps);
+		// UI
+		registry_list.push_back(&texts);
 	}
 
 	void clear_all_components()
