@@ -8,6 +8,7 @@ for a thorough explanation of boids and the math behind it
 */
 
 // TODO: BukbklVV make more general (not minnows-specific)
+// TODO: vXaDUAZZ optimize & split into helper functions
 void AISystem::updateBoids(float elapsed_ms)
 {
 	// Each boid group will have its own "overseer". For each level, this number should be relatively small
