@@ -19,7 +19,6 @@ enum class INPUT_TYPE
 #define SOH_AXIS_INPUT_TYPE 0
 #define SOH_BUTTON_INPUT_TYPE 1
 
-// TODO: Remove temporary
 #define SOH_JOYSTICK_AXIS_LEFT_X 0
 #define SOH_JOYSTICK_AXIS_LEFT_Y 1
 #define SOH_JOYSTICK_AXIS_RIGHT_X 2
