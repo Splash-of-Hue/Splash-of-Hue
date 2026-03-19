@@ -22,7 +22,8 @@ void EmissionSystem::step(float elapsed_ms)
 		ColourState& source_colour_state = registry.colourStates.get(registry.lightEmissions.get(emission_entity).lightSourceEntity);
 		if (emission_colour_state.curr_colour_state != source_colour_state.curr_colour_state)
 			change_emission_colour_state(emission_entity, source_colour_state.curr_colour_state);
-		
+		if (emission_colour_state.curr_colour_state == COLOUR_STATE::NEUTRAL)
+			remove_emission(emission_entity);
 		//If emission is neutral, it is deleted, so it won't have size
 		if (registry.sizes.has(emission_entity) && (registry.sizes.get(emission_entity).width < registry.lightEmissions.get(emission_entity).MAX_RADIUS))
 			update_emission_size(emission_entity, elapsed_ms);
@@ -48,14 +49,6 @@ void EmissionSystem::initialize_emission(Entity& emission_entity)
 // Removes emission on neutral state, otherwise changes colour state of emission & resets size for growth
 void EmissionSystem::change_emission_colour_state(Entity& emission_entity, COLOUR_STATE colour_state)
 {
-	if (colour_state == COLOUR_STATE::NEUTRAL)
-	{
-		Entity& source_entity = registry.lightEmissions.get(emission_entity).lightSourceEntity;
-		registry.lightSources.remove(source_entity);
-		registry.remove_all_components_of(emission_entity);
-		return;
-	}
-
 	ColourState& emission_colour_state = registry.colourStates.get(emission_entity);
 	Size& emission_size = registry.sizes.get(emission_entity);
 	emission_size.width = 0.f;
@@ -75,6 +68,14 @@ void EmissionSystem::change_emission_colour_state(Entity& emission_entity, COLOU
 		registry.colors.emplace(emission_entity);
 	}
 	registry.colors.get(emission_entity) = color;
+}
+
+void EmissionSystem::remove_emission(Entity& emission_entity)
+{
+	Entity& source_entity = registry.lightEmissions.get(emission_entity).lightSourceEntity;
+	registry.lightSources.remove(source_entity);
+	registry.remove_all_components_of(emission_entity);
+	return;
 }
 
 void EmissionSystem::update_emission_size(Entity& emission_entity, float elapsed_ms)

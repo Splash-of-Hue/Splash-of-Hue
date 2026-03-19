@@ -96,11 +96,22 @@ void InteractableSystem::handle_mushrooms(Entity& mushroom_entity)
 //Returns the colour state of the highest-priority radius type (Player, Creature, Interactable)
 COLOUR_STATE InteractableSystem::change_colour_given_priority( bool& inRadius1, std::vector<Entity>& radiusList1, bool& inRadius2, std::vector<Entity>& radiusList2, bool& inRadius3, std::vector<Entity>& radiusList3)
 {
-    if (inRadius1)
+    if (inRadius1 && has_valid_emission(radiusList1))
         return registry.colourStates.get(radiusList1[0]).curr_colour_state;
-    else if (inRadius2)
+    else if (inRadius2 && has_valid_emission(radiusList2))
        return registry.colourStates.get(radiusList2[0]).curr_colour_state;
-    else if (inRadius3)
+    else if (inRadius3 && has_valid_emission(radiusList3))
        return registry.colourStates.get(radiusList3[0]).curr_colour_state;
     return COLOUR_STATE::NEUTRAL;
+}
+
+bool InteractableSystem::has_valid_emission(std::vector<Entity>& radiusList)
+{
+    for (Entity& emission_entity : radiusList)
+    {
+        if (registry.colourStates.has(emission_entity))
+            return true;
+    }
+
+    return false;
 }
