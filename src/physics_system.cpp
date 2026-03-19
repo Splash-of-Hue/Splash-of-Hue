@@ -345,11 +345,6 @@ void handle_inelastic_collision_box(Entity& entity_i, Entity& entity_j)
 	vec2* pos_to_correct = &pos1;
 	vec2* other_pos = &pos2;
 
-	if (registry.players.has(entity_j)) {
-		pos_to_correct = &pos2;
-		other_pos = &pos1;
-	}
-
 	if (!registry.velocities.has(entity_i)) {
 		pos_to_correct = &pos2;
 		other_pos = &pos1;
@@ -379,7 +374,7 @@ void handle_inelastic_collision_box(Entity& entity_i, Entity& entity_j)
 		else 
 		{
 			float y_correction = y_depth * dir_y * 0.5;
-			pos_to_correct->y += vel_i.x * y_correction >= 0.f ? 0.f : y_correction;
+			pos_to_correct->y += vel_i.y * y_correction >= 0.f ? 0.f : y_correction;
 			other_pos->y -= vel_j.y * y_correction <= 0.f ? 0.f : y_correction;
 		}
 		return;
@@ -510,11 +505,6 @@ void handle_inelastic_collision_mesh(Entity& entity_i, Entity& entity_j, vec3 pe
 
 	vec2* pos_to_correct = &pos1;
 	vec2* other_pos = &pos2;
-
-	if (registry.players.has(entity_j) && registry.velocities.get(entity_j) != vec2(0)) {
-		pos_to_correct = &pos2;
-		other_pos = &pos1;
-	}
 
 	if (!registry.velocities.has(entity_i)) {
 		pos_to_correct = &pos2;
