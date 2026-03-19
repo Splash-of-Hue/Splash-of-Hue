@@ -58,8 +58,6 @@ void PlayerSystem::create_player(int level_uid, vec2 position)
 	// Add mesh to player, default is triangle
 	PolygonMesh& polygon = registry.polygons.emplace(player_entity);
 	polygon.centre = position;
-	//Entity heights and widths are too large, this is a temp fix
-	//TODO: DMdDb4NW
 	polygon.vertices.push_back(vec2(position.x, position.y - size.height * 0.15f)); // bottom
 	polygon.vertices.push_back(vec2(position.x + size.width * 0.45f, position.y + size.height * 0.45f)); // top right
 	polygon.vertices.push_back(vec2(position.x - size.width * 0.45f, position.y + size.height * 0.45f)); // top left
