@@ -1,6 +1,7 @@
 #pragma once
+#include "ecs/system.hpp"
 
-class MapSystem
+class MapSystem : public SystemInterface
 {
 public:
 	// This checks if there are any ChangeMapLevelRequests and if

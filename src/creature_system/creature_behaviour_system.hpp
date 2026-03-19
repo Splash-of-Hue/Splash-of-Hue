@@ -1,14 +1,13 @@
 #pragma once
 
 #include "common.hpp"
-#include "ecs/components.hpp"
+#include "creature_system/creature_behaviour_tree_constants.hpp"
+#include "creature_system/creature_behaviour_functions.hpp"
 #include "ecs/registry.hpp"
+#include "ecs/system.hpp"
 #include "ecs/tiny_ecs.hpp"
 
-#include "creature_system/creature_behaviour_functions.hpp"
-#include "creature_system/creature_behaviour_tree_constants.hpp"
-
-class CreatureBehaviourSystem
+class CreatureBehaviourSystem : public SystemInterface
 {
 
 public:

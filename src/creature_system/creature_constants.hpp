@@ -22,9 +22,7 @@ struct Crab
 {
 };
 
-struct Minnows
-{ // could have a pointer to leader minnow
-};
+const int NUM_MINNOWS = 100;
 
 struct Sawfish
 {
