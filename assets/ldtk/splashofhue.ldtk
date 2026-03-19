@@ -2278,7 +2278,7 @@
 					"layerDefUid": 11,
 					"pxOffsetX": 0,
 					"pxOffsetY": 0,
-					"visible": false,
+					"visible": true,
 					"optionalRules": [],
 					"intGridCsv": [],
 					"autoLayerTiles": [],
@@ -5010,7 +5010,7 @@
 					"layerDefUid": 36,
 					"pxOffsetX": 0,
 					"pxOffsetY": 0,
-					"visible": true,
+					"visible": false,
 					"optionalRules": [],
 					"intGridCsv": [],
 					"autoLayerTiles": [],
@@ -6655,7 +6655,7 @@
 					"layerDefUid": 36,
 					"pxOffsetX": 0,
 					"pxOffsetY": 0,
-					"visible": true,
+					"visible": false,
 					"optionalRules": [],
 					"intGridCsv": [],
 					"autoLayerTiles": [],
@@ -8701,7 +8701,7 @@
 					"layerDefUid": 36,
 					"pxOffsetX": 0,
 					"pxOffsetY": 0,
-					"visible": true,
+					"visible": false,
 					"optionalRules": [],
 					"intGridCsv": [],
 					"autoLayerTiles": [],
@@ -13508,28 +13508,6 @@
 					"gridTiles": [],
 					"entityInstances": [
 						{
-							"__identifier": "Anglerfish",
-							"__grid": [36,50],
-							"__pivot": [0.5,0.5],
-							"__tags": ["Creature"],
-							"__tile": null,
-							"__smartColor": "#EAD4AA",
-							"iid": "2e1278d0-21a0-11f1-8ff7-cd0c406028e3",
-							"width": 128,
-							"height": 128,
-							"defUid": 21,
-							"px": [584,808],
-							"fieldInstances": [
-								{ "__identifier": "ColorState", "__type": "LocalEnum.ColorState", "__value": "Blue", "__tile": null, "defUid": 29, "realEditorValues": [{
-									"id": "V_String",
-									"params": ["Blue"]
-								}] },
-								{ "__identifier": "CreatureType", "__type": "LocalEnum.CreatureType", "__value": "Anglerfish", "__tile": null, "defUid": 89, "realEditorValues": [] }
-							],
-							"__worldX": 10184,
-							"__worldY": 1888
-						},
-						{
 							"__identifier": "PShrimp",
 							"__grid": [104,29],
 							"__pivot": [0.5,0.5],
@@ -16832,27 +16810,7 @@
 					"seed": 8981784,
 					"overrideTilesetUid": null,
 					"gridTiles": [],
-					"entityInstances": [
-						{
-							"__identifier": "Anglerfish",
-							"__grid": [19,22],
-							"__pivot": [0.5,0.5],
-							"__tags": ["Creature"],
-							"__tile": null,
-							"__smartColor": "#EAD4AA",
-							"iid": "2223f8b0-21a0-11f1-8ff7-9397c88f8cf0",
-							"width": 128,
-							"height": 128,
-							"defUid": 21,
-							"px": [312,360],
-							"fieldInstances": [
-								{ "__identifier": "ColorState", "__type": "LocalEnum.ColorState", "__value": "Neutral", "__tile": null, "defUid": 29, "realEditorValues": [] },
-								{ "__identifier": "CreatureType", "__type": "LocalEnum.CreatureType", "__value": "Anglerfish", "__tile": null, "defUid": 89, "realEditorValues": [] }
-							],
-							"__worldX": 6072,
-							"__worldY": 360
-						}
-					]
+					"entityInstances": []
 				},
 				{
 					"__identifier": "Floor_Interactables",
@@ -18177,9 +18135,9 @@
 							"px": [1380,636],
 							"fieldInstances": [
 								{ "__identifier": "ColorState", "__type": "LocalEnum.ColorState", "__value": "Neutral", "__tile": null, "defUid": 68, "realEditorValues": [] },
-								{ "__identifier": "MushroomSize", "__type": "LocalEnum.MushroomSize", "__value": "Small", "__tile": null, "defUid": 70, "realEditorValues": [{
+								{ "__identifier": "MushroomSize", "__type": "LocalEnum.MushroomSize", "__value": "Medium", "__tile": null, "defUid": 70, "realEditorValues": [{
 									"id": "V_String",
-									"params": ["Small"]
+									"params": ["Medium"]
 								}] }
 							],
 							"__worldX": 9060,
@@ -20068,7 +20026,7 @@
 						},
 						{
 							"__identifier": "MossWall",
-							"__grid": [103,16],
+							"__grid": [102,19],
 							"__pivot": [0.5,0.5],
 							"__tags": ["Internal_Wall"],
 							"__tile": { "tilesetUid": 52, "x": 160, "y": 400, "w": 192, "h": 224 },
@@ -20077,13 +20035,13 @@
 							"width": 368,
 							"height": 224,
 							"defUid": 48,
-							"px": [1656,264],
+							"px": [1640,312],
 							"fieldInstances": [{ "__identifier": "ColorState", "__type": "LocalEnum.ColorState", "__value": "Neutral", "__tile": null, "defUid": 49, "realEditorValues": [{
 								"id": "V_String",
 								"params": ["Neutral"]
 							}] }],
-							"__worldX": 15096,
-							"__worldY": 264
+							"__worldX": 15080,
+							"__worldY": 312
 						},
 						{
 							"__identifier": "MossWall",
@@ -20129,27 +20087,7 @@
 					"seed": 2316187,
 					"overrideTilesetUid": null,
 					"gridTiles": [],
-					"entityInstances": [
-						{
-							"__identifier": "Anglerfish",
-							"__grid": [109,15],
-							"__pivot": [0.5,0.5],
-							"__tags": ["Creature"],
-							"__tile": null,
-							"__smartColor": "#EAD4AA",
-							"iid": "cb8ff320-21a0-11f1-8ff7-91ba8955bb6c",
-							"width": 128,
-							"height": 128,
-							"defUid": 21,
-							"px": [1752,248],
-							"fieldInstances": [
-								{ "__identifier": "ColorState", "__type": "LocalEnum.ColorState", "__value": "Neutral", "__tile": null, "defUid": 29, "realEditorValues": [] },
-								{ "__identifier": "CreatureType", "__type": "LocalEnum.CreatureType", "__value": "Anglerfish", "__tile": null, "defUid": 89, "realEditorValues": [] }
-							],
-							"__worldX": 15192,
-							"__worldY": 248
-						}
-					]
+					"entityInstances": []
 				},
 				{
 					"__identifier": "Floor_Interactables",
@@ -20167,7 +20105,7 @@
 					"layerDefUid": 11,
 					"pxOffsetX": 0,
 					"pxOffsetY": 0,
-					"visible": true,
+					"visible": false,
 					"optionalRules": [],
 					"intGridCsv": [],
 					"autoLayerTiles": [],
@@ -25329,27 +25267,7 @@
 					"seed": 2009668,
 					"overrideTilesetUid": null,
 					"gridTiles": [],
-					"entityInstances": [
-						{
-							"__identifier": "Anglerfish",
-							"__grid": [25,46],
-							"__pivot": [0.5,0.5],
-							"__tags": ["Creature"],
-							"__tile": null,
-							"__smartColor": "#EAD4AA",
-							"iid": "fbfd3ee0-21a0-11f1-8ff7-97c03e71b0d5",
-							"width": 128,
-							"height": 128,
-							"defUid": 21,
-							"px": [408,744],
-							"fieldInstances": [
-								{ "__identifier": "ColorState", "__type": "LocalEnum.ColorState", "__value": "Neutral", "__tile": null, "defUid": 29, "realEditorValues": [] },
-								{ "__identifier": "CreatureType", "__type": "LocalEnum.CreatureType", "__value": "Anglerfish", "__tile": null, "defUid": 89, "realEditorValues": [] }
-							],
-							"__worldX": 17688,
-							"__worldY": 1824
-						}
-					]
+					"entityInstances": []
 				},
 				{
 					"__identifier": "Floor_Interactables",
