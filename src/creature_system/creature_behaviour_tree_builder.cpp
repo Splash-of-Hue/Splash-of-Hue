@@ -146,7 +146,12 @@ BehaviourTree CreatureBehaviourTreeBuilder::buildCrabTree()
 
 BehaviourTree CreatureBehaviourTreeBuilder::buildMinnowTree()
 {
-	return BehaviourTree();
+	BehaviourTreeBuilder builder;
+	int root_index =
+		Root(builder,
+			Action(builder, creatureBehaviourFunctions.updateBoids));
+
+	return builder.build(root_index);
 }
 
 BehaviourTree CreatureBehaviourTreeBuilder::buildSawfishTree()
@@ -189,9 +194,10 @@ BehaviourTree CreatureBehaviourTreeBuilder::buildSawfishTree()
 							Selector(builder,
 								Decorator(builder, creatureBehaviourFunctions.isCooldownComplete,
 									Sequence(builder,
+										Action(builder, creatureBehaviourFunctions.removeCollision),
 										Action(builder, creatureBehaviourFunctions.removeCooldown),
 										Action(builder, creatureBehaviourFunctions.applyCharging),
-										Action(builder, creatureBehaviourFunctions.sawfishChargeAtTarget)
+										Action(builder, creatureBehaviourFunctions.chargeAtPlayer)
 									)
 								),
 								Action(builder, creatureBehaviourFunctions.returnSuccess)

@@ -20,6 +20,8 @@ void AISystem::step(float elapsed_ms)
 		pathfinder.path = new_path;
 		pathfinder.is_path_dirty = false;
 	}
+
+	updateBoids(elapsed_ms);
 }
 
 std::vector<vec2> AISystem::generatePath(Entity pathfinder_entity)

@@ -23,6 +23,7 @@ class CreatureBehaviourFunctions
 public:
 	// Pathfinder, TEMPORARY to be discontinued once A* pathfinding is implemented. (Qj457xrS)
 	bool follow_player(float elapsed_ms, Entity& follower);
+	static BEHAVIOUR_TREE_STATUS updateBoids(Entity& creature, float elapsed_ms);
 
 	// ===== Action Node Functions =====
 	// Pathing
@@ -35,7 +36,7 @@ public:
 	static BEHAVIOUR_TREE_STATUS makeRed(Entity& creature, float elapsed_ms);
 	static BEHAVIOUR_TREE_STATUS makeNeutral(Entity& creature, float elapsed_ms);
 	// Movement
-	static BEHAVIOUR_TREE_STATUS chargeAtTarget(Entity& charger, float elapsed_ms);
+	static BEHAVIOUR_TREE_STATUS chargeAtPlayer(Entity& charger, float elapsed_ms);
 	static BEHAVIOUR_TREE_STATUS stopCreatureMovement(Entity& creature, float elapsed_ms);
 	static BEHAVIOUR_TREE_STATUS removeCollision(Entity& creature, float elapsed_ms);
 	// Miscellaneous
@@ -56,7 +57,6 @@ public:
 	static BEHAVIOUR_TREE_STATUS beDizzy(Entity& follower, float elapsed_ms);
 	static BEHAVIOUR_TREE_STATUS removeDizzy(Entity& creature, float elapsed_ms);
 	static BEHAVIOUR_TREE_STATUS aimAtTarget(Entity& follower, float elapsed_ms);
-	static BEHAVIOUR_TREE_STATUS sawfishChargeAtTarget(Entity& follower, float elapsed_ms);
 
 	//Crab behaviour Actions
 	static BEHAVIOUR_TREE_STATUS slideForwards(Entity& creature, float elapsed_ms);
