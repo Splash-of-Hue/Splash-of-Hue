@@ -1939,7 +1939,7 @@
 					"layerDefUid": 36,
 					"pxOffsetX": 0,
 					"pxOffsetY": 0,
-					"visible": false,
+					"visible": true,
 					"optionalRules": [],
 					"intGridCsv": [],
 					"autoLayerTiles": [],
@@ -11854,7 +11854,7 @@
 			"uid": 76,
 			"worldX": 7680,
 			"worldY": 1080,
-			"worldDepth": 1,
+			"worldDepth": 0,
 			"pxWid": 1920,
 			"pxHei": 1080,
 			"__bgColor": "#646EFC",
@@ -12723,13 +12723,7 @@
 					"entityInstances": []
 				}
 			],
-			"__neighbours": [
-				{ "levelIid": "bd5add30-21a0-11f1-8ff7-cf0a441145d5", "dir": "s" },
-				{ "levelIid": "9451afd0-21a0-11f1-8ff7-c7ab6b402ea1", "dir": "e" },
-				{ "levelIid": "9531af90-21a0-11f1-8ff7-c71321a1519c", "dir": "ne" },
-				{ "levelIid": "95facbf0-21a0-11f1-8ff7-eb7b3e31f9aa", "dir": "n" },
-				{ "levelIid": "9745c280-21a0-11f1-8ff7-15d55e2cbecf", "dir": "nw" }
-			]
+			"__neighbours": []
 		},
 		{
 			"identifier": "Level_10",

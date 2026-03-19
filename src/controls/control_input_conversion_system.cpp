@@ -104,10 +104,11 @@ Control ControlInputConversionSystem::convert_joystick_input(const Input& input)
 {
 	int type = input.value_1;
 	bool is_axis_input = type == SOH_AXIS_INPUT_TYPE;
-	int button = is_axis_input ? type : input.value_2;
+	int button = input.value_2;
 	int action = is_axis_input ? GLFW_PRESS : input.value_3;
+	auto control_map = is_axis_input ? joystick_axis_control_map : joystick_button_control_map;
 	std::string error_message = "Pressed invalid joystick input: " + std::to_string(button);
-	Control& control = generate_control(joystick_control_map, button, action, error_message);
+	Control& control = generate_control(control_map, button, action, error_message);
 
 	if (is_axis_input)
 	{
@@ -125,8 +126,9 @@ Control ControlInputConversionSystem::convert_gamepad_input(const Input& input)
 	bool is_axis_input = type == SOH_AXIS_INPUT_TYPE;
 	int button = input.value_2;
 	int action = is_axis_input ? GLFW_PRESS : input.value_3;
-	std::string error_message = "Pressed invalid joystick input: " + std::to_string(button);
-	Control& control = generate_control(gamepad_control_map, button, action, error_message);
+	auto control_map = is_axis_input ? gamepad_axis_control_map : gamepad_button_control_map;
+	std::string error_message = "Pressed invalid gamepad input: " + std::to_string(button);
+	Control& control = generate_control(control_map, button, action, error_message);
 
 	if (is_axis_input)
 	{

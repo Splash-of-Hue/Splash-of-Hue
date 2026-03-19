@@ -149,7 +149,7 @@ BehaviourTree CreatureBehaviourTreeBuilder::buildMinnowTree()
 	BehaviourTreeBuilder builder;
 	int root_index =
 		Root(builder,
-			Action(builder, creatureBehaviourFunctions.minnowTest));
+			Action(builder, creatureBehaviourFunctions.updateBoids));
 
 	return builder.build(root_index);
 }

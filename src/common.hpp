@@ -81,6 +81,7 @@ const vec4 WHITE_COLOUR_VEC4 = vec4(1.0f, 1.0f, 1.0f, 1.0f);
 const vec4 BLUE_COLOUR_VEC4 = vec4(0.0f, 0.0f, 1.0f, 1.0f);
 const vec4 RED_COLOUR_VEC4 = vec4(1.0f, 0.0f, 0.0f, 1.0f);
 const vec4 BLACK_COLOUR_VEC4 = vec4(0.0f, 0.0f, 0.0f, 1.0f);
+const vec4 TRANSLUCENT_BLACK_COLOUR = vec4(0.0f, 0.0f, 0.0f, 0.7f);
 const vec4 DEFAULT_COLOUR_VEC4 = WHITE_COLOUR_VEC4;	
 
 const ivec2 UNIT_UP = vec2(0, -1);
@@ -100,6 +101,14 @@ struct Transform {
 	void scale(vec2 scale);
 	void rotate(float radians);
 	void translate(vec2 offset);
+};
+
+enum DIRECTION
+{
+	UP = 0,
+	DOWN = UP + 1,
+	LEFT = DOWN + 1,
+	RIGHT = LEFT + 1
 };
 
 bool gl_has_errors();

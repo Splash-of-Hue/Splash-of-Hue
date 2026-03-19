@@ -15,6 +15,8 @@
 #include "player/player_components.hpp"
 #include "renderer/render_components.hpp"
 #include "text/text_components.hpp"
+#include "ui/ui_components.hpp"
+#include "window/window_components.hpp"
 
 class ECSRegistry
 {
@@ -24,7 +26,7 @@ class ECSRegistry
 public:
 	// Manually created list of all components this game has
 	// AI
-	ComponentContainer<Boid_Overseer> boidOverseers;
+	ComponentContainer<BoidOverseer> boidOverseers;
 	ComponentContainer<Boid> boid_minnows; 
 	ComponentContainer<Charging> chargers;
 	ComponentContainer<CreatureBehaviour> creatureBehaviours;
@@ -40,11 +42,13 @@ public:
 	ComponentContainer<Textured> textured;
 	// Colour System
 	ComponentContainer<vec4> colors;
+	ComponentContainer<ColourIndicatorUI> colourIndicatorUIs;
 	ComponentContainer<ColourState> colourStates;
 	ComponentContainer<ColourWheel> colourWheels;
 	ComponentContainer<ColourPalette> colourPalettes;
 	ComponentContainer<ColourMenuState> colourMenuStates;
 	ComponentContainer<ColourMenuInput> colourMenuInputs;
+	// Emission System
 	ComponentContainer<LightEmission> lightEmissions;
 	ComponentContainer<LightSource> lightSources;
 	// Controls
@@ -55,6 +59,7 @@ public:
 	ComponentContainer<DebugComponent> debugComponents;
 	// General
 	ComponentContainer<GameStateChangeRequest> game_state_change_requests;
+	ComponentContainer<Window> windows;
 	// Interactables
 	ComponentContainer<Box> boxes;
 	ComponentContainer<Breakable> breakables;
@@ -107,6 +112,8 @@ public:
 	ComponentContainer<Creature> creatures;
 	ComponentContainer<Shrimp> shrimps;
 	// UI
+	ComponentContainer<MenuAction> menu_actions;
+	ComponentContainer<MenuToggleRequest> menu_toggle_requests;
 	ComponentContainer<Text> texts;
 
 	// constructor that adds all containers for looping over them
@@ -129,11 +136,13 @@ public:
 		registry_list.push_back(&textured);
 		// Colour System
 		registry_list.push_back(&colors);
+		registry_list.push_back(&colourIndicatorUIs);
 		registry_list.push_back(&colourStates);
 		registry_list.push_back(&colourWheels);
 		registry_list.push_back(&colourPalettes);
 		registry_list.push_back(&colourMenuStates);
 		registry_list.push_back(&colourMenuInputs);
+		// Emissions
 		registry_list.push_back(&lightEmissions);
 		registry_list.push_back(&lightSources);
 		// Controls
@@ -196,6 +205,8 @@ public:
 		registry_list.push_back(&creatures);
 		registry_list.push_back(&shrimps);
 		// UI
+		registry_list.push_back(&menu_actions);
+		registry_list.push_back(&menu_toggle_requests);
 		registry_list.push_back(&texts);
 	}
 

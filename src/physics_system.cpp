@@ -38,9 +38,6 @@ bool isCircleInRect(vec2 posC, float radiusC, vec2 point1, vec2 point2, vec2 poi
 
 bool isLineInRangeOfCircle(vec2 posC, float radiusC, vec2 point1, vec2 point2)
 {
-	//std::cout << "CirclePos: " << "{ " << posC.x << ", " << posC.y << " }" << std::endl;
-	//std::cout << "Point1Pos: " << "{ " << point1.x << ", " << point2.y << " }" << std::endl;
-	//std::cout << "Point2Pos: " << "{ " << point2.x << ", " << point2.y << " }" << std::endl;
 	//calculation taken from https://stackoverflow.com/questions/401847/circle-rectangle-collision-detection-intersection
 
 	float distance = 0;
@@ -122,14 +119,8 @@ bool box_collides(const Entity& entity1, const Entity& entity2)
 //TODO gRCmzvrs - make more generalized once outside of tutorial
 bool is_light_emission_collision(Entity& entity_i, Entity& entity_j)
 {
-	if ((registry.lightEmissions.has(entity_i) && registry.creatures.has(entity_j)) ||
-		registry.lightEmissions.has(entity_j) && registry.creatures.has(entity_i))
-	{
-		return true;
-	}
-
-	if ((registry.lightEmissions.has(entity_i) && registry.mossToggles.has(entity_j)) ||
-		registry.lightEmissions.has(entity_j) && registry.mossToggles.has(entity_i))
+	if ((registry.lightEmissions.has(entity_i) && registry.colourStates.has(entity_j)) ||
+		registry.lightEmissions.has(entity_j) && registry.colourStates.has(entity_i))
 	{
 		return true;
 	}
@@ -138,7 +129,7 @@ bool is_light_emission_collision(Entity& entity_i, Entity& entity_j)
 }
 
 //todo: https://trello.com/c/tXEZLSr7/229-1-optimize-inradiuslist-in-physicssystemcpp
-bool inRadiusList(Entity& emission_entity, std::vector<Entity>& radius_list)
+bool checkForRepeatedRadiuses(Entity& emission_entity, std::vector<Entity>& radius_list)
 {
 	for (Entity& receiving_entity : radius_list)
 	{
@@ -151,6 +142,24 @@ bool inRadiusList(Entity& emission_entity, std::vector<Entity>& radius_list)
 	return false;
 }
 
+template <typename ComponentInterface>
+void addSpecificRadiusCollision(Entity& entity_in_emission, Entity& emission_entity, ComponentInterface& container, bool& inRadius, std::vector<Entity>& radiusList)
+{
+	if (checkForRepeatedRadiuses(emission_entity, radiusList))
+	{
+		return;
+	}
+
+	LightEmission& light_emission_component = registry.lightEmissions.get(emission_entity);
+	Entity& source_entity = light_emission_component.lightSourceEntity;
+
+	if (container.has(source_entity))
+	{
+		inRadius = true;
+		radiusList.push_back(emission_entity);
+	}
+}
+
 void light_emission_collisions(Entity& entity_i, Entity& entity_j) 
 {
 	vec2& posI = registry.positions.get(entity_i);
@@ -159,50 +168,26 @@ void light_emission_collisions(Entity& entity_i, Entity& entity_j)
 	Entity& light_emission_entity = registry.lightEmissions.has(entity_i) ? entity_i : entity_j;
 	Entity& other_entity = registry.lightEmissions.has(entity_i) ? entity_j : entity_i;
 
-	if (registry.creatures.has(other_entity))
+	LightEmission& light_emission_component = registry.lightEmissions.get(light_emission_entity);
+	if (light_emission_component.lightSourceEntity == other_entity)
 	{
-		if (registry.colourStates.has(other_entity))
-		{
-			COLOUR_STATE& colour_to_turn_into = registry.colourStates.get(light_emission_entity).curr_colour_state;
-
-			LightEmission& light_emission_component = registry.lightEmissions.get(light_emission_entity);
-			Entity& source_entity = light_emission_component.lightSourceEntity;
-
-			if (!registry.inRadius.has(other_entity))
-			{
-				registry.inRadius.emplace(other_entity);
-			}
-
-			InRadius& in_radius_component = registry.inRadius.get(other_entity);
-			if (registry.players.has(source_entity))
-			{
-				in_radius_component.inPlayerRadius = true;
-				if (!inRadiusList(light_emission_entity, in_radius_component.playerRadius))
-				{
-					in_radius_component.playerRadius.push_back(light_emission_entity);
-				}
-			}
-
-			if (registry.creatures.has(source_entity))
-			{
-				in_radius_component.inPlayerRadius = true;
-				if (!inRadiusList(light_emission_entity, in_radius_component.creatureRadius))
-				{
-					in_radius_component.creatureRadius.push_back(light_emission_entity);
-				}
-			}
-
-			if (registry.interactables.has(source_entity))
-			{
-				in_radius_component.inPlayerRadius = true;
-				if (!inRadiusList(light_emission_entity, in_radius_component.interactableRadius))
-				{
-					in_radius_component.interactableRadius.push_back(light_emission_entity);
-				}
-			}
-		}
+		return;
 	}
-
+	//These three conditions should cover everything we want and don't want to be affect by emissions. Keep an eye on this as more entities are created.
+	if (registry.colourStates.has(other_entity) && !registry.lightEmissions.has(other_entity) && !registry.players.has(other_entity))
+	{
+		// Example: if its a player radius, set inPlayerRadius to true, and add the radius entity to playerRadius
+		Entity& source_entity = registry.lightEmissions.get(light_emission_entity).lightSourceEntity;
+		if (!registry.inRadius.has(other_entity))
+			registry.inRadius.emplace(other_entity);
+		InRadius& in_radius_component = registry.inRadius.get(other_entity);
+		if (registry.players.has(source_entity))
+			addSpecificRadiusCollision(other_entity, light_emission_entity, registry.players, in_radius_component.inPlayerRadius, in_radius_component.playerRadiusList);
+		else if (registry.creatures.has(source_entity))
+			addSpecificRadiusCollision(other_entity, light_emission_entity, registry.creatures, in_radius_component.inCreatureRadius, in_radius_component.creatureRadiusList);
+		else if (registry.interactables.has(source_entity))
+			addSpecificRadiusCollision(other_entity, light_emission_entity, registry.interactables, in_radius_component.inInteractableRadius, in_radius_component.interactableRadiusList);
+	}
 	//the button is a circle, is in an overlay? do we walk on top of the button?
 	//is it only our radius that affects the button?
 	//This assumed the button in a circle, and is an overlay, but since we send the rectangle
@@ -667,27 +652,32 @@ void PhysicsSystem::checkIfInRadius()
 		InRadius& in_radius_component = registry.inRadius.get(entity);
 		if (in_radius_component.inPlayerRadius)
 		{
-			checkIfCollidingRadius(entity, in_radius_component.playerRadius);
-			if (in_radius_component.playerRadius.size() == 0)
+			checkIfCollidingRadius(entity, in_radius_component.playerRadiusList);
+			if (in_radius_component.playerRadiusList.size() == 0)
 			{
 				in_radius_component.inPlayerRadius = false;
 			}
 		}
 		if (in_radius_component.inCreatureRadius)
 		{
-			checkIfCollidingRadius(entity, in_radius_component.creatureRadius);
-			if (in_radius_component.creatureRadius.size() == 0)
+			checkIfCollidingRadius(entity, in_radius_component.creatureRadiusList);
+			if (in_radius_component.creatureRadiusList.size() == 0)
 			{
 				in_radius_component.inCreatureRadius = false;
 			}
 		}
 		if (in_radius_component.inInteractableRadius)
 		{
-			checkIfCollidingRadius(entity, in_radius_component.interactableRadius);
-			if (in_radius_component.interactableRadius.size() == 0)
+			checkIfCollidingRadius(entity, in_radius_component.interactableRadiusList);
+			if (in_radius_component.interactableRadiusList.size() == 0)
 			{
 				in_radius_component.inInteractableRadius = false;
 			}
+		}
+
+		if (!in_radius_component.inPlayerRadius && !in_radius_component.inCreatureRadius && !in_radius_component.inInteractableRadius)
+		{
+			registry.inRadius.remove(entity);	
 		}
 	}
 }

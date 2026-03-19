@@ -14,6 +14,7 @@
 #include "controllers/player_controller_system.hpp"
 #include "controls/control_input_conversion_system.hpp"
 #include "creature_system/creature_behaviour_system.hpp"
+#include "emissions/emission_system.hpp"
 #include "game_state/game_state_system.hpp"
 #include "input/input_system.hpp"
 #include "interactables/interactable_system.hpp"
@@ -24,6 +25,8 @@
 #include "renderer/render_system.hpp"
 #include "sound/sound_system.hpp"
 #include "world_system.hpp"
+#include "ui/ui_system.hpp"
+#include "controllers/menu_controller_system.hpp"
 
 using Clock = std::chrono::high_resolution_clock;
 
@@ -37,16 +40,19 @@ int main()
 	ColourSystem colour_system;
 	ControlInputConversionSystem control_input_conversion_system;
 	CreatureBehaviourSystem creature_behaviour_system;
+	EmissionSystem emission_system;
 	GameStateSystem game_state_system;
 	InputSystem input_system;
 	InteractableSystem interactable_system;
 	LoaderSystem loader_system;
 	MapSystem map_system;
+	MenuControllerSystem menu_controller_system;
 	PhysicsSystem physics_system;
 	PlayerSystem player_system;
 	PlayerControllerSystem player_controller_system;
 	RenderSystem renderer_system;
 	SoundSystem sound_system;
+	UiSystem ui_system;
 	WorldSystem world_system;
 
 	// initialize window
@@ -66,15 +72,16 @@ int main()
 	sound_system.init();
 	input_system.init(window);
 	renderer_system.init(window);
-	colour_system.initialize_palette();
 	world_system.init(&renderer_system);
 	animation_system.init();
+	colour_system.init();
 	game_state_system.init();
 	// Register when each system is used
 	game_state_system.register_system(&camera_system, { GAME_STATE::PLAYING });
 	game_state_system.register_system(&input_system);
 	game_state_system.register_system(&control_input_conversion_system);
 	game_state_system.register_system(&player_controller_system, GAME_STATE::PLAYING);
+	game_state_system.register_system(&menu_controller_system, { GAME_STATE::STARTING_SCREEN, GAME_STATE::PLAYING, GAME_STATE::PAUSED });
 	game_state_system.register_system(&player_system, { GAME_STATE::PLAYING });
 	game_state_system.register_system(&loader_system, GAME_STATE::LOADING);
 	game_state_system.register_system(&colour_system, GAME_STATE::PLAYING);
@@ -85,6 +92,8 @@ int main()
 	game_state_system.register_system(&physics_system, GAME_STATE::PLAYING);
 	game_state_system.register_system(&animation_system, { GAME_STATE::PLAYING, GAME_STATE::LOADING });
 	game_state_system.register_system(&interactable_system, GAME_STATE::PLAYING);
+	game_state_system.register_system(&emission_system, GAME_STATE::PLAYING);
+	game_state_system.register_system(&ui_system);
 
 	// variable timestep loop
 	auto t = Clock::now();

@@ -14,7 +14,7 @@ void AISystem::updateBoids(float elapsed_ms)
 	// Each boid group will have its own "overseer". For each level, this number should be relatively small
 	for (Entity& boid_overseer_entity : registry.boidOverseers.entities)
 	{
-		Boid_Overseer& boid_overseer = registry.boidOverseers.get(boid_overseer_entity);
+		BoidOverseer& boid_overseer = registry.boidOverseers.get(boid_overseer_entity);
 		float separation_radius = boid_overseer.perception_radius * 0.3f;
 		float separation_radius_sq = separation_radius * separation_radius;
 		assert(registry.boid_minnows.size() > 0 && "there are no boids");
@@ -57,7 +57,7 @@ void AISystem::updateBoids(float elapsed_ms)
 					continue;
 
 				// The neighbour boid is nearby! Allow its forces to impact this boid
-				num_neighbours += 1;
+				num_neighbours++;
 
 				// Only move boid away from neighbour if its too close
 				if (separation_radius_sq > distance_sq)
@@ -69,7 +69,8 @@ void AISystem::updateBoids(float elapsed_ms)
 						num_neighbours_separation += 1;
 					}
 					// Sophia note: I'm leaving the following commented out for now as 
-					// it may come in handy later
+					// it may come in handy later. If this needs to be removed OR used 
+					// I'll figure it out as part of vXaDUAZZ
 					// 
 					// If the boids are on top of each other, move them randomly 
 					// else

@@ -36,6 +36,10 @@ struct ColourMenuInput
 	int direction = 0;
 };
 
+struct ColourIndicatorUI 
+{
+};
+
 // Stucture to store collision information
 struct Collision
 {
@@ -107,7 +111,17 @@ struct PolygonMesh
 	vec2 centre;
 };
 
-struct LightEmission 
+struct InRadius
+{
+	bool inPlayerRadius = false;
+	bool inCreatureRadius = false;
+	bool inInteractableRadius = false;
+	std::vector<Entity> playerRadiusList;
+	std::vector<Entity> creatureRadiusList;
+	std::vector<Entity> interactableRadiusList;
+};
+
+struct LightEmission
 {
 	Entity lightSourceEntity;
 	float MAX_RADIUS = 100.f;
@@ -115,17 +129,7 @@ struct LightEmission
 	vec2 offset;
 };
 
-struct LightSource 
+struct LightSource
 {
 	Entity lightEmissionEntity;
-};
-
-struct InRadius
-{
-	bool inPlayerRadius = false;
-	bool inCreatureRadius = false;
-	bool inInteractableRadius = false;
-	std::vector<Entity> playerRadius;
-	std::vector<Entity> creatureRadius;
-	std::vector<Entity> interactableRadius;
 };

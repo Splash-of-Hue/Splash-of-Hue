@@ -11,7 +11,11 @@ class ColourSystem : public SystemInterface
 public:
 	ColourSystem();
 
+	void init();
+
 	void initialize_palette();
+
+	void initialize_colour_indicator();
 
 	void pollMenuState();
 
@@ -29,13 +33,10 @@ public:
 private:
 	Entity colour_menu_entity;
 	Entity colour_palette_entity;
-	Entity players_light_emission;
 	bool colour_menu_open = false;
 
 	// helper methods (existing)
+	void setEntityVisualColour(Entity entity, COLOUR_STATE colour_state);
 	void openColourMenu();
 	void closeColourMenu();
-	void setEntityVisualColour(Entity entity, COLOUR_STATE colour_state);
-	void ColourSystem::changeLightEmissions(Entity& player, int player_colour_state, int player_colour_state_prev);
-	void ColourSystem::updateEmissions(float elapsed_ms);
 };

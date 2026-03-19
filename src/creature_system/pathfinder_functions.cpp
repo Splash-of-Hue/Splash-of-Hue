@@ -13,7 +13,7 @@
 // Once I implement 1vUDbywx and XgUmULmw, there will be relevant boids functions here that
 // should hopefully only need to change the separation, alignment, and cohesion parameters
 // of the boids system to achieve the desired effect. 
-BEHAVIOUR_TREE_STATUS CreatureBehaviourFunctions::minnowTest(Entity& creature, float elapsed_ms)
+BEHAVIOUR_TREE_STATUS CreatureBehaviourFunctions::updateBoids(Entity& creature, float elapsed_ms)
 {
 	return BEHAVIOUR_TREE_STATUS::SUCCESS;
 }
