@@ -14,6 +14,7 @@
 #include "controllers/player_controller_system.hpp"
 #include "controls/control_input_conversion_system.hpp"
 #include "creature_system/creature_behaviour_system.hpp"
+#include "emissions/emission_system.hpp"
 #include "game_state/game_state_system.hpp"
 #include "input/input_system.hpp"
 #include "interactables/interactable_system.hpp"
@@ -37,6 +38,7 @@ int main()
 	ColourSystem colour_system;
 	ControlInputConversionSystem control_input_conversion_system;
 	CreatureBehaviourSystem creature_behaviour_system;
+	EmissionSystem emission_system;
 	GameStateSystem game_state_system;
 	InputSystem input_system;
 	InteractableSystem interactable_system;
@@ -85,6 +87,7 @@ int main()
 	game_state_system.register_system(&physics_system, GAME_STATE::PLAYING);
 	game_state_system.register_system(&animation_system, { GAME_STATE::PLAYING, GAME_STATE::LOADING });
 	game_state_system.register_system(&interactable_system, GAME_STATE::PLAYING);
+	game_state_system.register_system(&emission_system, GAME_STATE::PLAYING);
 
 	// variable timestep loop
 	auto t = Clock::now();

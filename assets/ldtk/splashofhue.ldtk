@@ -11,7 +11,7 @@
 	"iid": "53e64810-d380-11f0-a1bc-4d26a5cd15e3",
 	"jsonVersion": "1.5.3",
 	"appBuildId": 473703,
-	"nextUid": 69,
+	"nextUid": 71,
 	"identifierStyle": "Capitalize",
 	"toc": [{
 		"identifier": "Teleporter",
@@ -1520,14 +1520,14 @@
 			]
 		},
 		{
-			"identifier": "Minnows",
+			"identifier": "Mushroom",
 			"uid": 66,
-			"tags": ["Creature"],
+			"tags": ["Floor_Interactable"],
 			"exportToToc": false,
 			"allowOutOfBounds": false,
 			"doc": null,
-			"width": 10,
-			"height": 10,
+			"width": 100,
+			"height": 100,
 			"resizableX": false,
 			"resizableY": false,
 			"minWidth": null,
@@ -1539,8 +1539,8 @@
 			"fillOpacity": 1,
 			"lineOpacity": 1,
 			"hollow": false,
-			"color": "#124E89",
-			"renderMode": "Rectangle",
+			"color": "#3E8948",
+			"renderMode": "Ellipse",
 			"showName": true,
 			"tilesetId": null,
 			"tileRenderMode": "FitInside",
@@ -1557,7 +1557,7 @@
 					"identifier": "ColorState",
 					"doc": null,
 					"__type": "LocalEnum.ColorState",
-					"uid": 67,
+					"uid": 68,
 					"type": "F_Enum(26)",
 					"isArray": false,
 					"canBeNull": false,
@@ -1594,11 +1594,11 @@
 					"tilesetUid": null
 				},
 				{
-					"identifier": "CreatureType",
+					"identifier": "MushroomSize",
 					"doc": null,
-					"__type": "LocalEnum.CreatureType",
-					"uid": 68,
-					"type": "F_Enum(15)",
+					"__type": "LocalEnum.MushroomSize",
+					"uid": 70,
+					"type": "F_Enum(69)",
 					"isArray": false,
 					"canBeNull": false,
 					"arrayMinLength": null,
@@ -1622,7 +1622,7 @@
 					"acceptFileTypes": null,
 					"defaultOverride": {
 						"id": "V_String",
-						"params": ["Minnows"]
+						"params": ["Medium"]
 					},
 					"textLanguageMode": null,
 					"symmetricalRef": false,
@@ -1778,6 +1778,11 @@
 			{ "id": "ARROW_RED", "tileRect": null, "color": 15389866 },
 			{ "id": "ARROW_NO_RED", "tileRect": null, "color": 14984818 },
 			{ "id": "COLOUR_AFFECTS", "tileRect": null, "color": 7552569 }
+		], "iconTilesetUid": null, "externalRelPath": null, "externalFileChecksum": null, "tags": [] },
+		{ "identifier": "MushroomSize", "uid": 69, "values": [
+			{ "id": "Small", "tileRect": null, "color": 10747791 },
+			{ "id": "Medium", "tileRect": null, "color": 4240422 },
+			{ "id": "Large", "tileRect": null, "color": 1138688 }
 		], "iconTilesetUid": null, "externalRelPath": null, "externalFileChecksum": null, "tags": [] }
 	], "externalEnums": [], "levelFields": [] },
 	"levels": [

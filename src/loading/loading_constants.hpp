@@ -2,6 +2,7 @@
 #include "common.hpp"
 #include "creature_system/creature_constants.hpp"
 #include "ecs/components.hpp"
+#include "interactables/interactable_components.hpp"
 #include "map/map_constants.hpp"
 #include <map>
 #include <string>
@@ -31,6 +32,7 @@ enum class ENTITY_TYPE
 	WALL,
 	COLOUR_ORB,
 	BOX,
+	MUSHROOM
 };
 
 const std::map<std::string, LOADING_LAYER_TYPE> layer_string_to_enum_map = {
@@ -53,6 +55,7 @@ const std::map<std::string, ENTITY_TYPE> entity_type_string_to_enum_map = {
 	{ "Wall", ENTITY_TYPE::WALL },
 	{ "ColourOrb", ENTITY_TYPE::COLOUR_ORB },
 	{ "Box", ENTITY_TYPE::BOX },
+	{ "Mushroom", ENTITY_TYPE::MUSHROOM }
 };
 
 inline ENTITY_TYPE entity_type_from_string(const std::string entity_string)
@@ -99,6 +102,19 @@ inline COLOUR_STATE color_state_from_string(const std::string color_string)
 {
 	const auto& search = color_state_string_enum_map.find(color_string);
 	return search != color_state_string_enum_map.end() ? search->second : COLOUR_STATE::NEUTRAL;
+};
+
+//todo: https://trello.com/c/qB3PaZDl/247-05-create-ldtk-size-general-enum
+const std::map<std::string, MUSHROOM_SIZE> mushroom_size_string_enum_map = {
+	{ "Small", MUSHROOM_SIZE::SMALL },
+	{ "Medium", MUSHROOM_SIZE::MEDIUM },
+	{ "Large", MUSHROOM_SIZE::LARGE },
+};
+
+inline MUSHROOM_SIZE mushroom_size_from_string(const std::string color_string)
+{
+	const auto& search = mushroom_size_string_enum_map.find(color_string);
+	return search != mushroom_size_string_enum_map.end() ? search->second : MUSHROOM_SIZE::SMALL;
 };
 
 const std::map<std::string, TEXTURE_ASSET_ID> tile_layer_texture_string_enum_map = {
