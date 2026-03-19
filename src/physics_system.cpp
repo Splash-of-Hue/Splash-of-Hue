@@ -362,38 +362,37 @@ void handle_inelastic_collision_box(Entity& entity_i, Entity& entity_j)
 	float y_depth = box1[1] < box2[1] ? box1[1] - box2[0] : box2[1] - box1[0];
 	x_depth = fmaxf(0, x_depth);
 	y_depth = fmaxf(0, y_depth);
-	float dir = 1.f;
-
+	float dir_x = pos_to_correct->x < other_pos->x ? -1.f : 1.f;
+	float dir_y = pos_to_correct->y < other_pos->y ? -1.f : 1.f;
 	//if two things are moving and collide, split the correction and apply to both
-	if (registry.velocities.has(entity_i) && registry.velocities.has(entity_j) && registry.velocities.get(entity_i) != vec2(0) && registry.velocities.get(entity_j) != vec2(0)) 
+	if (registry.velocities.has(entity_i) && registry.velocities.has(entity_j) && registry.velocities.get(entity_i) != vec2(0) && registry.velocities.get(entity_j) != vec2(0))
 	{
+		vec2 vel_i = registry.velocities.get(entity_i);
+		vec2 vel_j = registry.velocities.get(entity_j);
 		if (x_depth < y_depth) 
 		{
-			dir = pos_to_correct->x < other_pos->x ? -1.f : 1.f;
-			float x_correction = x_depth * dir * 0.5;
-			pos_to_correct->x += x_correction;
-			other_pos->x -= x_correction;
+			float x_correction = x_depth * dir_x * 0.5;
+			//only correct if the entity was the one moving into the collision
+			pos_to_correct->x += vel_i.x * x_correction >= 0.f ? 0.f : x_correction;
+			other_pos->x -= vel_j.x * x_correction <= 0.f ? 0.f : x_correction;
 		}
 		else 
 		{
-			dir = pos_to_correct->y < other_pos->y ? -1.f : 1.f;
-			float y_correction = y_depth * dir * 0.5;
-			pos_to_correct->y += y_correction;
-			other_pos->y -= y_correction;
+			float y_correction = y_depth * dir_y * 0.5;
+			pos_to_correct->y += vel_i.x * y_correction >= 0.f ? 0.f : y_correction;
+			other_pos->y -= vel_j.y * y_correction <= 0.f ? 0.f : y_correction;
 		}
 		return;
 	}
 
 	if (x_depth < y_depth)
 	{
-		dir = pos_to_correct->x < other_pos->x ? -1.f : 1.f;
-		pos_to_correct->x += x_depth*dir;
+		pos_to_correct->x += x_depth*dir_x;
 
 	}
 	else
 	{
-		dir = pos_to_correct->y < other_pos->y ? -1.f : 1.f;
-		pos_to_correct->y += y_depth*dir;
+		pos_to_correct->y += y_depth*dir_y;
 	}
 }
 
@@ -530,6 +529,23 @@ void handle_inelastic_collision_mesh(Entity& entity_i, Entity& entity_j, vec3 pe
 	float dir_check = dir.x * penetration.y + dir.y * penetration.z;
 	
 	float sign = dir_check >= 0 ? 1.0f : -1.0f;
+
+	//if two things are moving and collide, split the correction and apply to both
+
+	if (registry.velocities.has(entity_i) && registry.velocities.has(entity_j) && registry.velocities.get(entity_i) != vec2(0) && registry.velocities.get(entity_j) != vec2(0))
+	{
+		vec2 vel_i = registry.velocities.get(entity_i);
+		vec2 vel_j = registry.velocities.get(entity_j);
+		float x_correction = penetration.x * penetration.y * sign * 0.5;
+		//if moving into the collision, then it needs to be corrected
+		pos_to_correct->x += vel_i.x * x_correction >= 0.f ? 0.f : x_correction;
+		other_pos->x -= vel_j.x * x_correction <= 0.f ? 0.f : x_correction;
+
+		float y_correction = penetration.x * penetration.z * sign * 0.5;
+		pos_to_correct->y += vel_i.y * y_correction >= 0.f ? 0.f : y_correction;
+		other_pos->y -= vel_j.y * y_correction <= 0.f ? 0.f : y_correction;
+		return;
+	}
 	pos_to_correct->x += (penetration.x * penetration.y * sign);
 	pos_to_correct->y += (penetration.x * penetration.z * sign);
 }
