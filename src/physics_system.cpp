@@ -476,30 +476,30 @@ vec3 axisCollision(PolygonMesh& a, PolygonMesh& b)
 
 vec3 mesh_collides(const Entity& entity1, const Entity& entity2,  bool isHurtCollision) 
 {
-	PolygonMesh a;
-	PolygonMesh b;
+	PolygonMesh entity1_mesh;
+	PolygonMesh entity2_mesh;
 	if (registry.hitboxes.has(entity1)) {
-		a = registry.hitboxes.get(entity1);
+		entity1_mesh = registry.hitboxes.get(entity1);
 	} else 
 	{
-		a = findHitbox(entity1);
+		entity1_mesh = findHitbox(entity1);
 	}
 	if (registry.hitboxes.has(entity2)) {
-		b = registry.hitboxes.get(entity2);
+		entity2_mesh = registry.hitboxes.get(entity2);
 	}
 	else
 	{
-		b = findHitbox(entity2);
+		entity2_mesh = findHitbox(entity2);
 	} 
 	if (isHurtCollision) {
 		if (registry.hurtboxes.has(entity1)) {
-			a = registry.hurtboxes.get(entity1);
+			entity1_mesh = registry.hurtboxes.get(entity1);
 		}
 		if (registry.hurtboxes.has(entity2)) {
-			b = registry.hurtboxes.get(entity2);
+			entity2_mesh = registry.hurtboxes.get(entity2);
 		}
 	}
-	return (axisCollision(a, b));
+	return (axisCollision(entity1_mesh, entity2_mesh));
 }
 
 void handle_inelastic_collision_mesh(Entity& entity_i, Entity& entity_j, vec3 penetration)
