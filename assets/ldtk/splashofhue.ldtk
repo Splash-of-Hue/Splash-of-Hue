@@ -2877,27 +2877,7 @@
 					"seed": 6461718,
 					"overrideTilesetUid": null,
 					"gridTiles": [],
-					"entityInstances": [
-						{
-							"__identifier": "Sawfish",
-							"__grid": [35,27],
-							"__pivot": [0.5,0.5],
-							"__tags": [ "Creature", "Pathfinder" ],
-							"__tile": { "tilesetUid": 51, "x": 256, "y": 0, "w": 256, "h": 256 },
-							"__smartColor": "#2C98AB",
-							"iid": "163dcba0-21a0-11f1-a3f9-6da3c39a28c1",
-							"width": 256,
-							"height": 128,
-							"defUid": 20,
-							"px": [568,440],
-							"fieldInstances": [
-								{ "__identifier": "CreatureType", "__type": "LocalEnum.CreatureType", "__value": "Sawfish", "__tile": null, "defUid": 23, "realEditorValues": [] },
-								{ "__identifier": "ColorState", "__type": "LocalEnum.ColorState", "__value": "Neutral", "__tile": null, "defUid": 28, "realEditorValues": [] }
-							],
-							"__worldX": 568,
-							"__worldY": -640
-						}
-					]
+					"entityInstances": []
 				},
 				{
 					"__identifier": "Floor_Interactables",
@@ -3022,25 +3002,6 @@
 							}] }],
 							"__worldX": 1056,
 							"__worldY": -664
-						},
-						{
-							"__identifier": "ColourOrb",
-							"__grid": [90,86],
-							"__pivot": [0,0],
-							"__tags": ["Floor_Interactable"],
-							"__tile": null,
-							"__smartColor": "#3E2731",
-							"iid": "1920c750-21a0-11f1-a3f9-8be6b0cb90bc",
-							"width": 70,
-							"height": 70,
-							"defUid": 52,
-							"px": [720,688],
-							"fieldInstances": [{ "__identifier": "ColorState", "__type": "LocalEnum.ColorState", "__value": "Red", "__tile": null, "defUid": 53, "realEditorValues": [{
-								"id": "V_String",
-								"params": ["Red"]
-							}] }],
-							"__worldX": 720,
-							"__worldY": -392
 						}
 					]
 				},
