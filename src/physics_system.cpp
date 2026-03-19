@@ -365,8 +365,8 @@ void handle_inelastic_collision_box(Entity& entity_i, Entity& entity_j)
 	float dir = 1.f;
 
 	//if two things are moving and collide, split the correction and apply to both
-	if (registry.velocities.has(entity_i) && registry.velocities.has(entity_j) &&
-	(registry.velocities.get(entity_i) != vec2(0) && registry.velocities.get(entity_j) != vec2(0)) {
+	if (registry.velocities.has(entity_i) && registry.velocities.has(entity_j) && registry.velocities.get(entity_i) != vec2(0) && registry.velocities.get(entity_j) != vec2(0)) 
+	{
 		if (x_depth < y_depth) 
 		{
 			dir = pos_to_correct->x < other_pos->x ? -1.f : 1.f;
@@ -381,9 +381,9 @@ void handle_inelastic_collision_box(Entity& entity_i, Entity& entity_j)
 			pos_to_correct->y += y_correction;
 			other_pos->y -= y_correction;
 		}
-		
 		return;
 	}
+
 	if (x_depth < y_depth)
 	{
 		dir = pos_to_correct->x < other_pos->x ? -1.f : 1.f;
@@ -401,12 +401,9 @@ void handle_inelastic_collision_box(Entity& entity_i, Entity& entity_j)
 PolygonMesh findHitbox(const Entity& e) 
 {
 	//default is rectangle
-	
 	vec2& pos = registry.positions.get(e);
 	Size& size = registry.sizes.get(e);
 	std::vector<vec2> vertices;
-	//Sawfish heights and widths are too large, this is a temp fix
-	//TODO: DMdDb4NW
 	float half_width = size.width * 0.5f;
 	float half_height = size.height * 0.5f;
 	vertices.push_back({vec2(pos.x - half_width , pos.y - half_height)});
@@ -515,7 +512,7 @@ void handle_inelastic_collision_mesh(Entity& entity_i, Entity& entity_j, vec3 pe
 	vec2* pos_to_correct = &pos1;
 	vec2* other_pos = &pos2;
 
-	if (registry.players.has(entity_j)) {
+	if (registry.players.has(entity_j) && registry.velocities.get(entity_j) != vec2(0)) {
 		pos_to_correct = &pos2;
 		other_pos = &pos1;
 	}
@@ -535,7 +532,6 @@ void handle_inelastic_collision_mesh(Entity& entity_i, Entity& entity_j, vec3 pe
 	float sign = dir_check >= 0 ? 1.0f : -1.0f;
 	pos_to_correct->x += (penetration.x * penetration.y * sign);
 	pos_to_correct->y += (penetration.x * penetration.z * sign);
-	
 }
 
 void PhysicsSystem::step(float elapsed_ms)

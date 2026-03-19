@@ -44,98 +44,44 @@ BehaviourTree CreatureBehaviourTreeBuilder::buildCrabTree()
 				),
 				
 				Decorator(builder, creatureBehaviourFunctions.isCreatureWithinCreatureRedColourRadius,
-					Selector(builder,
-						Sequence(builder,
-							Action(builder, creatureBehaviourFunctions.makeRed),
-							Action(builder, creatureBehaviourFunctions.slideBackwards)
-						),
-						Decorator(builder, creatureBehaviourFunctions.hasCreatureCollided,
-							Sequence(builder,
-								Action(builder, creatureBehaviourFunctions.makeNeutral),
-								Action(builder, creatureBehaviourFunctions.stopCreatureMovement),
-								Action(builder, creatureBehaviourFunctions.removeCollision)
-							)
-						)
+					Sequence(builder,
+						Action(builder, creatureBehaviourFunctions.makeRed),
+						Action(builder, creatureBehaviourFunctions.slideBackwards)
 					)
 				),
 
 				Decorator(builder, creatureBehaviourFunctions.isCreatureWithinCreatureBlueColourRadius,
-					Selector(builder,
-						Sequence(builder,
-							Action(builder, creatureBehaviourFunctions.makeBlue),
-							Action(builder, creatureBehaviourFunctions.slideForwards)
-						),
-						Decorator(builder, creatureBehaviourFunctions.hasCreatureCollided,
-							Sequence(builder,
-								Action(builder, creatureBehaviourFunctions.makeNeutral),
-								Action(builder, creatureBehaviourFunctions.stopCreatureMovement),
-								Action(builder, creatureBehaviourFunctions.removeCollision)
-							)
-						)
+					Sequence(builder,
+						Action(builder, creatureBehaviourFunctions.makeBlue),
+						Action(builder, creatureBehaviourFunctions.slideForwards)
 					)
 				),
 
 				Decorator(builder, creatureBehaviourFunctions.isCreatureWithinPlayerRedColourRadius,
-					Selector(builder,
-						Sequence(builder,
-							Action(builder, creatureBehaviourFunctions.makeRed),
-							Action(builder, creatureBehaviourFunctions.slideBackwards)
-						),
-						Decorator(builder, creatureBehaviourFunctions.hasCreatureCollided,
-							Sequence(builder,
-								Action(builder, creatureBehaviourFunctions.makeNeutral),
-								Action(builder, creatureBehaviourFunctions.stopCreatureMovement),
-								Action(builder, creatureBehaviourFunctions.removeCollision)
-							)
-						)
+					Sequence(builder,
+						Action(builder, creatureBehaviourFunctions.makeRed),
+						Action(builder, creatureBehaviourFunctions.slideBackwards)
 					)
 				),
 
 				Decorator(builder, creatureBehaviourFunctions.isCreatureWithinPlayerBlueColourRadius,
-					Selector(builder,
-						Sequence(builder,
-							Action(builder, creatureBehaviourFunctions.makeBlue),
-							Action(builder, creatureBehaviourFunctions.slideForwards)
-						),
-						Decorator(builder, creatureBehaviourFunctions.hasCreatureCollided,
-							Sequence(builder,
-								Action(builder, creatureBehaviourFunctions.makeNeutral),
-								Action(builder, creatureBehaviourFunctions.stopCreatureMovement),
-								Action(builder, creatureBehaviourFunctions.removeCollision)
-							)
-						)
+					Sequence(builder,
+						Action(builder, creatureBehaviourFunctions.makeBlue),
+						Action(builder, creatureBehaviourFunctions.slideForwards)
 					)
 				),
 
 				Decorator(builder, creatureBehaviourFunctions.isCreatureWithinInteractableRedColourRadius,
-					Selector(builder,
-						Sequence(builder,
-							Action(builder, creatureBehaviourFunctions.makeRed),
-							Action(builder, creatureBehaviourFunctions.slideBackwards)
-						),
-						Decorator(builder, creatureBehaviourFunctions.hasCreatureCollided,
-							Sequence(builder,
-								Action(builder, creatureBehaviourFunctions.makeNeutral),
-								Action(builder, creatureBehaviourFunctions.stopCreatureMovement),
-								Action(builder, creatureBehaviourFunctions.removeCollision)
-							)
-						)
+					Sequence(builder,
+						Action(builder, creatureBehaviourFunctions.makeRed),
+						Action(builder, creatureBehaviourFunctions.slideBackwards)
 					)
 				),
 
 				Decorator(builder, creatureBehaviourFunctions.isCreatureWithinInteractableBlueColourRadius,
-					Selector(builder,
-						Sequence(builder,
-							Action(builder, creatureBehaviourFunctions.makeBlue),
-							Action(builder, creatureBehaviourFunctions.slideForwards)
-						),
-						Decorator(builder, creatureBehaviourFunctions.hasCreatureCollided,
-							Sequence(builder,
-								Action(builder, creatureBehaviourFunctions.makeNeutral),
-								Action(builder, creatureBehaviourFunctions.stopCreatureMovement),
-								Action(builder, creatureBehaviourFunctions.removeCollision)
-							)
-						)
+					Sequence(builder,
+						Action(builder, creatureBehaviourFunctions.makeBlue),
+						Action(builder, creatureBehaviourFunctions.slideForwards)
 					)
 				)
 			)
