@@ -3,6 +3,7 @@
 #include "common.hpp"
 #include "ecs/components.hpp"
 #include "interactables/interactable_constants.hpp"
+#include "interactables/interactable_components.hpp"
 #include <string>
 #include <vector>
 
@@ -10,7 +11,7 @@ Entity addGeneralInteractableComponents(vec2 position, Size& size, INTERACTABLE_
 
 Entity createBox(vec2 position, float width, float height);
 Entity createColourOrb(vec2 position, float radius, COLOUR_STATE colour_state);
-Entity createMushroom(vec2 position, float radius, COLOUR_STATE colour_state);
+Entity createMushroom(vec2 position, float radius, COLOUR_STATE colour_state, MUSHROOM_SIZE mushroom_size);
 
 /// <summary>
 /// Creates a toggle and returns the entity
