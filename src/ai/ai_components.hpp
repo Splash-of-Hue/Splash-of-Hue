@@ -8,7 +8,7 @@ struct Boid
 };
 
 // The overseer of all of its associated boids. 
-struct Boid_Overseer
+struct BoidOverseer
 {
 	// The following factors can have their parameters adjusted to control how much the group swarms 
 	

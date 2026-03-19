@@ -24,7 +24,7 @@ class ECSRegistry
 public:
 	// Manually created list of all components this game has
 	// AI
-	ComponentContainer<Boid_Overseer> boidOverseers;
+	ComponentContainer<BoidOverseer> boidOverseers;
 	ComponentContainer<Boid> boid_minnows; 
 	ComponentContainer<Charging> chargers;
 	ComponentContainer<CreatureBehaviour> creatureBehaviours;

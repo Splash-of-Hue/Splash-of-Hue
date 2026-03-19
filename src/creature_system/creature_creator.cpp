@@ -69,7 +69,7 @@ Entity CreatureCreator::createMinnows(const int level_uid, vec2 position, float 
 	addGeneralCreatureComponents(level_uid, minnows, position, width, height, color_state, CREATURETYPE::MINNOWS, TEXTURE_ASSET_ID::MINNOW_01);
     registry.renderRequests.remove(minnows); // Make sure the minnow overseer is not seen
 
-    Boid_Overseer& minnow_overseer = registry.boidOverseers.emplace(minnows);
+    BoidOverseer& minnow_overseer = registry.boidOverseers.emplace(minnows);
     
     for (int i = 0; i < NUM_MINNOWS; i++)
     {
