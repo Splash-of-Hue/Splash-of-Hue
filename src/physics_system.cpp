@@ -283,21 +283,13 @@ void handle_hurt_collision(Entity& entity_i, Entity& entity_j) {
 		Entity& eP = registry.players.has(entity_i) ? entity_i : entity_j;
 		Entity& eS = registry.creatures.has(entity_i) ? entity_i : entity_j;
 		//make it so only sawfish kills
-		if (!registry.shrimps.has(eS))
+		if (!registry.shrimps.has(eS) && registry.colourStates.has(eS))
 		{
-			if (registry.colourStates.has(eS))
+			ColourState& csS = registry.colourStates.get(eS);
+			
+			if (csS.curr_colour_state == COLOUR_STATE::RED && registry.chargers.has(eS) && !registry.deathTimers.has(eP))
 			{
-				ColourState& csS = registry.colourStates.get(eS);
-				if (csS.curr_colour_state == COLOUR_STATE::RED)
-				{
-					if (registry.chargers.has(eS))
-					{
-						if (!registry.deathTimers.has(eP))
-						{
-							registry.deathTimers.emplace(eP);
-						}
-					}
-				}
+				registry.deathTimers.emplace(eP);
 			}
 		}
 	}
