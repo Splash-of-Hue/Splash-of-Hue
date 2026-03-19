@@ -124,7 +124,7 @@ void RenderSystem::drawShape(Entity entity, const mat3& projection)
 	Transform transform;
 	transform.translate(vec2(position.x, position.y));
 
-	if (!registry.ignoredByCamera.has(entity))
+	if (registry.cameras.size() > 0 && !registry.ignoredByCamera.has(entity))
 	{
 		const vec2& camera_position = registry.positions.get(registry.cameras.entities[0]);
 		transform.translate(window_center() - camera_position);
@@ -218,7 +218,7 @@ void RenderSystem::drawTexturedMesh(Entity entity,
 	Transform transform;
 	transform.translate(position);
 
-	if (!registry.ignoredByCamera.has(entity))
+	if (registry.cameras.size() > 0 && !registry.ignoredByCamera.has(entity))
 	{
 		const vec2& camera_position = registry.positions.get(registry.cameras.entities[0]);
 		transform.translate(window_center() - camera_position);
@@ -453,7 +453,7 @@ void RenderSystem::draw()
 	);
 
 	// draw all entities with a render request to the frame buffer
-	for (Entity entity : registry.renderRequests.entities)
+	for (Entity& entity : registry.renderRequests.entities)
 	{
 		// filter to entities that have a motion component
 		if (registry.textured.has(entity))

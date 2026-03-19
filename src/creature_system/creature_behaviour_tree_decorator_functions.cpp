@@ -54,7 +54,7 @@ BEHAVIOUR_TREE_STATUS CreatureBehaviourFunctions::isCreatureWithinPlayerBlueColo
 	if (!registry.inRadius.has(creature))
 		return BEHAVIOUR_TREE_STATUS::FAILURE;
 	InRadius& in_radius_component = registry.inRadius.get(creature);
-	return isCreatureWithinSpecificColourRadius(creature, in_radius_component.inPlayerRadius, in_radius_component.playerRadius, COLOUR_STATE::BLUE);
+	return isCreatureWithinSpecificColourRadius(creature, in_radius_component.inPlayerRadius, in_radius_component.playerRadiusList, COLOUR_STATE::BLUE);
 }
 
 BEHAVIOUR_TREE_STATUS CreatureBehaviourFunctions::isCreatureWithinPlayerRedColourRadius(Entity& creature, float elapsed_ms)
@@ -62,7 +62,7 @@ BEHAVIOUR_TREE_STATUS CreatureBehaviourFunctions::isCreatureWithinPlayerRedColou
 	if (!registry.inRadius.has(creature))
 		return BEHAVIOUR_TREE_STATUS::FAILURE;
 	InRadius& in_radius_component = registry.inRadius.get(creature);
-	return isCreatureWithinSpecificColourRadius(creature, in_radius_component.inPlayerRadius, in_radius_component.playerRadius, COLOUR_STATE::RED);
+	return isCreatureWithinSpecificColourRadius(creature, in_radius_component.inPlayerRadius, in_radius_component.playerRadiusList, COLOUR_STATE::RED);
 }
 
 BEHAVIOUR_TREE_STATUS CreatureBehaviourFunctions::isCreatureWithinCreatureBlueColourRadius(Entity& creature, float elapsed_ms)
@@ -70,7 +70,7 @@ BEHAVIOUR_TREE_STATUS CreatureBehaviourFunctions::isCreatureWithinCreatureBlueCo
 	if (!registry.inRadius.has(creature))
 		return BEHAVIOUR_TREE_STATUS::FAILURE;
 	InRadius& in_radius_component = registry.inRadius.get(creature);
-	return isCreatureWithinSpecificColourRadius(creature, in_radius_component.inCreatureRadius, in_radius_component.creatureRadius, COLOUR_STATE::BLUE);
+	return isCreatureWithinSpecificColourRadius(creature, in_radius_component.inCreatureRadius, in_radius_component.creatureRadiusList, COLOUR_STATE::BLUE);
 }
 
 BEHAVIOUR_TREE_STATUS CreatureBehaviourFunctions::isCreatureWithinCreatureRedColourRadius(Entity& creature, float elapsed_ms)
@@ -78,7 +78,7 @@ BEHAVIOUR_TREE_STATUS CreatureBehaviourFunctions::isCreatureWithinCreatureRedCol
 	if (!registry.inRadius.has(creature))
 		return BEHAVIOUR_TREE_STATUS::FAILURE;
 	InRadius& in_radius_component = registry.inRadius.get(creature);
-	return isCreatureWithinSpecificColourRadius(creature, in_radius_component.inCreatureRadius, in_radius_component.creatureRadius, COLOUR_STATE::RED);
+	return isCreatureWithinSpecificColourRadius(creature, in_radius_component.inCreatureRadius, in_radius_component.creatureRadiusList, COLOUR_STATE::RED);
 }
 
 BEHAVIOUR_TREE_STATUS CreatureBehaviourFunctions::isCreatureWithinInteractableBlueColourRadius(Entity& creature, float elapsed_ms)
@@ -86,7 +86,7 @@ BEHAVIOUR_TREE_STATUS CreatureBehaviourFunctions::isCreatureWithinInteractableBl
 	if (!registry.inRadius.has(creature))
 		return BEHAVIOUR_TREE_STATUS::FAILURE;
 	InRadius& in_radius_component = registry.inRadius.get(creature);
-	return isCreatureWithinSpecificColourRadius(creature, in_radius_component.inInteractableRadius, in_radius_component.interactableRadius, COLOUR_STATE::BLUE);
+	return isCreatureWithinSpecificColourRadius(creature, in_radius_component.inInteractableRadius, in_radius_component.interactableRadiusList, COLOUR_STATE::BLUE);
 }
 
 BEHAVIOUR_TREE_STATUS CreatureBehaviourFunctions::isCreatureWithinInteractableRedColourRadius(Entity& creature, float elapsed_ms)
@@ -94,7 +94,7 @@ BEHAVIOUR_TREE_STATUS CreatureBehaviourFunctions::isCreatureWithinInteractableRe
 	if (!registry.inRadius.has(creature))
 		return BEHAVIOUR_TREE_STATUS::FAILURE;
 	InRadius& in_radius_component = registry.inRadius.get(creature);
-	return isCreatureWithinSpecificColourRadius(creature, in_radius_component.inInteractableRadius, in_radius_component.interactableRadius, COLOUR_STATE::RED);
+	return isCreatureWithinSpecificColourRadius(creature, in_radius_component.inInteractableRadius, in_radius_component.interactableRadiusList, COLOUR_STATE::RED);
 }
 
 BEHAVIOUR_TREE_STATUS CreatureBehaviourFunctions::isInBlueState(Entity& creature, float elapsed_ms)

@@ -76,6 +76,7 @@ GLFWwindow* WorldSystem::create_window() {
 		std::cerr << "ERROR: Failed to glfwCreateWindow in world_system.cpp" << std::endl;
 		return nullptr;
 	}
+	registry.windows.insert(Entity(), { window });
 
 	return window;
 }
@@ -89,7 +90,7 @@ void WorldSystem::init(RenderSystem* renderer_arg) {
 }
 
 // Update our game world
-bool WorldSystem::step(float elapsed_ms_since_last_update) {
+void WorldSystem::step(float elapsed_ms_since_last_update) {
 
 	if (registry.players.entities.size() > 0) {
 		Entity& playerComp = registry.players.entities[0];
@@ -141,8 +142,6 @@ bool WorldSystem::step(float elapsed_ms_since_last_update) {
 
 	assert(registry.screenStates.components.size() <= 1);
     ScreenState &screen = registry.screenStates.components[0];
-
-	return true;
 }
 
 // Reset the world state to its initial state
@@ -178,12 +177,11 @@ void WorldSystem::restart_game() {
 
 	Entity input_clear_request_entity;
 	registry.inputClearRequests.emplace(input_clear_request_entity);
-	// Request a player be made
-	Entity player_create_request_entity;
-	registry.playerCreateRequests.emplace(player_create_request_entity);
 	// Load level
 	Entity load_request_entity;
 	registry.loadRequests.insert(load_request_entity, { LOAD_TYPE::LOAD_LEVEL, current_level_uid });
+	Entity game_state_request_entity;
+	registry.game_state_change_requests.insert(game_state_request_entity, { GAME_STATE::LOADING });
 }
 
 // When entity collides with colour radius, it needs to have its behaviour change handled here
