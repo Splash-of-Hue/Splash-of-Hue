@@ -453,7 +453,7 @@ void RenderSystem::draw()
 	);
 
 	// draw all entities with a render request to the frame buffer
-	for (Entity entity : registry.renderRequests.entities)
+	for (Entity& entity : registry.renderRequests.entities)
 	{
 		// filter to entities that have a motion component
 		if (registry.textured.has(entity))

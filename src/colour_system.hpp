@@ -11,7 +11,11 @@ class ColourSystem : public SystemInterface
 public:
 	ColourSystem();
 
+	void init();
+
 	void initialize_palette();
+
+	void initialize_colour_indicator();
 
 	void pollMenuState();
 

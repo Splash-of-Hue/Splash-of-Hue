@@ -52,6 +52,7 @@ class RenderSystem
 		textures_path("Rooms.png"),
 		textures_path("ui/selector.png"),
 		textures_path("ui/menu_corner.png"),
+		textures_path("Colour_Indicator.png"),
 	};
 
 	std::array<GLuint, effect_count> effects;

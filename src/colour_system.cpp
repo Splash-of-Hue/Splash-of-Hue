@@ -2,6 +2,7 @@
 
 #include "colour_system.hpp"
 #include "common.hpp"
+#include "colour_constants.hpp"
 #include "ecs/tiny_ecs.hpp"
 #include "ecs/components.hpp"
 #include "ecs/registry.hpp"
@@ -14,6 +15,12 @@ ColourSystem::ColourSystem()
 {
 }
 
+void ColourSystem::init()
+{
+	initialize_palette();
+	initialize_colour_indicator();
+}
+
 void ColourSystem::initialize_palette()
 {
 	// create palette if missing
@@ -22,6 +29,38 @@ void ColourSystem::initialize_palette()
 		registry.colourPalettes.emplace(colour_palette_entity);
 	}
 }
+
+void ColourSystem::initialize_colour_indicator()
+{
+	Entity& indicator = Entity();
+
+	vec2 position = vec2(WINDOW_WIDTH_PX * COLOUR_INDICATOR_SCREEN_WIDTH, WINDOW_HEIGHT_PX * COLOUR_INDICATOR_SCREEN_HEIGHT);
+	float size = WINDOW_HEIGHT_PX * 0.20f;
+
+	registry.positions.insert(indicator, position);
+	registry.sizes.insert(indicator, { size, size });
+	registry.scales.insert(indicator, vec2(size, size));  
+	registry.angles.insert(indicator, { 0.f });   
+	registry.ignoredByCamera.emplace(indicator);
+	// set texture to colour indicator asset
+	Textured& textured = registry.textured.emplace(indicator);
+	textured.used_texture = TEXTURE_ASSET_ID::COLOUR_INDICATOR;
+	registry.renderRequests.insert(indicator, {
+		EFFECT_ASSET_ID::TEXTURED,
+		GEOMETRY_BUFFER_ID::SPRITE,
+		RENDER_LAYER::HUD
+		});
+
+	Animatable animatable;
+	animatable.type = ANIMATABLE_TYPE::COLOUR_INDICATOR;
+	animatable.behavior = ANIMATION_BEHAVIOR::LOOP;
+	animatable.current_trigger = ANIMATION_TRIGGER::HUD_NEUTRAL;
+	animatable.frame_rate = 6;
+	registry.animatables.insert(indicator, animatable);
+
+	registry.colourIndicatorUIs.emplace(indicator);
+}
+
 void ColourSystem::setEntityVisualColour(Entity entity, COLOUR_STATE colour_state) {
 	assert(!registry.colourPalettes.entities.empty() && "Colour palette should be initialized");
 
@@ -37,6 +76,7 @@ void ColourSystem::setEntityVisualColour(Entity entity, COLOUR_STATE colour_stat
 	}
 	registry.colors.get(entity) = color;
 }
+
 void ColourSystem::openColourMenu()
 {
 	vec2 top_left = vec2(WINDOW_WIDTH_PX * 0.05f, WINDOW_HEIGHT_PX * 0.70f);
@@ -211,6 +251,22 @@ void ColourSystem::applyColorToPlayer(COLOUR_STATE colour)
 			LightSource& light_source_component = registry.lightSources.emplace(player);
 			light_source_component.lightEmissionEntity = emission_entity;
 		}
+
+		if (!registry.colourIndicatorUIs.entities.empty())
+		{
+			Entity& indicator = registry.colourIndicatorUIs.entities[0];
+
+			ANIMATION_TRIGGER trigger = colour == COLOUR_STATE::RED ? ANIMATION_TRIGGER::HUD_RED
+				: colour == COLOUR_STATE::BLUE ? ANIMATION_TRIGGER::HUD_BLUE
+				: ANIMATION_TRIGGER::HUD_NEUTRAL;
+
+			Animatable& animatable = registry.animatables.get(indicator);
+			animatable.current_trigger = trigger;
+			animatable.current_frame = 0;
+			animatable.time_on_current_frame = 0;
+		}
+
+		std::cout << "Player colour set to: " << static_cast<int>(colour) << std::endl;
 	}
 }
 
