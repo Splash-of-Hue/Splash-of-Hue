@@ -26,7 +26,11 @@ const int NUM_MINNOWS = 100;
 
 struct Sawfish
 {
+	
 };
+
+const float SAWFISH_CHARGING_SPEED = 500.f;
+const float SAWFISH_WANDERING_SPEED = 500.f;
 
 enum SHRIMP_ARM_COLOUR
 {

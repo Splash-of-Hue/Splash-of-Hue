@@ -36,7 +36,7 @@ public:
 	static BEHAVIOUR_TREE_STATUS makeRed(Entity& creature, float elapsed_ms);
 	static BEHAVIOUR_TREE_STATUS makeNeutral(Entity& creature, float elapsed_ms);
 	// Movement
-	static BEHAVIOUR_TREE_STATUS chargeAtTarget(Entity& charger, float elapsed_ms);
+	static BEHAVIOUR_TREE_STATUS chargeAtPlayer(Entity& charger, float elapsed_ms);
 	static BEHAVIOUR_TREE_STATUS stopCreatureMovement(Entity& creature, float elapsed_ms);
 	static BEHAVIOUR_TREE_STATUS removeCollision(Entity& creature, float elapsed_ms);
 	// Miscellaneous
@@ -57,7 +57,6 @@ public:
 	static BEHAVIOUR_TREE_STATUS beDizzy(Entity& follower, float elapsed_ms);
 	static BEHAVIOUR_TREE_STATUS removeDizzy(Entity& creature, float elapsed_ms);
 	static BEHAVIOUR_TREE_STATUS aimAtTarget(Entity& follower, float elapsed_ms);
-	static BEHAVIOUR_TREE_STATUS sawfishChargeAtTarget(Entity& follower, float elapsed_ms);
 
 	// ===== Decorator Node Functions =====
 	// Colour
