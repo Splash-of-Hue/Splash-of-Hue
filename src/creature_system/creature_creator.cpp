@@ -345,19 +345,19 @@ Entity CreatureCreator::createSawfish(const int level_uid, vec2 position, float 
     registry.sawfishes.emplace(sawfish);
 
     PolygonMesh& sawfish_hitbox = registry.hitboxes.emplace(sawfish);
-    float quarter_height = height * 0.15;
-    float quarter_width = width * 0.15;
-    sawfish_hitbox.vertices.push_back(vec2(position.x - quarter_width, position.y - quarter_height));
-    sawfish_hitbox.vertices.push_back(vec2(position.x + quarter_width, position.y - quarter_height));
-    sawfish_hitbox.vertices.push_back(vec2(position.x + quarter_width, position.y + quarter_height));
-    sawfish_hitbox.vertices.push_back(vec2(position.x - quarter_width, position.y + quarter_height));
+    float hitbox_height = height * 0.15;
+    float hitbox_width = width * 0.15;
+    sawfish_hitbox.vertices.push_back(vec2(position.x - hitbox_width, position.y - hitbox_height));
+    sawfish_hitbox.vertices.push_back(vec2(position.x + hitbox_width, position.y - hitbox_height));
+    sawfish_hitbox.vertices.push_back(vec2(position.x + hitbox_width, position.y + hitbox_height));
+    sawfish_hitbox.vertices.push_back(vec2(position.x - hitbox_width, position.y + hitbox_height));
     sawfish_hitbox.centre = position;
     sawfish_hitbox.base_vertices = sawfish_hitbox.vertices;
 
     PolygonMesh& sawfish_hurtbox = registry.hurtboxes.emplace(sawfish);
-    sawfish_hurtbox.vertices.push_back(vec2(position.x + quarter_width, position.y - quarter_height));
-    sawfish_hurtbox.vertices.push_back(vec2(position.x + quarter_width, position.y + quarter_height));
-    sawfish_hurtbox.vertices.push_back(vec2(position.x + (quarter_width*2), position.y));
+    sawfish_hurtbox.vertices.push_back(vec2(position.x + hitbox_width, position.y - hitbox_height));
+    sawfish_hurtbox.vertices.push_back(vec2(position.x + hitbox_width, position.y + hitbox_height));
+    sawfish_hurtbox.vertices.push_back(vec2(position.x + (hitbox_width*2), position.y));
     sawfish_hurtbox.centre = position;
     sawfish_hurtbox.base_vertices = sawfish_hurtbox.vertices;
 
