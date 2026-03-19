@@ -4,13 +4,14 @@
 #include "animation/animation_components.hpp"
 #include "camera/camera_components.hpp"
 #include "components.hpp"
-#include "controllers/player_components.hpp"
 #include "controls/control_components.hpp"
 #include "creature_system/creature_components.hpp"
+#include "game_state/game_state_component.hpp"
 #include "input/input_components.hpp"
 #include "interactables/interactable_components.hpp"
 #include "loading/loading_components.hpp"
 #include "map/map_components.hpp"
+#include "player/player_components.hpp"
 #include "renderer/render_components.hpp"
 #include "text/text_components.hpp"
 
@@ -42,6 +43,7 @@ public:
 	ComponentContainer<ColourPalette> colourPalettes;
 	ComponentContainer<ColourMenuState> colourMenuStates;
 	ComponentContainer<ColourMenuInput> colourMenuInputs;
+	// Emission System
 	ComponentContainer<LightEmission> lightEmissions;
 	ComponentContainer<LightSource> lightSources;
 	// Controls
@@ -50,6 +52,8 @@ public:
 	ComponentContainer<InputClearRequest> inputClearRequests;
 	// Debug
 	ComponentContainer<DebugComponent> debugComponents;
+	// General
+	ComponentContainer<GameStateChangeRequest> game_state_change_requests;
 	// Interactables
 	ComponentContainer<Box> boxes;
 	ComponentContainer<Breakable> breakables;
@@ -84,7 +88,7 @@ public:
 	ComponentContainer<vec2> velocities;
 	// Player
 	ComponentContainer<DeathTimer> deathTimers;
-	ComponentContainer<PlayerCreateRequests> playerCreateRequests;
+	ComponentContainer<PlayerCreateRequest> playerCreateRequests;
 	ComponentContainer<Player> players;
 	// Rendering
 	ComponentContainer<Camera> cameras;
@@ -127,6 +131,7 @@ public:
 		registry_list.push_back(&colourPalettes);
 		registry_list.push_back(&colourMenuStates);
 		registry_list.push_back(&colourMenuInputs);
+		// Emissions
 		registry_list.push_back(&lightEmissions);
 		registry_list.push_back(&lightSources);
 		// Controls
@@ -135,6 +140,8 @@ public:
 		registry_list.push_back(&inputClearRequests);
 		// Debug
 		registry_list.push_back(&debugComponents);
+		// General
+		registry_list.push_back(&game_state_change_requests);
 		// Interactables
 		registry_list.push_back(&boxes);
 		registry_list.push_back(&breakables);

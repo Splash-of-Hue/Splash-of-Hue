@@ -233,7 +233,7 @@ void load_extra_entities(const ldtk::Layer& layer)
 		switch (extra_entity_type)
 		{
 			case ENTITY_TYPE::INITIAL_POSITION:
-				set_initial_player_position(extra_entity);
+				initialize_player(extra_entity);
 				continue;
 			case ENTITY_TYPE::WALL:
 				load_wall(extra_entity);
@@ -247,22 +247,14 @@ void load_extra_entities(const ldtk::Layer& layer)
 	}
 }
 
-void set_initial_player_position(const ldtk::Entity& initial_player_position_entity)
+void initialize_player(const ldtk::Entity& initial_player_position_entity)
 {
-	// Otherwise, this is the first time the level is loaded so use the initial position
-	Entity& player_entity = registry.players.entities[0];
-
-	// Player is already loaded, don't need to set initial position
-	if (registry.players.get(player_entity).is_loaded)
-	{
-		return;
-	}
-
-	registry.currentLevels.get(player_entity).level_uid = initial_player_position_entity.layer->level->uid;
+	int level_uid = initial_player_position_entity.layer->level->uid;
 	const ldtk::IntPoint& initial_player_world_position = initial_player_position_entity.getWorldPosition();
 	vec2 initial_player_position = scale_to_level(vec2(initial_player_world_position.x, initial_player_world_position.y));
-	registry.positions.get(player_entity) = initial_player_position;
-	registry.players.get(player_entity).is_loaded = true;
+	// Request a player be made
+	Entity player_create_request_entity;
+	registry.playerCreateRequests.insert(player_create_request_entity, { level_uid, initial_player_position });
 }
 
 void load_creatures(const ldtk::Layer& layer)
@@ -349,6 +341,9 @@ void load_floor_interactables(const ldtk::Layer& layer)
 				continue;
 			case ENTITY_TYPE::BOX:
 				load_box(floor_interactable_entity);
+				continue;
+			case ENTITY_TYPE::MUSHROOM:
+				load_mushroom(floor_interactable_entity);
 				continue;
 			default:
 				continue;
@@ -482,6 +477,25 @@ void load_box(const ldtk::Entity& box_entity)
 	const vec2 size = scale_to_level(vec2(entity_size.x, entity_size.y));
 	Entity box = createBox(position, size.x, size.y);
 	registry.levelEntities.insert(box, { box_entity.layer->level->uid });
+}
+
+void load_mushroom(const ldtk::Entity& mushroom_entity)
+{
+	const ldtk::IntPoint& world_pos = mushroom_entity.getWorldPosition();
+	const ldtk::IntPoint& size = mushroom_entity.getSize();
+
+	const ldtk::Field<ldtk::EnumValue>& color_state_field = mushroom_entity.getField<ldtk::EnumValue>("ColorState");
+	const COLOUR_STATE colour_state = color_state_from_string(color_state_field.value().name);
+	//todo: https://trello.com/c/qB3PaZDl/247-05-create-ldtk-size-general-enum
+	const ldtk::Field<ldtk::EnumValue>& mushroom_size_field = mushroom_entity.getField<ldtk::EnumValue>("MushroomSize");
+	const MUSHROOM_SIZE mushroom_size = mushroom_size_from_string(mushroom_size_field.value().name);
+
+	const vec2 position = vec2(world_pos.x * LEVEL_TO_SCREEN_SCALE.x, world_pos.y * LEVEL_TO_SCREEN_SCALE.y);
+	const float width = size.x * LEVEL_TO_SCREEN_SCALE.x;
+
+	Entity mushroom = createMushroom(position, width, colour_state, mushroom_size);
+
+	registry.levelEntities.insert(mushroom, { mushroom_entity.layer->level->uid });
 }
 
 void LoaderSystem::unload_level(int level_uid)
