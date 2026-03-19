@@ -17,9 +17,9 @@ const enum EMISSION_SIZE
 
 const std::map<std::string, vec2> EMISSION_OFFSET =
 {
-	{"PLAYER", {0,0}},
-	{"MUSHROOM", {0,0}},
-	{"ANGLERFISH", {20, 0}} //we will calculate this number soon https://trello.com/c/0dTrDDAQ/109-2-creature-behaviour-system-angler-fish
+	{"PLAYER", {0,-1}},
+	{"MUSHROOM", {0,-1}},
+	{"ANGLERFISH", {0, -1}} //we will calculate this number soon https://trello.com/c/0dTrDDAQ/109-2-creature-behaviour-system-angler-fish
 };
 
 const float TIME_TO_GROW = 1000.f;

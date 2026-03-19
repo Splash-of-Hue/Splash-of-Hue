@@ -32,7 +32,8 @@ Entity createRectangle(vec2 position, float width, float height, RENDER_LAYER re
 		entity,
 		{
 			EFFECT_ASSET_ID::DEFAULT,
-			GEOMETRY_BUFFER_ID::RECTANGLE
+			GEOMETRY_BUFFER_ID::RECTANGLE,
+			render_layer
 		}
 	);
 
@@ -55,7 +56,8 @@ Entity createRectangle(vec2 top_left, vec2 bottom_right, RENDER_LAYER render_lay
 		entity,
 		{
 			EFFECT_ASSET_ID::DEFAULT,
-			GEOMETRY_BUFFER_ID::RECTANGLE
+			GEOMETRY_BUFFER_ID::RECTANGLE,
+			render_layer
 		}
 	);
 
@@ -75,7 +77,8 @@ Entity createCircle(vec2 position, float radius, RENDER_LAYER render_layer, vec4
 		entity,
 		{
 			EFFECT_ASSET_ID::DEFAULT,
-			GEOMETRY_BUFFER_ID::CIRCLE
+			GEOMETRY_BUFFER_ID::CIRCLE,
+			render_layer
 		}
 	);
 	

@@ -11,7 +11,7 @@
 	"iid": "53e64810-d380-11f0-a1bc-4d26a5cd15e3",
 	"jsonVersion": "1.5.3",
 	"appBuildId": 473703,
-	"nextUid": 75,
+	"nextUid": 76,
 	"identifierStyle": "Capitalize",
 	"toc": [{
 		"identifier": "Teleporter",
@@ -732,46 +732,6 @@
 			"pivotY": 0.5,
 			"fieldDefs": [
 				{
-					"identifier": "Creature_Type",
-					"doc": null,
-					"__type": "LocalEnum.CreatureType",
-					"uid": 24,
-					"type": "F_Enum(15)",
-					"isArray": false,
-					"canBeNull": false,
-					"arrayMinLength": null,
-					"arrayMaxLength": null,
-					"editorDisplayMode": "ValueOnly",
-					"editorDisplayScale": 1,
-					"editorDisplayPos": "Above",
-					"editorLinkStyle": "StraightArrow",
-					"editorDisplayColor": null,
-					"editorAlwaysShow": false,
-					"editorShowInWorld": true,
-					"editorCutLongValues": true,
-					"editorTextSuffix": null,
-					"editorTextPrefix": null,
-					"useForSmartColor": false,
-					"exportToToc": false,
-					"searchable": false,
-					"min": null,
-					"max": null,
-					"regex": null,
-					"acceptFileTypes": null,
-					"defaultOverride": {
-						"id": "V_String",
-						"params": ["Anglerfish"]
-					},
-					"textLanguageMode": null,
-					"symmetricalRef": false,
-					"autoChainRef": true,
-					"allowOutOfLevelRef": true,
-					"allowedRefs": "OnlySame",
-					"allowedRefsEntityUid": null,
-					"allowedRefTags": [],
-					"tilesetUid": null
-				},
-				{
 					"identifier": "ColorState",
 					"doc": null,
 					"__type": "LocalEnum.ColorState",
@@ -800,7 +760,47 @@
 					"acceptFileTypes": null,
 					"defaultOverride": {
 						"id": "V_String",
-						"params": ["Neutral"]
+						"params": ["Blue"]
+					},
+					"textLanguageMode": null,
+					"symmetricalRef": false,
+					"autoChainRef": true,
+					"allowOutOfLevelRef": true,
+					"allowedRefs": "OnlySame",
+					"allowedRefsEntityUid": null,
+					"allowedRefTags": [],
+					"tilesetUid": null
+				},
+				{
+					"identifier": "CreatureType",
+					"doc": null,
+					"__type": "LocalEnum.CreatureType",
+					"uid": 75,
+					"type": "F_Enum(15)",
+					"isArray": false,
+					"canBeNull": false,
+					"arrayMinLength": null,
+					"arrayMaxLength": null,
+					"editorDisplayMode": "Hidden",
+					"editorDisplayScale": 1,
+					"editorDisplayPos": "Above",
+					"editorLinkStyle": "StraightArrow",
+					"editorDisplayColor": null,
+					"editorAlwaysShow": false,
+					"editorShowInWorld": true,
+					"editorCutLongValues": true,
+					"editorTextSuffix": null,
+					"editorTextPrefix": null,
+					"useForSmartColor": false,
+					"exportToToc": false,
+					"searchable": false,
+					"min": null,
+					"max": null,
+					"regex": null,
+					"acceptFileTypes": null,
+					"defaultOverride": {
+						"id": "V_String",
+						"params": ["Anglerfish"]
 					},
 					"textLanguageMode": null,
 					"symmetricalRef": false,
@@ -2877,7 +2877,27 @@
 					"seed": 6461718,
 					"overrideTilesetUid": null,
 					"gridTiles": [],
-					"entityInstances": []
+					"entityInstances": [
+						{
+							"__identifier": "Sawfish",
+							"__grid": [35,27],
+							"__pivot": [0.5,0.5],
+							"__tags": [ "Creature", "Pathfinder" ],
+							"__tile": { "tilesetUid": 51, "x": 256, "y": 0, "w": 256, "h": 256 },
+							"__smartColor": "#2C98AB",
+							"iid": "163dcba0-21a0-11f1-a3f9-6da3c39a28c1",
+							"width": 256,
+							"height": 128,
+							"defUid": 20,
+							"px": [568,440],
+							"fieldInstances": [
+								{ "__identifier": "CreatureType", "__type": "LocalEnum.CreatureType", "__value": "Sawfish", "__tile": null, "defUid": 23, "realEditorValues": [] },
+								{ "__identifier": "ColorState", "__type": "LocalEnum.ColorState", "__value": "Neutral", "__tile": null, "defUid": 28, "realEditorValues": [] }
+							],
+							"__worldX": 568,
+							"__worldY": -640
+						}
+					]
 				},
 				{
 					"__identifier": "Floor_Interactables",
@@ -3002,6 +3022,25 @@
 							}] }],
 							"__worldX": 1056,
 							"__worldY": -664
+						},
+						{
+							"__identifier": "ColourOrb",
+							"__grid": [90,86],
+							"__pivot": [0,0],
+							"__tags": ["Floor_Interactable"],
+							"__tile": null,
+							"__smartColor": "#3E2731",
+							"iid": "1920c750-21a0-11f1-a3f9-8be6b0cb90bc",
+							"width": 70,
+							"height": 70,
+							"defUid": 52,
+							"px": [720,688],
+							"fieldInstances": [{ "__identifier": "ColorState", "__type": "LocalEnum.ColorState", "__value": "Red", "__tile": null, "defUid": 53, "realEditorValues": [{
+								"id": "V_String",
+								"params": ["Red"]
+							}] }],
+							"__worldX": 720,
+							"__worldY": -392
 						}
 					]
 				},

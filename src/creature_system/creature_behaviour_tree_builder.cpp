@@ -21,7 +21,29 @@ other behaviour in the list of children for that node.
 
 BehaviourTree CreatureBehaviourTreeBuilder::buildAnglerfishTree()
 {
-	return BehaviourTree();
+	BehaviourTreeBuilder builder;
+	int root_index =
+		Root(builder,
+			Selector(builder,
+				Decorator(builder, creatureBehaviourFunctions.isCreatureWithinPlayerBlueColourRadius,
+					Sequence(builder,
+						Action(builder, creatureBehaviourFunctions.makeBlue),
+						Action(builder, creatureBehaviourFunctions.aimAtTarget),
+						Action(builder, creatureBehaviourFunctions.aStarFollowTarget)
+					)
+				),
+				Decorator(builder, creatureBehaviourFunctions.isCreatureWithinPlayerRedColourRadius,
+					Sequence(builder,
+						Action(builder, creatureBehaviourFunctions.makeRed),
+						Action(builder, creatureBehaviourFunctions.aimAtTarget),
+						Action(builder, creatureBehaviourFunctions.aStarFollowTarget)
+					)
+				),
+				Action(builder, creatureBehaviourFunctions.stopCreatureMovement)
+			)
+		);
+
+	return builder.build(root_index);
 }
 
 BehaviourTree CreatureBehaviourTreeBuilder::buildCrabTree()
@@ -96,26 +118,18 @@ BehaviourTree CreatureBehaviourTreeBuilder::buildSawfishTree()
 						Action(builder, creatureBehaviourFunctions.makeRed)
 					)
 				),
-				Sequence(builder,
-					Selector(builder, 
-						Decorator(builder, creatureBehaviourFunctions.isCreatureWithinPlayerBlueColourRadius,
-							Action(builder, creatureBehaviourFunctions.makeBlue)
-						),
-						Action(builder, creatureBehaviourFunctions.returnSuccess)
-					),
-
-					Selector(builder,
-						Decorator(builder, creatureBehaviourFunctions.isInBlueState,
-							Sequence(builder,
-								Action(builder, creatureBehaviourFunctions.aimAtTarget),
-								Action(builder, creatureBehaviourFunctions.aStarFollowTarget)
-							)
-						),
-						Decorator(builder, creatureBehaviourFunctions.isInNeutralState,
-							Sequence(builder,
-								Action(builder, creatureBehaviourFunctions.aimAtTarget)
-							)
+				Selector(builder,
+					Decorator(builder, creatureBehaviourFunctions.isCreatureWithinPlayerBlueColourRadius,
+						Sequence(builder, 
+							Action(builder, creatureBehaviourFunctions.makeBlue),
+							Action(builder, creatureBehaviourFunctions.aimAtTarget),
+							Action(builder, creatureBehaviourFunctions.aStarFollowTarget)
 						)
+					),
+					Sequence(builder, 
+						Action(builder, creatureBehaviourFunctions.makeNeutral),
+						Action(builder, creatureBehaviourFunctions.stopCreatureMovement),
+						Action(builder, creatureBehaviourFunctions.aimAtTarget)
 					)
 				)
 			)

@@ -15,8 +15,10 @@ enum CREATURETYPE
 
 // Creature specific constants
 struct Anglerfish
-{ // could have a pointer to its ball of light?
+{
 };
+
+const float ANGLERFISH_FOLLOWING_SPEED = 2000.f;
 
 struct Crab
 {
@@ -30,7 +32,8 @@ struct Sawfish
 };
 
 const float SAWFISH_CHARGING_SPEED = 500.f;
-const float SAWFISH_WANDERING_SPEED = 500.f;
+const float SAWFISH_WANDERING_SPEED = 100.f;
+const float SAWFISH_FOLLOWING_SPEED = 10.f;
 
 enum SHRIMP_ARM_COLOUR
 {
