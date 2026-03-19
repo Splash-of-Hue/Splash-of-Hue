@@ -76,6 +76,7 @@ GLFWwindow* WorldSystem::create_window() {
 		std::cerr << "ERROR: Failed to glfwCreateWindow in world_system.cpp" << std::endl;
 		return nullptr;
 	}
+	registry.windows.insert(Entity(), { window });
 
 	return window;
 }
