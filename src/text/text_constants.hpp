@@ -13,7 +13,8 @@ struct Character
 
 enum class FONT_ID
 {
-	ALOJA_EXTENDED = 0,
+	ALOJA_EXTENDED = 0, // https://www.myfonts.com/collections/aloja-extended-font-wildones
+	BEAUTIDUL_HEARTBEAT, // https://chequered.ink/product/beautiful-heartbeat/
 	FONT_COUNT
 };
 const int font_count = (int)FONT_ID::FONT_COUNT;

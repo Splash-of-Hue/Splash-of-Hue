@@ -67,6 +67,25 @@ Entity CreatureCreator::createMinnows(const int level_uid, vec2 position, float 
     Entity minnows = Entity();
     
 	addGeneralCreatureComponents(level_uid, minnows, position, width, height, color_state, CREATURETYPE::MINNOWS, TEXTURE_ASSET_ID::MINNOW_01);
+    registry.renderRequests.remove(minnows); // Make sure the minnow overseer is not seen
+
+    BoidOverseer& minnow_overseer = registry.boidOverseers.emplace(minnows);
+    
+    for (int i = 0; i < NUM_MINNOWS; i++)
+    {
+        Entity minnow_follower;
+        registry.boid_minnows.emplace(minnow_follower);
+
+        addGeneralCreatureComponents(level_uid, minnow_follower, position, width, height, color_state, CREATURETYPE::MINNOWS, TEXTURE_ASSET_ID::MINNOW_01);
+
+        Collidable& collidable = registry.collidables.get(minnow_follower);
+        collidable.inelastic = true; // sophia note: we can change this to true
+        collidable.overlay = false;
+
+        vec2& scaleminnow = registry.scales.get(minnow_follower);
+        scaleminnow = vec2(0.5f * GRID_CELL_WIDTH_PX, 0.5f * GRID_CELL_HEIGHT_PX);
+    }
+
 
     CreatureBehaviour& creatureBehaviour = registry.creatureBehaviours.emplace(minnows);
     CreatureBehaviourTreeBuilder builder;
