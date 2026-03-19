@@ -61,3 +61,5 @@ constexpr float pathfinderMinDistToTarget(CREATURETYPE creatureType) {
 
 const float COOLDOWN_TIMER_DEFAULT = 3000.0f;
 const float TIMELIMIT_TIMER_DEFAULT = 3000.0f;
+
+const float DEGREES_DOWN = 90;
