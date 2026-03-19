@@ -2,6 +2,7 @@
 #include <vector>
 
 #include "animation/animation_components.hpp"
+#include "ai/ai_components.hpp"
 #include "camera/camera_components.hpp"
 #include "components.hpp"
 #include "controls/control_components.hpp"
@@ -25,6 +26,8 @@ class ECSRegistry
 public:
 	// Manually created list of all components this game has
 	// AI
+	ComponentContainer<BoidOverseer> boidOverseers;
+	ComponentContainer<Boid> boid_minnows; 
 	ComponentContainer<Charging> chargers;
 	ComponentContainer<CreatureBehaviour> creatureBehaviours;
 	ComponentContainer<CreatureBehaviourCooldown> creatureBehaviourCooldowns;
@@ -116,6 +119,8 @@ public:
 	ECSRegistry()
 	{
 		// AI
+		registry_list.push_back(&boidOverseers);
+		registry_list.push_back(&boid_minnows);
 		registry_list.push_back(&chargers);
 		registry_list.push_back(&creatureBehaviours);
 		registry_list.push_back(&creatureBehaviourCooldowns);
