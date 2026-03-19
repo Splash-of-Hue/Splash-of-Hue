@@ -268,21 +268,13 @@ void handle_hurt_collision(Entity& entity_i, Entity& entity_j) {
 		Entity& eP = registry.players.has(entity_i) ? entity_i : entity_j;
 		Entity& eS = registry.creatures.has(entity_i) ? entity_i : entity_j;
 		//make it so only sawfish kills
-		if (!registry.shrimps.has(eS))
+		if (!registry.shrimps.has(eS) && registry.colourStates.has(eS))
 		{
-			if (registry.colourStates.has(eS))
+			ColourState& csS = registry.colourStates.get(eS);
+			
+			if (csS.curr_colour_state == COLOUR_STATE::RED && registry.chargers.has(eS) && !registry.deathTimers.has(eP))
 			{
-				ColourState& csS = registry.colourStates.get(eS);
-				if (csS.curr_colour_state == COLOUR_STATE::RED)
-				{
-					if (registry.chargers.has(eS))
-					{
-						if (!registry.deathTimers.has(eP))
-						{
-							registry.deathTimers.emplace(eP);
-						}
-					}
-				}
+				registry.deathTimers.emplace(eP);
 			}
 		}
 	}
@@ -547,7 +539,7 @@ void movePolygon(PolygonMesh& polygon, vec2& pos) {
 	if (change_in_pos.x == 0 && change_in_pos.y == 0) {
 		return;
 	}
-	for(int i = 0; i < polygon.vertices.size(); i++) {
+	for (int i = 0; i < polygon.vertices.size(); i++) {
 		polygon.vertices[i] += change_in_pos;
 		polygon.base_vertices[i] += change_in_pos;
 	}
