@@ -237,7 +237,7 @@ void ColourSystem::applyColorToPlayer(COLOUR_STATE colour)
 		//TODO: https://trello.com/c/XWeiA55L/149-1-colour-menu-ui-always-visible
 		setEntityVisualColour(player, colour);
 		//We will create the players emission here, give it player-specific parameters, double link the emission and player, and then initialize it in emission_system.cpp
-		if (!registry.lightSources.has(player))
+		if (!registry.lightSources.has(player) && colour != COLOUR_STATE::NEUTRAL)
 		{
 			vec2 player_position = registry.positions.get(player);
 			Entity& emission_entity = createCircle(player_position, 1.f, RENDER_LAYER::PLAYER, DEFAULT_COLOUR_VEC4);
@@ -251,6 +251,9 @@ void ColourSystem::applyColorToPlayer(COLOUR_STATE colour)
 			light_emission_component.lightSourceEntity = player;
 			LightSource& light_source_component = registry.lightSources.emplace(player);
 			light_source_component.lightEmissionEntity = emission_entity;
+			//give the emission a level_uid
+			LevelEntity& level_entity_emission_component = registry.levelEntities.emplace(emission_entity);
+			level_entity_emission_component.level_uid = registry.currentLevels.get(player).level_uid;
 		}
 
 		if (!registry.colourIndicatorUIs.entities.empty())

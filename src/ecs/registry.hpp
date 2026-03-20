@@ -88,6 +88,7 @@ public:
 	ComponentContainer<PolygonMesh> polygons;
 	// Physics - Movement / Transforms
 	ComponentContainer<Angle> angles;
+	ComponentContainer<vec2> directions;
 	ComponentContainer<vec2> positions;
 	ComponentContainer<vec2> scales;
 	ComponentContainer<Size> sizes;
@@ -180,6 +181,7 @@ public:
 		registry_list.push_back(&polygons);
 		// Physics - Movement / Transforms
 		registry_list.push_back(&angles);
+		registry_list.push_back(&directions);
 		registry_list.push_back(&positions);
 		registry_list.push_back(&scales);
 		registry_list.push_back(&sizes);
