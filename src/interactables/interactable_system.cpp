@@ -68,9 +68,9 @@ void InteractableSystem::step_moss_toggle()
 		for (std::string& connected_wall_id : moss_toggle.connected_wall_ids)
 		{
 			const auto wall_id_match = [&](const Entity& colored_wall_entity)
-				{
-					return registry.colouredWall.get(colored_wall_entity).id == connected_wall_id;
-				};
+			{
+				return registry.colouredWall.get(colored_wall_entity).id == connected_wall_id;
+			};
 			auto& wall_entity_iterator = std::find_if(registry.colouredWall.entities.begin(), registry.colouredWall.entities.end(), wall_id_match);
 
 			if (wall_entity_iterator == registry.colouredWall.entities.end())
