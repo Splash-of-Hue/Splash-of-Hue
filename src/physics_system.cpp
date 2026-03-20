@@ -188,58 +188,6 @@ void light_emission_collisions(Entity& entity_i, Entity& entity_j)
 		else if (registry.interactables.has(source_entity))
 			addSpecificRadiusCollision(other_entity, light_emission_entity, registry.interactables, in_radius_component.inInteractableRadius, in_radius_component.interactableRadiusList);
 	}
-	//the button is a circle, is in an overlay? do we walk on top of the button?
-	//is it only our radius that affects the button?
-	//This assumed the button in a circle, and is an overlay, but since we send the rectangle
-	//to "change_behaviours," i need to implement this code
-	if (registry.mossToggles.has(entity_i) || registry.mossToggles.has(entity_j))
-	{
-		Entity& eT = registry.mossToggles.has(entity_i) ? entity_i : entity_j;
-		Entity& eO = registry.mossToggles.has(entity_j) ? entity_i : entity_j;
-		MossToggle& tT = registry.mossToggles.get(eT);
-
-		// Only the player can toggle things
-		if (!registry.lightEmissions.has(eO))
-		{
-			return;
-		}
-
-		if (registry.colourStates.has(eO))
-		{
-			ColourState& csO = registry.colourStates.get(eO);
-
-			// A neutral object does not toggle anything
-			if (csO.curr_colour_state == COLOUR_STATE::NEUTRAL)
-			{
-				return;
-			}
-
-			ColourState& csT = registry.colourStates.get(eT);
-
-			vec4& colT = registry.colors.get(eT);
-			vec4& colO = registry.colors.get(eO);
-			colT = colO;
-			csT.curr_colour_state = csO.curr_colour_state;
-
-			for (std::string& connected_wall_id : tT.connected_wall_ids)
-			{
-				const auto wall_id_match = [&](const Entity& colored_wall_entity) { return registry.colouredWall.get(colored_wall_entity).id == connected_wall_id; };
-				auto& wall_entity_iterator = std::find_if(registry.colouredWall.entities.begin(), registry.colouredWall.entities.end(), wall_id_match);
-
-				if (wall_entity_iterator == registry.colouredWall.entities.end())
-				{
-					continue;
-				}
-
-				ColourState& csTE = registry.colourStates.get(*wall_entity_iterator);
-				csTE.prev_colour_state = csTE.curr_colour_state;
-				csTE.curr_colour_state = csO.curr_colour_state;
-				vec4& colTE = registry.colors.get(*wall_entity_iterator);
-				colTE = vec4{ colO.r, colO.g, colO.b, colO.a };
-			}
-		}
-
-	}
 }
 void handle_hurt_collision(Entity& entity_i, Entity& entity_j) {
 

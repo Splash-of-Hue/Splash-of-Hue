@@ -49,6 +49,7 @@ class RenderSystem
 		textures_path("Anglerfish.png"),
 		textures_path("Coral Tree.png"),
 		textures_path("moss-sheet.png"),
+		textures_path("Moss_wall_neutral.png"),
 		textures_path("Rooms.png"),
 		textures_path("ui/selector.png"),
 		textures_path("ui/menu_corner.png"),
