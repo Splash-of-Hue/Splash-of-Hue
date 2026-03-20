@@ -43,6 +43,11 @@ BEHAVIOUR_TREE_STATUS CreatureBehaviourFunctions::makeNeutral(Entity& creature, 
 //  ===== Movement Action Nodes =====
 BEHAVIOUR_TREE_STATUS CreatureBehaviourFunctions::chargeAtPlayer(Entity& charger, float elapsed_ms)
 {
+	if (registry.players.size() == 0)
+	{
+		return BEHAVIOUR_TREE_STATUS::FAILURE;
+	}
+
 	Entity& targeted_entity = registry.players.entities[0];
 	vec2& charger_position = registry.positions.get(charger);
 	vec2& targeted_entity_position = registry.positions.get(targeted_entity);

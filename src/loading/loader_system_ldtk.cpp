@@ -6,6 +6,7 @@
 #include "loader_system.hpp"
 #include "loading_constants.hpp"
 #include "map/map_build_init.hpp"
+#include "player/player_components.hpp"
 #include "renderer/render_constants.hpp"
 #include <algorithm>
 #include <iostream>
@@ -28,8 +29,14 @@ void LoaderSystem::load_level(int level_uid)
 	}
 	std::cout << "Loading level ID " << level_uid << std::endl;
 
-	const auto level_match = [&](const Level& level) { return level.uid == level_uid; };
-	const auto level_entity_match = [&](Entity& entity) { return registry.levels.get(entity).uid == level_uid; };
+	const auto level_match = [&](const Level& level)
+	{
+		return level.uid == level_uid;
+	};
+	const auto level_entity_match = [&](Entity& entity)
+	{
+		return registry.levels.get(entity).uid == level_uid;
+	};
 	auto level_iterator = std::find_if(registry.levels.components.begin(), registry.levels.components.end(), level_match);
 	bool level_has_been_loaded_before = level_iterator != registry.levels.components.end();
 
@@ -72,6 +79,15 @@ void LoaderSystem::load_level(int level_uid)
 		level_component.background_color = vec4(level.bg_color.r, level.bg_color.g, level.bg_color.b, level.bg_color.a) / 255.0f;
 	}
 
+	// Create the player if we haven't already
+	if (registry.players.size() == 0)
+	{
+		vec2 initial_player_position = get_initial_player_position(level);
+		// Request a player be made
+		Entity player_create_request_entity;
+		registry.playerCreateRequests.insert(player_create_request_entity, { level.uid, initial_player_position });
+	}
+
 	// get a layer
 	const auto& level_layers = level.allLayers();
 
@@ -91,7 +107,7 @@ void LoaderSystem::load_level(int level_uid)
 				continue;
 		}
 	}
-	
+
 	// TODO rUJfFQQT: This is extremely inefficient. Use polygons to better improve this
 	std::vector<Entity> level_wall_tile_entities;
 	for (Entity& level_tile_entity : registry.levelTiles.entities)
@@ -105,7 +121,7 @@ void LoaderSystem::load_level(int level_uid)
 	const int level_quantize_size = level.getLayer("Floor").getCellSize();
 	const ivec2 quantize_grid_size = ivec2(WINDOW_WIDTH_PX / level_quantize_size, WINDOW_HEIGHT_PX / level_quantize_size);
 	std::unordered_map<ivec2, std::pair<vec2, bool>> quantized_floor_data;
-	
+
 	for (int grid_x = 0; grid_x < quantize_grid_size.x; grid_x++)
 	{
 		for (int grid_y = 0; grid_y < quantize_grid_size.y; grid_y++)
@@ -148,7 +164,28 @@ void LoaderSystem::load_level(int level_uid)
 	registry.screenStates.components[0].background_color = level_component.background_color;
 	// Make the camera request at the end of loading
 	Entity change_camera_request;
-	registry.changeCameraTargetRequests.insert(change_camera_request, { registry.positions.get(level_entity), LDTK_CAMERA_ROOM_SPEED});
+	registry.changeCameraTargetRequests.insert(change_camera_request, { registry.positions.get(level_entity), LDTK_CAMERA_ROOM_SPEED });
+}
+
+vec2 get_initial_player_position(const ldtk::Level& level)
+{
+	const ldtk::Layer& extra_entities_layer = level.getLayer("Extra_Entities");
+	vec2 initial_position = vec2(0);
+
+	if (extra_entities_layer.hasEntity("Initial_Position"))
+	{
+		// There is a defined initial position, use that
+		const ldtk::Entity& initial_position_entity = extra_entities_layer.getEntitiesByName("Initial_Position")[0].get();
+		const ldtk::IntPoint& initial_world_position = initial_position_entity.getWorldPosition();
+		vec2 initial_player_position = vec2(initial_world_position.x, initial_world_position.y);
+	}
+	else
+	{
+		// Use level center
+		initial_position = vec2(level.position.x, level.position.y) + vec2(level.size.x, level.size.y) / 2.0f;
+	}
+
+	return scale_to_level(initial_position);
 }
 
 void load_tile_layer(const ldtk::Layer& layer)
@@ -232,9 +269,6 @@ void load_extra_entities(const ldtk::Layer& layer)
 
 		switch (extra_entity_type)
 		{
-			case ENTITY_TYPE::INITIAL_POSITION:
-				initialize_player(extra_entity);
-				continue;
 			case ENTITY_TYPE::WALL:
 				load_wall(extra_entity);
 				continue;
@@ -245,16 +279,6 @@ void load_extra_entities(const ldtk::Layer& layer)
 				continue;
 		}
 	}
-}
-
-void initialize_player(const ldtk::Entity& initial_player_position_entity)
-{
-	int level_uid = initial_player_position_entity.layer->level->uid;
-	const ldtk::IntPoint& initial_player_world_position = initial_player_position_entity.getWorldPosition();
-	vec2 initial_player_position = scale_to_level(vec2(initial_player_world_position.x, initial_player_world_position.y));
-	// Request a player be made
-	Entity player_create_request_entity;
-	registry.playerCreateRequests.insert(player_create_request_entity, { level_uid, initial_player_position });
 }
 
 void load_creatures(const ldtk::Layer& layer)
@@ -390,7 +414,10 @@ void load_teleporter(const ldtk::Entity& teleporter_entity)
 	);
 
 	// Add the connected level UIDs as neighbours to the current level (which must exist at this point)
-	const auto level_match = [&](const Level& level) { return level.uid == level_uid; };
+	const auto level_match = [&](const Level& level)
+	{
+		return level.uid == level_uid;
+	};
 	Level& level = *std::find_if(registry.levels.components.begin(), registry.levels.components.end(), level_match);
 	level.neighbor_level_uids.insert(connected_level_uid);
 }
@@ -403,7 +430,7 @@ void load_moss_toggle(const ldtk::Entity& moss_toggle_entity)
 	const vec2 scaled_size = scale_to_level(vec2(size.x, size.y));
 	const ldtk::ArrayField<ldtk::EntityRef>& wall_entity_ref_fields = moss_toggle_entity.getField<ldtk::FieldType::ArrayEntityRef>("ConnectedWalls");
 	std::vector<std::string> connected_wall_ids;
-	
+
 	for (const ldtk::Field<ldtk::EntityRef>& wall_entity_ref_field : wall_entity_ref_fields)
 	{
 		const ldtk::EntityRef wall_entity_ref = wall_entity_ref_field.value();
@@ -456,10 +483,14 @@ void load_colour_orb(const ldtk::Entity& colour_orb_entity)
 	const COLOUR_STATE colour_state = color_state_from_string(color_state_field.value().name);
 
 	// Don't spawn it if the player has the abilities
-	const Player& player = registry.players.components[0];
-	if (player.blue_unlocked && colour_state == COLOUR_STATE::BLUE || player.red_unlocked && colour_state == COLOUR_STATE::RED)
+	if (registry.players.size() > 0)
 	{
-		return;
+		const Player& player = registry.players.components[0];
+
+		if (player.blue_unlocked && colour_state == COLOUR_STATE::BLUE || player.red_unlocked && colour_state == COLOUR_STATE::RED)
+		{
+			return;
+		}
 	}
 
 	const ldtk::IntPoint& world_pos = colour_orb_entity.getWorldPosition();
@@ -503,7 +534,10 @@ void load_mushroom(const ldtk::Entity& mushroom_entity)
 void LoaderSystem::unload_level(int level_uid)
 {
 	// Try to find the level component
-	const auto level_match = [&](const Level& level) { return level.uid == level_uid; };
+	const auto level_match = [&](const Level& level)
+	{
+		return level.uid == level_uid;
+	};
 	auto& level_iterator = std::find_if(registry.levels.components.begin(), registry.levels.components.end(), level_match);
 	std::cout << "Unloading level ID " << level_uid;
 

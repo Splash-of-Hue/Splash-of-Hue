@@ -1,4 +1,5 @@
 #pragma once
+#include "LDtkLoader/Level.hpp"
 #include "loading_constants.hpp"
 #include <LDtkLoader/Entity.hpp>
 #include <LDtkLoader/Layer.hpp>
@@ -26,8 +27,8 @@ void load_colour_orb(const ldtk::Entity& colour_orb_entity);
 void load_box(const ldtk::Entity& box_entity);
 void load_mushroom(const ldtk::Entity& mushroom_entity);
 // Entities - Extras
+vec2 get_initial_player_position(const ldtk::Level& level);
 void load_extra_entities(const ldtk::Layer& layer);
-void initialize_player(const ldtk::Entity& initial_player_position_entity);
 void load_wall(const ldtk::Entity& wall_entity);
 
 const inline vec2 scale_to_level(vec2 input)

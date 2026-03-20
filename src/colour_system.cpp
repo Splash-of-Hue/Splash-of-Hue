@@ -83,7 +83,7 @@ void ColourSystem::openColourMenu()
 	vec2 bottom_right = vec2(WINDOW_WIDTH_PX * 0.20f, WINDOW_HEIGHT_PX * 0.85f);
 
 	COLOUR_STATE initial_colour = COLOUR_STATE::NEUTRAL;
-	if (!registry.players.entities.empty()) {
+	if (registry.players.size() > 0) {
 		Entity player = registry.players.entities[0];
 		if (registry.colourStates.has(player)) {
 			initial_colour = registry.colourStates.get(player).curr_colour_state;
@@ -113,7 +113,7 @@ void ColourSystem::closeColourMenu()
 	registry.remove_all_components_of(colour_menu_entity);
 
 	// apply colour to player
-	assert(!registry.players.entities.empty() && "Player should exist when closing colour menu");
+	assert(registry.players.size() > 0 && "Player should exist when closing colour menu");
 	Entity& player = registry.players.entities[0];
 
 	if (!registry.colourStates.has(player)) {
@@ -205,7 +205,7 @@ vec4 ColourSystem::getPaletteColour(COLOUR_STATE state) {
 
 void ColourSystem::applyColorToPlayer(COLOUR_STATE colour)
 {
-	if (registry.players.entities.empty()) {
+	if (registry.players.size() == 0) {
 		return;
 	}
 

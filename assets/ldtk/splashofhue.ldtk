@@ -1337,6 +1337,43 @@
 					"allowedRefsEntityUid": 48,
 					"allowedRefTags": [],
 					"tilesetUid": null
+				},
+				{
+					"identifier": "ColorState",
+					"doc": null,
+					"__type": "LocalEnum.ColorState",
+					"uid": 50,
+					"type": "F_Enum(26)",
+					"isArray": false,
+					"canBeNull": false,
+					"arrayMinLength": null,
+					"arrayMaxLength": null,
+					"editorDisplayMode": "ValueOnly",
+					"editorDisplayScale": 0.99,
+					"editorDisplayPos": "Above",
+					"editorLinkStyle": "StraightArrow",
+					"editorDisplayColor": null,
+					"editorAlwaysShow": true,
+					"editorShowInWorld": true,
+					"editorCutLongValues": true,
+					"editorTextSuffix": null,
+					"editorTextPrefix": null,
+					"useForSmartColor": true,
+					"exportToToc": false,
+					"searchable": false,
+					"min": null,
+					"max": null,
+					"regex": null,
+					"acceptFileTypes": null,
+					"defaultOverride": null,
+					"textLanguageMode": null,
+					"symmetricalRef": false,
+					"autoChainRef": true,
+					"allowOutOfLevelRef": true,
+					"allowedRefs": "OnlySame",
+					"allowedRefsEntityUid": null,
+					"allowedRefTags": [],
+					"tilesetUid": null
 				}
 			]
 		},
@@ -2332,6 +2369,25 @@
 							"fieldInstances": [{ "__identifier": "ControlPictureType", "__type": "LocalEnum.ControlPictureType", "__value": "WASD", "__tile": null, "defUid": 65, "realEditorValues": [] }],
 							"__worldX": 896,
 							"__worldY": 424
+						},
+						{
+							"__identifier": "Mushroom",
+							"__grid": [76,59],
+							"__pivot": [0.5,0.5],
+							"__tags": ["Floor_Interactable"],
+							"__tile": null,
+							"__smartColor": "#3E8948",
+							"iid": "5c74f990-21a0-11f1-8d14-55c5f7658068",
+							"width": 100,
+							"height": 100,
+							"defUid": 66,
+							"px": [612,476],
+							"fieldInstances": [
+								{ "__identifier": "ColorState", "__type": "LocalEnum.ColorState", "__value": "Neutral", "__tile": null, "defUid": 68, "realEditorValues": [] },
+								{ "__identifier": "MushroomSize", "__type": "LocalEnum.MushroomSize", "__value": "Medium", "__tile": null, "defUid": 70, "realEditorValues": [] }
+							],
+							"__worldX": 612,
+							"__worldY": 476
 						}
 					]
 				},
@@ -3196,6 +3252,25 @@
 							}] }],
 							"__worldX": 1056,
 							"__worldY": -664
+						},
+						{
+							"__identifier": "ColourOrb",
+							"__grid": [72,74],
+							"__pivot": [0,0],
+							"__tags": ["Floor_Interactable"],
+							"__tile": null,
+							"__smartColor": "#3E2731",
+							"iid": "48e06ce0-21a0-11f1-85f2-4b7b18260e20",
+							"width": 70,
+							"height": 70,
+							"defUid": 52,
+							"px": [576,592],
+							"fieldInstances": [{ "__identifier": "ColorState", "__type": "LocalEnum.ColorState", "__value": "Red", "__tile": null, "defUid": 53, "realEditorValues": [{
+								"id": "V_String",
+								"params": ["Red"]
+							}] }],
+							"__worldX": 576,
+							"__worldY": -488
 						}
 					]
 				},
@@ -8373,7 +8448,12 @@
 								}, {
 									"id": "V_String",
 									"params": ["756710b0-fa90-11f0-9290-8ba1d3a481bf"]
-							} ] }],
+								} ] },
+								{ "__identifier": "ColorState", "__type": "LocalEnum.ColorState", "__value": "Red", "__tile": null, "defUid": 50, "realEditorValues": [{
+									"id": "V_String",
+									"params": ["Red"]
+								}] }
+							],
 							"__worldX": 3180,
 							"__worldY": -1700
 						},
