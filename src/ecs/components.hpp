@@ -108,7 +108,7 @@ struct Toggle
 struct PolygonMesh 
 {
 	std::vector<vec2> vertices;
-	std::vector<vec2> base_vertices;
+	std::vector<vec2> base_vertices; //vertices before rotation
 	vec2 centre;
 };
 

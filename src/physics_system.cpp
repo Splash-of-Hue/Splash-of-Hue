@@ -416,7 +416,7 @@ PolygonMesh findHitbox(const Entity& e)
 	vertices.push_back({ vec2(pos.x + half_width, pos.y - half_height) }); // bottom
 	vertices.push_back(vec2(pos.x + half_width, pos.y + half_height)); // top right
 	vertices.push_back(vec2(pos.x - half_width, pos.y + half_height)); // top left
-	PolygonMesh& polygon = PolygonMesh{ vertices, vertices, pos };
+	PolygonMesh polygon = PolygonMesh{ vertices, vertices, pos };
 
 	return polygon;
 }
@@ -489,25 +489,32 @@ vec3 axisCollision(PolygonMesh& a, PolygonMesh& b)
 	return penetration;
 }
 
-vec3 mesh_collides(const Entity& entity1, const Entity& entity2)
+vec3 mesh_collides(const Entity& entity1, const Entity& entity2,  bool isHurtCollision) 
 {
-	PolygonMesh a;
-	PolygonMesh b;
-	if (registry.polygons.has(entity1)) {
-		a = registry.polygons.get(entity1);
+	PolygonMesh entity1_mesh;
+	PolygonMesh entity2_mesh;
+	if (registry.hitboxes.has(entity1)) {
+		entity1_mesh = registry.hitboxes.get(entity1);
+	} else 
+	{
+		entity1_mesh = findHitbox(entity1);
+	}
+	if (registry.hitboxes.has(entity2)) {
+		entity2_mesh = registry.hitboxes.get(entity2);
 	}
 	else
 	{
-		a = findHitbox(entity1);
+		entity2_mesh = findHitbox(entity2);
+	} 
+	if (isHurtCollision) {
+		if (registry.hurtboxes.has(entity1)) {
+			entity1_mesh = registry.hurtboxes.get(entity1);
+		}
+		if (registry.hurtboxes.has(entity2)) {
+			entity2_mesh = registry.hurtboxes.get(entity2);
+		}
 	}
-	if (registry.polygons.has(entity2)) {
-		b = registry.polygons.get(entity2);
-	}
-	else
-	{
-		b = findHitbox(entity2);
-	}
-	return (axisCollision(a, b));
+	return (axisCollision(entity1_mesh, entity2_mesh));
 }
 
 void handle_inelastic_collision_mesh(Entity& entity_i, Entity& entity_j, vec3 penetration)
@@ -559,7 +566,7 @@ void rotatePolygon(PolygonMesh& polygon, float radAngle) {
 		vec2 dist_from_centre = polygon.base_vertices[i] - polygon.centre;
 		float rotated_x = dist_from_centre.x * c + dist_from_centre.y * s;
 		float rotated_y = dist_from_centre.x * s - dist_from_centre.y * c;
-		polygon.vertices[i] = polygon.centre + vec2{ rotated_x, rotated_y };
+		polygon.vertices[i] = polygon.centre + vec2( rotated_x, rotated_y );
 	}
 }
 
@@ -599,13 +606,25 @@ void PhysicsSystem::step(float elapsed_ms)
 			}
 			//if passes AABB check, then try mesh collision
 			if (box_collides(entity_i, entity_j)) {
-
-				if (registry.polygons.has(entity_i) || registry.polygons.has(entity_j))
+				if (registry.hurtboxes.has(entity_i) || registry.hurtboxes.has(entity_j))
 				{
-					vec3 penetration = mesh_collides(entity_i, entity_j);
+					vec3 penetration = mesh_collides(entity_i, entity_j, true);
 
 					if (penetration.x != 0) {
 
+						handle_hurt_collision(entity_i, entity_j);
+						if (registry.collidables.get(entity_i).inelastic && registry.collidables.get(entity_j).inelastic)
+						{
+							handle_inelastic_collision_mesh(entity_i, entity_j, penetration);
+						}
+					}
+				}
+
+				if (registry.hitboxes.has(entity_i) || registry.hitboxes.has(entity_j))
+				{
+					vec3 penetration = mesh_collides(entity_i, entity_j, false);
+
+					if (penetration.x != 0) {
 						if (is_light_emission_collision(entity_i, entity_j))
 						{
 							light_emission_collisions(entity_i, entity_j);
@@ -665,13 +684,19 @@ void PhysicsSystem::handle_movement(float elapsed_ms)
 		float step = elapsed_ms * ONE_THOUSANDTH;
 		pos += (vel * step);
 
-		if (registry.polygons.has(e)) {
-			movePolygon(registry.polygons.get(e), pos);
+		if (registry.hitboxes.has(e)) {
+			movePolygon(registry.hitboxes.get(e), pos);
+		}
+		if (registry.hurtboxes.has(e)) {
+			movePolygon(registry.hurtboxes.get(e), pos);
 		}
 		if (registry.angles.has(e)) {
 			float radAngle = registry.angles.get(e).degrees * M_PI / 180.f;
-			if (registry.polygons.has(e)) {
-				rotatePolygon(registry.polygons.get(e), radAngle);
+			if (registry.hitboxes.has(e)) {
+				rotatePolygon(registry.hitboxes.get(e), radAngle);
+			}
+			if (registry.hurtboxes.has(e)) {
+				rotatePolygon(registry.hurtboxes.get(e), radAngle);
 			}
 		}
 	}

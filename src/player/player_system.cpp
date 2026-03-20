@@ -56,7 +56,7 @@ void PlayerSystem::create_player(int level_uid, vec2 position)
 	Collidable& collidable = registry.collidables.emplace(player_entity);
 	collidable.inelastic = true;
 	// Add mesh to player, default is triangle
-	PolygonMesh& polygon = registry.polygons.emplace(player_entity);
+	PolygonMesh& polygon = registry.hitboxes.emplace(player_entity);
 	polygon.centre = position;
 	polygon.vertices.push_back(vec2(position.x, position.y - size.height * 0.15f)); // bottom
 	polygon.vertices.push_back(vec2(position.x + size.width * 0.45f, position.y + size.height * 0.45f)); // top right
