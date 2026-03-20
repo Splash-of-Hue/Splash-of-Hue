@@ -11,7 +11,7 @@
 	"iid": "53e64810-d380-11f0-a1bc-4d26a5cd15e3",
 	"jsonVersion": "1.5.3",
 	"appBuildId": 473703,
-	"nextUid": 90,
+	"nextUid": 91,
 	"identifierStyle": "Capitalize",
 	"toc": [{
 		"identifier": "Teleporter",
@@ -762,6 +762,43 @@
 						"id": "V_String",
 						"params": ["Neutral"]
 					},
+					"textLanguageMode": null,
+					"symmetricalRef": false,
+					"autoChainRef": true,
+					"allowOutOfLevelRef": true,
+					"allowedRefs": "OnlySame",
+					"allowedRefsEntityUid": null,
+					"allowedRefTags": [],
+					"tilesetUid": null
+				},
+				{
+					"identifier": "Direction",
+					"doc": null,
+					"__type": "LocalEnum.Direction",
+					"uid": 90,
+					"type": "F_Enum(37)",
+					"isArray": false,
+					"canBeNull": false,
+					"arrayMinLength": null,
+					"arrayMaxLength": null,
+					"editorDisplayMode": "Hidden",
+					"editorDisplayScale": 1,
+					"editorDisplayPos": "Above",
+					"editorLinkStyle": "StraightArrow",
+					"editorDisplayColor": null,
+					"editorAlwaysShow": false,
+					"editorShowInWorld": true,
+					"editorCutLongValues": true,
+					"editorTextSuffix": null,
+					"editorTextPrefix": null,
+					"useForSmartColor": false,
+					"exportToToc": false,
+					"searchable": false,
+					"min": null,
+					"max": null,
+					"regex": null,
+					"acceptFileTypes": null,
+					"defaultOverride": null,
 					"textLanguageMode": null,
 					"symmetricalRef": false,
 					"autoChainRef": true,
@@ -2260,7 +2297,31 @@
 					"seed": 8380983,
 					"overrideTilesetUid": null,
 					"gridTiles": [],
-					"entityInstances": []
+					"entityInstances": [
+						{
+							"__identifier": "Crab",
+							"__grid": [41,24],
+							"__pivot": [0.5,1],
+							"__tags": ["Creature"],
+							"__tile": null,
+							"__smartColor": "#E43B44",
+							"iid": "9c1f0620-21a0-11f1-b693-ef9814390208",
+							"width": 128,
+							"height": 128,
+							"defUid": 17,
+							"px": [664,400],
+							"fieldInstances": [
+								{ "__identifier": "CreatureType", "__type": "LocalEnum.CreatureType", "__value": "JPCrab", "__tile": null, "defUid": 18, "realEditorValues": [] },
+								{ "__identifier": "ColorState", "__type": "LocalEnum.ColorState", "__value": "Neutral", "__tile": null, "defUid": 27, "realEditorValues": [] },
+								{ "__identifier": "Direction", "__type": "LocalEnum.Direction", "__value": "Down", "__tile": null, "defUid": 90, "realEditorValues": [{
+									"id": "V_String",
+									"params": ["Down"]
+								}] }
+							],
+							"__worldX": 664,
+							"__worldY": 400
+						}
+					]
 				},
 				{
 					"__identifier": "Floor_Interactables",
