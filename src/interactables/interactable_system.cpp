@@ -52,9 +52,12 @@ void InteractableSystem::handle_mushrooms(Entity& mushroom_entity)
 {
     InRadius& in_radius_component = registry.inRadius.get(mushroom_entity);
     ColourState& mushroom_colour_state = registry.colourStates.get(mushroom_entity);
-    COLOUR_STATE colour_state = change_colour_given_priority(in_radius_component.inCreatureRadius, in_radius_component.creatureRadiusList,
-                                                             in_radius_component.inPlayerRadius, in_radius_component.playerRadiusList,
-                                                             in_radius_component.inInteractableRadius, in_radius_component.interactableRadiusList);
+
+    COLOUR_STATE colour_state = change_colour_given_priority({
+        {in_radius_component.inCreatureRadius, in_radius_component.creatureRadiusList},
+        {in_radius_component.inPlayerRadius, in_radius_component.playerRadiusList},
+        {in_radius_component.inInteractableRadius, in_radius_component.interactableRadiusList}
+     });
 
     if (mushroom_colour_state.curr_colour_state != colour_state)
     {
@@ -66,6 +69,8 @@ void InteractableSystem::handle_mushrooms(Entity& mushroom_entity)
     {
         vec2 mushroom_position = registry.positions.get(mushroom_entity);
         Entity& emission_entity = createCircle(mushroom_position, 1.f, RENDER_LAYER::FLOOR_INTERACTABLES, DEFAULT_COLOUR_VEC4);
+        registry.scales.emplace(emission_entity);
+
         LightEmission& light_emission_component = registry.lightEmissions.emplace(emission_entity);
 
         switch (registry.mushrooms.get(mushroom_entity).size)
@@ -87,20 +92,36 @@ void InteractableSystem::handle_mushrooms(Entity& mushroom_entity)
         light_emission_component.lightSourceEntity = mushroom_entity;
         LightSource& light_source_component = registry.lightSources.emplace(mushroom_entity);
         light_source_component.lightEmissionEntity = emission_entity;
-        
+        //assign the emission to a level
+        LevelEntity& level_entity_mushroom_component = registry.levelEntities.get(mushroom_entity);
+        LevelEntity& level_entity_emission_component = registry.levelEntities.emplace(emission_entity);
+        level_entity_emission_component.level_uid = level_entity_mushroom_component.level_uid;
     }
     //Todo: when the mushroom assets are created, uncomment this line https://trello.com/c/sAosXtPo/98-1-animation-mushroom
     //setEntityVisualColour(mushroom_entity, colour_state);
 }
 
 //Returns the colour state of the highest-priority radius type (Player, Creature, Interactable)
-COLOUR_STATE InteractableSystem::change_colour_given_priority( bool& inRadius1, std::vector<Entity>& radiusList1, bool& inRadius2, std::vector<Entity>& radiusList2, bool& inRadius3, std::vector<Entity>& radiusList3)
+COLOUR_STATE InteractableSystem::change_colour_given_priority(std::multimap<bool, std::vector<Entity>> radiiList)
 {
-    if (inRadius1)
-        return registry.colourStates.get(radiusList1[0]).curr_colour_state;
-    else if (inRadius2)
-       return registry.colourStates.get(radiusList2[0]).curr_colour_state;
-    else if (inRadius3)
-       return registry.colourStates.get(radiusList3[0]).curr_colour_state;
+    for (std::pair<bool, std::vector<Entity>> radiusList : radiiList)
+    {
+        if (radiusList.first && has_valid_emission(radiusList.second))
+        {
+            return registry.colourStates.get(radiusList.second[0]).curr_colour_state;
+        }
+    }
+
     return COLOUR_STATE::NEUTRAL;
+}
+
+bool InteractableSystem::has_valid_emission(std::vector<Entity>& radiusList)
+{
+    for (Entity& emission_entity : radiusList)
+    {
+        if (registry.colourStates.has(emission_entity))
+            return true;
+    }
+
+    return false;
 }

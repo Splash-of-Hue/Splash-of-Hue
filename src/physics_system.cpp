@@ -174,7 +174,7 @@ void light_emission_collisions(Entity& entity_i, Entity& entity_j)
 		return;
 	}
 	//These three conditions should cover everything we want and don't want to be affect by emissions. Keep an eye on this as more entities are created.
-	if (registry.colourStates.has(other_entity) && !registry.lightEmissions.has(other_entity) && !registry.players.has(other_entity))
+	if (registry.colourStates.has(other_entity) && !registry.lightEmissions.has(other_entity) && !registry.players.has(other_entity) && !registry.colouredWall.has(other_entity))
 	{
 		// Example: if its a player radius, set inPlayerRadius to true, and add the radius entity to playerRadius
 		Entity& source_entity = registry.lightEmissions.get(light_emission_entity).lightSourceEntity;

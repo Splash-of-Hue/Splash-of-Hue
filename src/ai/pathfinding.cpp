@@ -54,6 +54,17 @@ bool direct_line_next_step(float elapsed_ms, Entity& follower)
 	}
 
 	follower_velocity = { norm_x * max_speed, norm_y * max_speed };
+
+	switch (registry.creatures.get(follower).creatureType)
+	{
+		case CREATURETYPE::SAWFISH:
+			follower_velocity *= SAWFISH_FOLLOWING_SPEED;
+			break;
+		case CREATURETYPE::ANGLERFISH:
+			follower_velocity *= ANGLERFISH_FOLLOWING_SPEED;
+			break;
+	}
+
 	return false;
 }
 

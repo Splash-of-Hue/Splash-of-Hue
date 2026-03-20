@@ -2,10 +2,4 @@
 #include "common.hpp"
 #include "creature_system/creature_behaviour_functions.hpp"
 
-/*
-
-ANGLERFISH-SPECIFIC BEHAVIOUR FUNCTIONS WILL GO HERE
-
-Trello 0dTrDDAQ
-
-*/
+//i dont think the anglerfish needs any specific functions. It's emission is created in the createAnglerfish function
