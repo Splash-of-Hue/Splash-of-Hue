@@ -11,6 +11,10 @@ class InteractableSystem : public SystemInterface
 public:
 	void step(float elapsed_ms);
 private:
+	void step_moss_toggle();
+	void step_colour_orbs();
+	void step_mushrooms();
 	void handle_mushrooms(Entity& mushroom_entity);
-	COLOUR_STATE change_colour_given_priority(bool& inRadius1, std::vector<Entity>& radiusList1, bool& inRadius2, std::vector<Entity>& radiusList2, bool& inRadius3, std::vector<Entity>& radiusList3);
+	bool has_valid_emission(std::vector<Entity>& radiusList);
+	COLOUR_STATE change_colour_given_priority(std::multimap<bool, std::vector<Entity>> radiiList);
 };
