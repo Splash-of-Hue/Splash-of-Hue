@@ -357,7 +357,7 @@ Entity CreatureCreator::createSawfish(const int level_uid, vec2 position, float 
     PolygonMesh& sawfish_hurtbox = registry.hurtboxes.emplace(sawfish);
     sawfish_hurtbox.vertices.push_back(vec2(position.x + hitbox_width, position.y - hitbox_height));
     sawfish_hurtbox.vertices.push_back(vec2(position.x + hitbox_width, position.y + hitbox_height));
-    sawfish_hurtbox.vertices.push_back(vec2(position.x + (hitbox_width*2), position.y));
+    sawfish_hurtbox.vertices.push_back(vec2(position.x + (hitbox_width*2), position.y)); //tip of sawfish nose
     sawfish_hurtbox.centre = position;
     sawfish_hurtbox.base_vertices = sawfish_hurtbox.vertices;
 
