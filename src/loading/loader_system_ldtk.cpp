@@ -151,7 +151,7 @@ void LoaderSystem::load_level(int level_uid)
 		level_component.is_visited = true;
 		is_initial_load = false;
 	}
-	else if (!registry.players.entities.empty())
+	else if (!level_has_been_loaded_before && !registry.players.entities.empty())
 	{
 		Entity player_entity = registry.players.entities[0];
 		if (registry.currentLevels.has(player_entity) &&
