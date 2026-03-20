@@ -600,7 +600,7 @@ void PhysicsSystem::step(float elapsed_ms)
 				}
 				continue;
 			}
-			//no mesh, so use box collision
+			//no mesh, so use box collision 
 			if (box_collides(entity_i, entity_j))
 			{
 				if (is_light_emission_collision(entity_i, entity_j))
@@ -610,16 +610,20 @@ void PhysicsSystem::step(float elapsed_ms)
 				else {
 					handle_misc_collision(entity_i, entity_j);
 				}
-				//must both be inelastic for this collision resolution to occur
-				if (registry.collidables.get(entity_i).inelastic && registry.collidables.get(entity_j).inelastic)
+				//breaking a box still runs this code, so we gotta check if the entity still exists
+				if(registry.collidables.has(entity_i) && registry.collidables.has(entity_j))
 				{
-					if (!registry.creatureInelasticCollisions.has(entity_j) && registry.creatures.has(entity_j)) {
-						registry.creatureInelasticCollisions.emplace(entity_j);
+					//must both be inelastic for this collision resolution to occur
+					if (registry.collidables.get(entity_i).inelastic && registry.collidables.get(entity_j).inelastic)
+					{
+						if (!registry.creatureInelasticCollisions.has(entity_j) && registry.creatures.has(entity_j)) {
+							registry.creatureInelasticCollisions.emplace(entity_j);
+						}
+						if (!registry.creatureInelasticCollisions.has(entity_i) && registry.creatures.has(entity_i)) {
+							registry.creatureInelasticCollisions.emplace(entity_i);
+						}
+						handle_inelastic_collision_box(entity_i, entity_j);
 					}
-					if (!registry.creatureInelasticCollisions.has(entity_i) && registry.creatures.has(entity_i)) {
-						registry.creatureInelasticCollisions.emplace(entity_i);
-					}
-					handle_inelastic_collision_box(entity_i, entity_j);
 				}
 			}
 		}
