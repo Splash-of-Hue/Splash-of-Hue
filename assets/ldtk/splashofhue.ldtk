@@ -136,7 +136,7 @@
 				"levelIid": "8cc5c580-21a0-11f1-8ff7-79858a2ab6bd",
 				"layerIid": "8cc5ec91-21a0-11f1-8ff7-f7e14e2f73f5",
 				"entityIid": "31c8e590-21a0-11f1-9102-4169f5ff0a98"
-			}, "worldX": 9180, "worldY": 1644, "widPx": 32, "heiPx": 168, "fields" : {} },
+			}, "worldX": 9428, "worldY": 1676, "widPx": 32, "heiPx": 168, "fields" : {} },
 			{ "iids": {
 				"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787",
 				"levelIid": "9451afd0-21a0-11f1-8ff7-c7ab6b402ea1",
@@ -13198,7 +13198,7 @@
 						},
 						{
 							"__identifier": "Teleporter",
-							"__grid": [187,70],
+							"__grid": [218,74],
 							"__pivot": [0.5,0.5],
 							"__tags": ["Floor_Interactable"],
 							"__tile": null,
@@ -13207,7 +13207,7 @@
 							"width": 32,
 							"height": 168,
 							"defUid": 12,
-							"px": [1500,564],
+							"px": [1748,596],
 							"fieldInstances": [
 								{ "__identifier": "ConnectedTeleporter", "__type": "EntityRef", "__value": {
 									"entityIid": "44bd0a00-21a0-11f1-9102-b31fc2abfe21",
@@ -13224,8 +13224,8 @@
 									"params": ["Left"]
 								}] }
 							],
-							"__worldX": 9180,
-							"__worldY": 1644
+							"__worldX": 9428,
+							"__worldY": 1676
 						},
 						{
 							"__identifier": "Box",
