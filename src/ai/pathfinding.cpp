@@ -40,30 +40,21 @@ bool direct_line_next_step(float elapsed_ms, Entity& follower)
 
 	// Sqrt only when moving for normalization
 	float distance = std::sqrt(distance_squared);
+	distance = min(75.f, distance);
 	float norm_x = dx / distance;
 	float norm_y = dy / distance;
 
 	// Slow down when approaching the player so there isn't an abrupt stop
 	float slow_radius = pathfinder_component.minimum_distance_to_target * 3.f;
 	float max_speed = pathfinder_component.max_speed * elapsed_ms * 0.01;
-	if (distance < slow_radius)
+	/*if (distance < slow_radius)
 	{
 		float t = (distance - pathfinder_component.minimum_distance_to_target) / (slow_radius - pathfinder_component.minimum_distance_to_target);
 		t = std::clamp(t, 0.f, 1.f);
 		max_speed = max_speed * t;
-	}
+	}*/
 
 	follower_velocity = { norm_x * max_speed, norm_y * max_speed };
-
-	switch (registry.creatures.get(follower).creatureType)
-	{
-		case CREATURETYPE::SAWFISH:
-			follower_velocity *= SAWFISH_FOLLOWING_SPEED;
-			break;
-		case CREATURETYPE::ANGLERFISH:
-			follower_velocity *= ANGLERFISH_FOLLOWING_SPEED;
-			break;
-	}
 
 	return false;
 }

@@ -42,6 +42,7 @@ Entity CreatureCreator::createAnglerfish(const int level_uid, vec2 position, flo
     Pathfinder& pathfinder = registry.pathfinders.emplace(anglerfish);
     pathfinder.target = registry.players.entities[0];
     pathfinder.type = PATHFINDING_TYPE::BEST;
+    pathfinder.max_speed = ANGLERFISH_FOLLOWING_SPEED;
     CreatureBehaviour& creatureBehaviour = registry.creatureBehaviours.emplace(anglerfish);
     CreatureBehaviourTreeBuilder builder;
     creatureBehaviour.behaviour_tree = builder.buildAnglerfishTree();
@@ -384,7 +385,7 @@ Entity CreatureCreator::createSawfish(const int level_uid, vec2 position, float 
     Pathfinder& pathfinder = registry.pathfinders.emplace(sawfish);
     pathfinder.target = registry.players.entities[0];
     pathfinder.type = PATHFINDING_TYPE::BEST;
-    pathfinder.max_speed = 500.0f;
+    pathfinder.max_speed = SAWFISH_FOLLOWING_SPEED;
     CreatureBehaviour& creatureBehaviour = registry.creatureBehaviours.emplace(sawfish);
     creatureBehaviour.behaviour_tree = CreatureBehaviourTreeBuilder::buildSawfishTree();
     const Animatable animatable = {
