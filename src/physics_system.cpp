@@ -615,6 +615,12 @@ void PhysicsSystem::step(float elapsed_ms)
 						handle_hurt_collision(entity_i, entity_j);
 						if (registry.collidables.get(entity_i).inelastic && registry.collidables.get(entity_j).inelastic)
 						{
+							if (!registry.creatureInelasticCollisions.has(entity_j) && registry.creatures.has(entity_j)) {
+								registry.creatureInelasticCollisions.emplace(entity_j);
+							}
+							if (!registry.creatureInelasticCollisions.has(entity_i) && registry.creatures.has(entity_i)) {
+								registry.creatureInelasticCollisions.emplace(entity_i);
+							}
 							handle_inelastic_collision_mesh(entity_i, entity_j, penetration);
 						}
 					}
@@ -631,7 +637,6 @@ void PhysicsSystem::step(float elapsed_ms)
 						}
 						else {
 							handle_misc_collision(entity_i, entity_j);
-							handle_hurt_collision(entity_i, entity_j);
 						}
 
 						if (registry.collidables.get(entity_i).inelastic && registry.collidables.get(entity_j).inelastic)
