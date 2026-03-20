@@ -299,10 +299,34 @@ void handle_misc_collision(Entity& entity_i, Entity& entity_j)
 		// Generate the request from the teleporter information
 		const Teleporter& teleporter = registry.teleporters.get(teleporter_entity);
 		Entity change_map_request_entity;
+		// Figure out where to put the moving entity based on position, size, and teleport direction
+		const std::map<DIRECTION, vec2>& direction_to_unit_direction_map = {
+			{ DIRECTION::UP, UNIT_UP },
+			{ DIRECTION::RIGHT, UNIT_RIGHT },
+			{ DIRECTION::DOWN, UNIT_DOWN },
+			{ DIRECTION::LEFT, UNIT_LEFT },
+		};
+		// Get the perpendicular unit (going sideways from the frame of reference of the entity using the teleporter)
+		const std::map<DIRECTION, vec2>& offset_to_unit_direction_map = {
+			{ DIRECTION::UP, UNIT_RIGHT },
+			{ DIRECTION::RIGHT, UNIT_DOWN },
+			{ DIRECTION::DOWN, UNIT_RIGHT },
+			{ DIRECTION::LEFT, UNIT_DOWN },
+		};
+		// Measure the distance from the center of the teleporter and then get the dot product with the perpendicular unit
+		const vec2 other_offset_from_teleporter = registry.positions.get(other_entity) - registry.positions.get(teleporter_entity);
+		const vec2 unit_vector_direction = direction_to_unit_direction_map.at(teleporter.offset_direction);
+		const vec2 unit_vector_offset = offset_to_unit_direction_map.at(teleporter.offset_direction);
+		const Size& size = registry.sizes.get(other_entity);
+		// TODO 5L8I7eho: Too big but smaller can cause infinite loops
+		// TODO FX9GFvwR: The location should also take the position into account of the thing teleporting,
+		// since wider teleporters like connected screens should not always go to the same spot.
+		const vec2 offset = vec2(size.width, size.height) * unit_vector_direction + other_offset_from_teleporter * unit_vector_offset;
 		ChangeMapLevelRequest level_change_request = {
 			other_entity,
 			teleporter.connected_level_uid,
 			teleporter.arrival_location,
+			offset,
 			map_change_request_type,
 			teleporter.offset_direction
 		};
