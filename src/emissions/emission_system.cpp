@@ -14,10 +14,14 @@ void EmissionSystem::step(float elapsed_ms)
 {
 	for (Entity& emission_entity : registry.lightEmissions.entities)
 	{
+		//mushrooms unload before emissions, meaning some emissions might not have a source
+		if (!registry.colourStates.has(registry.lightEmissions.get(emission_entity).lightSourceEntity))
+		{
+			continue;
+		}
 		//Colour states is looked at instead of other components to avoid assertion below
 		if (!registry.colourStates.has(emission_entity))
 			initialize_emission(emission_entity);
-		
 		ColourState& emission_colour_state = registry.colourStates.get(emission_entity);
 		ColourState& source_colour_state = registry.colourStates.get(registry.lightEmissions.get(emission_entity).lightSourceEntity);
 		if (emission_colour_state.curr_colour_state != source_colour_state.curr_colour_state)
@@ -27,7 +31,7 @@ void EmissionSystem::step(float elapsed_ms)
 		//If emission is neutral, it is deleted, so it won't have size
 		if (registry.sizes.has(emission_entity) && (registry.sizes.get(emission_entity).width < registry.lightEmissions.get(emission_entity).MAX_RADIUS))
 			update_emission_size(emission_entity, elapsed_ms);
-		
+
 		//If emission is neutral, it is deleted, so it won't have lightEmission
 		if (registry.lightEmissions.has(emission_entity) && registry.velocities.has(registry.lightEmissions.get(emission_entity).lightSourceEntity))
 			update_emission_position(emission_entity);

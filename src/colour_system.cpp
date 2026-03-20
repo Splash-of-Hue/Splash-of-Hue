@@ -250,6 +250,9 @@ void ColourSystem::applyColorToPlayer(COLOUR_STATE colour)
 			light_emission_component.lightSourceEntity = player;
 			LightSource& light_source_component = registry.lightSources.emplace(player);
 			light_source_component.lightEmissionEntity = emission_entity;
+			//give the emission a level_uid
+			LevelEntity& level_entity_emission_component = registry.levelEntities.emplace(emission_entity);
+			level_entity_emission_component.level_uid = registry.currentLevels.get(player).level_uid;
 		}
 
 		if (!registry.colourIndicatorUIs.entities.empty())

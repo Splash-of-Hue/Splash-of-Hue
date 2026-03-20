@@ -52,13 +52,12 @@ void InteractableSystem::handle_mushrooms(Entity& mushroom_entity)
 {
     InRadius& in_radius_component = registry.inRadius.get(mushroom_entity);
     ColourState& mushroom_colour_state = registry.colourStates.get(mushroom_entity);
-    std::multimap<bool, std::vector<Entity>> radiiList = 
-    {
+
+    COLOUR_STATE colour_state = change_colour_given_priority({
         {in_radius_component.inCreatureRadius, in_radius_component.creatureRadiusList},
         {in_radius_component.inPlayerRadius, in_radius_component.playerRadiusList},
         {in_radius_component.inInteractableRadius, in_radius_component.interactableRadiusList}
-    };
-    COLOUR_STATE colour_state = change_colour_given_priority(radiiList);
+     });
 
     if (mushroom_colour_state.curr_colour_state != colour_state)
     {
@@ -91,7 +90,10 @@ void InteractableSystem::handle_mushrooms(Entity& mushroom_entity)
         light_emission_component.lightSourceEntity = mushroom_entity;
         LightSource& light_source_component = registry.lightSources.emplace(mushroom_entity);
         light_source_component.lightEmissionEntity = emission_entity;
-        
+        //assign the emission to a level
+        LevelEntity& level_entity_mushroom_component = registry.levelEntities.get(mushroom_entity);
+        LevelEntity& level_entity_emission_component = registry.levelEntities.emplace(emission_entity);
+        level_entity_emission_component.level_uid = level_entity_mushroom_component.level_uid;
     }
     //Todo: when the mushroom assets are created, uncomment this line https://trello.com/c/sAosXtPo/98-1-animation-mushroom
     //setEntityVisualColour(mushroom_entity, colour_state);
