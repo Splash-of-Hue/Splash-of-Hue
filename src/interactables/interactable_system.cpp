@@ -34,9 +34,14 @@ void InteractableSystem::step_moss_toggle()
 		if (registry.inRadius.has(moss_toggle_entity))
 		{
 			InRadius& in_radius = registry.inRadius.get(moss_toggle_entity);
-			colour_state = change_colour_given_priority(in_radius.inCreatureRadius, in_radius.creatureRadiusList,
-														in_radius.inPlayerRadius, in_radius.playerRadiusList,
-														in_radius.inInteractableRadius, in_radius.interactableRadiusList);
+			colour_state = change_colour_given_priority(
+				{
+					{in_radius.inCreatureRadius, in_radius.creatureRadiusList},
+					{in_radius.inPlayerRadius, in_radius.playerRadiusList},
+					{in_radius.inInteractableRadius, in_radius.interactableRadiusList}
+				}
+			);
+
 		}
 
 
