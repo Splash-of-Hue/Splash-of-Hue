@@ -60,6 +60,9 @@ Entity CreatureCreator::createAnglerfish(const int level_uid, vec2 position, flo
     LightSource& light_source_component = registry.lightSources.emplace(anglerfish);
     light_source_component.lightEmissionEntity = emission_entity;
 
+    LevelEntity& level_entity_emission_component = registry.levelEntities.emplace(emission_entity);
+    level_entity_emission_component.level_uid = level_uid;
+
     return anglerfish;
 }
 
