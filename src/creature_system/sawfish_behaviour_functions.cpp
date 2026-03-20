@@ -61,14 +61,17 @@ BEHAVIOUR_TREE_STATUS CreatureBehaviourFunctions::aimAtTarget(Entity& charger, f
 
 	Angle& charger_angle = registry.angles.get(charger);
 
-	float degAngle = atan((charger_position.x - targeted_entity_position.x) / (targeted_entity_position.y - charger_position.y)) * 180 / 3.14;
+	float degAngle = atan((charger_position.x - targeted_entity_position.x) / (targeted_entity_position.y - charger_position.y)) * 180 / M_PI;
+
 	if (targeted_entity_position.y - charger_position.y < 0) {
 		degAngle = -90 + degAngle;
 	}
 	else {
 		degAngle = 90 + degAngle;
 	}
+
 	charger_angle.degrees = degAngle;
+	
 	return BEHAVIOUR_TREE_STATUS::SUCCESS;
 }
 

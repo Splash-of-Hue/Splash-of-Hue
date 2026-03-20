@@ -1337,43 +1337,6 @@
 					"allowedRefsEntityUid": 48,
 					"allowedRefTags": [],
 					"tilesetUid": null
-				},
-				{
-					"identifier": "ColorState",
-					"doc": null,
-					"__type": "LocalEnum.ColorState",
-					"uid": 50,
-					"type": "F_Enum(26)",
-					"isArray": false,
-					"canBeNull": false,
-					"arrayMinLength": null,
-					"arrayMaxLength": null,
-					"editorDisplayMode": "ValueOnly",
-					"editorDisplayScale": 0.99,
-					"editorDisplayPos": "Above",
-					"editorLinkStyle": "StraightArrow",
-					"editorDisplayColor": null,
-					"editorAlwaysShow": true,
-					"editorShowInWorld": true,
-					"editorCutLongValues": true,
-					"editorTextSuffix": null,
-					"editorTextPrefix": null,
-					"useForSmartColor": true,
-					"exportToToc": false,
-					"searchable": false,
-					"min": null,
-					"max": null,
-					"regex": null,
-					"acceptFileTypes": null,
-					"defaultOverride": null,
-					"textLanguageMode": null,
-					"symmetricalRef": false,
-					"autoChainRef": true,
-					"allowOutOfLevelRef": true,
-					"allowedRefs": "OnlySame",
-					"allowedRefsEntityUid": null,
-					"allowedRefTags": [],
-					"tilesetUid": null
 				}
 			]
 		},
@@ -8640,12 +8603,7 @@
 								}, {
 									"id": "V_String",
 									"params": ["756710b0-fa90-11f0-9290-8ba1d3a481bf"]
-								} ] },
-								{ "__identifier": "ColorState", "__type": "LocalEnum.ColorState", "__value": "Red", "__tile": null, "defUid": 50, "realEditorValues": [{
-									"id": "V_String",
-									"params": ["Red"]
-								}] }
-							],
+							} ] }],
 							"__worldX": 3180,
 							"__worldY": -1700
 						},

@@ -99,10 +99,10 @@ bool box_collides(const Entity& entity1, const Entity& entity2)
 		vec2 vertexBottomRight = { rectR, rectB };
 
 		return (isCircleInRect(posC, radiusC, vertexTopLeft, vertexTopRight, vertexBottomRight) ||
-				isLineInRangeOfCircle(posC, radiusC, vertexTopLeft, vertexTopRight) ||
-				isLineInRangeOfCircle(posC, radiusC, vertexTopRight, vertexBottomRight) ||
-				isLineInRangeOfCircle(posC, radiusC, vertexBottomRight, vertexBottomLeft) ||
-				isLineInRangeOfCircle(posC, radiusC, vertexBottomLeft, vertexTopLeft));
+			isLineInRangeOfCircle(posC, radiusC, vertexTopLeft, vertexTopRight) ||
+			isLineInRangeOfCircle(posC, radiusC, vertexTopRight, vertexBottomRight) ||
+			isLineInRangeOfCircle(posC, radiusC, vertexBottomRight, vertexBottomLeft) ||
+			isLineInRangeOfCircle(posC, radiusC, vertexBottomLeft, vertexTopLeft));
 	}
 	vec4 box1 = get_bounding_box(entity1);
 	vec4 box2 = get_bounding_box(entity2);
@@ -110,9 +110,9 @@ bool box_collides(const Entity& entity1, const Entity& entity2)
 	// This is the equivalent of (left1 > right2 OR right1 < left2) OR (bottom1 > top2 OR top1 < bottom2)
 	// Which is asking if any of the edges of the boxes do NOT overlap.
 	return ((box1[2] <= box2[3]) &&
-			(box2[2] <= box1[3]) &&
-			(box1[0] <= box2[1]) &&
-			(box2[0] <= box1[1]));
+		(box2[2] <= box1[3]) &&
+		(box1[0] <= box2[1]) &&
+		(box2[0] <= box1[1]));
 }
 
 
@@ -188,72 +188,57 @@ void light_emission_collisions(Entity& entity_i, Entity& entity_j)
 		else if (registry.interactables.has(source_entity))
 			addSpecificRadiusCollision(other_entity, light_emission_entity, registry.interactables, in_radius_component.inInteractableRadius, in_radius_component.interactableRadiusList);
 	}
-	//the button is a circle, is in an overlay? do we walk on top of the button?
-	//is it only our radius that affects the button?
-	//This assumed the button in a circle, and is an overlay, but since we send the rectangle
-	//to "change_behaviours," i need to implement this code
-	if (registry.mossToggles.has(entity_i) || registry.mossToggles.has(entity_j))
+}
+void handle_hurt_collision(Entity& entity_i, Entity& entity_j) {
+
+	if (registry.creatures.has(entity_i) || registry.creatures.has(entity_j))
 	{
-		Entity& eT = registry.mossToggles.has(entity_i) ? entity_i : entity_j;
-		Entity& eO = registry.mossToggles.has(entity_j) ? entity_i : entity_j;
-		MossToggle& tT = registry.mossToggles.get(eT);
+		Entity& entity_creature = registry.creatures.has(entity_i) ? entity_i : entity_j;
+		Entity& entity_other = registry.creatures.has(entity_j) ? entity_i : entity_j;
 
-		// Only the player can toggle things
-		if (!registry.lightEmissions.has(eO))
+		if (!registry.creatureInelasticCollisions.has(entity_creature))
 		{
-			return;
-		}
-
-		if (registry.colourStates.has(eO))
-		{
-			ColourState& csO = registry.colourStates.get(eO);
-
-			// A neutral object does not toggle anything
-			if (csO.curr_colour_state == COLOUR_STATE::NEUTRAL)
+			Collidable& other_collidable = registry.collidables.get(entity_other);
+			//don't get dizzy if colliding with another creature
+			if (other_collidable.inelastic)
 			{
-				return;
-			}
-
-			ColourState& csT = registry.colourStates.get(eT);
-
-			vec4& colT = registry.colors.get(eT);
-			vec4& colO = registry.colors.get(eO);
-			colT = colO;
-			csT.curr_colour_state = csO.curr_colour_state;
-
-			for (std::string& connected_wall_id : tT.connected_wall_ids)
-			{
-				const auto wall_id_match = [&](const Entity& colored_wall_entity) { return registry.colouredWall.get(colored_wall_entity).id == connected_wall_id; };
-				auto& wall_entity_iterator = std::find_if(registry.colouredWall.entities.begin(), registry.colouredWall.entities.end(), wall_id_match);
-
-				if (wall_entity_iterator == registry.colouredWall.entities.end())
+				registry.creatureInelasticCollisions.emplace(entity_creature);
+				if (registry.breakables.has(entity_other))
 				{
-					continue;
+					registry.remove_all_components_of(entity_other);
 				}
-
-				ColourState& csTE = registry.colourStates.get(*wall_entity_iterator);
-				csTE.prev_colour_state = csTE.curr_colour_state;
-				csTE.curr_colour_state = csO.curr_colour_state;
-				vec4& colTE = registry.colors.get(*wall_entity_iterator);
-				colTE = vec4{ colO.r, colO.g, colO.b, colO.a };
 			}
 		}
-
+	}
+	//todo - change to sawfish once there are more creatures than sawfish
+	if (registry.players.has(entity_i) && registry.creatures.has(entity_j) || registry.players.has(entity_j) && registry.creatures.has(entity_i))
+	{
+		Entity& eP = registry.players.has(entity_i) ? entity_i : entity_j;
+		Entity& eS = registry.creatures.has(entity_i) ? entity_i : entity_j;
+		//make it so only sawfish kills
+		if (!registry.shrimps.has(eS) && registry.colourStates.has(eS))
+		{
+			ColourState& csS = registry.colourStates.get(eS);
+			
+			if (csS.curr_colour_state == COLOUR_STATE::RED && registry.chargers.has(eS) && !registry.deathTimers.has(eP))
+			{
+				registry.deathTimers.emplace(eP);
+			}
+		}
 	}
 }
-
 void handle_misc_collision(Entity& entity_i, Entity& entity_j)
 {
-	
-	if (registry.breakables.has(entity_i) && registry.chargers.has(entity_j))
+	if (registry.players.has(entity_i) && registry.colourOrbs.has(entity_j) ||
+		registry.players.has(entity_j) && registry.colourOrbs.has(entity_i))
 	{
-		registry.remove_all_components_of(entity_i);
+		Entity& eOrb = registry.colourOrbs.has(entity_i) ? entity_i : entity_j;
+		if (!registry.orbCollected.has(eOrb))
+		{
+			registry.orbCollected.emplace(eOrb);
+		}
 	}
 
-	if (registry.breakables.has(entity_j) && registry.chargers.has(entity_i))
-	{
-		registry.remove_all_components_of(entity_j);
-	}
 	if (registry.colouredWall.has(entity_i) || registry.colouredWall.has(entity_j))
 	{
 		Entity& eCW = registry.colouredWall.has(entity_i) ? entity_i : entity_j;
@@ -299,43 +284,42 @@ void handle_misc_collision(Entity& entity_i, Entity& entity_j)
 		// Generate the request from the teleporter information
 		const Teleporter& teleporter = registry.teleporters.get(teleporter_entity);
 		Entity change_map_request_entity;
+		// Figure out where to put the moving entity based on position, size, and teleport direction
+		const std::map<DIRECTION, vec2>& direction_to_unit_direction_map = {
+			{ DIRECTION::UP, UNIT_UP },
+			{ DIRECTION::RIGHT, UNIT_RIGHT },
+			{ DIRECTION::DOWN, UNIT_DOWN },
+			{ DIRECTION::LEFT, UNIT_LEFT },
+		};
+		// Get the perpendicular unit (going sideways from the frame of reference of the entity using the teleporter)
+		const std::map<DIRECTION, vec2>& offset_to_unit_direction_map = {
+			{ DIRECTION::UP, UNIT_RIGHT },
+			{ DIRECTION::RIGHT, UNIT_DOWN },
+			{ DIRECTION::DOWN, UNIT_RIGHT },
+			{ DIRECTION::LEFT, UNIT_DOWN },
+		};
+		// Measure the distance from the center of the teleporter and then get the dot product with the perpendicular unit
+		const vec2 other_offset_from_teleporter = registry.positions.get(other_entity) - registry.positions.get(teleporter_entity);
+		const vec2 unit_vector_direction = direction_to_unit_direction_map.at(teleporter.offset_direction);
+		const vec2 unit_vector_offset = offset_to_unit_direction_map.at(teleporter.offset_direction);
+		const Size& size = registry.sizes.get(other_entity);
+		// TODO 5L8I7eho: Too big but smaller can cause infinite loops
+		// TODO FX9GFvwR: The location should also take the position into account of the thing teleporting,
+		// since wider teleporters like connected screens should not always go to the same spot.
+		const vec2 offset = vec2(size.width, size.height) * unit_vector_direction + other_offset_from_teleporter * unit_vector_offset;
 		ChangeMapLevelRequest level_change_request = {
 			other_entity,
 			teleporter.connected_level_uid,
 			teleporter.arrival_location,
+			offset,
 			map_change_request_type,
 			teleporter.offset_direction
 		};
 		registry.changeMapLevelRequests.insert(change_map_request_entity, level_change_request);
 	}
-
-	//todo - change to sawfish once there are more creatures than sawfish
-	if (registry.players.has(entity_i) && registry.creatures.has(entity_j) || registry.players.has(entity_j) && registry.creatures.has(entity_i))
-	{
-		Entity& eP = registry.players.has(entity_i) ? entity_i : entity_j;
-		Entity& eS = registry.creatures.has(entity_i) ? entity_i : entity_j;
-		//make it so only sawfish kills
-		if (!registry.shrimps.has(eS))
-		{
-			if (registry.colourStates.has(eS))
-			{
-				ColourState& csS = registry.colourStates.get(eS);
-				if (csS.curr_colour_state == COLOUR_STATE::RED)
-				{
-					if (registry.chargers.has(eS))
-					{
-						if (!registry.deathTimers.has(eP))
-						{
-							registry.deathTimers.emplace(eP);
-						}
-					}
-				}
-			}
-		}
-	}
 }
 
-void handle_inelastic_collision_box(Entity& entity_i, Entity& entity_j) 
+void handle_inelastic_collision_box(Entity& entity_i, Entity& entity_j)
 {
 	vec4 box1 = get_bounding_box(entity_i);
 	vec4 box2 = get_bounding_box(entity_j);
@@ -392,7 +376,7 @@ void handle_inelastic_collision_box(Entity& entity_i, Entity& entity_j)
 }
 
 //mesh collision helpers
-PolygonMesh findHitbox(const Entity& e) 
+PolygonMesh findHitbox(const Entity& e)
 {
 	//default is rectangle
 	vec2& pos = registry.positions.get(e);
@@ -400,11 +384,11 @@ PolygonMesh findHitbox(const Entity& e)
 	std::vector<vec2> vertices;
 	float half_width = size.width * 0.5f;
 	float half_height = size.height * 0.5f;
-	vertices.push_back({vec2(pos.x - half_width , pos.y - half_height)});
-	vertices.push_back({vec2(pos.x + half_width, pos.y - half_height) }); // bottom
+	vertices.push_back({ vec2(pos.x - half_width , pos.y - half_height) });
+	vertices.push_back({ vec2(pos.x + half_width, pos.y - half_height) }); // bottom
 	vertices.push_back(vec2(pos.x + half_width, pos.y + half_height)); // top right
 	vertices.push_back(vec2(pos.x - half_width, pos.y + half_height)); // top left
-	PolygonMesh& polygon = PolygonMesh{vertices, pos };
+	PolygonMesh polygon = PolygonMesh{ vertices, vertices, pos };
 
 	return polygon;
 }
@@ -437,7 +421,7 @@ vec2 projection(PolygonMesh& p, vec2 normal)
 	return vec2(min, max);
 }
 
-vec3 axisCollision(PolygonMesh& a, PolygonMesh& b) 
+vec3 axisCollision(PolygonMesh& a, PolygonMesh& b)
 {
 	vec3 penetration = vec3(WINDOW_WIDTH_PX, 0.f, 0.f);
 	std::vector<vec2> a_normals = getNormals(a);
@@ -477,25 +461,32 @@ vec3 axisCollision(PolygonMesh& a, PolygonMesh& b)
 	return penetration;
 }
 
-vec3 mesh_collides(const Entity& entity1, const Entity& entity2) 
+vec3 mesh_collides(const Entity& entity1, const Entity& entity2,  bool isHurtCollision) 
 {
-	PolygonMesh a;
-	PolygonMesh b;
-	if (registry.polygons.has(entity1)) {
-		a = registry.polygons.get(entity1);
+	PolygonMesh entity1_mesh;
+	PolygonMesh entity2_mesh;
+	if (registry.hitboxes.has(entity1)) {
+		entity1_mesh = registry.hitboxes.get(entity1);
 	} else 
 	{
-		a = findHitbox(entity1);
+		entity1_mesh = findHitbox(entity1);
 	}
-	if (registry.polygons.has(entity2)) {
-		b = registry.polygons.get(entity2);
+	if (registry.hitboxes.has(entity2)) {
+		entity2_mesh = registry.hitboxes.get(entity2);
 	}
 	else
 	{
-		b = findHitbox(entity2);
+		entity2_mesh = findHitbox(entity2);
+	} 
+	if (isHurtCollision) {
+		if (registry.hurtboxes.has(entity1)) {
+			entity1_mesh = registry.hurtboxes.get(entity1);
+		}
+		if (registry.hurtboxes.has(entity2)) {
+			entity2_mesh = registry.hurtboxes.get(entity2);
+		}
 	}
-	 
-	return (axisCollision(a, b));
+	return (axisCollision(entity1_mesh, entity2_mesh));
 }
 
 void handle_inelastic_collision_mesh(Entity& entity_i, Entity& entity_j, vec3 penetration)
@@ -540,10 +531,34 @@ void handle_inelastic_collision_mesh(Entity& entity_i, Entity& entity_j, vec3 pe
 	pos_to_correct->y += (penetration.x * penetration.z * sign);
 }
 
+void rotatePolygon(PolygonMesh& polygon, float radAngle) {
+	float c = cosf(radAngle);
+	float s = sinf(radAngle);
+	for (int i = 0; i < polygon.vertices.size(); i++) {
+		vec2 dist_from_centre = polygon.base_vertices[i] - polygon.centre;
+		float rotated_x = dist_from_centre.x * c + dist_from_centre.y * s;
+		float rotated_y = dist_from_centre.x * s - dist_from_centre.y * c;
+		polygon.vertices[i] = polygon.centre + vec2( rotated_x, rotated_y );
+	}
+}
+
+void movePolygon(PolygonMesh& polygon, vec2& pos) {
+	vec2 change_in_pos = pos - polygon.centre;
+	if (change_in_pos.x == 0 && change_in_pos.y == 0) {
+		return;
+	}
+	for (int i = 0; i < polygon.vertices.size(); i++) {
+		polygon.vertices[i] += change_in_pos;
+		polygon.base_vertices[i] += change_in_pos;
+	}
+	polygon.centre = pos;
+}
+
 void PhysicsSystem::step(float elapsed_ms)
 {
 	handle_movement(DT);
 	checkIfInRadius();
+
 	// check for collisions between all collidable entities
 	ComponentContainer<Collidable>& collidables = registry.collidables;
 	for (uint i = 0; i < collidables.components.size(); i++)
@@ -560,55 +575,59 @@ void PhysicsSystem::step(float elapsed_ms)
 				if (!registry.lightEmissions.has(entity_i) && !registry.lightEmissions.has(entity_j)) {
 					continue;
 				}
-				
 			}
-			if (registry.polygons.has(entity_i) || registry.polygons.has(entity_j)) 
-			{
-				vec3 penetration = mesh_collides(entity_i, entity_j);
+			//if passes AABB check, then try mesh collision
+			if (box_collides(entity_i, entity_j)) {
+				if (registry.hurtboxes.has(entity_i) || registry.hurtboxes.has(entity_j))
+				{
+					vec3 penetration = mesh_collides(entity_i, entity_j, true);
 
-				if (penetration.x != 0) {
+					if (penetration.x != 0) {
 
-					if (is_light_emission_collision(entity_i, entity_j))
-					{
-						light_emission_collisions(entity_i, entity_j);
-					}
-					else {
-						handle_misc_collision(entity_i, entity_j);
-					}
-					
-					if (registry.players.has(entity_i) && registry.colourOrbs.has(entity_j) ||
-						registry.players.has(entity_j) && registry.colourOrbs.has(entity_i))
-					{
-						Entity& eOrb = registry.colourOrbs.has(entity_i) ? entity_i : entity_j;
-						if (!registry.orbCollected.has(eOrb))
+						handle_hurt_collision(entity_i, entity_j);
+						if (registry.collidables.get(entity_i).inelastic && registry.collidables.get(entity_j).inelastic)
 						{
-							registry.orbCollected.emplace(eOrb);
+							handle_inelastic_collision_mesh(entity_i, entity_j, penetration);
 						}
 					}
-					
-					if (registry.collidables.get(entity_i).inelastic && registry.collidables.get(entity_j).inelastic)
-					{
-						if (!registry.creatureInelasticCollisions.has(entity_j) && registry.creatures.has(entity_j)) {
-							registry.creatureInelasticCollisions.emplace(entity_j);
+				}
+
+				if (registry.hitboxes.has(entity_i) || registry.hitboxes.has(entity_j))
+				{
+					vec3 penetration = mesh_collides(entity_i, entity_j, false);
+
+					if (penetration.x != 0) {
+						if (is_light_emission_collision(entity_i, entity_j))
+						{
+							light_emission_collisions(entity_i, entity_j);
 						}
-						if (!registry.creatureInelasticCollisions.has(entity_i) && registry.creatures.has(entity_i)) {
-							registry.creatureInelasticCollisions.emplace(entity_i);
+						else {
+							handle_misc_collision(entity_i, entity_j);
+							handle_hurt_collision(entity_i, entity_j);
 						}
-						handle_inelastic_collision_mesh(entity_i, entity_j, penetration);
+
+						if (registry.collidables.get(entity_i).inelastic && registry.collidables.get(entity_j).inelastic)
+						{
+							if (!registry.creatureInelasticCollisions.has(entity_j) && registry.creatures.has(entity_j)) {
+								registry.creatureInelasticCollisions.emplace(entity_j);
+							}
+							if (!registry.creatureInelasticCollisions.has(entity_i) && registry.creatures.has(entity_i)) {
+								registry.creatureInelasticCollisions.emplace(entity_i);
+							}
+							handle_inelastic_collision_mesh(entity_i, entity_j, penetration);
+						}
+						continue;
 					}
 					continue;
 				}
-				continue;
-			}
-			//no mesh, so use box collision
-			if (box_collides(entity_i, entity_j))
-			{
+			
 				if (is_light_emission_collision(entity_i, entity_j))
 				{
 					light_emission_collisions(entity_i, entity_j);
 				}
 				else {
 					handle_misc_collision(entity_i, entity_j);
+					handle_hurt_collision(entity_i, entity_j);
 				}
 				//must both be inelastic for this collision resolution to occur
 				if (registry.collidables.get(entity_i).inelastic && registry.collidables.get(entity_j).inelastic)
@@ -635,16 +654,22 @@ void PhysicsSystem::handle_movement(float elapsed_ms)
 		vec2& pos = registry.positions.get(e);
 		vec2& vel = registry.velocities.get(e);
 		float step = elapsed_ms * ONE_THOUSANDTH;
-		pos += (vel*step);
+		pos += (vel * step);
 
-		if (registry.polygons.has(e)) {
-			PolygonMesh& polygon = registry.polygons.get(e);
-			vec2& pos = registry.positions.get(e);
-			vec2 change_in_pos = pos - polygon.centre;
-			for (vec2& v : polygon.vertices) {
-				v += change_in_pos;
+		if (registry.hitboxes.has(e)) {
+			movePolygon(registry.hitboxes.get(e), pos);
+		}
+		if (registry.hurtboxes.has(e)) {
+			movePolygon(registry.hurtboxes.get(e), pos);
+		}
+		if (registry.angles.has(e)) {
+			float radAngle = registry.angles.get(e).degrees * M_PI / 180.f;
+			if (registry.hitboxes.has(e)) {
+				rotatePolygon(registry.hitboxes.get(e), radAngle);
 			}
-			polygon.centre = pos;
+			if (registry.hurtboxes.has(e)) {
+				rotatePolygon(registry.hurtboxes.get(e), radAngle);
+			}
 		}
 	}
 }
