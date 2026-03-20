@@ -41,13 +41,23 @@ BEHAVIOUR_TREE_STATUS CreatureBehaviourFunctions::makeNeutral(Entity& creature, 
 }
 
 //  ===== Movement Action Nodes =====
-BEHAVIOUR_TREE_STATUS CreatureBehaviourFunctions::chargeAtTarget(Entity& charger, float elapsed_ms)
+BEHAVIOUR_TREE_STATUS CreatureBehaviourFunctions::chargeAtPlayer(Entity& charger, float elapsed_ms)
 {
-	// TODO: https://trello.com/c/Sw6qEHJ6/219-1-change-creature-behaviour-charge-at-target-into-a-helper-function
-	// Currently, charging is only being used for the sawfish. The "sawfishChargeAtTarget" node should work
-	// for creatures that are not the sawfish, so please test that and let Spencer know if it does not work. 
-
-	return BEHAVIOUR_TREE_STATUS::FAILURE;
+	Entity& targeted_entity = registry.players.entities[0];
+	vec2& charger_position = registry.positions.get(charger);
+	vec2& targeted_entity_position = registry.positions.get(targeted_entity);
+	vec2 velocity = { targeted_entity_position.x - charger_position.x,targeted_entity_position.y - charger_position.y };
+	double mag = sqrt(velocity.x * velocity.x + velocity.y * velocity.y);
+	velocity *= (1.f / mag);
+	vec2& charger_velocity = registry.velocities.get(charger);
+	float charger_individual_speed = 1.f;
+	switch (registry.creatures.get(charger).creatureType)
+	{
+	case CREATURETYPE::SAWFISH:
+		charger_individual_speed = SAWFISH_CHARGING_SPEED;
+	}
+	charger_velocity = velocity * charger_individual_speed;
+	return BEHAVIOUR_TREE_STATUS::SUCCESS;
 }
 
 BEHAVIOUR_TREE_STATUS CreatureBehaviourFunctions::stopCreatureMovement(Entity& creature, float elapsed_ms)

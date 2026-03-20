@@ -48,13 +48,33 @@ Entity CreatureCreator::createAnglerfish(const int level_uid, vec2 position, flo
     return anglerfish;
 }
 
-Entity CreatureCreator::createCrab(const int level_uid, vec2 position, float width, float height, COLOUR_STATE color_state)
+Entity CreatureCreator::createCrab(const int level_uid, vec2 position, float width, float height, COLOUR_STATE color_state, DIRECTION curr_direction_facing)
 {
     Entity crab = Entity();
 
     // TODO add dedicated crab asset and texture ID
-	addGeneralCreatureComponents(level_uid, crab, position, width, height, color_state, CREATURETYPE::CRAB, TEXTURE_ASSET_ID::CREATURES);
-    
+    // TODO: ocWt9dv
+	addGeneralCreatureComponents(level_uid, crab, position, width, height, color_state, CREATURETYPE::CRAB, TEXTURE_ASSET_ID::SAWFISH);
+    Angle& direction_facing = registry.angles.get(crab);
+    vec2& direction = registry.directions.emplace(crab);
+    direction = vec2(0);
+    if (curr_direction_facing == DIRECTION::UP) {
+        direction_facing.degrees = DEGREES_DOWN * 3;
+        direction.y = -1.f;
+    }
+    else if (curr_direction_facing == DIRECTION::DOWN) {
+        direction_facing.degrees = DEGREES_DOWN;
+        direction.y = 1.f;
+    }
+    else if (curr_direction_facing == DIRECTION::RIGHT) {
+        direction_facing.degrees = DEGREES_DOWN * 0;
+        direction.x = 1.f;
+    }
+    else {
+        direction_facing.degrees = DEGREES_DOWN * 2;
+        direction.x = -1.f;
+    }
+
     CreatureBehaviour& creatureBehaviour = registry.creatureBehaviours.emplace(crab);
     CreatureBehaviourTreeBuilder builder;
     creatureBehaviour.behaviour_tree = builder.buildCrabTree();
@@ -341,7 +361,25 @@ Entity CreatureCreator::createSawfish(const int level_uid, vec2 position, float 
 {
     Entity sawfish = Entity();
 
-	addGeneralCreatureComponents(level_uid, sawfish, position, width, height, color_state, CREATURETYPE::SAWFISH, TEXTURE_ASSET_ID::SAWFISH);
+    addGeneralCreatureComponents(level_uid, sawfish, position, width, height, color_state, CREATURETYPE::SAWFISH, TEXTURE_ASSET_ID::SAWFISH);
+    registry.sawfishes.emplace(sawfish);
+
+    PolygonMesh& sawfish_hitbox = registry.hitboxes.emplace(sawfish);
+    float hitbox_height = height * 0.15;
+    float hitbox_width = width * 0.15;
+    sawfish_hitbox.vertices.push_back(vec2(position.x - hitbox_width, position.y - hitbox_height));
+    sawfish_hitbox.vertices.push_back(vec2(position.x + hitbox_width, position.y - hitbox_height));
+    sawfish_hitbox.vertices.push_back(vec2(position.x + hitbox_width, position.y + hitbox_height));
+    sawfish_hitbox.vertices.push_back(vec2(position.x - hitbox_width, position.y + hitbox_height));
+    sawfish_hitbox.centre = position;
+    sawfish_hitbox.base_vertices = sawfish_hitbox.vertices;
+
+    PolygonMesh& sawfish_hurtbox = registry.hurtboxes.emplace(sawfish);
+    sawfish_hurtbox.vertices.push_back(vec2(position.x + hitbox_width, position.y - hitbox_height));
+    sawfish_hurtbox.vertices.push_back(vec2(position.x + hitbox_width, position.y + hitbox_height));
+    sawfish_hurtbox.vertices.push_back(vec2(position.x + (hitbox_width*2), position.y)); //tip of sawfish nose
+    sawfish_hurtbox.centre = position;
+    sawfish_hurtbox.base_vertices = sawfish_hurtbox.vertices;
 
     Pathfinder& pathfinder = registry.pathfinders.emplace(sawfish);
     pathfinder.target = registry.players.entities[0];
@@ -356,7 +394,7 @@ Entity CreatureCreator::createSawfish(const int level_uid, vec2 position, float 
         1
     };
     registry.animatables.insert(sawfish, animatable);
-   
+    
     return sawfish;
 }
 

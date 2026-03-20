@@ -26,7 +26,68 @@ BehaviourTree CreatureBehaviourTreeBuilder::buildAnglerfishTree()
 
 BehaviourTree CreatureBehaviourTreeBuilder::buildCrabTree()
 {
-	return BehaviourTree();
+	BehaviourTreeBuilder builder;
+	int root_index =
+		Root(builder,
+			Selector(builder,
+				Decorator(builder, creatureBehaviourFunctions.isSliding,
+					Selector(builder,
+						Decorator(builder, creatureBehaviourFunctions.hasCreatureCollided,
+							Sequence(builder,
+								Action(builder, creatureBehaviourFunctions.makeNeutral),
+								Action(builder, creatureBehaviourFunctions.stopCreatureMovement),
+								Action(builder, creatureBehaviourFunctions.removeCollision)
+							)
+						),
+						Action(builder, creatureBehaviourFunctions.returnSuccess)
+					)
+				),
+				
+				Decorator(builder, creatureBehaviourFunctions.isCreatureWithinCreatureRedColourRadius,
+					Sequence(builder,
+						Action(builder, creatureBehaviourFunctions.makeRed),
+						Action(builder, creatureBehaviourFunctions.slideBackwards)
+					)
+				),
+
+				Decorator(builder, creatureBehaviourFunctions.isCreatureWithinCreatureBlueColourRadius,
+					Sequence(builder,
+						Action(builder, creatureBehaviourFunctions.makeBlue),
+						Action(builder, creatureBehaviourFunctions.slideForwards)
+					)
+				),
+
+				Decorator(builder, creatureBehaviourFunctions.isCreatureWithinPlayerRedColourRadius,
+					Sequence(builder,
+						Action(builder, creatureBehaviourFunctions.makeRed),
+						Action(builder, creatureBehaviourFunctions.slideBackwards)
+					)
+				),
+
+				Decorator(builder, creatureBehaviourFunctions.isCreatureWithinPlayerBlueColourRadius,
+					Sequence(builder,
+						Action(builder, creatureBehaviourFunctions.makeBlue),
+						Action(builder, creatureBehaviourFunctions.slideForwards)
+					)
+				),
+
+				Decorator(builder, creatureBehaviourFunctions.isCreatureWithinInteractableRedColourRadius,
+					Sequence(builder,
+						Action(builder, creatureBehaviourFunctions.makeRed),
+						Action(builder, creatureBehaviourFunctions.slideBackwards)
+					)
+				),
+
+				Decorator(builder, creatureBehaviourFunctions.isCreatureWithinInteractableBlueColourRadius,
+					Sequence(builder,
+						Action(builder, creatureBehaviourFunctions.makeBlue),
+						Action(builder, creatureBehaviourFunctions.slideForwards)
+					)
+				)
+			)
+		);
+
+	return builder.build(root_index);
 }
 
 BehaviourTree CreatureBehaviourTreeBuilder::buildMinnowTree()
@@ -79,9 +140,10 @@ BehaviourTree CreatureBehaviourTreeBuilder::buildSawfishTree()
 							Selector(builder,
 								Decorator(builder, creatureBehaviourFunctions.isCooldownComplete,
 									Sequence(builder,
+										Action(builder, creatureBehaviourFunctions.removeCollision),
 										Action(builder, creatureBehaviourFunctions.removeCooldown),
 										Action(builder, creatureBehaviourFunctions.applyCharging),
-										Action(builder, creatureBehaviourFunctions.sawfishChargeAtTarget)
+										Action(builder, creatureBehaviourFunctions.chargeAtPlayer)
 									)
 								),
 								Action(builder, creatureBehaviourFunctions.returnSuccess)

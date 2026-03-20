@@ -67,7 +67,7 @@ inline ENTITY_TYPE entity_type_from_string(const std::string entity_string)
 const std::map<std::string, CREATURETYPE> creature_string_enum_map = {
 	{ "Sawfish", CREATURETYPE::SAWFISH },
 	{ "Anglerfish", CREATURETYPE::ANGLERFISH },
-	{ "Crab", CREATURETYPE::CRAB },
+	{ "JPCrab", CREATURETYPE::CRAB },
 	{ "Minnows", CREATURETYPE::MINNOWS },
 	{ "PShrimp", CREATURETYPE::SHRIMP },
 	{ "Whale", CREATURETYPE::WHALE },

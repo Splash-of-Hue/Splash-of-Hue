@@ -36,7 +36,7 @@ public:
 	static BEHAVIOUR_TREE_STATUS makeRed(Entity& creature, float elapsed_ms);
 	static BEHAVIOUR_TREE_STATUS makeNeutral(Entity& creature, float elapsed_ms);
 	// Movement
-	static BEHAVIOUR_TREE_STATUS chargeAtTarget(Entity& charger, float elapsed_ms);
+	static BEHAVIOUR_TREE_STATUS chargeAtPlayer(Entity& charger, float elapsed_ms);
 	static BEHAVIOUR_TREE_STATUS stopCreatureMovement(Entity& creature, float elapsed_ms);
 	static BEHAVIOUR_TREE_STATUS removeCollision(Entity& creature, float elapsed_ms);
 	// Miscellaneous
@@ -57,7 +57,10 @@ public:
 	static BEHAVIOUR_TREE_STATUS beDizzy(Entity& follower, float elapsed_ms);
 	static BEHAVIOUR_TREE_STATUS removeDizzy(Entity& creature, float elapsed_ms);
 	static BEHAVIOUR_TREE_STATUS aimAtTarget(Entity& follower, float elapsed_ms);
-	static BEHAVIOUR_TREE_STATUS sawfishChargeAtTarget(Entity& follower, float elapsed_ms);
+
+	//Crab behaviour Actions
+	static BEHAVIOUR_TREE_STATUS slideForwards(Entity& creature, float elapsed_ms);
+	static BEHAVIOUR_TREE_STATUS slideBackwards(Entity& creature, float elapsed_ms);
 
 	// ===== Decorator Node Functions =====
 	// Colour
@@ -82,6 +85,8 @@ public:
 	static BEHAVIOUR_TREE_STATUS isCharging(Entity& creature, float elapsed_ms);
 	static BEHAVIOUR_TREE_STATUS isDizzy(Entity& creature, float elapsed_ms);
 
+	// Crab Decorator functions
+	static BEHAVIOUR_TREE_STATUS isSliding(Entity& creature, float elapsed_ms);
 private:
 	// ===== NODE HELPERS =====
 	static BEHAVIOUR_TREE_STATUS makeColour(Entity& creature, COLOUR_STATE colour_state);
