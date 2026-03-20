@@ -22,4 +22,4 @@ Entity createMushroom(vec2 position, float radius, COLOUR_STATE colour_state, MU
 /// <param name="color_state">The color of the toggle.</param>
 /// <param name="connected_wall_ids">The IDs of the walls controlled by the toggle.</param>
 /// <returns>The entity of the toggle.</returns>
-Entity createMossToggle(const int level_uid, vec2 position, vec2 size, COLOUR_STATE color_state, std::vector<std::string> connected_wall_ids);
+Entity createMossToggle(const int level_uid, vec2 position, vec2 size, std::vector<std::string> connected_wall_ids);

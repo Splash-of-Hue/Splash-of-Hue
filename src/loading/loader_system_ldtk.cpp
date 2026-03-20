@@ -403,8 +403,6 @@ void load_moss_toggle(const ldtk::Entity& moss_toggle_entity)
 	const vec2 scaled_size = scale_to_level(vec2(size.x, size.y));
 	const ldtk::ArrayField<ldtk::EntityRef>& wall_entity_ref_fields = moss_toggle_entity.getField<ldtk::FieldType::ArrayEntityRef>("ConnectedWalls");
 	std::vector<std::string> connected_wall_ids;
-	const ldtk::Field<ldtk::EnumValue>& color_state_enum_type = moss_toggle_entity.getField<ldtk::EnumValue>("ColorState");
-	const COLOUR_STATE& color_state = color_state_from_string(color_state_enum_type.value().name);
 	
 	for (const ldtk::Field<ldtk::EntityRef>& wall_entity_ref_field : wall_entity_ref_fields)
 	{
@@ -412,7 +410,7 @@ void load_moss_toggle(const ldtk::Entity& moss_toggle_entity)
 		connected_wall_ids.push_back(wall_entity_ref.entity_iid.str());
 	}
 
-	createMossToggle(moss_toggle_entity.layer->level->uid, world_position, scaled_size, color_state, connected_wall_ids);
+	createMossToggle(moss_toggle_entity.layer->level->uid, world_position, scaled_size, connected_wall_ids);
 }
 
 void load_moss_door(const ldtk::Entity& moss_door_entity)
