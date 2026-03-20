@@ -59,23 +59,21 @@ Entity CreatureCreator::createCrab(const int level_uid, vec2 position, float wid
     vec2& direction = registry.directions.emplace(crab);
     direction = vec2(0);
     if (curr_direction_facing == DIRECTION::UP) {
-        direction_facing.degrees = 270;
-        direction.y = 1.f;
-    }
-    else if (curr_direction_facing == DIRECTION::DOWN) {
-        direction_facing.degrees = 90;
+        direction_facing.degrees = DEGREES_DOWN * 3;
         direction.y = -1.f;
     }
+    else if (curr_direction_facing == DIRECTION::DOWN) {
+        direction_facing.degrees = DEGREES_DOWN;
+        direction.y = 1.f;
+    }
     else if (curr_direction_facing == DIRECTION::RIGHT) {
-        direction_facing.degrees = 0;
+        direction_facing.degrees = DEGREES_DOWN * 0;
         direction.x = 1.f;
     }
     else {
-        direction_facing.degrees = 180;
+        direction_facing.degrees = DEGREES_DOWN * 2;
         direction.x = -1.f;
     }
-
-    registry.breakables.emplace(crab);
 
     CreatureBehaviour& creatureBehaviour = registry.creatureBehaviours.emplace(crab);
     CreatureBehaviourTreeBuilder builder;
