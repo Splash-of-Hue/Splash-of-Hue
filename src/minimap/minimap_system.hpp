@@ -12,5 +12,4 @@ private:
 	Entity create_room_entity();
 	Entity player_icon_entity;
 	bool player_icon_created = false;
-
 };
