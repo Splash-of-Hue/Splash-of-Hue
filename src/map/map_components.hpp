@@ -80,6 +80,7 @@ struct ChangeMapLevelRequest
 	Entity moving_entity;
 	int new_level_uid;
 	vec2 arrival_position;
+	vec2 arrival_offset;
 	MAP_CHANGE_REQUEST_TYPE type = MAP_CHANGE_REQUEST_TYPE::INVALID;
 	DIRECTION offset_direction;
 };
