@@ -281,6 +281,16 @@ void handle_hurt_collision(Entity& entity_i, Entity& entity_j) {
 }
 void handle_misc_collision(Entity& entity_i, Entity& entity_j)
 {
+	if (registry.players.has(entity_i) && registry.colourOrbs.has(entity_j) ||
+		registry.players.has(entity_j) && registry.colourOrbs.has(entity_i))
+	{
+		Entity& eOrb = registry.colourOrbs.has(entity_i) ? entity_i : entity_j;
+		if (!registry.orbCollected.has(eOrb))
+		{
+			registry.orbCollected.emplace(eOrb);
+		}
+	}
+
 	if (registry.colouredWall.has(entity_i) || registry.colouredWall.has(entity_j))
 	{
 		Entity& eCW = registry.colouredWall.has(entity_i) ? entity_i : entity_j;
@@ -564,6 +574,7 @@ void movePolygon(PolygonMesh& polygon, vec2& pos) {
 	}
 	polygon.centre = pos;
 }
+
 void PhysicsSystem::step(float elapsed_ms)
 {
 	handle_movement(DT);
@@ -595,41 +606,29 @@ void PhysicsSystem::step(float elapsed_ms)
 
 					if (penetration.x != 0) {
 
-					if (is_light_emission_collision(entity_i, entity_j))
-					{
-						light_emission_collisions(entity_i, entity_j);
-					}
-					else {
-						handle_misc_collision(entity_i, entity_j);
-					}
-					
-					if (registry.players.has(entity_i) && registry.colourOrbs.has(entity_j) ||
-						registry.players.has(entity_j) && registry.colourOrbs.has(entity_i))
-					{
-						Entity& eOrb = registry.colourOrbs.has(entity_i) ? entity_i : entity_j;
-						if (!registry.orbCollected.has(eOrb))
+						if (is_light_emission_collision(entity_i, entity_j))
 						{
-							registry.orbCollected.emplace(eOrb);
+							light_emission_collisions(entity_i, entity_j);
 						}
-					}
-					
-					if (registry.collidables.get(entity_i).inelastic && registry.collidables.get(entity_j).inelastic)
-					{
-						if (!registry.creatureInelasticCollisions.has(entity_j) && registry.creatures.has(entity_j)) {
-							registry.creatureInelasticCollisions.emplace(entity_j);
+						else {
+							handle_misc_collision(entity_i, entity_j);
 						}
-						if (!registry.creatureInelasticCollisions.has(entity_i) && registry.creatures.has(entity_i)) {
-							registry.creatureInelasticCollisions.emplace(entity_i);
+
+						if (registry.collidables.get(entity_i).inelastic && registry.collidables.get(entity_j).inelastic)
+						{
+							if (!registry.creatureInelasticCollisions.has(entity_j) && registry.creatures.has(entity_j)) {
+								registry.creatureInelasticCollisions.emplace(entity_j);
+							}
+							if (!registry.creatureInelasticCollisions.has(entity_i) && registry.creatures.has(entity_i)) {
+								registry.creatureInelasticCollisions.emplace(entity_i);
+							}
+							handle_inelastic_collision_mesh(entity_i, entity_j, penetration);
 						}
-						handle_inelastic_collision_mesh(entity_i, entity_j, penetration);
+						continue;
 					}
 					continue;
 				}
-				continue;
-			}
-			//no mesh, so use box collision
-			if (box_collides(entity_i, entity_j))
-			{
+			
 				if (is_light_emission_collision(entity_i, entity_j))
 				{
 					light_emission_collisions(entity_i, entity_j);
