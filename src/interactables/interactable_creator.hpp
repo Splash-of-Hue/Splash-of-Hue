@@ -19,7 +19,6 @@ Entity createMushroom(vec2 position, float radius, COLOUR_STATE colour_state, MU
 /// <param name="level_uid">The unique ID of the level that the moss toggle is in.</param>
 /// <param name="position">The (x, y) coordinates of the center of the toggle.</param>
 /// <param name="size">The (width, height) of the toggle.</param>
-/// <param name="color_state">The color of the toggle.</param>
 /// <param name="connected_wall_ids">The IDs of the walls controlled by the toggle.</param>
 /// <returns>The entity of the toggle.</returns>
 Entity createMossToggle(const int level_uid, vec2 position, vec2 size, std::vector<std::string> connected_wall_ids);
