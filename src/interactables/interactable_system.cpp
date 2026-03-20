@@ -87,7 +87,6 @@ void InteractableSystem::step_pressure_plates()
 		// Bounding Box is added at creation time so no assertion needed to check if pressure plate has it
 		InBoundingBox& in_bounding_box_component = registry.inBoundingBox.get(pressure_plate_entity);
 
-
 		// Don't update if there hasn't been a change in the collisions
 		if (!in_bounding_box_component.updatedThisStep)
 		{
@@ -140,6 +139,9 @@ void InteractableSystem::step_pressure_plates()
 				}
 			}
 		}
+
+		// Reset updatedThisStep
+		in_bounding_box_component.updatedThisStep = false;
 	}
 }
 

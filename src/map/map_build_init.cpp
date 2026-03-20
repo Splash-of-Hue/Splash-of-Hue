@@ -64,8 +64,9 @@ Entity createPressurePlateWall(const int level_uid, std::string id, vec2 positio
 
 	col.inelastic = true;
 
-	// TODO QWNAo0jQ: Render request handled in interactable_system for now because
-	// there are no animations/assets for this at the moment
+	// TODO QWNAo0jQ: Render request handled in interactable_system for now and 
+	// emplacing as a rectangle because there are no animations/assets for this at the moment. 
+	registry.rectangles.emplace(pressure_plate_wall_entity);
 
 	return pressure_plate_wall_entity;
 }

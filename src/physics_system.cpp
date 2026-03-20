@@ -208,7 +208,7 @@ void bounding_box_collisions(Entity& entity_i, Entity& entity_j)
 	vec2& posI = registry.positions.get(entity_i);
 	vec2& posJ = registry.positions.get(entity_j);
 
-	assert((!registry.inBoundingBox.has(entity_i) && !registry.inBoundingBox.has(entity_j)) && "bounding_box_collisions was called for an entity collision that does not have an inBoundingBox component");
+	assert((registry.inBoundingBox.has(entity_i) || registry.inBoundingBox.has(entity_j)) && "bounding_box_collisions was called for an entity collision that does not have an inBoundingBox component");
 	Entity& bounding_box_entity = registry.inBoundingBox.has(entity_i) ? entity_i : entity_j;
 	Entity& other_entity = registry.inBoundingBox.has(entity_i) ? entity_j : entity_i;
 
@@ -615,6 +615,10 @@ void PhysicsSystem::step(float elapsed_ms)
 						if (is_light_emission_collision(entity_i, entity_j))
 						{
 							light_emission_collisions(entity_i, entity_j);
+						}
+						else if (is_bounding_box_collision(entity_i, entity_j))
+						{
+							bounding_box_collisions(entity_i, entity_j);
 						}
 						else {
 							handle_misc_collision(entity_i, entity_j);

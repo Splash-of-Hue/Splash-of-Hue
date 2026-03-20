@@ -481,7 +481,7 @@ void load_pressure_plate_walls(const ldtk::Entity& pressure_plate_entity)
 	const vec2 world_position = scale_to_level(vec2(position.x, position.y));
 	const vec2 scaled_size = scale_to_level(vec2(size.x, size.y));
 	std::string pressure_plate_wall_id = pressure_plate_entity.iid.str();
-	bool is_open;
+	bool is_open = false;
 
 	const auto find_pressure_plate = [&](Entity& entity)
 		{
