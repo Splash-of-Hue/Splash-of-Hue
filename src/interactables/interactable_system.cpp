@@ -19,6 +19,7 @@ void InteractableSystem::step(float elapsed_ms)
 	if (registry.players.entities.empty()) return;
 
 	step_moss_toggle();
+	step_pressure_plates();
 	step_colour_orbs();
 	step_mushrooms();
 }
@@ -74,6 +75,70 @@ void InteractableSystem::step_moss_toggle()
 
 			registry.colourStates.get(*wall_entity_iterator).curr_colour_state = colour_state;
 			registry.animation_triggers.emplace(*wall_entity_iterator, trigger);
+		}
+	}
+}
+
+void InteractableSystem::step_pressure_plates()
+{
+	for (Entity& pressure_plate_entity : registry.pressurePlates.entities)
+	{
+		PressurePlate& pressure_plate_component = registry.pressurePlates.get(pressure_plate_entity);
+		// Bounding Box is added at creation time so no assertion needed to check if pressure plate has it
+		InBoundingBox& in_bounding_box_component = registry.inBoundingBox.get(pressure_plate_entity);
+
+
+		// Don't update if there hasn't been a change in the collisions
+		if (!in_bounding_box_component.updatedThisStep)
+		{
+			continue;
+		}
+
+		// update connected walls!
+		for (std::string& connected_wall_id : pressure_plate_component.connected_wall_ids)
+		{
+			const auto wall_id_match = [&](const Entity& pressure_plate_entity)
+				{
+					return registry.pressurePlateWalls.get(pressure_plate_entity).id == connected_wall_id;
+				};
+			auto& wall_entity_iterator = std::find_if(registry.pressurePlateWalls.entities.begin(), registry.pressurePlateWalls.entities.end(), wall_id_match);
+
+			if (wall_entity_iterator == registry.pressurePlateWalls.entities.end())
+			{
+				continue;
+			}
+
+			// if the pressure plate is being pushed, open up the associated wall
+			if (in_bounding_box_component.isTouchingOtherEntity)
+			{
+				registry.pressurePlateWalls.get(*wall_entity_iterator).is_open = false;
+				registry.collidables.get(*wall_entity_iterator).inelastic = false;
+
+				// TODO QWNAo0jQ 
+				if (registry.renderRequests.has(*wall_entity_iterator))
+				{
+					registry.renderRequests.remove(*wall_entity_iterator);
+				}
+			}
+			// pressure plate is not being pushed, close the wall
+			else
+			{
+				registry.pressurePlateWalls.get(*wall_entity_iterator).is_open = true;
+				registry.collidables.get(*wall_entity_iterator).inelastic = true;
+
+				// TODO QWNAo0jQ 
+				if (!registry.renderRequests.has(*wall_entity_iterator))
+				{
+					registry.renderRequests.insert(
+						*wall_entity_iterator,
+						{
+							EFFECT_ASSET_ID::DEFAULT,
+							GEOMETRY_BUFFER_ID::RECTANGLE,
+							RENDER_LAYER::WALLS_FRONT
+						}
+					);
+				}
+			}
 		}
 	}
 }

@@ -17,6 +17,8 @@ public:
 	}
 
 private:
+	void checkIfInBoundingBox();
+	void checkIfColliding(Entity& entity, InBoundingBox& in_bounding_box_component);
 	void checkIfInRadius();
 	void checkIfCollidingRadius(Entity& entity, std::vector<Entity>& radius_list);
 	void handle_movement(float elapsed_ms);
