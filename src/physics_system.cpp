@@ -612,6 +612,7 @@ void PhysicsSystem::step(float elapsed_ms)
 						}
 						else {
 							handle_misc_collision(entity_i, entity_j);
+							handle_hurt_collision(entity_i, entity_j);
 						}
 
 						if (registry.collidables.get(entity_i).inelastic && registry.collidables.get(entity_j).inelastic)
@@ -635,6 +636,7 @@ void PhysicsSystem::step(float elapsed_ms)
 				}
 				else {
 					handle_misc_collision(entity_i, entity_j);
+					handle_hurt_collision(entity_i, entity_j);
 				}
 				//must both be inelastic for this collision resolution to occur
 				if (registry.collidables.get(entity_i).inelastic && registry.collidables.get(entity_j).inelastic)
