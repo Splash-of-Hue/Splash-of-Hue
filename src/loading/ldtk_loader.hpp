@@ -29,6 +29,8 @@ void load_mushroom(const ldtk::Entity& mushroom_entity);
 void load_extra_entities(const ldtk::Layer& layer);
 void initialize_player(const ldtk::Entity& initial_player_position_entity);
 void load_wall(const ldtk::Entity& wall_entity);
+void load_minimap_reference(const ldtk::Entity& minimap_reference_entity);
+void load_minimap_hallway(const ldtk::Entity& minimap_hallway_entity);
 
 const inline vec2 scale_to_level(vec2 input)
 {

@@ -7,6 +7,7 @@
 #include <set>
 #include <string>
 #include <unordered_map>
+#include <vector>
 
 struct MapTile
 {
@@ -55,6 +56,16 @@ struct Level
 	int uid;
 	// The coordinate of the level in the world grid
 	ivec2 coordinate;
+	/// Bounding box of walkable floor cells in LDtk pixel space.
+	/// Computed after quantized_space_data is built.
+	/// Used by MinimapSystem to draw accurate room shapes.
+	/// </summary>
+	ivec2 floor_ldtk_position = { 0, 0 };
+	ivec2 floor_ldtk_size = { 1, 1 };
+	// Hallway openings for this room in LDtk pixel space.
+	// Each entry is {position, size} of one HallwayReference entity placed in LDtk.
+	std::vector<std::pair<ivec2, ivec2>> hallway_ldtk_rects;
+	// Neighbor levels, these are the levels connected to this one
 	// Neighbor levels, these are the levels connected to this one
 	std::set<int> neighbor_level_uids;
 	/// <summary>
@@ -73,6 +84,7 @@ struct Level
 	/// The background color of the level, behind everything rendered on screen
 	/// </summary>
 	vec4 background_color;
+	bool is_visited = false;
 };
 
 struct ChangeMapLevelRequest
