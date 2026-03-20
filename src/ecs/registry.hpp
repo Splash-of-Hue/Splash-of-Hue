@@ -84,8 +84,9 @@ public:
 	ComponentContainer<ChangeBehaviour> change_behaviours;
 	ComponentContainer<Collidable> collidables;
 	ComponentContainer<Collision> collisions;
+	ComponentContainer<PolygonMesh> hitboxes;
+	ComponentContainer<PolygonMesh> hurtboxes;
 	ComponentContainer<InRadius> inRadius;
-	ComponentContainer<PolygonMesh> polygons;
 	// Physics - Movement / Transforms
 	ComponentContainer<Angle> angles;
 	ComponentContainer<vec2> directions;
@@ -111,6 +112,7 @@ public:
 	// Spawnables
 	ComponentContainer<Creature> creatures;
 	ComponentContainer<Shrimp> shrimps;
+	ComponentContainer<Sawfish> sawfishes;
 	// UI
 	ComponentContainer<MenuAction> menu_actions;
 	ComponentContainer<MenuToggleRequest> menu_toggle_requests;
@@ -177,8 +179,9 @@ public:
 		registry_list.push_back(&change_behaviours);
 		registry_list.push_back(&collidables);
 		registry_list.push_back(&collisions);
+		registry_list.push_back(&hitboxes);
+		registry_list.push_back(&hurtboxes);
 		registry_list.push_back(&inRadius);
-		registry_list.push_back(&polygons);
 		// Physics - Movement / Transforms
 		registry_list.push_back(&angles);
 		registry_list.push_back(&directions);
@@ -204,6 +207,7 @@ public:
 		// Spawnables
 		registry_list.push_back(&creatures);
 		registry_list.push_back(&shrimps);
+		registry_list.push_back(&sawfishes);
 		// UI
 		registry_list.push_back(&menu_actions);
 		registry_list.push_back(&menu_toggle_requests);
