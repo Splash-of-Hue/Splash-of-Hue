@@ -102,9 +102,9 @@ void InteractableSystem::step_pressure_plates()
 		for (std::string& connected_wall_id : pressure_plate_component.connected_wall_ids)
 		{
 			const auto wall_id_match = [&](const Entity& pressure_plate_entity)
-				{
-					return registry.pressurePlateWalls.get(pressure_plate_entity).id == connected_wall_id;
-				};
+			{
+				return registry.pressurePlateWalls.get(pressure_plate_entity).id == connected_wall_id;
+			};
 			auto& wall_entity_iterator = std::find_if(registry.pressurePlateWalls.entities.begin(), registry.pressurePlateWalls.entities.end(), wall_id_match);
 
 			if (wall_entity_iterator == registry.pressurePlateWalls.entities.end())
