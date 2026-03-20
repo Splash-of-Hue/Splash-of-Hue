@@ -308,8 +308,12 @@ void load_creatures(const ldtk::Layer& layer)
 				break;
 
 			case CREATURETYPE::CRAB:
-				creature_entity = creatureCreator.createCrab(level_uid, position, size.x, size.y, color_state);
-				break;
+			{
+				const ldtk::Field<ldtk::EnumValue>& direction_enum_type = ldtk_creature_entity.getField<ldtk::EnumValue>("Direction");
+				const DIRECTION& direction_state = direction_type_from_string(direction_enum_type.value().name);
+				creature_entity = creatureCreator.createCrab(level_uid, position, size.x, size.y, color_state, direction_state);
+			}
+			break;
 
 			case CREATURETYPE::MINNOWS:
 				creature_entity = creatureCreator.createMinnows(level_uid, position, size.x, size.y, color_state);

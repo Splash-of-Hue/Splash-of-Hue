@@ -10,7 +10,7 @@ class CreatureCreator
 {
 public:
     Entity createAnglerfish(const int level_uid, vec2 position, float width, float height, COLOUR_STATE color_state);
-    Entity createCrab(const int level_uid, vec2 position, float width, float height, COLOUR_STATE color_state);
+    Entity createCrab(const int level_uid, vec2 position, float width, float height, COLOUR_STATE color_state, DIRECTION curr_direction_facing);
     Entity createMinnows(const int level_uid, vec2 position, float width, float height, COLOUR_STATE color_state);
     Entity createSawfish(const int level_uid, vec2 position, float width, float height, COLOUR_STATE color_state);
     Entity createShrimp(const int level_uid, vec2 position, float width, float height, COLOUR_STATE color_state, DIRECTION curr_direction_facing = DIRECTION::UP, int num_arms = 2);
