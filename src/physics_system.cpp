@@ -741,7 +741,6 @@ void PhysicsSystem::step(float elapsed_ms)
 
 void PhysicsSystem::handle_movement(float elapsed_ms)
 {
-	
 	ComponentContainer<vec2>& moving_entities = registry.velocities;
 	for (int i = 0; i < moving_entities.size(); i++)
 	{
