@@ -43,4 +43,4 @@ Entity createTeleporter(const int level_uid, const int connected_level_uid, vec2
 /// Creates dungeon wall that players cannot pass
 /// </summary>
 /// <returns>The entity of the wall.</returns>
-Entity createWall(const int level_uid, vec2 position, float width, float height);
+Entity createWall(const int level_uid, vec2 position, float width, float height, vec4 color = vec4{ 1.0, 1.0, 1.0, 0.0 });

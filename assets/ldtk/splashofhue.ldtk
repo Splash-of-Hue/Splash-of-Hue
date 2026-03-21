@@ -11,7 +11,7 @@
 	"iid": "53e64810-d380-11f0-a1bc-4d26a5cd15e3",
 	"jsonVersion": "1.5.3",
 	"appBuildId": 473703,
-	"nextUid": 91,
+	"nextUid": 102,
 	"identifierStyle": "Capitalize",
 	"toc": [{
 		"identifier": "Teleporter",
@@ -112,7 +112,7 @@
 				"levelIid": "bd5add30-21a0-11f1-8ff7-cf0a441145d5",
 				"layerIid": "bd5b0442-21a0-11f1-8ff7-f5e3e9768b00",
 				"entityIid": "a5e3c180-21a0-11f1-9102-d5e38b04d5fe"
-			}, "worldX": 8604, "worldY": 2404, "widPx": 152, "heiPx": 32, "fields" : {} },
+			}, "worldX": 8604, "worldY": 2324, "widPx": 152, "heiPx": 32, "fields" : {} },
 			{ "iids": {
 				"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787",
 				"levelIid": "bd5add30-21a0-11f1-8ff7-cf0a441145d5",
@@ -268,7 +268,7 @@
 				"levelIid": "afce1ff0-21a0-11f1-8ff7-edcb2953dc85",
 				"layerIid": "afce1ff3-21a0-11f1-8ff7-e5af068b7bac",
 				"entityIid": "85f3d530-21a0-11f1-9102-c59e35f53e4d"
-			}, "worldX": 15620, "worldY": 1220, "widPx": 144, "heiPx": 32, "fields" : {} },
+			}, "worldX": 15612, "worldY": 1172, "widPx": 144, "heiPx": 32, "fields" : {} },
 			{ "iids": {
 				"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787",
 				"levelIid": "b2403160-21a0-11f1-8ff7-99b6bf0f1e86",
@@ -280,7 +280,7 @@
 				"levelIid": "b2403160-21a0-11f1-8ff7-99b6bf0f1e86",
 				"layerIid": "b2405872-21a0-11f1-8ff7-ddc1a359fd5b",
 				"entityIid": "51a3f4e0-21a0-11f1-9102-351e4280bfb1"
-			}, "worldX": 18820, "worldY": 948, "widPx": 120, "heiPx": 32, "fields" : {} },
+			}, "worldX": 18828, "worldY": 996, "widPx": 136, "heiPx": 32, "fields" : {} },
 			{ "iids": {
 				"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787",
 				"levelIid": "b2403160-21a0-11f1-8ff7-99b6bf0f1e86",
@@ -336,6 +336,41 @@
 	"defs": { "layers": [
 		{
 			"__type": "Entities",
+			"identifier": "Decorations",
+			"type": "Entities",
+			"uid": 95,
+			"doc": null,
+			"uiColor": null,
+			"gridSize": 32,
+			"guideGridWid": 0,
+			"guideGridHei": 0,
+			"displayOpacity": 1,
+			"inactiveOpacity": 0.6,
+			"hideInList": false,
+			"hideFieldsWhenInactive": true,
+			"canSelectWhenInactive": true,
+			"renderInWorldView": true,
+			"pxOffsetX": 0,
+			"pxOffsetY": 0,
+			"parallaxFactorX": 0,
+			"parallaxFactorY": 0,
+			"parallaxScaling": true,
+			"requiredTags": ["Floor_Decoration"],
+			"excludedTags": [],
+			"autoTilesKilledByOtherLayerUid": null,
+			"uiFilterTags": [],
+			"useAsyncRender": false,
+			"intGridValues": [],
+			"intGridValuesGroups": [],
+			"autoRuleGroups": [],
+			"autoSourceLayerDefUid": null,
+			"tilesetDefUid": null,
+			"tilePivotX": 0,
+			"tilePivotY": 0,
+			"biomeFieldUid": null
+		},
+		{
+			"__type": "Entities",
 			"identifier": "Extra_Entities",
 			"type": "Entities",
 			"uid": 36,
@@ -356,7 +391,7 @@
 			"parallaxFactorY": 0,
 			"parallaxScaling": true,
 			"requiredTags": [],
-			"excludedTags": [ "Creature", "Floor_Interactable" ],
+			"excludedTags": [ "Creature", "Floor_Interactable", "Floor_Decoration" ],
 			"autoTilesKilledByOtherLayerUid": null,
 			"uiFilterTags": [],
 			"useAsyncRender": false,
@@ -1942,6 +1977,297 @@
 					"tilesetUid": null
 				}
 			]
+		},
+		{
+			"identifier": "PuzzleBubble",
+			"uid": 91,
+			"tags": [ "Floor_Interactable", "Puzzle_Piece" ],
+			"exportToToc": false,
+			"allowOutOfBounds": false,
+			"doc": null,
+			"width": 75,
+			"height": 75,
+			"resizableX": false,
+			"resizableY": false,
+			"minWidth": null,
+			"maxWidth": null,
+			"minHeight": null,
+			"maxHeight": null,
+			"keepAspectRatio": false,
+			"tileOpacity": 1,
+			"fillOpacity": 0.08,
+			"lineOpacity": 0,
+			"hollow": false,
+			"color": "#BAC7CD",
+			"renderMode": "Tile",
+			"showName": true,
+			"tilesetId": 93,
+			"tileRenderMode": "Cover",
+			"tileRect": { "tilesetUid": 93, "x": 0, "y": 0, "w": 256, "h": 256 },
+			"uiTileRect": null,
+			"nineSliceBorders": [],
+			"maxCount": 0,
+			"limitScope": "PerLevel",
+			"limitBehavior": "MoveLastOne",
+			"pivotX": 0.5,
+			"pivotY": 0.5,
+			"fieldDefs": [
+				{
+					"identifier": "ColorSolution",
+					"doc": null,
+					"__type": "LocalEnum.ColorState",
+					"uid": 97,
+					"type": "F_Enum(26)",
+					"isArray": false,
+					"canBeNull": false,
+					"arrayMinLength": null,
+					"arrayMaxLength": null,
+					"editorDisplayMode": "EntityTile",
+					"editorDisplayScale": 1,
+					"editorDisplayPos": "Above",
+					"editorLinkStyle": "StraightArrow",
+					"editorDisplayColor": null,
+					"editorAlwaysShow": false,
+					"editorShowInWorld": true,
+					"editorCutLongValues": true,
+					"editorTextSuffix": null,
+					"editorTextPrefix": null,
+					"useForSmartColor": true,
+					"exportToToc": false,
+					"searchable": false,
+					"min": null,
+					"max": null,
+					"regex": null,
+					"acceptFileTypes": null,
+					"defaultOverride": null,
+					"textLanguageMode": null,
+					"symmetricalRef": false,
+					"autoChainRef": true,
+					"allowOutOfLevelRef": true,
+					"allowedRefs": "OnlySame",
+					"allowedRefsEntityUid": null,
+					"allowedRefTags": [],
+					"tilesetUid": null
+				}
+			]
+		},
+		{
+			"identifier": "PuzzleBubbleFake",
+			"uid": 92,
+			"tags": ["Floor_Decoration"],
+			"exportToToc": false,
+			"allowOutOfBounds": false,
+			"doc": null,
+			"width": 75,
+			"height": 75,
+			"resizableX": false,
+			"resizableY": false,
+			"minWidth": null,
+			"maxWidth": null,
+			"minHeight": null,
+			"maxHeight": null,
+			"keepAspectRatio": false,
+			"tileOpacity": 1,
+			"fillOpacity": 0.08,
+			"lineOpacity": 0,
+			"hollow": false,
+			"color": "#BDD4D6",
+			"renderMode": "Tile",
+			"showName": true,
+			"tilesetId": 94,
+			"tileRenderMode": "FitInside",
+			"tileRect": { "tilesetUid": 94, "x": 0, "y": 0, "w": 256, "h": 256 },
+			"uiTileRect": null,
+			"nineSliceBorders": [],
+			"maxCount": 0,
+			"limitScope": "PerLevel",
+			"limitBehavior": "MoveLastOne",
+			"pivotX": 0.5,
+			"pivotY": 0.5,
+			"fieldDefs": [
+				{
+					"identifier": "Color",
+					"doc": null,
+					"__type": "LocalEnum.ColorState",
+					"uid": 96,
+					"type": "F_Enum(26)",
+					"isArray": false,
+					"canBeNull": false,
+					"arrayMinLength": null,
+					"arrayMaxLength": null,
+					"editorDisplayMode": "Hidden",
+					"editorDisplayScale": 1,
+					"editorDisplayPos": "Center",
+					"editorLinkStyle": "StraightArrow",
+					"editorDisplayColor": "#000000",
+					"editorAlwaysShow": true,
+					"editorShowInWorld": true,
+					"editorCutLongValues": true,
+					"editorTextSuffix": null,
+					"editorTextPrefix": null,
+					"useForSmartColor": true,
+					"exportToToc": false,
+					"searchable": false,
+					"min": null,
+					"max": null,
+					"regex": null,
+					"acceptFileTypes": null,
+					"defaultOverride": null,
+					"textLanguageMode": null,
+					"symmetricalRef": false,
+					"autoChainRef": true,
+					"allowOutOfLevelRef": true,
+					"allowedRefs": "OnlySame",
+					"allowedRefsEntityUid": null,
+					"allowedRefTags": [],
+					"tilesetUid": null
+				}
+			]
+		},
+		{
+			"identifier": "PuzzleSolution",
+			"uid": 98,
+			"tags": ["Puzzle"],
+			"exportToToc": false,
+			"allowOutOfBounds": true,
+			"doc": null,
+			"width": 100,
+			"height": 100,
+			"resizableX": false,
+			"resizableY": false,
+			"minWidth": null,
+			"maxWidth": null,
+			"minHeight": null,
+			"maxHeight": null,
+			"keepAspectRatio": false,
+			"tileOpacity": 1,
+			"fillOpacity": 1,
+			"lineOpacity": 1,
+			"hollow": false,
+			"color": "#0099DB",
+			"renderMode": "Rectangle",
+			"showName": true,
+			"tilesetId": null,
+			"tileRenderMode": "FitInside",
+			"tileRect": null,
+			"uiTileRect": null,
+			"nineSliceBorders": [],
+			"maxCount": 0,
+			"limitScope": "PerLevel",
+			"limitBehavior": "MoveLastOne",
+			"pivotX": 0.5,
+			"pivotY": 0.5,
+			"fieldDefs": [
+				{
+					"identifier": "PuzzlePieces",
+					"doc": null,
+					"__type": "Array<EntityRef>",
+					"uid": 99,
+					"type": "F_EntityRef",
+					"isArray": true,
+					"canBeNull": false,
+					"arrayMinLength": 1,
+					"arrayMaxLength": null,
+					"editorDisplayMode": "RefLinkBetweenCenters",
+					"editorDisplayScale": 1,
+					"editorDisplayPos": "Above",
+					"editorLinkStyle": "DashedLine",
+					"editorDisplayColor": "#000000",
+					"editorAlwaysShow": false,
+					"editorShowInWorld": true,
+					"editorCutLongValues": true,
+					"editorTextSuffix": null,
+					"editorTextPrefix": null,
+					"useForSmartColor": false,
+					"exportToToc": false,
+					"searchable": false,
+					"min": null,
+					"max": null,
+					"regex": null,
+					"acceptFileTypes": null,
+					"defaultOverride": null,
+					"textLanguageMode": null,
+					"symmetricalRef": false,
+					"autoChainRef": false,
+					"allowOutOfLevelRef": false,
+					"allowedRefs": "OnlyTags",
+					"allowedRefsEntityUid": 91,
+					"allowedRefTags": ["Puzzle_Piece"],
+					"tilesetUid": null
+				},
+				{
+					"identifier": "Triggers",
+					"doc": null,
+					"__type": "Array<EntityRef>",
+					"uid": 100,
+					"type": "F_EntityRef",
+					"isArray": true,
+					"canBeNull": false,
+					"arrayMinLength": 1,
+					"arrayMaxLength": null,
+					"editorDisplayMode": "RefLinkBetweenCenters",
+					"editorDisplayScale": 1,
+					"editorDisplayPos": "Above",
+					"editorLinkStyle": "CurvedArrow",
+					"editorDisplayColor": "#C6C6DB",
+					"editorAlwaysShow": false,
+					"editorShowInWorld": true,
+					"editorCutLongValues": true,
+					"editorTextSuffix": null,
+					"editorTextPrefix": null,
+					"useForSmartColor": false,
+					"exportToToc": false,
+					"searchable": false,
+					"min": null,
+					"max": null,
+					"regex": null,
+					"acceptFileTypes": null,
+					"defaultOverride": null,
+					"textLanguageMode": null,
+					"symmetricalRef": false,
+					"autoChainRef": false,
+					"allowOutOfLevelRef": false,
+					"allowedRefs": "OnlyTags",
+					"allowedRefsEntityUid": null,
+					"allowedRefTags": ["Puzzle_Trigger"],
+					"tilesetUid": null
+				}
+			]
+		},
+		{
+			"identifier": "PuzzleWall",
+			"uid": 101,
+			"tags": [ "Internal_Wall", "Puzzle_Trigger" ],
+			"exportToToc": false,
+			"allowOutOfBounds": false,
+			"doc": null,
+			"width": 50,
+			"height": 50,
+			"resizableX": true,
+			"resizableY": true,
+			"minWidth": 25,
+			"maxWidth": null,
+			"minHeight": 25,
+			"maxHeight": null,
+			"keepAspectRatio": false,
+			"tileOpacity": 1,
+			"fillOpacity": 1,
+			"lineOpacity": 1,
+			"hollow": false,
+			"color": "#2CE8F5",
+			"renderMode": "Rectangle",
+			"showName": true,
+			"tilesetId": null,
+			"tileRenderMode": "FitInside",
+			"tileRect": null,
+			"uiTileRect": null,
+			"nineSliceBorders": [],
+			"maxCount": 0,
+			"limitScope": "PerLevel",
+			"limitBehavior": "MoveLastOne",
+			"pivotX": 0.5,
+			"pivotY": 0.5,
+			"fieldDefs": []
 		}
 	], "tilesets": [
 		{
@@ -2050,6 +2376,44 @@
 				"opaqueTiles": "00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000010000000000000001000000000000011100000010000001110000001000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001000000000000000000000000000001110000001000000001000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000010000000000000000000000100000000100000000000000000000001000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000100000000000000000000001000000001000000000000000000000000000000010000000000000000000000100000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
 				"averageColors": "000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000002000421183115311420010000000000020004122812351334112100000000000200022107311631142103100000000002000212271236123412230110000000053119411a622d622b62285110000000051239134a245d245b2568234000000006311a311a522d522c622a511000000006133a123a245d245c246a234000000008732e632d732f732f7329411100000008257e256d368f367f2578134100000008732e632d732f732f732a411200000008257e256d368f367f257a13420000000c943f953fa53fa53f943a72200000000c368f48af48af48af379a35700000000c943f953fa53fa53f943a72200000000c368f48af48af48af379a3570000000001004622782288324722000000000000000042567367736852570000000000000100462278228832472200000000000000004256736773685257000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000010003134000010000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000413381230000523400000000000000000000100010005311631133112000000000001000100051336123312320000000000000000000000000000000000000001000424500000000100000000000000000007411a311a622e622b622a411000000007134a122a245e245b256a1340000000000000000000000000000000000003134413300002134424500000000000000008732e632d732f732f7329411100000008257e256d368f367f2579134100000007554c554c555c555944424440000324651340000000000000000000000000000c943f953fa53fa53f943a72200000000c368f48af48af48af379a25700000000c665f665f776f565f666a5540000000041230000623421230000000000000000010046227822883247220000000000000000425673677368525700000000000000004444755585554554000000000000413300004245125600000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000003133000000000000000000000000121133110000100000000000000000001000341100001000000000000000000011223133000010000000000000000000000000000000000000000000000000004411741110005511000000000000000044118311000054110000000000000000423471341000524500000000000000000000000000000000000000000000000010004411000000001000000000000000100045110000000010000000000000001000424500000000100000000000000000000000000000000000000000000000231143110000241134110000000000003411441100002411451100000000000021234123000022343134000000000000000000000000000000000000000000003621641100000000000000000000000036215411000000000000000000000000325661340000000000000000000000000000000000000000000000000000000000004311000064113311000000000000000043110000641123110000000000000000412300006134313300000000000000000000000000000000000000000000000053110000451116220000000000000000431100004511162200000000000000005133000042451256000000000000000000000000000000000000000000000000341100000000000000000000000000003411000000000000000000000000000031330000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000100000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000200094116301a200a51194119300c411a511a000a4110000000000000000000000000000000000000000000000000000000000000000000000000000000000004000e6118411d311e7118511a511f511b611b301e6110000000000000000000000000000000000000000000000000000000000000000000000000000000000005100c611b411d4119511b6118200f611b511b200d6110000000000000000000000000000000000000000000000000000000000000000000000000000000000006000b611f411c6116000f6118000e611c411b301b7110000000000000000000000000000000000000000000000000000000000000000000000000000000000006000b611d511d5118411f7119000b611e411a61195110000000000000000000000000000000000000000000000000000000000000000000000000000000000004000f6119411d301b611e6119000b511d511b411b7110000000000000000000000000000000000000000000000000000000000000000000000000000000000001000e5117000d300d511b5119300d301b511a100e6110000000000000000000000000000000000000000000000000000000000000000000000000000000000000000e5119100c301e411a5118301e2009411a300e5110000000000000000000000000000000000000000000000000000000000000000000000000000000000001000f411b301c200c411b4117100e3019311c200d4110000000000000000000000000000000000000000000000000000000000000000000000000000000000000000f4119100c200e200c411b200d4118311b200d311000000000000000000000000000000000000000000000000000000004011d045200000000000000000000000e4119100d311c311b200d411e3118311b300f411000000000000000000001000d3015311000000000000000000000000a045f046602300000000000000000000c411b100c411c200b300a311d311a200c301f411100000000000000000005100f511a300000000000000000000000000b056f045c168000000000000000000006200600072009100620030006200400072009200000000000000000000006200f511f611100000000000000000000000b056f056e056000000000000000000000000000000000000000000000000000000000000000000000000000000006000f611e411300000000000000000000000c045f045e034000000000000000000000000000000000000000000000000000000000000000000000000000000007301f311e411300000000000000000000000d045f045c012000000000000000030002000501160342000903460344022903460232000000000000000000000008411f411f200100000000000000000000000c011f0568000000000000000000090568056d046d0679056e167a034a057f057b0577045000000000000000000007200f300c411000000000000000000000000a056f04670230000000000000000a1688045e045d1676023e0578023b168e057b0678056000000000000000000005000f511b5110000000000000000000000009056f04560110000000000000000b167a000d045f0676000d1689057a056e045c1686022000000000000000000005000f511a3010000000000000000000000009045f04560120000000000000000b167a000c057f0567034c179c168a000b056f1684000000000000000000000004000f411a4110000000000000000000000008045f04480450000000000000000b168a045e056d057a011d178a057a000b167e1785000000000000000000000004000f301c411000000000000000000000000a056f034804500000000000000007045b168b044d046a034e168a0569023e056c1788045000000000000000000005000f411d411000000000000000000000000b045e046914500000000000000006011c168a034c0348045f1678012a046e05690459167000000000000000000007200f411e411000000000000000000000000c045f146804500000000000000006011b167d045b0459034e1456000a045e045b0458045000000000000000000008311f301d411000000000000000000000000e145f146702300000000000000006001c156d034b034b023e156a0458045e034b1457034000000000000000000009311f300c411000000000000000000000000d145f045702300000000000000005000e1569045b023c034e156e0348034e145b0349145000000000000000000008301f301b411000000000000000000000000b156f034702300000000000000003000f156b145a023d034d156b011b145d145c034a156000000000000000000006100f311c311000000000000000000000000b145d045502300000000000000001000e034a034a000a023d0343000a033b034b0239034000000000000000000007200e311941100000000000000000000000020450045000000000000000000000000000000000000000000000000000000000000000000000000000000000000241115110000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"
 			}
+		},
+		{
+			"__cWid": 5,
+			"__cHei": 3,
+			"identifier": "Puzzle_bubble",
+			"uid": 93,
+			"relPath": "../textures/puzzle_bubble.png",
+			"embedAtlas": null,
+			"pxWid": 1280,
+			"pxHei": 768,
+			"tileGridSize": 256,
+			"spacing": 0,
+			"padding": 0,
+			"tags": [],
+			"tagsSourceEnumUid": null,
+			"enumTags": [],
+			"customData": [],
+			"savedSelections": [],
+			"cachedPixelData": { "opaqueTiles": "000000000000000", "averageColors": "966796679667966796679667966796679667966796679667000000000000" }
+		},
+		{
+			"__cWid": 1,
+			"__cHei": 1,
+			"identifier": "Puzzle_bubble_fake",
+			"uid": 94,
+			"relPath": "../textures/puzzle_bubble_fake.png",
+			"embedAtlas": null,
+			"pxWid": 256,
+			"pxHei": 256,
+			"tileGridSize": 256,
+			"spacing": 0,
+			"padding": 0,
+			"tags": [],
+			"tagsSourceEnumUid": null,
+			"enumTags": [],
+			"customData": [],
+			"savedSelections": [],
+			"cachedPixelData": { "opaqueTiles": "0", "averageColors": "9fff" }
 		}
 	], "enums": [
 		{ "identifier": "MapTileType", "uid": 14, "values": [{ "id": "Wall", "tileRect": null, "color": 12470831 }], "iconTilesetUid": null, "externalRelPath": null, "externalFileChecksum": null, "tags": ["Tilemaps"] },
@@ -2115,6 +2479,89 @@
 			"externalRelPath": null,
 			"fieldInstances": [],
 			"layerInstances": [
+				{
+					"__identifier": "Decorations",
+					"__type": "Entities",
+					"__cWid": 60,
+					"__cHei": 34,
+					"__gridSize": 32,
+					"__opacity": 1,
+					"__pxTotalOffsetX": 0,
+					"__pxTotalOffsetY": 0,
+					"__tilesetDefUid": null,
+					"__tilesetRelPath": null,
+					"iid": "d3c743b0-21a0-11f1-aa60-67108312f142",
+					"levelId": 2,
+					"layerDefUid": 95,
+					"pxOffsetX": 0,
+					"pxOffsetY": 0,
+					"visible": true,
+					"optionalRules": [],
+					"intGridCsv": [],
+					"autoLayerTiles": [],
+					"seed": 4752616,
+					"overrideTilesetUid": null,
+					"gridTiles": [],
+					"entityInstances": [
+						{
+							"__identifier": "PuzzleBubbleFake",
+							"__grid": [18,13],
+							"__pivot": [0.5,0.5],
+							"__tags": ["Floor_Decoration"],
+							"__tile": { "tilesetUid": 94, "x": 0, "y": 0, "w": 256, "h": 256 },
+							"__smartColor": "#2413E3",
+							"iid": "de935950-21a0-11f1-aa60-a9f9ac1492ef",
+							"width": 75,
+							"height": 75,
+							"defUid": 92,
+							"px": [592,432],
+							"fieldInstances": [{ "__identifier": "Color", "__type": "LocalEnum.ColorState", "__value": "Blue", "__tile": null, "defUid": 96, "realEditorValues": [{
+								"id": "V_String",
+								"params": ["Blue"]
+							}] }],
+							"__worldX": 592,
+							"__worldY": 432
+						},
+						{
+							"__identifier": "PuzzleBubbleFake",
+							"__grid": [22,13],
+							"__pivot": [0.5,0.5],
+							"__tags": ["Floor_Decoration"],
+							"__tile": { "tilesetUid": 94, "x": 0, "y": 0, "w": 256, "h": 256 },
+							"__smartColor": "#BE4A2F",
+							"iid": "e041f3b0-21a0-11f1-aa60-0f26343bfe44",
+							"width": 75,
+							"height": 75,
+							"defUid": 92,
+							"px": [720,432],
+							"fieldInstances": [{ "__identifier": "Color", "__type": "LocalEnum.ColorState", "__value": "Red", "__tile": null, "defUid": 96, "realEditorValues": [{
+								"id": "V_String",
+								"params": ["Red"]
+							}] }],
+							"__worldX": 720,
+							"__worldY": 432
+						},
+						{
+							"__identifier": "PuzzleBubbleFake",
+							"__grid": [26,13],
+							"__pivot": [0.5,0.5],
+							"__tags": ["Floor_Decoration"],
+							"__tile": { "tilesetUid": 94, "x": 0, "y": 0, "w": 256, "h": 256 },
+							"__smartColor": "#FFFFFF",
+							"iid": "e1f3e970-21a0-11f1-aa60-11355585f485",
+							"width": 75,
+							"height": 75,
+							"defUid": 92,
+							"px": [848,432],
+							"fieldInstances": [{ "__identifier": "Color", "__type": "LocalEnum.ColorState", "__value": "Neutral", "__tile": null, "defUid": 96, "realEditorValues": [{
+								"id": "V_String",
+								"params": ["Neutral"]
+							}] }],
+							"__worldX": 848,
+							"__worldY": 432
+						}
+					]
+				},
 				{
 					"__identifier": "Extra_Entities",
 					"__type": "Entities",
@@ -2234,6 +2681,65 @@
 							"fieldInstances": [],
 							"__worldX": 904,
 							"__worldY": 872
+						},
+						{
+							"__identifier": "PuzzleWall",
+							"__grid": [75,19],
+							"__pivot": [0.5,0.5],
+							"__tags": [ "Internal_Wall", "Puzzle_Trigger" ],
+							"__tile": null,
+							"__smartColor": "#2CE8F5",
+							"iid": "ccf48bb0-21a0-11f1-aa60-bf7a6bea02ae",
+							"width": 80,
+							"height": 192,
+							"defUid": 101,
+							"px": [1208,312],
+							"fieldInstances": [],
+							"__worldX": 1208,
+							"__worldY": 312
+						},
+						{
+							"__identifier": "PuzzleSolution",
+							"__grid": [18,36],
+							"__pivot": [0.5,0.5],
+							"__tags": ["Puzzle"],
+							"__tile": null,
+							"__smartColor": "#0099DB",
+							"iid": "d0d45df0-21a0-11f1-aa60-edaf6fa648e4",
+							"width": 100,
+							"height": 100,
+							"defUid": 98,
+							"px": [296,584],
+							"fieldInstances": [
+								{ "__identifier": "PuzzlePieces", "__type": "Array<EntityRef>", "__value": [ {
+									"entityIid": "d6bcaa60-21a0-11f1-aa60-9352a5f3b18a",
+									"layerIid": "e519eeb0-d380-11f0-a1bc-09692cbe4ff9",
+									"levelIid": "def30d80-d380-11f0-a1bc-2363b8ac7cbf",
+									"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787"
+								}, {
+									"entityIid": "d50361a0-21a0-11f1-aa60-7f097f8f2e53",
+									"layerIid": "e519eeb0-d380-11f0-a1bc-09692cbe4ff9",
+									"levelIid": "def30d80-d380-11f0-a1bc-2363b8ac7cbf",
+									"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787"
+								} ], "__tile": null, "defUid": 99, "realEditorValues": [ {
+									"id": "V_String",
+									"params": ["d6bcaa60-21a0-11f1-aa60-9352a5f3b18a"]
+								}, {
+									"id": "V_String",
+									"params": ["d50361a0-21a0-11f1-aa60-7f097f8f2e53"]
+								} ] },
+								{ "__identifier": "Triggers", "__type": "Array<EntityRef>", "__value": [{
+									"entityIid": "ccf48bb0-21a0-11f1-aa60-bf7a6bea02ae",
+									"layerIid": "ca7becd0-fa90-11f0-85ba-81bccb6ba5f4",
+									"levelIid": "def30d80-d380-11f0-a1bc-2363b8ac7cbf",
+									"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787"
+								}], "__tile": null, "defUid": 100, "realEditorValues": [{
+									"id": "V_String",
+									"params": ["ccf48bb0-21a0-11f1-aa60-bf7a6bea02ae"]
+								}] }
+							],
+							"__worldX": 296,
+							"__worldY": 584
 						}
 					]
 				},
@@ -2260,27 +2766,7 @@
 					"seed": 8380983,
 					"overrideTilesetUid": null,
 					"gridTiles": [],
-					"entityInstances": [
-						{
-							"__identifier": "Anglerfish",
-							"__grid": [42,18],
-							"__pivot": [0.5,0.5],
-							"__tags": ["Creature"],
-							"__tile": null,
-							"__smartColor": "#EAD4AA",
-							"iid": "3e67c2e0-21a0-11f1-85f2-ff444a6f7166",
-							"width": 128,
-							"height": 128,
-							"defUid": 21,
-							"px": [680,296],
-							"fieldInstances": [
-								{ "__identifier": "ColorState", "__type": "LocalEnum.ColorState", "__value": "Neutral", "__tile": null, "defUid": 29, "realEditorValues": [] },
-								{ "__identifier": "CreatureType", "__type": "LocalEnum.CreatureType", "__value": "Anglerfish", "__tile": null, "defUid": 89, "realEditorValues": [] }
-							],
-							"__worldX": 680,
-							"__worldY": 296
-						}
-					]
+					"entityInstances": []
 				},
 				{
 					"__identifier": "Floor_Interactables",
@@ -2352,6 +2838,82 @@
 							"fieldInstances": [{ "__identifier": "ControlPictureType", "__type": "LocalEnum.ControlPictureType", "__value": "WASD", "__tile": null, "defUid": 65, "realEditorValues": [] }],
 							"__worldX": 896,
 							"__worldY": 424
+						},
+						{
+							"__identifier": "PuzzleBubble",
+							"__grid": [81,103],
+							"__pivot": [0.5,0.5],
+							"__tags": [ "Floor_Interactable", "Puzzle_Piece" ],
+							"__tile": { "tilesetUid": 93, "x": 0, "y": 0, "w": 256, "h": 256 },
+							"__smartColor": "#2413E3",
+							"iid": "d50361a0-21a0-11f1-aa60-7f097f8f2e53",
+							"width": 75,
+							"height": 75,
+							"defUid": 91,
+							"px": [652,828],
+							"fieldInstances": [{ "__identifier": "ColorSolution", "__type": "LocalEnum.ColorState", "__value": "Blue", "__tile": null, "defUid": 97, "realEditorValues": [{
+								"id": "V_String",
+								"params": ["Blue"]
+							}] }],
+							"__worldX": 652,
+							"__worldY": 828
+						},
+						{
+							"__identifier": "PuzzleBubble",
+							"__grid": [81,76],
+							"__pivot": [0.5,0.5],
+							"__tags": [ "Floor_Interactable", "Puzzle_Piece" ],
+							"__tile": { "tilesetUid": 93, "x": 0, "y": 0, "w": 256, "h": 256 },
+							"__smartColor": "#2413E3",
+							"iid": "d6bcaa60-21a0-11f1-aa60-9352a5f3b18a",
+							"width": 75,
+							"height": 75,
+							"defUid": 91,
+							"px": [652,612],
+							"fieldInstances": [{ "__identifier": "ColorSolution", "__type": "LocalEnum.ColorState", "__value": "Blue", "__tile": null, "defUid": 97, "realEditorValues": [{
+								"id": "V_String",
+								"params": ["Blue"]
+							}] }],
+							"__worldX": 652,
+							"__worldY": 612
+						},
+						{
+							"__identifier": "PuzzleBubble",
+							"__grid": [137,96],
+							"__pivot": [0.5,0.5],
+							"__tags": [ "Floor_Interactable", "Puzzle_Piece" ],
+							"__tile": { "tilesetUid": 93, "x": 0, "y": 0, "w": 256, "h": 256 },
+							"__smartColor": "#BE4A2F",
+							"iid": "e7a7df70-21a0-11f1-aa60-db86036493fb",
+							"width": 75,
+							"height": 75,
+							"defUid": 91,
+							"px": [1100,772],
+							"fieldInstances": [{ "__identifier": "ColorSolution", "__type": "LocalEnum.ColorState", "__value": "Red", "__tile": null, "defUid": 97, "realEditorValues": [{
+								"id": "V_String",
+								"params": ["Red"]
+							}] }],
+							"__worldX": 1100,
+							"__worldY": 772
+						},
+						{
+							"__identifier": "PuzzleBubble",
+							"__grid": [150,108],
+							"__pivot": [0.5,0.5],
+							"__tags": [ "Floor_Interactable", "Puzzle_Piece" ],
+							"__tile": { "tilesetUid": 93, "x": 0, "y": 0, "w": 256, "h": 256 },
+							"__smartColor": "#FFFFFF",
+							"iid": "e94bf280-21a0-11f1-aa60-6f6d511abda4",
+							"width": 75,
+							"height": 75,
+							"defUid": 91,
+							"px": [1204,868],
+							"fieldInstances": [{ "__identifier": "ColorSolution", "__type": "LocalEnum.ColorState", "__value": "Neutral", "__tile": null, "defUid": 97, "realEditorValues": [{
+								"id": "V_String",
+								"params": ["Neutral"]
+							}] }],
+							"__worldX": 1204,
+							"__worldY": 868
 						}
 					]
 				},
@@ -2832,6 +3394,31 @@
 			"externalRelPath": null,
 			"fieldInstances": [],
 			"layerInstances": [
+				{
+					"__identifier": "Decorations",
+					"__type": "Entities",
+					"__cWid": 60,
+					"__cHei": 34,
+					"__gridSize": 32,
+					"__opacity": 1,
+					"__pxTotalOffsetX": 0,
+					"__pxTotalOffsetY": 0,
+					"__tilesetDefUid": null,
+					"__tilesetRelPath": null,
+					"iid": "d3c791d0-21a0-11f1-aa60-87ab73d43fe9",
+					"levelId": 3,
+					"layerDefUid": 95,
+					"pxOffsetX": 0,
+					"pxOffsetY": 0,
+					"visible": true,
+					"optionalRules": [],
+					"intGridCsv": [],
+					"autoLayerTiles": [],
+					"seed": 6580003,
+					"overrideTilesetUid": null,
+					"gridTiles": [],
+					"entityInstances": []
+				},
 				{
 					"__identifier": "Extra_Entities",
 					"__type": "Entities",
@@ -3789,6 +4376,31 @@
 			"externalRelPath": null,
 			"fieldInstances": [],
 			"layerInstances": [
+				{
+					"__identifier": "Decorations",
+					"__type": "Entities",
+					"__cWid": 60,
+					"__cHei": 34,
+					"__gridSize": 32,
+					"__opacity": 1,
+					"__pxTotalOffsetX": 0,
+					"__pxTotalOffsetY": 0,
+					"__tilesetDefUid": null,
+					"__tilesetRelPath": null,
+					"iid": "d3c7b8e0-21a0-11f1-aa60-b56e4e051c64",
+					"levelId": 40,
+					"layerDefUid": 95,
+					"pxOffsetX": 0,
+					"pxOffsetY": 0,
+					"visible": true,
+					"optionalRules": [],
+					"intGridCsv": [],
+					"autoLayerTiles": [],
+					"seed": 1238000,
+					"overrideTilesetUid": null,
+					"gridTiles": [],
+					"entityInstances": []
+				},
 				{
 					"__identifier": "Extra_Entities",
 					"__type": "Entities",
@@ -5507,7 +6119,6 @@
 				{ "levelIid": "ece88230-d380-11f0-a1bc-15355c04c6fa", "dir": "w" },
 				{ "levelIid": "1ae35cf0-fa90-11f0-95ec-85cc4233bd3c", "dir": "nw" },
 				{ "levelIid": "1f0a2340-fa90-11f0-95ec-b5764b7730ff", "dir": "n" },
-				{ "levelIid": "2091ada0-fa90-11f0-95ec-63798b15b604", "dir": "ne" },
 				{ "levelIid": "7072afd0-fa90-11f0-95ec-9728d75f4198", "dir": "e" }
 			]
 		},
@@ -5532,6 +6143,31 @@
 			"externalRelPath": null,
 			"fieldInstances": [],
 			"layerInstances": [
+				{
+					"__identifier": "Decorations",
+					"__type": "Entities",
+					"__cWid": 60,
+					"__cHei": 34,
+					"__gridSize": 32,
+					"__opacity": 1,
+					"__pxTotalOffsetX": 0,
+					"__pxTotalOffsetY": 0,
+					"__tilesetDefUid": null,
+					"__tilesetRelPath": null,
+					"iid": "d3c7dff0-21a0-11f1-aa60-e5d2e483af25",
+					"levelId": 41,
+					"layerDefUid": 95,
+					"pxOffsetX": 0,
+					"pxOffsetY": 0,
+					"visible": true,
+					"optionalRules": [],
+					"intGridCsv": [],
+					"autoLayerTiles": [],
+					"seed": 2548161,
+					"overrideTilesetUid": null,
+					"gridTiles": [],
+					"entityInstances": []
+				},
 				{
 					"__identifier": "Extra_Entities",
 					"__type": "Entities",
@@ -7175,6 +7811,31 @@
 			"fieldInstances": [],
 			"layerInstances": [
 				{
+					"__identifier": "Decorations",
+					"__type": "Entities",
+					"__cWid": 60,
+					"__cHei": 34,
+					"__gridSize": 32,
+					"__opacity": 1,
+					"__pxTotalOffsetX": 0,
+					"__pxTotalOffsetY": 0,
+					"__tilesetDefUid": null,
+					"__tilesetRelPath": null,
+					"iid": "d3c80700-21a0-11f1-aa60-af343c36b518",
+					"levelId": 42,
+					"layerDefUid": 95,
+					"pxOffsetX": 0,
+					"pxOffsetY": 0,
+					"visible": true,
+					"optionalRules": [],
+					"intGridCsv": [],
+					"autoLayerTiles": [],
+					"seed": 2481991,
+					"overrideTilesetUid": null,
+					"gridTiles": [],
+					"entityInstances": []
+				},
+				{
 					"__identifier": "Extra_Entities",
 					"__type": "Entities",
 					"__cWid": 120,
@@ -7955,6 +8616,200 @@
 			"fieldInstances": [],
 			"layerInstances": [
 				{
+					"__identifier": "Decorations",
+					"__type": "Entities",
+					"__cWid": 60,
+					"__cHei": 34,
+					"__gridSize": 32,
+					"__opacity": 1,
+					"__pxTotalOffsetX": 0,
+					"__pxTotalOffsetY": 0,
+					"__tilesetDefUid": null,
+					"__tilesetRelPath": null,
+					"iid": "d3c82e10-21a0-11f1-aa60-55464547ec87",
+					"levelId": 43,
+					"layerDefUid": 95,
+					"pxOffsetX": 0,
+					"pxOffsetY": 0,
+					"visible": true,
+					"optionalRules": [],
+					"intGridCsv": [],
+					"autoLayerTiles": [],
+					"seed": 6293905,
+					"overrideTilesetUid": null,
+					"gridTiles": [],
+					"entityInstances": [
+						{
+							"__identifier": "MossDecoration",
+							"__grid": [56,21],
+							"__pivot": [0.5,1],
+							"__tags": ["Floor_Decoration"],
+							"__tile": { "tilesetUid": 52, "x": 128, "y": 256, "w": 48, "h": 48 },
+							"__smartColor": "#F77622",
+							"iid": "7c1a1b10-fa90-11f0-aace-75ace581d9e1",
+							"width": 64,
+							"height": 64,
+							"defUid": 53,
+							"px": [1800,688],
+							"fieldInstances": [{ "__identifier": "MossDecorator", "__type": "LocalEnum.MossDecorator", "__value": "Single1", "__tile": null, "defUid": 59, "realEditorValues": [{
+								"id": "V_String",
+								"params": ["Single1"]
+							}] }],
+							"__worldX": 3720,
+							"__worldY": -1472
+						},
+						{
+							"__identifier": "MossDecoration",
+							"__grid": [56,18],
+							"__pivot": [0.5,1],
+							"__tags": ["Floor_Decoration"],
+							"__tile": { "tilesetUid": 52, "x": 128, "y": 256, "w": 48, "h": 48 },
+							"__smartColor": "#F77622",
+							"iid": "7d3c05d0-fa90-11f0-aace-5f0c036b1a28",
+							"width": 64,
+							"height": 64,
+							"defUid": 53,
+							"px": [1800,608],
+							"fieldInstances": [{ "__identifier": "MossDecorator", "__type": "LocalEnum.MossDecorator", "__value": "Triple_Vertical", "__tile": null, "defUid": 59, "realEditorValues": [{
+								"id": "V_String",
+								"params": ["Triple_Vertical"]
+							}] }],
+							"__worldX": 3720,
+							"__worldY": -1552
+						},
+						{
+							"__identifier": "MossDecoration",
+							"__grid": [54,18],
+							"__pivot": [0.5,1],
+							"__tags": ["Floor_Decoration"],
+							"__tile": { "tilesetUid": 52, "x": 128, "y": 256, "w": 48, "h": 48 },
+							"__smartColor": "#F77622",
+							"iid": "7d94fb40-fa90-11f0-aace-7d52b8835ae3",
+							"width": 64,
+							"height": 64,
+							"defUid": 53,
+							"px": [1752,608],
+							"fieldInstances": [{ "__identifier": "MossDecorator", "__type": "LocalEnum.MossDecorator", "__value": "Triple_Vertical", "__tile": null, "defUid": 59, "realEditorValues": [{
+								"id": "V_String",
+								"params": ["Triple_Vertical"]
+							}] }],
+							"__worldX": 3672,
+							"__worldY": -1552
+						},
+						{
+							"__identifier": "MossDecoration",
+							"__grid": [53,17],
+							"__pivot": [0.5,1],
+							"__tags": ["Floor_Decoration"],
+							"__tile": { "tilesetUid": 52, "x": 128, "y": 256, "w": 48, "h": 48 },
+							"__smartColor": "#F77622",
+							"iid": "7df5b8e0-fa90-11f0-aace-e10345beb2b5",
+							"width": 64,
+							"height": 64,
+							"defUid": 53,
+							"px": [1704,576],
+							"fieldInstances": [{ "__identifier": "MossDecorator", "__type": "LocalEnum.MossDecorator", "__value": "Triple_Vertical", "__tile": null, "defUid": 59, "realEditorValues": [{
+								"id": "V_String",
+								"params": ["Triple_Vertical"]
+							}] }],
+							"__worldX": 3624,
+							"__worldY": -1584
+						},
+						{
+							"__identifier": "MossDecoration",
+							"__grid": [51,17],
+							"__pivot": [0.5,1],
+							"__tags": ["Floor_Decoration"],
+							"__tile": { "tilesetUid": 52, "x": 128, "y": 256, "w": 48, "h": 48 },
+							"__smartColor": "#F77622",
+							"iid": "7e564f70-fa90-11f0-aace-f199de663a8c",
+							"width": 64,
+							"height": 64,
+							"defUid": 53,
+							"px": [1656,576],
+							"fieldInstances": [{ "__identifier": "MossDecorator", "__type": "LocalEnum.MossDecorator", "__value": "Single1", "__tile": null, "defUid": 59, "realEditorValues": [{
+								"id": "V_String",
+								"params": ["Single1"]
+							}] }],
+							"__worldX": 3576,
+							"__worldY": -1584
+						},
+						{
+							"__identifier": "MossDecoration",
+							"__grid": [49,17],
+							"__pivot": [0.5,1],
+							"__tags": ["Floor_Decoration"],
+							"__tile": { "tilesetUid": 52, "x": 128, "y": 256, "w": 48, "h": 48 },
+							"__smartColor": "#F77622",
+							"iid": "7eb70d10-fa90-11f0-aace-cfdd002f61e4",
+							"width": 64,
+							"height": 64,
+							"defUid": 53,
+							"px": [1592,576],
+							"fieldInstances": [{ "__identifier": "MossDecorator", "__type": "LocalEnum.MossDecorator", "__value": "Quadruple", "__tile": null, "defUid": 59, "realEditorValues": [{
+								"id": "V_String",
+								"params": ["Quadruple"]
+							}] }],
+							"__worldX": 3512,
+							"__worldY": -1584
+						},
+						{
+							"__identifier": "MossDecoration",
+							"__grid": [46,17],
+							"__pivot": [0.5,1],
+							"__tags": ["Floor_Decoration"],
+							"__tile": { "tilesetUid": 52, "x": 128, "y": 256, "w": 48, "h": 48 },
+							"__smartColor": "#F77622",
+							"iid": "7f1532a0-fa90-11f0-aace-2db06908702a",
+							"width": 64,
+							"height": 64,
+							"defUid": 53,
+							"px": [1496,576],
+							"fieldInstances": [{ "__identifier": "MossDecorator", "__type": "LocalEnum.MossDecorator", "__value": "Triple_Horizontal", "__tile": null, "defUid": 59, "realEditorValues": [{
+								"id": "V_String",
+								"params": ["Triple_Horizontal"]
+							}] }],
+							"__worldX": 3416,
+							"__worldY": -1584
+						},
+						{
+							"__identifier": "MossDecoration",
+							"__grid": [43,17],
+							"__pivot": [0.5,1],
+							"__tags": ["Floor_Decoration"],
+							"__tile": { "tilesetUid": 52, "x": 128, "y": 256, "w": 48, "h": 48 },
+							"__smartColor": "#F77622",
+							"iid": "7f63eee0-fa90-11f0-aace-ef93bb61e8da",
+							"width": 64,
+							"height": 64,
+							"defUid": 53,
+							"px": [1400,576],
+							"fieldInstances": [{ "__identifier": "MossDecorator", "__type": "LocalEnum.MossDecorator", "__value": "Double", "__tile": null, "defUid": 59, "realEditorValues": [{
+								"id": "V_String",
+								"params": ["Double"]
+							}] }],
+							"__worldX": 3320,
+							"__worldY": -1584
+						},
+						{
+							"__identifier": "MossDecoration",
+							"__grid": [41,17],
+							"__pivot": [0.5,1],
+							"__tags": ["Floor_Decoration"],
+							"__tile": { "tilesetUid": 52, "x": 128, "y": 256, "w": 48, "h": 48 },
+							"__smartColor": "#F77622",
+							"iid": "7fb56a40-fa90-11f0-aace-adb01a79fc32",
+							"width": 64,
+							"height": 64,
+							"defUid": 53,
+							"px": [1336,576],
+							"fieldInstances": [{ "__identifier": "MossDecorator", "__type": "LocalEnum.MossDecorator", "__value": "Single1", "__tile": null, "defUid": 59, "realEditorValues": [] }],
+							"__worldX": 3256,
+							"__worldY": -1584
+						}
+					]
+				},
+				{
 					"__identifier": "Extra_Entities",
 					"__type": "Entities",
 					"__cWid": 120,
@@ -7978,174 +8833,6 @@
 					"overrideTilesetUid": null,
 					"gridTiles": [],
 					"entityInstances": [
-						{
-							"__identifier": "MossDecoration",
-							"__grid": [112,42],
-							"__pivot": [0.5,1],
-							"__tags": ["Floor_Decoration"],
-							"__tile": { "tilesetUid": 52, "x": 128, "y": 256, "w": 48, "h": 48 },
-							"__smartColor": "#F77622",
-							"iid": "7c1a1b10-fa90-11f0-aace-75ace581d9e1",
-							"width": 64,
-							"height": 64,
-							"defUid": 53,
-							"px": [1800,688],
-							"fieldInstances": [{ "__identifier": "MossDecorator", "__type": "LocalEnum.MossDecorator", "__value": "Single1", "__tile": null, "defUid": 59, "realEditorValues": [{
-								"id": "V_String",
-								"params": ["Single1"]
-							}] }],
-							"__worldX": 3720,
-							"__worldY": -1472
-						},
-						{
-							"__identifier": "MossDecoration",
-							"__grid": [112,37],
-							"__pivot": [0.5,1],
-							"__tags": ["Floor_Decoration"],
-							"__tile": { "tilesetUid": 52, "x": 128, "y": 256, "w": 48, "h": 48 },
-							"__smartColor": "#F77622",
-							"iid": "7d3c05d0-fa90-11f0-aace-5f0c036b1a28",
-							"width": 64,
-							"height": 64,
-							"defUid": 53,
-							"px": [1800,608],
-							"fieldInstances": [{ "__identifier": "MossDecorator", "__type": "LocalEnum.MossDecorator", "__value": "Triple_Vertical", "__tile": null, "defUid": 59, "realEditorValues": [{
-								"id": "V_String",
-								"params": ["Triple_Vertical"]
-							}] }],
-							"__worldX": 3720,
-							"__worldY": -1552
-						},
-						{
-							"__identifier": "MossDecoration",
-							"__grid": [109,37],
-							"__pivot": [0.5,1],
-							"__tags": ["Floor_Decoration"],
-							"__tile": { "tilesetUid": 52, "x": 128, "y": 256, "w": 48, "h": 48 },
-							"__smartColor": "#F77622",
-							"iid": "7d94fb40-fa90-11f0-aace-7d52b8835ae3",
-							"width": 64,
-							"height": 64,
-							"defUid": 53,
-							"px": [1752,608],
-							"fieldInstances": [{ "__identifier": "MossDecorator", "__type": "LocalEnum.MossDecorator", "__value": "Triple_Vertical", "__tile": null, "defUid": 59, "realEditorValues": [{
-								"id": "V_String",
-								"params": ["Triple_Vertical"]
-							}] }],
-							"__worldX": 3672,
-							"__worldY": -1552
-						},
-						{
-							"__identifier": "MossDecoration",
-							"__grid": [106,35],
-							"__pivot": [0.5,1],
-							"__tags": ["Floor_Decoration"],
-							"__tile": { "tilesetUid": 52, "x": 128, "y": 256, "w": 48, "h": 48 },
-							"__smartColor": "#F77622",
-							"iid": "7df5b8e0-fa90-11f0-aace-e10345beb2b5",
-							"width": 64,
-							"height": 64,
-							"defUid": 53,
-							"px": [1704,576],
-							"fieldInstances": [{ "__identifier": "MossDecorator", "__type": "LocalEnum.MossDecorator", "__value": "Triple_Vertical", "__tile": null, "defUid": 59, "realEditorValues": [{
-								"id": "V_String",
-								"params": ["Triple_Vertical"]
-							}] }],
-							"__worldX": 3624,
-							"__worldY": -1584
-						},
-						{
-							"__identifier": "MossDecoration",
-							"__grid": [103,35],
-							"__pivot": [0.5,1],
-							"__tags": ["Floor_Decoration"],
-							"__tile": { "tilesetUid": 52, "x": 128, "y": 256, "w": 48, "h": 48 },
-							"__smartColor": "#F77622",
-							"iid": "7e564f70-fa90-11f0-aace-f199de663a8c",
-							"width": 64,
-							"height": 64,
-							"defUid": 53,
-							"px": [1656,576],
-							"fieldInstances": [{ "__identifier": "MossDecorator", "__type": "LocalEnum.MossDecorator", "__value": "Single1", "__tile": null, "defUid": 59, "realEditorValues": [{
-								"id": "V_String",
-								"params": ["Single1"]
-							}] }],
-							"__worldX": 3576,
-							"__worldY": -1584
-						},
-						{
-							"__identifier": "MossDecoration",
-							"__grid": [99,35],
-							"__pivot": [0.5,1],
-							"__tags": ["Floor_Decoration"],
-							"__tile": { "tilesetUid": 52, "x": 128, "y": 256, "w": 48, "h": 48 },
-							"__smartColor": "#F77622",
-							"iid": "7eb70d10-fa90-11f0-aace-cfdd002f61e4",
-							"width": 64,
-							"height": 64,
-							"defUid": 53,
-							"px": [1592,576],
-							"fieldInstances": [{ "__identifier": "MossDecorator", "__type": "LocalEnum.MossDecorator", "__value": "Quadruple", "__tile": null, "defUid": 59, "realEditorValues": [{
-								"id": "V_String",
-								"params": ["Quadruple"]
-							}] }],
-							"__worldX": 3512,
-							"__worldY": -1584
-						},
-						{
-							"__identifier": "MossDecoration",
-							"__grid": [93,35],
-							"__pivot": [0.5,1],
-							"__tags": ["Floor_Decoration"],
-							"__tile": { "tilesetUid": 52, "x": 128, "y": 256, "w": 48, "h": 48 },
-							"__smartColor": "#F77622",
-							"iid": "7f1532a0-fa90-11f0-aace-2db06908702a",
-							"width": 64,
-							"height": 64,
-							"defUid": 53,
-							"px": [1496,576],
-							"fieldInstances": [{ "__identifier": "MossDecorator", "__type": "LocalEnum.MossDecorator", "__value": "Triple_Horizontal", "__tile": null, "defUid": 59, "realEditorValues": [{
-								"id": "V_String",
-								"params": ["Triple_Horizontal"]
-							}] }],
-							"__worldX": 3416,
-							"__worldY": -1584
-						},
-						{
-							"__identifier": "MossDecoration",
-							"__grid": [87,35],
-							"__pivot": [0.5,1],
-							"__tags": ["Floor_Decoration"],
-							"__tile": { "tilesetUid": 52, "x": 128, "y": 256, "w": 48, "h": 48 },
-							"__smartColor": "#F77622",
-							"iid": "7f63eee0-fa90-11f0-aace-ef93bb61e8da",
-							"width": 64,
-							"height": 64,
-							"defUid": 53,
-							"px": [1400,576],
-							"fieldInstances": [{ "__identifier": "MossDecorator", "__type": "LocalEnum.MossDecorator", "__value": "Double", "__tile": null, "defUid": 59, "realEditorValues": [{
-								"id": "V_String",
-								"params": ["Double"]
-							}] }],
-							"__worldX": 3320,
-							"__worldY": -1584
-						},
-						{
-							"__identifier": "MossDecoration",
-							"__grid": [83,35],
-							"__pivot": [0.5,1],
-							"__tags": ["Floor_Decoration"],
-							"__tile": { "tilesetUid": 52, "x": 128, "y": 256, "w": 48, "h": 48 },
-							"__smartColor": "#F77622",
-							"iid": "7fb56a40-fa90-11f0-aace-adb01a79fc32",
-							"width": 64,
-							"height": 64,
-							"defUid": 53,
-							"px": [1336,576],
-							"fieldInstances": [{ "__identifier": "MossDecorator", "__type": "LocalEnum.MossDecorator", "__value": "Single1", "__tile": null, "defUid": 59, "realEditorValues": [] }],
-							"__worldX": 3256,
-							"__worldY": -1584
-						},
 						{
 							"__identifier": "Wall",
 							"__grid": [7,46],
@@ -9208,7 +9895,6 @@
 				{ "levelIid": "b0bad970-fa90-11f0-95ec-9bb8d9cc1bda", "dir": "s" },
 				{ "levelIid": "1ae35cf0-fa90-11f0-95ec-85cc4233bd3c", "dir": "w" },
 				{ "levelIid": "1dbfa1e0-fa90-11f0-95ec-7b07f8d0bd5f", "dir": "nw" },
-				{ "levelIid": "2091ada0-fa90-11f0-95ec-63798b15b604", "dir": "e" },
 				{ "levelIid": "7072afd0-fa90-11f0-95ec-9728d75f4198", "dir": "se" }
 			]
 		},
@@ -9233,6 +9919,295 @@
 			"externalRelPath": null,
 			"fieldInstances": [],
 			"layerInstances": [
+				{
+					"__identifier": "Decorations",
+					"__type": "Entities",
+					"__cWid": 60,
+					"__cHei": 34,
+					"__gridSize": 32,
+					"__opacity": 1,
+					"__pxTotalOffsetX": 0,
+					"__pxTotalOffsetY": 0,
+					"__tilesetDefUid": null,
+					"__tilesetRelPath": null,
+					"iid": "d3c85520-21a0-11f1-aa60-391751c7fce7",
+					"levelId": 44,
+					"layerDefUid": 95,
+					"pxOffsetX": 0,
+					"pxOffsetY": 0,
+					"visible": true,
+					"optionalRules": [],
+					"intGridCsv": [],
+					"autoLayerTiles": [],
+					"seed": 5999076,
+					"overrideTilesetUid": null,
+					"gridTiles": [],
+					"entityInstances": [
+						{
+							"__identifier": "MossDecoration",
+							"__grid": [31,29],
+							"__pivot": [0.5,1],
+							"__tags": ["Floor_Decoration"],
+							"__tile": { "tilesetUid": 52, "x": 128, "y": 256, "w": 48, "h": 48 },
+							"__smartColor": "#F77622",
+							"iid": "6dee0600-fa90-11f0-aace-f507441eee60",
+							"width": 64,
+							"height": 64,
+							"defUid": 53,
+							"px": [1016,944],
+							"fieldInstances": [{ "__identifier": "MossDecorator", "__type": "LocalEnum.MossDecorator", "__value": "Single2", "__tile": null, "defUid": 59, "realEditorValues": [{
+								"id": "V_String",
+								"params": ["Single2"]
+							}] }],
+							"__worldX": 4856,
+							"__worldY": -1216
+						},
+						{
+							"__identifier": "MossDecoration",
+							"__grid": [28,29],
+							"__pivot": [0.5,1],
+							"__tags": ["Floor_Decoration"],
+							"__tile": { "tilesetUid": 52, "x": 128, "y": 256, "w": 48, "h": 48 },
+							"__smartColor": "#F77622",
+							"iid": "721df410-fa90-11f0-aace-2734ac7ac18a",
+							"width": 64,
+							"height": 64,
+							"defUid": 53,
+							"px": [920,944],
+							"fieldInstances": [{ "__identifier": "MossDecorator", "__type": "LocalEnum.MossDecorator", "__value": "Single2", "__tile": null, "defUid": 59, "realEditorValues": [{
+								"id": "V_String",
+								"params": ["Single2"]
+							}] }],
+							"__worldX": 4760,
+							"__worldY": -1216
+						},
+						{
+							"__identifier": "MossDecoration",
+							"__grid": [25,28],
+							"__pivot": [0.5,1],
+							"__tags": ["Floor_Decoration"],
+							"__tile": { "tilesetUid": 52, "x": 128, "y": 256, "w": 48, "h": 48 },
+							"__smartColor": "#F77622",
+							"iid": "72c5ccd0-fa90-11f0-aace-4fe2c3ae0fc1",
+							"width": 64,
+							"height": 64,
+							"defUid": 53,
+							"px": [824,912],
+							"fieldInstances": [{ "__identifier": "MossDecorator", "__type": "LocalEnum.MossDecorator", "__value": "Single1", "__tile": null, "defUid": 59, "realEditorValues": [{
+								"id": "V_String",
+								"params": ["Single1"]
+							}] }],
+							"__worldX": 4664,
+							"__worldY": -1248
+						},
+						{
+							"__identifier": "MossDecoration",
+							"__grid": [22,28],
+							"__pivot": [0.5,1],
+							"__tags": ["Floor_Decoration"],
+							"__tile": { "tilesetUid": 52, "x": 128, "y": 256, "w": 48, "h": 48 },
+							"__smartColor": "#F77622",
+							"iid": "73450ef0-fa90-11f0-aace-6970c499aa9f",
+							"width": 64,
+							"height": 64,
+							"defUid": 53,
+							"px": [712,928],
+							"fieldInstances": [{ "__identifier": "MossDecorator", "__type": "LocalEnum.MossDecorator", "__value": "Quadruple", "__tile": null, "defUid": 59, "realEditorValues": [{
+								"id": "V_String",
+								"params": ["Quadruple"]
+							}] }],
+							"__worldX": 4552,
+							"__worldY": -1232
+						},
+						{
+							"__identifier": "MossDecoration",
+							"__grid": [18,28],
+							"__pivot": [0.5,1],
+							"__tags": ["Floor_Decoration"],
+							"__tile": { "tilesetUid": 52, "x": 128, "y": 256, "w": 48, "h": 48 },
+							"__smartColor": "#F77622",
+							"iid": "73b4e7c0-fa90-11f0-aace-21d1ca5fd9fa",
+							"width": 64,
+							"height": 64,
+							"defUid": 53,
+							"px": [600,912],
+							"fieldInstances": [{ "__identifier": "MossDecorator", "__type": "LocalEnum.MossDecorator", "__value": "Single1", "__tile": null, "defUid": 59, "realEditorValues": [{
+								"id": "V_String",
+								"params": ["Single1"]
+							}] }],
+							"__worldX": 4440,
+							"__worldY": -1248
+						},
+						{
+							"__identifier": "MossDecoration",
+							"__grid": [14,28],
+							"__pivot": [0.5,1],
+							"__tags": ["Floor_Decoration"],
+							"__tile": { "tilesetUid": 52, "x": 128, "y": 256, "w": 48, "h": 48 },
+							"__smartColor": "#F77622",
+							"iid": "74763bf0-fa90-11f0-aace-2f5a4e9036df",
+							"width": 64,
+							"height": 64,
+							"defUid": 53,
+							"px": [456,928],
+							"fieldInstances": [{ "__identifier": "MossDecorator", "__type": "LocalEnum.MossDecorator", "__value": "Double", "__tile": null, "defUid": 59, "realEditorValues": [{
+								"id": "V_String",
+								"params": ["Double"]
+							}] }],
+							"__worldX": 4296,
+							"__worldY": -1232
+						},
+						{
+							"__identifier": "MossDecoration",
+							"__grid": [16,28],
+							"__pivot": [0.5,1],
+							"__tags": ["Floor_Decoration"],
+							"__tile": { "tilesetUid": 52, "x": 128, "y": 256, "w": 48, "h": 48 },
+							"__smartColor": "#F77622",
+							"iid": "750ed270-fa90-11f0-aace-a7463ea895ec",
+							"width": 64,
+							"height": 64,
+							"defUid": 53,
+							"px": [536,912],
+							"fieldInstances": [{ "__identifier": "MossDecorator", "__type": "LocalEnum.MossDecorator", "__value": "Triple_Horizontal", "__tile": null, "defUid": 59, "realEditorValues": [{
+								"id": "V_String",
+								"params": ["Triple_Horizontal"]
+							}] }],
+							"__worldX": 4376,
+							"__worldY": -1248
+						},
+						{
+							"__identifier": "MossDecoration",
+							"__grid": [11,28],
+							"__pivot": [0.5,1],
+							"__tags": ["Floor_Decoration"],
+							"__tile": { "tilesetUid": 52, "x": 128, "y": 256, "w": 48, "h": 48 },
+							"__smartColor": "#F77622",
+							"iid": "7579a230-fa90-11f0-aace-11d5709227a5",
+							"width": 64,
+							"height": 64,
+							"defUid": 53,
+							"px": [376,912],
+							"fieldInstances": [{ "__identifier": "MossDecorator", "__type": "LocalEnum.MossDecorator", "__value": "Single1", "__tile": null, "defUid": 59, "realEditorValues": [null] }],
+							"__worldX": 4216,
+							"__worldY": -1248
+						},
+						{
+							"__identifier": "MossDecoration",
+							"__grid": [9,28],
+							"__pivot": [0.5,1],
+							"__tags": ["Floor_Decoration"],
+							"__tile": { "tilesetUid": 52, "x": 128, "y": 256, "w": 48, "h": 48 },
+							"__smartColor": "#F77622",
+							"iid": "75d2beb0-fa90-11f0-aace-5b950b327109",
+							"width": 64,
+							"height": 64,
+							"defUid": 53,
+							"px": [312,928],
+							"fieldInstances": [{ "__identifier": "MossDecorator", "__type": "LocalEnum.MossDecorator", "__value": "Single1", "__tile": null, "defUid": 59, "realEditorValues": [{
+								"id": "V_String",
+								"params": ["Single1"]
+							}] }],
+							"__worldX": 4152,
+							"__worldY": -1232
+						},
+						{
+							"__identifier": "MossDecoration",
+							"__grid": [6,28],
+							"__pivot": [0.5,1],
+							"__tags": ["Floor_Decoration"],
+							"__tile": { "tilesetUid": 52, "x": 128, "y": 256, "w": 48, "h": 48 },
+							"__smartColor": "#F77622",
+							"iid": "762bb420-fa90-11f0-aace-93c503adbdba",
+							"width": 64,
+							"height": 64,
+							"defUid": 53,
+							"px": [200,912],
+							"fieldInstances": [{ "__identifier": "MossDecorator", "__type": "LocalEnum.MossDecorator", "__value": "Triple_Horizontal", "__tile": null, "defUid": 59, "realEditorValues": [{
+								"id": "V_String",
+								"params": ["Triple_Horizontal"]
+							}] }],
+							"__worldX": 4040,
+							"__worldY": -1248
+						},
+						{
+							"__identifier": "MossDecoration",
+							"__grid": [3,28],
+							"__pivot": [0.5,1],
+							"__tags": ["Floor_Decoration"],
+							"__tile": { "tilesetUid": 52, "x": 128, "y": 256, "w": 48, "h": 48 },
+							"__smartColor": "#F77622",
+							"iid": "769683e0-fa90-11f0-aace-53f6c711ba5f",
+							"width": 64,
+							"height": 64,
+							"defUid": 53,
+							"px": [120,912],
+							"fieldInstances": [{ "__identifier": "MossDecorator", "__type": "LocalEnum.MossDecorator", "__value": "Quadruple", "__tile": null, "defUid": 59, "realEditorValues": [{
+								"id": "V_String",
+								"params": ["Quadruple"]
+							}] }],
+							"__worldX": 3960,
+							"__worldY": -1248
+						},
+						{
+							"__identifier": "MossDecoration",
+							"__grid": [3,25],
+							"__pivot": [0.5,1],
+							"__tags": ["Floor_Decoration"],
+							"__tile": { "tilesetUid": 52, "x": 128, "y": 256, "w": 48, "h": 48 },
+							"__smartColor": "#F77622",
+							"iid": "76ed0850-fa90-11f0-aace-c99b8b4b7938",
+							"width": 64,
+							"height": 64,
+							"defUid": 53,
+							"px": [120,832],
+							"fieldInstances": [{ "__identifier": "MossDecorator", "__type": "LocalEnum.MossDecorator", "__value": "Triple_Vertical", "__tile": null, "defUid": 59, "realEditorValues": [{
+								"id": "V_String",
+								"params": ["Triple_Vertical"]
+							}] }],
+							"__worldX": 3960,
+							"__worldY": -1328
+						},
+						{
+							"__identifier": "MossDecoration",
+							"__grid": [3,23],
+							"__pivot": [0.5,1],
+							"__tags": ["Floor_Decoration"],
+							"__tile": { "tilesetUid": 52, "x": 128, "y": 256, "w": 48, "h": 48 },
+							"__smartColor": "#F77622",
+							"iid": "77c53fe0-fa90-11f0-aace-eb9056208e41",
+							"width": 64,
+							"height": 64,
+							"defUid": 53,
+							"px": [104,752],
+							"fieldInstances": [{ "__identifier": "MossDecorator", "__type": "LocalEnum.MossDecorator", "__value": "Double", "__tile": null, "defUid": 59, "realEditorValues": [{
+								"id": "V_String",
+								"params": ["Double"]
+							}] }],
+							"__worldX": 3944,
+							"__worldY": -1408
+						},
+						{
+							"__identifier": "MossDecoration",
+							"__grid": [1,21],
+							"__pivot": [0.5,1],
+							"__tags": ["Floor_Decoration"],
+							"__tile": { "tilesetUid": 52, "x": 128, "y": 256, "w": 48, "h": 48 },
+							"__smartColor": "#F77622",
+							"iid": "79919b70-fa90-11f0-aace-3925106a98ff",
+							"width": 64,
+							"height": 64,
+							"defUid": 53,
+							"px": [56,688],
+							"fieldInstances": [{ "__identifier": "MossDecorator", "__type": "LocalEnum.MossDecorator", "__value": "Single1", "__tile": null, "defUid": 59, "realEditorValues": [{
+								"id": "V_String",
+								"params": ["Single1"]
+							}] }],
+							"__worldX": 3896,
+							"__worldY": -1472
+						}
+					]
+				},
 				{
 					"__identifier": "Extra_Entities",
 					"__type": "Entities",
@@ -9275,269 +10250,6 @@
 							}] }],
 							"__worldX": 5064,
 							"__worldY": -1240
-						},
-						{
-							"__identifier": "MossDecoration",
-							"__grid": [63,58],
-							"__pivot": [0.5,1],
-							"__tags": ["Floor_Decoration"],
-							"__tile": { "tilesetUid": 52, "x": 128, "y": 256, "w": 48, "h": 48 },
-							"__smartColor": "#F77622",
-							"iid": "6dee0600-fa90-11f0-aace-f507441eee60",
-							"width": 64,
-							"height": 64,
-							"defUid": 53,
-							"px": [1016,944],
-							"fieldInstances": [{ "__identifier": "MossDecorator", "__type": "LocalEnum.MossDecorator", "__value": "Single2", "__tile": null, "defUid": 59, "realEditorValues": [{
-								"id": "V_String",
-								"params": ["Single2"]
-							}] }],
-							"__worldX": 4856,
-							"__worldY": -1216
-						},
-						{
-							"__identifier": "MossDecoration",
-							"__grid": [57,58],
-							"__pivot": [0.5,1],
-							"__tags": ["Floor_Decoration"],
-							"__tile": { "tilesetUid": 52, "x": 128, "y": 256, "w": 48, "h": 48 },
-							"__smartColor": "#F77622",
-							"iid": "721df410-fa90-11f0-aace-2734ac7ac18a",
-							"width": 64,
-							"height": 64,
-							"defUid": 53,
-							"px": [920,944],
-							"fieldInstances": [{ "__identifier": "MossDecorator", "__type": "LocalEnum.MossDecorator", "__value": "Single2", "__tile": null, "defUid": 59, "realEditorValues": [{
-								"id": "V_String",
-								"params": ["Single2"]
-							}] }],
-							"__worldX": 4760,
-							"__worldY": -1216
-						},
-						{
-							"__identifier": "MossDecoration",
-							"__grid": [51,56],
-							"__pivot": [0.5,1],
-							"__tags": ["Floor_Decoration"],
-							"__tile": { "tilesetUid": 52, "x": 128, "y": 256, "w": 48, "h": 48 },
-							"__smartColor": "#F77622",
-							"iid": "72c5ccd0-fa90-11f0-aace-4fe2c3ae0fc1",
-							"width": 64,
-							"height": 64,
-							"defUid": 53,
-							"px": [824,912],
-							"fieldInstances": [{ "__identifier": "MossDecorator", "__type": "LocalEnum.MossDecorator", "__value": "Single1", "__tile": null, "defUid": 59, "realEditorValues": [{
-								"id": "V_String",
-								"params": ["Single1"]
-							}] }],
-							"__worldX": 4664,
-							"__worldY": -1248
-						},
-						{
-							"__identifier": "MossDecoration",
-							"__grid": [44,57],
-							"__pivot": [0.5,1],
-							"__tags": ["Floor_Decoration"],
-							"__tile": { "tilesetUid": 52, "x": 128, "y": 256, "w": 48, "h": 48 },
-							"__smartColor": "#F77622",
-							"iid": "73450ef0-fa90-11f0-aace-6970c499aa9f",
-							"width": 64,
-							"height": 64,
-							"defUid": 53,
-							"px": [712,928],
-							"fieldInstances": [{ "__identifier": "MossDecorator", "__type": "LocalEnum.MossDecorator", "__value": "Quadruple", "__tile": null, "defUid": 59, "realEditorValues": [{
-								"id": "V_String",
-								"params": ["Quadruple"]
-							}] }],
-							"__worldX": 4552,
-							"__worldY": -1232
-						},
-						{
-							"__identifier": "MossDecoration",
-							"__grid": [37,56],
-							"__pivot": [0.5,1],
-							"__tags": ["Floor_Decoration"],
-							"__tile": { "tilesetUid": 52, "x": 128, "y": 256, "w": 48, "h": 48 },
-							"__smartColor": "#F77622",
-							"iid": "73b4e7c0-fa90-11f0-aace-21d1ca5fd9fa",
-							"width": 64,
-							"height": 64,
-							"defUid": 53,
-							"px": [600,912],
-							"fieldInstances": [{ "__identifier": "MossDecorator", "__type": "LocalEnum.MossDecorator", "__value": "Single1", "__tile": null, "defUid": 59, "realEditorValues": [{
-								"id": "V_String",
-								"params": ["Single1"]
-							}] }],
-							"__worldX": 4440,
-							"__worldY": -1248
-						},
-						{
-							"__identifier": "MossDecoration",
-							"__grid": [28,57],
-							"__pivot": [0.5,1],
-							"__tags": ["Floor_Decoration"],
-							"__tile": { "tilesetUid": 52, "x": 128, "y": 256, "w": 48, "h": 48 },
-							"__smartColor": "#F77622",
-							"iid": "74763bf0-fa90-11f0-aace-2f5a4e9036df",
-							"width": 64,
-							"height": 64,
-							"defUid": 53,
-							"px": [456,928],
-							"fieldInstances": [{ "__identifier": "MossDecorator", "__type": "LocalEnum.MossDecorator", "__value": "Double", "__tile": null, "defUid": 59, "realEditorValues": [{
-								"id": "V_String",
-								"params": ["Double"]
-							}] }],
-							"__worldX": 4296,
-							"__worldY": -1232
-						},
-						{
-							"__identifier": "MossDecoration",
-							"__grid": [33,56],
-							"__pivot": [0.5,1],
-							"__tags": ["Floor_Decoration"],
-							"__tile": { "tilesetUid": 52, "x": 128, "y": 256, "w": 48, "h": 48 },
-							"__smartColor": "#F77622",
-							"iid": "750ed270-fa90-11f0-aace-a7463ea895ec",
-							"width": 64,
-							"height": 64,
-							"defUid": 53,
-							"px": [536,912],
-							"fieldInstances": [{ "__identifier": "MossDecorator", "__type": "LocalEnum.MossDecorator", "__value": "Triple_Horizontal", "__tile": null, "defUid": 59, "realEditorValues": [{
-								"id": "V_String",
-								"params": ["Triple_Horizontal"]
-							}] }],
-							"__worldX": 4376,
-							"__worldY": -1248
-						},
-						{
-							"__identifier": "MossDecoration",
-							"__grid": [23,56],
-							"__pivot": [0.5,1],
-							"__tags": ["Floor_Decoration"],
-							"__tile": { "tilesetUid": 52, "x": 128, "y": 256, "w": 48, "h": 48 },
-							"__smartColor": "#F77622",
-							"iid": "7579a230-fa90-11f0-aace-11d5709227a5",
-							"width": 64,
-							"height": 64,
-							"defUid": 53,
-							"px": [376,912],
-							"fieldInstances": [{ "__identifier": "MossDecorator", "__type": "LocalEnum.MossDecorator", "__value": "Single1", "__tile": null, "defUid": 59, "realEditorValues": [null] }],
-							"__worldX": 4216,
-							"__worldY": -1248
-						},
-						{
-							"__identifier": "MossDecoration",
-							"__grid": [19,57],
-							"__pivot": [0.5,1],
-							"__tags": ["Floor_Decoration"],
-							"__tile": { "tilesetUid": 52, "x": 128, "y": 256, "w": 48, "h": 48 },
-							"__smartColor": "#F77622",
-							"iid": "75d2beb0-fa90-11f0-aace-5b950b327109",
-							"width": 64,
-							"height": 64,
-							"defUid": 53,
-							"px": [312,928],
-							"fieldInstances": [{ "__identifier": "MossDecorator", "__type": "LocalEnum.MossDecorator", "__value": "Single1", "__tile": null, "defUid": 59, "realEditorValues": [{
-								"id": "V_String",
-								"params": ["Single1"]
-							}] }],
-							"__worldX": 4152,
-							"__worldY": -1232
-						},
-						{
-							"__identifier": "MossDecoration",
-							"__grid": [12,56],
-							"__pivot": [0.5,1],
-							"__tags": ["Floor_Decoration"],
-							"__tile": { "tilesetUid": 52, "x": 128, "y": 256, "w": 48, "h": 48 },
-							"__smartColor": "#F77622",
-							"iid": "762bb420-fa90-11f0-aace-93c503adbdba",
-							"width": 64,
-							"height": 64,
-							"defUid": 53,
-							"px": [200,912],
-							"fieldInstances": [{ "__identifier": "MossDecorator", "__type": "LocalEnum.MossDecorator", "__value": "Triple_Horizontal", "__tile": null, "defUid": 59, "realEditorValues": [{
-								"id": "V_String",
-								"params": ["Triple_Horizontal"]
-							}] }],
-							"__worldX": 4040,
-							"__worldY": -1248
-						},
-						{
-							"__identifier": "MossDecoration",
-							"__grid": [7,56],
-							"__pivot": [0.5,1],
-							"__tags": ["Floor_Decoration"],
-							"__tile": { "tilesetUid": 52, "x": 128, "y": 256, "w": 48, "h": 48 },
-							"__smartColor": "#F77622",
-							"iid": "769683e0-fa90-11f0-aace-53f6c711ba5f",
-							"width": 64,
-							"height": 64,
-							"defUid": 53,
-							"px": [120,912],
-							"fieldInstances": [{ "__identifier": "MossDecorator", "__type": "LocalEnum.MossDecorator", "__value": "Quadruple", "__tile": null, "defUid": 59, "realEditorValues": [{
-								"id": "V_String",
-								"params": ["Quadruple"]
-							}] }],
-							"__worldX": 3960,
-							"__worldY": -1248
-						},
-						{
-							"__identifier": "MossDecoration",
-							"__grid": [7,51],
-							"__pivot": [0.5,1],
-							"__tags": ["Floor_Decoration"],
-							"__tile": { "tilesetUid": 52, "x": 128, "y": 256, "w": 48, "h": 48 },
-							"__smartColor": "#F77622",
-							"iid": "76ed0850-fa90-11f0-aace-c99b8b4b7938",
-							"width": 64,
-							"height": 64,
-							"defUid": 53,
-							"px": [120,832],
-							"fieldInstances": [{ "__identifier": "MossDecorator", "__type": "LocalEnum.MossDecorator", "__value": "Triple_Vertical", "__tile": null, "defUid": 59, "realEditorValues": [{
-								"id": "V_String",
-								"params": ["Triple_Vertical"]
-							}] }],
-							"__worldX": 3960,
-							"__worldY": -1328
-						},
-						{
-							"__identifier": "MossDecoration",
-							"__grid": [6,46],
-							"__pivot": [0.5,1],
-							"__tags": ["Floor_Decoration"],
-							"__tile": { "tilesetUid": 52, "x": 128, "y": 256, "w": 48, "h": 48 },
-							"__smartColor": "#F77622",
-							"iid": "77c53fe0-fa90-11f0-aace-eb9056208e41",
-							"width": 64,
-							"height": 64,
-							"defUid": 53,
-							"px": [104,752],
-							"fieldInstances": [{ "__identifier": "MossDecorator", "__type": "LocalEnum.MossDecorator", "__value": "Double", "__tile": null, "defUid": 59, "realEditorValues": [{
-								"id": "V_String",
-								"params": ["Double"]
-							}] }],
-							"__worldX": 3944,
-							"__worldY": -1408
-						},
-						{
-							"__identifier": "MossDecoration",
-							"__grid": [3,42],
-							"__pivot": [0.5,1],
-							"__tags": ["Floor_Decoration"],
-							"__tile": { "tilesetUid": 52, "x": 128, "y": 256, "w": 48, "h": 48 },
-							"__smartColor": "#F77622",
-							"iid": "79919b70-fa90-11f0-aace-3925106a98ff",
-							"width": 64,
-							"height": 64,
-							"defUid": 53,
-							"px": [56,688],
-							"fieldInstances": [{ "__identifier": "MossDecorator", "__type": "LocalEnum.MossDecorator", "__value": "Single1", "__tile": null, "defUid": 59, "realEditorValues": [{
-								"id": "V_String",
-								"params": ["Single1"]
-							}] }],
-							"__worldX": 3896,
-							"__worldY": -1472
 						},
 						{
 							"__identifier": "MossWall",
@@ -10576,6 +11288,31 @@
 			"externalRelPath": null,
 			"fieldInstances": [],
 			"layerInstances": [
+				{
+					"__identifier": "Decorations",
+					"__type": "Entities",
+					"__cWid": 60,
+					"__cHei": 34,
+					"__gridSize": 32,
+					"__opacity": 1,
+					"__pxTotalOffsetX": 0,
+					"__pxTotalOffsetY": 0,
+					"__tilesetDefUid": null,
+					"__tilesetRelPath": null,
+					"iid": "d3c87c30-21a0-11f1-aa60-a58a836a8b2b",
+					"levelId": 45,
+					"layerDefUid": 95,
+					"pxOffsetX": 0,
+					"pxOffsetY": 0,
+					"visible": true,
+					"optionalRules": [],
+					"intGridCsv": [],
+					"autoLayerTiles": [],
+					"seed": 9990189,
+					"overrideTilesetUid": null,
+					"gridTiles": [],
+					"entityInstances": []
+				},
 				{
 					"__identifier": "Extra_Entities",
 					"__type": "Entities",
@@ -12281,7 +13018,7 @@
 					"entityInstances": []
 				}
 			],
-			"__neighbours": [ { "levelIid": "b0bad970-fa90-11f0-95ec-9bb8d9cc1bda", "dir": "w" }, { "levelIid": "1f0a2340-fa90-11f0-95ec-b5764b7730ff", "dir": "nw" }, { "levelIid": "2091ada0-fa90-11f0-95ec-63798b15b604", "dir": "n" } ]
+			"__neighbours": [ { "levelIid": "b0bad970-fa90-11f0-95ec-9bb8d9cc1bda", "dir": "w" }, { "levelIid": "1f0a2340-fa90-11f0-95ec-b5764b7730ff", "dir": "nw" } ]
 		},
 		{
 			"identifier": "Level_8",
@@ -12304,6 +13041,70 @@
 			"externalRelPath": null,
 			"fieldInstances": [],
 			"layerInstances": [
+				{
+					"__identifier": "Decorations",
+					"__type": "Entities",
+					"__cWid": 60,
+					"__cHei": 34,
+					"__gridSize": 32,
+					"__opacity": 1,
+					"__pxTotalOffsetX": 0,
+					"__pxTotalOffsetY": 0,
+					"__tilesetDefUid": null,
+					"__tilesetRelPath": null,
+					"iid": "d3c8a340-21a0-11f1-aa60-ab1d88bbfc1c",
+					"levelId": 75,
+					"layerDefUid": 95,
+					"pxOffsetX": 0,
+					"pxOffsetY": 0,
+					"visible": true,
+					"optionalRules": [],
+					"intGridCsv": [],
+					"autoLayerTiles": [],
+					"seed": 4895214,
+					"overrideTilesetUid": null,
+					"gridTiles": [],
+					"entityInstances": [
+						{
+							"__identifier": "PuzzleBubbleFake",
+							"__grid": [22,25],
+							"__pivot": [0.5,0.5],
+							"__tags": ["Floor_Decoration"],
+							"__tile": { "tilesetUid": 94, "x": 0, "y": 0, "w": 256, "h": 256 },
+							"__smartColor": "#BE4A2F",
+							"iid": "42b071a0-21a0-11f1-aa60-f9600bd86ecd",
+							"width": 75,
+							"height": 75,
+							"defUid": 92,
+							"px": [720,816],
+							"fieldInstances": [{ "__identifier": "Color", "__type": "LocalEnum.ColorState", "__value": "Red", "__tile": null, "defUid": 96, "realEditorValues": [{
+								"id": "V_String",
+								"params": ["Red"]
+							}] }],
+							"__worldX": 8400,
+							"__worldY": 2976
+						},
+						{
+							"__identifier": "PuzzleBubbleFake",
+							"__grid": [35,25],
+							"__pivot": [0.5,0.5],
+							"__tags": ["Floor_Decoration"],
+							"__tile": { "tilesetUid": 94, "x": 0, "y": 0, "w": 256, "h": 256 },
+							"__smartColor": "#BE4A2F",
+							"iid": "48f4c0c0-21a0-11f1-aa60-f53ffda5d94f",
+							"width": 75,
+							"height": 75,
+							"defUid": 92,
+							"px": [1136,816],
+							"fieldInstances": [{ "__identifier": "Color", "__type": "LocalEnum.ColorState", "__value": "Red", "__tile": null, "defUid": 96, "realEditorValues": [{
+								"id": "V_String",
+								"params": ["Red"]
+							}] }],
+							"__worldX": 8816,
+							"__worldY": 2976
+						}
+					]
+				},
 				{
 					"__identifier": "Extra_Entities",
 					"__type": "Entities",
@@ -12407,6 +13208,65 @@
 							"fieldInstances": [],
 							"__worldX": 8792,
 							"__worldY": 2312
+						},
+						{
+							"__identifier": "PuzzleSolution",
+							"__grid": [90,41],
+							"__pivot": [0.5,0.5],
+							"__tags": ["Puzzle"],
+							"__tile": null,
+							"__smartColor": "#0099DB",
+							"iid": "f5791200-21a0-11f1-aa60-498ca3db61ba",
+							"width": 100,
+							"height": 100,
+							"defUid": 98,
+							"px": [1448,664],
+							"fieldInstances": [
+								{ "__identifier": "PuzzlePieces", "__type": "Array<EntityRef>", "__value": [ {
+									"entityIid": "aa8ce240-21a0-11f1-aa60-d91a940a536d",
+									"layerIid": "bd5b0442-21a0-11f1-8ff7-f5e3e9768b00",
+									"levelIid": "bd5add30-21a0-11f1-8ff7-cf0a441145d5",
+									"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787"
+								}, {
+									"entityIid": "a9009cf0-21a0-11f1-aa60-9de157f4f24a",
+									"layerIid": "bd5b0442-21a0-11f1-8ff7-f5e3e9768b00",
+									"levelIid": "bd5add30-21a0-11f1-8ff7-cf0a441145d5",
+									"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787"
+								} ], "__tile": null, "defUid": 99, "realEditorValues": [ {
+									"id": "V_String",
+									"params": ["aa8ce240-21a0-11f1-aa60-d91a940a536d"]
+								}, {
+									"id": "V_String",
+									"params": ["a9009cf0-21a0-11f1-aa60-9de157f4f24a"]
+								} ] },
+								{ "__identifier": "Triggers", "__type": "Array<EntityRef>", "__value": [{
+									"entityIid": "cf38e850-21a0-11f1-aa60-5195df9e6182",
+									"layerIid": "bd5b0440-21a0-11f1-8ff7-51b6b599da9e",
+									"levelIid": "bd5add30-21a0-11f1-8ff7-cf0a441145d5",
+									"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787"
+								}], "__tile": null, "defUid": 100, "realEditorValues": [{
+									"id": "V_String",
+									"params": ["cf38e850-21a0-11f1-aa60-5195df9e6182"]
+								}] }
+							],
+							"__worldX": 9128,
+							"__worldY": 2824
+						},
+						{
+							"__identifier": "PuzzleWall",
+							"__grid": [58,14],
+							"__pivot": [0.5,0.5],
+							"__tags": [ "Internal_Wall", "Puzzle_Trigger" ],
+							"__tile": null,
+							"__smartColor": "#2CE8F5",
+							"iid": "cf38e850-21a0-11f1-aa60-5195df9e6182",
+							"width": 160,
+							"height": 64,
+							"defUid": 101,
+							"px": [936,232],
+							"fieldInstances": [],
+							"__worldX": 8616,
+							"__worldY": 2392
 						}
 					]
 				},
@@ -12461,7 +13321,7 @@
 					"entityInstances": [
 						{
 							"__identifier": "Teleporter",
-							"__grid": [115,30],
+							"__grid": [115,20],
 							"__pivot": [0.5,0.5],
 							"__tags": ["Floor_Interactable"],
 							"__tile": null,
@@ -12470,7 +13330,7 @@
 							"width": 152,
 							"height": 32,
 							"defUid": 12,
-							"px": [924,244],
+							"px": [924,164],
 							"fieldInstances": [
 								{ "__identifier": "ConnectedTeleporter", "__type": "EntityRef", "__value": {
 									"entityIid": "b0ed12c0-21a0-11f1-9102-cbd8ffa2259f",
@@ -12488,7 +13348,7 @@
 								}] }
 							],
 							"__worldX": 8604,
-							"__worldY": 2404
+							"__worldY": 2324
 						},
 						{
 							"__identifier": "Teleporter",
@@ -12520,6 +13380,44 @@
 							],
 							"__worldX": 8604,
 							"__worldY": 3124
+						},
+						{
+							"__identifier": "PuzzleBubble",
+							"__grid": [128,72],
+							"__pivot": [0.5,0.5],
+							"__tags": [ "Floor_Interactable", "Puzzle_Piece" ],
+							"__tile": { "tilesetUid": 93, "x": 0, "y": 0, "w": 256, "h": 256 },
+							"__smartColor": "#BE4A2F",
+							"iid": "a9009cf0-21a0-11f1-aa60-9de157f4f24a",
+							"width": 75,
+							"height": 75,
+							"defUid": 91,
+							"px": [1028,580],
+							"fieldInstances": [{ "__identifier": "ColorSolution", "__type": "LocalEnum.ColorState", "__value": "Red", "__tile": null, "defUid": 97, "realEditorValues": [{
+								"id": "V_String",
+								"params": ["Red"]
+							}] }],
+							"__worldX": 8708,
+							"__worldY": 2740
+						},
+						{
+							"__identifier": "PuzzleBubble",
+							"__grid": [105,72],
+							"__pivot": [0.5,0.5],
+							"__tags": [ "Floor_Interactable", "Puzzle_Piece" ],
+							"__tile": { "tilesetUid": 93, "x": 0, "y": 0, "w": 256, "h": 256 },
+							"__smartColor": "#BE4A2F",
+							"iid": "aa8ce240-21a0-11f1-aa60-d91a940a536d",
+							"width": 75,
+							"height": 75,
+							"defUid": 91,
+							"px": [844,580],
+							"fieldInstances": [{ "__identifier": "ColorSolution", "__type": "LocalEnum.ColorState", "__value": "Red", "__tile": null, "defUid": 97, "realEditorValues": [{
+								"id": "V_String",
+								"params": ["Red"]
+							}] }],
+							"__worldX": 8524,
+							"__worldY": 2740
 						}
 					]
 				},
@@ -12854,6 +13752,31 @@
 			"externalRelPath": null,
 			"fieldInstances": [],
 			"layerInstances": [
+				{
+					"__identifier": "Decorations",
+					"__type": "Entities",
+					"__cWid": 60,
+					"__cHei": 34,
+					"__gridSize": 32,
+					"__opacity": 1,
+					"__pxTotalOffsetX": 0,
+					"__pxTotalOffsetY": 0,
+					"__tilesetDefUid": null,
+					"__tilesetRelPath": null,
+					"iid": "d3c8ca50-21a0-11f1-aa60-3985064ec234",
+					"levelId": 76,
+					"layerDefUid": 95,
+					"pxOffsetX": 0,
+					"pxOffsetY": 0,
+					"visible": true,
+					"optionalRules": [],
+					"intGridCsv": [],
+					"autoLayerTiles": [],
+					"seed": 1060788,
+					"overrideTilesetUid": null,
+					"gridTiles": [],
+					"entityInstances": []
+				},
 				{
 					"__identifier": "Extra_Entities",
 					"__type": "Entities",
@@ -14101,6 +15024,31 @@
 			"fieldInstances": [],
 			"layerInstances": [
 				{
+					"__identifier": "Decorations",
+					"__type": "Entities",
+					"__cWid": 60,
+					"__cHei": 34,
+					"__gridSize": 32,
+					"__opacity": 1,
+					"__pxTotalOffsetX": 0,
+					"__pxTotalOffsetY": 0,
+					"__tilesetDefUid": null,
+					"__tilesetRelPath": null,
+					"iid": "d3c8f160-21a0-11f1-aa60-bfa0f208b17a",
+					"levelId": 77,
+					"layerDefUid": 95,
+					"pxOffsetX": 0,
+					"pxOffsetY": 0,
+					"visible": true,
+					"optionalRules": [],
+					"intGridCsv": [],
+					"autoLayerTiles": [],
+					"seed": 4189294,
+					"overrideTilesetUid": null,
+					"gridTiles": [],
+					"entityInstances": []
+				},
+				{
 					"__identifier": "Extra_Entities",
 					"__type": "Entities",
 					"__cWid": 120,
@@ -14513,6 +15461,65 @@
 							"fieldInstances": [],
 							"__worldX": 11384,
 							"__worldY": 1600
+						},
+						{
+							"__identifier": "PuzzleSolution",
+							"__grid": [124,16],
+							"__pivot": [0.5,0.5],
+							"__tags": ["Puzzle"],
+							"__tile": null,
+							"__smartColor": "#0099DB",
+							"iid": "717427e0-21a0-11f1-aa60-a33315c42f2d",
+							"width": 100,
+							"height": 100,
+							"defUid": 98,
+							"px": [1992,264],
+							"fieldInstances": [
+								{ "__identifier": "PuzzlePieces", "__type": "Array<EntityRef>", "__value": [ {
+									"entityIid": "98844460-21a0-11f1-aa60-5590355a836c",
+									"layerIid": "9451afd3-21a0-11f1-8ff7-9dc20cad2b59",
+									"levelIid": "9451afd0-21a0-11f1-8ff7-c7ab6b402ea1",
+									"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787"
+								}, {
+									"entityIid": "a1719370-21a0-11f1-aa60-efba8b9b42f9",
+									"layerIid": "9451afd3-21a0-11f1-8ff7-9dc20cad2b59",
+									"levelIid": "9451afd0-21a0-11f1-8ff7-c7ab6b402ea1",
+									"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787"
+								} ], "__tile": null, "defUid": 99, "realEditorValues": [ {
+									"id": "V_String",
+									"params": ["98844460-21a0-11f1-aa60-5590355a836c"]
+								}, {
+									"id": "V_String",
+									"params": ["a1719370-21a0-11f1-aa60-efba8b9b42f9"]
+								} ] },
+								{ "__identifier": "Triggers", "__type": "Array<EntityRef>", "__value": [{
+									"entityIid": "f56a4820-21a0-11f1-aa60-cbe998e8273b",
+									"layerIid": "9451afd1-21a0-11f1-8ff7-57e9eb927e89",
+									"levelIid": "9451afd0-21a0-11f1-8ff7-c7ab6b402ea1",
+									"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787"
+								}], "__tile": null, "defUid": 100, "realEditorValues": [{
+									"id": "V_String",
+									"params": ["f56a4820-21a0-11f1-aa60-cbe998e8273b"]
+								}] }
+							],
+							"__worldX": 11592,
+							"__worldY": 1344
+						},
+						{
+							"__identifier": "PuzzleWall",
+							"__grid": [50,42],
+							"__pivot": [0.5,0.5],
+							"__tags": [ "Internal_Wall", "Puzzle_Trigger" ],
+							"__tile": null,
+							"__smartColor": "#2CE8F5",
+							"iid": "f56a4820-21a0-11f1-aa60-cbe998e8273b",
+							"width": 64,
+							"height": 80,
+							"defUid": 101,
+							"px": [808,680],
+							"fieldInstances": [],
+							"__worldX": 10408,
+							"__worldY": 1760
 						}
 					]
 				},
@@ -14737,6 +15744,44 @@
 							],
 							"__worldX": 9740,
 							"__worldY": 1524
+						},
+						{
+							"__identifier": "PuzzleBubble",
+							"__grid": [144,33],
+							"__pivot": [0.5,0.5],
+							"__tags": [ "Floor_Interactable", "Puzzle_Piece" ],
+							"__tile": { "tilesetUid": 93, "x": 0, "y": 0, "w": 256, "h": 256 },
+							"__smartColor": "#BE4A2F",
+							"iid": "98844460-21a0-11f1-aa60-5590355a836c",
+							"width": 75,
+							"height": 75,
+							"defUid": 91,
+							"px": [1156,268],
+							"fieldInstances": [{ "__identifier": "ColorSolution", "__type": "LocalEnum.ColorState", "__value": "Red", "__tile": null, "defUid": 97, "realEditorValues": [{
+								"id": "V_String",
+								"params": ["Red"]
+							}] }],
+							"__worldX": 10756,
+							"__worldY": 1348
+						},
+						{
+							"__identifier": "PuzzleBubble",
+							"__grid": [124,64],
+							"__pivot": [0.5,0.5],
+							"__tags": [ "Floor_Interactable", "Puzzle_Piece" ],
+							"__tile": { "tilesetUid": 93, "x": 0, "y": 0, "w": 256, "h": 256 },
+							"__smartColor": "#2413E3",
+							"iid": "a1719370-21a0-11f1-aa60-efba8b9b42f9",
+							"width": 75,
+							"height": 75,
+							"defUid": 91,
+							"px": [996,516],
+							"fieldInstances": [{ "__identifier": "ColorSolution", "__type": "LocalEnum.ColorState", "__value": "Blue", "__tile": null, "defUid": 97, "realEditorValues": [{
+								"id": "V_String",
+								"params": ["Blue"]
+							}] }],
+							"__worldX": 10596,
+							"__worldY": 1596
 						}
 					]
 				},
@@ -15565,6 +16610,31 @@
 			"externalRelPath": null,
 			"fieldInstances": [],
 			"layerInstances": [
+				{
+					"__identifier": "Decorations",
+					"__type": "Entities",
+					"__cWid": 60,
+					"__cHei": 34,
+					"__gridSize": 32,
+					"__opacity": 1,
+					"__pxTotalOffsetX": 0,
+					"__pxTotalOffsetY": 0,
+					"__tilesetDefUid": null,
+					"__tilesetRelPath": null,
+					"iid": "d3c91870-21a0-11f1-aa60-9f5a4ab131ff",
+					"levelId": 78,
+					"layerDefUid": 95,
+					"pxOffsetX": 0,
+					"pxOffsetY": 0,
+					"visible": true,
+					"optionalRules": [],
+					"intGridCsv": [],
+					"autoLayerTiles": [],
+					"seed": 5167477,
+					"overrideTilesetUid": null,
+					"gridTiles": [],
+					"entityInstances": []
+				},
 				{
 					"__identifier": "Extra_Entities",
 					"__type": "Entities",
@@ -16933,6 +18003,31 @@
 			"externalRelPath": null,
 			"fieldInstances": [],
 			"layerInstances": [
+				{
+					"__identifier": "Decorations",
+					"__type": "Entities",
+					"__cWid": 60,
+					"__cHei": 34,
+					"__gridSize": 32,
+					"__opacity": 1,
+					"__pxTotalOffsetX": 0,
+					"__pxTotalOffsetY": 0,
+					"__tilesetDefUid": null,
+					"__tilesetRelPath": null,
+					"iid": "d3c93f80-21a0-11f1-aa60-ad412df98326",
+					"levelId": 79,
+					"layerDefUid": 95,
+					"pxOffsetX": 0,
+					"pxOffsetY": 0,
+					"visible": true,
+					"optionalRules": [],
+					"intGridCsv": [],
+					"autoLayerTiles": [],
+					"seed": 9153733,
+					"overrideTilesetUid": null,
+					"gridTiles": [],
+					"entityInstances": []
+				},
 				{
 					"__identifier": "Extra_Entities",
 					"__type": "Entities",
@@ -18468,6 +19563,31 @@
 			"fieldInstances": [],
 			"layerInstances": [
 				{
+					"__identifier": "Decorations",
+					"__type": "Entities",
+					"__cWid": 60,
+					"__cHei": 34,
+					"__gridSize": 32,
+					"__opacity": 1,
+					"__pxTotalOffsetX": 0,
+					"__pxTotalOffsetY": 0,
+					"__tilesetDefUid": null,
+					"__tilesetRelPath": null,
+					"iid": "d3c96690-21a0-11f1-aa60-6b0a126e1dda",
+					"levelId": 80,
+					"layerDefUid": 95,
+					"pxOffsetX": 0,
+					"pxOffsetY": 0,
+					"visible": true,
+					"optionalRules": [],
+					"intGridCsv": [],
+					"autoLayerTiles": [],
+					"seed": 2096308,
+					"overrideTilesetUid": null,
+					"gridTiles": [],
+					"entityInstances": []
+				},
+				{
 					"__identifier": "Extra_Entities",
 					"__type": "Entities",
 					"__cWid": 120,
@@ -18672,6 +19792,111 @@
 							"fieldInstances": [],
 							"__worldX": 7624,
 							"__worldY": 216
+						},
+						{
+							"__identifier": "PuzzleSolution",
+							"__grid": [84,-6],
+							"__pivot": [0.5,0.5],
+							"__tags": ["Puzzle"],
+							"__tile": null,
+							"__smartColor": "#0099DB",
+							"iid": "7d438840-21a0-11f1-aa60-015c7e9a4d79",
+							"width": 100,
+							"height": 100,
+							"defUid": 98,
+							"px": [1352,-104],
+							"fieldInstances": [
+								{ "__identifier": "PuzzlePieces", "__type": "Array<EntityRef>", "__value": [
+									{
+										"entityIid": "2a7fe640-21a0-11f1-aa60-67dad7d58793",
+										"layerIid": "9745e990-21a0-11f1-8ff7-cd941d54b66a",
+										"levelIid": "9745c280-21a0-11f1-8ff7-15d55e2cbecf",
+										"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787"
+									},
+									{
+										"entityIid": "294eb940-21a0-11f1-aa60-173e7d0bc276",
+										"layerIid": "9745e990-21a0-11f1-8ff7-cd941d54b66a",
+										"levelIid": "9745c280-21a0-11f1-8ff7-15d55e2cbecf",
+										"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787"
+									},
+									{
+										"entityIid": "270d7bd0-21a0-11f1-aa60-ab3e7edc5e61",
+										"layerIid": "9745e990-21a0-11f1-8ff7-cd941d54b66a",
+										"levelIid": "9745c280-21a0-11f1-8ff7-15d55e2cbecf",
+										"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787"
+									},
+									{
+										"entityIid": "24080400-21a0-11f1-aa60-3f340b262d85",
+										"layerIid": "9745e990-21a0-11f1-8ff7-cd941d54b66a",
+										"levelIid": "9745c280-21a0-11f1-8ff7-15d55e2cbecf",
+										"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787"
+									},
+									{
+										"entityIid": "219b70d0-21a0-11f1-aa60-a97bf5aecf76",
+										"layerIid": "9745e990-21a0-11f1-8ff7-cd941d54b66a",
+										"levelIid": "9745c280-21a0-11f1-8ff7-15d55e2cbecf",
+										"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787"
+									},
+									{
+										"entityIid": "205d99a0-21a0-11f1-aa60-c72b2af2db7e",
+										"layerIid": "9745e990-21a0-11f1-8ff7-cd941d54b66a",
+										"levelIid": "9745c280-21a0-11f1-8ff7-15d55e2cbecf",
+										"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787"
+									}
+								], "__tile": null, "defUid": 99, "realEditorValues": [
+									{
+										"id": "V_String",
+										"params": ["2a7fe640-21a0-11f1-aa60-67dad7d58793"]
+									},
+									{
+										"id": "V_String",
+										"params": ["294eb940-21a0-11f1-aa60-173e7d0bc276"]
+									},
+									{
+										"id": "V_String",
+										"params": ["270d7bd0-21a0-11f1-aa60-ab3e7edc5e61"]
+									},
+									{
+										"id": "V_String",
+										"params": ["24080400-21a0-11f1-aa60-3f340b262d85"]
+									},
+									{
+										"id": "V_String",
+										"params": ["219b70d0-21a0-11f1-aa60-a97bf5aecf76"]
+									},
+									{
+										"id": "V_String",
+										"params": ["205d99a0-21a0-11f1-aa60-c72b2af2db7e"]
+									}
+								] },
+								{ "__identifier": "Triggers", "__type": "Array<EntityRef>", "__value": [{
+									"entityIid": "b8f041b0-21a0-11f1-aa60-553bce3cd061",
+									"layerIid": "9745c281-21a0-11f1-8ff7-857507b0fc5e",
+									"levelIid": "9745c280-21a0-11f1-8ff7-15d55e2cbecf",
+									"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787"
+								}], "__tile": null, "defUid": 100, "realEditorValues": [{
+									"id": "V_String",
+									"params": ["b8f041b0-21a0-11f1-aa60-553bce3cd061"]
+								}] }
+							],
+							"__worldX": 7112,
+							"__worldY": -104
+						},
+						{
+							"__identifier": "PuzzleWall",
+							"__grid": [33,43],
+							"__pivot": [0.5,0.5],
+							"__tags": [ "Internal_Wall", "Puzzle_Trigger" ],
+							"__tile": null,
+							"__smartColor": "#2CE8F5",
+							"iid": "b8f041b0-21a0-11f1-aa60-553bce3cd061",
+							"width": 48,
+							"height": 160,
+							"defUid": 101,
+							"px": [536,696],
+							"fieldInstances": [],
+							"__worldX": 6296,
+							"__worldY": 696
 						}
 					]
 				},
@@ -18754,6 +19979,120 @@
 							],
 							"__worldX": 7620,
 							"__worldY": 452
+						},
+						{
+							"__identifier": "PuzzleBubble",
+							"__grid": [95,34],
+							"__pivot": [0.5,0.5],
+							"__tags": [ "Floor_Interactable", "Puzzle_Piece" ],
+							"__tile": { "tilesetUid": 93, "x": 0, "y": 0, "w": 256, "h": 256 },
+							"__smartColor": "#BE4A2F",
+							"iid": "205d99a0-21a0-11f1-aa60-c72b2af2db7e",
+							"width": 75,
+							"height": 75,
+							"defUid": 91,
+							"px": [764,276],
+							"fieldInstances": [{ "__identifier": "ColorSolution", "__type": "LocalEnum.ColorState", "__value": "Red", "__tile": null, "defUid": 97, "realEditorValues": [{
+								"id": "V_String",
+								"params": ["Red"]
+							}] }],
+							"__worldX": 6524,
+							"__worldY": 276
+						},
+						{
+							"__identifier": "PuzzleBubble",
+							"__grid": [95,66],
+							"__pivot": [0.5,0.5],
+							"__tags": [ "Floor_Interactable", "Puzzle_Piece" ],
+							"__tile": { "tilesetUid": 93, "x": 0, "y": 0, "w": 256, "h": 256 },
+							"__smartColor": "#2413E3",
+							"iid": "219b70d0-21a0-11f1-aa60-a97bf5aecf76",
+							"width": 75,
+							"height": 75,
+							"defUid": 91,
+							"px": [764,532],
+							"fieldInstances": [{ "__identifier": "ColorSolution", "__type": "LocalEnum.ColorState", "__value": "Blue", "__tile": null, "defUid": 97, "realEditorValues": [{
+								"id": "V_String",
+								"params": ["Blue"]
+							}] }],
+							"__worldX": 6524,
+							"__worldY": 532
+						},
+						{
+							"__identifier": "PuzzleBubble",
+							"__grid": [95,100],
+							"__pivot": [0.5,0.5],
+							"__tags": [ "Floor_Interactable", "Puzzle_Piece" ],
+							"__tile": { "tilesetUid": 93, "x": 0, "y": 0, "w": 256, "h": 256 },
+							"__smartColor": "#BE4A2F",
+							"iid": "24080400-21a0-11f1-aa60-3f340b262d85",
+							"width": 75,
+							"height": 75,
+							"defUid": 91,
+							"px": [764,804],
+							"fieldInstances": [{ "__identifier": "ColorSolution", "__type": "LocalEnum.ColorState", "__value": "Red", "__tile": null, "defUid": 97, "realEditorValues": [{
+								"id": "V_String",
+								"params": ["Red"]
+							}] }],
+							"__worldX": 6524,
+							"__worldY": 804
+						},
+						{
+							"__identifier": "PuzzleBubble",
+							"__grid": [129,100],
+							"__pivot": [0.5,0.5],
+							"__tags": [ "Floor_Interactable", "Puzzle_Piece" ],
+							"__tile": { "tilesetUid": 93, "x": 0, "y": 0, "w": 256, "h": 256 },
+							"__smartColor": "#BE4A2F",
+							"iid": "270d7bd0-21a0-11f1-aa60-ab3e7edc5e61",
+							"width": 75,
+							"height": 75,
+							"defUid": 91,
+							"px": [1036,804],
+							"fieldInstances": [{ "__identifier": "ColorSolution", "__type": "LocalEnum.ColorState", "__value": "Red", "__tile": null, "defUid": 97, "realEditorValues": [{
+								"id": "V_String",
+								"params": ["Red"]
+							}] }],
+							"__worldX": 6796,
+							"__worldY": 804
+						},
+						{
+							"__identifier": "PuzzleBubble",
+							"__grid": [141,66],
+							"__pivot": [0.5,0.5],
+							"__tags": [ "Floor_Interactable", "Puzzle_Piece" ],
+							"__tile": { "tilesetUid": 93, "x": 0, "y": 0, "w": 256, "h": 256 },
+							"__smartColor": "#FFFFFF",
+							"iid": "294eb940-21a0-11f1-aa60-173e7d0bc276",
+							"width": 75,
+							"height": 75,
+							"defUid": 91,
+							"px": [1132,532],
+							"fieldInstances": [{ "__identifier": "ColorSolution", "__type": "LocalEnum.ColorState", "__value": "Neutral", "__tile": null, "defUid": 97, "realEditorValues": [{
+								"id": "V_String",
+								"params": ["Neutral"]
+							}] }],
+							"__worldX": 6892,
+							"__worldY": 532
+						},
+						{
+							"__identifier": "PuzzleBubble",
+							"__grid": [129,34],
+							"__pivot": [0.5,0.5],
+							"__tags": [ "Floor_Interactable", "Puzzle_Piece" ],
+							"__tile": { "tilesetUid": 93, "x": 0, "y": 0, "w": 256, "h": 256 },
+							"__smartColor": "#BE4A2F",
+							"iid": "2a7fe640-21a0-11f1-aa60-67dad7d58793",
+							"width": 75,
+							"height": 75,
+							"defUid": 91,
+							"px": [1036,276],
+							"fieldInstances": [{ "__identifier": "ColorSolution", "__type": "LocalEnum.ColorState", "__value": "Red", "__tile": null, "defUid": 97, "realEditorValues": [{
+								"id": "V_String",
+								"params": ["Red"]
+							}] }],
+							"__worldX": 6796,
+							"__worldY": 276
 						}
 					]
 				},
@@ -19735,6 +21074,31 @@
 			"externalRelPath": null,
 			"fieldInstances": [],
 			"layerInstances": [
+				{
+					"__identifier": "Decorations",
+					"__type": "Entities",
+					"__cWid": 60,
+					"__cHei": 34,
+					"__gridSize": 32,
+					"__opacity": 1,
+					"__pxTotalOffsetX": 0,
+					"__pxTotalOffsetY": 0,
+					"__tilesetDefUid": null,
+					"__tilesetRelPath": null,
+					"iid": "d3c98da0-21a0-11f1-aa60-5ffde2f2b7d1",
+					"levelId": 81,
+					"layerDefUid": 95,
+					"pxOffsetX": 0,
+					"pxOffsetY": 0,
+					"visible": true,
+					"optionalRules": [],
+					"intGridCsv": [],
+					"autoLayerTiles": [],
+					"seed": 4039408,
+					"overrideTilesetUid": null,
+					"gridTiles": [],
+					"entityInstances": []
+				},
 				{
 					"__identifier": "Extra_Entities",
 					"__type": "Entities",
@@ -21436,6 +22800,31 @@
 			"fieldInstances": [],
 			"layerInstances": [
 				{
+					"__identifier": "Decorations",
+					"__type": "Entities",
+					"__cWid": 60,
+					"__cHei": 34,
+					"__gridSize": 32,
+					"__opacity": 1,
+					"__pxTotalOffsetX": 0,
+					"__pxTotalOffsetY": 0,
+					"__tilesetDefUid": null,
+					"__tilesetRelPath": null,
+					"iid": "d3c9b4b0-21a0-11f1-aa60-3d5797814792",
+					"levelId": 82,
+					"layerDefUid": 95,
+					"pxOffsetX": 0,
+					"pxOffsetY": 0,
+					"visible": true,
+					"optionalRules": [],
+					"intGridCsv": [],
+					"autoLayerTiles": [],
+					"seed": 2954177,
+					"overrideTilesetUid": null,
+					"gridTiles": [],
+					"entityInstances": []
+				},
+				{
 					"__identifier": "Extra_Entities",
 					"__type": "Entities",
 					"__cWid": 120,
@@ -22205,6 +23594,146 @@
 			"externalRelPath": null,
 			"fieldInstances": [],
 			"layerInstances": [
+				{
+					"__identifier": "Decorations",
+					"__type": "Entities",
+					"__cWid": 60,
+					"__cHei": 34,
+					"__gridSize": 32,
+					"__opacity": 1,
+					"__pxTotalOffsetX": 0,
+					"__pxTotalOffsetY": 0,
+					"__tilesetDefUid": null,
+					"__tilesetRelPath": null,
+					"iid": "d3c9b4b1-21a0-11f1-aa60-137f5cea5476",
+					"levelId": 83,
+					"layerDefUid": 95,
+					"pxOffsetX": 0,
+					"pxOffsetY": 0,
+					"visible": true,
+					"optionalRules": [],
+					"intGridCsv": [],
+					"autoLayerTiles": [],
+					"seed": 3112685,
+					"overrideTilesetUid": null,
+					"gridTiles": [],
+					"entityInstances": [
+						{
+							"__identifier": "PuzzleBubbleFake",
+							"__grid": [21,11],
+							"__pivot": [0.5,0.5],
+							"__tags": ["Floor_Decoration"],
+							"__tile": { "tilesetUid": 94, "x": 0, "y": 0, "w": 256, "h": 256 },
+							"__smartColor": "#BE4A2F",
+							"iid": "b375b290-21a0-11f1-aa60-51ac4beca717",
+							"width": 75,
+							"height": 75,
+							"defUid": 92,
+							"px": [688,368],
+							"fieldInstances": [{ "__identifier": "Color", "__type": "LocalEnum.ColorState", "__value": "Red", "__tile": null, "defUid": 96, "realEditorValues": [{
+								"id": "V_String",
+								"params": ["Red"]
+							}] }],
+							"__worldX": 14128,
+							"__worldY": 368
+						},
+						{
+							"__identifier": "PuzzleBubbleFake",
+							"__grid": [26,11],
+							"__pivot": [0.5,0.5],
+							"__tags": ["Floor_Decoration"],
+							"__tile": { "tilesetUid": 94, "x": 0, "y": 0, "w": 256, "h": 256 },
+							"__smartColor": "#BE4A2F",
+							"iid": "b6ab6220-21a0-11f1-aa60-1d4ed915dfb9",
+							"width": 75,
+							"height": 75,
+							"defUid": 92,
+							"px": [848,368],
+							"fieldInstances": [{ "__identifier": "Color", "__type": "LocalEnum.ColorState", "__value": "Red", "__tile": null, "defUid": 96, "realEditorValues": [{
+								"id": "V_String",
+								"params": ["Red"]
+							}] }],
+							"__worldX": 14288,
+							"__worldY": 368
+						},
+						{
+							"__identifier": "PuzzleBubbleFake",
+							"__grid": [21,16],
+							"__pivot": [0.5,0.5],
+							"__tags": ["Floor_Decoration"],
+							"__tile": { "tilesetUid": 94, "x": 0, "y": 0, "w": 256, "h": 256 },
+							"__smartColor": "#2413E3",
+							"iid": "ba0ab9c0-21a0-11f1-aa60-6f61a36ff31f",
+							"width": 75,
+							"height": 75,
+							"defUid": 92,
+							"px": [688,528],
+							"fieldInstances": [{ "__identifier": "Color", "__type": "LocalEnum.ColorState", "__value": "Blue", "__tile": null, "defUid": 96, "realEditorValues": [{
+								"id": "V_String",
+								"params": ["Blue"]
+							}] }],
+							"__worldX": 14128,
+							"__worldY": 528
+						},
+						{
+							"__identifier": "PuzzleBubbleFake",
+							"__grid": [21,21],
+							"__pivot": [0.5,0.5],
+							"__tags": ["Floor_Decoration"],
+							"__tile": { "tilesetUid": 94, "x": 0, "y": 0, "w": 256, "h": 256 },
+							"__smartColor": "#BE4A2F",
+							"iid": "bc986980-21a0-11f1-aa60-87c4d9c1daea",
+							"width": 75,
+							"height": 75,
+							"defUid": 92,
+							"px": [688,688],
+							"fieldInstances": [{ "__identifier": "Color", "__type": "LocalEnum.ColorState", "__value": "Red", "__tile": null, "defUid": 96, "realEditorValues": [{
+								"id": "V_String",
+								"params": ["Red"]
+							}] }],
+							"__worldX": 14128,
+							"__worldY": 688
+						},
+						{
+							"__identifier": "PuzzleBubbleFake",
+							"__grid": [26,21],
+							"__pivot": [0.5,0.5],
+							"__tags": ["Floor_Decoration"],
+							"__tile": { "tilesetUid": 94, "x": 0, "y": 0, "w": 256, "h": 256 },
+							"__smartColor": "#BE4A2F",
+							"iid": "c0907eb0-21a0-11f1-aa60-cbf07200e67e",
+							"width": 75,
+							"height": 75,
+							"defUid": 92,
+							"px": [848,688],
+							"fieldInstances": [{ "__identifier": "Color", "__type": "LocalEnum.ColorState", "__value": "Red", "__tile": null, "defUid": 96, "realEditorValues": [{
+								"id": "V_String",
+								"params": ["Red"]
+							}] }],
+							"__worldX": 14288,
+							"__worldY": 688
+						},
+						{
+							"__identifier": "PuzzleBubbleFake",
+							"__grid": [30,16],
+							"__pivot": [0.5,0.5],
+							"__tags": ["Floor_Decoration"],
+							"__tile": { "tilesetUid": 94, "x": 0, "y": 0, "w": 256, "h": 256 },
+							"__smartColor": "#FFFFFF",
+							"iid": "c27b5ec0-21a0-11f1-aa60-99e735af90ed",
+							"width": 75,
+							"height": 75,
+							"defUid": 92,
+							"px": [976,528],
+							"fieldInstances": [{ "__identifier": "Color", "__type": "LocalEnum.ColorState", "__value": "Neutral", "__tile": null, "defUid": 96, "realEditorValues": [{
+								"id": "V_String",
+								"params": ["Neutral"]
+							}] }],
+							"__worldX": 14416,
+							"__worldY": 528
+						}
+					]
+				},
 				{
 					"__identifier": "Extra_Entities",
 					"__type": "Entities",
@@ -23411,6 +24940,31 @@
 			"fieldInstances": [],
 			"layerInstances": [
 				{
+					"__identifier": "Decorations",
+					"__type": "Entities",
+					"__cWid": 60,
+					"__cHei": 34,
+					"__gridSize": 32,
+					"__opacity": 1,
+					"__pxTotalOffsetX": 0,
+					"__pxTotalOffsetY": 0,
+					"__tilesetDefUid": null,
+					"__tilesetRelPath": null,
+					"iid": "d3c9dbc0-21a0-11f1-aa60-0f03c52872ba",
+					"levelId": 84,
+					"layerDefUid": 95,
+					"pxOffsetX": 0,
+					"pxOffsetY": 0,
+					"visible": true,
+					"optionalRules": [],
+					"intGridCsv": [],
+					"autoLayerTiles": [],
+					"seed": 285559,
+					"overrideTilesetUid": null,
+					"gridTiles": [],
+					"entityInstances": []
+				},
+				{
 					"__identifier": "Extra_Entities",
 					"__type": "Entities",
 					"__cWid": 120,
@@ -24146,6 +25700,31 @@
 			"externalRelPath": null,
 			"fieldInstances": [],
 			"layerInstances": [
+				{
+					"__identifier": "Decorations",
+					"__type": "Entities",
+					"__cWid": 60,
+					"__cHei": 34,
+					"__gridSize": 32,
+					"__opacity": 1,
+					"__pxTotalOffsetX": 0,
+					"__pxTotalOffsetY": 0,
+					"__tilesetDefUid": null,
+					"__tilesetRelPath": null,
+					"iid": "d3c9dbc1-21a0-11f1-aa60-c1555cc343dd",
+					"levelId": 85,
+					"layerDefUid": 95,
+					"pxOffsetX": 0,
+					"pxOffsetY": 0,
+					"visible": true,
+					"optionalRules": [],
+					"intGridCsv": [],
+					"autoLayerTiles": [],
+					"seed": 5343258,
+					"overrideTilesetUid": null,
+					"gridTiles": [],
+					"entityInstances": []
+				},
 				{
 					"__identifier": "Extra_Entities",
 					"__type": "Entities",
@@ -25534,6 +27113,70 @@
 			"fieldInstances": [],
 			"layerInstances": [
 				{
+					"__identifier": "Decorations",
+					"__type": "Entities",
+					"__cWid": 60,
+					"__cHei": 34,
+					"__gridSize": 32,
+					"__opacity": 1,
+					"__pxTotalOffsetX": 0,
+					"__pxTotalOffsetY": 0,
+					"__tilesetDefUid": null,
+					"__tilesetRelPath": null,
+					"iid": "d3c9dbc2-21a0-11f1-aa60-493c24f89a11",
+					"levelId": 86,
+					"layerDefUid": 95,
+					"pxOffsetX": 0,
+					"pxOffsetY": 0,
+					"visible": true,
+					"optionalRules": [],
+					"intGridCsv": [],
+					"autoLayerTiles": [],
+					"seed": 9765543,
+					"overrideTilesetUid": null,
+					"gridTiles": [],
+					"entityInstances": [
+						{
+							"__identifier": "PuzzleBubbleFake",
+							"__grid": [28,7],
+							"__pivot": [0.5,0.5],
+							"__tags": ["Floor_Decoration"],
+							"__tile": { "tilesetUid": 94, "x": 0, "y": 0, "w": 256, "h": 256 },
+							"__smartColor": "#2413E3",
+							"iid": "cee7e980-21a0-11f1-aa60-4f17a90b265a",
+							"width": 75,
+							"height": 75,
+							"defUid": 92,
+							"px": [912,240],
+							"fieldInstances": [{ "__identifier": "Color", "__type": "LocalEnum.ColorState", "__value": "Blue", "__tile": null, "defUid": 96, "realEditorValues": [{
+								"id": "V_String",
+								"params": ["Blue"]
+							}] }],
+							"__worldX": 16272,
+							"__worldY": 1320
+						},
+						{
+							"__identifier": "PuzzleBubbleFake",
+							"__grid": [45,19],
+							"__pivot": [0.5,0.5],
+							"__tags": ["Floor_Decoration"],
+							"__tile": { "tilesetUid": 94, "x": 0, "y": 0, "w": 256, "h": 256 },
+							"__smartColor": "#BE4A2F",
+							"iid": "d45d01c0-21a0-11f1-aa60-fd39147d7cd9",
+							"width": 75,
+							"height": 75,
+							"defUid": 92,
+							"px": [1456,624],
+							"fieldInstances": [{ "__identifier": "Color", "__type": "LocalEnum.ColorState", "__value": "Red", "__tile": null, "defUid": 96, "realEditorValues": [{
+								"id": "V_String",
+								"params": ["Red"]
+							}] }],
+							"__worldX": 16816,
+							"__worldY": 1704
+						}
+					]
+				},
+				{
 					"__identifier": "Extra_Entities",
 					"__type": "Entities",
 					"__cWid": 120,
@@ -25748,6 +27391,65 @@
 							"fieldInstances": [],
 							"__worldX": 16440,
 							"__worldY": 1168
+						},
+						{
+							"__identifier": "PuzzleSolution",
+							"__grid": [21,74],
+							"__pivot": [0.5,0.5],
+							"__tags": ["Puzzle"],
+							"__tile": null,
+							"__smartColor": "#0099DB",
+							"iid": "5fbd1750-21a0-11f1-aa60-052af3594848",
+							"width": 100,
+							"height": 100,
+							"defUid": 98,
+							"px": [344,1192],
+							"fieldInstances": [
+								{ "__identifier": "PuzzlePieces", "__type": "Array<EntityRef>", "__value": [ {
+									"entityIid": "e327a0c0-21a0-11f1-aa60-e55e34c0dff6",
+									"layerIid": "afce1ff3-21a0-11f1-8ff7-e5af068b7bac",
+									"levelIid": "afce1ff0-21a0-11f1-8ff7-edcb2953dc85",
+									"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787"
+								}, {
+									"entityIid": "dcea2f70-21a0-11f1-aa60-4de8038766ad",
+									"layerIid": "afce1ff3-21a0-11f1-8ff7-e5af068b7bac",
+									"levelIid": "afce1ff0-21a0-11f1-8ff7-edcb2953dc85",
+									"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787"
+								} ], "__tile": null, "defUid": 99, "realEditorValues": [ {
+									"id": "V_String",
+									"params": ["e327a0c0-21a0-11f1-aa60-e55e34c0dff6"]
+								}, {
+									"id": "V_String",
+									"params": ["dcea2f70-21a0-11f1-aa60-4de8038766ad"]
+								} ] },
+								{ "__identifier": "Triggers", "__type": "Array<EntityRef>", "__value": [{
+									"entityIid": "0a5fbad0-21a0-11f1-aa60-3d12476cfc3a",
+									"layerIid": "afce1ff1-21a0-11f1-8ff7-9b57c1a71ae8",
+									"levelIid": "afce1ff0-21a0-11f1-8ff7-edcb2953dc85",
+									"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787"
+								}], "__tile": null, "defUid": 100, "realEditorValues": [{
+									"id": "V_String",
+									"params": ["0a5fbad0-21a0-11f1-aa60-3d12476cfc3a"]
+								}] }
+							],
+							"__worldX": 15704,
+							"__worldY": 2272
+						},
+						{
+							"__identifier": "PuzzleWall",
+							"__grid": [16,9],
+							"__pivot": [0.5,0.5],
+							"__tags": [ "Internal_Wall", "Puzzle_Trigger" ],
+							"__tile": null,
+							"__smartColor": "#2CE8F5",
+							"iid": "0a5fbad0-21a0-11f1-aa60-3d12476cfc3a",
+							"width": 192,
+							"height": 48,
+							"defUid": 101,
+							"px": [264,152],
+							"fieldInstances": [],
+							"__worldX": 15624,
+							"__worldY": 1232
 						}
 					]
 				},
@@ -25912,7 +27614,7 @@
 						},
 						{
 							"__identifier": "Teleporter",
-							"__grid": [32,17],
+							"__grid": [31,11],
 							"__pivot": [0.5,0.5],
 							"__tags": ["Floor_Interactable"],
 							"__tile": null,
@@ -25921,7 +27623,7 @@
 							"width": 144,
 							"height": 32,
 							"defUid": 12,
-							"px": [260,140],
+							"px": [252,92],
 							"fieldInstances": [
 								{ "__identifier": "ConnectedTeleporter", "__type": "EntityRef", "__value": {
 									"entityIid": "8927b000-21a0-11f1-9102-170a8770274a",
@@ -25938,8 +27640,46 @@
 									"params": ["Down"]
 								}] }
 							],
-							"__worldX": 15620,
-							"__worldY": 1220
+							"__worldX": 15612,
+							"__worldY": 1172
+						},
+						{
+							"__identifier": "PuzzleBubble",
+							"__grid": [16,60],
+							"__pivot": [0.5,0.5],
+							"__tags": [ "Floor_Interactable", "Puzzle_Piece" ],
+							"__tile": { "tilesetUid": 93, "x": 0, "y": 0, "w": 256, "h": 256 },
+							"__smartColor": "#2413E3",
+							"iid": "dcea2f70-21a0-11f1-aa60-4de8038766ad",
+							"width": 75,
+							"height": 75,
+							"defUid": 91,
+							"px": [132,484],
+							"fieldInstances": [{ "__identifier": "ColorSolution", "__type": "LocalEnum.ColorState", "__value": "Blue", "__tile": null, "defUid": 97, "realEditorValues": [{
+								"id": "V_String",
+								"params": ["Blue"]
+							}] }],
+							"__worldX": 15492,
+							"__worldY": 1564
+						},
+						{
+							"__identifier": "PuzzleBubble",
+							"__grid": [180,110],
+							"__pivot": [0.5,0.5],
+							"__tags": [ "Floor_Interactable", "Puzzle_Piece" ],
+							"__tile": { "tilesetUid": 93, "x": 0, "y": 0, "w": 256, "h": 256 },
+							"__smartColor": "#BE4A2F",
+							"iid": "e327a0c0-21a0-11f1-aa60-e55e34c0dff6",
+							"width": 75,
+							"height": 75,
+							"defUid": 91,
+							"px": [1444,884],
+							"fieldInstances": [{ "__identifier": "ColorSolution", "__type": "LocalEnum.ColorState", "__value": "Red", "__tile": null, "defUid": 97, "realEditorValues": [{
+								"id": "V_String",
+								"params": ["Red"]
+							}] }],
+							"__worldX": 16804,
+							"__worldY": 1964
 						}
 					]
 				},
@@ -26864,6 +28604,70 @@
 			"fieldInstances": [],
 			"layerInstances": [
 				{
+					"__identifier": "Decorations",
+					"__type": "Entities",
+					"__cWid": 60,
+					"__cHei": 34,
+					"__gridSize": 32,
+					"__opacity": 1,
+					"__pxTotalOffsetX": 0,
+					"__pxTotalOffsetY": 0,
+					"__tilesetDefUid": null,
+					"__tilesetRelPath": null,
+					"iid": "d3c9dbc3-21a0-11f1-aa60-ff6a2a9f9b68",
+					"levelId": 87,
+					"layerDefUid": 95,
+					"pxOffsetX": 0,
+					"pxOffsetY": 0,
+					"visible": true,
+					"optionalRules": [],
+					"intGridCsv": [],
+					"autoLayerTiles": [],
+					"seed": 9406946,
+					"overrideTilesetUid": null,
+					"gridTiles": [],
+					"entityInstances": [
+						{
+							"__identifier": "PuzzleBubbleFake",
+							"__grid": [54,8],
+							"__pivot": [0.5,0.5],
+							"__tags": ["Floor_Decoration"],
+							"__tile": { "tilesetUid": 94, "x": 0, "y": 0, "w": 256, "h": 256 },
+							"__smartColor": "#BE4A2F",
+							"iid": "0aea27e0-21a0-11f1-aa60-636bedd3902b",
+							"width": 75,
+							"height": 75,
+							"defUid": 92,
+							"px": [1744,272],
+							"fieldInstances": [{ "__identifier": "Color", "__type": "LocalEnum.ColorState", "__value": "Red", "__tile": null, "defUid": 96, "realEditorValues": [{
+								"id": "V_String",
+								"params": ["Red"]
+							}] }],
+							"__worldX": 19024,
+							"__worldY": 272
+						},
+						{
+							"__identifier": "PuzzleBubbleFake",
+							"__grid": [35,8],
+							"__pivot": [0.5,0.5],
+							"__tags": ["Floor_Decoration"],
+							"__tile": { "tilesetUid": 94, "x": 0, "y": 0, "w": 256, "h": 256 },
+							"__smartColor": "#BE4A2F",
+							"iid": "0ccb43f0-21a0-11f1-aa60-5bf5276cebc2",
+							"width": 75,
+							"height": 75,
+							"defUid": 92,
+							"px": [1136,272],
+							"fieldInstances": [{ "__identifier": "Color", "__type": "LocalEnum.ColorState", "__value": "Red", "__tile": null, "defUid": 96, "realEditorValues": [{
+								"id": "V_String",
+								"params": ["Red"]
+							}] }],
+							"__worldX": 18416,
+							"__worldY": 272
+						}
+					]
+				},
+				{
 					"__identifier": "Extra_Entities",
 					"__type": "Entities",
 					"__cWid": 120,
@@ -27046,6 +28850,65 @@
 							"fieldInstances": [],
 							"__worldX": 18920,
 							"__worldY": 424
+						},
+						{
+							"__identifier": "PuzzleSolution",
+							"__grid": [125,38],
+							"__pivot": [0.5,0.5],
+							"__tags": ["Puzzle"],
+							"__tile": null,
+							"__smartColor": "#0099DB",
+							"iid": "33abcf80-21a0-11f1-aa60-150bd9ebad08",
+							"width": 100,
+							"height": 100,
+							"defUid": 98,
+							"px": [2008,616],
+							"fieldInstances": [
+								{ "__identifier": "PuzzlePieces", "__type": "Array<EntityRef>", "__value": [ {
+									"entityIid": "1b176420-21a0-11f1-aa60-9b2dd3ac8ce5",
+									"layerIid": "b2405872-21a0-11f1-8ff7-ddc1a359fd5b",
+									"levelIid": "b2403160-21a0-11f1-8ff7-99b6bf0f1e86",
+									"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787"
+								}, {
+									"entityIid": "13144e00-21a0-11f1-aa60-099836052b6a",
+									"layerIid": "b2405872-21a0-11f1-8ff7-ddc1a359fd5b",
+									"levelIid": "b2403160-21a0-11f1-8ff7-99b6bf0f1e86",
+									"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787"
+								} ], "__tile": null, "defUid": 99, "realEditorValues": [ {
+									"id": "V_String",
+									"params": ["1b176420-21a0-11f1-aa60-9b2dd3ac8ce5"]
+								}, {
+									"id": "V_String",
+									"params": ["13144e00-21a0-11f1-aa60-099836052b6a"]
+								} ] },
+								{ "__identifier": "Triggers", "__type": "Array<EntityRef>", "__value": [{
+									"entityIid": "21fd9130-21a0-11f1-aa60-e39490097ad0",
+									"layerIid": "b2405870-21a0-11f1-8ff7-a5a09cb77524",
+									"levelIid": "b2403160-21a0-11f1-8ff7-99b6bf0f1e86",
+									"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787"
+								}], "__tile": null, "defUid": 100, "realEditorValues": [{
+									"id": "V_String",
+									"params": ["21fd9130-21a0-11f1-aa60-e39490097ad0"]
+								}] }
+							],
+							"__worldX": 19288,
+							"__worldY": 616
+						},
+						{
+							"__identifier": "PuzzleWall",
+							"__grid": [97,58],
+							"__pivot": [0.5,0.5],
+							"__tags": [ "Internal_Wall", "Puzzle_Trigger" ],
+							"__tile": null,
+							"__smartColor": "#2CE8F5",
+							"iid": "21fd9130-21a0-11f1-aa60-e39490097ad0",
+							"width": 176,
+							"height": 48,
+							"defUid": 101,
+							"px": [1560,936],
+							"fieldInstances": [],
+							"__worldX": 18840,
+							"__worldY": 936
 						}
 					]
 				},
@@ -27166,16 +29029,16 @@
 						},
 						{
 							"__identifier": "Teleporter",
-							"__grid": [192,118],
+							"__grid": [193,124],
 							"__pivot": [0.5,0.5],
 							"__tags": ["Floor_Interactable"],
 							"__tile": null,
 							"__smartColor": "#BE4A2F",
 							"iid": "51a3f4e0-21a0-11f1-9102-351e4280bfb1",
-							"width": 120,
+							"width": 136,
 							"height": 32,
 							"defUid": 12,
-							"px": [1540,948],
+							"px": [1548,996],
 							"fieldInstances": [
 								{ "__identifier": "ConnectedTeleporter", "__type": "EntityRef", "__value": {
 									"entityIid": "55601280-21a0-11f1-9102-89e27ec912c7",
@@ -27192,8 +29055,8 @@
 									"params": ["Up"]
 								}] }
 							],
-							"__worldX": 18820,
-							"__worldY": 948
+							"__worldX": 18828,
+							"__worldY": 996
 						},
 						{
 							"__identifier": "Teleporter",
@@ -27225,6 +29088,44 @@
 							],
 							"__worldX": 17500,
 							"__worldY": 556
+						},
+						{
+							"__identifier": "PuzzleBubble",
+							"__grid": [214,100],
+							"__pivot": [0.5,0.5],
+							"__tags": [ "Floor_Interactable", "Puzzle_Piece" ],
+							"__tile": { "tilesetUid": 93, "x": 0, "y": 0, "w": 256, "h": 256 },
+							"__smartColor": "#BE4A2F",
+							"iid": "13144e00-21a0-11f1-aa60-099836052b6a",
+							"width": 75,
+							"height": 75,
+							"defUid": 91,
+							"px": [1716,804],
+							"fieldInstances": [{ "__identifier": "ColorSolution", "__type": "LocalEnum.ColorState", "__value": "Red", "__tile": null, "defUid": 97, "realEditorValues": [{
+								"id": "V_String",
+								"params": ["Red"]
+							}] }],
+							"__worldX": 18996,
+							"__worldY": 804
+						},
+						{
+							"__identifier": "PuzzleBubble",
+							"__grid": [140,100],
+							"__pivot": [0.5,0.5],
+							"__tags": [ "Floor_Interactable", "Puzzle_Piece" ],
+							"__tile": { "tilesetUid": 93, "x": 0, "y": 0, "w": 256, "h": 256 },
+							"__smartColor": "#BE4A2F",
+							"iid": "1b176420-21a0-11f1-aa60-9b2dd3ac8ce5",
+							"width": 75,
+							"height": 75,
+							"defUid": 91,
+							"px": [1124,804],
+							"fieldInstances": [{ "__identifier": "ColorSolution", "__type": "LocalEnum.ColorState", "__value": "Red", "__tile": null, "defUid": 97, "realEditorValues": [{
+								"id": "V_String",
+								"params": ["Red"]
+							}] }],
+							"__worldX": 18404,
+							"__worldY": 804
 						}
 					]
 				},
@@ -28161,6 +30062,166 @@
 			"fieldInstances": [],
 			"layerInstances": [
 				{
+					"__identifier": "Decorations",
+					"__type": "Entities",
+					"__cWid": 60,
+					"__cHei": 34,
+					"__gridSize": 32,
+					"__opacity": 1,
+					"__pxTotalOffsetX": 0,
+					"__pxTotalOffsetY": 0,
+					"__tilesetDefUid": null,
+					"__tilesetRelPath": null,
+					"iid": "d3c9dbc4-21a0-11f1-aa60-eb183e98afcb",
+					"levelId": 88,
+					"layerDefUid": 95,
+					"pxOffsetX": 0,
+					"pxOffsetY": 0,
+					"visible": true,
+					"optionalRules": [],
+					"intGridCsv": [],
+					"autoLayerTiles": [],
+					"seed": 9713255,
+					"overrideTilesetUid": null,
+					"gridTiles": [],
+					"entityInstances": [
+						{
+							"__identifier": "MossDecoration",
+							"__grid": [3,15],
+							"__pivot": [0.5,1],
+							"__tags": ["Floor_Decoration"],
+							"__tile": { "tilesetUid": 52, "x": 128, "y": 256, "w": 48, "h": 48 },
+							"__smartColor": "#F77622",
+							"iid": "2541f930-21a0-11f1-8ff7-97093072d6d8",
+							"width": 64,
+							"height": 64,
+							"defUid": 53,
+							"px": [104,496],
+							"fieldInstances": [{ "__identifier": "MossDecorator", "__type": "LocalEnum.MossDecorator", "__value": "Single1", "__tile": null, "defUid": 59, "realEditorValues": [] }],
+							"__worldX": 17384,
+							"__worldY": 1576
+						},
+						{
+							"__identifier": "MossDecoration",
+							"__grid": [3,16],
+							"__pivot": [0.5,1],
+							"__tags": ["Floor_Decoration"],
+							"__tile": { "tilesetUid": 52, "x": 128, "y": 256, "w": 48, "h": 48 },
+							"__smartColor": "#F77622",
+							"iid": "26087d80-21a0-11f1-8ff7-51ef3791e3a9",
+							"width": 64,
+							"height": 64,
+							"defUid": 53,
+							"px": [104,528],
+							"fieldInstances": [{ "__identifier": "MossDecorator", "__type": "LocalEnum.MossDecorator", "__value": "Single1", "__tile": null, "defUid": 59, "realEditorValues": [] }],
+							"__worldX": 17384,
+							"__worldY": 1608
+						},
+						{
+							"__identifier": "MossDecoration",
+							"__grid": [4,16],
+							"__pivot": [0.5,1],
+							"__tags": ["Floor_Decoration"],
+							"__tile": { "tilesetUid": 52, "x": 128, "y": 256, "w": 48, "h": 48 },
+							"__smartColor": "#F77622",
+							"iid": "2670b530-21a0-11f1-8ff7-bfee71a13abd",
+							"width": 64,
+							"height": 64,
+							"defUid": 53,
+							"px": [152,528],
+							"fieldInstances": [{ "__identifier": "MossDecorator", "__type": "LocalEnum.MossDecorator", "__value": "Single1", "__tile": null, "defUid": 59, "realEditorValues": [] }],
+							"__worldX": 17432,
+							"__worldY": 1608
+						},
+						{
+							"__identifier": "MossDecoration",
+							"__grid": [6,16],
+							"__pivot": [0.5,1],
+							"__tags": ["Floor_Decoration"],
+							"__tile": { "tilesetUid": 52, "x": 128, "y": 256, "w": 48, "h": 48 },
+							"__smartColor": "#F77622",
+							"iid": "26d40ae0-21a0-11f1-8ff7-e10dce9e8705",
+							"width": 64,
+							"height": 64,
+							"defUid": 53,
+							"px": [200,528],
+							"fieldInstances": [{ "__identifier": "MossDecorator", "__type": "LocalEnum.MossDecorator", "__value": "Single1", "__tile": null, "defUid": 59, "realEditorValues": [] }],
+							"__worldX": 17480,
+							"__worldY": 1608
+						},
+						{
+							"__identifier": "MossDecoration",
+							"__grid": [7,16],
+							"__pivot": [0.5,1],
+							"__tags": ["Floor_Decoration"],
+							"__tile": { "tilesetUid": 52, "x": 128, "y": 256, "w": 48, "h": 48 },
+							"__smartColor": "#F77622",
+							"iid": "27587d20-21a0-11f1-8ff7-81e5c7604d84",
+							"width": 64,
+							"height": 64,
+							"defUid": 53,
+							"px": [232,528],
+							"fieldInstances": [{ "__identifier": "MossDecorator", "__type": "LocalEnum.MossDecorator", "__value": "Single1", "__tile": null, "defUid": 59, "realEditorValues": [] }],
+							"__worldX": 17512,
+							"__worldY": 1608
+						},
+						{
+							"__identifier": "MossDecoration",
+							"__grid": [8,16],
+							"__pivot": [0.5,1],
+							"__tags": ["Floor_Decoration"],
+							"__tile": { "tilesetUid": 52, "x": 128, "y": 256, "w": 48, "h": 48 },
+							"__smartColor": "#F77622",
+							"iid": "27b961d0-21a0-11f1-8ff7-1ff76ca33e1c",
+							"width": 64,
+							"height": 64,
+							"defUid": 53,
+							"px": [280,528],
+							"fieldInstances": [{ "__identifier": "MossDecorator", "__type": "LocalEnum.MossDecorator", "__value": "Single1", "__tile": null, "defUid": 59, "realEditorValues": [] }],
+							"__worldX": 17560,
+							"__worldY": 1608
+						},
+						{
+							"__identifier": "PuzzleBubbleFake",
+							"__grid": [32,7],
+							"__pivot": [0.5,0.5],
+							"__tags": ["Floor_Decoration"],
+							"__tile": { "tilesetUid": 94, "x": 0, "y": 0, "w": 256, "h": 256 },
+							"__smartColor": "#BE4A2F",
+							"iid": "f0939a20-21a0-11f1-aa60-f95589de65a8",
+							"width": 75,
+							"height": 75,
+							"defUid": 92,
+							"px": [1040,240],
+							"fieldInstances": [{ "__identifier": "Color", "__type": "LocalEnum.ColorState", "__value": "Red", "__tile": null, "defUid": 96, "realEditorValues": [{
+								"id": "V_String",
+								"params": ["Red"]
+							}] }],
+							"__worldX": 18320,
+							"__worldY": 1320
+						},
+						{
+							"__identifier": "PuzzleBubbleFake",
+							"__grid": [28,16],
+							"__pivot": [0.5,0.5],
+							"__tags": ["Floor_Decoration"],
+							"__tile": { "tilesetUid": 94, "x": 0, "y": 0, "w": 256, "h": 256 },
+							"__smartColor": "#2413E3",
+							"iid": "f4f23950-21a0-11f1-aa60-af304bab57e0",
+							"width": 75,
+							"height": 75,
+							"defUid": 92,
+							"px": [912,528],
+							"fieldInstances": [{ "__identifier": "Color", "__type": "LocalEnum.ColorState", "__value": "Blue", "__tile": null, "defUid": 96, "realEditorValues": [{
+								"id": "V_String",
+								"params": ["Blue"]
+							}] }],
+							"__worldX": 18192,
+							"__worldY": 1608
+						}
+					]
+				},
+				{
 					"__identifier": "Extra_Entities",
 					"__type": "Entities",
 					"__cWid": 120,
@@ -28202,102 +30263,6 @@
 							}] }],
 							"__worldX": 17432,
 							"__worldY": 1424
-						},
-						{
-							"__identifier": "MossDecoration",
-							"__grid": [6,30],
-							"__pivot": [0.5,1],
-							"__tags": ["Floor_Decoration"],
-							"__tile": { "tilesetUid": 52, "x": 128, "y": 256, "w": 48, "h": 48 },
-							"__smartColor": "#F77622",
-							"iid": "2541f930-21a0-11f1-8ff7-97093072d6d8",
-							"width": 64,
-							"height": 64,
-							"defUid": 53,
-							"px": [104,496],
-							"fieldInstances": [{ "__identifier": "MossDecorator", "__type": "LocalEnum.MossDecorator", "__value": "Single1", "__tile": null, "defUid": 59, "realEditorValues": [] }],
-							"__worldX": 17384,
-							"__worldY": 1576
-						},
-						{
-							"__identifier": "MossDecoration",
-							"__grid": [6,32],
-							"__pivot": [0.5,1],
-							"__tags": ["Floor_Decoration"],
-							"__tile": { "tilesetUid": 52, "x": 128, "y": 256, "w": 48, "h": 48 },
-							"__smartColor": "#F77622",
-							"iid": "26087d80-21a0-11f1-8ff7-51ef3791e3a9",
-							"width": 64,
-							"height": 64,
-							"defUid": 53,
-							"px": [104,528],
-							"fieldInstances": [{ "__identifier": "MossDecorator", "__type": "LocalEnum.MossDecorator", "__value": "Single1", "__tile": null, "defUid": 59, "realEditorValues": [] }],
-							"__worldX": 17384,
-							"__worldY": 1608
-						},
-						{
-							"__identifier": "MossDecoration",
-							"__grid": [9,32],
-							"__pivot": [0.5,1],
-							"__tags": ["Floor_Decoration"],
-							"__tile": { "tilesetUid": 52, "x": 128, "y": 256, "w": 48, "h": 48 },
-							"__smartColor": "#F77622",
-							"iid": "2670b530-21a0-11f1-8ff7-bfee71a13abd",
-							"width": 64,
-							"height": 64,
-							"defUid": 53,
-							"px": [152,528],
-							"fieldInstances": [{ "__identifier": "MossDecorator", "__type": "LocalEnum.MossDecorator", "__value": "Single1", "__tile": null, "defUid": 59, "realEditorValues": [] }],
-							"__worldX": 17432,
-							"__worldY": 1608
-						},
-						{
-							"__identifier": "MossDecoration",
-							"__grid": [12,32],
-							"__pivot": [0.5,1],
-							"__tags": ["Floor_Decoration"],
-							"__tile": { "tilesetUid": 52, "x": 128, "y": 256, "w": 48, "h": 48 },
-							"__smartColor": "#F77622",
-							"iid": "26d40ae0-21a0-11f1-8ff7-e10dce9e8705",
-							"width": 64,
-							"height": 64,
-							"defUid": 53,
-							"px": [200,528],
-							"fieldInstances": [{ "__identifier": "MossDecorator", "__type": "LocalEnum.MossDecorator", "__value": "Single1", "__tile": null, "defUid": 59, "realEditorValues": [] }],
-							"__worldX": 17480,
-							"__worldY": 1608
-						},
-						{
-							"__identifier": "MossDecoration",
-							"__grid": [14,32],
-							"__pivot": [0.5,1],
-							"__tags": ["Floor_Decoration"],
-							"__tile": { "tilesetUid": 52, "x": 128, "y": 256, "w": 48, "h": 48 },
-							"__smartColor": "#F77622",
-							"iid": "27587d20-21a0-11f1-8ff7-81e5c7604d84",
-							"width": 64,
-							"height": 64,
-							"defUid": 53,
-							"px": [232,528],
-							"fieldInstances": [{ "__identifier": "MossDecorator", "__type": "LocalEnum.MossDecorator", "__value": "Single1", "__tile": null, "defUid": 59, "realEditorValues": [] }],
-							"__worldX": 17512,
-							"__worldY": 1608
-						},
-						{
-							"__identifier": "MossDecoration",
-							"__grid": [17,32],
-							"__pivot": [0.5,1],
-							"__tags": ["Floor_Decoration"],
-							"__tile": { "tilesetUid": 52, "x": 128, "y": 256, "w": 48, "h": 48 },
-							"__smartColor": "#F77622",
-							"iid": "27b961d0-21a0-11f1-8ff7-1ff76ca33e1c",
-							"width": 64,
-							"height": 64,
-							"defUid": 53,
-							"px": [280,528],
-							"fieldInstances": [{ "__identifier": "MossDecorator", "__type": "LocalEnum.MossDecorator", "__value": "Single1", "__tile": null, "defUid": 59, "realEditorValues": [] }],
-							"__worldX": 17560,
-							"__worldY": 1608
 						},
 						{
 							"__identifier": "Wall",

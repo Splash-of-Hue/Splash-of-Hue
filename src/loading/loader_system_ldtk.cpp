@@ -216,9 +216,31 @@ void load_entity_layer(const ldtk::Layer& layer)
 		case LOADING_LAYER_TYPE::EXTRA_ENTITIES:
 			load_extra_entities(layer);
 			return;
+		case LOADING_LAYER_TYPE::DECORATIONS:
+			load_decorations(layer);
+			return;
 		case LOADING_LAYER_TYPE::INVALID:
 			std::cout << "Layer " << layer.getName() << ": Invalid layer type." << std::endl;
 			return;
+	}
+}
+
+void load_decorations(const ldtk::Layer& layer)
+{
+	// iterate on Enemy entities
+	for (const ldtk::Entity& decoration_entity : layer.allEntities())
+	{
+		const std::string decoration_entity_type_string = decoration_entity.getName();
+		ENTITY_TYPE decoration_entity_type = entity_type_from_string(decoration_entity_type_string);
+
+		switch (decoration_entity_type)
+		{
+			case ENTITY_TYPE::PUZZLE_BUBBLE_FAKE:
+				load_puzzle_bubble_fake(decoration_entity);
+				continue;
+			default:
+				continue;
+		}
 	}
 }
 
@@ -240,6 +262,12 @@ void load_extra_entities(const ldtk::Layer& layer)
 				continue;
 			case ENTITY_TYPE::MOSS_WALL:
 				load_moss_door(extra_entity);
+				continue;
+			case ENTITY_TYPE::PUZZLE_WALL:
+				load_puzzle_wall(extra_entity);
+				continue;
+			case ENTITY_TYPE::PUZZLE_SOLUTION:
+				load_puzzle_solution(extra_entity);
 				continue;
 			default:
 				continue;
@@ -348,6 +376,9 @@ void load_floor_interactables(const ldtk::Layer& layer)
 				continue;
 			case ENTITY_TYPE::MUSHROOM:
 				load_mushroom(floor_interactable_entity);
+				continue;
+			case ENTITY_TYPE::PUZZLE_BUBBLE:
+				load_puzzle_bubble(floor_interactable_entity);
 				continue;
 			default:
 				continue;
@@ -557,4 +588,61 @@ void LoaderSystem::unload_level(int level_uid)
 
 	// Keep the map data but remove from loaded levels (is generated, is not loaded)
 	level_iterator->is_loaded = false;
+}
+
+void load_puzzle_bubble(const ldtk::Entity& puzzle_bubble_entity)
+{
+	std::cout << puzzle_bubble_entity.getName() << std::endl;
+	const ldtk::IntPoint& world_position = puzzle_bubble_entity.getWorldPosition();
+	const vec2 position = scale_to_level(vec2(world_position.x, world_position.y));
+	const ldtk::Field<ldtk::EnumValue>& color_solution_field = puzzle_bubble_entity.getField<ldtk::EnumValue>("ColorSolution");
+	const COLOUR_STATE colour_solution = color_state_from_string(color_solution_field.value().name);
+	createPuzzleBubble(puzzle_bubble_entity.layer->level->uid, puzzle_bubble_entity.iid.str(), position, colour_solution);
+}
+
+void load_puzzle_bubble_fake(const ldtk::Entity& puzzle_bubble_fake_entity)
+{
+	std::cout << puzzle_bubble_fake_entity.getName() << std::endl;
+	const ldtk::IntPoint& world_position = puzzle_bubble_fake_entity.getWorldPosition();
+	const vec2 position = scale_to_level(vec2(world_position.x, world_position.y));
+	const ldtk::Field<ldtk::EnumValue>& color_solution_field = puzzle_bubble_fake_entity.getField<ldtk::EnumValue>("Color");
+	const COLOUR_STATE colour = color_state_from_string(color_solution_field.value().name);
+	createPuzzleBubbleFake(puzzle_bubble_fake_entity.layer->level->uid, position, colour);
+}
+
+void load_puzzle_solution(const ldtk::Entity& puzzle_solution_entity)
+{
+	const ldtk::ArrayField<ldtk::EntityRef>& puzzle_piece_ref_fields = puzzle_solution_entity.getField<ldtk::FieldType::ArrayEntityRef>("PuzzlePieces");
+	const ldtk::ArrayField<ldtk::EntityRef>& trigger_ref_fields = puzzle_solution_entity.getField<ldtk::FieldType::ArrayEntityRef>("Triggers");
+	std::vector<std::string> puzzle_piece_ids;
+	std::vector<std::string> puzzle_trigger_ids;
+
+	for (const ldtk::Field<ldtk::EntityRef>& puzzle_piece_ref_field : puzzle_piece_ref_fields)
+	{
+		const ldtk::EntityRef puzzle_piece_ref = puzzle_piece_ref_field.value();
+		puzzle_piece_ids.push_back(puzzle_piece_ref.entity_iid.str());
+	}
+
+	for (const ldtk::Field<ldtk::EntityRef>& trigger_ref_field : trigger_ref_fields)
+	{
+		const ldtk::EntityRef trigger_ref = trigger_ref_field.value();
+		puzzle_trigger_ids.push_back(trigger_ref.entity_iid.str());
+	}
+
+	Entity puzzle_entity;
+	registry.puzzles.emplace(puzzle_entity);
+	registry.puzzle_build_requests.insert(Entity(), { puzzle_entity, puzzle_piece_ids, puzzle_trigger_ids });
+}
+
+void load_puzzle_wall(const ldtk::Entity& puzzle_wall_entity)
+{
+	std::cout << puzzle_wall_entity.getName() << std::endl;
+	const ldtk::IntPoint& wall_world_position = puzzle_wall_entity.getWorldPosition();
+	const ldtk::IntPoint& wall_size = puzzle_wall_entity.getSize();
+	const vec2 position = scale_to_level(vec2(wall_world_position.x, wall_world_position.y));
+	const vec2 size = scale_to_level(vec2(wall_size.x, wall_size.y));
+	const vec4 PUZZLE_WALL_COLOUR = vec4(vec3(105, 30, 105) / 255.0f, 1.0);
+	Entity& wall = createWall(puzzle_wall_entity.layer->level->uid, position, size.x, size.y, PUZZLE_WALL_COLOUR);
+	registry.renderRequests.get(wall).layer = RENDER_LAYER::WALLS_FRONT;
+	registry.puzzle_triggers.insert(wall, { puzzle_wall_entity.iid.str(), [&]() {} });
 }

@@ -82,9 +82,10 @@ Entity createTeleporter(const int level_uid, const int connected_level_id, vec2 
 
 	return teleporter_entity;
 }
-Entity createWall(const int level_uid, vec2 position, float width, float height)
+
+Entity createWall(const int level_uid, vec2 position, float width, float height, vec4 color)
 {
-	const Entity& wall_rectangle_entity = createRectangle(position, width, height, RENDER_LAYER::WALLS_BACK, vec4{ 1.0, 1.0, 1.0, 0.0 });
+	const Entity& wall_rectangle_entity = createRectangle(position, width, height, RENDER_LAYER::WALLS_BACK, color);
 	Collidable& col = registry.collidables.emplace(wall_rectangle_entity);
 	col.inelastic = true;
 	registry.levelEntities.insert(wall_rectangle_entity, { level_uid });

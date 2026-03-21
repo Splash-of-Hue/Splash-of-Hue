@@ -13,6 +13,7 @@
 #include <iostream>
 #include <map>
 #include <string>
+#include <vector>
 
 void InteractableSystem::step(float elapsed_ms)
 {
@@ -21,6 +22,105 @@ void InteractableSystem::step(float elapsed_ms)
 	step_moss_toggle();
 	step_colour_orbs();
 	step_mushrooms();
+	step_puzzle_bubbles();
+	step_puzzles();
+}
+
+
+void InteractableSystem::step_puzzles()
+{
+	for (Entity& puzzle_bubble_entity : registry.puzzle_build_requests.entities)
+	{
+		PuzzleBuildRequest& build_request = registry.puzzle_build_requests.get(puzzle_bubble_entity);
+		Puzzle& puzzle = registry.puzzles.get(build_request.puzzle_entity);
+
+		for (std::string& puzzle_piece_id : build_request.unloaded_puzzle_piece_ids)
+		{
+			const auto puzzle_piece_match = [&](Entity& entity)
+			{
+				return registry.puzzle_pieces.get(entity).id == puzzle_piece_id;
+			};
+			Entity& puzzle_piece_entity = *std::find_if(registry.puzzle_pieces.entities.begin(), registry.puzzle_pieces.entities.end(), puzzle_piece_match);
+			puzzle.puzzle_pieces.push_back(puzzle_piece_entity);
+		}
+
+		for (std::string& puzzle_trigger_id : build_request.unloaded_puzzle_trigger_ids)
+		{
+			const auto puzzle_trigger_match = [&](Entity& entity)
+			{
+				return registry.puzzle_triggers.get(entity).id == puzzle_trigger_id;
+			};
+			Entity& puzzle_trigger_entity = *std::find_if(registry.puzzle_triggers.entities.begin(), registry.puzzle_triggers.entities.end(), puzzle_trigger_match);
+			puzzle.puzzle_triggers.push_back(puzzle_trigger_entity);
+		}
+	}
+
+	registry.puzzle_build_requests.clear();
+	std::vector<Entity> solved_puzzles;
+
+	for (Entity& puzzle_entity : registry.puzzles.entities)
+	{
+		Puzzle& puzzle = registry.puzzles.get(puzzle_entity);
+		bool is_solved = true;
+
+		// All of the pieces must be solved for the puzzle to be solved
+		for (Entity& puzzle_piece_entity : puzzle.puzzle_pieces)
+		{
+			is_solved = is_solved && registry.puzzle_pieces.get(puzzle_piece_entity).is_correct;
+		}
+
+		if (is_solved)
+		{
+			for (Entity& puzzle_trigger_entity : puzzle.puzzle_triggers)
+			{
+				// TODO 5T1tVusK: Since we are down to the wire, hardcode functionality in for now and extend later
+				registry.remove_all_components_of(puzzle_trigger_entity);
+			}
+
+			//Add to clean up after so we don't delete while in the loop
+			solved_puzzles.push_back(puzzle_entity);
+		}
+	}
+
+	// Clean up all solved puzzles
+	for (Entity& puzzle_entity : solved_puzzles)
+	{
+		registry.remove_all_components_of(puzzle_entity);
+	}
+}
+
+void InteractableSystem::step_puzzle_bubbles()
+{
+	for (Entity& puzzle_bubble_entity : registry.puzzle_bubbles.entities)
+	{
+		COLOUR_STATE colour_state = COLOUR_STATE::NEUTRAL;
+		ColourState& puzzle_bubble_colour_state = registry.colourStates.get(puzzle_bubble_entity);
+
+		// If the bubble isn't in any colour state, set it to neutral
+		if (registry.inRadius.has(puzzle_bubble_entity))
+		{
+			InRadius& in_radius = registry.inRadius.get(puzzle_bubble_entity);
+			colour_state = change_colour_given_priority(
+				{
+					{in_radius.inCreatureRadius, in_radius.creatureRadiusList},
+					{in_radius.inPlayerRadius, in_radius.playerRadiusList},
+					{in_radius.inInteractableRadius, in_radius.interactableRadiusList}
+				}
+			);
+		}
+
+		// If we are already in the needed colour state, continue
+		if (puzzle_bubble_colour_state.curr_colour_state == colour_state)
+		{
+			continue;
+		}
+
+		puzzle_bubble_colour_state.curr_colour_state = colour_state;
+		const ColourPalette& palette = registry.colourPalettes.components[0];
+		registry.colors.get(puzzle_bubble_entity) = palette.state_to_colour.at(colour_state);
+		COLOUR_STATE solution_color = registry.puzzle_bubbles.get(puzzle_bubble_entity).solution_colour;
+		registry.puzzle_pieces.get(puzzle_bubble_entity).is_correct = solution_color == colour_state;
+	}
 }
 
 void InteractableSystem::step_moss_toggle()
@@ -133,20 +233,20 @@ void InteractableSystem::step_mushrooms()
 
 void InteractableSystem::handle_mushrooms(Entity& mushroom_entity)
 {
-    InRadius& in_radius_component = registry.inRadius.get(mushroom_entity);
-    ColourState& mushroom_colour_state = registry.colourStates.get(mushroom_entity);
+	InRadius& in_radius_component = registry.inRadius.get(mushroom_entity);
+	ColourState& mushroom_colour_state = registry.colourStates.get(mushroom_entity);
 
-    COLOUR_STATE colour_state = change_colour_given_priority({
-        {in_radius_component.inCreatureRadius, in_radius_component.creatureRadiusList},
-        {in_radius_component.inPlayerRadius, in_radius_component.playerRadiusList},
-        {in_radius_component.inInteractableRadius, in_radius_component.interactableRadiusList}
-     });
+	COLOUR_STATE colour_state = change_colour_given_priority({
+		{in_radius_component.inCreatureRadius, in_radius_component.creatureRadiusList},
+		{in_radius_component.inPlayerRadius, in_radius_component.playerRadiusList},
+		{in_radius_component.inInteractableRadius, in_radius_component.interactableRadiusList}
+															 });
 
-    if (mushroom_colour_state.curr_colour_state != colour_state)
-    {
-        mushroom_colour_state.prev_colour_state = mushroom_colour_state.curr_colour_state;
-        mushroom_colour_state.curr_colour_state = colour_state;
-    }
+	if (mushroom_colour_state.curr_colour_state != colour_state)
+	{
+		mushroom_colour_state.prev_colour_state = mushroom_colour_state.curr_colour_state;
+		mushroom_colour_state.curr_colour_state = colour_state;
+	}
 
 	if (!registry.lightSources.has(mushroom_entity))
 	{
@@ -167,42 +267,42 @@ void InteractableSystem::handle_mushrooms(Entity& mushroom_entity)
 				break;
 		}
 
-        light_emission_component.TIME_TO_GROW = TIME_TO_GROW;
-        light_emission_component.offset = EMISSION_OFFSET.at("MUSHROOM");
-        //double-linking the mushroom and the emission
-        light_emission_component.lightSourceEntity = mushroom_entity;
-        LightSource& light_source_component = registry.lightSources.emplace(mushroom_entity);
-        light_source_component.lightEmissionEntity = emission_entity;
-        //assign the emission to a level
-        LevelEntity& level_entity_mushroom_component = registry.levelEntities.get(mushroom_entity);
-        LevelEntity& level_entity_emission_component = registry.levelEntities.emplace(emission_entity);
-        level_entity_emission_component.level_uid = level_entity_mushroom_component.level_uid;
-    }
-    //Todo: when the mushroom assets are created, uncomment this line https://trello.com/c/sAosXtPo/98-1-animation-mushroom
-    //setEntityVisualColour(mushroom_entity, colour_state);
+		light_emission_component.TIME_TO_GROW = TIME_TO_GROW;
+		light_emission_component.offset = EMISSION_OFFSET.at("MUSHROOM");
+		//double-linking the mushroom and the emission
+		light_emission_component.lightSourceEntity = mushroom_entity;
+		LightSource& light_source_component = registry.lightSources.emplace(mushroom_entity);
+		light_source_component.lightEmissionEntity = emission_entity;
+		//assign the emission to a level
+		LevelEntity& level_entity_mushroom_component = registry.levelEntities.get(mushroom_entity);
+		LevelEntity& level_entity_emission_component = registry.levelEntities.emplace(emission_entity);
+		level_entity_emission_component.level_uid = level_entity_mushroom_component.level_uid;
+	}
+	//Todo: when the mushroom assets are created, uncomment this line https://trello.com/c/sAosXtPo/98-1-animation-mushroom
+	//setEntityVisualColour(mushroom_entity, colour_state);
 }
 
 //Returns the colour state of the highest-priority radius type (Player, Creature, Interactable)
 COLOUR_STATE InteractableSystem::change_colour_given_priority(std::multimap<bool, std::vector<Entity>> radiiList)
 {
-    for (std::pair<bool, std::vector<Entity>> radiusList : radiiList)
-    {
-        if (radiusList.first && has_valid_emission(radiusList.second))
-        {
-            return registry.colourStates.get(radiusList.second[0]).curr_colour_state;
-        }
-    }
+	for (std::pair<bool, std::vector<Entity>> radiusList : radiiList)
+	{
+		if (radiusList.first && has_valid_emission(radiusList.second))
+		{
+			return registry.colourStates.get(radiusList.second[0]).curr_colour_state;
+		}
+	}
 
-    return COLOUR_STATE::NEUTRAL;
+	return COLOUR_STATE::NEUTRAL;
 }
 
 bool InteractableSystem::has_valid_emission(std::vector<Entity>& radiusList)
 {
-    for (Entity& emission_entity : radiusList)
-    {
-        if (registry.colourStates.has(emission_entity))
-            return true;
-    }
+	for (Entity& emission_entity : radiusList)
+	{
+		if (registry.colourStates.has(emission_entity))
+			return true;
+	}
 
-    return false;
+	return false;
 }

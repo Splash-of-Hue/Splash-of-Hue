@@ -139,3 +139,59 @@ Entity createMossToggle(const int level_uid, vec2 position, vec2 size, std::vect
 
 	return toggle_entity;
 }
+
+Entity createPuzzleBubble(const int level_uid, std::string id, vec2 position, COLOUR_STATE colour_solution)
+{
+	Entity puzzle_bubble_entity;
+	registry.puzzle_bubbles.insert(puzzle_bubble_entity, { colour_solution });
+	registry.puzzle_pieces.insert(puzzle_bubble_entity, { id });
+	const ColourPalette& palette = registry.colourPalettes.components[0];
+	registry.colors.insert(puzzle_bubble_entity, palette.state_to_colour.at(COLOUR_STATE::NEUTRAL));
+	Collidable& col = registry.collidables.emplace(puzzle_bubble_entity);
+	col.inelastic = false;
+	registry.positions.insert(puzzle_bubble_entity, position);
+	registry.scales.insert(puzzle_bubble_entity, PUZZLE_BUBBLE_SIZE);
+	registry.sizes.insert(puzzle_bubble_entity, { PUZZLE_BUBBLE_SIZE.x, PUZZLE_BUBBLE_SIZE.y });
+	registry.angles.emplace(puzzle_bubble_entity);
+	registry.colourStates.insert(puzzle_bubble_entity, { COLOUR_STATE::NEUTRAL, COLOUR_STATE::NEUTRAL });
+	registry.renderRequests.insert(
+		puzzle_bubble_entity,
+		{
+			EFFECT_ASSET_ID::TEXTURED,
+			GEOMETRY_BUFFER_ID::SPRITE,
+			RENDER_LAYER::FLOOR_INTERACTABLES
+		}
+	);
+	const Animatable animatable = {
+		ANIMATABLE_TYPE::PUZZLE_BUBBLE,
+		ANIMATION_BEHAVIOR::LOOP,
+		ANIMATION_TRIGGER::IDLE,
+		PUZZLE_BUBBLE_FRAME_RATE
+	};
+	registry.animatables.insert(puzzle_bubble_entity, animatable);
+	registry.textured.insert(puzzle_bubble_entity, { TEXTURE_ASSET_ID::PUZZLE_BUBBLE });
+
+	return puzzle_bubble_entity;
+}
+
+Entity createPuzzleBubbleFake(const int level_uid, vec2 position, COLOUR_STATE colour)
+{
+	Entity puzzle_bubble_entity;
+	const ColourPalette& palette = registry.colourPalettes.components[0];
+	registry.colors.insert(puzzle_bubble_entity, palette.state_to_colour.at(colour));
+	registry.positions.insert(puzzle_bubble_entity, position);
+	registry.scales.insert(puzzle_bubble_entity, PUZZLE_BUBBLE_SIZE);
+	registry.sizes.insert(puzzle_bubble_entity, { PUZZLE_BUBBLE_SIZE.x, PUZZLE_BUBBLE_SIZE.y });
+	registry.angles.emplace(puzzle_bubble_entity);
+	registry.renderRequests.insert(
+		puzzle_bubble_entity,
+		{
+			EFFECT_ASSET_ID::TEXTURED,
+			GEOMETRY_BUFFER_ID::SPRITE,
+			RENDER_LAYER::FLOOR_DECORATIONS
+		}
+	);
+	registry.textured.insert(puzzle_bubble_entity, { TEXTURE_ASSET_ID::PUZZLE_BUBBLE_FAKE });
+
+	return puzzle_bubble_entity;
+}
