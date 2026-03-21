@@ -203,6 +203,92 @@ void AnimationSystem::init()
 		}
 	);
 
+	// Crab Walk Forward
+generate_animation(
+    ANIMATABLE_TYPE::CRAB,
+    ANIMATION_TRIGGER::WALK_FORWARD,
+    {
+        { TEXTURE_ASSET_ID::CRAB_01, RenderSourceRect{ vec2(0.002f, 0.0f), vec2(0.198f, 0.1f) }},
+        { TEXTURE_ASSET_ID::CRAB_01, RenderSourceRect{ vec2(0.202f, 0.0f), vec2(0.198f, 0.1f) }},
+        { TEXTURE_ASSET_ID::CRAB_01, RenderSourceRect{ vec2(0.402f, 0.0f), vec2(0.198f, 0.1f) }},
+        { TEXTURE_ASSET_ID::CRAB_01, RenderSourceRect{ vec2(0.602f, 0.0f), vec2(0.198f, 0.1f) }},
+        { TEXTURE_ASSET_ID::CRAB_01, RenderSourceRect{ vec2(0.802f, 0.0f), vec2(0.198f, 0.1f) }},
+        { TEXTURE_ASSET_ID::CRAB_01, RenderSourceRect{ vec2(0.002f, 0.1f), vec2(0.198f, 0.1f) }},
+        { TEXTURE_ASSET_ID::CRAB_01, RenderSourceRect{ vec2(0.202f, 0.1f), vec2(0.198f, 0.1f) }},
+        { TEXTURE_ASSET_ID::CRAB_01, RenderSourceRect{ vec2(0.402f, 0.1f), vec2(0.198f, 0.1f) }},
+        { TEXTURE_ASSET_ID::CRAB_01, RenderSourceRect{ vec2(0.602f, 0.1f), vec2(0.198f, 0.1f) }},
+        { TEXTURE_ASSET_ID::CRAB_01, RenderSourceRect{ vec2(0.802f, 0.1f), vec2(0.198f, 0.1f) }},
+    }
+);
+
+// Crab Walk Backward
+generate_animation(
+    ANIMATABLE_TYPE::CRAB,
+    ANIMATION_TRIGGER::WALK_BACKWARD,
+    {
+        { TEXTURE_ASSET_ID::CRAB_01, RenderSourceRect{ vec2(0.002f, 0.2f), vec2(0.198f, 0.1f) }},
+        { TEXTURE_ASSET_ID::CRAB_01, RenderSourceRect{ vec2(0.202f, 0.2f), vec2(0.198f, 0.1f) }},
+        { TEXTURE_ASSET_ID::CRAB_01, RenderSourceRect{ vec2(0.402f, 0.2f), vec2(0.198f, 0.1f) }},
+        { TEXTURE_ASSET_ID::CRAB_01, RenderSourceRect{ vec2(0.602f, 0.2f), vec2(0.198f, 0.1f) }},
+        { TEXTURE_ASSET_ID::CRAB_01, RenderSourceRect{ vec2(0.802f, 0.2f), vec2(0.198f, 0.1f) }},
+        { TEXTURE_ASSET_ID::CRAB_01, RenderSourceRect{ vec2(0.002f, 0.3f), vec2(0.198f, 0.1f) }},
+        { TEXTURE_ASSET_ID::CRAB_01, RenderSourceRect{ vec2(0.202f, 0.3f), vec2(0.198f, 0.1f) }},
+        { TEXTURE_ASSET_ID::CRAB_01, RenderSourceRect{ vec2(0.402f, 0.3f), vec2(0.198f, 0.1f) }},
+        { TEXTURE_ASSET_ID::CRAB_01, RenderSourceRect{ vec2(0.602f, 0.3f), vec2(0.198f, 0.1f) }},
+        { TEXTURE_ASSET_ID::CRAB_01, RenderSourceRect{ vec2(0.802f, 0.3f), vec2(0.198f, 0.1f) }},
+    }
+);
+
+// Crab Walk Right
+generate_animation(
+    ANIMATABLE_TYPE::CRAB,
+    ANIMATION_TRIGGER::WALK_RIGHT,
+    {
+        { TEXTURE_ASSET_ID::CRAB_01, RenderSourceRect{ vec2(0.002f, 0.4f), vec2(0.198f, 0.1f) }},
+        { TEXTURE_ASSET_ID::CRAB_01, RenderSourceRect{ vec2(0.202f, 0.4f), vec2(0.198f, 0.1f) }},
+        { TEXTURE_ASSET_ID::CRAB_01, RenderSourceRect{ vec2(0.402f, 0.4f), vec2(0.198f, 0.1f) }},
+        { TEXTURE_ASSET_ID::CRAB_01, RenderSourceRect{ vec2(0.602f, 0.4f), vec2(0.198f, 0.1f) }},
+        { TEXTURE_ASSET_ID::CRAB_01, RenderSourceRect{ vec2(0.802f, 0.4f), vec2(0.198f, 0.1f) }},
+        { TEXTURE_ASSET_ID::CRAB_01, RenderSourceRect{ vec2(0.002f, 0.5f), vec2(0.198f, 0.1f) }},
+        { TEXTURE_ASSET_ID::CRAB_01, RenderSourceRect{ vec2(0.202f, 0.5f), vec2(0.198f, 0.1f) }},
+        { TEXTURE_ASSET_ID::CRAB_01, RenderSourceRect{ vec2(0.402f, 0.5f), vec2(0.198f, 0.1f) }},
+        { TEXTURE_ASSET_ID::CRAB_01, RenderSourceRect{ vec2(0.602f, 0.5f), vec2(0.198f, 0.1f) }},
+        { TEXTURE_ASSET_ID::CRAB_01, RenderSourceRect{ vec2(0.802f, 0.5f), vec2(0.198f, 0.1f) }},
+    }
+);
+
+// Crab Walk Left
+generate_animation(
+    ANIMATABLE_TYPE::CRAB,
+    ANIMATION_TRIGGER::WALK_LEFT,
+    {
+        { TEXTURE_ASSET_ID::CRAB_01, RenderSourceRect{ vec2(0.002f, 0.6f), vec2(0.198f, 0.1f) }},
+        { TEXTURE_ASSET_ID::CRAB_01, RenderSourceRect{ vec2(0.202f, 0.6f), vec2(0.198f, 0.1f) }},
+        { TEXTURE_ASSET_ID::CRAB_01, RenderSourceRect{ vec2(0.402f, 0.6f), vec2(0.198f, 0.1f) }},
+        { TEXTURE_ASSET_ID::CRAB_01, RenderSourceRect{ vec2(0.602f, 0.6f), vec2(0.198f, 0.1f) }},
+        { TEXTURE_ASSET_ID::CRAB_01, RenderSourceRect{ vec2(0.802f, 0.6f), vec2(0.198f, 0.1f) }},
+        { TEXTURE_ASSET_ID::CRAB_01, RenderSourceRect{ vec2(0.002f, 0.7f), vec2(0.198f, 0.1f) }},
+        { TEXTURE_ASSET_ID::CRAB_01, RenderSourceRect{ vec2(0.202f, 0.7f), vec2(0.198f, 0.1f) }},
+        { TEXTURE_ASSET_ID::CRAB_01, RenderSourceRect{ vec2(0.402f, 0.7f), vec2(0.198f, 0.1f) }},
+        { TEXTURE_ASSET_ID::CRAB_01, RenderSourceRect{ vec2(0.602f, 0.7f), vec2(0.198f, 0.1f) }},
+        { TEXTURE_ASSET_ID::CRAB_01, RenderSourceRect{ vec2(0.802f, 0.7f), vec2(0.198f, 0.1f) }},
+    }
+);
+
+// Crab Idle
+generate_animation(
+    ANIMATABLE_TYPE::CRAB,
+    ANIMATION_TRIGGER::IDLE,
+    {
+        { TEXTURE_ASSET_ID::CRAB_01, RenderSourceRect{ vec2(0.002f, 0.8f), vec2(0.198f, 0.1f) }},
+        { TEXTURE_ASSET_ID::CRAB_01, RenderSourceRect{ vec2(0.202f, 0.8f), vec2(0.198f, 0.1f) }},
+        { TEXTURE_ASSET_ID::CRAB_01, RenderSourceRect{ vec2(0.402f, 0.8f), vec2(0.198f, 0.1f) }},
+        { TEXTURE_ASSET_ID::CRAB_01, RenderSourceRect{ vec2(0.602f, 0.8f), vec2(0.198f, 0.1f) }},
+        { TEXTURE_ASSET_ID::CRAB_01, RenderSourceRect{ vec2(0.802f, 0.8f), vec2(0.198f, 0.1f) }},
+        { TEXTURE_ASSET_ID::CRAB_01, RenderSourceRect{ vec2(0.002f, 0.9f), vec2(0.198f, 0.1f) }},
+    }
+);
+
 	/*
 		ENVIRONMENT ANIMATIONS
 	*/

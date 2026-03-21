@@ -54,7 +54,7 @@ Entity CreatureCreator::createCrab(const int level_uid, vec2 position, float wid
 
     // TODO add dedicated crab asset and texture ID
     // TODO: ocWt9dv
-	addGeneralCreatureComponents(level_uid, crab, position, width, height, color_state, CREATURETYPE::CRAB, TEXTURE_ASSET_ID::SAWFISH);
+	addGeneralCreatureComponents(level_uid, crab, position, width, height, color_state, CREATURETYPE::CRAB, TEXTURE_ASSET_ID::CRAB_01);
     Angle& direction_facing = registry.angles.get(crab);
     vec2& direction = registry.directions.emplace(crab);
     direction = vec2(0);
@@ -74,6 +74,14 @@ Entity CreatureCreator::createCrab(const int level_uid, vec2 position, float wid
         direction_facing.degrees = DEGREES_DOWN * 2;
         direction.x = -1.f;
     }
+
+    const Animatable animatable = {
+       ANIMATABLE_TYPE::CRAB,
+       ANIMATION_BEHAVIOR::LOOP,
+       ANIMATION_TRIGGER::IDLE,
+       8
+    };
+    registry.animatables.insert(crab, animatable);
 
     CreatureBehaviour& creatureBehaviour = registry.creatureBehaviours.emplace(crab);
     CreatureBehaviourTreeBuilder builder;

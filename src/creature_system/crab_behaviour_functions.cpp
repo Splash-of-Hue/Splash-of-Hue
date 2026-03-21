@@ -9,6 +9,24 @@ BEHAVIOUR_TREE_STATUS CreatureBehaviourFunctions::slideForwards(Entity& creature
 
 	velocity = direction * PLAYER_SPEED;
 
+    ANIMATION_TRIGGER trigger = ANIMATION_TRIGGER::WALK_FORWARD;
+    if (direction.x > 0.f) {
+        trigger = ANIMATION_TRIGGER::WALK_RIGHT;
+    }
+    else if (direction.x < 0.f) {
+        trigger = ANIMATION_TRIGGER::WALK_LEFT;
+    }
+    else if (direction.y > 0.f) {
+        trigger = ANIMATION_TRIGGER::WALK_FORWARD;
+    }
+    else if (direction.y < 0.f) {
+        trigger = ANIMATION_TRIGGER::WALK_BACKWARD;
+    }
+
+    if (!registry.animation_triggers.has(creature)) {
+        registry.animation_triggers.insert(creature, { trigger });
+    }
+
 	return BEHAVIOUR_TREE_STATUS::SUCCESS;
 }
 
@@ -17,6 +35,24 @@ BEHAVIOUR_TREE_STATUS CreatureBehaviourFunctions::slideBackwards(Entity& creatur
 	vec2& velocity = registry.velocities.get(creature);
 	vec2& direction = registry.directions.get(creature);
 	velocity = -direction * PLAYER_SPEED;
+
+    ANIMATION_TRIGGER trigger = ANIMATION_TRIGGER::WALK_BACKWARD;
+    if (direction.x > 0.f) {
+        trigger = ANIMATION_TRIGGER::WALK_LEFT;
+    }
+    else if (direction.x < 0.f) {
+        trigger = ANIMATION_TRIGGER::WALK_RIGHT;
+    }
+    else if (direction.y > 0.f) {
+        trigger = ANIMATION_TRIGGER::WALK_BACKWARD;
+    }
+    else if (direction.y < 0.f) {
+        trigger = ANIMATION_TRIGGER::WALK_FORWARD;
+    }
+
+    if (!registry.animation_triggers.has(creature)) {
+        registry.animation_triggers.insert(creature, { trigger });
+    }
 
 	return BEHAVIOUR_TREE_STATUS::SUCCESS;
 }
