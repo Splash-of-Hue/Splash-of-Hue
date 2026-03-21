@@ -342,19 +342,22 @@ void InteractableSystem::handle_mushrooms(Entity& mushroom_entity)
 			break;
 		}
 
-		light_emission_component.TIME_TO_GROW = TIME_TO_GROW;
-		light_emission_component.offset = EMISSION_OFFSET.at("MUSHROOM");
-		//double-linking the mushroom and the emission
-		light_emission_component.lightSourceEntity = mushroom_entity;
-		LightSource& light_source_component = registry.lightSources.emplace(mushroom_entity);
-		light_source_component.lightEmissionEntity = emission_entity;
-		//assign the emission to a level
-		LevelEntity& level_entity_mushroom_component = registry.levelEntities.get(mushroom_entity);
-		LevelEntity& level_entity_emission_component = registry.levelEntities.emplace(emission_entity);
-		level_entity_emission_component.level_uid = level_entity_mushroom_component.level_uid;
-	}
-	//Todo: when the mushroom assets are created, uncomment this line https://trello.com/c/sAosXtPo/98-1-animation-mushroom
-	//setEntityVisualColour(mushroom_entity, colour_state);
+        light_emission_component.TIME_TO_GROW = TIME_TO_GROW;
+        light_emission_component.offset = EMISSION_OFFSET.at("MUSHROOM");
+        PolygonMesh& emission_hitbox = registry.hitboxes.emplace(emission_entity);
+        emission_hitbox = createCircleHitbox(mushroom_position, light_emission_component.MAX_RADIUS * 0.5, 8);
+
+        //double-linking the mushroom and the emission
+        light_emission_component.lightSourceEntity = mushroom_entity;
+        LightSource& light_source_component = registry.lightSources.emplace(mushroom_entity);
+        light_source_component.lightEmissionEntity = emission_entity;
+        //assign the emission to a level
+        LevelEntity& level_entity_mushroom_component = registry.levelEntities.get(mushroom_entity);
+        LevelEntity& level_entity_emission_component = registry.levelEntities.emplace(emission_entity);
+        level_entity_emission_component.level_uid = level_entity_mushroom_component.level_uid;
+    }
+    //Todo: when the mushroom assets are created, uncomment this line https://trello.com/c/sAosXtPo/98-1-animation-mushroom
+    //setEntityVisualColour(mushroom_entity, colour_state);
 }
 
 //Returns the colour state of the highest-priority radius type (Player, Creature, Interactable)

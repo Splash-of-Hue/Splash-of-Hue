@@ -244,6 +244,9 @@ void ColourSystem::applyColorToPlayer(COLOUR_STATE colour)
 			registry.scales.emplace(emission_entity);
 
 			LightEmission& light_emission_component = registry.lightEmissions.emplace(emission_entity);
+			PolygonMesh& emission_hitbox = registry.hitboxes.emplace(emission_entity);
+			emission_hitbox = createCircleHitbox(player_position, EMISSION_SIZE::PLAYER_EMISSION * 0.5, 8);
+
 			light_emission_component.MAX_RADIUS = EMISSION_SIZE::PLAYER_EMISSION;
 			light_emission_component.TIME_TO_GROW = TIME_TO_GROW;
 			light_emission_component.offset = EMISSION_OFFSET.at("PLAYER");
