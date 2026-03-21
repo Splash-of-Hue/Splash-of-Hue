@@ -8791,7 +8791,7 @@
 					"layerDefUid": 105,
 					"pxOffsetX": 0,
 					"pxOffsetY": 0,
-					"visible": true,
+					"visible": false,
 					"optionalRules": [],
 					"intGridCsv": [],
 					"autoLayerTiles": [],
@@ -9186,7 +9186,10 @@
 							"defUid": 21,
 							"px": [536,456],
 							"fieldInstances": [
-								{ "__identifier": "ColorState", "__type": "LocalEnum.ColorState", "__value": "Neutral", "__tile": null, "defUid": 29, "realEditorValues": [] },
+								{ "__identifier": "ColorState", "__type": "LocalEnum.ColorState", "__value": "Blue", "__tile": null, "defUid": 29, "realEditorValues": [{
+									"id": "V_String",
+									"params": ["Blue"]
+								}] },
 								{ "__identifier": "CreatureType", "__type": "LocalEnum.CreatureType", "__value": "Anglerfish", "__tile": null, "defUid": 89, "realEditorValues": [] }
 							],
 							"__worldX": 2456,
@@ -18494,7 +18497,7 @@
 					"layerDefUid": 105,
 					"pxOffsetX": 0,
 					"pxOffsetY": 0,
-					"visible": true,
+					"visible": false,
 					"optionalRules": [],
 					"intGridCsv": [],
 					"autoLayerTiles": [],
