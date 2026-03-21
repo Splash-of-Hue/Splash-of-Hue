@@ -33,6 +33,8 @@ enum class ENTITY_TYPE
 	COLOUR_ORB,
 	BOX,
 	MUSHROOM,
+	PRESSURE_PLATE,
+	PRESSURE_PLATE_WALL,
 	MINIMAP_REFERENCE,
 	MINIMAP_HALLWAY
 	
@@ -59,6 +61,8 @@ const std::map<std::string, ENTITY_TYPE> entity_type_string_to_enum_map = {
 	{ "ColourOrb", ENTITY_TYPE::COLOUR_ORB },
 	{ "Box", ENTITY_TYPE::BOX },
 	{ "Mushroom", ENTITY_TYPE::MUSHROOM },
+	{ "PressurePlate", ENTITY_TYPE::PRESSURE_PLATE },
+	{ "PressurePlateWall", ENTITY_TYPE::PRESSURE_PLATE_WALL },
 	{ "MinimapReference", ENTITY_TYPE::MINIMAP_REFERENCE },
 	{ "MinimapHallway", ENTITY_TYPE::MINIMAP_HALLWAY },
 };

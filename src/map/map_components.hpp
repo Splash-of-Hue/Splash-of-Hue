@@ -103,3 +103,10 @@ struct ColouredWall
 {
 	std::string id;
 };
+
+struct PressurePlateWall
+{
+	// Is the door open? i.e. is the connected pressure plate currently being pressed
+	bool is_open = false;
+	std::string id;
+};

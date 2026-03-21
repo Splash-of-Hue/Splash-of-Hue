@@ -139,3 +139,33 @@ Entity createMossToggle(const int level_uid, vec2 position, vec2 size, std::vect
 
 	return toggle_entity;
 }
+
+Entity createPressurePlate(const int level_uid, vec2 position, vec2 size, std::vector<std::string> connected_wall_ids)
+{
+	Size size_component = { size.x, size.y };
+	Entity pressure_plate_entity = addGeneralInteractableComponents(position, size_component, INTERACTABLE_TYPE::PRESSURE_PLATE);
+	PressurePlate& pressure_plate = registry.pressurePlates.emplace(pressure_plate_entity);
+	pressure_plate.connected_wall_ids = connected_wall_ids;
+
+	registry.scales.insert(pressure_plate_entity, size);
+
+	Collidable& col = registry.collidables.emplace(pressure_plate_entity);
+	col.inelastic = false;
+
+	InBoundingBox& in_bounding_box_component = registry.inBoundingBox.emplace(pressure_plate_entity);
+	in_bounding_box_component.updatedThisStep = true;
+
+	// todo QWNAo0jQ
+	registry.rectangles.emplace(pressure_plate_entity);
+	registry.colors.insert(pressure_plate_entity, vec4(0.0f, 0.0f, 0.75f, 1.0f));
+	registry.renderRequests.insert(
+		pressure_plate_entity,
+		{
+			EFFECT_ASSET_ID::DEFAULT,
+			GEOMETRY_BUFFER_ID::RECTANGLE,
+			RENDER_LAYER::FLOOR_INTERACTABLES
+		}
+	);
+
+	return pressure_plate_entity;
+}
