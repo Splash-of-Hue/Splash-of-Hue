@@ -597,7 +597,6 @@ void handle_light_wall_collision(Entity& entity_i, Entity& entity_j, vec3 penetr
 	if (registry.hitboxes.has(light)) {
 		PolygonMesh& light_mesh = registry.hitboxes.get(light);
 		PolygonMesh& wall_mesh = findHitbox(wall);
-		
 		vec2 dir = vec2(penetration.y, penetration.z);
 		dir = normalize(dir);
 		dir = dot(light_mesh.centre - wall_mesh.centre, dir) < 0 ? -dir : dir;
