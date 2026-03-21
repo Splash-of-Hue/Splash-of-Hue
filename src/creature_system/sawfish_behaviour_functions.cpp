@@ -58,16 +58,24 @@ BEHAVIOUR_TREE_STATUS CreatureBehaviourFunctions::aimAtTarget(Entity& charger, f
 
 	vec2& charger_position = registry.positions.get(charger);
 	vec2& targeted_entity_position = registry.positions.get(player_entity);
-
+	// Get angles for charger
 	Angle& charger_angle = registry.angles.get(charger);
-
+	// Get arctangent to go from vector to angle
 	float degAngle = atan((charger_position.x - targeted_entity_position.x) / (targeted_entity_position.y - charger_position.y)) * 180 / M_PI;
 
-	if (targeted_entity_position.y - charger_position.y < 0) {
+	if (targeted_entity_position.y - charger_position.y < 0)
+	{
 		degAngle = -90 + degAngle;
 	}
-	else {
+	else
+	{
 		degAngle = 90 + degAngle;
+	}
+
+	// TODO: Change later (no ticket)
+	if (registry.velocities.get(charger).x < 0)
+	{
+		degAngle = -degAngle - 180;
 	}
 
 	charger_angle.degrees = degAngle;
