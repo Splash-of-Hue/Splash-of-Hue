@@ -3,6 +3,7 @@
 #include "creature_system/creature_constants.hpp"
 #include "ecs/components.hpp"
 #include "interactables/interactable_components.hpp"
+#include <interactables/interactable_constants.hpp>
 #include "map/map_constants.hpp"
 #include "renderer/render_constants.hpp"
 #include <map>
@@ -44,6 +45,7 @@ enum class ENTITY_TYPE
 	PUZZLE_BUBBLE_FAKE,
 	PUZZLE_WALL,
 	PUZZLE_SOLUTION,
+	CONTROL_PNG_ENTITY,
 };
 
 const std::map<std::string, LOADING_LAYER_TYPE> layer_string_to_enum_map = {
@@ -77,6 +79,7 @@ const std::map<std::string, ENTITY_TYPE> entity_type_string_to_enum_map = {
 	{ "PuzzleBubbleFake", ENTITY_TYPE::PUZZLE_BUBBLE_FAKE },
 	{ "PuzzleWall", ENTITY_TYPE::PUZZLE_WALL },
 	{ "PuzzleSolution", ENTITY_TYPE::PUZZLE_SOLUTION },
+	{ "Control_PNG_entity", ENTITY_TYPE::CONTROL_PNG_ENTITY },
 };
 
 inline ENTITY_TYPE entity_type_from_string(const std::string entity_string)
@@ -154,6 +157,20 @@ inline std::pair<TEXTURE_ASSET_ID, std::map<std::string, TILE_TYPE>> get_tile_la
 		tile_layer_texture_string_enum_map.at(tile_layer_string),
 		tile_layer_tags_string_enum_map.at(tile_layer_string),
 	};
+};
+
+const std::map<std::string, CONTROL_PNG_TYPE> control_png_string_enum_map = {
+	{ "Invalid",        CONTROL_PNG_TYPE::INVALID },
+	{ "WASD",           CONTROL_PNG_TYPE::WASD },
+	{ "ARROW_RED",      CONTROL_PNG_TYPE::ARROW_RED },
+	{ "ARROW_NO_RED",   CONTROL_PNG_TYPE::ARROW_NO_RED },
+	{ "COLOUR_AFFECTS", CONTROL_PNG_TYPE::COLOUR_AFFECTS }
+};
+
+inline CONTROL_PNG_TYPE control_png_type_from_string(const std::string control_png_string)
+{
+	const auto& search = control_png_string_enum_map.find(control_png_string);
+	return search != control_png_string_enum_map.end() ? search->second : CONTROL_PNG_TYPE::INVALID;
 };
 
 // LDtk Constants
