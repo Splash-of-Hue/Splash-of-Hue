@@ -62,6 +62,9 @@ void InteractableSystem::step_moss_toggle()
 			{ COLOUR_STATE::BLUE, ANIMATION_TRIGGER::IDLE_BLUE },
 		};
 		AnimationTrigger trigger = { colour_animation_trigger_map[colour_state] };
+		if (registry.animation_triggers.has(moss_toggle_entity)) {
+			registry.animation_triggers.remove(moss_toggle_entity);
+		}
 		registry.animation_triggers.emplace(moss_toggle_entity, trigger);
 
 		// Update each of the connected walls that is spawned
@@ -79,7 +82,11 @@ void InteractableSystem::step_moss_toggle()
 			}
 
 			registry.colourStates.get(*wall_entity_iterator).curr_colour_state = colour_state;
+			if (registry.animation_triggers.has(*wall_entity_iterator)){
+				registry.animation_triggers.remove(*wall_entity_iterator);
+			}
 			registry.animation_triggers.emplace(*wall_entity_iterator, trigger);
+
 		}
 	}
 }
