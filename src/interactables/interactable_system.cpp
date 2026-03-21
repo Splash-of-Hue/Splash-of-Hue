@@ -86,6 +86,9 @@ void InteractableSystem::handle_mushrooms(Entity& mushroom_entity)
 
         light_emission_component.TIME_TO_GROW = TIME_TO_GROW;
         light_emission_component.offset = EMISSION_OFFSET.at("MUSHROOM");
+        PolygonMesh& emission_hitbox = registry.hitboxes.emplace(emission_entity);
+        emission_hitbox = createCircleHitbox(mushroom_position, light_emission_component.MAX_RADIUS * 0.5, 8);
+
         //double-linking the mushroom and the emission
         light_emission_component.lightSourceEntity = mushroom_entity;
         LightSource& light_source_component = registry.lightSources.emplace(mushroom_entity);

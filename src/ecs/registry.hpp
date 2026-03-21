@@ -80,6 +80,7 @@ public:
 	ComponentContainer<LevelTile> levelTiles;
 	ComponentContainer<MapTile> mapTiles;
 	ComponentContainer<Teleporter> teleporters;
+	ComponentContainer<Wall> walls;
 	// Physics - Collisions
 	ComponentContainer<ChangeBehaviour> change_behaviours;
 	ComponentContainer<Collidable> collidables;
@@ -175,6 +176,7 @@ public:
 		registry_list.push_back(&levelTiles);
 		registry_list.push_back(&mapTiles);
 		registry_list.push_back(&teleporters);
+		registry_list.push_back(&walls);
 		// Physics - Collisions
 		registry_list.push_back(&change_behaviours);
 		registry_list.push_back(&collidables);

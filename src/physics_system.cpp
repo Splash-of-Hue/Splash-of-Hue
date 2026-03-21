@@ -581,12 +581,44 @@ void movePolygon(PolygonMesh& polygon, vec2& pos) {
 	}
 	polygon.centre = pos;
 }
+void handle_light_wall_collision(Entity& entity_i, Entity& entity_j, vec3 penetration) {
+	Entity& wall = registry.walls.has(entity_i) ? entity_i : entity_j;
+	Entity& light = registry.walls.has(entity_j) ? entity_i : entity_j;
+
+	if (registry.hitboxes.has(light)) {
+		
+		PolygonMesh& light_mesh = registry.hitboxes.get(light);
+		PolygonMesh& wall_mesh = findHitbox(wall);
+		
+		vec2 dir = vec2(penetration.y, penetration.z);
+		dir = normalize(dir);
+		dir = dot(light_mesh.centre - wall_mesh.centre, dir) < 0 ? -dir : dir;
+		vec2 wall_proj = projection(wall_mesh, dir);
+		float wall_boundary = wall_proj.y;
+		for (vec2& v : light_mesh.vertices) {
+			float v_proj = dot(v, dir);
+			if (v_proj < wall_boundary) {
+				v += dir * (wall_boundary - v_proj);
+
+			}
+		}
+	}
+}
+
+void restore_light_meshes() {
+	for (Entity& e : registry.lightEmissions.entities) {
+		if (registry.hitboxes.has(e)) {
+			PolygonMesh& mesh = registry.hitboxes.get(e);
+			mesh.vertices = mesh.base_vertices;
+		}
+	}
+}
 
 void PhysicsSystem::step(float elapsed_ms)
 {
 	handle_movement(DT);
 	checkIfInRadius();
-
+	restore_light_meshes();
 	// check for collisions between all collidable entities
 	ComponentContainer<Collidable>& collidables = registry.collidables;
 	for (uint i = 0; i < collidables.components.size(); i++)
@@ -606,6 +638,7 @@ void PhysicsSystem::step(float elapsed_ms)
 			}
 			//if passes AABB check, then try mesh collision
 			if (box_collides(entity_i, entity_j)) {
+
 				if (registry.hurtboxes.has(entity_i) || registry.hurtboxes.has(entity_j))
 				{
 					vec3 penetration = mesh_collides(entity_i, entity_j, true);
@@ -631,6 +664,12 @@ void PhysicsSystem::step(float elapsed_ms)
 					vec3 penetration = mesh_collides(entity_i, entity_j, false);
 
 					if (penetration.x != 0) {
+
+						if ((registry.walls.has(entity_i) && registry.lightEmissions.has(entity_j))
+							|| (registry.walls.has(entity_j) && registry.lightEmissions.has(entity_i))) {
+							handle_light_wall_collision(entity_i, entity_j, penetration);
+						}
+
 						if (is_light_emission_collision(entity_i, entity_j))
 						{
 							light_emission_collisions(entity_i, entity_j);
@@ -654,6 +693,7 @@ void PhysicsSystem::step(float elapsed_ms)
 					continue;
 				}
 			
+				//no mesh, resolve box collision
 				if (is_light_emission_collision(entity_i, entity_j))
 				{
 					light_emission_collisions(entity_i, entity_j);
@@ -680,6 +720,7 @@ void PhysicsSystem::step(float elapsed_ms)
 
 void PhysicsSystem::handle_movement(float elapsed_ms)
 {
+	
 	ComponentContainer<vec2>& moving_entities = registry.velocities;
 	for (int i = 0; i < moving_entities.size(); i++)
 	{
@@ -703,6 +744,16 @@ void PhysicsSystem::handle_movement(float elapsed_ms)
 			if (registry.hurtboxes.has(e)) {
 				rotatePolygon(registry.hurtboxes.get(e), radAngle);
 			}
+		}
+	}
+	//light emissions dont have velocity, but need to update their meshes
+	ComponentContainer<LightEmission>& moving_emissions = registry.lightEmissions;
+	for (int i = 0; i < moving_emissions.size(); i++)
+	{
+		Entity& e = moving_emissions.entities[i];
+		vec2& pos = registry.positions.get(e);
+		if (registry.hitboxes.has(e)) {
+			movePolygon(registry.hitboxes.get(e), pos);
 		}
 	}
 }

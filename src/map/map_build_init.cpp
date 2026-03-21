@@ -80,6 +80,7 @@ Entity createWall(const int level_uid, vec2 position, float width, float height)
 	const Entity& wall_rectangle_entity = createRectangle(position, width, height, RENDER_LAYER::WALLS_BACK, vec4{1.0, 1.0, 1.0, 0.0});
 	Collidable& col = registry.collidables.emplace(wall_rectangle_entity);
 	col.inelastic = true;
+	registry.walls.emplace(wall_rectangle_entity);
 	registry.levelEntities.insert(wall_rectangle_entity, { level_uid });
 
 	return wall_rectangle_entity;

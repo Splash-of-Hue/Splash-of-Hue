@@ -88,6 +88,10 @@ struct DeathTimer
 struct Rect {};
 struct Circle {};
 
+struct Wall {
+
+};
+
 struct Angle
 {
 	float degrees;

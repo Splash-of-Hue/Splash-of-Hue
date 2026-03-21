@@ -39,3 +39,5 @@ Entity createRectangle(vec2 top_left, vec2 bottom_right, RENDER_LAYER render_lay
 /// <param name="color">The color of the circle, defaults to white if not set.</param>
 /// <returns></returns>
 Entity createCircle(vec2 position, float radius, RENDER_LAYER render_layer, vec4 color = DEFAULT_COLOUR_VEC4);
+
+PolygonMesh createCircleHitbox(vec2 centre, float radius, int segments);
