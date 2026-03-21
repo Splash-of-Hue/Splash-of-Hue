@@ -2368,7 +2368,27 @@
 					"seed": 8380983,
 					"overrideTilesetUid": null,
 					"gridTiles": [],
-					"entityInstances": []
+					"entityInstances": [
+						{
+							"__identifier": "Anglerfish",
+							"__grid": [42,18],
+							"__pivot": [0.5,0.5],
+							"__tags": ["Creature"],
+							"__tile": null,
+							"__smartColor": "#EAD4AA",
+							"iid": "3e67c2e0-21a0-11f1-85f2-ff444a6f7166",
+							"width": 128,
+							"height": 128,
+							"defUid": 21,
+							"px": [680,296],
+							"fieldInstances": [
+								{ "__identifier": "ColorState", "__type": "LocalEnum.ColorState", "__value": "Neutral", "__tile": null, "defUid": 29, "realEditorValues": [] },
+								{ "__identifier": "CreatureType", "__type": "LocalEnum.CreatureType", "__value": "Anglerfish", "__tile": null, "defUid": 89, "realEditorValues": [] }
+							],
+							"__worldX": 680,
+							"__worldY": 296
+						}
+					]
 				},
 				{
 					"__identifier": "Floor_Interactables",
@@ -3304,6 +3324,25 @@
 							}] }],
 							"__worldX": 1056,
 							"__worldY": -664
+						},
+						{
+							"__identifier": "ColourOrb",
+							"__grid": [72,74],
+							"__pivot": [0,0],
+							"__tags": ["Floor_Interactable"],
+							"__tile": null,
+							"__smartColor": "#3E2731",
+							"iid": "48e06ce0-21a0-11f1-85f2-4b7b18260e20",
+							"width": 70,
+							"height": 70,
+							"defUid": 52,
+							"px": [576,592],
+							"fieldInstances": [{ "__identifier": "ColorState", "__type": "LocalEnum.ColorState", "__value": "Red", "__tile": null, "defUid": 53, "realEditorValues": [{
+								"id": "V_String",
+								"params": ["Red"]
+							}] }],
+							"__worldX": 576,
+							"__worldY": -488
 						}
 					]
 				},
