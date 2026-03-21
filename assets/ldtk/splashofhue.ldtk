@@ -154,7 +154,7 @@
 				"levelIid": "9531af90-21a0-11f1-8ff7-c71321a1519c",
 				"layerIid": "9531af93-21a0-11f1-8ff7-9363be19fd16",
 				"entityIid": "16d5c9b0-21a0-11f1-9102-136ac478797b"
-			}, "worldX": 11180, "worldY": 564, "widPx": 32, "heiPx": 152, "fields" : {} },
+			}, "worldX": 11292, "worldY": 564, "widPx": 32, "heiPx": 152, "fields" : {} },
 			{ "iids": {
 				"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787",
 				"levelIid": "95facbf0-21a0-11f1-8ff7-eb7b3e31f9aa",
@@ -274,7 +274,7 @@
 				"levelIid": "b2403160-21a0-11f1-8ff7-99b6bf0f1e86",
 				"layerIid": "b2405872-21a0-11f1-8ff7-ddc1a359fd5b",
 				"entityIid": "240d4590-21a0-11f1-9102-51461e07e9c5"
-			}, "worldX": 19092, "worldY": 444, "widPx": 32, "heiPx": 112, "fields" : {} },
+			}, "worldX": 19108, "worldY": 452, "widPx": 32, "heiPx": 152, "fields" : {} },
 			{ "iids": {
 				"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787",
 				"levelIid": "b2403160-21a0-11f1-8ff7-99b6bf0f1e86",
@@ -17572,7 +17572,7 @@
 						},
 						{
 							"__identifier": "Teleporter",
-							"__grid": [197,70],
+							"__grid": [211,70],
 							"__pivot": [0.5,0.5],
 							"__tags": ["Floor_Interactable"],
 							"__tile": null,
@@ -17581,7 +17581,7 @@
 							"width": 32,
 							"height": 152,
 							"defUid": 12,
-							"px": [1580,564],
+							"px": [1692,564],
 							"fieldInstances": [
 								{ "__identifier": "ConnectedTeleporter", "__type": "EntityRef", "__value": {
 									"entityIid": "240d4590-21a0-11f1-9102-51461e07e9c5",
@@ -17592,13 +17592,16 @@
 									"id": "V_String",
 									"params": ["240d4590-21a0-11f1-9102-51461e07e9c5"]
 								}] },
-								{ "__identifier": "ArrivalGridPosition", "__type": "Point", "__value": null, "__tile": null, "defUid": 32, "realEditorValues": [] },
+								{ "__identifier": "ArrivalGridPosition", "__type": "Point", "__value": { "cx": 190, "cy": 70 }, "__tile": null, "defUid": 32, "realEditorValues": [{
+									"id": "V_String",
+									"params": ["190,70"]
+								}] },
 								{ "__identifier": "OffsetDirection", "__type": "LocalEnum.Direction", "__value": "Left", "__tile": null, "defUid": 61, "realEditorValues": [{
 									"id": "V_String",
 									"params": ["Left"]
 								}] }
 							],
-							"__worldX": 11180,
+							"__worldX": 11292,
 							"__worldY": 564
 						},
 						{
@@ -28439,6 +28442,25 @@
 							"fieldInstances": [],
 							"__worldX": 15624,
 							"__worldY": 1232
+						},
+						{
+							"__identifier": "MossWall",
+							"__grid": [110,23],
+							"__pivot": [0.5,0.5],
+							"__tags": ["Internal_Wall"],
+							"__tile": { "tilesetUid": 52, "x": 160, "y": 400, "w": 192, "h": 224 },
+							"__smartColor": "#DECDD4",
+							"iid": "b1de9700-21a0-11f1-9116-45d9f03eb6bf",
+							"width": 192,
+							"height": 240,
+							"defUid": 48,
+							"px": [1768,376],
+							"fieldInstances": [{ "__identifier": "ColorState", "__type": "LocalEnum.ColorState", "__value": "Neutral", "__tile": null, "defUid": 49, "realEditorValues": [{
+								"id": "V_String",
+								"params": ["Neutral"]
+							}] }],
+							"__worldX": 17128,
+							"__worldY": 1456
 						}
 					]
 				},
@@ -28468,7 +28490,7 @@
 					"entityInstances": [
 						{
 							"__identifier": "PShrimp",
-							"__grid": [12,46],
+							"__grid": [14,46],
 							"__pivot": [0.5,0.5],
 							"__tags": ["Creature"],
 							"__tile": null,
@@ -28477,7 +28499,7 @@
 							"width": 256,
 							"height": 128,
 							"defUid": 22,
-							"px": [200,744],
+							"px": [232,744],
 							"fieldInstances": [
 								{ "__identifier": "CreatureType", "__type": "LocalEnum.CreatureType", "__value": "PShrimp", "__tile": null, "defUid": 25, "realEditorValues": [] },
 								{ "__identifier": "ColorState", "__type": "LocalEnum.ColorState", "__value": "Neutral", "__tile": null, "defUid": 30, "realEditorValues": [] },
@@ -28487,7 +28509,7 @@
 								}] },
 								{ "__identifier": "ArmCount", "__type": "Int", "__value": 1, "__tile": null, "defUid": 39, "realEditorValues": [{ "id": "V_Int", "params": [1] }] }
 							],
-							"__worldX": 15560,
+							"__worldX": 15592,
 							"__worldY": 1824
 						},
 						{
@@ -29820,7 +29842,7 @@
 						},
 						{
 							"__identifier": "Wall",
-							"__grid": [109,33],
+							"__grid": [109,35],
 							"__pivot": [0.5,0.5],
 							"__tags": ["Internal_Wall"],
 							"__tile": null,
@@ -29829,14 +29851,14 @@
 							"width": 240,
 							"height": 50,
 							"defUid": 61,
-							"px": [1752,536],
+							"px": [1752,568],
 							"fieldInstances": [],
 							"__worldX": 19032,
-							"__worldY": 536
+							"__worldY": 568
 						},
 						{
 							"__identifier": "Wall",
-							"__grid": [109,22],
+							"__grid": [109,21],
 							"__pivot": [0.5,0.5],
 							"__tags": ["Internal_Wall"],
 							"__tile": null,
@@ -29845,10 +29867,10 @@
 							"width": 224,
 							"height": 50,
 							"defUid": 61,
-							"px": [1752,360],
+							"px": [1752,344],
 							"fieldInstances": [],
 							"__worldX": 19032,
-							"__worldY": 360
+							"__worldY": 344
 						},
 						{
 							"__identifier": "PuzzleSolution",
@@ -29997,16 +30019,16 @@
 						},
 						{
 							"__identifier": "Teleporter",
-							"__grid": [226,55],
+							"__grid": [228,56],
 							"__pivot": [0.5,0.5],
 							"__tags": ["Floor_Interactable"],
 							"__tile": null,
 							"__smartColor": "#BE4A2F",
 							"iid": "240d4590-21a0-11f1-9102-51461e07e9c5",
 							"width": 32,
-							"height": 112,
+							"height": 152,
 							"defUid": 12,
-							"px": [1812,444],
+							"px": [1828,452],
 							"fieldInstances": [
 								{ "__identifier": "ConnectedTeleporter", "__type": "EntityRef", "__value": {
 									"entityIid": "16d5c9b0-21a0-11f1-9102-136ac478797b",
@@ -30017,14 +30039,17 @@
 									"id": "V_String",
 									"params": ["16d5c9b0-21a0-11f1-9102-136ac478797b"]
 								}] },
-								{ "__identifier": "ArrivalGridPosition", "__type": "Point", "__value": null, "__tile": null, "defUid": 32, "realEditorValues": [] },
+								{ "__identifier": "ArrivalGridPosition", "__type": "Point", "__value": { "cx": 202, "cy": 56 }, "__tile": null, "defUid": 32, "realEditorValues": [{
+									"id": "V_String",
+									"params": ["202,56"]
+								}] },
 								{ "__identifier": "OffsetDirection", "__type": "LocalEnum.Direction", "__value": "Left", "__tile": null, "defUid": 61, "realEditorValues": [{
 									"id": "V_String",
 									"params": ["Left"]
 								}] }
 							],
-							"__worldX": 19092,
-							"__worldY": 444
+							"__worldX": 19108,
+							"__worldY": 452
 						},
 						{
 							"__identifier": "Teleporter",
@@ -31534,15 +31559,23 @@
 							"height": 200,
 							"defUid": 46,
 							"px": [412,460],
-							"fieldInstances": [{ "__identifier": "ConnectedWalls", "__type": "Array<EntityRef>", "__value": [{
+							"fieldInstances": [{ "__identifier": "ConnectedWalls", "__type": "Array<EntityRef>", "__value": [ {
 								"entityIid": "1e58b780-21a0-11f1-8ff7-a777b0233a9d",
 								"layerIid": "b322c931-21a0-11f1-8ff7-7734bef7d32a",
 								"levelIid": "b322c930-21a0-11f1-8ff7-51b51c7f8925",
 								"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787"
-							}], "__tile": null, "defUid": 47, "realEditorValues": [{
+							}, {
+								"entityIid": "b1de9700-21a0-11f1-9116-45d9f03eb6bf",
+								"layerIid": "afce1ff1-21a0-11f1-8ff7-9b57c1a71ae8",
+								"levelIid": "afce1ff0-21a0-11f1-8ff7-edcb2953dc85",
+								"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787"
+							} ], "__tile": null, "defUid": 47, "realEditorValues": [ {
 								"id": "V_String",
 								"params": ["1e58b780-21a0-11f1-8ff7-a777b0233a9d"]
-							}] }],
+							}, {
+								"id": "V_String",
+								"params": ["b1de9700-21a0-11f1-9116-45d9f03eb6bf"]
+							} ] }],
 							"__worldX": 17692,
 							"__worldY": 1540
 						},
