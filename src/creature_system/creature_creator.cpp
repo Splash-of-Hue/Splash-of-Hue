@@ -57,6 +57,9 @@ Entity CreatureCreator::createAnglerfish(const int level_uid, vec2 position, flo
     light_emission_component.offset = EMISSION_OFFSET.at("ANGLERFISH");
     light_emission_component.lightSourceEntity = anglerfish;
 
+    PolygonMesh& emission_hitbox = registry.hitboxes.emplace(emission_entity);
+    emission_hitbox = createCircleHitbox(position, EMISSION_SIZE::ANGLERFISH_EMISSION * 0.5, 8);
+
     LightSource& light_source_component = registry.lightSources.emplace(anglerfish);
     light_source_component.lightEmissionEntity = emission_entity;
 
