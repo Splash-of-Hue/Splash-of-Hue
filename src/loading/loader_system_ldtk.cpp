@@ -70,6 +70,7 @@ void LoaderSystem::load_level(int level_uid)
 		const vec2 level_world_center = scale_to_level(vec2(level.position.x, level.position.y)) + window_center();
 		vec2& level_position = registry.positions.insert(loading_level_entity, level_world_center);
 		level_component.background_color = vec4(level.bg_color.r, level.bg_color.g, level.bg_color.b, level.bg_color.a) / 255.0f;
+		level_component.depth = level.depth;
 	}
 
 	// get a layer

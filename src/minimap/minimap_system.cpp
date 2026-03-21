@@ -26,8 +26,14 @@ void MinimapSystem::step(float /*elapsed_ms*/)
 	Entity player_entity = registry.players.entities[0];
 	if (!registry.currentLevels.has(player_entity))
 		return;
-
+	// update current depth according to what depth player is on
 	int player_level_uid = registry.currentLevels.get(player_entity).level_uid;
+	for (const Level& level : registry.levels.components){
+		if (level.uid == player_level_uid){
+			current_depth = level.depth;
+			break;
+		}
+	}
 
 	auto [ldtk_dungeon_top_left, ldtk_dungeon_bot_right] = compute_ldtk_world_bounds();
 	ivec2 ldtk_world_size = ldtk_dungeon_bot_right - ldtk_dungeon_top_left;
@@ -41,6 +47,7 @@ void MinimapSystem::step(float /*elapsed_ms*/)
 	float total_map_w = ldtk_world_size.x * minimap_scale;
 
 	sync_minimap_rooms(ldtk_dungeon_top_left, minimap_scale, total_map_w);
+	update_depth_visibility();
 
 	// player icon, create once
 	if (!player_icon_created)
@@ -158,6 +165,9 @@ std::pair<ivec2, ivec2> MinimapSystem::compute_ldtk_world_bounds()
 
 	for (const Level& level : registry.levels.components)
 	{
+		if (level.depth != current_depth) {
+			continue;
+		}
 		ldtk_dungeon_top_left = ivec2(
 			std::min(ldtk_dungeon_top_left.x, level.floor_ldtk_position.x),
 			std::min(ldtk_dungeon_top_left.y, level.floor_ldtk_position.y)
@@ -176,7 +186,9 @@ void MinimapSystem::sync_minimap_rooms(ivec2 ldtk_dungeon_top_left, float minima
 	{
 		Entity level_entity = registry.levels.entities[i];
 		const Level& level = registry.levels.components[i];
-
+		if (level.depth != current_depth) {
+			continue;
+		}
 		vec2 room_top_left = ldtk_to_minimap(level.floor_ldtk_position, ldtk_dungeon_top_left, minimap_scale, total_map_w);
 		float room_w = level.floor_ldtk_size.x * minimap_scale;
 		float room_h = level.floor_ldtk_size.y * minimap_scale;
@@ -283,4 +295,38 @@ void MinimapSystem::update_player_icon(
 	float room_h = it->floor_ldtk_size.y * minimap_scale;
 	vec2 icon_top_left = room_top_left + (vec2(room_w, room_h) - vec2(MINIMAP_ICON_SIZE)) * 0.5f;
 	registry.positions.get(player_icon_entity) = icon_top_left + vec2(MINIMAP_ICON_SIZE) * 0.5f;
+}
+
+void MinimapSystem::set_depth_visibility(Entity render_entity, bool visible)
+{
+	bool has_render = registry.renderRequests.has(render_entity);
+	if (visible && !has_render)
+		registry.renderRequests.insert(render_entity, {
+			EFFECT_ASSET_ID::DEFAULT,
+			GEOMETRY_BUFFER_ID::RECTANGLE,
+			RENDER_LAYER::HUD
+			});
+	else if (!visible && has_render)
+		registry.renderRequests.remove(render_entity);
+}
+
+void MinimapSystem::update_depth_visibility()
+{
+	for (int i = 0; i < static_cast<int>(registry.levels.entities.size()); i++)
+	{
+		Entity level_entity = registry.levels.entities[i];
+		const Level& level = registry.levels.components[i]; 
+
+		if (!registry.minimapRooms.has(level_entity))
+			continue;
+
+		MinimapRoom& minimap_room = registry.minimapRooms.get(level_entity);
+		if (!minimap_room.has_render_entity)
+			continue;
+
+		bool visible = (level.depth == current_depth);
+		set_depth_visibility(minimap_room.room_render_entity, visible);
+		for (Entity hallway_entity : minimap_room.hallway_render_entities)
+			set_depth_visibility(hallway_entity, visible);
+	}
 }

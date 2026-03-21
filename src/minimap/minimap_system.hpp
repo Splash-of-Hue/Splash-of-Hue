@@ -14,6 +14,7 @@ public:
 private:
 	Entity player_icon_entity;
 	bool player_icon_created = false;
+	int current_depth = 0;
 
 	static std::vector<Entity> create_hallway_entities(const Level& level, ivec2 ldtk_world_min, float minimap_scale, float total_map_w);
 	static Entity create_room_entity();
@@ -27,4 +28,6 @@ private:
 	void sync_minimap_rooms(ivec2 ldtk_world_min, float minimap_scale, float total_map_w);
 	void update_minimap_room(Entity level_entity, const Level& level, vec2 room_top_left, float room_w, float room_h, const vec4& room_color, ivec2 ldtk_world_min, float minimap_scale, float total_map_w);
 	void update_player_icon(int player_level_uid, ivec2 ldtk_world_min, float minimap_scale, float total_map_w);
+	void set_depth_visibility(Entity render_entity, bool visible);
+	void update_depth_visibility();
 };

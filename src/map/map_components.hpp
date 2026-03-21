@@ -56,6 +56,8 @@ struct Level
 	int uid;
 	// The coordinate of the level in the world grid
 	ivec2 coordinate;
+	// the 'World Layer" in LDtk, corresponds to which dungeon the Level is on
+	int depth = 0; 
 	/// Bounding box of walkable floor cells in LDtk pixel space.
 	/// Computed after quantized_space_data is built.
 	/// Used by MinimapSystem to draw accurate room shapes.
