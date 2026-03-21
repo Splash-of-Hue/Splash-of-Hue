@@ -34,3 +34,6 @@ Entity createMossToggle(const int level_uid, vec2 position, vec2 size, std::vect
 /// <param name="connected_wall_ids">The IDs of the walls controlled by the pressure plate.</param>
 /// <returns>The entity of the pressure plate.</returns>
 Entity createPressurePlate(const int level_uid, vec2 position, vec2 size, std::vector<std::string> connected_wall_ids);
+
+Entity createPuzzleBubble(const int level_uid, std::string id, vec2 position, COLOUR_STATE colour_solution);
+Entity createPuzzleBubbleFake(const int level_uid, vec2 position, COLOUR_STATE colour);

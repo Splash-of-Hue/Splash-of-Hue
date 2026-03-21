@@ -4,6 +4,7 @@
 #include "ecs/components.hpp"
 #include "interactables/interactable_components.hpp"
 #include "map/map_constants.hpp"
+#include "renderer/render_constants.hpp"
 #include <map>
 #include <string>
 
@@ -19,7 +20,9 @@ enum class LOADING_LAYER_TYPE
 	INVALID,
 	CREATURES,
 	FLOOR_INTERACTABLE,
-	EXTRA_ENTITIES
+	EXTRA_ENTITIES,
+	DECORATIONS,
+	MINIMAP
 };
 
 enum class ENTITY_TYPE
@@ -36,14 +39,19 @@ enum class ENTITY_TYPE
 	PRESSURE_PLATE,
 	PRESSURE_PLATE_WALL,
 	MINIMAP_REFERENCE,
-	MINIMAP_HALLWAY
-	
+	MINIMAP_HALLWAY,
+	PUZZLE_BUBBLE,
+	PUZZLE_BUBBLE_FAKE,
+	PUZZLE_WALL,
+	PUZZLE_SOLUTION,
 };
 
 const std::map<std::string, LOADING_LAYER_TYPE> layer_string_to_enum_map = {
 	{ "Creatures", LOADING_LAYER_TYPE::CREATURES },
 	{ "Floor_Interactables", LOADING_LAYER_TYPE::FLOOR_INTERACTABLE },
 	{ "Extra_Entities", LOADING_LAYER_TYPE::EXTRA_ENTITIES },
+	{ "Decorations", LOADING_LAYER_TYPE::DECORATIONS },
+	{ "MiniMap", LOADING_LAYER_TYPE::MINIMAP },
 };
 
 inline LOADING_LAYER_TYPE layer_from_string(const std::string layer_string)
@@ -65,6 +73,10 @@ const std::map<std::string, ENTITY_TYPE> entity_type_string_to_enum_map = {
 	{ "PressurePlateWall", ENTITY_TYPE::PRESSURE_PLATE_WALL },
 	{ "MinimapReference", ENTITY_TYPE::MINIMAP_REFERENCE },
 	{ "MinimapHallway", ENTITY_TYPE::MINIMAP_HALLWAY },
+	{ "PuzzleBubble", ENTITY_TYPE::PUZZLE_BUBBLE },
+	{ "PuzzleBubbleFake", ENTITY_TYPE::PUZZLE_BUBBLE_FAKE },
+	{ "PuzzleWall", ENTITY_TYPE::PUZZLE_WALL },
+	{ "PuzzleSolution", ENTITY_TYPE::PUZZLE_SOLUTION },
 };
 
 inline ENTITY_TYPE entity_type_from_string(const std::string entity_string)

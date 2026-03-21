@@ -15,6 +15,8 @@ private:
 	void step_pressure_plates();
 	void step_colour_orbs();
 	void step_mushrooms();
+	void step_puzzle_bubbles();
+	void step_puzzles();
 	void handle_mushrooms(Entity& mushroom_entity);
 	bool has_valid_emission(std::vector<Entity>& radiusList);
 	COLOUR_STATE change_colour_given_priority(std::multimap<bool, std::vector<Entity>> radiiList);

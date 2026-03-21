@@ -241,6 +241,8 @@ void ColourSystem::applyColorToPlayer(COLOUR_STATE colour)
 		{
 			vec2 player_position = registry.positions.get(player);
 			Entity& emission_entity = createCircle(player_position, 1.f, RENDER_LAYER::PLAYER, DEFAULT_COLOUR_VEC4);
+			registry.scales.emplace(emission_entity);
+
 			LightEmission& light_emission_component = registry.lightEmissions.emplace(emission_entity);
 			PolygonMesh& emission_hitbox = registry.hitboxes.emplace(emission_entity);
 			emission_hitbox = createCircleHitbox(player_position, EMISSION_SIZE::PLAYER_EMISSION * 0.5, 8);

@@ -72,6 +72,11 @@ public:
 	ComponentContainer<OrbCollected> orbCollected;
 	ComponentContainer<PressurePlate> pressurePlates;
 	ComponentContainer<PressurePlateWall> pressurePlateWalls;
+	ComponentContainer<Puzzle> puzzles;	
+	ComponentContainer<PuzzleBubble> puzzle_bubbles;	
+	ComponentContainer<PuzzleBuildRequest> puzzle_build_requests;
+	ComponentContainer<PuzzlePiece> puzzle_pieces;	
+	ComponentContainer<PuzzleTrigger> puzzle_triggers;	
 	// Loader
 	ComponentContainer<LoadRequest> loadRequests;
 	// Map
@@ -174,6 +179,11 @@ public:
 		registry_list.push_back(&orbCollected);
 		registry_list.push_back(&pressurePlates);
 		registry_list.push_back(&pressurePlateWalls);
+		registry_list.push_back(&puzzles);
+		registry_list.push_back(&puzzle_bubbles);
+		registry_list.push_back(&puzzle_build_requests);
+		registry_list.push_back(&puzzle_pieces);
+		registry_list.push_back(&puzzle_triggers);
 		// Loader
 		registry_list.push_back(&loadRequests);
 		// Map
