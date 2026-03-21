@@ -32,7 +32,9 @@ enum class ENTITY_TYPE
 	WALL,
 	COLOUR_ORB,
 	BOX,
-	MUSHROOM
+	MUSHROOM,
+	PRESSURE_PLATE,
+	PRESSURE_PLATE_WALL
 };
 
 const std::map<std::string, LOADING_LAYER_TYPE> layer_string_to_enum_map = {
@@ -55,7 +57,9 @@ const std::map<std::string, ENTITY_TYPE> entity_type_string_to_enum_map = {
 	{ "Wall", ENTITY_TYPE::WALL },
 	{ "ColourOrb", ENTITY_TYPE::COLOUR_ORB },
 	{ "Box", ENTITY_TYPE::BOX },
-	{ "Mushroom", ENTITY_TYPE::MUSHROOM }
+	{ "Mushroom", ENTITY_TYPE::MUSHROOM },
+	{ "PressurePlate", ENTITY_TYPE::PRESSURE_PLATE },
+	{ "PressurePlateWall", ENTITY_TYPE::PRESSURE_PLATE_WALL }
 };
 
 inline ENTITY_TYPE entity_type_from_string(const std::string entity_string)
