@@ -26,7 +26,6 @@ void InteractableSystem::step(float elapsed_ms)
 	step_puzzles();
 }
 
-
 void InteractableSystem::step_puzzles()
 {
 	for (Entity& puzzle_bubble_entity : registry.puzzle_build_requests.entities)
