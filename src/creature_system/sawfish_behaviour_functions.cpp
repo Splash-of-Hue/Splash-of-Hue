@@ -73,6 +73,7 @@ BEHAVIOUR_TREE_STATUS CreatureBehaviourFunctions::aimAtTarget(Entity& charger, f
 	}
 
 	// TODO: Change later (no ticket)
+	// Change angle so it looks like looking at target
 	if (registry.velocities.get(charger).x < 0)
 	{
 		degAngle = -degAngle - 180;
