@@ -124,73 +124,73 @@
 				"levelIid": "8cc5c580-21a0-11f1-8ff7-79858a2ab6bd",
 				"layerIid": "8cc5ec91-21a0-11f1-8ff7-f7e14e2f73f5",
 				"entityIid": "b0ed12c0-21a0-11f1-9102-cbd8ffa2259f"
-			}, "worldX": 8636, "worldY": 2028, "widPx": 144, "heiPx": 32, "fields" : {} },
+			}, "worldX": 8636, "worldY": 2092, "widPx": 144, "heiPx": 32, "fields" : {} },
 			{ "iids": {
 				"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787",
 				"levelIid": "8cc5c580-21a0-11f1-8ff7-79858a2ab6bd",
 				"layerIid": "8cc5ec91-21a0-11f1-8ff7-f7e14e2f73f5",
 				"entityIid": "c3c809e0-21a0-11f1-9102-91f370008f56"
-			}, "worldX": 8156, "worldY": 1300, "widPx": 128, "heiPx": 32, "fields" : {} },
+			}, "worldX": 8156, "worldY": 1228, "widPx": 128, "heiPx": 32, "fields" : {} },
 			{ "iids": {
 				"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787",
 				"levelIid": "8cc5c580-21a0-11f1-8ff7-79858a2ab6bd",
 				"layerIid": "8cc5ec91-21a0-11f1-8ff7-f7e14e2f73f5",
 				"entityIid": "31c8e590-21a0-11f1-9102-4169f5ff0a98"
-			}, "worldX": 9444, "worldY": 1684, "widPx": 32, "heiPx": 96, "fields" : {} },
+			}, "worldX": 9476, "worldY": 1676, "widPx": 32, "heiPx": 128, "fields" : {} },
 			{ "iids": {
 				"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787",
 				"levelIid": "9451afd0-21a0-11f1-8ff7-c7ab6b402ea1",
 				"layerIid": "9451afd3-21a0-11f1-8ff7-9dc20cad2b59",
 				"entityIid": "44bd0a00-21a0-11f1-9102-b31fc2abfe21"
-			}, "worldX": 9740, "worldY": 1524, "widPx": 32, "heiPx": 88, "fields" : {} },
+			}, "worldX": 9700, "worldY": 1524, "widPx": 32, "heiPx": 120, "fields" : {} },
 			{ "iids": {
 				"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787",
 				"levelIid": "9531af90-21a0-11f1-8ff7-c71321a1519c",
 				"layerIid": "9531af93-21a0-11f1-8ff7-9363be19fd16",
 				"entityIid": "0a2fb860-21a0-11f1-9102-177cacc73dd0"
-			}, "worldX": 9732, "worldY": 588, "widPx": 32, "heiPx": 136, "fields" : {} },
+			}, "worldX": 9700, "worldY": 588, "widPx": 32, "heiPx": 160, "fields" : {} },
 			{ "iids": {
 				"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787",
 				"levelIid": "9531af90-21a0-11f1-8ff7-c71321a1519c",
 				"layerIid": "9531af93-21a0-11f1-8ff7-9363be19fd16",
 				"entityIid": "16d5c9b0-21a0-11f1-9102-136ac478797b"
-			}, "worldX": 11204, "worldY": 572, "widPx": 32, "heiPx": 112, "fields" : {} },
+			}, "worldX": 11180, "worldY": 564, "widPx": 32, "heiPx": 152, "fields" : {} },
 			{ "iids": {
 				"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787",
 				"levelIid": "95facbf0-21a0-11f1-8ff7-eb7b3e31f9aa",
 				"layerIid": "95facbf3-21a0-11f1-8ff7-071bab76b184",
 				"entityIid": "dfa55eb0-21a0-11f1-9102-fb8980e41e0c"
-			}, "worldX": 8164, "worldY": 972, "widPx": 136, "heiPx": 32, "fields" : {} },
+			}, "worldX": 8164, "worldY": 1012, "widPx": 136, "heiPx": 32, "fields" : {} },
 			{ "iids": {
 				"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787",
 				"levelIid": "95facbf0-21a0-11f1-8ff7-eb7b3e31f9aa",
 				"layerIid": "95facbf3-21a0-11f1-8ff7-071bab76b184",
 				"entityIid": "e973e600-21a0-11f1-9102-f7304166079a"
-			}, "worldX": 8604, "worldY": 164, "widPx": 120, "heiPx": 32, "fields" : {} },
+			}, "worldX": 8604, "worldY": 124, "widPx": 200, "heiPx": 32, "fields" : {} },
 			{ "iids": {
 				"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787",
 				"levelIid": "95facbf0-21a0-11f1-8ff7-eb7b3e31f9aa",
 				"layerIid": "95facbf3-21a0-11f1-8ff7-071bab76b184",
 				"entityIid": "f8f8fb60-21a0-11f1-9102-67f7e959e32d"
-			}, "worldX": 9252, "worldY": 164, "widPx": 168, "heiPx": 32, "fields" : {} },
+			}, "worldX": 9252, "worldY": 132, "widPx": 168, "heiPx": 32, "fields" : {} },
 			{ "iids": {
 				"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787",
 				"levelIid": "95facbf0-21a0-11f1-8ff7-eb7b3e31f9aa",
 				"layerIid": "95facbf3-21a0-11f1-8ff7-071bab76b184",
 				"entityIid": "0592fec0-21a0-11f1-9102-d52baacaa2c6"
-			}, "worldX": 9444, "worldY": 588, "widPx": 40, "heiPx": 128, "fields" : {} },
+			}, "worldX": 9476, "worldY": 580, "widPx": 40, "heiPx": 208, "fields" : {} },
 			{ "iids": {
 				"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787",
 				"levelIid": "95facbf0-21a0-11f1-8ff7-eb7b3e31f9aa",
 				"layerIid": "95facbf3-21a0-11f1-8ff7-071bab76b184",
 				"entityIid": "20039570-21a0-11f1-9102-7380a34b7e4b"
-			}, "worldX": 7828, "worldY": 452, "widPx": 32, "heiPx": 184, "fields" : {} },
+			}, "worldX": 7812, "worldY": 452, "widPx": 32, "heiPx": 184, "fields" : {} },
 			{ "iids": {
 				"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787",
 				"levelIid": "9745c280-21a0-11f1-8ff7-15d55e2cbecf",
 				"layerIid": "9745e990-21a0-11f1-8ff7-cd941d54b66a",
 				"entityIid": "24a11260-21a0-11f1-9102-f521331847bd"
-			}, "worldX": 7620, "worldY": 452, "widPx": 32, "heiPx": 160, "fields" : {} },
+			}, "worldX": 7644, "worldY": 444, "widPx": 32, "heiPx": 200, "fields" : {} },
 			{ "iids": {
 				"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787",
 				"levelIid": "a0855040-21a0-11f1-8ff7-9f68820b3425",
@@ -220,49 +220,49 @@
 				"levelIid": "ac602250-21a0-11f1-8ff7-8b5d8cba06fc",
 				"layerIid": "ac602253-21a0-11f1-8ff7-4b32dd9eb038",
 				"entityIid": "91ecdda0-21a0-11f1-9102-2959ee92fb61"
-			}, "worldX": 15284, "worldY": 564, "widPx": 32, "heiPx": 160, "fields" : {} },
+			}, "worldX": 15324, "worldY": 540, "widPx": 32, "heiPx": 176, "fields" : {} },
 			{ "iids": {
 				"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787",
 				"levelIid": "ac602250-21a0-11f1-8ff7-8b5d8cba06fc",
 				"layerIid": "ac602253-21a0-11f1-8ff7-4b32dd9eb038",
 				"entityIid": "a6f2cb10-21a0-11f1-9102-8f7e2e93f48f"
-			}, "worldX": 14236, "worldY": 148, "widPx": 152, "heiPx": 32, "fields" : {} },
+			}, "worldX": 14236, "worldY": 92, "widPx": 152, "heiPx": 32, "fields" : {} },
 			{ "iids": {
 				"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787",
 				"levelIid": "ad77d3e0-21a0-11f1-8ff7-e555459b1369",
 				"layerIid": "ad77d3e3-21a0-11f1-8ff7-15f970657512",
 				"entityIid": "aa9b60b0-21a0-11f1-9102-bd554a48de79"
-			}, "worldX": 14244, "worldY": -140, "widPx": 152, "heiPx": 32, "fields" : {} },
+			}, "worldX": 14244, "worldY": -100, "widPx": 152, "heiPx": 32, "fields" : {} },
 			{ "iids": {
 				"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787",
 				"levelIid": "ae9a81f0-21a0-11f1-8ff7-01e23b0956c5",
 				"layerIid": "ae9a81f3-21a0-11f1-8ff7-151b7919e7d3",
 				"entityIid": "8927b000-21a0-11f1-9102-170a8770274a"
-			}, "worldX": 15620, "worldY": 1004, "widPx": 160, "heiPx": 32, "fields" : {} },
+			}, "worldX": 15628, "worldY": 1044, "widPx": 160, "heiPx": 32, "fields" : {} },
 			{ "iids": {
 				"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787",
 				"levelIid": "ae9a81f0-21a0-11f1-8ff7-01e23b0956c5",
 				"layerIid": "ae9a81f3-21a0-11f1-8ff7-151b7919e7d3",
 				"entityIid": "8d5f1820-21a0-11f1-9102-aba650f72be0"
-			}, "worldX": 15420, "worldY": 532, "widPx": 32, "heiPx": 184, "fields" : {} },
+			}, "worldX": 15404, "worldY": 540, "widPx": 32, "heiPx": 184, "fields" : {} },
 			{ "iids": {
 				"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787",
 				"levelIid": "ae9a81f0-21a0-11f1-8ff7-01e23b0956c5",
 				"layerIid": "ae9a81f3-21a0-11f1-8ff7-151b7919e7d3",
 				"entityIid": "9addaf20-21a0-11f1-9102-973e0c173438"
-			}, "worldX": 17156, "worldY": 524, "widPx": 32, "heiPx": 184, "fields" : {} },
+			}, "worldX": 17180, "worldY": 532, "widPx": 32, "heiPx": 184, "fields" : {} },
 			{ "iids": {
 				"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787",
 				"levelIid": "afce1ff0-21a0-11f1-8ff7-edcb2953dc85",
 				"layerIid": "afce1ff3-21a0-11f1-8ff7-e5af068b7bac",
 				"entityIid": "6ebe0f70-21a0-11f1-9102-53cd9aa65bb7"
-			}, "worldX": 17204, "worldY": 1420, "widPx": 32, "heiPx": 120, "fields" : {} },
+			}, "worldX": 17252, "worldY": 1428, "widPx": 32, "heiPx": 120, "fields" : {} },
 			{ "iids": {
 				"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787",
 				"levelIid": "afce1ff0-21a0-11f1-8ff7-edcb2953dc85",
 				"layerIid": "afce1ff3-21a0-11f1-8ff7-e5af068b7bac",
 				"entityIid": "779d06a0-21a0-11f1-9102-efb742093216"
-			}, "worldX": 17204, "worldY": 1876, "widPx": 32, "heiPx": 120, "fields" : {} },
+			}, "worldX": 17244, "worldY": 1884, "widPx": 32, "heiPx": 120, "fields" : {} },
 			{ "iids": {
 				"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787",
 				"levelIid": "afce1ff0-21a0-11f1-8ff7-edcb2953dc85",
@@ -274,37 +274,37 @@
 				"levelIid": "b2403160-21a0-11f1-8ff7-99b6bf0f1e86",
 				"layerIid": "b2405872-21a0-11f1-8ff7-ddc1a359fd5b",
 				"entityIid": "240d4590-21a0-11f1-9102-51461e07e9c5"
-			}, "worldX": 19116, "worldY": 452, "widPx": 32, "heiPx": 96, "fields" : {} },
+			}, "worldX": 19092, "worldY": 444, "widPx": 32, "heiPx": 112, "fields" : {} },
 			{ "iids": {
 				"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787",
 				"levelIid": "b2403160-21a0-11f1-8ff7-99b6bf0f1e86",
 				"layerIid": "b2405872-21a0-11f1-8ff7-ddc1a359fd5b",
 				"entityIid": "51a3f4e0-21a0-11f1-9102-351e4280bfb1"
-			}, "worldX": 18828, "worldY": 996, "widPx": 136, "heiPx": 32, "fields" : {} },
+			}, "worldX": 18828, "worldY": 1020, "widPx": 136, "heiPx": 32, "fields" : {} },
 			{ "iids": {
 				"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787",
 				"levelIid": "b2403160-21a0-11f1-8ff7-99b6bf0f1e86",
 				"layerIid": "b2405872-21a0-11f1-8ff7-ddc1a359fd5b",
 				"entityIid": "9e4da890-21a0-11f1-9102-1f425b3a3ff3"
-			}, "worldX": 17500, "worldY": 556, "widPx": 32, "heiPx": 144, "fields" : {} },
+			}, "worldX": 17468, "worldY": 548, "widPx": 32, "heiPx": 144, "fields" : {} },
 			{ "iids": {
 				"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787",
 				"levelIid": "b322c930-21a0-11f1-8ff7-51b51c7f8925",
 				"layerIid": "b322c933-21a0-11f1-8ff7-09c45a12baef",
 				"entityIid": "55601280-21a0-11f1-9102-89e27ec912c7"
-			}, "worldX": 18820, "worldY": 1228, "widPx": 136, "heiPx": 32, "fields" : {} },
+			}, "worldX": 18820, "worldY": 1164, "widPx": 136, "heiPx": 32, "fields" : {} },
 			{ "iids": {
 				"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787",
 				"levelIid": "b322c930-21a0-11f1-8ff7-51b51c7f8925",
 				"layerIid": "b322c933-21a0-11f1-8ff7-09c45a12baef",
 				"entityIid": "68153220-21a0-11f1-9102-e130b20335cb"
-			}, "worldX": 17348, "worldY": 1444, "widPx": 32, "heiPx": 128, "fields" : {} },
+			}, "worldX": 17324, "worldY": 1460, "widPx": 32, "heiPx": 128, "fields" : {} },
 			{ "iids": {
 				"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787",
 				"levelIid": "b322c930-21a0-11f1-8ff7-51b51c7f8925",
 				"layerIid": "b322c933-21a0-11f1-8ff7-09c45a12baef",
 				"entityIid": "7c776580-21a0-11f1-9102-eb752914a645"
-			}, "worldX": 17356, "worldY": 1892, "widPx": 32, "heiPx": 112, "fields" : {} }
+			}, "worldX": 17316, "worldY": 1892, "widPx": 32, "heiPx": 128, "fields" : {} }
 		]
 	}],
 	"worldLayout": "GridVania",
@@ -14411,7 +14411,7 @@
 						},
 						{
 							"__identifier": "Teleporter",
-							"__grid": [119,118],
+							"__grid": [119,126],
 							"__pivot": [0.5,0.5],
 							"__tags": ["Floor_Interactable"],
 							"__tile": null,
@@ -14420,7 +14420,7 @@
 							"width": 144,
 							"height": 32,
 							"defUid": 12,
-							"px": [956,948],
+							"px": [956,1012],
 							"fieldInstances": [
 								{ "__identifier": "ConnectedTeleporter", "__type": "EntityRef", "__value": {
 									"entityIid": "a5e3c180-21a0-11f1-9102-d5e38b04d5fe",
@@ -14438,11 +14438,11 @@
 								}] }
 							],
 							"__worldX": 8636,
-							"__worldY": 2028
+							"__worldY": 2092
 						},
 						{
 							"__identifier": "Teleporter",
-							"__grid": [59,27],
+							"__grid": [59,18],
 							"__pivot": [0.5,0.5],
 							"__tags": ["Floor_Interactable"],
 							"__tile": null,
@@ -14451,7 +14451,7 @@
 							"width": 128,
 							"height": 32,
 							"defUid": 12,
-							"px": [476,220],
+							"px": [476,148],
 							"fieldInstances": [
 								{ "__identifier": "ConnectedTeleporter", "__type": "EntityRef", "__value": {
 									"entityIid": "dfa55eb0-21a0-11f1-9102-fb8980e41e0c",
@@ -14469,7 +14469,7 @@
 								}] }
 							],
 							"__worldX": 8156,
-							"__worldY": 1300
+							"__worldY": 1228
 						},
 						{
 							"__identifier": "MossToggle",
@@ -14505,16 +14505,16 @@
 						},
 						{
 							"__identifier": "Teleporter",
-							"__grid": [220,75],
+							"__grid": [224,74],
 							"__pivot": [0.5,0.5],
 							"__tags": ["Floor_Interactable"],
 							"__tile": null,
 							"__smartColor": "#BE4A2F",
 							"iid": "31c8e590-21a0-11f1-9102-4169f5ff0a98",
 							"width": 32,
-							"height": 96,
+							"height": 128,
 							"defUid": 12,
-							"px": [1764,604],
+							"px": [1796,596],
 							"fieldInstances": [
 								{ "__identifier": "ConnectedTeleporter", "__type": "EntityRef", "__value": {
 									"entityIid": "44bd0a00-21a0-11f1-9102-b31fc2abfe21",
@@ -14531,8 +14531,8 @@
 									"params": ["Left"]
 								}] }
 							],
-							"__worldX": 9444,
-							"__worldY": 1684
+							"__worldX": 9476,
+							"__worldY": 1676
 						},
 						{
 							"__identifier": "Box",
@@ -16152,16 +16152,16 @@
 						},
 						{
 							"__identifier": "Teleporter",
-							"__grid": [17,55],
+							"__grid": [12,55],
 							"__pivot": [0.5,0.5],
 							"__tags": ["Floor_Interactable"],
 							"__tile": null,
 							"__smartColor": "#BE4A2F",
 							"iid": "44bd0a00-21a0-11f1-9102-b31fc2abfe21",
 							"width": 32,
-							"height": 88,
+							"height": 120,
 							"defUid": 12,
-							"px": [140,444],
+							"px": [100,444],
 							"fieldInstances": [
 								{ "__identifier": "ConnectedTeleporter", "__type": "EntityRef", "__value": {
 									"entityIid": "31c8e590-21a0-11f1-9102-4169f5ff0a98",
@@ -16178,7 +16178,7 @@
 									"params": ["Right"]
 								}] }
 							],
-							"__worldX": 9740,
+							"__worldX": 9700,
 							"__worldY": 1524
 						},
 						{
@@ -17379,22 +17379,6 @@
 						},
 						{
 							"__identifier": "Wall",
-							"__grid": [99,25],
-							"__pivot": [0.5,0.5],
-							"__tags": ["Internal_Wall"],
-							"__tile": null,
-							"__smartColor": "#FEE761",
-							"iid": "2e8eb7d0-21a0-11f1-b693-438125c11c89",
-							"width": 384,
-							"height": 144,
-							"defUid": 61,
-							"px": [1592,408],
-							"fieldInstances": [],
-							"__worldX": 11192,
-							"__worldY": 408
-						},
-						{
-							"__identifier": "Wall",
 							"__grid": [112,42],
 							"__pivot": [0.5,0.5],
 							"__tags": ["Internal_Wall"],
@@ -17427,51 +17411,19 @@
 						},
 						{
 							"__identifier": "Wall",
-							"__grid": [109,32],
+							"__grid": [99,25],
 							"__pivot": [0.5,0.5],
 							"__tags": ["Internal_Wall"],
 							"__tile": null,
 							"__smartColor": "#FEE761",
-							"iid": "36f3c410-21a0-11f1-b693-37c483ad328c",
-							"width": 50,
-							"height": 96,
+							"iid": "58d11280-21a0-11f1-9116-8f6c61870f9a",
+							"width": 368,
+							"height": 144,
 							"defUid": 61,
-							"px": [1752,520],
+							"px": [1592,408],
 							"fieldInstances": [],
-							"__worldX": 11352,
-							"__worldY": 520
-						},
-						{
-							"__identifier": "Wall",
-							"__grid": [107,31],
-							"__pivot": [0.5,0.5],
-							"__tags": ["Internal_Wall"],
-							"__tile": null,
-							"__smartColor": "#FEE761",
-							"iid": "38c799b0-21a0-11f1-b693-9bee2632a8ac",
-							"width": 50,
-							"height": 64,
-							"defUid": 61,
-							"px": [1720,504],
-							"fieldInstances": [],
-							"__worldX": 11320,
-							"__worldY": 504
-						},
-						{
-							"__identifier": "Wall",
-							"__grid": [97,29],
-							"__pivot": [0.5,0.5],
-							"__tags": ["Internal_Wall"],
-							"__tile": null,
-							"__smartColor": "#FEE761",
-							"iid": "3b3bce00-21a0-11f1-b693-917dbeefa3ab",
-							"width": 320,
-							"height": 50,
-							"defUid": 61,
-							"px": [1560,472],
-							"fieldInstances": [],
-							"__worldX": 11160,
-							"__worldY": 472
+							"__worldX": 11192,
+							"__worldY": 408
 						}
 					]
 				},
@@ -17589,16 +17541,16 @@
 						},
 						{
 							"__identifier": "Teleporter",
-							"__grid": [16,73],
+							"__grid": [12,73],
 							"__pivot": [0.5,0.5],
 							"__tags": ["Floor_Interactable"],
 							"__tile": null,
 							"__smartColor": "#BE4A2F",
 							"iid": "0a2fb860-21a0-11f1-9102-177cacc73dd0",
 							"width": 32,
-							"height": 136,
+							"height": 160,
 							"defUid": 12,
-							"px": [132,588],
+							"px": [100,588],
 							"fieldInstances": [
 								{ "__identifier": "ConnectedTeleporter", "__type": "EntityRef", "__value": {
 									"entityIid": "0592fec0-21a0-11f1-9102-d52baacaa2c6",
@@ -17615,21 +17567,21 @@
 									"params": ["Right"]
 								}] }
 							],
-							"__worldX": 9732,
+							"__worldX": 9700,
 							"__worldY": 588
 						},
 						{
 							"__identifier": "Teleporter",
-							"__grid": [200,71],
+							"__grid": [197,70],
 							"__pivot": [0.5,0.5],
 							"__tags": ["Floor_Interactable"],
 							"__tile": null,
 							"__smartColor": "#BE4A2F",
 							"iid": "16d5c9b0-21a0-11f1-9102-136ac478797b",
 							"width": 32,
-							"height": 112,
+							"height": 152,
 							"defUid": 12,
-							"px": [1604,572],
+							"px": [1580,564],
 							"fieldInstances": [
 								{ "__identifier": "ConnectedTeleporter", "__type": "EntityRef", "__value": {
 									"entityIid": "240d4590-21a0-11f1-9102-51461e07e9c5",
@@ -17646,8 +17598,8 @@
 									"params": ["Left"]
 								}] }
 							],
-							"__worldX": 11204,
-							"__worldY": 572
+							"__worldX": 11180,
+							"__worldY": 564
 						},
 						{
 							"__identifier": "Box",
@@ -19016,7 +18968,7 @@
 						},
 						{
 							"__identifier": "Teleporter",
-							"__grid": [60,121],
+							"__grid": [60,126],
 							"__pivot": [0.5,0.5],
 							"__tags": ["Floor_Interactable"],
 							"__tile": null,
@@ -19025,7 +18977,7 @@
 							"width": 136,
 							"height": 32,
 							"defUid": 12,
-							"px": [484,972],
+							"px": [484,1012],
 							"fieldInstances": [
 								{ "__identifier": "ConnectedTeleporter", "__type": "EntityRef", "__value": {
 									"entityIid": "c3c809e0-21a0-11f1-9102-91f370008f56",
@@ -19043,20 +18995,20 @@
 								}] }
 							],
 							"__worldX": 8164,
-							"__worldY": 972
+							"__worldY": 1012
 						},
 						{
 							"__identifier": "Teleporter",
-							"__grid": [115,20],
+							"__grid": [115,15],
 							"__pivot": [0.5,0.5],
 							"__tags": ["Floor_Interactable"],
 							"__tile": null,
 							"__smartColor": "#BE4A2F",
 							"iid": "e973e600-21a0-11f1-9102-f7304166079a",
-							"width": 120,
+							"width": 200,
 							"height": 32,
 							"defUid": 12,
-							"px": [924,164],
+							"px": [924,124],
 							"fieldInstances": [
 								{ "__identifier": "ConnectedTeleporter", "__type": "EntityRef", "__value": {
 									"entityIid": "f113cd80-21a0-11f1-9102-73a1291ee7f9",
@@ -19074,11 +19026,11 @@
 								}] }
 							],
 							"__worldX": 8604,
-							"__worldY": 164
+							"__worldY": 124
 						},
 						{
 							"__identifier": "Teleporter",
-							"__grid": [196,20],
+							"__grid": [196,16],
 							"__pivot": [0.5,0.5],
 							"__tags": ["Floor_Interactable"],
 							"__tile": null,
@@ -19087,7 +19039,7 @@
 							"width": 168,
 							"height": 32,
 							"defUid": 12,
-							"px": [1572,164],
+							"px": [1572,132],
 							"fieldInstances": [
 								{ "__identifier": "ConnectedTeleporter", "__type": "EntityRef", "__value": {
 									"entityIid": "fcbdcb90-21a0-11f1-9102-d322334ec1a4",
@@ -19105,20 +19057,20 @@
 								}] }
 							],
 							"__worldX": 9252,
-							"__worldY": 164
+							"__worldY": 132
 						},
 						{
 							"__identifier": "Teleporter",
-							"__grid": [220,73],
+							"__grid": [224,72],
 							"__pivot": [0.5,0.5],
 							"__tags": ["Floor_Interactable"],
 							"__tile": null,
 							"__smartColor": "#BE4A2F",
 							"iid": "0592fec0-21a0-11f1-9102-d52baacaa2c6",
 							"width": 40,
-							"height": 128,
+							"height": 208,
 							"defUid": 12,
-							"px": [1764,588],
+							"px": [1796,580],
 							"fieldInstances": [
 								{ "__identifier": "ConnectedTeleporter", "__type": "EntityRef", "__value": {
 									"entityIid": "0a2fb860-21a0-11f1-9102-177cacc73dd0",
@@ -19135,12 +19087,12 @@
 									"params": ["Left"]
 								}] }
 							],
-							"__worldX": 9444,
-							"__worldY": 588
+							"__worldX": 9476,
+							"__worldY": 580
 						},
 						{
 							"__identifier": "Teleporter",
-							"__grid": [18,56],
+							"__grid": [16,56],
 							"__pivot": [0.5,0.5],
 							"__tags": ["Floor_Interactable"],
 							"__tile": null,
@@ -19149,7 +19101,7 @@
 							"width": 32,
 							"height": 184,
 							"defUid": 12,
-							"px": [148,452],
+							"px": [132,452],
 							"fieldInstances": [
 								{ "__identifier": "ConnectedTeleporter", "__type": "EntityRef", "__value": {
 									"entityIid": "24a11260-21a0-11f1-9102-f521331847bd",
@@ -19166,7 +19118,7 @@
 									"params": ["Right"]
 								}] }
 							],
-							"__worldX": 7828,
+							"__worldX": 7812,
 							"__worldY": 452
 						},
 						{
@@ -20633,16 +20585,16 @@
 					"entityInstances": [
 						{
 							"__identifier": "Teleporter",
-							"__grid": [232,56],
+							"__grid": [235,55],
 							"__pivot": [0.5,0.5],
 							"__tags": ["Floor_Interactable"],
 							"__tile": null,
 							"__smartColor": "#BE4A2F",
 							"iid": "24a11260-21a0-11f1-9102-f521331847bd",
 							"width": 32,
-							"height": 160,
+							"height": 200,
 							"defUid": 12,
-							"px": [1860,452],
+							"px": [1884,444],
 							"fieldInstances": [
 								{ "__identifier": "ConnectedTeleporter", "__type": "EntityRef", "__value": {
 									"entityIid": "20039570-21a0-11f1-9102-7380a34b7e4b",
@@ -20659,8 +20611,8 @@
 									"params": ["Left"]
 								}] }
 							],
-							"__worldX": 7620,
-							"__worldY": 452
+							"__worldX": 7644,
+							"__worldY": 444
 						},
 						{
 							"__identifier": "PuzzleBubble",
@@ -24774,16 +24726,16 @@
 					"entityInstances": [
 						{
 							"__identifier": "Teleporter",
-							"__grid": [230,70],
+							"__grid": [235,67],
 							"__pivot": [0.5,0.5],
 							"__tags": ["Floor_Interactable"],
 							"__tile": null,
 							"__smartColor": "#BE4A2F",
 							"iid": "91ecdda0-21a0-11f1-9102-2959ee92fb61",
 							"width": 32,
-							"height": 160,
+							"height": 176,
 							"defUid": 12,
-							"px": [1844,564],
+							"px": [1884,540],
 							"fieldInstances": [
 								{ "__identifier": "ConnectedTeleporter", "__type": "EntityRef", "__value": {
 									"entityIid": "8d5f1820-21a0-11f1-9102-aba650f72be0",
@@ -24800,12 +24752,12 @@
 									"params": ["Left"]
 								}] }
 							],
-							"__worldX": 15284,
-							"__worldY": 564
+							"__worldX": 15324,
+							"__worldY": 540
 						},
 						{
 							"__identifier": "Teleporter",
-							"__grid": [99,18],
+							"__grid": [99,11],
 							"__pivot": [0.5,0.5],
 							"__tags": ["Floor_Interactable"],
 							"__tile": null,
@@ -24814,7 +24766,7 @@
 							"width": 152,
 							"height": 32,
 							"defUid": 12,
-							"px": [796,148],
+							"px": [796,92],
 							"fieldInstances": [
 								{ "__identifier": "ConnectedTeleporter", "__type": "EntityRef", "__value": {
 									"entityIid": "aa9b60b0-21a0-11f1-9102-bd554a48de79",
@@ -24832,7 +24784,7 @@
 								}] }
 							],
 							"__worldX": 14236,
-							"__worldY": 148
+							"__worldY": 92
 						}
 					]
 				},
@@ -26113,7 +26065,7 @@
 						},
 						{
 							"__identifier": "Teleporter",
-							"__grid": [100,117],
+							"__grid": [100,122],
 							"__pivot": [0.5,0.5],
 							"__tags": ["Floor_Interactable"],
 							"__tile": null,
@@ -26122,7 +26074,7 @@
 							"width": 152,
 							"height": 32,
 							"defUid": 12,
-							"px": [804,940],
+							"px": [804,980],
 							"fieldInstances": [
 								{ "__identifier": "ConnectedTeleporter", "__type": "EntityRef", "__value": {
 									"entityIid": "a6f2cb10-21a0-11f1-9102-8f7e2e93f48f",
@@ -26140,7 +26092,7 @@
 								}] }
 							],
 							"__worldX": 14244,
-							"__worldY": -140
+							"__worldY": -100
 						}
 					]
 				},
@@ -26917,7 +26869,7 @@
 						},
 						{
 							"__identifier": "Teleporter",
-							"__grid": [32,125],
+							"__grid": [33,130],
 							"__pivot": [0.5,0.5],
 							"__tags": ["Floor_Interactable"],
 							"__tile": null,
@@ -26926,7 +26878,7 @@
 							"width": 160,
 							"height": 32,
 							"defUid": 12,
-							"px": [260,1004],
+							"px": [268,1044],
 							"fieldInstances": [
 								{ "__identifier": "ConnectedTeleporter", "__type": "EntityRef", "__value": {
 									"entityIid": "85f3d530-21a0-11f1-9102-c59e35f53e4d",
@@ -26943,12 +26895,12 @@
 									"params": ["Up"]
 								}] }
 							],
-							"__worldX": 15620,
-							"__worldY": 1004
+							"__worldX": 15628,
+							"__worldY": 1044
 						},
 						{
 							"__identifier": "Teleporter",
-							"__grid": [7,66],
+							"__grid": [5,67],
 							"__pivot": [0.5,0.5],
 							"__tags": ["Floor_Interactable"],
 							"__tile": null,
@@ -26957,7 +26909,7 @@
 							"width": 32,
 							"height": 184,
 							"defUid": 12,
-							"px": [60,532],
+							"px": [44,540],
 							"fieldInstances": [
 								{ "__identifier": "ConnectedTeleporter", "__type": "EntityRef", "__value": {
 									"entityIid": "91ecdda0-21a0-11f1-9102-2959ee92fb61",
@@ -26974,12 +26926,12 @@
 									"params": ["Right"]
 								}] }
 							],
-							"__worldX": 15420,
-							"__worldY": 532
+							"__worldX": 15404,
+							"__worldY": 540
 						},
 						{
 							"__identifier": "Teleporter",
-							"__grid": [224,65],
+							"__grid": [227,66],
 							"__pivot": [0.5,0.5],
 							"__tags": ["Floor_Interactable"],
 							"__tile": null,
@@ -26988,7 +26940,7 @@
 							"width": 32,
 							"height": 184,
 							"defUid": 12,
-							"px": [1796,524],
+							"px": [1820,532],
 							"fieldInstances": [
 								{ "__identifier": "ConnectedTeleporter", "__type": "EntityRef", "__value": {
 									"entityIid": "9e4da890-21a0-11f1-9102-1f425b3a3ff3",
@@ -27005,8 +26957,8 @@
 									"params": ["Left"]
 								}] }
 							],
-							"__worldX": 17156,
-							"__worldY": 524
+							"__worldX": 17180,
+							"__worldY": 532
 						}
 					]
 				},
@@ -28469,7 +28421,7 @@
 					"entityInstances": [
 						{
 							"__identifier": "Teleporter",
-							"__grid": [230,42],
+							"__grid": [236,43],
 							"__pivot": [0.5,0.5],
 							"__tags": ["Floor_Interactable"],
 							"__tile": null,
@@ -28478,7 +28430,7 @@
 							"width": 32,
 							"height": 120,
 							"defUid": 12,
-							"px": [1844,340],
+							"px": [1892,348],
 							"fieldInstances": [
 								{ "__identifier": "ConnectedTeleporter", "__type": "EntityRef", "__value": {
 									"entityIid": "68153220-21a0-11f1-9102-e130b20335cb",
@@ -28495,12 +28447,12 @@
 									"params": ["Left"]
 								}] }
 							],
-							"__worldX": 17204,
-							"__worldY": 1420
+							"__worldX": 17252,
+							"__worldY": 1428
 						},
 						{
 							"__identifier": "Teleporter",
-							"__grid": [230,99],
+							"__grid": [235,100],
 							"__pivot": [0.5,0.5],
 							"__tags": ["Floor_Interactable"],
 							"__tile": null,
@@ -28509,7 +28461,7 @@
 							"width": 32,
 							"height": 120,
 							"defUid": 12,
-							"px": [1844,796],
+							"px": [1884,804],
 							"fieldInstances": [
 								{ "__identifier": "ConnectedTeleporter", "__type": "EntityRef", "__value": {
 									"entityIid": "7c776580-21a0-11f1-9102-eb752914a645",
@@ -28526,8 +28478,8 @@
 									"params": ["Left"]
 								}] }
 							],
-							"__worldX": 17204,
-							"__worldY": 1876
+							"__worldX": 17244,
+							"__worldY": 1884
 						},
 						{
 							"__identifier": "Teleporter",
@@ -29764,51 +29716,19 @@
 						},
 						{
 							"__identifier": "Wall",
-							"__grid": [111,23],
+							"__grid": [109,22],
 							"__pivot": [0.5,0.5],
 							"__tags": ["Internal_Wall"],
 							"__tile": null,
 							"__smartColor": "#FEE761",
 							"iid": "ad6c9af0-21a0-11f1-b693-5be094754c52",
-							"width": 176,
+							"width": 224,
 							"height": 50,
 							"defUid": 61,
-							"px": [1784,376],
+							"px": [1752,360],
 							"fieldInstances": [],
-							"__worldX": 19064,
-							"__worldY": 376
-						},
-						{
-							"__identifier": "Wall",
-							"__grid": [105,24],
-							"__pivot": [0.5,0.5],
-							"__tags": ["Internal_Wall"],
-							"__tile": null,
-							"__smartColor": "#FEE761",
-							"iid": "bfcd0ae0-21a0-11f1-b693-19a6fc45f26b",
-							"width": 50,
-							"height": 50,
-							"defUid": 61,
-							"px": [1688,392],
-							"fieldInstances": [],
-							"__worldX": 18968,
-							"__worldY": 392
-						},
-						{
-							"__identifier": "Wall",
-							"__grid": [102,26],
-							"__pivot": [0.5,0.5],
-							"__tags": ["Internal_Wall"],
-							"__tile": null,
-							"__smartColor": "#FEE761",
-							"iid": "c0aa99a0-21a0-11f1-b693-43fc4a7b6269",
-							"width": 50,
-							"height": 50,
-							"defUid": 61,
-							"px": [1640,424],
-							"fieldInstances": [],
-							"__worldX": 18920,
-							"__worldY": 424
+							"__worldX": 19032,
+							"__worldY": 360
 						},
 						{
 							"__identifier": "PuzzleSolution",
@@ -29957,16 +29877,16 @@
 						},
 						{
 							"__identifier": "Teleporter",
-							"__grid": [229,56],
+							"__grid": [226,55],
 							"__pivot": [0.5,0.5],
 							"__tags": ["Floor_Interactable"],
 							"__tile": null,
 							"__smartColor": "#BE4A2F",
 							"iid": "240d4590-21a0-11f1-9102-51461e07e9c5",
 							"width": 32,
-							"height": 96,
+							"height": 112,
 							"defUid": 12,
-							"px": [1836,452],
+							"px": [1812,444],
 							"fieldInstances": [
 								{ "__identifier": "ConnectedTeleporter", "__type": "EntityRef", "__value": {
 									"entityIid": "16d5c9b0-21a0-11f1-9102-136ac478797b",
@@ -29983,12 +29903,12 @@
 									"params": ["Left"]
 								}] }
 							],
-							"__worldX": 19116,
-							"__worldY": 452
+							"__worldX": 19092,
+							"__worldY": 444
 						},
 						{
 							"__identifier": "Teleporter",
-							"__grid": [193,124],
+							"__grid": [193,127],
 							"__pivot": [0.5,0.5],
 							"__tags": ["Floor_Interactable"],
 							"__tile": null,
@@ -29997,7 +29917,7 @@
 							"width": 136,
 							"height": 32,
 							"defUid": 12,
-							"px": [1548,996],
+							"px": [1548,1020],
 							"fieldInstances": [
 								{ "__identifier": "ConnectedTeleporter", "__type": "EntityRef", "__value": {
 									"entityIid": "55601280-21a0-11f1-9102-89e27ec912c7",
@@ -30015,11 +29935,11 @@
 								}] }
 							],
 							"__worldX": 18828,
-							"__worldY": 996
+							"__worldY": 1020
 						},
 						{
 							"__identifier": "Teleporter",
-							"__grid": [27,69],
+							"__grid": [23,68],
 							"__pivot": [0.5,0.5],
 							"__tags": ["Floor_Interactable"],
 							"__tile": null,
@@ -30028,7 +29948,7 @@
 							"width": 32,
 							"height": 144,
 							"defUid": 12,
-							"px": [220,556],
+							"px": [188,548],
 							"fieldInstances": [
 								{ "__identifier": "ConnectedTeleporter", "__type": "EntityRef", "__value": {
 									"entityIid": "9addaf20-21a0-11f1-9102-973e0c173438",
@@ -30045,8 +29965,8 @@
 									"params": ["Right"]
 								}] }
 							],
-							"__worldX": 17500,
-							"__worldY": 556
+							"__worldX": 17468,
+							"__worldY": 548
 						},
 						{
 							"__identifier": "PuzzleBubble",
@@ -31248,7 +31168,7 @@
 					"entityInstances": [
 						{
 							"__identifier": "MossWall",
-							"__grid": [9,21],
+							"__grid": [10,24],
 							"__pivot": [0.5,0.5],
 							"__tags": ["Internal_Wall"],
 							"__tile": { "tilesetUid": 52, "x": 160, "y": 400, "w": 192, "h": 224 },
@@ -31257,13 +31177,13 @@
 							"width": 176,
 							"height": 240,
 							"defUid": 48,
-							"px": [152,344],
+							"px": [168,392],
 							"fieldInstances": [{ "__identifier": "ColorState", "__type": "LocalEnum.ColorState", "__value": "Neutral", "__tile": null, "defUid": 49, "realEditorValues": [{
 								"id": "V_String",
 								"params": ["Neutral"]
 							}] }],
-							"__worldX": 17432,
-							"__worldY": 1424
+							"__worldX": 17448,
+							"__worldY": 1472
 						},
 						{
 							"__identifier": "Wall",
@@ -31508,7 +31428,7 @@
 						},
 						{
 							"__identifier": "Teleporter",
-							"__grid": [192,18],
+							"__grid": [192,10],
 							"__pivot": [0.5,0.5],
 							"__tags": ["Floor_Interactable"],
 							"__tile": null,
@@ -31517,7 +31437,7 @@
 							"width": 136,
 							"height": 32,
 							"defUid": 12,
-							"px": [1540,148],
+							"px": [1540,84],
 							"fieldInstances": [
 								{ "__identifier": "ConnectedTeleporter", "__type": "EntityRef", "__value": {
 									"entityIid": "51a3f4e0-21a0-11f1-9102-351e4280bfb1",
@@ -31535,11 +31455,11 @@
 								}] }
 							],
 							"__worldX": 18820,
-							"__worldY": 1228
+							"__worldY": 1164
 						},
 						{
 							"__identifier": "Teleporter",
-							"__grid": [8,45],
+							"__grid": [5,47],
 							"__pivot": [0.5,0.5],
 							"__tags": ["Floor_Interactable"],
 							"__tile": null,
@@ -31548,7 +31468,7 @@
 							"width": 32,
 							"height": 128,
 							"defUid": 12,
-							"px": [68,364],
+							"px": [44,380],
 							"fieldInstances": [
 								{ "__identifier": "ConnectedTeleporter", "__type": "EntityRef", "__value": {
 									"entityIid": "6ebe0f70-21a0-11f1-9102-53cd9aa65bb7",
@@ -31565,21 +31485,21 @@
 									"params": ["Right"]
 								}] }
 							],
-							"__worldX": 17348,
-							"__worldY": 1444
+							"__worldX": 17324,
+							"__worldY": 1460
 						},
 						{
 							"__identifier": "Teleporter",
-							"__grid": [9,101],
+							"__grid": [4,101],
 							"__pivot": [0.5,0.5],
 							"__tags": ["Floor_Interactable"],
 							"__tile": null,
 							"__smartColor": "#BE4A2F",
 							"iid": "7c776580-21a0-11f1-9102-eb752914a645",
 							"width": 32,
-							"height": 112,
+							"height": 128,
 							"defUid": 12,
-							"px": [76,812],
+							"px": [36,812],
 							"fieldInstances": [
 								{ "__identifier": "ConnectedTeleporter", "__type": "EntityRef", "__value": {
 									"entityIid": "779d06a0-21a0-11f1-9102-efb742093216",
@@ -31596,7 +31516,7 @@
 									"params": ["Right"]
 								}] }
 							],
-							"__worldX": 17356,
+							"__worldX": 17316,
 							"__worldY": 1892
 						}
 					]
