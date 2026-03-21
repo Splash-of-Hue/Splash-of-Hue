@@ -49,10 +49,9 @@ bool direct_line_next_step(float elapsed_ms, Entity& follower)
 	if (distance < slow_radius)
 	{
 		float t = (distance - pathfinder_component.minimum_distance_to_target) / (slow_radius - pathfinder_component.minimum_distance_to_target);
-		t = std::clamp(t, 0.0f, 1.f);
+		t = std::clamp(t, 0.f, 1.f);
 		max_speed = max_speed * t;
 	}
-
 	follower_velocity = { norm_x * max_speed, norm_y * max_speed };
 
 	return false;

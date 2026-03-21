@@ -662,7 +662,6 @@ void PhysicsSystem::step(float elapsed_ms)
 							}
 							continue;
 						}
-						
 					}
 					continue;
 				}
