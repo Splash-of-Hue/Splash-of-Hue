@@ -589,7 +589,6 @@ void load_minimap_reference(const ldtk::Entity& minimap_reference_entity)
 
 	level_it->floor_ldtk_position = { world_pos.x, world_pos.y };
 	level_it->floor_ldtk_size = { size.x, size.y };
-	
 }
 
 void load_minimap_hallway(const ldtk::Entity& minimap_hallway_entity)

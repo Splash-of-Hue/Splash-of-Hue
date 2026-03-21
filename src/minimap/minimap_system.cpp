@@ -118,7 +118,7 @@ std::vector<Entity> MinimapSystem::create_hallway_entities(
 	std::vector<Entity> hallway_entities;
 	for (const auto& [hall_pos, hall_size] : level.hallway_ldtk_rects)
 	{
-		if (hall_size.x < 32 || hall_size.y < 32) {
+		if (hall_size.x < HALL_SIZE_MIN || hall_size.y < HALL_SIZE_MIN) {
 			continue;
 		}
 		Entity hall_entity;
@@ -142,7 +142,7 @@ void MinimapSystem::update_hallway_entities(
 	int valid_index = 0;
 	for (const auto& [hall_pos, hall_size] : level.hallway_ldtk_rects)
 	{
-		if (hall_size.x < 32 || hall_size.y < 32) {
+		if (hall_size.x < HALL_SIZE_MIN || hall_size.y < HALL_SIZE_MIN) {
 			continue;
 		}
 		if (valid_index >= static_cast<int>(hallway_render_entities.size())) {
@@ -221,8 +221,6 @@ void MinimapSystem::create_minimap_room(
 	{
 		// create placeholder 
 		registry.minimapRooms.insert(level_entity, {
-			level.floor_ldtk_position,
-			level.floor_ldtk_size,
 			Entity(),
 			false,
 			{}
@@ -235,8 +233,6 @@ void MinimapSystem::create_minimap_room(
 	std::vector<Entity> hallway_entities = create_hallway_entities(level, ldtk_dungeon_top_left, minimap_scale, total_map_w);
 
 	registry.minimapRooms.insert(level_entity, {
-		level.floor_ldtk_position,
-		level.floor_ldtk_size,
 		room_render_entity,
 		true,
 		hallway_entities
@@ -255,8 +251,6 @@ void MinimapSystem::update_minimap_room(
 	float total_map_w)
 {
 	MinimapRoom& minimap_room = registry.minimapRooms.get(level_entity);
-	minimap_room.floor_ldtk_position = level.floor_ldtk_position;
-	minimap_room.floor_ldtk_size = level.floor_ldtk_size;
 
 	if (level.is_visited && !minimap_room.has_render_entity)
 	{

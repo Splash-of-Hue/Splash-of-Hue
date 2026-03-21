@@ -9,3 +9,5 @@ const float MINIMAP_ICON_SIZE = 10.f;
 
 const vec4 MINIMAP_COLOR_VISITED = { 0.55f, 0.80f, 0.92f, 0.70f };
 const vec4 MINIMAP_COLOR_PLAYER = { 0.85f, 0.41f, 0.84f, 1.00f };
+
+int HALL_SIZE_MIN = 32;
