@@ -12,6 +12,7 @@
 #include "interactables/interactable_components.hpp"
 #include "loading/loading_components.hpp"
 #include "map/map_components.hpp"
+#include "minimap/minimap_components.hpp"
 #include "player/player_components.hpp"
 #include "renderer/render_components.hpp"
 #include "text/text_components.hpp"
@@ -83,6 +84,9 @@ public:
 	ComponentContainer<MapTile> mapTiles;
 	ComponentContainer<Teleporter> teleporters;
 	ComponentContainer<Wall> walls;
+	// Minimap
+	ComponentContainer<MinimapRoom> minimapRooms;
+	ComponentContainer<MinimapPlayerIcon> minimapPlayerIcons;
 	// Physics - Collisions
 	ComponentContainer<ChangeBehaviour> change_behaviours;
 	ComponentContainer<Collidable> collidables;
@@ -181,6 +185,9 @@ public:
 		registry_list.push_back(&levelTiles);
 		registry_list.push_back(&mapTiles);
 		registry_list.push_back(&teleporters);
+		// Minimap
+		registry_list.push_back(&minimapRooms);
+		registry_list.push_back(&minimapPlayerIcons);
 		registry_list.push_back(&walls);
 		// Physics - Collisions
 		registry_list.push_back(&change_behaviours);

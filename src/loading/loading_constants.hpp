@@ -34,7 +34,10 @@ enum class ENTITY_TYPE
 	BOX,
 	MUSHROOM,
 	PRESSURE_PLATE,
-	PRESSURE_PLATE_WALL
+	PRESSURE_PLATE_WALL,
+	MINIMAP_REFERENCE,
+	MINIMAP_HALLWAY
+	
 };
 
 const std::map<std::string, LOADING_LAYER_TYPE> layer_string_to_enum_map = {
@@ -59,7 +62,9 @@ const std::map<std::string, ENTITY_TYPE> entity_type_string_to_enum_map = {
 	{ "Box", ENTITY_TYPE::BOX },
 	{ "Mushroom", ENTITY_TYPE::MUSHROOM },
 	{ "PressurePlate", ENTITY_TYPE::PRESSURE_PLATE },
-	{ "PressurePlateWall", ENTITY_TYPE::PRESSURE_PLATE_WALL }
+	{ "PressurePlateWall", ENTITY_TYPE::PRESSURE_PLATE_WALL },
+	{ "MinimapReference", ENTITY_TYPE::MINIMAP_REFERENCE },
+	{ "MinimapHallway", ENTITY_TYPE::MINIMAP_HALLWAY },
 };
 
 inline ENTITY_TYPE entity_type_from_string(const std::string entity_string)
