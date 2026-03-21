@@ -52,12 +52,11 @@ Entity CreatureCreator::createAnglerfish(const int level_uid, vec2 position, flo
     registry.scales.emplace(emission_entity);
 
     LightEmission& light_emission_component = registry.lightEmissions.emplace(emission_entity);
-
     light_emission_component.MAX_RADIUS = EMISSION_SIZE::ANGLERFISH_EMISSION;
     light_emission_component.TIME_TO_GROW = TIME_TO_GROW;
     light_emission_component.offset = EMISSION_OFFSET.at("ANGLERFISH");
-
     light_emission_component.lightSourceEntity = anglerfish;
+
     LightSource& light_source_component = registry.lightSources.emplace(anglerfish);
     light_source_component.lightEmissionEntity = emission_entity;
 
