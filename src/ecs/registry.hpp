@@ -88,6 +88,7 @@ public:
 	ComponentContainer<LevelTile> levelTiles;
 	ComponentContainer<MapTile> mapTiles;
 	ComponentContainer<Teleporter> teleporters;
+	ComponentContainer<Wall> walls;
 	// Minimap
 	ComponentContainer<MinimapRoom> minimapRooms;
 	ComponentContainer<MinimapPlayerIcon> minimapPlayerIcons;
@@ -197,6 +198,7 @@ public:
 		// Minimap
 		registry_list.push_back(&minimapRooms);
 		registry_list.push_back(&minimapPlayerIcons);
+		registry_list.push_back(&walls);
 		// Physics - Collisions
 		registry_list.push_back(&change_behaviours);
 		registry_list.push_back(&collidables);

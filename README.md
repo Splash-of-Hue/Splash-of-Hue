@@ -11,29 +11,26 @@ A bioluminescent sea creature journeys up to the surface to return to the sun th
 ## Controls
 WASD for up, left, down, right movement. E to open up colour menu. Use arrow keys when colour menu pops up to toggle between different colours and press E again to select colour. Move and collide with other objects to change their colours. 
 
-# Milestone 1
-## Core Game Mechanics
-- Basic input driven responses via keyboard (WASD, E and arrow keys) for movement and colour menu.
-- Basic collision detection is between axis-aligned bounding boxes.
-- Event driven responses: collision between player and certain entities results in different behaviours. For instance, colliding with a circular toggle of a different colour will change both the toggles colour and walls associated with it. Colliding with walls of the same colour will allow the player to pass through them, whereas walls of different colour are impassable. Colliding with sawfish will cause game to restart.
-  
+## Milestone 3
+## Milestone Engagement Criteria
+- Discovery -> Player can discover new things by moving and exploring rooms, and collide with objects to see what happens.
+- Challenge -> Player is stopped by obstacles, like the pistol shrimp, non-passable boxes and walls, dangerous sawfish, and must figure out ways to bypass obstacles and understand AI behaviours, such as sawfish following, charging and pistol shrimp rotation, to traverse the tutorial and enter the final room.
 ## Milestone Required Elements
-- Textured Geometry -> rendering rectangle and circle shapes with associated sprite assets.
-- 2D transformations -> translation of position of entities. 
-- Key-frame/State interpolation -> AI pathfinding behaviour (sawfish pathfinds player when collided with). Implemented by getting vector distance between player and sawfish, 
-
+- Memory Management: We used Visual Studio's diagnostic tools and Visual Studio's performance profiler and found our game uses about 300 MB of memory, but there were no instances of memory leaks or hoarding. 
+- Realtime performance: We profiled the runtime of our systems, and found that the rendering and physics systems were runtime bottlenecks, where the rendering system took about 90% of the time, and the physics system took about 6%. We changed the physics system to use broad pass by checking for an AABB collision and only running mesh collision if that check was successful, which made slight improvements. 
 ## Milestone Creative Features
-- [1] (basic) Colour change upon collision -> sprite rendering of shapes and colour change of sprites when collision is detected (using fragment shaders) implemented by Clair and Abby. 
-- [8] (basic) Basic physics -> Inelastic collisions using axis-aligned bounding boxes implemented by Geetika.
-- [10] (advanced) Precise collisions -> Collisions between two different shapes (circle and rectangle) implemented by Spencer. 
-- [14] (basic) Simple Pathfinding -> distance between two entities along vector and moving sawfish along vector towards player implemented by Sophia.
-- [23] (basic) Audio feedback -> background music implemented by Spencer. 
-- [24] (basic) Basic integrated assets -> sprite assets and rendering implemented by Clair and Abby.
-
+- [10] Precise collisions -> Mesh based collisions using seperability axis theorem implemented by Geetika
+- [16] Swarm behaviour -> Minnows will swarm and flock to each other and move like a school of fish, implemented by Sophia  using BOIDS, who has also set it up so that simply changing the separation, cohesion, and alignment parameters in the code can vastly change the way the minnows swarm, allowing for different movement patterns. 
+- [15] Advanced decision-making -> A* pathfinding implemented by Clair, and decision tree for sawfish and shrimp behaviours implemented by Sophia and Spencer.
+- [19] Reloadability -> Loading and unloading levels using LDtk library implemented by Clair
+- [26] Numerous sophisticated integrated assets -> Same art style for assets implemented by Clair, Abby and Sophia
 ## Milestone Screenshots
-The following screenshot is of a maze that the player (in the top-left corner) can navigate by changing colour and colliding with the circular toggles to change the colours of walls so that the player can pass through walls of the same colour. If the sawfish touch the player, the game restarts with the player back in the top left hand corner of the maze. 
-![Screenshot 2026-02-08 231356](https://github.students.cs.ubc.ca/user-attachments/assets/ff51932d-7bb4-4d04-bc67-14e4f4bc1384)
-
+Minimap and colour menu UI added to tutorial
+![Screenshot 2026-03-20 213717](https://github.students.cs.ubc.ca/user-attachments/assets/7ffd645e-0a56-4f89-914d-1eeaf5db66de)
+New dungeon with sliding entities
+![Screenshot 2026-03-20 213910](https://github.students.cs.ubc.ca/user-attachments/assets/435c2917-2d37-43df-ba71-e7a22e576f04)
+New dungeon with colour emitting entities
+![Screenshot 2026-03-20 213828](https://github.students.cs.ubc.ca/user-attachments/assets/dedea943-1305-4cf3-a04c-a785256a2679)
 
 # Docs
 

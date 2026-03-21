@@ -58,7 +58,7 @@ Entity createPressurePlateWall(const int level_uid, std::string id, vec2 positio
 	registry.scales.insert(pressure_plate_wall_entity, size);
 	registry.sizes.insert(pressure_plate_wall_entity, { size.x, size.y });
 	registry.colors.insert(pressure_plate_wall_entity, vec4(0.0f, 0.0f, 0.75f, 1.0f));
-
+	registry.walls.emplace(pressure_plate_wall_entity);
 	registry.angles.emplace(pressure_plate_wall_entity);
 	Collidable& col = registry.collidables.emplace(pressure_plate_wall_entity);
 
@@ -112,6 +112,7 @@ Entity createWall(const int level_uid, vec2 position, float width, float height,
 	const Entity& wall_rectangle_entity = createRectangle(position, width, height, RENDER_LAYER::WALLS_BACK, color);
 	Collidable& col = registry.collidables.emplace(wall_rectangle_entity);
 	col.inelastic = true;
+	registry.walls.emplace(wall_rectangle_entity);
 	registry.levelEntities.insert(wall_rectangle_entity, { level_uid });
 
 	return wall_rectangle_entity;
