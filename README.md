@@ -16,7 +16,7 @@ WASD for up, left, down, right movement. E to open up colour menu. Use arrow key
 - Discovery -> Player can discover new things by moving and exploring rooms, and collide with objects to see what happens.
 - Challenge -> Player is stopped by obstacles, like the pistol shrimp, non-passable boxes and walls, dangerous sawfish, and must figure out ways to bypass obstacles and understand AI behaviours, such as sawfish following, charging and pistol shrimp rotation, to traverse the tutorial and enter the final room.
 ## Milestone Required Elements
-- Memory Management: Implemented mesh-based collision detection and resolution using the seperating axis theorem, player's mesh has been defined to be a triangle.
+- Memory Management: We used Visual Studio's diagnostic tools and Visual Studio's performance profiler and found no instances of memory leaks or hoarding. 
 - Realtime performance: We profiled the runtime of our systems, and found that the rendering and physics systems were runtime bottlenecks, where the rendering system took about 90% of the time, and the physics system took about 6%. We changed the physics system to use broad pass by checking for an AABB collision and only running mesh collision if that check was successful, which made slight improvements. 
 ## Milestone Creative Features
 - [10] Precise collisions -> Mesh based collisions using seperability axis theorem implemented by Geetika
@@ -31,7 +31,6 @@ New dungeon with sliding entities
 ![Screenshot 2026-03-20 213910](https://github.students.cs.ubc.ca/user-attachments/assets/435c2917-2d37-43df-ba71-e7a22e576f04)
 New dungeon with colour emitting entities
 ![Screenshot 2026-03-20 213828](https://github.students.cs.ubc.ca/user-attachments/assets/dedea943-1305-4cf3-a04c-a785256a2679)
-
 
 # Docs
 
