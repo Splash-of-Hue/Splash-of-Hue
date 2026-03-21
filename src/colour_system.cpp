@@ -241,8 +241,9 @@ void ColourSystem::applyColorToPlayer(COLOUR_STATE colour)
 		{
 			vec2 player_position = registry.positions.get(player);
 			Entity& emission_entity = createCircle(player_position, 1.f, RENDER_LAYER::PLAYER, DEFAULT_COLOUR_VEC4);
-			LightEmission& light_emission_component = registry.lightEmissions.emplace(emission_entity);
+			registry.scales.emplace(emission_entity);
 
+			LightEmission& light_emission_component = registry.lightEmissions.emplace(emission_entity);
 			light_emission_component.MAX_RADIUS = EMISSION_SIZE::PLAYER_EMISSION;
 			light_emission_component.TIME_TO_GROW = TIME_TO_GROW;
 			light_emission_component.offset = EMISSION_OFFSET.at("PLAYER");

@@ -75,7 +75,8 @@ Entity createCircle(vec2 position, float radius, RENDER_LAYER render_layer, vec4
 		entity,
 		{
 			EFFECT_ASSET_ID::DEFAULT,
-			GEOMETRY_BUFFER_ID::CIRCLE
+			GEOMETRY_BUFFER_ID::CIRCLE,
+			render_layer
 		}
 	);
 	
