@@ -70,6 +70,7 @@ void LoaderSystem::load_level(int level_uid)
 		const vec2 level_world_center = scale_to_level(vec2(level.position.x, level.position.y)) + window_center();
 		vec2& level_position = registry.positions.insert(loading_level_entity, level_world_center);
 		level_component.background_color = vec4(level.bg_color.r, level.bg_color.g, level.bg_color.b, level.bg_color.a) / 255.0f;
+		level_component.depth = level.depth;
 	}
 
 	// get a layer
@@ -144,6 +145,22 @@ void LoaderSystem::load_level(int level_uid)
 	Level& level_component = registry.levels.get(level_entity);
 	level_component.quantized_space_data = quantized_floor_data;
 	level_component.is_loaded = true;
+
+	// Mark visited if this is the initial load or if the player is currently in this level
+	if (is_initial_load)
+	{
+		level_component.is_visited = true;
+		is_initial_load = false;
+	}
+	else if (!level_has_been_loaded_before && !registry.players.entities.empty())
+	{
+		Entity player_entity = registry.players.entities[0];
+		if (registry.currentLevels.has(player_entity) &&
+			registry.currentLevels.get(player_entity).level_uid == level_uid)
+		{
+			level_component.is_visited = true;
+		}
+	}
 	// Use level background color to update screen background
 	registry.screenStates.components[0].background_color = level_component.background_color;
 	// Make the camera request at the end of loading
@@ -216,12 +233,38 @@ void load_entity_layer(const ldtk::Layer& layer)
 		case LOADING_LAYER_TYPE::EXTRA_ENTITIES:
 			load_extra_entities(layer);
 			return;
+		case LOADING_LAYER_TYPE::MINIMAP:
+			laod_minimap(layer);
+			return;
 		case LOADING_LAYER_TYPE::DECORATIONS:
 			load_decorations(layer);
 			return;
 		case LOADING_LAYER_TYPE::INVALID:
 			std::cout << "Layer " << layer.getName() << ": Invalid layer type." << std::endl;
 			return;
+	}
+}
+
+void laod_minimap(const ldtk::Layer& layer)
+{
+
+	// iterate on Enemy entities
+	for (const ldtk::Entity& extra_entity : layer.allEntities())
+	{
+		const std::string extra_entity_type_string = extra_entity.getName();
+		ENTITY_TYPE extra_entity_type = entity_type_from_string(extra_entity_type_string);
+
+		switch (extra_entity_type)
+		{
+			case ENTITY_TYPE::MINIMAP_REFERENCE:
+				load_minimap_reference(extra_entity);
+				continue;
+			case ENTITY_TYPE::MINIMAP_HALLWAY:
+				load_minimap_hallway(extra_entity);
+				continue;
+			default:
+				continue;
+		}
 	}
 }
 
@@ -578,6 +621,47 @@ void load_mushroom(const ldtk::Entity& mushroom_entity)
 	Entity mushroom = createMushroom(position, width, colour_state, mushroom_size);
 
 	registry.levelEntities.insert(mushroom, { mushroom_entity.layer->level->uid });
+}
+
+void load_minimap_reference(const ldtk::Entity& minimap_reference_entity)
+{
+	const int level_uid = minimap_reference_entity.layer->level->uid;
+	const ldtk::IntPoint& world_pos = minimap_reference_entity.getWorldPosition();
+	const ldtk::IntPoint& size = minimap_reference_entity.getSize();
+
+	const auto level_match = [&](const Level& level) { return level.uid == level_uid; };
+	auto level_it = std::find_if(
+		registry.levels.components.begin(),
+		registry.levels.components.end(), level_match);
+
+	if (level_it == registry.levels.components.end()) {
+		return;
+	}
+
+	level_it->floor_ldtk_position = { world_pos.x, world_pos.y };
+	level_it->floor_ldtk_size = { size.x, size.y };
+}
+
+void load_minimap_hallway(const ldtk::Entity& minimap_hallway_entity)
+{
+	const int level_uid = minimap_hallway_entity.layer->level->uid;
+	const ldtk::IntPoint& world_pos = minimap_hallway_entity.getWorldPosition();
+	const ldtk::IntPoint& size = minimap_hallway_entity.getSize();
+
+	const auto level_match = [&](const Level& level) { return level.uid == level_uid; };
+	auto level_it = std::find_if(
+		registry.levels.components.begin(),
+		registry.levels.components.end(), level_match);
+
+	if (level_it == registry.levels.components.end()) {
+		return;
+	}
+
+	level_it->hallway_ldtk_rects.push_back({
+		{ world_pos.x, world_pos.y },
+		{ size.x, size.y }
+		});
+	
 }
 
 void LoaderSystem::unload_level(int level_uid)

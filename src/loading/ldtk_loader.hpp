@@ -32,11 +32,15 @@ void load_puzzle_bubble(const ldtk::Entity& puzzle_bubble_entity);
 void load_extra_entities(const ldtk::Layer& layer);
 void initialize_player(const ldtk::Entity& initial_player_position_entity);
 void load_wall(const ldtk::Entity& wall_entity);
+void load_minimap_reference(const ldtk::Entity& minimap_reference_entity);
+void load_minimap_hallway(const ldtk::Entity& minimap_hallway_entity);
 void load_puzzle_wall(const ldtk::Entity& puzzle_wall_entity);
 void load_puzzle_solution(const ldtk::Entity& puzzle_solution_entity);
 // Entities - Decorations
 void load_decorations(const ldtk::Layer& layer);
 void load_puzzle_bubble_fake(const ldtk::Entity& puzzle_bubble_fake_entity);
+// Entities - Minimap
+void laod_minimap(const ldtk::Layer& layer);
 
 const inline vec2 scale_to_level(vec2 input)
 {
