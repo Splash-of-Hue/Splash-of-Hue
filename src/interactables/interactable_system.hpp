@@ -12,6 +12,7 @@ public:
 	void step(float elapsed_ms);
 private:
 	void step_moss_toggle();
+	void step_pressure_plates();
 	void step_colour_orbs();
 	void step_mushrooms();
 	void step_puzzle_bubbles();

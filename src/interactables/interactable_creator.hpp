@@ -23,5 +23,17 @@ Entity createMushroom(vec2 position, float radius, COLOUR_STATE colour_state, MU
 /// <returns>The entity of the toggle.</returns>
 Entity createMossToggle(const int level_uid, vec2 position, vec2 size, std::vector<std::string> connected_wall_ids);
 
+/// <summary>
+/// Creates a pressure plate and returns the entity. 
+/// Acts similarly to the moss toggle in the sense that it controls doors, 
+/// except the pressure plate must be stepped on by a player/creature
+/// </summary>
+/// <param name="level_uid">The unique ID of the level that the pressure plate is in.</param>
+/// <param name="position">The (x, y) coordinates of the center of the pressure plate.</param>
+/// <param name="size">The (width, height) of the pressure plate.</param>
+/// <param name="connected_wall_ids">The IDs of the walls controlled by the pressure plate.</param>
+/// <returns>The entity of the pressure plate.</returns>
+Entity createPressurePlate(const int level_uid, vec2 position, vec2 size, std::vector<std::string> connected_wall_ids);
+
 Entity createPuzzleBubble(const int level_uid, std::string id, vec2 position, COLOUR_STATE colour_solution);
 Entity createPuzzleBubbleFake(const int level_uid, vec2 position, COLOUR_STATE colour);

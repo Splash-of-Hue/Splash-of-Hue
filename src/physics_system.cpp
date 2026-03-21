@@ -128,6 +128,19 @@ bool is_light_emission_collision(Entity& entity_i, Entity& entity_j)
 	return false;
 }
 
+// inBoundingBox is only applied to entities that need to check positional collisions
+// and not a colour collision or light emission collision 
+bool is_bounding_box_collision(Entity& entity_i, Entity& entity_j)
+{
+	if (registry.inBoundingBox.has(entity_i) && (registry.players.has(entity_j) || registry.creatures.has(entity_j)) ||
+		registry.inBoundingBox.has(entity_j) && (registry.players.has(entity_i) || registry.creatures.has(entity_i)))
+	{
+		return true;
+	}
+
+	return false;
+}
+
 //todo: https://trello.com/c/tXEZLSr7/229-1-optimize-inradiuslist-in-physicssystemcpp
 bool checkForRepeatedRadiuses(Entity& emission_entity, std::vector<Entity>& radius_list)
 {
@@ -189,6 +202,30 @@ void light_emission_collisions(Entity& entity_i, Entity& entity_j)
 			addSpecificRadiusCollision(other_entity, light_emission_entity, registry.interactables, in_radius_component.inInteractableRadius, in_radius_component.interactableRadiusList);
 	}
 }
+
+void bounding_box_collisions(Entity& entity_i, Entity& entity_j)
+{
+	vec2& posI = registry.positions.get(entity_i);
+	vec2& posJ = registry.positions.get(entity_j);
+
+	assert((registry.inBoundingBox.has(entity_i) || registry.inBoundingBox.has(entity_j)) && "bounding_box_collisions was called for an entity collision that does not have an inBoundingBox component");
+	Entity& bounding_box_entity = registry.inBoundingBox.has(entity_i) ? entity_i : entity_j;
+	Entity& other_entity = registry.inBoundingBox.has(entity_i) ? entity_j : entity_i;
+
+	if (!registry.inBoundingBox.has(bounding_box_entity))
+	{
+		registry.inBoundingBox.emplace(bounding_box_entity);
+	}
+
+	InBoundingBox& inBoundingBox = registry.inBoundingBox.get(bounding_box_entity);
+
+	inBoundingBox.isTouchingOtherEntity = true;
+	inBoundingBox.updatedThisStep = true;
+	
+	// Unordered_set automatically guarantees no duplicates so no need to duplicate check! :)
+	inBoundingBox.entityTouchingList.emplace(&other_entity); // see definition of entityTouchingList for reason behind inserting a reference
+}
+
 void handle_hurt_collision(Entity& entity_i, Entity& entity_j) {
 
 	if (registry.creatures.has(entity_i) || registry.creatures.has(entity_j))
@@ -558,6 +595,7 @@ void PhysicsSystem::step(float elapsed_ms)
 {
 	handle_movement(DT);
 	checkIfInRadius();
+	checkIfInBoundingBox();
 
 	// check for collisions between all collidable entities
 	ComponentContainer<Collidable>& collidables = registry.collidables;
@@ -576,6 +614,7 @@ void PhysicsSystem::step(float elapsed_ms)
 					continue;
 				}
 			}
+
 			//if passes AABB check, then try mesh collision
 			if (box_collides(entity_i, entity_j)) {
 				if (registry.hurtboxes.has(entity_i) || registry.hurtboxes.has(entity_j))
@@ -601,6 +640,10 @@ void PhysicsSystem::step(float elapsed_ms)
 						{
 							light_emission_collisions(entity_i, entity_j);
 						}
+						else if (is_bounding_box_collision(entity_i, entity_j))
+						{
+							bounding_box_collisions(entity_i, entity_j);
+						}
 						else {
 							handle_misc_collision(entity_i, entity_j);
 							handle_hurt_collision(entity_i, entity_j);
@@ -625,7 +668,12 @@ void PhysicsSystem::step(float elapsed_ms)
 				{
 					light_emission_collisions(entity_i, entity_j);
 				}
-				else {
+				else if (is_bounding_box_collision(entity_i, entity_j))
+				{
+					bounding_box_collisions(entity_i, entity_j);
+				}
+				else 
+				{
 					handle_misc_collision(entity_i, entity_j);
 					handle_hurt_collision(entity_i, entity_j);
 				}
@@ -672,6 +720,50 @@ void PhysicsSystem::handle_movement(float elapsed_ms)
 			}
 		}
 	}
+}
+
+// If another entity is no longer touching this entity, remove it from its list
+void PhysicsSystem::checkIfInBoundingBox()
+{
+	for (Entity& entity : registry.inBoundingBox.entities)
+	{
+		InBoundingBox& in_bounding_box_component = registry.inBoundingBox.get(entity);
+
+		if (in_bounding_box_component.isTouchingOtherEntity = false)
+		{
+			continue;
+		}
+
+		checkIfColliding(entity, in_bounding_box_component);
+
+		if (in_bounding_box_component.entityTouchingList.size() == 0)
+		{
+			in_bounding_box_component.isTouchingOtherEntity = false;
+		}
+	}
+}
+
+void PhysicsSystem::checkIfColliding(Entity& entity, InBoundingBox& in_bounding_box_component) // Pass in entity and component to avoid additional registry.inBoundingBox.gets as we use both
+{
+	std::unordered_set<Entity*>& touching_list = in_bounding_box_component.entityTouchingList;
+	bool& updatedThisStep = in_bounding_box_component.updatedThisStep;
+
+	for (auto it = touching_list.begin(); it != touching_list.end();)
+	{
+		const Entity* touching_entity = *it;
+
+		if (!registry.sizes.has(*touching_entity) || !box_collides(entity, *touching_entity))
+		{
+			it = touching_list.erase(it);
+			updatedThisStep = true;
+		}
+		else
+		{
+			++it;
+		}
+	}
+
+	return;
 }
 
 void PhysicsSystem::checkIfInRadius()

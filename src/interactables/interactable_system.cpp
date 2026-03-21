@@ -20,6 +20,7 @@ void InteractableSystem::step(float elapsed_ms)
 	if (registry.players.entities.empty()) return;
 
 	step_moss_toggle();
+	step_pressure_plates();
 	step_colour_orbs();
 	step_mushrooms();
 	step_puzzle_bubbles();
@@ -160,6 +161,9 @@ void InteractableSystem::step_moss_toggle()
 			{ COLOUR_STATE::BLUE, ANIMATION_TRIGGER::IDLE_BLUE },
 		};
 		AnimationTrigger trigger = { colour_animation_trigger_map[colour_state] };
+		if (registry.animation_triggers.has(moss_toggle_entity)) {
+			registry.animation_triggers.remove(moss_toggle_entity);
+		}
 		registry.animation_triggers.emplace(moss_toggle_entity, trigger);
 
 		// Update each of the connected walls that is spawned
@@ -177,8 +181,78 @@ void InteractableSystem::step_moss_toggle()
 			}
 
 			registry.colourStates.get(*wall_entity_iterator).curr_colour_state = colour_state;
+			if (registry.animation_triggers.has(*wall_entity_iterator)){
+				registry.animation_triggers.remove(*wall_entity_iterator);
+			}
 			registry.animation_triggers.emplace(*wall_entity_iterator, trigger);
+
 		}
+	}
+}
+
+void InteractableSystem::step_pressure_plates()
+{
+	for (Entity& pressure_plate_entity : registry.pressurePlates.entities)
+	{
+		PressurePlate& pressure_plate_component = registry.pressurePlates.get(pressure_plate_entity);
+		// Bounding Box is added at creation time so no assertion needed to check if pressure plate has it
+		InBoundingBox& in_bounding_box_component = registry.inBoundingBox.get(pressure_plate_entity);
+
+		// Don't update if there hasn't been a change in the collisions
+		if (!in_bounding_box_component.updatedThisStep)
+		{
+			continue;
+		}
+
+		// update connected walls!
+		for (std::string& connected_wall_id : pressure_plate_component.connected_wall_ids)
+		{
+			const auto wall_id_match = [&](const Entity& pressure_plate_entity)
+			{
+				return registry.pressurePlateWalls.get(pressure_plate_entity).id == connected_wall_id;
+			};
+			auto& wall_entity_iterator = std::find_if(registry.pressurePlateWalls.entities.begin(), registry.pressurePlateWalls.entities.end(), wall_id_match);
+
+			if (wall_entity_iterator == registry.pressurePlateWalls.entities.end())
+			{
+				continue;
+			}
+
+			// if the pressure plate is being pushed, open up the associated wall
+			if (in_bounding_box_component.isTouchingOtherEntity)
+			{
+				registry.pressurePlateWalls.get(*wall_entity_iterator).is_open = false;
+				registry.collidables.get(*wall_entity_iterator).inelastic = false;
+
+				// TODO QWNAo0jQ 
+				if (registry.renderRequests.has(*wall_entity_iterator))
+				{
+					registry.renderRequests.remove(*wall_entity_iterator);
+				}
+			}
+			// pressure plate is not being pushed, close the wall
+			else
+			{
+				registry.pressurePlateWalls.get(*wall_entity_iterator).is_open = true;
+				registry.collidables.get(*wall_entity_iterator).inelastic = true;
+
+				// TODO QWNAo0jQ 
+				if (!registry.renderRequests.has(*wall_entity_iterator))
+				{
+					registry.renderRequests.insert(
+						*wall_entity_iterator,
+						{
+							EFFECT_ASSET_ID::DEFAULT,
+							GEOMETRY_BUFFER_ID::RECTANGLE,
+							RENDER_LAYER::WALLS_FRONT
+						}
+					);
+				}
+			}
+		}
+
+		// Reset updatedThisStep
+		in_bounding_box_component.updatedThisStep = false;
 	}
 }
 
@@ -239,7 +313,7 @@ void InteractableSystem::handle_mushrooms(Entity& mushroom_entity)
 		{in_radius_component.inCreatureRadius, in_radius_component.creatureRadiusList},
 		{in_radius_component.inPlayerRadius, in_radius_component.playerRadiusList},
 		{in_radius_component.inInteractableRadius, in_radius_component.interactableRadiusList}
-															 });
+		});
 
 	if (mushroom_colour_state.curr_colour_state != colour_state)
 	{
@@ -255,15 +329,15 @@ void InteractableSystem::handle_mushrooms(Entity& mushroom_entity)
 
 		switch (registry.mushrooms.get(mushroom_entity).size)
 		{
-			case MUSHROOM_SIZE::SMALL:
-				light_emission_component.MAX_RADIUS = EMISSION_SIZE::MUSHROOM_SMALL_EMISSION;
-				break;
-			case MUSHROOM_SIZE::MEDIUM:
-				light_emission_component.MAX_RADIUS = EMISSION_SIZE::MUSHROOM_MEDIUM_EMISSION;
-				break;
-			case MUSHROOM_SIZE::LARGE:
-				light_emission_component.MAX_RADIUS = EMISSION_SIZE::MUSHROOM_LARGE_EMISSION;
-				break;
+		case MUSHROOM_SIZE::SMALL:
+			light_emission_component.MAX_RADIUS = EMISSION_SIZE::MUSHROOM_SMALL_EMISSION;
+			break;
+		case MUSHROOM_SIZE::MEDIUM:
+			light_emission_component.MAX_RADIUS = EMISSION_SIZE::MUSHROOM_MEDIUM_EMISSION;
+			break;
+		case MUSHROOM_SIZE::LARGE:
+			light_emission_component.MAX_RADIUS = EMISSION_SIZE::MUSHROOM_LARGE_EMISSION;
+			break;
 		}
 
 		light_emission_component.TIME_TO_GROW = TIME_TO_GROW;

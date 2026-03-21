@@ -2502,65 +2502,7 @@
 					"seed": 4752616,
 					"overrideTilesetUid": null,
 					"gridTiles": [],
-					"entityInstances": [
-						{
-							"__identifier": "PuzzleBubbleFake",
-							"__grid": [18,13],
-							"__pivot": [0.5,0.5],
-							"__tags": ["Floor_Decoration"],
-							"__tile": { "tilesetUid": 94, "x": 0, "y": 0, "w": 256, "h": 256 },
-							"__smartColor": "#2413E3",
-							"iid": "de935950-21a0-11f1-aa60-a9f9ac1492ef",
-							"width": 75,
-							"height": 75,
-							"defUid": 92,
-							"px": [592,432],
-							"fieldInstances": [{ "__identifier": "Color", "__type": "LocalEnum.ColorState", "__value": "Blue", "__tile": null, "defUid": 96, "realEditorValues": [{
-								"id": "V_String",
-								"params": ["Blue"]
-							}] }],
-							"__worldX": 592,
-							"__worldY": 432
-						},
-						{
-							"__identifier": "PuzzleBubbleFake",
-							"__grid": [22,13],
-							"__pivot": [0.5,0.5],
-							"__tags": ["Floor_Decoration"],
-							"__tile": { "tilesetUid": 94, "x": 0, "y": 0, "w": 256, "h": 256 },
-							"__smartColor": "#BE4A2F",
-							"iid": "e041f3b0-21a0-11f1-aa60-0f26343bfe44",
-							"width": 75,
-							"height": 75,
-							"defUid": 92,
-							"px": [720,432],
-							"fieldInstances": [{ "__identifier": "Color", "__type": "LocalEnum.ColorState", "__value": "Red", "__tile": null, "defUid": 96, "realEditorValues": [{
-								"id": "V_String",
-								"params": ["Red"]
-							}] }],
-							"__worldX": 720,
-							"__worldY": 432
-						},
-						{
-							"__identifier": "PuzzleBubbleFake",
-							"__grid": [26,13],
-							"__pivot": [0.5,0.5],
-							"__tags": ["Floor_Decoration"],
-							"__tile": { "tilesetUid": 94, "x": 0, "y": 0, "w": 256, "h": 256 },
-							"__smartColor": "#FFFFFF",
-							"iid": "e1f3e970-21a0-11f1-aa60-11355585f485",
-							"width": 75,
-							"height": 75,
-							"defUid": 92,
-							"px": [848,432],
-							"fieldInstances": [{ "__identifier": "Color", "__type": "LocalEnum.ColorState", "__value": "Neutral", "__tile": null, "defUid": 96, "realEditorValues": [{
-								"id": "V_String",
-								"params": ["Neutral"]
-							}] }],
-							"__worldX": 848,
-							"__worldY": 432
-						}
-					]
+					"entityInstances": []
 				},
 				{
 					"__identifier": "Extra_Entities",
@@ -2681,65 +2623,6 @@
 							"fieldInstances": [],
 							"__worldX": 904,
 							"__worldY": 872
-						},
-						{
-							"__identifier": "PuzzleWall",
-							"__grid": [75,19],
-							"__pivot": [0.5,0.5],
-							"__tags": [ "Internal_Wall", "Puzzle_Trigger" ],
-							"__tile": null,
-							"__smartColor": "#2CE8F5",
-							"iid": "ccf48bb0-21a0-11f1-aa60-bf7a6bea02ae",
-							"width": 80,
-							"height": 192,
-							"defUid": 101,
-							"px": [1208,312],
-							"fieldInstances": [],
-							"__worldX": 1208,
-							"__worldY": 312
-						},
-						{
-							"__identifier": "PuzzleSolution",
-							"__grid": [18,36],
-							"__pivot": [0.5,0.5],
-							"__tags": ["Puzzle"],
-							"__tile": null,
-							"__smartColor": "#0099DB",
-							"iid": "d0d45df0-21a0-11f1-aa60-edaf6fa648e4",
-							"width": 100,
-							"height": 100,
-							"defUid": 98,
-							"px": [296,584],
-							"fieldInstances": [
-								{ "__identifier": "PuzzlePieces", "__type": "Array<EntityRef>", "__value": [ {
-									"entityIid": "d6bcaa60-21a0-11f1-aa60-9352a5f3b18a",
-									"layerIid": "e519eeb0-d380-11f0-a1bc-09692cbe4ff9",
-									"levelIid": "def30d80-d380-11f0-a1bc-2363b8ac7cbf",
-									"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787"
-								}, {
-									"entityIid": "d50361a0-21a0-11f1-aa60-7f097f8f2e53",
-									"layerIid": "e519eeb0-d380-11f0-a1bc-09692cbe4ff9",
-									"levelIid": "def30d80-d380-11f0-a1bc-2363b8ac7cbf",
-									"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787"
-								} ], "__tile": null, "defUid": 99, "realEditorValues": [ {
-									"id": "V_String",
-									"params": ["d6bcaa60-21a0-11f1-aa60-9352a5f3b18a"]
-								}, {
-									"id": "V_String",
-									"params": ["d50361a0-21a0-11f1-aa60-7f097f8f2e53"]
-								} ] },
-								{ "__identifier": "Triggers", "__type": "Array<EntityRef>", "__value": [{
-									"entityIid": "ccf48bb0-21a0-11f1-aa60-bf7a6bea02ae",
-									"layerIid": "ca7becd0-fa90-11f0-85ba-81bccb6ba5f4",
-									"levelIid": "def30d80-d380-11f0-a1bc-2363b8ac7cbf",
-									"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787"
-								}], "__tile": null, "defUid": 100, "realEditorValues": [{
-									"id": "V_String",
-									"params": ["ccf48bb0-21a0-11f1-aa60-bf7a6bea02ae"]
-								}] }
-							],
-							"__worldX": 296,
-							"__worldY": 584
 						}
 					]
 				},
@@ -2838,82 +2721,6 @@
 							"fieldInstances": [{ "__identifier": "ControlPictureType", "__type": "LocalEnum.ControlPictureType", "__value": "WASD", "__tile": null, "defUid": 65, "realEditorValues": [] }],
 							"__worldX": 896,
 							"__worldY": 424
-						},
-						{
-							"__identifier": "PuzzleBubble",
-							"__grid": [81,103],
-							"__pivot": [0.5,0.5],
-							"__tags": [ "Floor_Interactable", "Puzzle_Piece" ],
-							"__tile": { "tilesetUid": 93, "x": 0, "y": 0, "w": 256, "h": 256 },
-							"__smartColor": "#2413E3",
-							"iid": "d50361a0-21a0-11f1-aa60-7f097f8f2e53",
-							"width": 75,
-							"height": 75,
-							"defUid": 91,
-							"px": [652,828],
-							"fieldInstances": [{ "__identifier": "ColorSolution", "__type": "LocalEnum.ColorState", "__value": "Blue", "__tile": null, "defUid": 97, "realEditorValues": [{
-								"id": "V_String",
-								"params": ["Blue"]
-							}] }],
-							"__worldX": 652,
-							"__worldY": 828
-						},
-						{
-							"__identifier": "PuzzleBubble",
-							"__grid": [81,76],
-							"__pivot": [0.5,0.5],
-							"__tags": [ "Floor_Interactable", "Puzzle_Piece" ],
-							"__tile": { "tilesetUid": 93, "x": 0, "y": 0, "w": 256, "h": 256 },
-							"__smartColor": "#2413E3",
-							"iid": "d6bcaa60-21a0-11f1-aa60-9352a5f3b18a",
-							"width": 75,
-							"height": 75,
-							"defUid": 91,
-							"px": [652,612],
-							"fieldInstances": [{ "__identifier": "ColorSolution", "__type": "LocalEnum.ColorState", "__value": "Blue", "__tile": null, "defUid": 97, "realEditorValues": [{
-								"id": "V_String",
-								"params": ["Blue"]
-							}] }],
-							"__worldX": 652,
-							"__worldY": 612
-						},
-						{
-							"__identifier": "PuzzleBubble",
-							"__grid": [137,96],
-							"__pivot": [0.5,0.5],
-							"__tags": [ "Floor_Interactable", "Puzzle_Piece" ],
-							"__tile": { "tilesetUid": 93, "x": 0, "y": 0, "w": 256, "h": 256 },
-							"__smartColor": "#BE4A2F",
-							"iid": "e7a7df70-21a0-11f1-aa60-db86036493fb",
-							"width": 75,
-							"height": 75,
-							"defUid": 91,
-							"px": [1100,772],
-							"fieldInstances": [{ "__identifier": "ColorSolution", "__type": "LocalEnum.ColorState", "__value": "Red", "__tile": null, "defUid": 97, "realEditorValues": [{
-								"id": "V_String",
-								"params": ["Red"]
-							}] }],
-							"__worldX": 1100,
-							"__worldY": 772
-						},
-						{
-							"__identifier": "PuzzleBubble",
-							"__grid": [150,108],
-							"__pivot": [0.5,0.5],
-							"__tags": [ "Floor_Interactable", "Puzzle_Piece" ],
-							"__tile": { "tilesetUid": 93, "x": 0, "y": 0, "w": 256, "h": 256 },
-							"__smartColor": "#FFFFFF",
-							"iid": "e94bf280-21a0-11f1-aa60-6f6d511abda4",
-							"width": 75,
-							"height": 75,
-							"defUid": 91,
-							"px": [1204,868],
-							"fieldInstances": [{ "__identifier": "ColorSolution", "__type": "LocalEnum.ColorState", "__value": "Neutral", "__tile": null, "defUid": 97, "realEditorValues": [{
-								"id": "V_String",
-								"params": ["Neutral"]
-							}] }],
-							"__worldX": 1204,
-							"__worldY": 868
 						}
 					]
 				},

@@ -69,6 +69,8 @@ public:
 	ComponentContainer<MossToggle> mossToggles;
 	ComponentContainer<Mushroom> mushrooms;	
 	ComponentContainer<OrbCollected> orbCollected;
+	ComponentContainer<PressurePlate> pressurePlates;
+	ComponentContainer<PressurePlateWall> pressurePlateWalls;
 	ComponentContainer<Puzzle> puzzles;	
 	ComponentContainer<PuzzleBubble> puzzle_bubbles;	
 	ComponentContainer<PuzzleBuildRequest> puzzle_build_requests;
@@ -91,6 +93,7 @@ public:
 	ComponentContainer<Collision> collisions;
 	ComponentContainer<PolygonMesh> hitboxes;
 	ComponentContainer<PolygonMesh> hurtboxes;
+	ComponentContainer<InBoundingBox> inBoundingBox;
 	ComponentContainer<InRadius> inRadius;
 	// Physics - Movement / Transforms
 	ComponentContainer<Angle> angles;
@@ -169,6 +172,8 @@ public:
 		registry_list.push_back(&mossToggles);
 		registry_list.push_back(&mushrooms);
 		registry_list.push_back(&orbCollected);
+		registry_list.push_back(&pressurePlates);
+		registry_list.push_back(&pressurePlateWalls);
 		registry_list.push_back(&puzzles);
 		registry_list.push_back(&puzzle_bubbles);
 		registry_list.push_back(&puzzle_build_requests);
@@ -191,6 +196,7 @@ public:
 		registry_list.push_back(&collisions);
 		registry_list.push_back(&hitboxes);
 		registry_list.push_back(&hurtboxes);
+		registry_list.push_back(&inBoundingBox);
 		registry_list.push_back(&inRadius);
 		// Physics - Movement / Transforms
 		registry_list.push_back(&angles);
