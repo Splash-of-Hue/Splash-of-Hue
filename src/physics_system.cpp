@@ -649,7 +649,6 @@ void PhysicsSystem::step(float elapsed_ms)
 
 			//if passes AABB check, then try mesh collision
 			if (box_collides(entity_i, entity_j)) {
-
 				if (registry.hurtboxes.has(entity_i) || registry.hurtboxes.has(entity_j))
 				{
 					vec3 penetration = mesh_collides(entity_i, entity_j, true);
