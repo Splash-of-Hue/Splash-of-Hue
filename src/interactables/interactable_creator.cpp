@@ -1,10 +1,11 @@
+#include "animation/animation_constants.hpp"
 #include "ecs/registry.hpp"
 #include "interactables/interactable_components.hpp"
 #include "interactables/interactable_creator.hpp"
 #include "shapes/shape_build_init.hpp"
+#include <iostream>
 #include <string>
 #include <vector>
-#include <iostream>
 
 Entity addGeneralInteractableComponents(vec2 position, Size& size, INTERACTABLE_TYPE interactable_type)
 {
@@ -41,7 +42,7 @@ Entity createBox(vec2 position, float width, float height)
 
 Entity createColourOrb(vec2 position, float radius, COLOUR_STATE colour_state)
 {
-	std::cout << "createColourOrb called, palette size: " << registry.colourPalettes.components.size() << std::endl; 
+	std::cout << "createColourOrb called, palette size: " << registry.colourPalettes.components.size() << std::endl;
 	Size size = { 2.0f * radius, 2.0f * radius };
 	Entity colourOrb = addGeneralInteractableComponents(position, size, INTERACTABLE_TYPE::COLOUR_ORB);
 	Collidable& collidable = registry.collidables.emplace(colourOrb);
@@ -50,7 +51,7 @@ Entity createColourOrb(vec2 position, float radius, COLOUR_STATE colour_state)
 
 	ColourOrb orb;
 	orb.colour = colour_state;
-	registry.colourOrbs.insert(colourOrb, orb); 
+	registry.colourOrbs.insert(colourOrb, orb);
 
 	const ColourPalette& palette = registry.colourPalettes.components[0];
 	registry.colors.insert(colourOrb, palette.state_to_colour.at(colour_state));
@@ -64,7 +65,7 @@ Entity createColourOrb(vec2 position, float radius, COLOUR_STATE colour_state)
 			GEOMETRY_BUFFER_ID::CIRCLE,
 			RENDER_LAYER::FLOOR_INTERACTABLES,
 		}
-	);
+		);
 
 	return colourOrb;
 }
@@ -107,20 +108,17 @@ Entity createMushroom(vec2 position, float radius, COLOUR_STATE colour_state, MU
 	return mushroom;
 }
 
-Entity createMossToggle(const int level_uid, vec2 position, vec2 size, COLOUR_STATE color_state, std::vector<std::string> connected_wall_ids)
+Entity createMossToggle(const int level_uid, vec2 position, vec2 size, std::vector<std::string> connected_wall_ids)
 {
 	Entity toggle_entity;
-	const ColourPalette& palette = registry.colourPalettes.components[0];
-	auto& color_from_state = palette.state_to_colour.at(color_state);
 	MossToggle& moss_toggle = registry.mossToggles.insert(toggle_entity, { connected_wall_ids });
 	registry.positions.insert(toggle_entity, position);
 	registry.scales.insert(toggle_entity, size);
 	registry.sizes.insert(toggle_entity, { size.x, size.y });
-	registry.colors.emplace(toggle_entity, color_from_state);
 	registry.angles.emplace(toggle_entity);
 	Collidable& col = registry.collidables.emplace(toggle_entity);
 	col.inelastic = false;
-	registry.colourStates.insert(toggle_entity, { color_state, color_state });
+	registry.colourStates.insert(toggle_entity, { COLOUR_STATE::NEUTRAL, COLOUR_STATE::NEUTRAL });
 	registry.renderRequests.insert(
 		toggle_entity,
 		{
@@ -129,7 +127,7 @@ Entity createMossToggle(const int level_uid, vec2 position, vec2 size, COLOUR_ST
 			RENDER_LAYER::FLOOR_INTERACTABLES
 		}
 	);
-	const ANIMATION_TRIGGER trigger = color_state == COLOUR_STATE::NEUTRAL ? ANIMATION_TRIGGER::IDLE : color_state == COLOUR_STATE::BLUE ? ANIMATION_TRIGGER::IDLE_BLUE : ANIMATION_TRIGGER::IDLE_RED;
+	const ANIMATION_TRIGGER trigger = ANIMATION_TRIGGER::IDLE;
 	const Animatable animatable = {
 		ANIMATABLE_TYPE::MOSS_TRIGGER,
 		ANIMATION_BEHAVIOR::LOOP,
@@ -140,4 +138,34 @@ Entity createMossToggle(const int level_uid, vec2 position, vec2 size, COLOUR_ST
 	registry.textured.insert(toggle_entity, { TEXTURE_ASSET_ID::MOSS });
 
 	return toggle_entity;
+}
+
+Entity createPressurePlate(const int level_uid, vec2 position, vec2 size, std::vector<std::string> connected_wall_ids)
+{
+	Size size_component = { size.x, size.y };
+	Entity pressure_plate_entity = addGeneralInteractableComponents(position, size_component, INTERACTABLE_TYPE::PRESSURE_PLATE);
+	PressurePlate& pressure_plate = registry.pressurePlates.emplace(pressure_plate_entity);
+	pressure_plate.connected_wall_ids = connected_wall_ids;
+
+	registry.scales.insert(pressure_plate_entity, size);
+
+	Collidable& col = registry.collidables.emplace(pressure_plate_entity);
+	col.inelastic = false;
+
+	InBoundingBox& in_bounding_box_component = registry.inBoundingBox.emplace(pressure_plate_entity);
+	in_bounding_box_component.updatedThisStep = true;
+
+	// todo QWNAo0jQ
+	registry.rectangles.emplace(pressure_plate_entity);
+	registry.colors.insert(pressure_plate_entity, vec4(0.0f, 0.0f, 0.75f, 1.0f));
+	registry.renderRequests.insert(
+		pressure_plate_entity,
+		{
+			EFFECT_ASSET_ID::DEFAULT,
+			GEOMETRY_BUFFER_ID::RECTANGLE,
+			RENDER_LAYER::FLOOR_INTERACTABLES
+		}
+	);
+
+	return pressure_plate_entity;
 }

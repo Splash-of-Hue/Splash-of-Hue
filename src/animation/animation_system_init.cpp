@@ -235,18 +235,23 @@ void AnimationSystem::init()
 		);
 	generate_animation(
 		ANIMATABLE_TYPE::MOSS_WALL,
+		ANIMATION_TRIGGER::IDLE,
+		{
+				{ TEXTURE_ASSET_ID::MOSS_NEUTRAL, RenderSourceRect { vec2(0.300, 0.05), vec2(0.375, 0.45) }},
+		}
+		);
+	generate_animation(
+		ANIMATABLE_TYPE::MOSS_WALL,
 		ANIMATION_TRIGGER::IDLE_RED,
 		{
-				{ TEXTURE_ASSET_ID::MOSS, RenderSourceRect { vec2(0.300, 0.375), vec2(0.5, 0.25) }},
+				{ TEXTURE_ASSET_ID::MOSS, RenderSourceRect { vec2(0.3, 0.4), vec2(0.36, 0.225) }},
 		}
-	);
+		);
 	generate_animation(
 		ANIMATABLE_TYPE::MOSS_WALL,
 		ANIMATION_TRIGGER::IDLE_BLUE,
 		{
-				{ TEXTURE_ASSET_ID::MOSS, RenderSourceRect { vec2(0.300, 0.625), vec2(0.5, 0.35) }},
-				// 				{ TEXTURE_ASSET_ID::MOSS, RenderSourceRect { vec2(0.300, 0.625), vec2(0.5, 0.3) }},
-
+				{ TEXTURE_ASSET_ID::MOSS, RenderSourceRect { vec2(0.3, 0.64), vec2(0.35, 0.225) }},
 		}
 	);
 

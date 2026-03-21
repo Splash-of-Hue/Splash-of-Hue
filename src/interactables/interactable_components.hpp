@@ -32,6 +32,14 @@ struct MossToggle
 	std::vector<std::string> connected_wall_ids;
 };
 
+struct PressurePlate
+{
+	std::vector<std::string> connected_wall_ids;
+
+	// Is this pressure plate actively being pressed?
+	bool is_pressed = false;
+};
+
 /** General components **/
 
 // for things that break on contact (i.e. boxes)

@@ -241,6 +241,9 @@ void load_extra_entities(const ldtk::Layer& layer)
 			case ENTITY_TYPE::MOSS_WALL:
 				load_moss_door(extra_entity);
 				continue;
+			case ENTITY_TYPE::PRESSURE_PLATE_WALL:
+				load_pressure_plate_walls(extra_entity);
+				continue;
 			default:
 				continue;
 		}
@@ -349,6 +352,9 @@ void load_floor_interactables(const ldtk::Layer& layer)
 			case ENTITY_TYPE::MUSHROOM:
 				load_mushroom(floor_interactable_entity);
 				continue;
+			case ENTITY_TYPE::PRESSURE_PLATE:
+				load_pressure_plate(floor_interactable_entity);
+				continue;
 			default:
 				continue;
 		}
@@ -403,8 +409,6 @@ void load_moss_toggle(const ldtk::Entity& moss_toggle_entity)
 	const vec2 scaled_size = scale_to_level(vec2(size.x, size.y));
 	const ldtk::ArrayField<ldtk::EntityRef>& wall_entity_ref_fields = moss_toggle_entity.getField<ldtk::FieldType::ArrayEntityRef>("ConnectedWalls");
 	std::vector<std::string> connected_wall_ids;
-	const ldtk::Field<ldtk::EnumValue>& color_state_enum_type = moss_toggle_entity.getField<ldtk::EnumValue>("ColorState");
-	const COLOUR_STATE& color_state = color_state_from_string(color_state_enum_type.value().name);
 	
 	for (const ldtk::Field<ldtk::EntityRef>& wall_entity_ref_field : wall_entity_ref_fields)
 	{
@@ -412,7 +416,7 @@ void load_moss_toggle(const ldtk::Entity& moss_toggle_entity)
 		connected_wall_ids.push_back(wall_entity_ref.entity_iid.str());
 	}
 
-	createMossToggle(moss_toggle_entity.layer->level->uid, world_position, scaled_size, color_state, connected_wall_ids);
+	createMossToggle(moss_toggle_entity.layer->level->uid, world_position, scaled_size, connected_wall_ids);
 }
 
 void load_moss_door(const ldtk::Entity& moss_door_entity)
@@ -450,6 +454,49 @@ void load_wall(const ldtk::Entity& wall_entity)
 	const vec2 size = scale_to_level(vec2(wall_size.x, wall_size.y));
 
 	Entity& wall = createWall(wall_entity.layer->level->uid, position, size.x, size.y);
+}
+
+void load_pressure_plate(const ldtk::Entity& pressure_plate_entity)
+{
+	const ldtk::IntPoint& position = pressure_plate_entity.getWorldPosition();
+	const ldtk::IntPoint& size = pressure_plate_entity.getSize();
+	const vec2 world_position = scale_to_level(vec2(position.x, position.y));
+	const vec2 scaled_size = scale_to_level(vec2(size.x, size.y));
+	const ldtk::ArrayField<ldtk::EntityRef>& wall_entity_ref_fields = pressure_plate_entity.getField<ldtk::FieldType::ArrayEntityRef>("ConnectedWalls");
+	std::vector<std::string> connected_wall_ids;
+
+	for (const ldtk::Field<ldtk::EntityRef>& wall_entity_ref_field : wall_entity_ref_fields)
+	{
+		const ldtk::EntityRef wall_entity_ref = wall_entity_ref_field.value();
+		connected_wall_ids.push_back(wall_entity_ref.entity_iid.str());
+	}
+
+	createPressurePlate(pressure_plate_entity.layer->level->uid, world_position, scaled_size, connected_wall_ids);
+}
+
+void load_pressure_plate_walls(const ldtk::Entity& pressure_plate_entity)
+{
+	const ldtk::IntPoint& position = pressure_plate_entity.getWorldPosition();
+	const ldtk::IntPoint& size = pressure_plate_entity.getSize();
+	const vec2 world_position = scale_to_level(vec2(position.x, position.y));
+	const vec2 scaled_size = scale_to_level(vec2(size.x, size.y));
+	std::string pressure_plate_wall_id = pressure_plate_entity.iid.str();
+	bool is_open = false;
+
+	const auto find_pressure_plate = [&](Entity& entity)
+		{
+			std::vector<std::string>& pressure_plate_ids = registry.pressurePlates.get(entity).connected_wall_ids;
+			return std::find(pressure_plate_ids.begin(), pressure_plate_ids.end(), pressure_plate_wall_id) != pressure_plate_ids.end();
+		};
+	const auto pressure_plate_component_iterator = std::find_if(registry.pressurePlates.entities.begin(), registry.pressurePlates.entities.end(), find_pressure_plate);
+
+	// If there are any pressure plates that are currently being pressed, ensure the is_open state is set correctly 
+	if (pressure_plate_component_iterator != registry.pressurePlates.entities.end())
+	{
+		is_open = registry.pressurePlates.get(*pressure_plate_component_iterator).is_pressed;
+	}
+
+	createPressurePlateWall(pressure_plate_entity.layer->level->uid, pressure_plate_wall_id, world_position, scaled_size, is_open);
 }
 
 void load_colour_orb(const ldtk::Entity& colour_orb_entity)
