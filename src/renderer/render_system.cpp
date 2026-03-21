@@ -224,7 +224,9 @@ void RenderSystem::drawTexturedMesh(Entity entity,
 		transform.translate(window_center() - camera_position);
 	}
 
-	transform.scale(scale);
+	vec2 velocity = registry.velocities.has(entity) ? registry.velocities.get(entity) : vec2(0);
+	vec2 flipped_scale = vec2(velocity.x < 0 ? -scale.x : scale.x, scale.y);
+	transform.scale(flipped_scale);
 	transform.rotate(radians(angle.degrees));
 
 	assert(registry.renderRequests.has(entity));
