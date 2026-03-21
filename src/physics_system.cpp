@@ -624,9 +624,12 @@ void PhysicsSystem::step(float elapsed_ms)
 					if (penetration.x != 0) {
 
 						handle_hurt_collision(entity_i, entity_j);
-						if (registry.collidables.get(entity_i).inelastic && registry.collidables.get(entity_j).inelastic)
+						if (registry.collidables.has(entity_i) || registry.collidables.has(entity_j))
 						{
-							handle_inelastic_collision_mesh(entity_i, entity_j, penetration);
+							if (registry.collidables.get(entity_i).inelastic && registry.collidables.get(entity_j).inelastic)
+							{
+								handle_inelastic_collision_mesh(entity_i, entity_j, penetration);
+							}
 						}
 					}
 				}
