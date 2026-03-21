@@ -595,7 +595,6 @@ void handle_light_wall_collision(Entity& entity_i, Entity& entity_j, vec3 penetr
 	Entity& light = registry.walls.has(entity_j) ? entity_i : entity_j;
 
 	if (registry.hitboxes.has(light)) {
-		
 		PolygonMesh& light_mesh = registry.hitboxes.get(light);
 		PolygonMesh& wall_mesh = findHitbox(wall);
 		
