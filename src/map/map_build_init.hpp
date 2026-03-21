@@ -17,6 +17,19 @@
 Entity createMossWall(const int level_uid, std::string id, vec2 position, vec2 size, COLOUR_STATE color_state);
 
 /// <summary>
+/// Creates a wall associated with a pressure plate and returns the entity. 
+/// This is different from a moss wall in that it is not affected by colour,
+/// but rather creatures/the player stepping on the associated pressure plate.
+/// </summary>
+/// <param name="level_uid">The unique ID of the level that the pressure plate wall is in.</param>
+/// <param name="id">The unique ID of the pressure plate wall.</param>
+/// <param name="position">The (x, y) coordinates of the center of the wall.</param>
+/// <param name="size">The (width, height) of the wall.</param>
+/// <param name="color_state">The color of the wall.</param>
+/// <returns>The entity of the wall.</returns>
+Entity createPressurePlateWall(const int level_uid, std::string id, vec2 position, vec2 size, bool is_open);
+
+/// <summary>
 /// Creates a toggle and returns the entity
 /// </summary>
 /// <param name="tile_id">The unique ID of the tile.</param>

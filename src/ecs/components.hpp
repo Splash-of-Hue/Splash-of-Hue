@@ -1,6 +1,7 @@
 #pragma once
 #include "common.hpp"
 #include <map>
+#include <unordered_set>
 
 enum class COLOUR_STATE {
 	NEUTRAL = 0,
@@ -124,6 +125,19 @@ struct InRadius
 	std::vector<Entity> playerRadiusList;
 	std::vector<Entity> creatureRadiusList;
 	std::vector<Entity> interactableRadiusList;
+};
+
+// for non-radius positional-based collisions
+struct InBoundingBox
+{
+	bool isTouchingOtherEntity = false;
+	
+	// Prevent entityTouchingList from being constantly updated every step, only update associated entities when there has been a change
+	bool updatedThisStep = false;
+
+	// unordered_set with entity pointers instead of entities bc Entity doesn't have a copy / move constructor so unordered_set breaks.
+	// it's verrrrry late and I can't think of a better name but I will rename if anyone has any suggestions bec this feels mildly inappropriate. If this sounds fine I will remove this comment
+	std::unordered_set<Entity*> entityTouchingList;
 };
 
 struct LightEmission

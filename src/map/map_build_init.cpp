@@ -1,4 +1,7 @@
-#include "creature_system/creature_constants.hpp"
+#include "animation/animation_components.hpp"
+#include "common.hpp"
+#include "ecs/components.hpp"
+#include "ecs/entity.hpp"
 #include "ecs/registry.hpp"
 #include "map/map_build_init.hpp"
 #include "map_components.hpp"
@@ -9,17 +12,20 @@
 Entity createMossWall(const int level_uid, std::string id, vec2 position, vec2 size, COLOUR_STATE color_state)
 {
 	Entity moss_wall_entity;
-	const ColourPalette& palette = registry.colourPalettes.components[0];
-	auto& color_from_state = palette.state_to_colour.at(color_state);
 	registry.positions.insert(moss_wall_entity, position);
 	registry.scales.insert(moss_wall_entity, size);
 	registry.sizes.insert(moss_wall_entity, { size.x, size.y });
-	registry.colors.emplace(moss_wall_entity, color_from_state);
 	registry.angles.emplace(moss_wall_entity);
 	Collidable& col = registry.collidables.emplace(moss_wall_entity);
 	col.inelastic = true;
 	registry.colouredWall.insert(moss_wall_entity, { id });
 	registry.colourStates.insert(moss_wall_entity, { color_state, color_state });
+	std::map<COLOUR_STATE, ANIMATION_TRIGGER> colour_animation_trigger_map =
+	{
+		{ COLOUR_STATE::NEUTRAL, ANIMATION_TRIGGER::IDLE },
+		{ COLOUR_STATE::RED, ANIMATION_TRIGGER::IDLE_RED },
+		{ COLOUR_STATE::BLUE, ANIMATION_TRIGGER::IDLE_BLUE },
+	};
 	registry.renderRequests.insert(
 		moss_wall_entity,
 		{
@@ -31,13 +37,38 @@ Entity createMossWall(const int level_uid, std::string id, vec2 position, vec2 s
 	const Animatable animatable = {
 		ANIMATABLE_TYPE::MOSS_WALL,
 		ANIMATION_BEHAVIOR::LOOP,
-		color_state == COLOUR_STATE::BLUE ? ANIMATION_TRIGGER::IDLE_BLUE : ANIMATION_TRIGGER::IDLE_RED,
+		colour_animation_trigger_map[color_state],
 		1
 	};
+	TEXTURE_ASSET_ID initial_texture = color_state == COLOUR_STATE::NEUTRAL ? TEXTURE_ASSET_ID::MOSS_NEUTRAL : TEXTURE_ASSET_ID::MOSS;
 	registry.animatables.insert(moss_wall_entity, animatable);
-	registry.textured.insert(moss_wall_entity, { TEXTURE_ASSET_ID::MOSS });
+	registry.textured.insert(moss_wall_entity, { initial_texture });
 
 	return moss_wall_entity;
+}
+
+Entity createPressurePlateWall(const int level_uid, std::string id, vec2 position, vec2 size, bool is_open)
+{
+	Entity pressure_plate_wall_entity;
+	PressurePlateWall& pressure_plate_wall = registry.pressurePlateWalls.emplace(pressure_plate_wall_entity);
+	pressure_plate_wall.is_open = is_open;
+	pressure_plate_wall.id = id;
+
+	registry.positions.insert(pressure_plate_wall_entity, position);
+	registry.scales.insert(pressure_plate_wall_entity, size);
+	registry.sizes.insert(pressure_plate_wall_entity, { size.x, size.y });
+	registry.colors.insert(pressure_plate_wall_entity, vec4(0.0f, 0.0f, 0.75f, 1.0f));
+
+	registry.angles.emplace(pressure_plate_wall_entity);
+	Collidable& col = registry.collidables.emplace(pressure_plate_wall_entity);
+
+	col.inelastic = true;
+
+	// TODO QWNAo0jQ: Render request handled in interactable_system for now and 
+	// emplacing as a rectangle because there are no animations/assets for this at the moment. 
+	registry.rectangles.emplace(pressure_plate_wall_entity);
+
+	return pressure_plate_wall_entity;
 }
 
 Entity createMapTile(int tile_id, TEXTURE_ASSET_ID texture_id, ivec2 tile_position, vec4 dest_rect, vec4 source_rect, TILE_TYPE tile_type)
@@ -77,7 +108,7 @@ Entity createTeleporter(const int level_uid, const int connected_level_id, vec2 
 }
 Entity createWall(const int level_uid, vec2 position, float width, float height)
 {
-	const Entity& wall_rectangle_entity = createRectangle(position, width, height, RENDER_LAYER::WALLS_BACK, vec4{1.0, 1.0, 1.0, 0.0});
+	const Entity& wall_rectangle_entity = createRectangle(position, width, height, RENDER_LAYER::WALLS_BACK, vec4{ 1.0, 1.0, 1.0, 0.0 });
 	Collidable& col = registry.collidables.emplace(wall_rectangle_entity);
 	col.inelastic = true;
 	registry.walls.emplace(wall_rectangle_entity);

@@ -128,6 +128,19 @@ bool is_light_emission_collision(Entity& entity_i, Entity& entity_j)
 	return false;
 }
 
+// inBoundingBox is only applied to entities that need to check positional collisions
+// and not a colour collision or light emission collision 
+bool is_bounding_box_collision(Entity& entity_i, Entity& entity_j)
+{
+	if (registry.inBoundingBox.has(entity_i) && (registry.players.has(entity_j) || registry.creatures.has(entity_j)) ||
+		registry.inBoundingBox.has(entity_j) && (registry.players.has(entity_i) || registry.creatures.has(entity_i)))
+	{
+		return true;
+	}
+
+	return false;
+}
+
 //todo: https://trello.com/c/tXEZLSr7/229-1-optimize-inradiuslist-in-physicssystemcpp
 bool checkForRepeatedRadiuses(Entity& emission_entity, std::vector<Entity>& radius_list)
 {
@@ -188,59 +201,31 @@ void light_emission_collisions(Entity& entity_i, Entity& entity_j)
 		else if (registry.interactables.has(source_entity))
 			addSpecificRadiusCollision(other_entity, light_emission_entity, registry.interactables, in_radius_component.inInteractableRadius, in_radius_component.interactableRadiusList);
 	}
-	//the button is a circle, is in an overlay? do we walk on top of the button?
-	//is it only our radius that affects the button?
-	//This assumed the button in a circle, and is an overlay, but since we send the rectangle
-	//to "change_behaviours," i need to implement this code
-	if (registry.mossToggles.has(entity_i) || registry.mossToggles.has(entity_j))
-	{
-		Entity& eT = registry.mossToggles.has(entity_i) ? entity_i : entity_j;
-		Entity& eO = registry.mossToggles.has(entity_j) ? entity_i : entity_j;
-		MossToggle& tT = registry.mossToggles.get(eT);
-
-		// Only the player can toggle things
-		if (!registry.lightEmissions.has(eO))
-		{
-			return;
-		}
-
-		if (registry.colourStates.has(eO))
-		{
-			ColourState& csO = registry.colourStates.get(eO);
-
-			// A neutral object does not toggle anything
-			if (csO.curr_colour_state == COLOUR_STATE::NEUTRAL)
-			{
-				return;
-			}
-
-			ColourState& csT = registry.colourStates.get(eT);
-
-			vec4& colT = registry.colors.get(eT);
-			vec4& colO = registry.colors.get(eO);
-			colT = colO;
-			csT.curr_colour_state = csO.curr_colour_state;
-
-			for (std::string& connected_wall_id : tT.connected_wall_ids)
-			{
-				const auto wall_id_match = [&](const Entity& colored_wall_entity) { return registry.colouredWall.get(colored_wall_entity).id == connected_wall_id; };
-				auto& wall_entity_iterator = std::find_if(registry.colouredWall.entities.begin(), registry.colouredWall.entities.end(), wall_id_match);
-
-				if (wall_entity_iterator == registry.colouredWall.entities.end())
-				{
-					continue;
-				}
-
-				ColourState& csTE = registry.colourStates.get(*wall_entity_iterator);
-				csTE.prev_colour_state = csTE.curr_colour_state;
-				csTE.curr_colour_state = csO.curr_colour_state;
-				vec4& colTE = registry.colors.get(*wall_entity_iterator);
-				colTE = vec4{ colO.r, colO.g, colO.b, colO.a };
-			}
-		}
-
-	}
 }
+
+void bounding_box_collisions(Entity& entity_i, Entity& entity_j)
+{
+	vec2& posI = registry.positions.get(entity_i);
+	vec2& posJ = registry.positions.get(entity_j);
+
+	assert((registry.inBoundingBox.has(entity_i) || registry.inBoundingBox.has(entity_j)) && "bounding_box_collisions was called for an entity collision that does not have an inBoundingBox component");
+	Entity& bounding_box_entity = registry.inBoundingBox.has(entity_i) ? entity_i : entity_j;
+	Entity& other_entity = registry.inBoundingBox.has(entity_i) ? entity_j : entity_i;
+
+	if (!registry.inBoundingBox.has(bounding_box_entity))
+	{
+		registry.inBoundingBox.emplace(bounding_box_entity);
+	}
+
+	InBoundingBox& inBoundingBox = registry.inBoundingBox.get(bounding_box_entity);
+
+	inBoundingBox.isTouchingOtherEntity = true;
+	inBoundingBox.updatedThisStep = true;
+	
+	// Unordered_set automatically guarantees no duplicates so no need to duplicate check! :)
+	inBoundingBox.entityTouchingList.emplace(&other_entity); // see definition of entityTouchingList for reason behind inserting a reference
+}
+
 void handle_hurt_collision(Entity& entity_i, Entity& entity_j) {
 
 	if (registry.creatures.has(entity_i) || registry.creatures.has(entity_j))
@@ -336,10 +321,34 @@ void handle_misc_collision(Entity& entity_i, Entity& entity_j)
 		// Generate the request from the teleporter information
 		const Teleporter& teleporter = registry.teleporters.get(teleporter_entity);
 		Entity change_map_request_entity;
+		// Figure out where to put the moving entity based on position, size, and teleport direction
+		const std::map<DIRECTION, vec2>& direction_to_unit_direction_map = {
+			{ DIRECTION::UP, UNIT_UP },
+			{ DIRECTION::RIGHT, UNIT_RIGHT },
+			{ DIRECTION::DOWN, UNIT_DOWN },
+			{ DIRECTION::LEFT, UNIT_LEFT },
+		};
+		// Get the perpendicular unit (going sideways from the frame of reference of the entity using the teleporter)
+		const std::map<DIRECTION, vec2>& offset_to_unit_direction_map = {
+			{ DIRECTION::UP, UNIT_RIGHT },
+			{ DIRECTION::RIGHT, UNIT_DOWN },
+			{ DIRECTION::DOWN, UNIT_RIGHT },
+			{ DIRECTION::LEFT, UNIT_DOWN },
+		};
+		// Measure the distance from the center of the teleporter and then get the dot product with the perpendicular unit
+		const vec2 other_offset_from_teleporter = registry.positions.get(other_entity) - registry.positions.get(teleporter_entity);
+		const vec2 unit_vector_direction = direction_to_unit_direction_map.at(teleporter.offset_direction);
+		const vec2 unit_vector_offset = offset_to_unit_direction_map.at(teleporter.offset_direction);
+		const Size& size = registry.sizes.get(other_entity);
+		// TODO 5L8I7eho: Too big but smaller can cause infinite loops
+		// TODO FX9GFvwR: The location should also take the position into account of the thing teleporting,
+		// since wider teleporters like connected screens should not always go to the same spot.
+		const vec2 offset = vec2(size.width, size.height) * unit_vector_direction + other_offset_from_teleporter * unit_vector_offset;
 		ChangeMapLevelRequest level_change_request = {
 			other_entity,
 			teleporter.connected_level_uid,
 			teleporter.arrival_location,
+			offset,
 			map_change_request_type,
 			teleporter.offset_direction
 		};
@@ -618,6 +627,8 @@ void PhysicsSystem::step(float elapsed_ms)
 {
 	handle_movement(DT);
 	checkIfInRadius();
+	checkIfInBoundingBox();
+
 	restore_light_meshes();
 	// check for collisions between all collidable entities
 	ComponentContainer<Collidable>& collidables = registry.collidables;
@@ -636,6 +647,7 @@ void PhysicsSystem::step(float elapsed_ms)
 					continue;
 				}
 			}
+
 			//if passes AABB check, then try mesh collision
 			if (box_collides(entity_i, entity_j)) {
 
@@ -674,6 +686,10 @@ void PhysicsSystem::step(float elapsed_ms)
 						{
 							light_emission_collisions(entity_i, entity_j);
 						}
+						else if (is_bounding_box_collision(entity_i, entity_j))
+						{
+							bounding_box_collisions(entity_i, entity_j);
+						}
 						else {
 							handle_misc_collision(entity_i, entity_j);
 						}
@@ -698,7 +714,12 @@ void PhysicsSystem::step(float elapsed_ms)
 				{
 					light_emission_collisions(entity_i, entity_j);
 				}
-				else {
+				else if (is_bounding_box_collision(entity_i, entity_j))
+				{
+					bounding_box_collisions(entity_i, entity_j);
+				}
+				else 
+				{
 					handle_misc_collision(entity_i, entity_j);
 					handle_hurt_collision(entity_i, entity_j);
 				}
@@ -756,6 +777,50 @@ void PhysicsSystem::handle_movement(float elapsed_ms)
 			movePolygon(registry.hitboxes.get(e), pos);
 		}
 	}
+}
+
+// If another entity is no longer touching this entity, remove it from its list
+void PhysicsSystem::checkIfInBoundingBox()
+{
+	for (Entity& entity : registry.inBoundingBox.entities)
+	{
+		InBoundingBox& in_bounding_box_component = registry.inBoundingBox.get(entity);
+
+		if (in_bounding_box_component.isTouchingOtherEntity = false)
+		{
+			continue;
+		}
+
+		checkIfColliding(entity, in_bounding_box_component);
+
+		if (in_bounding_box_component.entityTouchingList.size() == 0)
+		{
+			in_bounding_box_component.isTouchingOtherEntity = false;
+		}
+	}
+}
+
+void PhysicsSystem::checkIfColliding(Entity& entity, InBoundingBox& in_bounding_box_component) // Pass in entity and component to avoid additional registry.inBoundingBox.gets as we use both
+{
+	std::unordered_set<Entity*>& touching_list = in_bounding_box_component.entityTouchingList;
+	bool& updatedThisStep = in_bounding_box_component.updatedThisStep;
+
+	for (auto it = touching_list.begin(); it != touching_list.end();)
+	{
+		const Entity* touching_entity = *it;
+
+		if (!registry.sizes.has(*touching_entity) || !box_collides(entity, *touching_entity))
+		{
+			it = touching_list.erase(it);
+			updatedThisStep = true;
+		}
+		else
+		{
+			++it;
+		}
+	}
+
+	return;
 }
 
 void PhysicsSystem::checkIfInRadius()
