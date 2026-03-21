@@ -37,3 +37,5 @@ Entity createPressurePlate(const int level_uid, vec2 position, vec2 size, std::v
 
 Entity createPuzzleBubble(const int level_uid, std::string id, vec2 position, COLOUR_STATE colour_solution);
 Entity createPuzzleBubbleFake(const int level_uid, vec2 position, COLOUR_STATE colour);
+
+Entity createFloorPictureControls(vec2 position, float width, float height, CONTROL_PNG_TYPE control_png_type);
