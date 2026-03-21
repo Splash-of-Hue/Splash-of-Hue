@@ -24,7 +24,14 @@ WASD for up, left, down, right movement. E to open up colour menu. Use arrow key
 - [15] Advanced decision-making -> A* pathfinding implemented by Clair, and decision tree for sawfish and shrimp behaviours implemented by Sophia and Spencer.
 - [19] Reloadability -> Loading and unloading levels using LDtk library implemented by Clair
 - [26] Numerous sophisticated integrated assets -> Same art style for assets implemented by Clair, Abby and Sophia
-Milestone Screenshots
+## Milestone Screenshots
+Minimap and colour menu UI added to tutorial
+![Screenshot 2026-03-20 213717](https://github.students.cs.ubc.ca/user-attachments/assets/7ffd645e-0a56-4f89-914d-1eeaf5db66de)
+New dungeon with sliding entities
+![Screenshot 2026-03-20 213910](https://github.students.cs.ubc.ca/user-attachments/assets/435c2917-2d37-43df-ba71-e7a22e576f04)
+New dungeon with colour emitting entities
+![Screenshot 2026-03-20 213828](https://github.students.cs.ubc.ca/user-attachments/assets/dedea943-1305-4cf3-a04c-a785256a2679)
+
 
 # Docs
 
