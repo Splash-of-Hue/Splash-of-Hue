@@ -595,10 +595,8 @@ void handle_light_wall_collision(Entity& entity_i, Entity& entity_j, vec3 penetr
 	Entity& light = registry.walls.has(entity_j) ? entity_i : entity_j;
 
 	if (registry.hitboxes.has(light)) {
-		
 		PolygonMesh& light_mesh = registry.hitboxes.get(light);
 		PolygonMesh& wall_mesh = findHitbox(wall);
-		
 		vec2 dir = vec2(penetration.y, penetration.z);
 		dir = normalize(dir);
 		dir = dot(light_mesh.centre - wall_mesh.centre, dir) < 0 ? -dir : dir;
@@ -650,7 +648,6 @@ void PhysicsSystem::step(float elapsed_ms)
 
 			//if passes AABB check, then try mesh collision
 			if (box_collides(entity_i, entity_j)) {
-
 				if (registry.hurtboxes.has(entity_i) || registry.hurtboxes.has(entity_j))
 				{
 					vec3 penetration = mesh_collides(entity_i, entity_j, true);
@@ -676,7 +673,6 @@ void PhysicsSystem::step(float elapsed_ms)
 					vec3 penetration = mesh_collides(entity_i, entity_j, false);
 
 					if (penetration.x != 0) {
-
 						if ((registry.walls.has(entity_i) && registry.lightEmissions.has(entity_j))
 							|| (registry.walls.has(entity_j) && registry.lightEmissions.has(entity_i))) {
 							handle_light_wall_collision(entity_i, entity_j, penetration);
@@ -741,7 +737,6 @@ void PhysicsSystem::step(float elapsed_ms)
 
 void PhysicsSystem::handle_movement(float elapsed_ms)
 {
-	
 	ComponentContainer<vec2>& moving_entities = registry.velocities;
 	for (int i = 0; i < moving_entities.size(); i++)
 	{
