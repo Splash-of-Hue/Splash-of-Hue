@@ -187,7 +187,7 @@ void light_emission_collisions(Entity& entity_i, Entity& entity_j)
 		return;
 	}
 	//These three conditions should cover everything we want and don't want to be affect by emissions. Keep an eye on this as more entities are created.
-	if (registry.colourStates.has(other_entity) && !registry.lightEmissions.has(other_entity) && !registry.players.has(other_entity))
+	if (registry.colourStates.has(other_entity) && !registry.lightEmissions.has(other_entity) && !registry.players.has(other_entity) && !registry.colouredWall.has(other_entity))
 	{
 		// Example: if its a player radius, set inPlayerRadius to true, and add the radius entity to playerRadius
 		Entity& source_entity = registry.lightEmissions.get(light_emission_entity).lightSourceEntity;
@@ -648,22 +648,24 @@ void PhysicsSystem::step(float elapsed_ms)
 							handle_misc_collision(entity_i, entity_j);
 							handle_hurt_collision(entity_i, entity_j);
 						}
-
-						if (registry.collidables.get(entity_i).inelastic && registry.collidables.get(entity_j).inelastic)
+						if (registry.collidables.has(entity_i) && registry.collidables.has(entity_j))
 						{
-							if (!registry.creatureInelasticCollisions.has(entity_j) && registry.creatures.has(entity_j)) {
-								registry.creatureInelasticCollisions.emplace(entity_j);
+							if (registry.collidables.get(entity_i).inelastic && registry.collidables.get(entity_j).inelastic)
+							{
+								if (!registry.creatureInelasticCollisions.has(entity_j) && registry.creatures.has(entity_j)) {
+									registry.creatureInelasticCollisions.emplace(entity_j);
+								}
+								if (!registry.creatureInelasticCollisions.has(entity_i) && registry.creatures.has(entity_i)) {
+									registry.creatureInelasticCollisions.emplace(entity_i);
+								}
+								handle_inelastic_collision_mesh(entity_i, entity_j, penetration);
 							}
-							if (!registry.creatureInelasticCollisions.has(entity_i) && registry.creatures.has(entity_i)) {
-								registry.creatureInelasticCollisions.emplace(entity_i);
-							}
-							handle_inelastic_collision_mesh(entity_i, entity_j, penetration);
+							continue;
 						}
-						continue;
 					}
 					continue;
 				}
-			
+
 				if (is_light_emission_collision(entity_i, entity_j))
 				{
 					light_emission_collisions(entity_i, entity_j);
@@ -677,16 +679,20 @@ void PhysicsSystem::step(float elapsed_ms)
 					handle_misc_collision(entity_i, entity_j);
 					handle_hurt_collision(entity_i, entity_j);
 				}
-				//must both be inelastic for this collision resolution to occur
-				if (registry.collidables.get(entity_i).inelastic && registry.collidables.get(entity_j).inelastic)
+				//breaking a box still runs this code, so we gotta check if the entity still exists
+				if(registry.collidables.has(entity_i) && registry.collidables.has(entity_j))
 				{
-					if (!registry.creatureInelasticCollisions.has(entity_j) && registry.creatures.has(entity_j)) {
-						registry.creatureInelasticCollisions.emplace(entity_j);
+					//must both be inelastic for this collision resolution to occur
+					if (registry.collidables.get(entity_i).inelastic && registry.collidables.get(entity_j).inelastic)
+					{
+						if (!registry.creatureInelasticCollisions.has(entity_j) && registry.creatures.has(entity_j)) {
+							registry.creatureInelasticCollisions.emplace(entity_j);
+						}
+						if (!registry.creatureInelasticCollisions.has(entity_i) && registry.creatures.has(entity_i)) {
+							registry.creatureInelasticCollisions.emplace(entity_i);
+						}
+						handle_inelastic_collision_box(entity_i, entity_j);
 					}
-					if (!registry.creatureInelasticCollisions.has(entity_i) && registry.creatures.has(entity_i)) {
-						registry.creatureInelasticCollisions.emplace(entity_i);
-					}
-					handle_inelastic_collision_box(entity_i, entity_j);
 				}
 			}
 		}

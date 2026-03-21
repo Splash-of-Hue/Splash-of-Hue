@@ -97,6 +97,12 @@ void EmissionSystem::update_emission_size(Entity& emission_entity, float elapsed
 
 void EmissionSystem::update_emission_position(Entity& emission_entity)
 {
+	if (registry.levelEntities.has(emission_entity))
+	{
+		LevelEntity& emission_level_entity = registry.levelEntities.get(emission_entity);
+		emission_level_entity.level_uid = registry.levelEntities.get(registry.lightEmissions.get(emission_entity).lightSourceEntity).level_uid;
+	}
+
 	vec2& source_position = registry.positions.get(registry.lightEmissions.get(emission_entity).lightSourceEntity);
 	vec2& emission_position = registry.positions.get(emission_entity);
 	emission_position.x = source_position.x;

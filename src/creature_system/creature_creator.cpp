@@ -3,6 +3,7 @@
 #include "shapes/shape_build_init.hpp"
 #include "creature_system/creature_behaviour_tree_builder.hpp"
 #include "creature_system/creature_components.hpp"
+#include "emissions/emission_constants.hpp"
 #include <iostream>
 
 void CreatureCreator::addGeneralCreatureComponents(const int level_uid, Entity creature, vec2 position, float width, float height, COLOUR_STATE color_state, CREATURETYPE creature_type, TEXTURE_ASSET_ID texture_asset_id, bool shouldHaveInelasticCollision /* = true */) {
@@ -40,11 +41,28 @@ Entity CreatureCreator::createAnglerfish(const int level_uid, vec2 position, flo
 
     Pathfinder& pathfinder = registry.pathfinders.emplace(anglerfish);
     pathfinder.target = registry.players.entities[0];
-    pathfinder.type = PATHFINDING_TYPE::BEST;
+    pathfinder.type = PATHFINDING_TYPE::DIRECT;
+    pathfinder.max_speed = ANGLERFISH_FOLLOWING_SPEED;
     CreatureBehaviour& creatureBehaviour = registry.creatureBehaviours.emplace(anglerfish);
     CreatureBehaviourTreeBuilder builder;
     creatureBehaviour.behaviour_tree = builder.buildAnglerfishTree();
-   
+    
+    //create emission
+    Entity& emission_entity = createCircle(position, 1.f, RENDER_LAYER::CREATURES, DEFAULT_COLOUR_VEC4);
+    registry.scales.emplace(emission_entity);
+
+    LightEmission& light_emission_component = registry.lightEmissions.emplace(emission_entity);
+    light_emission_component.MAX_RADIUS = EMISSION_SIZE::ANGLERFISH_EMISSION;
+    light_emission_component.TIME_TO_GROW = TIME_TO_GROW;
+    light_emission_component.offset = EMISSION_OFFSET.at("ANGLERFISH");
+    light_emission_component.lightSourceEntity = anglerfish;
+
+    LightSource& light_source_component = registry.lightSources.emplace(anglerfish);
+    light_source_component.lightEmissionEntity = emission_entity;
+
+    LevelEntity& level_entity_emission_component = registry.levelEntities.emplace(emission_entity);
+    level_entity_emission_component.level_uid = level_uid;
+
     return anglerfish;
 }
 
@@ -391,8 +409,8 @@ Entity CreatureCreator::createSawfish(const int level_uid, vec2 position, float 
 
     Pathfinder& pathfinder = registry.pathfinders.emplace(sawfish);
     pathfinder.target = registry.players.entities[0];
-    pathfinder.type = PATHFINDING_TYPE::BEST;
-    pathfinder.max_speed = 500.0f;
+    pathfinder.type = PATHFINDING_TYPE::DIRECT;
+    pathfinder.max_speed = SAWFISH_FOLLOWING_SPEED;
     CreatureBehaviour& creatureBehaviour = registry.creatureBehaviours.emplace(sawfish);
     creatureBehaviour.behaviour_tree = CreatureBehaviourTreeBuilder::buildSawfishTree();
     const Animatable animatable = {

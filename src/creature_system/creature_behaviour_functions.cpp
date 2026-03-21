@@ -53,8 +53,9 @@ BEHAVIOUR_TREE_STATUS CreatureBehaviourFunctions::chargeAtPlayer(Entity& charger
 	float charger_individual_speed = 1.f;
 	switch (registry.creatures.get(charger).creatureType)
 	{
-	case CREATURETYPE::SAWFISH:
-		charger_individual_speed = SAWFISH_CHARGING_SPEED;
+		case CREATURETYPE::SAWFISH:
+			charger_individual_speed = SAWFISH_CHARGING_SPEED;
+			break;
 	}
 	charger_velocity = velocity * charger_individual_speed;
 	return BEHAVIOUR_TREE_STATUS::SUCCESS;

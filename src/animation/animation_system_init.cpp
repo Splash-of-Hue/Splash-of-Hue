@@ -202,6 +202,24 @@ void AnimationSystem::init()
 				{ TEXTURE_ASSET_ID::CORAL_TREE_01, RenderSourceRect() }
 		}
 	);
+	generate_animation(
+		ANIMATABLE_TYPE::PUZZLE_BUBBLE,
+		ANIMATION_TRIGGER::IDLE,
+		{
+			{ TEXTURE_ASSET_ID::PUZZLE_BUBBLE, RenderSourceRect{ vec2(0.0f, 0.0f), vec2(0.2f, 0.333f) }},
+			{ TEXTURE_ASSET_ID::PUZZLE_BUBBLE, RenderSourceRect{ vec2(0.2f, 0.0f), vec2(0.2f, 0.333f) }},
+			{ TEXTURE_ASSET_ID::PUZZLE_BUBBLE, RenderSourceRect{ vec2(0.4f, 0.0f), vec2(0.2f, 0.333f) }},
+			{ TEXTURE_ASSET_ID::PUZZLE_BUBBLE, RenderSourceRect{ vec2(0.6f, 0.0f), vec2(0.2f, 0.333f) }},
+			{ TEXTURE_ASSET_ID::PUZZLE_BUBBLE, RenderSourceRect{ vec2(0.8f, 0.0f), vec2(0.2f, 0.333f) }},
+			{ TEXTURE_ASSET_ID::PUZZLE_BUBBLE, RenderSourceRect{ vec2(0.0f, 0.333f), vec2(0.2f, 0.333f) }},
+			{ TEXTURE_ASSET_ID::PUZZLE_BUBBLE, RenderSourceRect{ vec2(0.2f, 0.333f), vec2(0.2f, 0.333f) }},
+			{ TEXTURE_ASSET_ID::PUZZLE_BUBBLE, RenderSourceRect{ vec2(0.4f, 0.333f), vec2(0.2f, 0.333f) }},
+			{ TEXTURE_ASSET_ID::PUZZLE_BUBBLE, RenderSourceRect{ vec2(0.6f, 0.333f), vec2(0.2f, 0.333f) }},
+			{ TEXTURE_ASSET_ID::PUZZLE_BUBBLE, RenderSourceRect{ vec2(0.8f, 0.333f), vec2(0.2f, 0.333f) }},
+			{ TEXTURE_ASSET_ID::PUZZLE_BUBBLE, RenderSourceRect{ vec2(0.0f, 0.666f), vec2(0.2f, 0.333f) }},
+			{ TEXTURE_ASSET_ID::PUZZLE_BUBBLE, RenderSourceRect{ vec2(0.2f, 0.666f), vec2(0.2f, 0.333f) }},
+		}
+	);
 
 	// Crab Walk Forward
 generate_animation(
