@@ -6,6 +6,7 @@
 #include <algorithm>
 #include <map>
 #include <vector>
+#include <iostream>
 
 void MapSystem::step(float elapsed_ms)
 {
@@ -27,14 +28,19 @@ void MapSystem::step(float elapsed_ms)
 	int previous_level_uid = registry.currentLevels.get(moving_entity).level_uid;
 	int new_level_uid = change_map_level_request.new_level_uid;
 	registry.currentLevels.get(moving_entity).level_uid = new_level_uid;
-
 	// If this isn't a player, we are done. Don't load or unload based on it
 	if (change_map_level_request.type != MAP_CHANGE_REQUEST_TYPE::PLAYER)
 	{
 		changeMapLevelRequestRegistry.clear();
 		return;
 	}
-
+	// Mark the new level as visited 
+	const auto new_level_match = [&](const Level& level) { return level.uid == new_level_uid; };
+	auto new_level_it = std::find_if(registry.levels.components.begin(), registry.levels.components.end(), new_level_match);
+	if (new_level_it != registry.levels.components.end())
+	{
+		new_level_it->is_visited = true;
+	}
 	// Load the new level. If the level is already loaded, it will just move the camera
 	Entity load_request_entity;
 	registry.loadRequests.insert(load_request_entity, { LOAD_TYPE::LOAD_LEVEL, new_level_uid });

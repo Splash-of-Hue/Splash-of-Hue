@@ -20,6 +20,7 @@
 #include "interactables/interactable_system.hpp"
 #include "loading/loader_system.hpp"
 #include "map/map_system.hpp"
+#include "minimap/minimap_system.hpp"	
 #include "physics_system.hpp"
 #include "player/player_system.hpp"
 #include "renderer/render_system.hpp"
@@ -47,6 +48,7 @@ int main()
 	LoaderSystem loader_system;
 	MapSystem map_system;
 	MenuControllerSystem menu_controller_system;
+	MinimapSystem minimap_system;
 	PhysicsSystem physics_system;
 	PlayerSystem player_system;
 	PlayerControllerSystem player_controller_system;
@@ -86,6 +88,7 @@ int main()
 	game_state_system.register_system(&loader_system, GAME_STATE::LOADING);
 	game_state_system.register_system(&colour_system, GAME_STATE::PLAYING);
 	game_state_system.register_system(&map_system, GAME_STATE::PLAYING);
+	game_state_system.register_system(&minimap_system, GAME_STATE::PLAYING);
 	game_state_system.register_system(&world_system, GAME_STATE::PLAYING);
 	game_state_system.register_system(&ai_system, GAME_STATE::PLAYING);
 	game_state_system.register_system(&creature_behaviour_system, GAME_STATE::PLAYING);
