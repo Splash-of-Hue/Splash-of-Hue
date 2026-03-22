@@ -48,6 +48,8 @@ Entity CreatureCreator::createAnglerfish(const int level_uid, vec2 position, flo
     anglerfish_hitbox.centre = position;
     anglerfish_hitbox.base_vertices = anglerfish_hitbox.vertices;
 
+    registry.unloadables.emplace(anglerfish, Unloadable{position});
+
     Pathfinder& pathfinder = registry.pathfinders.emplace(anglerfish);
     pathfinder.target = registry.players.entities[0];
     pathfinder.type = PATHFINDING_TYPE::DIRECT;
@@ -59,7 +61,7 @@ Entity CreatureCreator::createAnglerfish(const int level_uid, vec2 position, flo
     //create emission
     Entity& emission_entity = createCircle(position, 1.f, RENDER_LAYER::CREATURES, DEFAULT_COLOUR_VEC4);
     registry.scales.emplace(emission_entity);
-
+    registry.unloadables.emplace(emission_entity, Unloadable{ position });
     LightEmission& light_emission_component = registry.lightEmissions.emplace(emission_entity);
     light_emission_component.MAX_RADIUS = EMISSION_SIZE::ANGLERFISH_EMISSION;
     light_emission_component.TIME_TO_GROW = TIME_TO_GROW;
@@ -104,7 +106,7 @@ Entity CreatureCreator::createCrab(const int level_uid, vec2 position, float wid
         direction_facing.degrees = DEGREES_DOWN * 2;
         direction.x = -1.f;
     }
-
+    registry.unloadables.emplace(crab, Unloadable{ position });
     const Animatable animatable = {
        ANIMATABLE_TYPE::CRAB,
        ANIMATION_BEHAVIOR::LOOP,

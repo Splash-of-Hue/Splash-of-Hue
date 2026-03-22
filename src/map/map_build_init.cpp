@@ -16,6 +16,7 @@ Entity createMossWall(const int level_uid, std::string id, vec2 position, vec2 s
 	registry.scales.insert(moss_wall_entity, size);
 	registry.sizes.insert(moss_wall_entity, { size.x, size.y });
 	registry.angles.emplace(moss_wall_entity);
+	registry.unloadables.emplace(moss_wall_entity);
 	Collidable& col = registry.collidables.emplace(moss_wall_entity);
 	col.inelastic = true;
 	registry.colouredWall.insert(moss_wall_entity, { id });
