@@ -3872,25 +3872,6 @@
 							}] }],
 							"__worldX": 1056,
 							"__worldY": -664
-						},
-						{
-							"__identifier": "ColourOrb",
-							"__grid": [66,69],
-							"__pivot": [0,0],
-							"__tags": ["Floor_Interactable"],
-							"__tile": null,
-							"__smartColor": "#3E2731",
-							"iid": "63064a60-21a0-11f1-b753-f30bdcb7a2ab",
-							"width": 70,
-							"height": 70,
-							"defUid": 52,
-							"px": [528,552],
-							"fieldInstances": [{ "__identifier": "ColorState", "__type": "LocalEnum.ColorState", "__value": "Red", "__tile": null, "defUid": 53, "realEditorValues": [{
-								"id": "V_String",
-								"params": ["Red"]
-							}] }],
-							"__worldX": 528,
-							"__worldY": -528
 						}
 					]
 				},
@@ -9046,7 +9027,7 @@
 					"layerDefUid": 36,
 					"pxOffsetX": 0,
 					"pxOffsetY": 0,
-					"visible": true,
+					"visible": false,
 					"optionalRules": [],
 					"intGridCsv": [],
 					"autoLayerTiles": [],
@@ -14603,7 +14584,7 @@
 						},
 						{
 							"__identifier": "Box",
-							"__grid": [178,32],
+							"__grid": [181,53],
 							"__pivot": [0,0],
 							"__tags": ["Floor_Interactable"],
 							"__tile": null,
@@ -14612,14 +14593,14 @@
 							"width": 140,
 							"height": 140,
 							"defUid": 60,
-							"px": [1424,256],
+							"px": [1448,424],
 							"fieldInstances": [],
-							"__worldX": 9104,
-							"__worldY": 1336
+							"__worldX": 9128,
+							"__worldY": 1504
 						},
 						{
 							"__identifier": "Box",
-							"__grid": [181,84],
+							"__grid": [182,72],
 							"__pivot": [0,0],
 							"__tags": ["Floor_Interactable"],
 							"__tile": null,
@@ -14628,10 +14609,10 @@
 							"width": 140,
 							"height": 140,
 							"defUid": 60,
-							"px": [1448,672],
+							"px": [1456,576],
 							"fieldInstances": [],
-							"__worldX": 9128,
-							"__worldY": 1752
+							"__worldX": 9136,
+							"__worldY": 1656
 						},
 						{
 							"__identifier": "Box",
@@ -17653,7 +17634,7 @@
 					"entityInstances": [
 						{
 							"__identifier": "Box",
-							"__grid": [157,80],
+							"__grid": [158,72],
 							"__pivot": [0,0],
 							"__tags": ["Floor_Interactable"],
 							"__tile": null,
@@ -17662,10 +17643,10 @@
 							"width": 140,
 							"height": 140,
 							"defUid": 60,
-							"px": [1256,640],
+							"px": [1264,576],
 							"fieldInstances": [],
-							"__worldX": 10856,
-							"__worldY": 640
+							"__worldX": 10864,
+							"__worldY": 576
 						},
 						{
 							"__identifier": "Teleporter",
@@ -17734,7 +17715,7 @@
 						},
 						{
 							"__identifier": "Box",
-							"__grid": [156,39],
+							"__grid": [158,56],
 							"__pivot": [0,0],
 							"__tags": ["Floor_Interactable"],
 							"__tile": null,
@@ -17743,10 +17724,10 @@
 							"width": 140,
 							"height": 140,
 							"defUid": 60,
-							"px": [1248,312],
+							"px": [1264,448],
 							"fieldInstances": [],
-							"__worldX": 10848,
-							"__worldY": 312
+							"__worldX": 10864,
+							"__worldY": 448
 						}
 					]
 				},
@@ -30117,70 +30098,6 @@
 							"fieldInstances": [],
 							"__worldX": 17496,
 							"__worldY": 248
-						},
-						{
-							"__identifier": "Wall",
-							"__grid": [109,35],
-							"__pivot": [0.5,0.5],
-							"__tags": ["Internal_Wall"],
-							"__tile": null,
-							"__smartColor": "#FEE761",
-							"iid": "a6a1b6b0-21a0-11f1-b693-5d32e0250567",
-							"width": 240,
-							"height": 50,
-							"defUid": 61,
-							"px": [1752,568],
-							"fieldInstances": [],
-							"__worldX": 19032,
-							"__worldY": 568
-						},
-						{
-							"__identifier": "Wall",
-							"__grid": [111,23],
-							"__pivot": [0.5,0.5],
-							"__tags": ["Internal_Wall"],
-							"__tile": null,
-							"__smartColor": "#FEE761",
-							"iid": "ad6c9af0-21a0-11f1-b693-5be094754c52",
-							"width": 176,
-							"height": 50,
-							"defUid": 61,
-							"px": [1784,376],
-							"fieldInstances": [],
-							"__worldX": 19064,
-							"__worldY": 376
-						},
-						{
-							"__identifier": "Wall",
-							"__grid": [105,24],
-							"__pivot": [0.5,0.5],
-							"__tags": ["Internal_Wall"],
-							"__tile": null,
-							"__smartColor": "#FEE761",
-							"iid": "bfcd0ae0-21a0-11f1-b693-19a6fc45f26b",
-							"width": 50,
-							"height": 50,
-							"defUid": 61,
-							"px": [1688,392],
-							"fieldInstances": [],
-							"__worldX": 18968,
-							"__worldY": 392
-						},
-						{
-							"__identifier": "Wall",
-							"__grid": [109,21],
-							"__pivot": [0.5,0.5],
-							"__tags": ["Internal_Wall"],
-							"__tile": null,
-							"__smartColor": "#FEE761",
-							"iid": "c0aa99a0-21a0-11f1-b693-43fc4a7b6269",
-							"width": 50,
-							"height": 50,
-							"defUid": 61,
-							"px": [1752,344],
-							"fieldInstances": [],
-							"__worldX": 19032,
-							"__worldY": 344
 						},
 						{
 							"__identifier": "PuzzleSolution",
