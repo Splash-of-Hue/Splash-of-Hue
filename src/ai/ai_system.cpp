@@ -6,6 +6,8 @@
 
 void AISystem::step(float elapsed_ms)
 {
+	time_accumulator += elapsed_ms;
+
 	for (const Entity& pathfinder_entity : registry.pathfinders.entities)
 	{
 		Pathfinder& pathfinder = registry.pathfinders.get(pathfinder_entity);
@@ -21,7 +23,11 @@ void AISystem::step(float elapsed_ms)
 		pathfinder.is_path_dirty = false;
 	}
 
-	updateBoids(elapsed_ms);
+	while (time_accumulator >= update_interval)
+	{
+		time_accumulator -= update_interval;
+		updateBoids(elapsed_ms);
+	}
 }
 
 std::vector<vec2> AISystem::generatePath(Entity pathfinder_entity)

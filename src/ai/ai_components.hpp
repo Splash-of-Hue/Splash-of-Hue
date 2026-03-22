@@ -13,13 +13,13 @@ struct BoidOverseer
 	// The following factors can have their parameters adjusted to control how much the group swarms 
 	
 	// alignment: how much the boids want to align with the avg orientation of the local group
-	float alignment_factor = 0.02;
+	float alignment_factor = 4.0;
 
 	// separation: avoiding being too close to neighbours
-	float separation_factor = 5.5f;
+	float separation_factor = 1.0f;
 
 	// cohesion: moving towards avg pos of local group
-	float cohesion_factor = 0.02f;
+	float cohesion_factor = 2.0f;
 
 	// Only allow boids to process boids that they can see (e.g. in front of them)
 	float perception_radius = 50.0f;
