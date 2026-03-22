@@ -27,7 +27,8 @@ Entity createBox(vec2 position, float width, float height)
 	registry.rectangles.emplace(box);
 	registry.scales.insert(box, vec2(width, height));
 	registry.colors.insert(box, vec4(0.6f, 0.4f, 0.2f, 1.0f));
-
+	//so boxes can't have light pass through them
+	registry.walls.emplace(box);
 	registry.renderRequests.insert(
 		box,
 		{

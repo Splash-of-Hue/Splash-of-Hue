@@ -38,6 +38,15 @@ Entity CreatureCreator::createAnglerfish(const int level_uid, vec2 position, flo
     Entity anglerfish = Entity();
 
     addGeneralCreatureComponents(level_uid, anglerfish, position, width, height, color_state, CREATURETYPE::ANGLERFISH, TEXTURE_ASSET_ID::ANGLERFISH_01);
+    PolygonMesh& anglerfish_hitbox = registry.hitboxes.emplace(anglerfish);
+    float hitbox_height = height * 0.32;
+    float hitbox_width = width * 0.35;
+    anglerfish_hitbox.vertices.push_back(vec2(position.x - hitbox_width, position.y - hitbox_height));
+    anglerfish_hitbox.vertices.push_back(vec2(position.x + hitbox_width, position.y - hitbox_height));
+    anglerfish_hitbox.vertices.push_back(vec2(position.x + hitbox_width, position.y + hitbox_height));
+    anglerfish_hitbox.vertices.push_back(vec2(position.x - hitbox_width, position.y + hitbox_height));
+    anglerfish_hitbox.centre = position;
+    anglerfish_hitbox.base_vertices = anglerfish_hitbox.vertices;
 
     Pathfinder& pathfinder = registry.pathfinders.emplace(anglerfish);
     pathfinder.target = registry.players.entities[0];
@@ -58,7 +67,7 @@ Entity CreatureCreator::createAnglerfish(const int level_uid, vec2 position, flo
     light_emission_component.lightSourceEntity = anglerfish;
 
     PolygonMesh& emission_hitbox = registry.hitboxes.emplace(emission_entity);
-    emission_hitbox = createCircleHitbox(position, EMISSION_SIZE::ANGLERFISH_EMISSION * 0.5, 8);
+    emission_hitbox = createCircleHitbox(position, EMISSION_SIZE::ANGLERFISH_EMISSION * 0.5, 16);
 
     LightSource& light_source_component = registry.lightSources.emplace(anglerfish);
     light_source_component.lightEmissionEntity = emission_entity;
