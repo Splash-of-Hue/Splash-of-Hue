@@ -99,11 +99,14 @@ Entity createMushroom(vec2 position, float radius, COLOUR_STATE colour_state, MU
 	registry.scales.insert(mushroom, vec2(size.width, size.height));
 	registry.colourStates.insert(mushroom, { colour_state, colour_state });
 	registry.colors.insert(mushroom, vec4(0.f, 1.f, 0.f, 1.0f));
+	Textured& textured = registry.textured.emplace(mushroom);
+	textured.used_texture = TEXTURE_ASSET_ID::MUSHROOM;
+	registry.angles.emplace(mushroom);
 	registry.renderRequests.insert(
 		mushroom,
 		{
-			EFFECT_ASSET_ID::DEFAULT,
-			GEOMETRY_BUFFER_ID::CIRCLE,
+			EFFECT_ASSET_ID::TEXTURED,
+			GEOMETRY_BUFFER_ID::SPRITE,
 			RENDER_LAYER::FLOOR_INTERACTABLES
 		}
 	);
