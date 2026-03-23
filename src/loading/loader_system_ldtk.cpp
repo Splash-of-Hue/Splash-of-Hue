@@ -668,6 +668,14 @@ void load_mushroom(const ldtk::Entity& mushroom_entity)
 	const vec2 position = vec2(world_pos.x * LEVEL_TO_SCREEN_SCALE.x, world_pos.y * LEVEL_TO_SCREEN_SCALE.y);
 	const float width = size.x * LEVEL_TO_SCREEN_SCALE.x;
 
+	for (Entity& e : registry.unloadables.entities) {
+		vec2& pos = registry.unloadables.get(e).initial_position;
+		//account for roundoff error
+		if (abs(pos.x - position.x) < 1 && abs(pos.y - position.y) < 1) {
+			//don't load this
+			return;
+		}
+	}
 	Entity mushroom = createMushroom(position, width, colour_state, mushroom_size);
 
 	registry.levelEntities.insert(mushroom, { mushroom_entity.layer->level->uid });

@@ -92,7 +92,7 @@ Entity createMushroom(vec2 position, float radius, COLOUR_STATE colour_state, MU
 	Collidable& collidable = registry.collidables.emplace(mushroom);
 	collidable.inelastic = true;
 	registry.circles.emplace(mushroom);
-
+	registry.unloadables.emplace(mushroom, Unloadable{ position });
 	Mushroom& mushroom_component = registry.mushrooms.emplace(mushroom);
 	mushroom_component.size = mushroom_size;
 
