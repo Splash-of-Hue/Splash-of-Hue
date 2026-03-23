@@ -326,7 +326,7 @@ void InteractableSystem::handle_mushrooms(Entity& mushroom_entity)
         vec2 mushroom_position = registry.positions.get(mushroom_entity);
         Entity& emission_entity = createCircle(mushroom_position, 1.f, RENDER_LAYER::FLOOR_INTERACTABLES, DEFAULT_COLOUR_VEC4);
         registry.scales.emplace(emission_entity);
-
+		registry.unloadables.emplace(emission_entity);
         LightEmission& light_emission_component = registry.lightEmissions.emplace(emission_entity);
 
 		switch (registry.mushrooms.get(mushroom_entity).size)
@@ -345,7 +345,7 @@ void InteractableSystem::handle_mushrooms(Entity& mushroom_entity)
         light_emission_component.TIME_TO_GROW = TIME_TO_GROW;
         light_emission_component.offset = EMISSION_OFFSET.at("MUSHROOM");
         PolygonMesh& emission_hitbox = registry.hitboxes.emplace(emission_entity);
-        emission_hitbox = createCircleHitbox(mushroom_position, light_emission_component.MAX_RADIUS * 0.5, 8);
+        emission_hitbox = createCircleHitbox(mushroom_position, light_emission_component.MAX_RADIUS * 0.5, 16);
 
         //double-linking the mushroom and the emission
         light_emission_component.lightSourceEntity = mushroom_entity;

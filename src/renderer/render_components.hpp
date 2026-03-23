@@ -61,3 +61,8 @@ struct Mesh
 	std::vector<ColoredVertex> vertices;
 	std::vector<uint16_t> vertex_indices;
 };
+
+struct VisualRotationOffset
+{
+	float degrees = 0.f;
+};

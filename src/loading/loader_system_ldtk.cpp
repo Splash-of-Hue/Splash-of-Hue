@@ -355,12 +355,28 @@ void load_creatures(const ldtk::Layer& layer)
 		{
 			case CREATURETYPE::ANGLERFISH:
 				// TODO nsTuVKMT: Check if this specific one already exists since it can move
+				for (Entity& e : registry.unloadables.entities) {
+					vec2& pos = registry.unloadables.get(e).initial_position;
+					//account for roundoff error
+					if (abs(pos.x - position.x) < 10 && abs(pos.y - position.y) < 10) {
+						//don't load this, it was loaded
+						return;
+					}
+				}
 				creature_entity = creatureCreator.createAnglerfish(level_uid, position, size.x, size.y, color_state);
 				registry.currentLevels.insert(creature_entity, { level_uid });
 				break;
 
 			case CREATURETYPE::CRAB:
 			{
+				for (Entity& e : registry.unloadables.entities) {
+					vec2& pos = registry.unloadables.get(e).initial_position;
+					//account for roundoff error
+					if (abs(pos.x - position.x) < 10 && abs(pos.y - position.y) < 10) {
+						//don't load this, it was loaded
+						return;
+					}
+				}
 				const ldtk::Field<ldtk::EnumValue>& direction_enum_type = ldtk_creature_entity.getField<ldtk::EnumValue>("Direction");
 				const DIRECTION& direction_state = direction_type_from_string(direction_enum_type.value().name);
 				creature_entity = creatureCreator.createCrab(level_uid, position, size.x, size.y, color_state, direction_state);
@@ -373,6 +389,14 @@ void load_creatures(const ldtk::Layer& layer)
 
 			case CREATURETYPE::SAWFISH:
 				// TODO nsTuVKMT: Check if this specific one already exists since it can move
+				for (Entity& e : registry.unloadables.entities) {
+					vec2& pos = registry.unloadables.get(e).initial_position;
+					//account for roundoff error
+					if (abs(pos.x - position.x) < 10 && abs(pos.y - position.y) < 10) {
+						//don't load this, it was loaded
+						return;
+					}
+				}
 				creature_entity = creatureCreator.createSawfish(level_uid, position, size.x, size.y, color_state);
 				registry.currentLevels.insert(creature_entity, { level_uid });
 				break;
@@ -484,6 +508,14 @@ void load_moss_toggle(const ldtk::Entity& moss_toggle_entity)
 	const ldtk::IntPoint& size = moss_toggle_entity.getSize();
 	const vec2 world_position = scale_to_level(vec2(position.x, position.y));
 	const vec2 scaled_size = scale_to_level(vec2(size.x, size.y));
+	for (Entity& e : registry.unloadables.entities) {
+		vec2& pos = registry.unloadables.get(e).initial_position;
+		//account for roundoff error
+		if (abs(pos.x - world_position.x) < 10 && abs(pos.y - world_position.y) < 10) {
+			//don't load this, it was loaded
+			return;
+		}
+	}
 	const ldtk::ArrayField<ldtk::EntityRef>& wall_entity_ref_fields = moss_toggle_entity.getField<ldtk::FieldType::ArrayEntityRef>("ConnectedWalls");
 	std::vector<std::string> connected_wall_ids;
 	
@@ -502,6 +534,14 @@ void load_moss_door(const ldtk::Entity& moss_door_entity)
 	const ldtk::IntPoint& size = moss_door_entity.getSize();
 	const vec2 world_position = scale_to_level(vec2(position.x, position.y));
 	const vec2 scaled_size = scale_to_level(vec2(size.x, size.y));
+	for (Entity& e : registry.unloadables.entities) {
+		vec2& pos = registry.unloadables.get(e).initial_position;
+		//account for roundoff error
+		if (abs(pos.x - world_position.x) < 10 && abs(pos.y - world_position.y) < 10) {
+			//don't load this, it was loaded
+			return;
+		}
+	}
 	std::string moss_door_id = moss_door_entity.iid.str();
 	const ldtk::Field<ldtk::EnumValue>& color_state_enum_type = moss_door_entity.getField<ldtk::EnumValue>("ColorState");
 	COLOUR_STATE color_state = color_state_from_string(color_state_enum_type.value().name);
@@ -559,7 +599,14 @@ void load_pressure_plate_walls(const ldtk::Entity& pressure_plate_entity)
 	const vec2 scaled_size = scale_to_level(vec2(size.x, size.y));
 	std::string pressure_plate_wall_id = pressure_plate_entity.iid.str();
 	bool is_open = false;
-
+	for (Entity& e : registry.unloadables.entities) {
+		vec2& pos = registry.unloadables.get(e).initial_position;
+		//account for roundoff error
+		if (abs(pos.x - world_position.x) < 1 && abs(pos.y - world_position.y) < 1) {
+			//don't load this, it was broken
+			return;
+		}
+	}
 	const auto find_pressure_plate = [&](Entity& entity)
 		{
 			std::vector<std::string>& pressure_plate_ids = registry.pressurePlates.get(entity).connected_wall_ids;
@@ -602,6 +649,14 @@ void load_box(const ldtk::Entity& box_entity)
 	const ldtk::IntPoint& entity_size = box_entity.getSize();
 	vec2 position = vec2(world_pos.x, world_pos.y) + vec2(entity_size.x, entity_size.y) / 2.0f;
 	position = scale_to_level(position);
+	for (Entity& e : registry.unloadables.entities) {
+		vec2& pos = registry.unloadables.get(e).initial_position;
+		//account for roundoff error
+		if (abs(pos.x - position.x) < 10 && abs(pos.y - position.y) < 10) {
+			//don't load this, it was broken
+			return;
+		}
+	}
 	const vec2 size = scale_to_level(vec2(entity_size.x, entity_size.y));
 	Entity box = createBox(position, size.x, size.y);
 	registry.levelEntities.insert(box, { box_entity.layer->level->uid });
@@ -621,6 +676,14 @@ void load_mushroom(const ldtk::Entity& mushroom_entity)
 	const vec2 position = vec2(world_pos.x * LEVEL_TO_SCREEN_SCALE.x, world_pos.y * LEVEL_TO_SCREEN_SCALE.y);
 	const float width = size.x * LEVEL_TO_SCREEN_SCALE.x;
 
+	for (Entity& e : registry.unloadables.entities) {
+		vec2& pos = registry.unloadables.get(e).initial_position;
+		//account for roundoff error
+		if (abs(pos.x - position.x) < 10 && abs(pos.y - position.y) < 10) {
+			//don't load this
+			return;
+		}
+	}
 	Entity mushroom = createMushroom(position, width, colour_state, mushroom_size);
 
 	registry.levelEntities.insert(mushroom, { mushroom_entity.layer->level->uid });
@@ -704,6 +767,7 @@ void LoaderSystem::unload_level(int level_uid)
 		if (registry.levelTiles.get(level_tile_entity).level_uid == level_uid)
 		{
 			registry.remove_all_components_of(level_tile_entity);
+			
 		}
 	}
 
@@ -732,7 +796,10 @@ void LoaderSystem::unload_level(int level_uid)
 
 		// The entity is either not in the level we are unloading if it moves
 		// or it's not part of the level we are unloading
-		registry.remove_all_components_of(level_entities_entity);
+		if (!registry.unloadables.has(level_entities_entity)) {
+			registry.remove_all_components_of(level_entities_entity);
+		}
+		
 	}
 
 	// Keep the map data but remove from loaded levels (is generated, is not loaded)
@@ -790,8 +857,17 @@ void load_puzzle_wall(const ldtk::Entity& puzzle_wall_entity)
 	const ldtk::IntPoint& wall_size = puzzle_wall_entity.getSize();
 	const vec2 position = scale_to_level(vec2(wall_world_position.x, wall_world_position.y));
 	const vec2 size = scale_to_level(vec2(wall_size.x, wall_size.y));
+	for (Entity& e : registry.unloadables.entities) {
+		vec2& pos = registry.unloadables.get(e).initial_position;
+		//account for roundoff error
+		if (abs(pos.x - position.x) < 10 && abs(pos.y - position.y) < 10) {
+			//don't load this, it was loaded
+			return;
+		}
+	}
 	const vec4 PUZZLE_WALL_COLOUR = vec4(vec3(105, 30, 105) / 255.0f, 1.0);
 	Entity& wall = createWall(puzzle_wall_entity.layer->level->uid, position, size.x, size.y, PUZZLE_WALL_COLOUR);
 	registry.renderRequests.get(wall).layer = RENDER_LAYER::WALLS_FRONT;
 	registry.puzzle_triggers.insert(wall, { puzzle_wall_entity.iid.str(), [&]() {} });
+	registry.unloadables.emplace(wall);
 }

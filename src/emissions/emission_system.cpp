@@ -67,6 +67,7 @@ void EmissionSystem::change_emission_colour_state(Entity& emission_entity, COLOU
 	if (palette.state_to_colour.count(colour_state) == 0) return;
 
 	vec4 color = palette.state_to_colour.at(colour_state);
+	color.a = 0.5;
 
 	if (!registry.colors.has(emission_entity)) {
 		registry.colors.emplace(emission_entity);

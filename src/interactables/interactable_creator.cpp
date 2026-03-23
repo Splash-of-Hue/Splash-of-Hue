@@ -27,7 +27,9 @@ Entity createBox(vec2 position, float width, float height)
 	registry.rectangles.emplace(box);
 	registry.scales.insert(box, vec2(width, height));
 	registry.colors.insert(box, vec4(0.6f, 0.4f, 0.2f, 1.0f));
-
+	registry.unloadables.emplace(box, Unloadable{ position });
+	//so boxes can't have light pass through them
+	registry.walls.emplace(box);
 	registry.renderRequests.insert(
 		box,
 		{
@@ -42,7 +44,6 @@ Entity createBox(vec2 position, float width, float height)
 
 Entity createColourOrb(vec2 position, float radius, COLOUR_STATE colour_state)
 {
-	std::cout << "createColourOrb called, palette size: " << registry.colourPalettes.components.size() << std::endl;
 	Size size = { 2.0f * radius, 2.0f * radius };
 	Entity colourOrb = addGeneralInteractableComponents(position, size, INTERACTABLE_TYPE::COLOUR_ORB);
 	Collidable& collidable = registry.collidables.emplace(colourOrb);
@@ -55,17 +56,28 @@ Entity createColourOrb(vec2 position, float radius, COLOUR_STATE colour_state)
 
 	const ColourPalette& palette = registry.colourPalettes.components[0];
 	registry.colors.insert(colourOrb, palette.state_to_colour.at(colour_state));
-	registry.circles.emplace(colourOrb);
 	registry.scales.insert(colourOrb, vec2(size.width, size.height));
+	registry.angles.emplace(colourOrb);
+
+	Textured& textured = registry.textured.emplace(colourOrb);
+	textured.used_texture = TEXTURE_ASSET_ID::COLOUR_ORB_SHEET;
 
 	registry.renderRequests.insert(
 		colourOrb,
 		{
-			EFFECT_ASSET_ID::DEFAULT,
-			GEOMETRY_BUFFER_ID::CIRCLE,
+			EFFECT_ASSET_ID::TEXTURED,
+			GEOMETRY_BUFFER_ID::SPRITE,
 			RENDER_LAYER::FLOOR_INTERACTABLES,
 		}
 		);
+
+	const Animatable animatable = {
+		ANIMATABLE_TYPE::COLOUR_ORB,
+		ANIMATION_BEHAVIOR::LOOP,
+		ANIMATION_TRIGGER::COLOUR_ORB_IDLE,
+		8
+	};
+	registry.animatables.insert(colourOrb, animatable);
 
 	return colourOrb;
 }
@@ -90,18 +102,21 @@ Entity createMushroom(vec2 position, float radius, COLOUR_STATE colour_state, MU
 	Collidable& collidable = registry.collidables.emplace(mushroom);
 	collidable.inelastic = true;
 	registry.circles.emplace(mushroom);
-
+	registry.unloadables.emplace(mushroom, Unloadable{ position });
 	Mushroom& mushroom_component = registry.mushrooms.emplace(mushroom);
 	mushroom_component.size = mushroom_size;
 
 	registry.scales.insert(mushroom, vec2(size.width, size.height));
 	registry.colourStates.insert(mushroom, { colour_state, colour_state });
 	registry.colors.insert(mushroom, vec4(0.f, 1.f, 0.f, 1.0f));
+	Textured& textured = registry.textured.emplace(mushroom);
+	textured.used_texture = TEXTURE_ASSET_ID::MUSHROOM;
+	registry.angles.emplace(mushroom);
 	registry.renderRequests.insert(
 		mushroom,
 		{
-			EFFECT_ASSET_ID::DEFAULT,
-			GEOMETRY_BUFFER_ID::CIRCLE,
+			EFFECT_ASSET_ID::TEXTURED,
+			GEOMETRY_BUFFER_ID::SPRITE,
 			RENDER_LAYER::FLOOR_INTERACTABLES
 		}
 	);
@@ -116,6 +131,7 @@ Entity createMossToggle(const int level_uid, vec2 position, vec2 size, std::vect
 	registry.scales.insert(toggle_entity, size);
 	registry.sizes.insert(toggle_entity, { size.x, size.y });
 	registry.angles.emplace(toggle_entity);
+	registry.unloadables.emplace(toggle_entity, Unloadable{ position });
 	Collidable& col = registry.collidables.emplace(toggle_entity);
 	col.inelastic = false;
 	registry.colourStates.insert(toggle_entity, { COLOUR_STATE::NEUTRAL, COLOUR_STATE::NEUTRAL });
@@ -236,7 +252,7 @@ Entity createFloorPictureControls(vec2 position, float width, float height, CONT
 		{
 			EFFECT_ASSET_ID::TEXTURED,
 			GEOMETRY_BUFFER_ID::SPRITE,
-			RENDER_LAYER::FLOOR_DECORATIONS
+			RENDER_LAYER::WALLS_BACK
 		}
 	);
 

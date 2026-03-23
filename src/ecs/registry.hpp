@@ -79,6 +79,7 @@ public:
 	ComponentContainer<PuzzleTrigger> puzzle_triggers;	
 	// Loader
 	ComponentContainer<LoadRequest> loadRequests;
+	ComponentContainer<Unloadable> unloadables;
 	// Map
 	ComponentContainer<ChangeMapLevelRequest> changeMapLevelRequests;
 	ComponentContainer<ColouredWall> colouredWall;
@@ -119,6 +120,7 @@ public:
 	ComponentContainer<RenderRequest> renderRequests;
 	ComponentContainer<RenderSourceRect> renderSourceRects;
 	ComponentContainer<ScreenState> screenStates;
+	ComponentContainer<VisualRotationOffset> visualRotationOffsets;
 	// Shapes
 	ComponentContainer<Circle> circles; // TODO 1ch6Q0BE: Remove
 	ComponentContainer<Rect> rectangles; // TODO 1ch6Q0BE: Remove
@@ -226,6 +228,7 @@ public:
 		registry_list.push_back(&renderRequests);
 		registry_list.push_back(&renderSourceRects);
 		registry_list.push_back(&screenStates);
+		registry_list.push_back(&visualRotationOffsets);
 		// Shapes
 		registry_list.push_back(&circles); // TODO 1ch6Q0BE: Remove;
 		registry_list.push_back(&rectangles); // TODO 1ch6Q0BE: Remove

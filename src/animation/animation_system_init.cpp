@@ -416,7 +416,29 @@ generate_animation(
 			{ TEXTURE_ASSET_ID::CONTROLS_SHEET, RenderSourceRect{ vec2(0.0f, 0.75f), vec2(1.0f, 0.25f) }}
 		}
 	);
+
+	// COLOUR ORB
+	generate_animation(
+		ANIMATABLE_TYPE::COLOUR_ORB,
+		ANIMATION_TRIGGER::COLOUR_ORB_IDLE,
+		{
+			{ TEXTURE_ASSET_ID::COLOUR_ORB_SHEET, RenderSourceRect{ vec2(0.0f, 0.0f),    vec2(0.2f, 0.333f) }},
+			{ TEXTURE_ASSET_ID::COLOUR_ORB_SHEET, RenderSourceRect{ vec2(0.2f, 0.0f),    vec2(0.2f, 0.333f) }},
+			{ TEXTURE_ASSET_ID::COLOUR_ORB_SHEET, RenderSourceRect{ vec2(0.4f, 0.0f),    vec2(0.2f, 0.333f) }},
+			{ TEXTURE_ASSET_ID::COLOUR_ORB_SHEET, RenderSourceRect{ vec2(0.6f, 0.0f),    vec2(0.2f, 0.333f) }},
+			{ TEXTURE_ASSET_ID::COLOUR_ORB_SHEET, RenderSourceRect{ vec2(0.8f, 0.0f),    vec2(0.2f, 0.333f) }},
+			{ TEXTURE_ASSET_ID::COLOUR_ORB_SHEET, RenderSourceRect{ vec2(0.0f, 0.333f),  vec2(0.2f, 0.333f) }},
+			{ TEXTURE_ASSET_ID::COLOUR_ORB_SHEET, RenderSourceRect{ vec2(0.2f, 0.333f),  vec2(0.2f, 0.333f) }},
+			{ TEXTURE_ASSET_ID::COLOUR_ORB_SHEET, RenderSourceRect{ vec2(0.4f, 0.333f),  vec2(0.2f, 0.333f) }},
+			{ TEXTURE_ASSET_ID::COLOUR_ORB_SHEET, RenderSourceRect{ vec2(0.6f, 0.333f),  vec2(0.2f, 0.333f) }},
+			{ TEXTURE_ASSET_ID::COLOUR_ORB_SHEET, RenderSourceRect{ vec2(0.8f, 0.333f),  vec2(0.2f, 0.333f) }},
+			{ TEXTURE_ASSET_ID::COLOUR_ORB_SHEET, RenderSourceRect{ vec2(0.0f, 0.667f),  vec2(0.2f, 0.333f) }},
+			{ TEXTURE_ASSET_ID::COLOUR_ORB_SHEET, RenderSourceRect{ vec2(0.2f, 0.667f),  vec2(0.2f, 0.333f) }},
+		}
+		);
 }
+
+
 
 void AnimationSystem::generate_animation(
 	ANIMATABLE_TYPE type,

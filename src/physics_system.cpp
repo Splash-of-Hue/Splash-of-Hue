@@ -252,15 +252,12 @@ void handle_hurt_collision(Entity& entity_i, Entity& entity_j) {
 	{
 		Entity& eP = registry.players.has(entity_i) ? entity_i : entity_j;
 		Entity& eS = registry.creatures.has(entity_i) ? entity_i : entity_j;
-		//make it so only sawfish kills
-		if (!registry.shrimps.has(eS) && registry.colourStates.has(eS))
+		//make it so only a charging sawfish kills
+		if (registry.creatures.get(eS).creatureType == CREATURETYPE::SAWFISH && registry.chargers.has(eS) && !registry.creatureBehaviourCooldowns.has(eP))
 		{
-			ColourState& csS = registry.colourStates.get(eS);
-			
-			if (csS.curr_colour_state == COLOUR_STATE::RED && registry.chargers.has(eS) && !registry.deathTimers.has(eP))
-			{
-				registry.deathTimers.emplace(eP);
-			}
+			CreatureBehaviourCooldown& cooldown = registry.creatureBehaviourCooldowns.emplace(eP);
+			cooldown.cooldown_default = 3000.f;
+			cooldown.cooldown = cooldown.cooldown_default;
 		}
 	}
 }
@@ -653,17 +650,23 @@ void PhysicsSystem::step(float elapsed_ms)
 					vec3 penetration = mesh_collides(entity_i, entity_j, true);
 
 					if (penetration.x != 0) {
-
 						handle_hurt_collision(entity_i, entity_j);
-						if (registry.collidables.get(entity_i).inelastic && registry.collidables.get(entity_j).inelastic)
-						{
-							if (!registry.creatureInelasticCollisions.has(entity_j) && registry.creatures.has(entity_j)) {
-								registry.creatureInelasticCollisions.emplace(entity_j);
+						//breaking a box still runs this code, so we gotta check if the entity still exists
+						if (registry.collidables.has(entity_i) && registry.collidables.has(entity_j)) {
+							if (registry.collidables.get(entity_i).inelastic && registry.collidables.get(entity_j).inelastic)
+							{
+								if (!registry.creatureInelasticCollisions.has(entity_j) && registry.creatures.has(entity_j)) {
+									registry.creatureInelasticCollisions.emplace(entity_j);
+								}
+								if (!registry.creatureInelasticCollisions.has(entity_i) && registry.creatures.has(entity_i)) {
+									registry.creatureInelasticCollisions.emplace(entity_i);
+								}
+								handle_inelastic_collision_mesh(entity_i, entity_j, penetration);
 							}
-							if (!registry.creatureInelasticCollisions.has(entity_i) && registry.creatures.has(entity_i)) {
-								registry.creatureInelasticCollisions.emplace(entity_i);
-							}
-							handle_inelastic_collision_mesh(entity_i, entity_j, penetration);
+							
+						}
+						else {
+							return;
 						}
 					}
 				}
@@ -706,7 +709,7 @@ void PhysicsSystem::step(float elapsed_ms)
 					}
 					continue;
 				}
-			
+				
 				//no mesh, resolve box collision
 				if (is_light_emission_collision(entity_i, entity_j))
 				{

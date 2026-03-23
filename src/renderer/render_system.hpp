@@ -57,7 +57,9 @@ class RenderSystem
 		textures_path("puzzle_bubble.png"),
 		textures_path("puzzle_bubble_fake.png"),
 		textures_path("Crab.png"),
-		textures_path("Control_Sheet.png")
+		textures_path("Control_Sheet.png"),
+		textures_path("mushroom_1.png"),
+		textures_path("ColourOrb.png")
 	};
 
 	std::array<GLuint, effect_count> effects;

@@ -17,4 +17,7 @@ public:
 private:
 	// Boids
 	void updateBoids(float elapsed_ms);
+
+	float time_accumulator = 0.0f;
+	const float update_interval = 500.0f; // ms, updating at 30fps
 };

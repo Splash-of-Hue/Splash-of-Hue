@@ -23,7 +23,10 @@ BEHAVIOUR_TREE_STATUS CreatureBehaviourFunctions::slideForwards(Entity& creature
         trigger = ANIMATION_TRIGGER::WALK_BACKWARD;
     }
 
-    if (!registry.animation_triggers.has(creature)) {
+    if (registry.animation_triggers.has(creature)) {
+        registry.animation_triggers.get(creature).animation_trigger = trigger;
+    }
+    else {
         registry.animation_triggers.insert(creature, { trigger });
     }
 
@@ -50,7 +53,10 @@ BEHAVIOUR_TREE_STATUS CreatureBehaviourFunctions::slideBackwards(Entity& creatur
         trigger = ANIMATION_TRIGGER::WALK_FORWARD;
     }
 
-    if (!registry.animation_triggers.has(creature)) {
+    if (registry.animation_triggers.has(creature)) {
+        registry.animation_triggers.get(creature).animation_trigger = trigger;
+    }
+    else {
         registry.animation_triggers.insert(creature, { trigger });
     }
 
@@ -63,5 +69,11 @@ BEHAVIOUR_TREE_STATUS CreatureBehaviourFunctions::isSliding(Entity& creature, fl
 	if (registry.velocities.get(creature) != vec2(0)) {
 		return BEHAVIOUR_TREE_STATUS::SUCCESS;
 	}
+    if (registry.animation_triggers.has(creature)) {
+        registry.animation_triggers.get(creature).animation_trigger = ANIMATION_TRIGGER::IDLE;
+    }
+    else {
+        registry.animation_triggers.insert(creature, { ANIMATION_TRIGGER::IDLE });
+    }
 	return BEHAVIOUR_TREE_STATUS::FAILURE;
 }
