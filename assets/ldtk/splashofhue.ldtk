@@ -14584,7 +14584,7 @@
 						},
 						{
 							"__identifier": "Box",
-							"__grid": [181,53],
+							"__grid": [191,55],
 							"__pivot": [0,0],
 							"__tags": ["Floor_Interactable"],
 							"__tile": null,
@@ -14593,14 +14593,14 @@
 							"width": 140,
 							"height": 140,
 							"defUid": 60,
-							"px": [1448,424],
+							"px": [1528,440],
 							"fieldInstances": [],
-							"__worldX": 9128,
-							"__worldY": 1504
+							"__worldX": 9208,
+							"__worldY": 1520
 						},
 						{
 							"__identifier": "Box",
-							"__grid": [182,72],
+							"__grid": [193,73],
 							"__pivot": [0,0],
 							"__tags": ["Floor_Interactable"],
 							"__tile": null,
@@ -14609,10 +14609,10 @@
 							"width": 140,
 							"height": 140,
 							"defUid": 60,
-							"px": [1456,576],
+							"px": [1544,584],
 							"fieldInstances": [],
-							"__worldX": 9136,
-							"__worldY": 1656
+							"__worldX": 9224,
+							"__worldY": 1664
 						},
 						{
 							"__identifier": "Box",
@@ -27050,7 +27050,7 @@
 					"entityInstances": [
 						{
 							"__identifier": "Box",
-							"__grid": [106,25],
+							"__grid": [27,39],
 							"__pivot": [0,0],
 							"__tags": ["Floor_Interactable"],
 							"__tile": null,
@@ -27059,14 +27059,14 @@
 							"width": 140,
 							"height": 140,
 							"defUid": 60,
-							"px": [848,200],
+							"px": [216,312],
 							"fieldInstances": [],
-							"__worldX": 16208,
-							"__worldY": 200
+							"__worldX": 15576,
+							"__worldY": 312
 						},
 						{
 							"__identifier": "Box",
-							"__grid": [78,38],
+							"__grid": [9,39],
 							"__pivot": [0,0],
 							"__tags": ["Floor_Interactable"],
 							"__tile": null,
@@ -27075,10 +27075,10 @@
 							"width": 140,
 							"height": 140,
 							"defUid": 60,
-							"px": [624,304],
+							"px": [72,312],
 							"fieldInstances": [],
-							"__worldX": 15984,
-							"__worldY": 304
+							"__worldX": 15432,
+							"__worldY": 312
 						},
 						{
 							"__identifier": "Box",
