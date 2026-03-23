@@ -666,6 +666,9 @@ void PhysicsSystem::step(float elapsed_ms)
 								}
 								handle_inelastic_collision_mesh(entity_i, entity_j, penetration);
 							}
+							
+						}
+						else {
 							return;
 						}
 					}
