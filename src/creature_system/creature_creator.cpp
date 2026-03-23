@@ -421,7 +421,7 @@ Entity CreatureCreator::createSawfish(const int level_uid, vec2 position, float 
     sawfish_hurtbox.centre = position;
     sawfish_hurtbox.base_vertices = sawfish_hurtbox.vertices;
 
-    registry.unloadables.emplace(anglerfish, Unloadable{ position });
+    registry.unloadables.emplace(sawfish, Unloadable{ position });
 
     Pathfinder& pathfinder = registry.pathfinders.emplace(sawfish);
     pathfinder.target = registry.players.entities[0];
