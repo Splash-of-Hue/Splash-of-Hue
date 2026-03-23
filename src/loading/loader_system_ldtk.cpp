@@ -389,6 +389,14 @@ void load_creatures(const ldtk::Layer& layer)
 
 			case CREATURETYPE::SAWFISH:
 				// TODO nsTuVKMT: Check if this specific one already exists since it can move
+				for (Entity& e : registry.unloadables.entities) {
+					vec2& pos = registry.unloadables.get(e).initial_position;
+					//account for roundoff error
+					if (abs(pos.x - position.x) < 10 && abs(pos.y - position.y) < 10) {
+						//don't load this, it was loaded
+						return;
+					}
+				}
 				creature_entity = creatureCreator.createSawfish(level_uid, position, size.x, size.y, color_state);
 				registry.currentLevels.insert(creature_entity, { level_uid });
 				break;
@@ -503,7 +511,7 @@ void load_moss_toggle(const ldtk::Entity& moss_toggle_entity)
 	for (Entity& e : registry.unloadables.entities) {
 		vec2& pos = registry.unloadables.get(e).initial_position;
 		//account for roundoff error
-		if (abs(pos.x - world_position.x) < 1 && abs(pos.y - world_position.y) < 1) {
+		if (abs(pos.x - world_position.x) < 10 && abs(pos.y - world_position.y) < 10) {
 			//don't load this, it was loaded
 			return;
 		}
@@ -529,7 +537,7 @@ void load_moss_door(const ldtk::Entity& moss_door_entity)
 	for (Entity& e : registry.unloadables.entities) {
 		vec2& pos = registry.unloadables.get(e).initial_position;
 		//account for roundoff error
-		if (abs(pos.x - world_position.x) < 1 && abs(pos.y - world_position.y) < 1) {
+		if (abs(pos.x - world_position.x) < 10 && abs(pos.y - world_position.y) < 10) {
 			//don't load this, it was loaded
 			return;
 		}
