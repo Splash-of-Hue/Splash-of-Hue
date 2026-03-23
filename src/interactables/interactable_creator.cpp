@@ -27,6 +27,7 @@ Entity createBox(vec2 position, float width, float height)
 	registry.rectangles.emplace(box);
 	registry.scales.insert(box, vec2(width, height));
 	registry.colors.insert(box, vec4(0.6f, 0.4f, 0.2f, 1.0f));
+	registry.unloadables.emplace(box, Unloadable{ position });
 	//so boxes can't have light pass through them
 	registry.walls.emplace(box);
 	registry.renderRequests.insert(
@@ -117,6 +118,7 @@ Entity createMossToggle(const int level_uid, vec2 position, vec2 size, std::vect
 	registry.scales.insert(toggle_entity, size);
 	registry.sizes.insert(toggle_entity, { size.x, size.y });
 	registry.angles.emplace(toggle_entity);
+	registry.unloadables.emplace(toggle_entity, Unloadable{ position });
 	Collidable& col = registry.collidables.emplace(toggle_entity);
 	col.inelastic = false;
 	registry.colourStates.insert(toggle_entity, { COLOUR_STATE::NEUTRAL, COLOUR_STATE::NEUTRAL });

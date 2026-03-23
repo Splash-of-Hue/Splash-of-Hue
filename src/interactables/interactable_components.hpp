@@ -76,6 +76,10 @@ struct PressurePlate
 struct Breakable
 {};
 
+// if unloadable is loaded, record its position and dont load there again
+struct Unloadable {
+	vec2 initial_position;
+};
 // for things that are collectable (i.e. colour orb by the player)
 struct Collectable
 {};

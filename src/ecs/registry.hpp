@@ -79,6 +79,7 @@ public:
 	ComponentContainer<PuzzleTrigger> puzzle_triggers;	
 	// Loader
 	ComponentContainer<LoadRequest> loadRequests;
+	ComponentContainer<Unloadable> unloadables;
 	// Map
 	ComponentContainer<ChangeMapLevelRequest> changeMapLevelRequests;
 	ComponentContainer<ColouredWall> colouredWall;
