@@ -130,7 +130,7 @@
 				"levelIid": "8cc5c580-21a0-11f1-8ff7-79858a2ab6bd",
 				"layerIid": "8cc5ec91-21a0-11f1-8ff7-f7e14e2f73f5",
 				"entityIid": "c3c809e0-21a0-11f1-9102-91f370008f56"
-			}, "worldX": 8156, "worldY": 1300, "widPx": 128, "heiPx": 32, "fields" : {} },
+			}, "worldX": 8156, "worldY": 1268, "widPx": 128, "heiPx": 32, "fields" : {} },
 			{ "iids": {
 				"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787",
 				"levelIid": "8cc5c580-21a0-11f1-8ff7-79858a2ab6bd",
@@ -238,7 +238,7 @@
 				"levelIid": "ae9a81f0-21a0-11f1-8ff7-01e23b0956c5",
 				"layerIid": "ae9a81f3-21a0-11f1-8ff7-151b7919e7d3",
 				"entityIid": "8927b000-21a0-11f1-9102-170a8770274a"
-			}, "worldX": 15620, "worldY": 1004, "widPx": 288, "heiPx": 32, "fields" : {} },
+			}, "worldX": 15620, "worldY": 1004, "widPx": 160, "heiPx": 32, "fields" : {} },
 			{ "iids": {
 				"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787",
 				"levelIid": "ae9a81f0-21a0-11f1-8ff7-01e23b0956c5",
@@ -268,7 +268,7 @@
 				"levelIid": "afce1ff0-21a0-11f1-8ff7-edcb2953dc85",
 				"layerIid": "afce1ff3-21a0-11f1-8ff7-e5af068b7bac",
 				"entityIid": "85f3d530-21a0-11f1-9102-c59e35f53e4d"
-			}, "worldX": 15612, "worldY": 1172, "widPx": 312, "heiPx": 32, "fields" : {} },
+			}, "worldX": 15612, "worldY": 1172, "widPx": 144, "heiPx": 32, "fields" : {} },
 			{ "iids": {
 				"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787",
 				"levelIid": "b2403160-21a0-11f1-8ff7-99b6bf0f1e86",
@@ -736,13 +736,13 @@
 			"doc": null,
 			"width": 50,
 			"height": 50,
-			"resizableX": false,
-			"resizableY": false,
-			"minWidth": null,
+			"resizableX": true,
+			"resizableY": true,
+			"minWidth": 50,
 			"maxWidth": null,
-			"minHeight": null,
+			"minHeight": 50,
 			"maxHeight": null,
-			"keepAspectRatio": false,
+			"keepAspectRatio": true,
 			"tileOpacity": 0.8,
 			"fillOpacity": 0.08,
 			"lineOpacity": 0,
@@ -4772,7 +4772,7 @@
 						},
 						{
 							"__identifier": "Control_PNG_entity",
-							"__grid": [86,61],
+							"__grid": [99,61],
 							"__pivot": [0,0],
 							"__tags": ["Floor_Interactable"],
 							"__tile": null,
@@ -4781,12 +4781,12 @@
 							"width": 400,
 							"height": 280,
 							"defUid": 63,
-							"px": [688,488],
+							"px": [792,488],
 							"fieldInstances": [{ "__identifier": "ControlPictureType", "__type": "LocalEnum.ControlPictureType", "__value": "ARROW_RED", "__tile": null, "defUid": 65, "realEditorValues": [{
 								"id": "V_String",
 								"params": ["ARROW_RED"]
 							}] }],
-							"__worldX": 2608,
+							"__worldX": 2712,
 							"__worldY": -592
 						},
 						{
@@ -14490,7 +14490,7 @@
 						},
 						{
 							"__identifier": "Teleporter",
-							"__grid": [59,27],
+							"__grid": [59,23],
 							"__pivot": [0.5,0.5],
 							"__tags": ["Floor_Interactable"],
 							"__tile": null,
@@ -14499,7 +14499,7 @@
 							"width": 128,
 							"height": 32,
 							"defUid": 12,
-							"px": [476,220],
+							"px": [476,188],
 							"fieldInstances": [
 								{ "__identifier": "ConnectedTeleporter", "__type": "EntityRef", "__value": {
 									"entityIid": "dfa55eb0-21a0-11f1-9102-fb8980e41e0c",
@@ -14517,7 +14517,7 @@
 								}] }
 							],
 							"__worldX": 8156,
-							"__worldY": 1300
+							"__worldY": 1268
 						},
 						{
 							"__identifier": "MossToggle",
@@ -16113,16 +16113,16 @@
 						},
 						{
 							"__identifier": "Crab",
-							"__grid": [22,43],
+							"__grid": [22,42],
 							"__pivot": [0.5,0.5],
 							"__tags": ["Creature"],
 							"__tile": { "tilesetUid": 16, "x": 256, "y": 0, "w": 256, "h": 256 },
 							"__smartColor": "#E43B44",
 							"iid": "61dc4ab0-21a0-11f1-b693-2f59a0d7c8e0",
-							"width": 50,
-							"height": 50,
+							"width": 128,
+							"height": 128,
 							"defUid": 17,
-							"px": [360,688],
+							"px": [360,672],
 							"fieldInstances": [
 								{ "__identifier": "CreatureType", "__type": "LocalEnum.CreatureType", "__value": "JPCrab", "__tile": null, "defUid": 18, "realEditorValues": [] },
 								{ "__identifier": "ColorState", "__type": "LocalEnum.ColorState", "__value": "Neutral", "__tile": null, "defUid": 27, "realEditorValues": [] },
@@ -16132,7 +16132,7 @@
 								}] }
 							],
 							"__worldX": 9960,
-							"__worldY": 1768
+							"__worldY": 1752
 						},
 						{
 							"__identifier": "Anglerfish",
@@ -17603,8 +17603,8 @@
 							"__tile": { "tilesetUid": 16, "x": 256, "y": 0, "w": 256, "h": 256 },
 							"__smartColor": "#E43B44",
 							"iid": "4dd92740-21a0-11f1-b693-79219d57048b",
-							"width": 50,
-							"height": 50,
+							"width": 112,
+							"height": 112,
 							"defUid": 17,
 							"px": [936,448],
 							"fieldInstances": [
@@ -17620,16 +17620,16 @@
 						},
 						{
 							"__identifier": "Crab",
-							"__grid": [58,43],
+							"__grid": [58,41],
 							"__pivot": [0.5,0.5],
 							"__tags": ["Creature"],
 							"__tile": { "tilesetUid": 16, "x": 256, "y": 0, "w": 256, "h": 256 },
 							"__smartColor": "#E43B44",
 							"iid": "52f98fd0-21a0-11f1-b693-c7bd71c4824e",
-							"width": 50,
-							"height": 50,
+							"width": 112,
+							"height": 112,
 							"defUid": 17,
-							"px": [936,688],
+							"px": [936,656],
 							"fieldInstances": [
 								{ "__identifier": "CreatureType", "__type": "LocalEnum.CreatureType", "__value": "JPCrab", "__tile": null, "defUid": 18, "realEditorValues": [] },
 								{ "__identifier": "ColorState", "__type": "LocalEnum.ColorState", "__value": "Neutral", "__tile": null, "defUid": 27, "realEditorValues": [] },
@@ -17639,7 +17639,7 @@
 								}] }
 							],
 							"__worldX": 10536,
-							"__worldY": 688
+							"__worldY": 656
 						}
 					]
 				},
@@ -19057,8 +19057,8 @@
 							"__tile": { "tilesetUid": 16, "x": 256, "y": 0, "w": 256, "h": 256 },
 							"__smartColor": "#E43B44",
 							"iid": "1b3c7530-21a0-11f1-b693-1dffb23b4023",
-							"width": 50,
-							"height": 50,
+							"width": 80,
+							"height": 80,
 							"defUid": 17,
 							"px": [712,672],
 							"fieldInstances": [
@@ -19074,16 +19074,16 @@
 						},
 						{
 							"__identifier": "Crab",
-							"__grid": [73,32],
+							"__grid": [72,31],
 							"__pivot": [0.5,0.5],
 							"__tags": ["Creature"],
 							"__tile": { "tilesetUid": 16, "x": 256, "y": 0, "w": 256, "h": 256 },
 							"__smartColor": "#E43B44",
 							"iid": "24b69af0-21a0-11f1-b693-1f30ad61b485",
-							"width": 50,
-							"height": 50,
+							"width": 80,
+							"height": 80,
 							"defUid": 17,
-							"px": [1176,512],
+							"px": [1160,496],
 							"fieldInstances": [
 								{ "__identifier": "CreatureType", "__type": "LocalEnum.CreatureType", "__value": "JPCrab", "__tile": null, "defUid": 18, "realEditorValues": [] },
 								{ "__identifier": "ColorState", "__type": "LocalEnum.ColorState", "__value": "Neutral", "__tile": null, "defUid": 27, "realEditorValues": [] },
@@ -19092,8 +19092,8 @@
 									"params": ["Up"]
 								}] }
 							],
-							"__worldX": 8856,
-							"__worldY": 512
+							"__worldX": 8840,
+							"__worldY": 496
 						}
 					]
 				},
@@ -19189,7 +19189,7 @@
 						},
 						{
 							"__identifier": "Mushroom",
-							"__grid": [151,93],
+							"__grid": [149,93],
 							"__pivot": [0.5,0.5],
 							"__tags": ["Floor_Interactable"],
 							"__tile": null,
@@ -19198,7 +19198,7 @@
 							"width": 100,
 							"height": 100,
 							"defUid": 66,
-							"px": [1215,750],
+							"px": [1199,750],
 							"fieldInstances": [
 								{ "__identifier": "ColorState", "__type": "LocalEnum.ColorState", "__value": "Neutral", "__tile": null, "defUid": 68, "realEditorValues": [] },
 								{ "__identifier": "MushroomSize", "__type": "LocalEnum.MushroomSize", "__value": "Small", "__tile": null, "defUid": 70, "realEditorValues": [{
@@ -19206,7 +19206,7 @@
 									"params": ["Small"]
 								}] }
 							],
-							"__worldX": 8895,
+							"__worldX": 8879,
 							"__worldY": 750
 						},
 						{
@@ -22407,8 +22407,8 @@
 							"__tile": { "tilesetUid": 16, "x": 256, "y": 0, "w": 256, "h": 256 },
 							"__smartColor": "#E43B44",
 							"iid": "6d9b7e70-21a0-11f1-b693-e3fc1ba8d932",
-							"width": 50,
-							"height": 50,
+							"width": 160,
+							"height": 160,
 							"defUid": 17,
 							"px": [984,688],
 							"fieldInstances": [
@@ -22424,16 +22424,16 @@
 						},
 						{
 							"__identifier": "Crab",
-							"__grid": [16,25],
+							"__grid": [17,25],
 							"__pivot": [0.5,0.5],
 							"__tags": ["Creature"],
 							"__tile": { "tilesetUid": 16, "x": 256, "y": 0, "w": 256, "h": 256 },
 							"__smartColor": "#E43B44",
 							"iid": "712ce290-21a0-11f1-b693-4f4ccb7effbd",
-							"width": 50,
-							"height": 50,
+							"width": 160,
+							"height": 160,
 							"defUid": 17,
-							"px": [264,400],
+							"px": [280,400],
 							"fieldInstances": [
 								{ "__identifier": "CreatureType", "__type": "LocalEnum.CreatureType", "__value": "JPCrab", "__tile": null, "defUid": 18, "realEditorValues": [] },
 								{ "__identifier": "ColorState", "__type": "LocalEnum.ColorState", "__value": "Neutral", "__tile": null, "defUid": 27, "realEditorValues": [] },
@@ -22442,7 +22442,7 @@
 									"params": ["Right"]
 								}] }
 							],
-							"__worldX": 7944,
+							"__worldX": 7960,
 							"__worldY": -680
 						}
 					]
@@ -26196,7 +26196,7 @@
 							"__smartColor": "#FEE761",
 							"iid": "f3ec6cb0-21a0-11f1-b693-8385584fc7bc",
 							"width": 272,
-							"height": 96,
+							"height": 80,
 							"defUid": 61,
 							"px": [968,632],
 							"fieldInstances": [],
@@ -26205,35 +26205,35 @@
 						},
 						{
 							"__identifier": "Wall",
-							"__grid": [57,33],
+							"__grid": [58,33],
 							"__pivot": [0.5,0.5],
 							"__tags": ["Internal_Wall"],
 							"__tile": null,
 							"__smartColor": "#FEE761",
 							"iid": "f672f080-21a0-11f1-b693-3b4f796ad9f3",
-							"width": 50,
+							"width": 64,
 							"height": 176,
 							"defUid": 61,
-							"px": [920,536],
+							"px": [936,536],
 							"fieldInstances": [],
-							"__worldX": 14360,
+							"__worldX": 14376,
 							"__worldY": -544
 						},
 						{
 							"__identifier": "Wall",
-							"__grid": [60,29],
+							"__grid": [60,28],
 							"__pivot": [0.5,0.5],
 							"__tags": ["Internal_Wall"],
 							"__tile": null,
 							"__smartColor": "#FEE761",
 							"iid": "f872b820-21a0-11f1-b693-3559ddb664f7",
 							"width": 304,
-							"height": 96,
+							"height": 64,
 							"defUid": 61,
-							"px": [968,472],
+							"px": [968,456],
 							"fieldInstances": [],
 							"__worldX": 14408,
-							"__worldY": -608
+							"__worldY": -624
 						},
 						{
 							"__identifier": "Wall",
@@ -26244,7 +26244,7 @@
 							"__smartColor": "#FEE761",
 							"iid": "fb3e0d20-21a0-11f1-b693-6548000860d6",
 							"width": 144,
-							"height": 96,
+							"height": 80,
 							"defUid": 61,
 							"px": [600,632],
 							"fieldInstances": [],
@@ -26253,19 +26253,19 @@
 						},
 						{
 							"__identifier": "Wall",
-							"__grid": [37,29],
+							"__grid": [37,28],
 							"__pivot": [0.5,0.5],
 							"__tags": ["Internal_Wall"],
 							"__tile": null,
 							"__smartColor": "#FEE761",
 							"iid": "fd63fa60-21a0-11f1-b693-dd47e40dd006",
 							"width": 144,
-							"height": 96,
+							"height": 64,
 							"defUid": 61,
-							"px": [600,472],
+							"px": [600,456],
 							"fieldInstances": [],
 							"__worldX": 14040,
-							"__worldY": -608
+							"__worldY": -624
 						}
 					]
 				},
@@ -26295,16 +26295,16 @@
 					"entityInstances": [
 						{
 							"__identifier": "Crab",
-							"__grid": [39,38],
+							"__grid": [38,34],
 							"__pivot": [0.5,0.5],
 							"__tags": ["Creature"],
 							"__tile": { "tilesetUid": 16, "x": 256, "y": 0, "w": 256, "h": 256 },
 							"__smartColor": "#E43B44",
 							"iid": "7d226890-21a0-11f1-b693-b5648c936b00",
-							"width": 50,
-							"height": 50,
+							"width": 80,
+							"height": 80,
 							"defUid": 17,
-							"px": [632,608],
+							"px": [616,544],
 							"fieldInstances": [
 								{ "__identifier": "CreatureType", "__type": "LocalEnum.CreatureType", "__value": "JPCrab", "__tile": null, "defUid": 18, "realEditorValues": [] },
 								{ "__identifier": "ColorState", "__type": "LocalEnum.ColorState", "__value": "Neutral", "__tile": null, "defUid": 27, "realEditorValues": [] },
@@ -26313,21 +26313,21 @@
 									"params": ["Left"]
 								}] }
 							],
-							"__worldX": 14072,
-							"__worldY": -472
+							"__worldX": 14056,
+							"__worldY": -536
 						},
 						{
 							"__identifier": "Crab",
-							"__grid": [52,38],
+							"__grid": [53,34],
 							"__pivot": [0.5,0.5],
 							"__tags": ["Creature"],
 							"__tile": { "tilesetUid": 16, "x": 256, "y": 0, "w": 256, "h": 256 },
 							"__smartColor": "#E43B44",
 							"iid": "81202310-21a0-11f1-b693-d9ca6ab2f1cf",
-							"width": 50,
-							"height": 50,
+							"width": 80,
+							"height": 80,
 							"defUid": 17,
-							"px": [840,608],
+							"px": [856,544],
 							"fieldInstances": [
 								{ "__identifier": "CreatureType", "__type": "LocalEnum.CreatureType", "__value": "JPCrab", "__tile": null, "defUid": 18, "realEditorValues": [] },
 								{ "__identifier": "ColorState", "__type": "LocalEnum.ColorState", "__value": "Neutral", "__tile": null, "defUid": 27, "realEditorValues": [] },
@@ -26336,8 +26336,8 @@
 									"params": ["Right"]
 								}] }
 							],
-							"__worldX": 14280,
-							"__worldY": -472
+							"__worldX": 14296,
+							"__worldY": -536
 						}
 					]
 				},
@@ -26928,18 +26928,18 @@
 						},
 						{
 							"__identifier": "Wall",
-							"__grid": [33,62],
+							"__grid": [31,62],
 							"__pivot": [0.5,0.5],
 							"__tags": ["Internal_Wall"],
 							"__tile": null,
 							"__smartColor": "#FEE761",
 							"iid": "90d1f0f0-21a0-11f1-b693-6bfafb106264",
-							"width": 272,
+							"width": 336,
 							"height": 128,
 							"defUid": 61,
-							"px": [536,1000],
+							"px": [504,1000],
 							"fieldInstances": [],
-							"__worldX": 15896,
+							"__worldX": 15864,
 							"__worldY": 1000
 						},
 						{
@@ -26966,7 +26966,7 @@
 							"__tile": null,
 							"__smartColor": "#FEE761",
 							"iid": "96dfedd0-21a0-11f1-b693-837efa0ae843",
-							"width": 96,
+							"width": 112,
 							"height": 112,
 							"defUid": 61,
 							"px": [120,1000],
@@ -27209,7 +27209,7 @@
 							"__tile": null,
 							"__smartColor": "#BE4A2F",
 							"iid": "8927b000-21a0-11f1-9102-170a8770274a",
-							"width": 288,
+							"width": 160,
 							"height": 32,
 							"defUid": 12,
 							"px": [260,1004],
@@ -28555,7 +28555,7 @@
 							"__tile": null,
 							"__smartColor": "#FEE761",
 							"iid": "77fa3b00-21a0-11f1-b693-07bf6822ceda",
-							"width": 80,
+							"width": 112,
 							"height": 128,
 							"defUid": 61,
 							"px": [120,104],
@@ -28571,7 +28571,7 @@
 							"__tile": null,
 							"__smartColor": "#FEE761",
 							"iid": "7a2f6a80-21a0-11f1-b693-ab3f3e1411a5",
-							"width": 1440,
+							"width": 1520,
 							"height": 144,
 							"defUid": 61,
 							"px": [1112,88],
@@ -28706,29 +28706,6 @@
 							],
 							"__worldX": 15592,
 							"__worldY": 1824
-						},
-						{
-							"__identifier": "Crab",
-							"__grid": [23,56],
-							"__pivot": [0.5,0.5],
-							"__tags": ["Creature"],
-							"__tile": { "tilesetUid": 16, "x": 256, "y": 0, "w": 256, "h": 256 },
-							"__smartColor": "#E43B44",
-							"iid": "99a5e870-21a0-11f1-b693-2b08554a65ce",
-							"width": 50,
-							"height": 50,
-							"defUid": 17,
-							"px": [376,896],
-							"fieldInstances": [
-								{ "__identifier": "CreatureType", "__type": "LocalEnum.CreatureType", "__value": "JPCrab", "__tile": null, "defUid": 18, "realEditorValues": [] },
-								{ "__identifier": "ColorState", "__type": "LocalEnum.ColorState", "__value": "Neutral", "__tile": null, "defUid": 27, "realEditorValues": [] },
-								{ "__identifier": "Direction", "__type": "LocalEnum.Direction", "__value": "Down", "__tile": null, "defUid": 90, "realEditorValues": [{
-									"id": "V_String",
-									"params": ["Down"]
-								}] }
-							],
-							"__worldX": 15736,
-							"__worldY": 1976
 						}
 					]
 				},
@@ -28826,7 +28803,7 @@
 							"__tile": null,
 							"__smartColor": "#BE4A2F",
 							"iid": "85f3d530-21a0-11f1-9102-c59e35f53e4d",
-							"width": 312,
+							"width": 144,
 							"height": 32,
 							"defUid": 12,
 							"px": [252,92],
@@ -30240,7 +30217,27 @@
 					"seed": 6519847,
 					"overrideTilesetUid": null,
 					"gridTiles": [],
-					"entityInstances": []
+					"entityInstances": [
+						{
+							"__identifier": "Sawfish",
+							"__grid": [33,24],
+							"__pivot": [0.5,0.5],
+							"__tags": [ "Creature", "Pathfinder" ],
+							"__tile": { "tilesetUid": 51, "x": 256, "y": 0, "w": 256, "h": 256 },
+							"__smartColor": "#2C98AB",
+							"iid": "b5a4ea80-21a0-11f1-a77a-777f5f870c89",
+							"width": 256,
+							"height": 128,
+							"defUid": 20,
+							"px": [536,392],
+							"fieldInstances": [
+								{ "__identifier": "CreatureType", "__type": "LocalEnum.CreatureType", "__value": "Sawfish", "__tile": null, "defUid": 23, "realEditorValues": [] },
+								{ "__identifier": "ColorState", "__type": "LocalEnum.ColorState", "__value": "Neutral", "__tile": null, "defUid": 28, "realEditorValues": [] }
+							],
+							"__worldX": 17816,
+							"__worldY": 392
+						}
+					]
 				},
 				{
 					"__identifier": "Floor_Interactables",
@@ -31856,7 +31853,7 @@
 						},
 						{
 							"__identifier": "MossToggle",
-							"__grid": [117,75],
+							"__grid": [84,75],
 							"__pivot": [0.5,0.5],
 							"__tags": ["Floor_Interactable"],
 							"__tile": { "tilesetUid": 52, "x": 144, "y": 16, "w": 112, "h": 96 },
@@ -31865,7 +31862,7 @@
 							"width": 200,
 							"height": 200,
 							"defUid": 46,
-							"px": [940,604],
+							"px": [676,604],
 							"fieldInstances": [{ "__identifier": "ConnectedWalls", "__type": "Array<EntityRef>", "__value": [ {
 								"entityIid": "1e58b780-21a0-11f1-8ff7-a777b0233a9d",
 								"layerIid": "b322c931-21a0-11f1-8ff7-7734bef7d32a",
@@ -31883,7 +31880,7 @@
 								"id": "V_String",
 								"params": ["b1de9700-21a0-11f1-9116-45d9f03eb6bf"]
 							} ] }],
-							"__worldX": 18220,
+							"__worldX": 17956,
 							"__worldY": 1684
 						},
 						{
