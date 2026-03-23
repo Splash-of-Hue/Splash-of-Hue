@@ -61,8 +61,9 @@ Entity createPressurePlateWall(const int level_uid, std::string id, vec2 positio
 	registry.colors.insert(pressure_plate_wall_entity, vec4(0.0f, 0.0f, 0.75f, 1.0f));
 	registry.walls.emplace(pressure_plate_wall_entity);
 	registry.angles.emplace(pressure_plate_wall_entity);
+	registry.unloadables.emplace(pressure_plate_wall_entity, Unloadable{ position });
 	Collidable& col = registry.collidables.emplace(pressure_plate_wall_entity);
-
+	
 	col.inelastic = true;
 
 	// TODO QWNAo0jQ: Render request handled in interactable_system for now and 
