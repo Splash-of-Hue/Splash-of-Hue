@@ -139,7 +139,7 @@ Entity CreatureCreator::createMinnows(const int level_uid, vec2 position, float 
         addGeneralCreatureComponents(level_uid, minnow_follower, position, width, height, color_state, CREATURETYPE::MINNOWS, TEXTURE_ASSET_ID::MINNOW_01);
 
         Collidable& collidable = registry.collidables.get(minnow_follower);
-        collidable.inelastic = false; // sophia note: we can change this to true
+        collidable.inelastic = true; // sophia note: we can change this to true
         collidable.overlay = false;
 
         vec2& scaleminnow = registry.scales.get(minnow_follower);
