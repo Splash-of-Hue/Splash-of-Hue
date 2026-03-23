@@ -44,7 +44,6 @@ Entity createBox(vec2 position, float width, float height)
 
 Entity createColourOrb(vec2 position, float radius, COLOUR_STATE colour_state)
 {
-	std::cout << "createColourOrb called, palette size: " << registry.colourPalettes.components.size() << std::endl;
 	Size size = { 2.0f * radius, 2.0f * radius };
 	Entity colourOrb = addGeneralInteractableComponents(position, size, INTERACTABLE_TYPE::COLOUR_ORB);
 	Collidable& collidable = registry.collidables.emplace(colourOrb);
@@ -57,17 +56,28 @@ Entity createColourOrb(vec2 position, float radius, COLOUR_STATE colour_state)
 
 	const ColourPalette& palette = registry.colourPalettes.components[0];
 	registry.colors.insert(colourOrb, palette.state_to_colour.at(colour_state));
-	registry.circles.emplace(colourOrb);
 	registry.scales.insert(colourOrb, vec2(size.width, size.height));
+	registry.angles.emplace(colourOrb);
+
+	Textured& textured = registry.textured.emplace(colourOrb);
+	textured.used_texture = TEXTURE_ASSET_ID::COLOUR_ORB_SHEET;
 
 	registry.renderRequests.insert(
 		colourOrb,
 		{
-			EFFECT_ASSET_ID::DEFAULT,
-			GEOMETRY_BUFFER_ID::CIRCLE,
+			EFFECT_ASSET_ID::TEXTURED,
+			GEOMETRY_BUFFER_ID::SPRITE,
 			RENDER_LAYER::FLOOR_INTERACTABLES,
 		}
 		);
+
+	const Animatable animatable = {
+		ANIMATABLE_TYPE::COLOUR_ORB,
+		ANIMATION_BEHAVIOR::LOOP,
+		ANIMATION_TRIGGER::COLOUR_ORB_IDLE,
+		8
+	};
+	registry.animatables.insert(colourOrb, animatable);
 
 	return colourOrb;
 }
