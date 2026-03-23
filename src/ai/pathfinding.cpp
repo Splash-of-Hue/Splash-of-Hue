@@ -44,7 +44,7 @@ bool direct_line_next_step(float elapsed_ms, Entity& follower)
 	float norm_y = dy / distance;
 
 	// Slow down when approaching the player so there isn't an abrupt stop
-	float slow_radius = pathfinder_component.minimum_distance_to_target * 0.5f;
+	float slow_radius = pathfinder_component.minimum_distance_to_target * 2;;
 	float max_speed = pathfinder_component.max_speed * elapsed_ms * 0.01;
 	if (distance < slow_radius)
 	{

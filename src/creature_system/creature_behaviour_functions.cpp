@@ -82,13 +82,31 @@ BEHAVIOUR_TREE_STATUS CreatureBehaviourFunctions::removeCollision(Entity& creatu
 }
 
 //  ===== Miscellaneous Action Nodes =====
-BEHAVIOUR_TREE_STATUS CreatureBehaviourFunctions::applyCooldown(Entity& creature, float elapsed_ms)
+BEHAVIOUR_TREE_STATUS CreatureBehaviourFunctions::applyCooldown(Entity& creature, float time)
 {
 	if (!registry.creatureBehaviourCooldowns.has(creature))
 	{
 		registry.creatureBehaviourCooldowns.emplace(creature);
 	}
+	registry.creatureBehaviourCooldowns.get(creature).cooldown_default = time;
+	//resets to max if we call it before it finishes
+	registry.creatureBehaviourCooldowns.get(creature).cooldown = registry.creatureBehaviourCooldowns.get(creature).cooldown_default;
 	return BEHAVIOUR_TREE_STATUS::SUCCESS;
+}
+
+BEHAVIOUR_TREE_STATUS CreatureBehaviourFunctions::apply3sCooldown(Entity& creature, float elapsed_ms)
+{
+	return applyCooldown(creature, 3000.f);
+}
+
+BEHAVIOUR_TREE_STATUS CreatureBehaviourFunctions::apply2sCooldown(Entity& creature, float elapsed_ms)
+{
+	return applyCooldown(creature, 2000.f);
+}
+
+BEHAVIOUR_TREE_STATUS CreatureBehaviourFunctions::apply1sCooldown(Entity& creature, float elapsed_ms)
+{
+	return applyCooldown(creature, 1000.f);
 }
 
 BEHAVIOUR_TREE_STATUS CreatureBehaviourFunctions::removeCooldown(Entity& creature, float elapsed_ms)
@@ -108,4 +126,10 @@ BEHAVIOUR_TREE_STATUS CreatureBehaviourFunctions::returnSuccess(Entity& creature
 BEHAVIOUR_TREE_STATUS CreatureBehaviourFunctions::returnFailure(Entity& creature, float elapsed_ms)
 {
 	return BEHAVIOUR_TREE_STATUS::FAILURE;
+}
+
+BEHAVIOUR_TREE_STATUS CreatureBehaviourFunctions::debugCout(Entity& creature, float elapsed_ms)
+{
+	std::cout << "I have made it to here in the tree!" << std::endl;
+	return BEHAVIOUR_TREE_STATUS::SUCCESS;
 }
