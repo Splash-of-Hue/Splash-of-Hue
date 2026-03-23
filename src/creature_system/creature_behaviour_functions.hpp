@@ -40,10 +40,13 @@ public:
 	static BEHAVIOUR_TREE_STATUS stopCreatureMovement(Entity& creature, float elapsed_ms);
 	static BEHAVIOUR_TREE_STATUS removeCollision(Entity& creature, float elapsed_ms);
 	// Miscellaneous
-	static BEHAVIOUR_TREE_STATUS applyCooldown(Entity& creature, float elapsed_ms);
+	static BEHAVIOUR_TREE_STATUS apply3sCooldown(Entity& creature, float elapsed_ms);
+	static BEHAVIOUR_TREE_STATUS apply2sCooldown(Entity& creature, float elapsed_ms);
+	static BEHAVIOUR_TREE_STATUS apply1sCooldown(Entity& creature, float elapsed_ms);
 	static BEHAVIOUR_TREE_STATUS removeCooldown(Entity& creature, float elapsed_ms);
 	static BEHAVIOUR_TREE_STATUS returnSuccess(Entity& creature, float elapsed_ms);
 	static BEHAVIOUR_TREE_STATUS returnFailure(Entity& creature, float elapsed_ms);
+	static BEHAVIOUR_TREE_STATUS debugCout(Entity& creature, float elapsed_ms);
 
 	// Shrimp Behaviour Actions
 	static BEHAVIOUR_TREE_STATUS neutralArms(Entity& follower, float elapsed_ms);
@@ -64,7 +67,7 @@ public:
 
 	// ===== Decorator Node Functions =====
 	// Colour
-	//todo: https://trello.com/c/SPoplE91/184-1-consolidate-inxradius-components
+	static BEHAVIOUR_TREE_STATUS isPlayerEmitting(Entity& creature, float elapsed_ms);
 	static BEHAVIOUR_TREE_STATUS isCreatureWithinAnyColourRadius(Entity& creature, float elapsed_ms);
 	static BEHAVIOUR_TREE_STATUS isCreatureWithinPlayerBlueColourRadius(Entity& creature, float elapsed_ms);
 	static BEHAVIOUR_TREE_STATUS isCreatureWithinPlayerRedColourRadius(Entity& creature, float elapsed_ms);
@@ -90,6 +93,7 @@ public:
 private:
 	// ===== NODE HELPERS =====
 	static BEHAVIOUR_TREE_STATUS makeColour(Entity& creature, COLOUR_STATE colour_state);
+	static BEHAVIOUR_TREE_STATUS applyCooldown(Entity& creature, float time);
 	static BEHAVIOUR_TREE_STATUS isCreatureWithinSpecificColourRadius(Entity& creature, bool& inRadius, std::vector<Entity>& radius_list, COLOUR_STATE colour_state);
 	// Shrimp helpers
 	static BEHAVIOUR_TREE_STATUS disableCollidableComponent(std::vector<Entity>& entityList);

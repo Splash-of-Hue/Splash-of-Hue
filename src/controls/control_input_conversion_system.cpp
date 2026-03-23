@@ -13,25 +13,44 @@ void ControlInputConversionSystem::step(float elapsed_ms)
 	processed_types_this_frame.clear();
 	registry.controls.clear();
 
-	for (Entity& entity : registry.inputs.entities)
+	//temporary add to have player spin if hit by sawfish
+	if (registry.players.entities.size() > 0 && registry.creatureBehaviourCooldowns.has(registry.players.entities[0]))
 	{
-		const Input& input = registry.inputs.get(entity);
-		Control& control = convert_input(input);
-
-		if (control.type == CONTROL_TYPE::INVALID)
+		Entity& player = registry.players.entities[0];
+		Angle& player_angle = registry.angles.get(player);
+		CreatureBehaviourCooldown& cooldown = registry.creatureBehaviourCooldowns.get(player);
+		if (cooldown.cooldown < 0)
 		{
-			continue;
+			player_angle.degrees = 0;
+			registry.creatureBehaviourCooldowns.remove(player);
 		}
-
-		// TODO edMG9tmb: Inefficient
-		if (processed_types_this_frame.count(control.type) == 0)
+		else
 		{
-			control_times_ms[control.type] += elapsed_ms;
-			control.time_held_ms = control_times_ms[control.type];
-			processed_types_this_frame.insert(control.type);
-		}
+			player_angle.degrees += 5.f;
+			cooldown.cooldown -= elapsed_ms;
+		}		
+	}
+	else {
+		for (Entity& entity : registry.inputs.entities)
+		{
+			const Input& input = registry.inputs.get(entity);
+			Control& control = convert_input(input);
 
-		registry.controls.emplace(entity, control);
+			if (control.type == CONTROL_TYPE::INVALID)
+			{
+				continue;
+			}
+
+			// TODO edMG9tmb: Inefficient
+			if (processed_types_this_frame.count(control.type) == 0)
+			{
+				control_times_ms[control.type] += elapsed_ms;
+				control.time_held_ms = control_times_ms[control.type];
+				processed_types_this_frame.insert(control.type);
+			}
+
+			registry.controls.emplace(entity, control);
+		}
 	}
 
 	// Clear all inputs at the end of each update
