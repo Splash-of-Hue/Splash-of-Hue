@@ -89,22 +89,28 @@ Entity CreatureCreator::createCrab(const int level_uid, vec2 position, float wid
 	addGeneralCreatureComponents(level_uid, crab, position, width, height, color_state, CREATURETYPE::CRAB, TEXTURE_ASSET_ID::CRAB_01);
     Angle& direction_facing = registry.angles.get(crab);
     vec2& direction = registry.directions.emplace(crab);
+	// override what's in addGeneralCreatureComponents since crab is resizable
+    registry.scales.get(crab) = vec2(width, height);
     direction = vec2(0);
     if (curr_direction_facing == DIRECTION::UP) {
         direction_facing.degrees = DEGREES_DOWN * 3;
         direction.y = -1.f;
+        registry.visualRotationOffsets.insert(crab, { -(DEGREES_DOWN * 3) });
     }
     else if (curr_direction_facing == DIRECTION::DOWN) {
         direction_facing.degrees = DEGREES_DOWN;
         direction.y = 1.f;
+        registry.visualRotationOffsets.insert(crab, { -DEGREES_DOWN });
     }
     else if (curr_direction_facing == DIRECTION::RIGHT) {
-        direction_facing.degrees = DEGREES_DOWN * 0;
+        direction_facing.degrees = 0.f;
         direction.x = 1.f;
+        // no offset needed
     }
     else {
         direction_facing.degrees = DEGREES_DOWN * 2;
         direction.x = -1.f;
+        registry.visualRotationOffsets.insert(crab, { -(DEGREES_DOWN * 2) });
     }
     registry.unloadables.emplace(crab, Unloadable{ position });
     const Animatable animatable = {
