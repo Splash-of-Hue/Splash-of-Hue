@@ -591,7 +591,14 @@ void load_pressure_plate_walls(const ldtk::Entity& pressure_plate_entity)
 	const vec2 scaled_size = scale_to_level(vec2(size.x, size.y));
 	std::string pressure_plate_wall_id = pressure_plate_entity.iid.str();
 	bool is_open = false;
-
+	for (Entity& e : registry.unloadables.entities) {
+		vec2& pos = registry.unloadables.get(e).initial_position;
+		//account for roundoff error
+		if (abs(pos.x - world_position.x) < 1 && abs(pos.y - world_position.y) < 1) {
+			//don't load this, it was broken
+			return;
+		}
+	}
 	const auto find_pressure_plate = [&](Entity& entity)
 		{
 			std::vector<std::string>& pressure_plate_ids = registry.pressurePlates.get(entity).connected_wall_ids;
