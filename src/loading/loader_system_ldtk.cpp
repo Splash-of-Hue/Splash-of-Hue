@@ -358,7 +358,7 @@ void load_creatures(const ldtk::Layer& layer)
 				for (Entity& e : registry.unloadables.entities) {
 					vec2& pos = registry.unloadables.get(e).initial_position;
 					//account for roundoff error
-					if (abs(pos.x - position.x) < 1 && abs(pos.y - position.y) < 1) {
+					if (abs(pos.x - position.x) < 10 && abs(pos.y - position.y) < 10) {
 						//don't load this, it was loaded
 						return;
 					}
@@ -372,7 +372,7 @@ void load_creatures(const ldtk::Layer& layer)
 				for (Entity& e : registry.unloadables.entities) {
 					vec2& pos = registry.unloadables.get(e).initial_position;
 					//account for roundoff error
-					if (abs(pos.x - position.x) < 1 && abs(pos.y - position.y) < 1) {
+					if (abs(pos.x - position.x) < 10 && abs(pos.y - position.y) < 10) {
 						//don't load this, it was loaded
 						return;
 					}
@@ -644,7 +644,7 @@ void load_box(const ldtk::Entity& box_entity)
 	for (Entity& e : registry.unloadables.entities) {
 		vec2& pos = registry.unloadables.get(e).initial_position;
 		//account for roundoff error
-		if (abs(pos.x - position.x) < 1 && abs(pos.y - position.y) < 1) {
+		if (abs(pos.x - position.x) < 10 && abs(pos.y - position.y) < 10) {
 			//don't load this, it was broken
 			return;
 		}
@@ -671,7 +671,7 @@ void load_mushroom(const ldtk::Entity& mushroom_entity)
 	for (Entity& e : registry.unloadables.entities) {
 		vec2& pos = registry.unloadables.get(e).initial_position;
 		//account for roundoff error
-		if (abs(pos.x - position.x) < 1 && abs(pos.y - position.y) < 1) {
+		if (abs(pos.x - position.x) < 10 && abs(pos.y - position.y) < 10) {
 			//don't load this
 			return;
 		}
@@ -852,7 +852,7 @@ void load_puzzle_wall(const ldtk::Entity& puzzle_wall_entity)
 	for (Entity& e : registry.unloadables.entities) {
 		vec2& pos = registry.unloadables.get(e).initial_position;
 		//account for roundoff error
-		if (abs(pos.x - position.x) < 1 && abs(pos.y - position.y) < 1) {
+		if (abs(pos.x - position.x) < 10 && abs(pos.y - position.y) < 10) {
 			//don't load this, it was loaded
 			return;
 		}
