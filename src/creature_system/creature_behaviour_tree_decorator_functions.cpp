@@ -6,7 +6,16 @@
 #include <iostream>
 
 //  ===== Colour Decorator Nodes =====
-//todo: https://trello.com/c/SPoplE91/184-1-consolidate-inxradius-components
+BEHAVIOUR_TREE_STATUS CreatureBehaviourFunctions::isPlayerEmitting(Entity& creature, float elapsed_ms)
+{
+	if (registry.lightSources.has(registry.players.entities[0]))
+	{
+		return BEHAVIOUR_TREE_STATUS::SUCCESS;
+	}
+
+	return BEHAVIOUR_TREE_STATUS::FAILURE;
+}
+
 BEHAVIOUR_TREE_STATUS CreatureBehaviourFunctions::isCreatureWithinAnyColourRadius(Entity& creature, float elapsed_ms)
 {
 	if (!registry.inRadius.has(creature))
@@ -134,10 +143,10 @@ BEHAVIOUR_TREE_STATUS CreatureBehaviourFunctions::hasCreatureCollided(Entity& cr
 //  ===== Miscellaneous Decorator Nodes =====
 // Will START executing behaviour after cooldown is completed
 BEHAVIOUR_TREE_STATUS CreatureBehaviourFunctions::isCooldownComplete(Entity& creature, float elapsed_ms)
-{
+{	
 	if (!registry.creatureBehaviourCooldowns.has(creature))
 	{
-		return BEHAVIOUR_TREE_STATUS::FAILURE;
+		return BEHAVIOUR_TREE_STATUS::SUCCESS;
 	}
 	CreatureBehaviourCooldown& cooldown = registry.creatureBehaviourCooldowns.get(creature);
 	if (cooldown.cooldown <= 0)
