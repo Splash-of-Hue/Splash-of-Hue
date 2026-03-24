@@ -4,6 +4,7 @@
 #include <SDL.h>
 #include <SDL_mixer.h>
 #include "common.hpp"
+#include <fmod_studio.hpp>
 
 class SoundSystem
 {

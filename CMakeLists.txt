@@ -37,7 +37,6 @@ if (IS_OS_MAC)
     link_directories(/opt/homebrew/lib)
 endif()
 
-add_executable(${PROJECT_NAME} ${SOURCE_FILES})
 target_include_directories(${PROJECT_NAME} PUBLIC src/)
 
 # Added this so policy CMP0065 doesn't scream
@@ -122,8 +121,11 @@ elseif (IS_OS_WINDOWS)
     set (FREETYPE_LIBRARY "${CMAKE_CURRENT_SOURCE_DIR}/ext/freetype/release static/vs2015-2022/win64/freetype.lib")
 
     # FMOD - Windows-specific (x64-x86 only)
-    set (FMOD_INCLUDE_DIRS "${CMAKE_CURRENT_SOURCE_DIR}/ext/fmod/inc")
-    set (FMOD_LIBRARY "${CMAKE_CURRENT_SOURCE_DIR}/ext/fmod/lib/x64/fmodstudio_vc.lib")
+    set (FMOD_CORE_INCLUDE_DIRS "${CMAKE_CURRENT_SOURCE_DIR}/ext/fmod/core/inc")
+    set (FMOD_CORE_LIBRARY "${CMAKE_CURRENT_SOURCE_DIR}/ext/fmod/core/lib/x64/fmod_vc.lib")
+
+    set (FMOD_STUDIO_INCLUDE_DIRS "${CMAKE_CURRENT_SOURCE_DIR}/ext/fmod/studio/inc")
+    set (FMOD_STUDIO_LIBRARY "${CMAKE_CURRENT_SOURCE_DIR}/ext/fmod/studio/lib/x64/fmodstudio_vc.lib")
 
     # copy DLLs to build folder and remove if necessary name
     add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
@@ -183,11 +185,12 @@ if(NOT TARGET Freetype::Freetype)
 endif()
 
 include_directories("${CMAKE_CURRENT_SOURCE_DIR}/ext/freetype/include")
-
+include_directories("${CMAKE_CURRENT_SOURCE_DIR}/ext/fmod/core/inc")
+include_directories("${CMAKE_CURRENT_SOURCE_DIR}/ext/fmod/studio/inc")
 target_include_directories(${PROJECT_NAME} PUBLIC ${GLFW_INCLUDE_DIRS})
 target_include_directories(${PROJECT_NAME} PUBLIC ${SDL2_INCLUDE_DIRS})
 
-target_link_libraries(${PROJECT_NAME} PUBLIC ${GLFW_LIBRARIES} ${SDL2_LIBRARIES} ${SDL2MIXER_LIBRARIES} LDtkLoader::LDtkLoader glm::glm ${FREETYPE_LIBRARY})
+target_link_libraries(${PROJECT_NAME} PUBLIC ${GLFW_LIBRARIES} ${SDL2_LIBRARIES} ${SDL2MIXER_LIBRARIES} LDtkLoader::LDtkLoader glm::glm ${FREETYPE_LIBRARY} ${FMOD_CORE_LIBRARY} ${FMOD_STUDIO_LIBRARY})
 
 # needed to add this for Linux
 if(IS_OS_LINUX)
