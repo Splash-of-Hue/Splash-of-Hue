@@ -121,6 +121,10 @@ elseif (IS_OS_WINDOWS)
     set (FREETYPE_INCLUDE_DIRS "${CMAKE_CURRENT_SOURCE_DIR}/ext/freetype/include")
     set (FREETYPE_LIBRARY "${CMAKE_CURRENT_SOURCE_DIR}/ext/freetype/release static/vs2015-2022/win64/freetype.lib")
 
+    # FMOD - Windows-specific (x64-x86 only)
+    set (FMOD_INCLUDE_DIRS "${CMAKE_CURRENT_SOURCE_DIR}/ext/fmod/inc")
+    set (FMOD_LIBRARY "${CMAKE_CURRENT_SOURCE_DIR}/ext/fmod/lib/x64/fmodstudio_vc.lib")
+
     # copy DLLs to build folder and remove if necessary name
     add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
     COMMAND ${CMAKE_COMMAND} -E copy_if_different
@@ -177,7 +181,7 @@ if(NOT TARGET Freetype::Freetype)
      # or create the target correctly (see cmakes newer FindFreetype.cmake)
      message(FATAL_ERROR "Can't find FreeType (fonts)." )
 endif()
- 
+
 include_directories("${CMAKE_CURRENT_SOURCE_DIR}/ext/freetype/include")
 
 target_include_directories(${PROJECT_NAME} PUBLIC ${GLFW_INCLUDE_DIRS})

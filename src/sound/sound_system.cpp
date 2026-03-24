@@ -2,6 +2,8 @@
 #include <cassert>
 #include <sstream>
 #include <iostream>
+#include <fmod_studio.h>
+
 SoundSystem::SoundSystem()
 {
 }
