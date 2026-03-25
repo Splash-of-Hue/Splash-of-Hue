@@ -28,7 +28,7 @@ private:
 	FMOD::Channel* backgroundMusicChannel = nullptr;
 	FMOD::Sound* backgroundMusic = nullptr;
 	bool isBackgroundMusicPlaying = false;
-	const char* backgroundMusicString = R"(C:\Users\spenc\Source\Repos\Team08\assets\Audio\Lofi Final.wav)";
+	std::string backgroundMusicString = audio_path("Lofi Final.wav");
 
 
 	void fmodError(FMOD_RESULT result);

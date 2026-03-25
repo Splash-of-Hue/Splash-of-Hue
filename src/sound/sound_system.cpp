@@ -35,7 +35,7 @@ void SoundSystem::init()
     //initialize system
     system->init(32, FMOD_INIT_NORMAL, nullptr);
     //create background music
-    fmodError(system->createSound(backgroundMusicString, FMOD_DEFAULT, nullptr, &backgroundMusic));
+    fmodError(system->createSound(backgroundMusicString.c_str(), FMOD_DEFAULT, nullptr, &backgroundMusic));
     //play background music
     fmodError(system->playSound(backgroundMusic, nullptr, false, &backgroundMusicChannel));
     isBackgroundMusicPlaying = true;
