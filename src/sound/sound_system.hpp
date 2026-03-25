@@ -30,6 +30,5 @@ private:
 	bool isBackgroundMusicPlaying = false;
 	std::string backgroundMusicString = audio_path("Lofi Final.wav");
 
-
 	void fmodError(FMOD_RESULT result);
 };
