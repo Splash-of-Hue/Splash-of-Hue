@@ -5,8 +5,12 @@
 #include <SDL_mixer.h>
 #include "common.hpp"
 #include <fmod_studio.hpp>
+#include "common.hpp"
+#include "ecs/components.hpp"
+#include "ecs/entity.hpp"
+#include "ecs/system.hpp"
 
-class SoundSystem
+class SoundSystem : public SystemInterface
 {
 public:
 
@@ -14,15 +18,18 @@ public:
 
 	~SoundSystem();
 
-	bool start_and_load_sounds();
-
 	void init();
 
+	void step(float elapsed_ms);
+
 private:
-	// music references
-	Mix_Music* background_music;
+	FMOD::System* system = nullptr;
 
-	//Mix_Chunk* invader_hit_sound;
+	FMOD::Channel* backgroundMusicChannel = nullptr;
+	FMOD::Sound* backgroundMusic = nullptr;
+	bool isBackgroundMusicPlaying = false;
+	const char* backgroundMusicString = R"(C:\Users\spenc\Source\Repos\Team08\assets\Audio\Lofi Final.wav)";
 
-	//Mix_Chunk* tower_hit_sound;
+
+	void fmodError(FMOD_RESULT result);
 };

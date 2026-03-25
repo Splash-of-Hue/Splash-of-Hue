@@ -2,58 +2,50 @@
 #include <cassert>
 #include <sstream>
 #include <iostream>
+#include <fmod_studio.hpp>
 
 
 SoundSystem::SoundSystem()
 {
 }
 
-SoundSystem::~SoundSystem() {
-	// Destroy music components
-	if (background_music != nullptr)
-		Mix_FreeMusic(background_music);
-	/*if (invader_hit_sound != nullptr)
-		Mix_FreeChunk(invader_hit_sound);
-	if (tower_hit_sound != nullptr)
-		Mix_FreeChunk(tower_hit_sound);*/
-	Mix_CloseAudio();
-
+SoundSystem::~SoundSystem()
+{
+    fmodError(system->release());
+    fmodError(backgroundMusic->release());
 }
 
-bool SoundSystem::start_and_load_sounds() {
-	//////////////////////////////////////
-	// Loading music and sounds with SDL
-	if (SDL_Init(SDL_INIT_AUDIO) < 0) {
-		fprintf(stderr, "Failed to initialize SDL Audio");
-		return false;
-	}
+void SoundSystem::step(float elapsed_ms)
+{
+    //change isBackgroundMusicPlaying depending on if backgroundMusic has ended
+    backgroundMusicChannel->isPlaying(&isBackgroundMusicPlaying);
+    //play backgroundMusic if it's stopped playing
+    if (!isBackgroundMusicPlaying)
+    {
+        fmodError(system->playSound(backgroundMusic, nullptr, false, &backgroundMusicChannel));
+    }
 
-	if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048) == -1) {
-		fprintf(stderr, "Failed to open audio device");
-		return false;
-	}
-
-	background_music = Mix_LoadMUS(audio_path("Lofi Final.wav").c_str());
-	//invader_hit_sound = Mix_LoadWAV(audio_path("invader_hit.wav").c_str());
-	//tower_hit_sound = Mix_LoadWAV(audio_path("tower_hit.wav").c_str());
-
-	if (background_music == nullptr /* || invader_hit_sound == nullptr || tower_hit_sound == nullptr*/) {
-		fprintf(stderr, "Failed to load sounds\n %s\n %s\n %s\n make sure the data directory is present",
-			audio_path("music.wav").c_str(),
-			audio_path("invader_hit.wav").c_str(),
-			audio_path("tower_hit.wav").c_str());
-		return false;
-	}
-
-
-	
-
-
-	return true;
+    system->update();
 }
 
-void SoundSystem::init() {
-	// start playing background music indefinitely
-	std::cout << "Starting music..." << std::endl;
-	Mix_PlayMusic(background_music, -1);
+void SoundSystem::init()
+{
+    //create system
+    fmodError(FMOD::System_Create(&system));
+    //initialize system
+    system->init(32, FMOD_INIT_NORMAL, nullptr);
+    //create background music
+    fmodError(system->createSound(backgroundMusicString, FMOD_DEFAULT, nullptr, &backgroundMusic));
+    //play background music
+    fmodError(system->playSound(backgroundMusic, nullptr, false, &backgroundMusicChannel));
+    isBackgroundMusicPlaying = true;
+}
+
+void SoundSystem::fmodError(FMOD_RESULT result)
+{
+	if (result != FMOD_OK)
+	{
+		std::cout << "Sound System Error!" << std::endl;
+		exit(-1);
+	}
 }

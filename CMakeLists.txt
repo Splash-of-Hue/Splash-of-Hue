@@ -37,6 +37,7 @@ if (IS_OS_MAC)
     link_directories(/opt/homebrew/lib)
 endif()
 
+add_executable(${PROJECT_NAME} ${SOURCE_FILES})
 target_include_directories(${PROJECT_NAME} PUBLIC src/)
 
 # Added this so policy CMP0065 doesn't scream
@@ -123,9 +124,12 @@ elseif (IS_OS_WINDOWS)
     # FMOD - Windows-specific (x64-x86 only)
     set (FMOD_CORE_INCLUDE_DIRS "${CMAKE_CURRENT_SOURCE_DIR}/ext/fmod/core/inc")
     set (FMOD_CORE_LIBRARY "${CMAKE_CURRENT_SOURCE_DIR}/ext/fmod/core/lib/x64/fmod_vc.lib")
+    set (FMOD_CORE_DLL "${CMAKE_CURRENT_SOURCE_DIR}/ext/fmod/core/lib/x64/fmod.dll")
+
 
     set (FMOD_STUDIO_INCLUDE_DIRS "${CMAKE_CURRENT_SOURCE_DIR}/ext/fmod/studio/inc")
     set (FMOD_STUDIO_LIBRARY "${CMAKE_CURRENT_SOURCE_DIR}/ext/fmod/studio/lib/x64/fmodstudio_vc.lib")
+    set (FMOD_STUDIO_DLL "${CMAKE_CURRENT_SOURCE_DIR}/ext/fmod/studio/lib/x64/fmodstudio.dll")
 
     # copy DLLs to build folder and remove if necessary name
     add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
@@ -143,6 +147,15 @@ elseif (IS_OS_WINDOWS)
         "${SDLMIXER_DLL}"
         "$<TARGET_FILE_DIR:${PROJECT_NAME}>/SDL2_mixer.dll")
 
+    add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E copy_if_different
+        "${FMOD_CORE_DLL}"
+        "$<TARGET_FILE_DIR:${PROJECT_NAME}>/fmod.dll")
+
+    add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E copy_if_different
+        "${FMOD_STUDIO_DLL}"
+        "$<TARGET_FILE_DIR:${PROJECT_NAME}>/fmodstudio.dll")
     # increase warning level from default 3 to 4
     add_compile_options(/w4)
 
