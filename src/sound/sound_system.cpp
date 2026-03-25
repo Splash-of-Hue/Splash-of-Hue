@@ -7,7 +7,6 @@
 #include <iostream>
 #include <fmod_studio.hpp>
 
-
 SoundSystem::SoundSystem()
 {
 }
