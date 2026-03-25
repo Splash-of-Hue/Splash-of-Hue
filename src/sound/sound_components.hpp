@@ -6,7 +6,6 @@
 #include <string>
 #include <vector>
 
-
 struct Sound
 {
 	FMOD::Channel* channel = nullptr;
