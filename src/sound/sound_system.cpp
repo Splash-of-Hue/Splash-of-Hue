@@ -13,25 +13,27 @@ SoundSystem::SoundSystem()
 
 SoundSystem::~SoundSystem()
 {
-    fmodError(system->release());
     for (Entity& sound_entity : registry.sounds.entities)
     {
         Sound& sound = registry.sounds.get(sound_entity);
-        fmodError(sound.sound->release());
+        validate_fmod_result(sound.sound->release());
 
         registry.remove_all_components_of(sound_entity);
     }
+
+    validate_fmod_result(system->release());
 }
 
 void SoundSystem::step(float elapsed_ms)
 {
-    Sound& backgroundSound = registry.sounds.get(backgroundEntity);
+    Sound& background_sound = registry.sounds.get(background_entity);
     //change isBackgroundMusicPlaying depending on if backgroundMusic has ended
-    backgroundSound.channel->isPlaying(&backgroundSound.isSoundPlaying);
+    background_sound.channel->isPlaying(&background_sound.isSoundPlaying);
+
     //play backgroundMusic if it's stopped playing
-    if (!backgroundSound.isSoundPlaying)
+    if (!background_sound.isSoundPlaying)
     {
-        fmodError(system->playSound(backgroundSound.sound, nullptr, false, &backgroundSound.channel));
+        validate_fmod_result(system->playSound(background_sound.sound, nullptr, false, &background_sound.channel));
     }
 
     system->update();
@@ -39,20 +41,20 @@ void SoundSystem::step(float elapsed_ms)
 
 void SoundSystem::init()
 {
-    Sound& backgroundSound = registry.sounds.emplace(backgroundEntity);
-    backgroundSound.path = audio_path("Lofi Final.wav");
+    Sound& background_sound = registry.sounds.emplace(background_entity);
+    background_sound.path = audio_path("Lofi Final.wav");
     //create system
-    fmodError(FMOD::System_Create(&system));
+    validate_fmod_result(FMOD::System_Create(&system));
     //initialize system
     system->init(32, FMOD_INIT_NORMAL, nullptr);
     //create background music
-    fmodError(system->createSound(backgroundSound.path.c_str(), FMOD_DEFAULT, nullptr, &backgroundSound.sound));
+    validate_fmod_result(system->createSound(background_sound.path.c_str(), FMOD_DEFAULT, nullptr, &background_sound.sound));
     //play background music
-    fmodError(system->playSound(backgroundSound.sound, nullptr, false, &backgroundSound.channel));
-    backgroundSound.isSoundPlaying = true;
+    validate_fmod_result(system->playSound(background_sound.sound, nullptr, false, &background_sound.channel));
+    background_sound.isSoundPlaying = true;
 }
 
-void SoundSystem::fmodError(FMOD_RESULT result)
+void SoundSystem::validate_fmod_result(FMOD_RESULT result)
 {
 	if (result != FMOD_OK)
 	{
