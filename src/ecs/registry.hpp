@@ -15,6 +15,7 @@
 #include "minimap/minimap_components.hpp"
 #include "player/player_components.hpp"
 #include "renderer/render_components.hpp"
+#include "sound/sound_components.hpp"
 #include "text/text_components.hpp"
 #include "ui/ui_components.hpp"
 #include "window/window_components.hpp"
@@ -124,6 +125,8 @@ public:
 	// Shapes
 	ComponentContainer<Circle> circles; // TODO 1ch6Q0BE: Remove
 	ComponentContainer<Rect> rectangles; // TODO 1ch6Q0BE: Remove
+	// Sound
+	ComponentContainer<Sound> sounds;
 	// Spawnables
 	ComponentContainer<Creature> creatures;
 	ComponentContainer<Shrimp> shrimps;
@@ -232,6 +235,8 @@ public:
 		// Shapes
 		registry_list.push_back(&circles); // TODO 1ch6Q0BE: Remove;
 		registry_list.push_back(&rectangles); // TODO 1ch6Q0BE: Remove
+		// Sounds
+		registry_list.push_back(&sounds);
 		// Spawnables
 		registry_list.push_back(&creatures);
 		registry_list.push_back(&shrimps);

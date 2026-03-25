@@ -21,11 +21,7 @@ public:
 
 private:
 	FMOD::System* system = nullptr;
-
-	FMOD::Channel* backgroundMusicChannel = nullptr;
-	FMOD::Sound* backgroundMusic = nullptr;
-	bool isBackgroundMusicPlaying = false;
-	std::string backgroundMusicString = audio_path("Lofi Final.wav");
+	Entity backgroundEntity;
 
 	void fmodError(FMOD_RESULT result);
 };
