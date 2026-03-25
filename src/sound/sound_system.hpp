@@ -1,8 +1,5 @@
 #pragma once
 
-#define SDL_MAIN_HANDLED
-#include <SDL.h>
-#include <SDL_mixer.h>
 #include "common.hpp"
 #include <fmod_studio.hpp>
 #include "common.hpp"

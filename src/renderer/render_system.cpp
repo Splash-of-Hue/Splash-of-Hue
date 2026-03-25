@@ -1,6 +1,5 @@
 #include <glm/trigonometric.hpp>
 #include <iostream>
-#include <SDL.h>
 
 // internal
 #include "common.hpp"
