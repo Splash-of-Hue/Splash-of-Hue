@@ -6,6 +6,7 @@
 #include <sstream>
 #include <iostream>
 #include <fmod_studio.hpp>
+#include <fmod_errors.h>
 
 SoundSystem::SoundSystem()
 {
@@ -58,7 +59,7 @@ void SoundSystem::validate_fmod_result(FMOD_RESULT result)
 {
 	if (result != FMOD_OK)
 	{
-		std::cout << "Sound System Error!" << std::endl;
+		std::cout << "Sound System Error: " << FMOD_ErrorString(result) <<  std::endl;
 		exit(-1);
 	}
 }
