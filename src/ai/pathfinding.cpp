@@ -10,8 +10,6 @@ void direct_line_next_step(float elapsed_ms, Entity& follower, Entity& target)
 {
 	assert(registry.pathfinders.has(follower) && "The follower creature isn't registered as a pathfinder");
 	Pathfinder& pathfinder_component = registry.pathfinders.get(follower);
-
-	// TODO: REFACTOR as part of pathfinding tasks in later milestones SO THIS IS GENERAL FOR ANY "TARGET". Whatever entity's ColourComponent triggers it
 	assert(registry.positions.has(target) && "Target doesn't have a position");
 	assert(registry.positions.has(follower) && "Pathfinder doesn't have a position");
 	assert(registry.velocities.has(follower) && "Pathfinder doesn't have a velocity");
