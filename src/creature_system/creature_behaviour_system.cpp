@@ -36,6 +36,9 @@ BEHAVIOUR_TREE_STATUS CreatureBehaviourSystem::tickNode(Entity& creature, Creatu
 		case NODETYPE::DECORATOR:
 			return tickDecorator(creature, creatureBehaviour, node_index, elapsed_ms);
 
+		case NODETYPE::INVERTER:
+			return tickInverter(creature, creatureBehaviour, node_index, elapsed_ms);
+
 		case NODETYPE::ACTION:
 			return currentNode.node_function(creature, elapsed_ms);
 
@@ -127,6 +130,19 @@ BEHAVIOUR_TREE_STATUS CreatureBehaviourSystem::tickDecorator(Entity& creature, C
 	assert(currentNode.children_indicies.size() == 1 && "Decorator node should not have less/more than one child!");
 	BEHAVIOUR_TREE_STATUS status = currentNode.node_function(creature, elapsed_ms);
 	if (status != BEHAVIOUR_TREE_STATUS::SUCCESS)
+		return status;
+
+	return tickNode(creature, creatureBehaviour, currentNode.children_indicies[0], elapsed_ms);
+}
+
+BEHAVIOUR_TREE_STATUS CreatureBehaviourSystem::tickInverter(Entity& creature, CreatureBehaviour& creatureBehaviour, int node_index, float elapsed_ms)
+{
+	BehaviourTree& tree = creatureBehaviour.behaviour_tree;
+	Node& currentNode = tree.nodes[node_index];
+	assert(currentNode.children_indicies.size() == 1 && "Inverter node should not have less/more than one child!");
+	BEHAVIOUR_TREE_STATUS status = currentNode.node_function(creature, elapsed_ms);
+
+	if (status != BEHAVIOUR_TREE_STATUS::FAILURE)
 		return status;
 
 	return tickNode(creature, creatureBehaviour, currentNode.children_indicies[0], elapsed_ms);

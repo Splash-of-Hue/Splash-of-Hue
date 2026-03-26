@@ -6,26 +6,23 @@
 #include <vector>
 
 // Bare bones direct pathfinding 
-bool direct_line_next_step(float elapsed_ms, Entity& follower)
+bool direct_line_next_step(float elapsed_ms, Entity& follower, Entity& target)
 {
 	assert(registry.pathfinders.has(follower) && "The follower creature isn't registered as a pathfinder");
 	Pathfinder& pathfinder_component = registry.pathfinders.get(follower);
 
-	assert(registry.players.entities.size() == 1 && "There's no player for the creature to follow!");
-	Entity& player = registry.players.entities[0];
-
 	// TODO: REFACTOR as part of pathfinding tasks in later milestones SO THIS IS GENERAL FOR ANY "TARGET". Whatever entity's ColourComponent triggers it
-	assert(registry.positions.has(player) && "Player doesn't have a position");
+	assert(registry.positions.has(target) && "Target doesn't have a position");
 	assert(registry.positions.has(follower) && "Pathfinder doesn't have a position");
 	assert(registry.velocities.has(follower) && "Pathfinder doesn't have a velocity");
 
-	const vec2& player_position = registry.positions.get(player);
+	const vec2& target_position = registry.positions.get(target);
 	vec2& follower_position = registry.positions.get(follower);
 	vec2& follower_velocity = registry.velocities.get(follower);
 
 	// Get the vector to the player
-	float dx = player_position.x - follower_position.x;
-	float dy = player_position.y - follower_position.y;
+	float dx = target_position.x - follower_position.x;
+	float dy = target_position.y - follower_position.y;
 
 	// Calculate and compare squares bec they're cheaper to avoid sqrt
 	float distance_squared = dx * dx + dy * dy;
