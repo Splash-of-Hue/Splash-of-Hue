@@ -71,9 +71,12 @@ bool circle_circle_collision(const Entity& entity1, const Entity& entity2)
 	vec2& position1 = registry.positions.get(entity1);
 	vec2& position2 = registry.positions.get(entity2);
 
-	float distance = hypot(abs(position1.x - position2.x), abs(position1.y - position2.y));
-	
-	return distance <= size1.width * 0.5 + size2.width * 0.5;
+	float dx = position1.x - position2.x;
+	float dy = position1.y - position2.y;
+	float distance_squared = dx * dx + dy * dy;
+	float max_radius = size1.width * 0.5 + size2.width * 0.5;
+
+	return distance_squared <= max_radius * max_radius;
 }
 
 bool box_collides(const Entity& entity1, const Entity& entity2)
@@ -88,13 +91,13 @@ bool box_collides(const Entity& entity1, const Entity& entity2)
 		return false;
 	}
 
-	if (registry.circles.has(entity1) && registry.circles.has(entity2))
-	{
-		return circle_circle_collision(entity1, entity2);
-	}
-
 	if (registry.circles.has(entity1) || registry.circles.has(entity2))
 	{
+		if (registry.circles.has(entity1) && registry.circles.has(entity2))
+		{
+			return circle_circle_collision(entity1, entity2);
+		}
+
 		const Entity& eC = registry.circles.has(entity1) ? entity1 : entity2;
 		const Entity& eR = registry.circles.has(entity1) ? entity2 : entity1;
 
