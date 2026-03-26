@@ -16,7 +16,7 @@ Entity addGeneralInteractableComponents(vec2 position, Size& size, INTERACTABLE_
 	return interactable;
 }
 
-Entity createBox(vec2 position, float width, float height)
+Entity createBox(std::string id, const int level_uid, vec2 position, float width, float height)
 {
 	Size size = { width, height };
 	Entity box = addGeneralInteractableComponents(position, size, INTERACTABLE_TYPE::BOX);
@@ -27,7 +27,8 @@ Entity createBox(vec2 position, float width, float height)
 	registry.rectangles.emplace(box);
 	registry.scales.insert(box, vec2(width, height));
 	registry.colors.insert(box, vec4(0.6f, 0.4f, 0.2f, 1.0f));
-	registry.unloadables.emplace(box, Unloadable{ position });
+	registry.savables.insert(box, { id, { SAVE_TYPE::REMOVED } });
+	registry.levelEntities.insert(box, { level_uid });
 	//so boxes can't have light pass through them
 	registry.walls.emplace(box);
 	registry.renderRequests.insert(
@@ -42,26 +43,24 @@ Entity createBox(vec2 position, float width, float height)
 	return box;
 }
 
-Entity createColourOrb(vec2 position, float radius, COLOUR_STATE colour_state)
+Entity createColourOrb(std::string id, const int level_uid, vec2 position, float radius, COLOUR_STATE colour_state)
 {
 	Size size = { 2.0f * radius, 2.0f * radius };
 	Entity colourOrb = addGeneralInteractableComponents(position, size, INTERACTABLE_TYPE::COLOUR_ORB);
 	Collidable& collidable = registry.collidables.emplace(colourOrb);
 	collidable.inelastic = false;
 	collidable.overlay = true;
-
 	ColourOrb orb;
 	orb.colour = colour_state;
 	registry.colourOrbs.insert(colourOrb, orb);
-
 	const ColourPalette& palette = registry.colourPalettes.components[0];
 	registry.colors.insert(colourOrb, palette.state_to_colour.at(colour_state));
 	registry.scales.insert(colourOrb, vec2(size.width, size.height));
 	registry.angles.emplace(colourOrb);
-
+	registry.levelEntities.insert(colourOrb, { level_uid });
+	registry.savables.insert(colourOrb, { id, { SAVE_TYPE::REMOVED } });
 	Textured& textured = registry.textured.emplace(colourOrb);
 	textured.used_texture = TEXTURE_ASSET_ID::COLOUR_ORB_SHEET;
-
 	registry.renderRequests.insert(
 		colourOrb,
 		{
@@ -70,7 +69,6 @@ Entity createColourOrb(vec2 position, float radius, COLOUR_STATE colour_state)
 			RENDER_LAYER::FLOOR_INTERACTABLES,
 		}
 		);
-
 	const Animatable animatable = {
 		ANIMATABLE_TYPE::COLOUR_ORB,
 		ANIMATION_BEHAVIOR::LOOP,
@@ -82,7 +80,7 @@ Entity createColourOrb(vec2 position, float radius, COLOUR_STATE colour_state)
 	return colourOrb;
 }
 
-Entity createMushroom(vec2 position, float radius, COLOUR_STATE colour_state, MUSHROOM_SIZE mushroom_size)
+Entity createMushroom(std::string id, const int level_uid, vec2 position, float radius, COLOUR_STATE colour_state, MUSHROOM_SIZE mushroom_size)
 {
 	switch (mushroom_size)
 	{
@@ -102,7 +100,8 @@ Entity createMushroom(vec2 position, float radius, COLOUR_STATE colour_state, MU
 	Collidable& collidable = registry.collidables.emplace(mushroom);
 	collidable.inelastic = true;
 	registry.circles.emplace(mushroom);
-	registry.unloadables.emplace(mushroom, Unloadable{ position });
+	registry.levelEntities.insert(mushroom, { level_uid });
+	registry.unload_entities.emplace(mushroom);
 	Mushroom& mushroom_component = registry.mushrooms.emplace(mushroom);
 	mushroom_component.size = mushroom_size;
 
@@ -123,7 +122,7 @@ Entity createMushroom(vec2 position, float radius, COLOUR_STATE colour_state, MU
 	return mushroom;
 }
 
-Entity createMossToggle(const int level_uid, vec2 position, vec2 size, std::vector<std::string> connected_wall_ids)
+Entity createMossToggle(std::string id, const int level_uid, vec2 position, vec2 size, std::vector<std::string> connected_wall_ids)
 {
 	Entity toggle_entity;
 	MossToggle& moss_toggle = registry.mossToggles.insert(toggle_entity, { connected_wall_ids });
@@ -131,7 +130,8 @@ Entity createMossToggle(const int level_uid, vec2 position, vec2 size, std::vect
 	registry.scales.insert(toggle_entity, size);
 	registry.sizes.insert(toggle_entity, { size.x, size.y });
 	registry.angles.emplace(toggle_entity);
-	registry.unloadables.emplace(toggle_entity, Unloadable{ position });
+	registry.unload_entities.emplace(toggle_entity);
+	registry.levelEntities.insert(toggle_entity, { level_uid });
 	Collidable& col = registry.collidables.emplace(toggle_entity);
 	col.inelastic = false;
 	registry.colourStates.insert(toggle_entity, { COLOUR_STATE::NEUTRAL, COLOUR_STATE::NEUTRAL });
@@ -162,15 +162,13 @@ Entity createPressurePlate(const int level_uid, vec2 position, vec2 size, std::v
 	Entity pressure_plate_entity = addGeneralInteractableComponents(position, size_component, INTERACTABLE_TYPE::PRESSURE_PLATE);
 	PressurePlate& pressure_plate = registry.pressurePlates.emplace(pressure_plate_entity);
 	pressure_plate.connected_wall_ids = connected_wall_ids;
-
 	registry.scales.insert(pressure_plate_entity, size);
-
 	Collidable& col = registry.collidables.emplace(pressure_plate_entity);
 	col.inelastic = false;
-
+	registry.unload_entities.emplace(pressure_plate_entity);
+	registry.levelEntities.insert(pressure_plate_entity, { level_uid });
 	InBoundingBox& in_bounding_box_component = registry.inBoundingBox.emplace(pressure_plate_entity);
 	in_bounding_box_component.updatedThisStep = true;
-
 	// todo QWNAo0jQ
 	registry.rectangles.emplace(pressure_plate_entity);
 	registry.colors.insert(pressure_plate_entity, vec4(0.0f, 0.0f, 0.75f, 1.0f));
@@ -200,6 +198,7 @@ Entity createPuzzleBubble(const int level_uid, std::string id, vec2 position, CO
 	registry.sizes.insert(puzzle_bubble_entity, { PUZZLE_BUBBLE_SIZE.x, PUZZLE_BUBBLE_SIZE.y });
 	registry.angles.emplace(puzzle_bubble_entity);
 	registry.colourStates.insert(puzzle_bubble_entity, { COLOUR_STATE::NEUTRAL, COLOUR_STATE::NEUTRAL });
+	registry.levelEntities.insert(puzzle_bubble_entity, { level_uid });
 	registry.renderRequests.insert(
 		puzzle_bubble_entity,
 		{
@@ -229,6 +228,7 @@ Entity createPuzzleBubbleFake(const int level_uid, vec2 position, COLOUR_STATE c
 	registry.scales.insert(puzzle_bubble_entity, PUZZLE_BUBBLE_SIZE);
 	registry.sizes.insert(puzzle_bubble_entity, { PUZZLE_BUBBLE_SIZE.x, PUZZLE_BUBBLE_SIZE.y });
 	registry.angles.emplace(puzzle_bubble_entity);
+	registry.levelEntities.insert(puzzle_bubble_entity, { level_uid });
 	registry.renderRequests.insert(
 		puzzle_bubble_entity,
 		{
@@ -242,7 +242,7 @@ Entity createPuzzleBubbleFake(const int level_uid, vec2 position, COLOUR_STATE c
 	return puzzle_bubble_entity;
 }
 
-Entity createFloorPictureControls(vec2 position, float width, float height, CONTROL_PNG_TYPE control_png_type)
+Entity createFloorPictureControls(const int level_uid, vec2 position, float width, float height, CONTROL_PNG_TYPE control_png_type)
 {
 	Size size = { width, height };
 	Entity control_entity = addGeneralInteractableComponents(position, size, INTERACTABLE_TYPE::CONTROLS);
@@ -287,6 +287,8 @@ Entity createFloorPictureControls(vec2 position, float width, float height, CONT
 	registry.textured.insert(control_entity, { TEXTURE_ASSET_ID::CONTROLS_SHEET });
 	registry.scales.insert(control_entity, vec2(width, height));
 	registry.angles.emplace(control_entity);
+	registry.levelEntities.insert(control_entity, { level_uid });
+
 
 	return control_entity;
 }

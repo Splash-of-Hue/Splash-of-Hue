@@ -1,4 +1,5 @@
 #include "animation/animation_components.hpp"
+#include "animation/animation_constants.hpp"
 #include "common.hpp"
 #include "ecs/components.hpp"
 #include "ecs/entity.hpp"
@@ -7,16 +8,17 @@
 #include "map_components.hpp"
 #include "renderer/render_constants.hpp"
 #include "shapes/shape_build_init.hpp"
+#include <map>
 #include <string>
 
-Entity createMossWall(const int level_uid, std::string id, vec2 position, vec2 size, COLOUR_STATE color_state)
+Entity createMossWall(std::string id, const int level_uid, vec2 position, vec2 size, COLOUR_STATE color_state)
 {
 	Entity moss_wall_entity;
 	registry.positions.insert(moss_wall_entity, position);
 	registry.scales.insert(moss_wall_entity, size);
 	registry.sizes.insert(moss_wall_entity, { size.x, size.y });
 	registry.angles.emplace(moss_wall_entity);
-	registry.unloadables.emplace(moss_wall_entity);
+	registry.levelEntities.insert(moss_wall_entity, { level_uid });
 	Collidable& col = registry.collidables.emplace(moss_wall_entity);
 	col.inelastic = true;
 	registry.colouredWall.insert(moss_wall_entity, { id });
@@ -48,7 +50,7 @@ Entity createMossWall(const int level_uid, std::string id, vec2 position, vec2 s
 	return moss_wall_entity;
 }
 
-Entity createPressurePlateWall(const int level_uid, std::string id, vec2 position, vec2 size, bool is_open)
+Entity createPressurePlateWall(std::string id, const int level_uid, vec2 position, vec2 size, bool is_open)
 {
 	Entity pressure_plate_wall_entity;
 	PressurePlateWall& pressure_plate_wall = registry.pressurePlateWalls.emplace(pressure_plate_wall_entity);
@@ -61,11 +63,10 @@ Entity createPressurePlateWall(const int level_uid, std::string id, vec2 positio
 	registry.colors.insert(pressure_plate_wall_entity, vec4(0.0f, 0.0f, 0.75f, 1.0f));
 	registry.walls.emplace(pressure_plate_wall_entity);
 	registry.angles.emplace(pressure_plate_wall_entity);
-	registry.unloadables.emplace(pressure_plate_wall_entity, Unloadable{ position });
+	registry.savables.insert(pressure_plate_wall_entity, { id, { SAVE_TYPE::POSITION, SAVE_TYPE::REMOVED } });
+	registry.levelEntities.insert(pressure_plate_wall_entity, { level_uid });
 	Collidable& col = registry.collidables.emplace(pressure_plate_wall_entity);
-	
 	col.inelastic = true;
-
 	// TODO QWNAo0jQ: Render request handled in interactable_system for now and 
 	// emplacing as a rectangle because there are no animations/assets for this at the moment. 
 	registry.rectangles.emplace(pressure_plate_wall_entity);

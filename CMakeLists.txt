@@ -58,13 +58,19 @@ function(add_git_dependency libName gitURL gitTag)
         GIT_PROGRESS   TRUE
     )
     FetchContent_MakeAvailable(${libName})
-    target_compile_options(${libName} PUBLIC "-w")
 endfunction()
 
 add_git_dependency(
     LDtkLoader
     https://github.com/Madour/LDtkLoader.git
     fe57dcc0992bdedab5a310cff77c85b82af6c5d0
+)
+target_compile_options(LDtkLoader PUBLIC "-w")
+
+add_git_dependency(
+    json
+    URL
+    https://github.com/nlohmann/json/releases/download/v3.12.0/json.tar.xz
 )
 
 # Find OpenGL
@@ -183,7 +189,7 @@ include_directories("${CMAKE_CURRENT_SOURCE_DIR}/ext/freetype/include")
 target_include_directories(${PROJECT_NAME} PUBLIC ${GLFW_INCLUDE_DIRS})
 target_include_directories(${PROJECT_NAME} PUBLIC ${SDL2_INCLUDE_DIRS})
 
-target_link_libraries(${PROJECT_NAME} PUBLIC ${GLFW_LIBRARIES} ${SDL2_LIBRARIES} ${SDL2MIXER_LIBRARIES} LDtkLoader::LDtkLoader glm::glm ${FREETYPE_LIBRARY})
+target_link_libraries(${PROJECT_NAME} PUBLIC ${GLFW_LIBRARIES} ${SDL2_LIBRARIES} ${SDL2MIXER_LIBRARIES} LDtkLoader::LDtkLoader glm::glm ${FREETYPE_LIBRARY} nlohmann_json::nlohmann_json)
 
 # needed to add this for Linux
 if(IS_OS_LINUX)

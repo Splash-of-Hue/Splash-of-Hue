@@ -18,6 +18,7 @@
 #include "text/text_components.hpp"
 #include "ui/ui_components.hpp"
 #include "window/window_components.hpp"
+#include "saving/save_components.hpp"
 
 class ECSRegistry
 {
@@ -77,9 +78,11 @@ public:
 	ComponentContainer<PuzzleBuildRequest> puzzle_build_requests;
 	ComponentContainer<PuzzlePiece> puzzle_pieces;	
 	ComponentContainer<PuzzleTrigger> puzzle_triggers;	
-	// Loader
+	// Load/Save
 	ComponentContainer<LoadRequest> loadRequests;
-	ComponentContainer<Unloadable> unloadables;
+	ComponentContainer<Savable> savables;
+	ComponentContainer<SaveRequest> save_requests;
+	ComponentContainer<UnloadRelatedEntities> unload_entities;
 	// Map
 	ComponentContainer<ChangeMapLevelRequest> changeMapLevelRequests;
 	ComponentContainer<ColouredWall> colouredWall;
@@ -186,8 +189,11 @@ public:
 		registry_list.push_back(&puzzle_build_requests);
 		registry_list.push_back(&puzzle_pieces);
 		registry_list.push_back(&puzzle_triggers);
-		// Loader
+		// Load/Save
 		registry_list.push_back(&loadRequests);
+		registry_list.push_back(&savables);
+		registry_list.push_back(&save_requests);
+		registry_list.push_back(&unload_entities);
 		// Map
 		registry_list.push_back(&changeMapLevelRequests);
 		registry_list.push_back(&colouredWall);

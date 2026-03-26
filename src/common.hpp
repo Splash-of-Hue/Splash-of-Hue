@@ -30,6 +30,10 @@ inline std::string font_path(const std::string& name) { return asset_path() + "/
 inline std::string textures_path(const std::string& name) {return asset_path() + "/textures/" + std::string(name);};
 inline std::string audio_path(const std::string& name) {return asset_path() + "/audio/" + std::string(name);};
 inline std::string mesh_path(const std::string& name) {return asset_path() + "/meshes/" + std::string(name);};
+inline std::string save_path(const std::string& name) {return std::string(PROJECT_SOURCE_DIR) + "/saves/" + std::string(name);};
+
+// Save file name
+const std::string SAVE_FILE_NAME = "save0.dat";
 
 /*
 	Rendering constants and inlines

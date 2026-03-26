@@ -7,6 +7,7 @@
 #include "loading_constants.hpp"
 #include "map/map_build_init.hpp"
 #include "renderer/render_constants.hpp"
+#include "saving/save_constants.hpp"
 #include <algorithm>
 #include <iostream>
 #include <LDtkLoader/DataTypes.hpp>
@@ -28,8 +29,14 @@ void LoaderSystem::load_level(int level_uid)
 	}
 	std::cout << "Loading level ID " << level_uid << std::endl;
 
-	const auto level_match = [&](const Level& level) { return level.uid == level_uid; };
-	const auto level_entity_match = [&](Entity& entity) { return registry.levels.get(entity).uid == level_uid; };
+	const auto level_match = [&](const Level& level)
+	{
+		return level.uid == level_uid;
+	};
+	const auto level_entity_match = [&](Entity& entity)
+	{
+		return registry.levels.get(entity).uid == level_uid;
+	};
 	auto level_iterator = std::find_if(registry.levels.components.begin(), registry.levels.components.end(), level_match);
 	bool level_has_been_loaded_before = level_iterator != registry.levels.components.end();
 
@@ -92,7 +99,7 @@ void LoaderSystem::load_level(int level_uid)
 				continue;
 		}
 	}
-	
+
 	// TODO rUJfFQQT: This is extremely inefficient. Use polygons to better improve this
 	std::vector<Entity> level_wall_tile_entities;
 	for (Entity& level_tile_entity : registry.levelTiles.entities)
@@ -106,7 +113,7 @@ void LoaderSystem::load_level(int level_uid)
 	const int level_quantize_size = level.getLayer("Floor").getCellSize();
 	const ivec2 quantize_grid_size = ivec2(WINDOW_WIDTH_PX / level_quantize_size, WINDOW_HEIGHT_PX / level_quantize_size);
 	std::unordered_map<ivec2, std::pair<vec2, bool>> quantized_floor_data;
-	
+
 	for (int grid_x = 0; grid_x < quantize_grid_size.x; grid_x++)
 	{
 		for (int grid_y = 0; grid_y < quantize_grid_size.y; grid_y++)
@@ -165,7 +172,7 @@ void LoaderSystem::load_level(int level_uid)
 	registry.screenStates.components[0].background_color = level_component.background_color;
 	// Make the camera request at the end of loading
 	Entity change_camera_request;
-	registry.changeCameraTargetRequests.insert(change_camera_request, { registry.positions.get(level_entity), LDTK_CAMERA_ROOM_SPEED});
+	registry.changeCameraTargetRequests.insert(change_camera_request, { registry.positions.get(level_entity), LDTK_CAMERA_ROOM_SPEED });
 }
 
 void load_tile_layer(const ldtk::Layer& layer)
@@ -354,29 +361,12 @@ void load_creatures(const ldtk::Layer& layer)
 		switch (creature_type)
 		{
 			case CREATURETYPE::ANGLERFISH:
-				// TODO nsTuVKMT: Check if this specific one already exists since it can move
-				for (Entity& e : registry.unloadables.entities) {
-					vec2& pos = registry.unloadables.get(e).initial_position;
-					//account for roundoff error
-					if (abs(pos.x - position.x) < 10 && abs(pos.y - position.y) < 10) {
-						//don't load this, it was loaded
-						return;
-					}
-				}
 				creature_entity = creatureCreator.createAnglerfish(level_uid, position, size.x, size.y, color_state);
 				registry.currentLevels.insert(creature_entity, { level_uid });
 				break;
 
 			case CREATURETYPE::CRAB:
 			{
-				for (Entity& e : registry.unloadables.entities) {
-					vec2& pos = registry.unloadables.get(e).initial_position;
-					//account for roundoff error
-					if (abs(pos.x - position.x) < 10 && abs(pos.y - position.y) < 10) {
-						//don't load this, it was loaded
-						return;
-					}
-				}
 				const ldtk::Field<ldtk::EnumValue>& direction_enum_type = ldtk_creature_entity.getField<ldtk::EnumValue>("Direction");
 				const DIRECTION& direction_state = direction_type_from_string(direction_enum_type.value().name);
 				creature_entity = creatureCreator.createCrab(level_uid, position, size.x, size.y, color_state, direction_state);
@@ -388,15 +378,6 @@ void load_creatures(const ldtk::Layer& layer)
 				break;
 
 			case CREATURETYPE::SAWFISH:
-				// TODO nsTuVKMT: Check if this specific one already exists since it can move
-				for (Entity& e : registry.unloadables.entities) {
-					vec2& pos = registry.unloadables.get(e).initial_position;
-					//account for roundoff error
-					if (abs(pos.x - position.x) < 10 && abs(pos.y - position.y) < 10) {
-						//don't load this, it was loaded
-						return;
-					}
-				}
 				creature_entity = creatureCreator.createSawfish(level_uid, position, size.x, size.y, color_state);
 				registry.currentLevels.insert(creature_entity, { level_uid });
 				break;
@@ -497,7 +478,10 @@ void load_teleporter(const ldtk::Entity& teleporter_entity)
 	);
 
 	// Add the connected level UIDs as neighbours to the current level (which must exist at this point)
-	const auto level_match = [&](const Level& level) { return level.uid == level_uid; };
+	const auto level_match = [&](const Level& level)
+	{
+		return level.uid == level_uid;
+	};
 	Level& level = *std::find_if(registry.levels.components.begin(), registry.levels.components.end(), level_match);
 	level.neighbor_level_uids.insert(connected_level_uid);
 }
@@ -508,17 +492,9 @@ void load_moss_toggle(const ldtk::Entity& moss_toggle_entity)
 	const ldtk::IntPoint& size = moss_toggle_entity.getSize();
 	const vec2 world_position = scale_to_level(vec2(position.x, position.y));
 	const vec2 scaled_size = scale_to_level(vec2(size.x, size.y));
-	for (Entity& e : registry.unloadables.entities) {
-		vec2& pos = registry.unloadables.get(e).initial_position;
-		//account for roundoff error
-		if (abs(pos.x - world_position.x) < 10 && abs(pos.y - world_position.y) < 10) {
-			//don't load this, it was loaded
-			return;
-		}
-	}
 	const ldtk::ArrayField<ldtk::EntityRef>& wall_entity_ref_fields = moss_toggle_entity.getField<ldtk::FieldType::ArrayEntityRef>("ConnectedWalls");
 	std::vector<std::string> connected_wall_ids;
-	
+
 	for (const ldtk::Field<ldtk::EntityRef>& wall_entity_ref_field : wall_entity_ref_fields)
 	{
 		const ldtk::EntityRef wall_entity_ref = wall_entity_ref_field.value();
@@ -534,14 +510,6 @@ void load_moss_door(const ldtk::Entity& moss_door_entity)
 	const ldtk::IntPoint& size = moss_door_entity.getSize();
 	const vec2 world_position = scale_to_level(vec2(position.x, position.y));
 	const vec2 scaled_size = scale_to_level(vec2(size.x, size.y));
-	for (Entity& e : registry.unloadables.entities) {
-		vec2& pos = registry.unloadables.get(e).initial_position;
-		//account for roundoff error
-		if (abs(pos.x - world_position.x) < 10 && abs(pos.y - world_position.y) < 10) {
-			//don't load this, it was loaded
-			return;
-		}
-	}
 	std::string moss_door_id = moss_door_entity.iid.str();
 	const ldtk::Field<ldtk::EnumValue>& color_state_enum_type = moss_door_entity.getField<ldtk::EnumValue>("ColorState");
 	COLOUR_STATE color_state = color_state_from_string(color_state_enum_type.value().name);
@@ -599,19 +567,11 @@ void load_pressure_plate_walls(const ldtk::Entity& pressure_plate_entity)
 	const vec2 scaled_size = scale_to_level(vec2(size.x, size.y));
 	std::string pressure_plate_wall_id = pressure_plate_entity.iid.str();
 	bool is_open = false;
-	for (Entity& e : registry.unloadables.entities) {
-		vec2& pos = registry.unloadables.get(e).initial_position;
-		//account for roundoff error
-		if (abs(pos.x - world_position.x) < 1 && abs(pos.y - world_position.y) < 1) {
-			//don't load this, it was broken
-			return;
-		}
-	}
 	const auto find_pressure_plate = [&](Entity& entity)
-		{
-			std::vector<std::string>& pressure_plate_ids = registry.pressurePlates.get(entity).connected_wall_ids;
-			return std::find(pressure_plate_ids.begin(), pressure_plate_ids.end(), pressure_plate_wall_id) != pressure_plate_ids.end();
-		};
+	{
+		std::vector<std::string>& pressure_plate_ids = registry.pressurePlates.get(entity).connected_wall_ids;
+		return std::find(pressure_plate_ids.begin(), pressure_plate_ids.end(), pressure_plate_wall_id) != pressure_plate_ids.end();
+	};
 	const auto pressure_plate_component_iterator = std::find_if(registry.pressurePlates.entities.begin(), registry.pressurePlates.entities.end(), find_pressure_plate);
 
 	// If there are any pressure plates that are currently being pressed, ensure the is_open state is set correctly 
@@ -620,7 +580,7 @@ void load_pressure_plate_walls(const ldtk::Entity& pressure_plate_entity)
 		is_open = registry.pressurePlates.get(*pressure_plate_component_iterator).is_pressed;
 	}
 
-	createPressurePlateWall(pressure_plate_entity.layer->level->uid, pressure_plate_wall_id, world_position, scaled_size, is_open);
+	createPressurePlateWall(pressure_plate_entity.iid.str(), pressure_plate_entity.layer->level->uid, pressure_plate_wall_id, world_position, scaled_size, is_open);
 }
 
 void load_colour_orb(const ldtk::Entity& colour_orb_entity)
@@ -639,8 +599,7 @@ void load_colour_orb(const ldtk::Entity& colour_orb_entity)
 	const ldtk::IntPoint& entity_size = colour_orb_entity.getSize();
 	const vec2 position = scale_to_level(vec2(world_pos.x, world_pos.y));
 	const float radius = scale_to_level(vec2(entity_size.x)).x * 0.5f;
-	Entity orb = createColourOrb(position, radius, colour_state);
-	registry.levelEntities.insert(orb, { colour_orb_entity.layer->level->uid });
+	Entity orb = createColourOrb(colour_orb_entity.iid.str(), colour_orb_entity.layer->level->uid, position, radius, colour_state);
 }
 
 void load_box(const ldtk::Entity& box_entity)
@@ -649,44 +608,22 @@ void load_box(const ldtk::Entity& box_entity)
 	const ldtk::IntPoint& entity_size = box_entity.getSize();
 	vec2 position = vec2(world_pos.x, world_pos.y) + vec2(entity_size.x, entity_size.y) / 2.0f;
 	position = scale_to_level(position);
-	for (Entity& e : registry.unloadables.entities) {
-		vec2& pos = registry.unloadables.get(e).initial_position;
-		//account for roundoff error
-		if (abs(pos.x - position.x) < 10 && abs(pos.y - position.y) < 10) {
-			//don't load this, it was broken
-			return;
-		}
-	}
 	const vec2 size = scale_to_level(vec2(entity_size.x, entity_size.y));
-	Entity box = createBox(position, size.x, size.y);
-	registry.levelEntities.insert(box, { box_entity.layer->level->uid });
+	Entity box = createBox(box_entity.iid.str(), box_entity.layer->level->uid, position, size.x, size.y);
 }
 
 void load_mushroom(const ldtk::Entity& mushroom_entity)
 {
 	const ldtk::IntPoint& world_pos = mushroom_entity.getWorldPosition();
 	const ldtk::IntPoint& size = mushroom_entity.getSize();
-
 	const ldtk::Field<ldtk::EnumValue>& color_state_field = mushroom_entity.getField<ldtk::EnumValue>("ColorState");
 	const COLOUR_STATE colour_state = color_state_from_string(color_state_field.value().name);
 	//todo: https://trello.com/c/qB3PaZDl/247-05-create-ldtk-size-general-enum
 	const ldtk::Field<ldtk::EnumValue>& mushroom_size_field = mushroom_entity.getField<ldtk::EnumValue>("MushroomSize");
 	const MUSHROOM_SIZE mushroom_size = mushroom_size_from_string(mushroom_size_field.value().name);
-
 	const vec2 position = vec2(world_pos.x * LEVEL_TO_SCREEN_SCALE.x, world_pos.y * LEVEL_TO_SCREEN_SCALE.y);
 	const float width = size.x * LEVEL_TO_SCREEN_SCALE.x;
-
-	for (Entity& e : registry.unloadables.entities) {
-		vec2& pos = registry.unloadables.get(e).initial_position;
-		//account for roundoff error
-		if (abs(pos.x - position.x) < 10 && abs(pos.y - position.y) < 10) {
-			//don't load this
-			return;
-		}
-	}
-	Entity mushroom = createMushroom(position, width, colour_state, mushroom_size);
-
-	registry.levelEntities.insert(mushroom, { mushroom_entity.layer->level->uid });
+	Entity mushroom = createMushroom(mushroom_entity.iid.str(), mushroom_entity.layer->level->uid, position, width, colour_state, mushroom_size);
 }
 
 void load_minimap_reference(const ldtk::Entity& minimap_reference_entity)
@@ -695,12 +632,16 @@ void load_minimap_reference(const ldtk::Entity& minimap_reference_entity)
 	const ldtk::IntPoint& world_pos = minimap_reference_entity.getWorldPosition();
 	const ldtk::IntPoint& size = minimap_reference_entity.getSize();
 
-	const auto level_match = [&](const Level& level) { return level.uid == level_uid; };
+	const auto level_match = [&](const Level& level)
+	{
+		return level.uid == level_uid;
+	};
 	auto level_it = std::find_if(
 		registry.levels.components.begin(),
 		registry.levels.components.end(), level_match);
 
-	if (level_it == registry.levels.components.end()) {
+	if (level_it == registry.levels.components.end())
+	{
 		return;
 	}
 
@@ -714,20 +655,24 @@ void load_minimap_hallway(const ldtk::Entity& minimap_hallway_entity)
 	const ldtk::IntPoint& world_pos = minimap_hallway_entity.getWorldPosition();
 	const ldtk::IntPoint& size = minimap_hallway_entity.getSize();
 
-	const auto level_match = [&](const Level& level) { return level.uid == level_uid; };
+	const auto level_match = [&](const Level& level)
+	{
+		return level.uid == level_uid;
+	};
 	auto level_it = std::find_if(
 		registry.levels.components.begin(),
 		registry.levels.components.end(), level_match);
 
-	if (level_it == registry.levels.components.end()) {
+	if (level_it == registry.levels.components.end())
+	{
 		return;
 	}
 
 	level_it->hallway_ldtk_rects.push_back({
 		{ world_pos.x, world_pos.y },
 		{ size.x, size.y }
-		});
-	
+										   });
+
 }
 
 void load_control_pictures(const ldtk::Entity& control_picture_entity)
@@ -746,7 +691,10 @@ void load_control_pictures(const ldtk::Entity& control_picture_entity)
 void LoaderSystem::unload_level(int level_uid)
 {
 	// Try to find the level component
-	const auto level_match = [&](const Level& level) { return level.uid == level_uid; };
+	const auto level_match = [&](const Level& level)
+	{
+		return level.uid == level_uid;
+	};
 	auto& level_iterator = std::find_if(registry.levels.components.begin(), registry.levels.components.end(), level_match);
 	std::cout << "Unloading level ID " << level_uid;
 
@@ -767,7 +715,6 @@ void LoaderSystem::unload_level(int level_uid)
 		if (registry.levelTiles.get(level_tile_entity).level_uid == level_uid)
 		{
 			registry.remove_all_components_of(level_tile_entity);
-			
 		}
 	}
 
@@ -796,10 +743,6 @@ void LoaderSystem::unload_level(int level_uid)
 
 		// The entity is either not in the level we are unloading if it moves
 		// or it's not part of the level we are unloading
-		if (!registry.unloadables.has(level_entities_entity)) {
-			registry.remove_all_components_of(level_entities_entity);
-		}
-		
 	}
 
 	// Keep the map data but remove from loaded levels (is generated, is not loaded)
@@ -857,17 +800,9 @@ void load_puzzle_wall(const ldtk::Entity& puzzle_wall_entity)
 	const ldtk::IntPoint& wall_size = puzzle_wall_entity.getSize();
 	const vec2 position = scale_to_level(vec2(wall_world_position.x, wall_world_position.y));
 	const vec2 size = scale_to_level(vec2(wall_size.x, wall_size.y));
-	for (Entity& e : registry.unloadables.entities) {
-		vec2& pos = registry.unloadables.get(e).initial_position;
-		//account for roundoff error
-		if (abs(pos.x - position.x) < 10 && abs(pos.y - position.y) < 10) {
-			//don't load this, it was loaded
-			return;
-		}
-	}
 	const vec4 PUZZLE_WALL_COLOUR = vec4(vec3(105, 30, 105) / 255.0f, 1.0);
 	Entity& wall = createWall(puzzle_wall_entity.layer->level->uid, position, size.x, size.y, PUZZLE_WALL_COLOUR);
 	registry.renderRequests.get(wall).layer = RENDER_LAYER::WALLS_FRONT;
 	registry.puzzle_triggers.insert(wall, { puzzle_wall_entity.iid.str(), [&]() {} });
-	registry.unloadables.emplace(wall);
+	registry.savables.insert(wall, { puzzle_wall_entity.iid.str(), { SAVE_TYPE::REMOVED } });
 }

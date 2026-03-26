@@ -1,4 +1,13 @@
+#include "common.hpp"
 #include "loader_system.hpp"
+#include "saving/save_constants.hpp"
+#include <filesystem>
+#include <fstream>
+#include <iostream>
+#include <map>
+#include <sstream>
+#include <string>
+#include <nlohmann/json.hpp>
 
 void LoaderSystem::step(float elapsed_ms)
 {
@@ -18,6 +27,7 @@ void LoaderSystem::step(float elapsed_ms)
 		switch (load_request.load_type)
 		{
 			case LOAD_TYPE::LOAD_LEVEL:
+				load_file(SAVE_FILE_NAME);
 				load_level(load_request.uid);
 				break;
 			case LOAD_TYPE::UNLOAD_LEVEL:
@@ -32,4 +42,23 @@ void LoaderSystem::step(float elapsed_ms)
 	registry.game_state_change_requests.insert(game_state_request_entity, { GAME_STATE::PLAYING });
 	// Once all load requests are taken care of, remove them
 	loadRequestRegistry.clear();
+}
+
+void LoaderSystem::load_file(const std::string& filename)
+{
+	std::cout << "Loading level file: " << filename << std::endl;
+
+	std::filesystem::path filename_path = std::filesystem::path(save_path(filename));
+	std::string just_filename = filename_path.filename().string();
+	std::cout << std::fixed;
+	std::ifstream save_file(filename_path);
+
+	if (!save_file.is_open())
+	{
+		std::cout << "ERROR: failed to open file: " << filename << "." << std::endl;
+		return;
+	}
+
+	save_file >> loaded_data;
+	save_file.close();
 }
