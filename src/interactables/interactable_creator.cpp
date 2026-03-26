@@ -197,6 +197,7 @@ Entity createPuzzleBubble(const int level_uid, std::string id, vec2 position, CO
 	col.inelastic = false;
 	registry.positions.insert(puzzle_bubble_entity, position);
 	registry.scales.insert(puzzle_bubble_entity, PUZZLE_BUBBLE_SIZE);
+	registry.circles.emplace(puzzle_bubble_entity);
 	registry.sizes.insert(puzzle_bubble_entity, { PUZZLE_BUBBLE_SIZE.x, PUZZLE_BUBBLE_SIZE.y });
 	registry.angles.emplace(puzzle_bubble_entity);
 	registry.colourStates.insert(puzzle_bubble_entity, { COLOUR_STATE::NEUTRAL, COLOUR_STATE::NEUTRAL });
