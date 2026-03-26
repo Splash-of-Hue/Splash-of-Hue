@@ -145,5 +145,17 @@ BEHAVIOUR_TREE_STATUS CreatureBehaviourSystem::tickInverter(Entity& creature, Cr
 	if (status != BEHAVIOUR_TREE_STATUS::FAILURE)
 		return status;
 
-	return tickNode(creature, creatureBehaviour, currentNode.children_indicies[0], elapsed_ms);
+	status = tickNode(creature, creatureBehaviour, currentNode.children_indicies[0], elapsed_ms);
+
+	if (status == BEHAVIOUR_TREE_STATUS::FAILURE)
+	{
+		return BEHAVIOUR_TREE_STATUS::SUCCESS;
+	}
+	else  if (status == BEHAVIOUR_TREE_STATUS::SUCCESS)
+	{
+		return BEHAVIOUR_TREE_STATUS::FAILURE;
+	}
+
+	// The node is running, return;
+	return status;
 }

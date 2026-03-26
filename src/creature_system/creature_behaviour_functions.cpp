@@ -160,6 +160,11 @@ BEHAVIOUR_TREE_STATUS CreatureBehaviourFunctions::joinPlayerParty(Entity& creatu
 
 BEHAVIOUR_TREE_STATUS CreatureBehaviourFunctions::leaveParty(Entity& creature, float elapsed_ms)
 {
+	if (!registry.party_members.has(creature))
+	{
+		return BEHAVIOUR_TREE_STATUS::FAILURE;
+	}
+
 	PartyMember& party_member = registry.party_members.get(creature);
 	std::vector<Entity>& party_members = registry.parties.get(party_member.party).other_party_members;
 	const auto result = std::find_if(party_members.begin(), party_members.end(), [&](Entity& e)

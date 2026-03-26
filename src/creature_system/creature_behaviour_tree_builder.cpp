@@ -218,7 +218,7 @@ BehaviourTree CreatureBehaviourTreeBuilder::buildSawfishTree()
 				),
 				Decorator(builder, creatureBehaviourFunctions.isCreatureWithinPlayerRedColourRadius,
 					Sequence(builder,
-						Decorator(builder, creatureBehaviourFunctions.isInParty,
+						Invert(builder, creatureBehaviourFunctions.isInParty,
 							Sequence(builder,
 								Action(builder, creatureBehaviourFunctions.leaveParty),
 								Action(builder, creatureBehaviourFunctions.setPlayerTarget)
