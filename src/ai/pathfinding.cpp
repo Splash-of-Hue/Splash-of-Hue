@@ -6,7 +6,7 @@
 #include <vector>
 
 // Bare bones direct pathfinding 
-bool direct_line_next_step(float elapsed_ms, Entity& follower, Entity& target)
+void direct_line_next_step(float elapsed_ms, Entity& follower, Entity& target)
 {
 	assert(registry.pathfinders.has(follower) && "The follower creature isn't registered as a pathfinder");
 	Pathfinder& pathfinder_component = registry.pathfinders.get(follower);
@@ -32,7 +32,7 @@ bool direct_line_next_step(float elapsed_ms, Entity& follower, Entity& target)
 	if (distance_squared <= minDistToTarget_squared)
 	{
 		follower_velocity = { 0.0f, 0.0f };
-		return true;
+		return;
 	}
 
 	// Sqrt only when moving for normalization
@@ -50,8 +50,6 @@ bool direct_line_next_step(float elapsed_ms, Entity& follower, Entity& target)
 		max_speed = max_speed * t;
 	}
 	follower_velocity = { norm_x * max_speed, norm_y * max_speed };
-
-	return false;
 }
 
 std::vector<ivec2> a_star(ivec2 start_position_grid, ivec2 end_position_grid, std::unordered_map<ivec2, bool> valid_grid_coordinates)

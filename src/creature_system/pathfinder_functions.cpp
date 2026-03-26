@@ -22,11 +22,7 @@ BEHAVIOUR_TREE_STATUS CreatureBehaviourFunctions::updateBoids(Entity& creature, 
 BEHAVIOUR_TREE_STATUS CreatureBehaviourFunctions::aStarFollowTarget(Entity& follower, float elapsed_ms)
 {
 	Pathfinder& pathfinder = registry.pathfinders.get(follower);
-
-	if (direct_line_next_step(elapsed_ms, follower, pathfinder.target))
-	{
-		return BEHAVIOUR_TREE_STATUS::FAILURE;
-	}
+	direct_line_next_step(elapsed_ms, follower, pathfinder.target);
 
 	return BEHAVIOUR_TREE_STATUS::SUCCESS;
 }

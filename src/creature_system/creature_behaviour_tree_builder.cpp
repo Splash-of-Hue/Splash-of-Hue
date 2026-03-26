@@ -26,9 +26,12 @@ BehaviourTree CreatureBehaviourTreeBuilder::buildAnglerfishTree()
 		Root(builder,
 			Selector(builder,
 				Decorator(builder, creatureBehaviourFunctions.isCreatureWithinPlayerBlueColourRadius,
-			        Selector(builder,
+			        Sequence(builder,
 						Invert(builder, creatureBehaviourFunctions.isInParty,
-							Action(builder, creatureBehaviourFunctions.joinPlayerParty)
+			                Sequence(builder,
+								Action(builder, creatureBehaviourFunctions.joinPlayerParty),
+								Action(builder, creatureBehaviourFunctions.setPartyTarget)
+		                    )
 						),
 						Sequence(builder,
 							Action(builder, creatureBehaviourFunctions.makeBlue),
@@ -39,7 +42,7 @@ BehaviourTree CreatureBehaviourTreeBuilder::buildAnglerfishTree()
 		            )
 		        ),
 				Decorator(builder, creatureBehaviourFunctions.isCreatureWithinPlayerRedColourRadius,
-			        Selector(builder,
+			        Sequence(builder,
 			            Invert(builder, creatureBehaviourFunctions.isInParty,
 			               Sequence(builder,
 			                   Action(builder, creatureBehaviourFunctions.joinPlayerParty),
@@ -215,15 +218,24 @@ BehaviourTree CreatureBehaviourTreeBuilder::buildSawfishTree()
 				),
 				Decorator(builder, creatureBehaviourFunctions.isCreatureWithinPlayerRedColourRadius,
 					Sequence(builder,
+						Decorator(builder, creatureBehaviourFunctions.isInParty,
+							Sequence(builder,
+								Action(builder, creatureBehaviourFunctions.leaveParty),
+								Action(builder, creatureBehaviourFunctions.setPlayerTarget)
+						    )
+						),
 						Action(builder, creatureBehaviourFunctions.apply2sCooldown),
 						Action(builder, creatureBehaviourFunctions.makeRed)
 					)
 				),
 				Selector(builder,
 					Decorator(builder, creatureBehaviourFunctions.isCreatureWithinPlayerBlueColourRadius,
-						 Selector(builder,
+						 Sequence(builder,
 						     Invert(builder, creatureBehaviourFunctions.isInParty,
-						         Action(builder, creatureBehaviourFunctions.joinPlayerParty)
+			                     Sequence(builder,
+									 Action(builder, creatureBehaviourFunctions.joinPlayerParty),
+									 Action(builder, creatureBehaviourFunctions.setPartyTarget)
+		                         )
 					         ),
 							Sequence(builder, 
 								Action(builder, creatureBehaviourFunctions.makeBlue),
