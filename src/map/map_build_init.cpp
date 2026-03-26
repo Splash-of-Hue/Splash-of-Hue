@@ -16,11 +16,11 @@ Entity createMossWall(const int level_uid, std::string id, vec2 position, vec2 s
 	registry.scales.insert(moss_wall_entity, size);
 	registry.sizes.insert(moss_wall_entity, { size.x, size.y });
 	registry.angles.emplace(moss_wall_entity);
-	registry.unloadables.emplace(moss_wall_entity);
 	Collidable& col = registry.collidables.emplace(moss_wall_entity);
 	col.inelastic = true;
 	registry.colouredWall.insert(moss_wall_entity, { id });
 	registry.colourStates.insert(moss_wall_entity, { color_state, color_state });
+	registry.levelEntities.insert(moss_wall_entity, { level_uid });
 	std::map<COLOUR_STATE, ANIMATION_TRIGGER> colour_animation_trigger_map =
 	{
 		{ COLOUR_STATE::NEUTRAL, ANIMATION_TRIGGER::IDLE },
@@ -63,9 +63,8 @@ Entity createPressurePlateWall(const int level_uid, std::string id, vec2 positio
 	registry.angles.emplace(pressure_plate_wall_entity);
 	registry.unloadables.emplace(pressure_plate_wall_entity, Unloadable{ position });
 	Collidable& col = registry.collidables.emplace(pressure_plate_wall_entity);
-	
 	col.inelastic = true;
-
+	registry.levelEntities.insert(pressure_plate_wall_entity, { level_uid });
 	// TODO QWNAo0jQ: Render request handled in interactable_system for now and 
 	// emplacing as a rectangle because there are no animations/assets for this at the moment. 
 	registry.rectangles.emplace(pressure_plate_wall_entity);

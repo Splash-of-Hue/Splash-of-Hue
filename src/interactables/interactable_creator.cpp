@@ -131,7 +131,7 @@ Entity createMossToggle(const int level_uid, vec2 position, vec2 size, std::vect
 	registry.scales.insert(toggle_entity, size);
 	registry.sizes.insert(toggle_entity, { size.x, size.y });
 	registry.angles.emplace(toggle_entity);
-	registry.unloadables.emplace(toggle_entity, Unloadable{ position });
+	registry.levelEntities.insert(toggle_entity, { level_uid });
 	Collidable& col = registry.collidables.emplace(toggle_entity);
 	col.inelastic = false;
 	registry.colourStates.insert(toggle_entity, { COLOUR_STATE::NEUTRAL, COLOUR_STATE::NEUTRAL });
