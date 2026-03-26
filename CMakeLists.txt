@@ -112,11 +112,10 @@ elseif (IS_OS_WINDOWS)
     set (FREETYPE_INCLUDE_DIRS "${CMAKE_CURRENT_SOURCE_DIR}/ext/freetype/include")
     set (FREETYPE_LIBRARY "${CMAKE_CURRENT_SOURCE_DIR}/ext/freetype/release static/vs2015-2022/win64/freetype.lib")
 
-    # FMOD - Windows-specific (x64-x86 only)
+    # FMOD - Windows-specific (x64 only)
     set (FMOD_CORE_INCLUDE_DIRS "${CMAKE_CURRENT_SOURCE_DIR}/ext/fmod/core/inc")
     set (FMOD_CORE_LIBRARY "${CMAKE_CURRENT_SOURCE_DIR}/ext/fmod/core/lib/x64/fmod_vc.lib")
     set (FMOD_CORE_DLL "${CMAKE_CURRENT_SOURCE_DIR}/ext/fmod/core/lib/x64/fmod.dll")
-
 
     set (FMOD_STUDIO_INCLUDE_DIRS "${CMAKE_CURRENT_SOURCE_DIR}/ext/fmod/studio/inc")
     set (FMOD_STUDIO_LIBRARY "${CMAKE_CURRENT_SOURCE_DIR}/ext/fmod/studio/lib/x64/fmodstudio_vc.lib")
