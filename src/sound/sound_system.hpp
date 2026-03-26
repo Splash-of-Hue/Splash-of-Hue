@@ -22,6 +22,7 @@ public:
 private:
 	FMOD::System* system = nullptr;
 	Entity background_entity;
+	FMOD_RESULT result;
 
 	void validate_fmod_result(FMOD_RESULT result);
 };
