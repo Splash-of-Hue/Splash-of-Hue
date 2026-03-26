@@ -18,7 +18,7 @@ void direct_line_next_step(float elapsed_ms, Entity& follower, Entity& target)
 	vec2& follower_position = registry.positions.get(follower);
 	vec2& follower_velocity = registry.velocities.get(follower);
 
-	// Get the vector to the player
+	// Get the vector to the target
 	float dx = target_position.x - follower_position.x;
 	float dy = target_position.y - follower_position.y;
 
