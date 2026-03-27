@@ -176,3 +176,13 @@ BEHAVIOUR_TREE_STATUS CreatureBehaviourFunctions::isTimerComplete(Entity& creatu
 		return BEHAVIOUR_TREE_STATUS::SUCCESS; // continue executing behaviour
 	}
 }
+
+BEHAVIOUR_TREE_STATUS CreatureBehaviourFunctions::isInParty(Entity& creature, float elapsed_ms)
+{
+	if (!registry.party_members.has(creature))
+	{
+		return BEHAVIOUR_TREE_STATUS::FAILURE;
+	}
+
+	return BEHAVIOUR_TREE_STATUS::SUCCESS;
+}

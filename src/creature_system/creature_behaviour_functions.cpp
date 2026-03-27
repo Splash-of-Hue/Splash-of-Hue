@@ -138,16 +138,6 @@ BEHAVIOUR_TREE_STATUS CreatureBehaviourFunctions::debugCout(Entity& creature, fl
 	return BEHAVIOUR_TREE_STATUS::SUCCESS;
 }
 
-BEHAVIOUR_TREE_STATUS CreatureBehaviourFunctions::isInParty(Entity& creature, float elapsed_ms)
-{
-	if (!registry.party_members.has(creature))
-	{
-		return BEHAVIOUR_TREE_STATUS::FAILURE;
-	}
-
-	return BEHAVIOUR_TREE_STATUS::SUCCESS;
-}
-
 BEHAVIOUR_TREE_STATUS CreatureBehaviourFunctions::joinPlayerParty(Entity& creature, float elapsed_ms)
 {
 	Entity& player_entity = registry.players.entities[0];
