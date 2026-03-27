@@ -24,7 +24,7 @@ void GameStateSystem::step(float elapsed_ms)
 		// If there are any requests to change the game state, take the most recent request only
 		const Entity change_request_entity = registry.game_state_change_requests.entities.back();
 		current_state = registry.game_state_change_requests.get(change_request_entity).game_state;
-		// Remove the indices that we are updated currently
+		// Remove the indices from the previous state
 		current_system_indices.clear();
 		std::vector<int> current_state_system_indices = state_system_indices[current_state];
 		// Add both the general systems and the specific state systems
