@@ -75,9 +75,18 @@ Entity createCircle(vec2 position, float radius, RENDER_LAYER render_layer, vec4
 		entity,
 		{
 			EFFECT_ASSET_ID::DEFAULT,
-			GEOMETRY_BUFFER_ID::CIRCLE
+			GEOMETRY_BUFFER_ID::CIRCLE,
+			render_layer
 		}
 	);
 	
 	return entity;
+}
+PolygonMesh createCircleHitbox(vec2 centre, float radius, int segments) {
+	std::vector<vec2> vertices;
+	for (int i = 0; i < segments; i++) {
+		float angle = 2.0f * M_PI * i / segments;
+		vertices.push_back({ centre.x + radius * cos(angle), centre.y + radius * sin(angle) });
+	}
+	return PolygonMesh{ vertices, vertices, centre };
 }

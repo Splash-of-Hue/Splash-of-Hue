@@ -3,6 +3,7 @@
 #include <sstream>
 #include <array>
 #include <fstream>
+#include <freetype/freetype.h>
 
 // internal
 #include "../ext/stb_image/stb_image.h"
@@ -59,8 +60,107 @@ bool RenderSystem::init(GLFWwindow* window_arg)
     initializeGlTextures();
 	initializeGlEffects();
 	initializeGlGeometryBuffers();
+	initializeGlFonts();
 
 	return true;
+}
+
+void RenderSystem::initializeGlFonts()
+{
+	// init FreeType fonts
+	FT_Library ft;
+	if (FT_Init_FreeType(&ft))
+	{
+		std::cerr << "ERROR::FREETYPE: Could not init FreeType Library" << std::endl;
+		return;
+	}
+
+	for (uint i = 0; i < font_paths.size(); i++)
+	{
+		const auto& font_info = font_paths[i];
+		const auto& font_path = font_info.first;
+		const auto& font_default_size = font_info.second;
+		std::map<char, Character> character_map;
+
+		FT_Face face;
+		if (FT_New_Face(ft, font_path.c_str(), 0, &face))
+		{
+			std::cerr << "ERROR::FREETYPE: Failed to load font: " << font_path << std::endl;
+			return;
+		}
+
+		// extract a default size
+		if (FT_Set_Pixel_Sizes(face, 0, font_default_size))
+		{
+			std::cerr << "ERROR::FREETYPE: Failed to set font size: " << font_path << std::endl;
+			return;
+		}
+
+		// disable byte-alignment restriction in OpenGL
+		glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
+
+		// Ensure an unicode characater map is loaded
+		FT_Select_Charmap(face, FT_ENCODING_UNICODE);
+
+		FT_ULong charcode;
+		FT_UInt gid;
+
+		charcode = FT_Get_First_Char(face, &gid);
+		while (gid != 0)
+		{
+			// load character glyph
+			if (FT_Load_Char(face, charcode, FT_LOAD_RENDER))
+			{
+				std::cerr << "ERROR::FREETYTPE: Failed to load Glyph" << std::endl;
+				continue;
+			}
+
+			// generate texture
+			unsigned int texture;
+			glGenTextures(1, &texture);
+			glBindTexture(GL_TEXTURE_2D, texture);
+
+			// std::cout << "texture: " << c << " = " << texture << std::endl;
+
+			glTexImage2D(
+				GL_TEXTURE_2D,
+				0,
+				GL_RED,
+				face->glyph->bitmap.width,
+				face->glyph->bitmap.rows,
+				0,
+				GL_RED,
+				GL_UNSIGNED_BYTE,
+				face->glyph->bitmap.buffer
+			);
+
+			// set texture options
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+			// now store character for later use
+			Character character = {
+				texture,
+				ivec2(face->glyph->bitmap.width, face->glyph->bitmap.rows),
+				ivec2(face->glyph->bitmap_left, face->glyph->bitmap_top),
+				static_cast<unsigned int>(face->glyph->advance.x),
+				(unsigned char)charcode
+			};
+
+			character_map.insert({ charcode, character });
+			charcode = FT_Get_Next_Char(face, charcode, &gid);
+		}
+
+		font_characters.insert({ (FONT_ID)i, character_map });
+		glBindTexture(GL_TEXTURE_2D, 0);
+		// clean up
+		FT_Done_Face(face);
+	}
+
+	FT_Done_FreeType(ft);
+	gl_has_errors();
 }
 
 void RenderSystem::initializeGlTextures()
@@ -127,16 +227,16 @@ void RenderSystem::initializeGlEffects()
 
 // One could merge the following two functions as a template function...
 template <class T>
-void RenderSystem::bindVBOandIBO(GEOMETRY_BUFFER_ID gid, std::vector<T> vertices, std::vector<uint16_t> indices)
+void RenderSystem::bindVBOandIBO(GEOMETRY_BUFFER_ID gid, std::vector<T> vertices, std::vector<uint16_t> indices, GLenum usage)
 {
 	glBindBuffer(GL_ARRAY_BUFFER, vertex_buffers[(uint)gid]);
 	glBufferData(GL_ARRAY_BUFFER,
-		sizeof(vertices[0]) * vertices.size(), vertices.data(), GL_STATIC_DRAW);
+		sizeof(vertices[0]) * vertices.size(), vertices.data(), usage);
 	gl_has_errors();
 
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, index_buffers[(uint)gid]);
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER,
-		sizeof(indices[0]) * indices.size(), indices.data(), GL_STATIC_DRAW);
+		sizeof(indices[0]) * indices.size(), indices.data(), usage);
 	gl_has_errors();
 }
 
@@ -154,7 +254,8 @@ void RenderSystem::initializeGlMeshes()
 
 		bindVBOandIBO(geom_index,
 			meshes[(int)geom_index].vertices, 
-			meshes[(int)geom_index].vertex_indices);
+			meshes[(int)geom_index].vertex_indices,
+			GL_STATIC_DRAW);
 	}
 }
 
@@ -191,7 +292,7 @@ void RenderSystem::initializeGlGeometryBuffers()
 
 	// Counterclockwise as it's the default OpenGL front winding direction.
 	const std::vector<uint16_t> textured_indices = { 0, 3, 1, 1, 3, 2 };
-	bindVBOandIBO(GEOMETRY_BUFFER_ID::SPRITE, textured_vertices, textured_indices);
+	bindVBOandIBO(GEOMETRY_BUFFER_ID::SPRITE, textured_vertices, textured_indices, GL_STATIC_DRAW);
 
 	////////////////////////
 	// Initialize normal circle
@@ -204,7 +305,7 @@ void RenderSystem::initializeGlGeometryBuffers()
 	int geom_index = (int)GEOMETRY_BUFFER_ID::CIRCLE;
 	meshes[geom_index].vertices = circle_vertices;
 	meshes[geom_index].vertex_indices = circle_indices;
-	bindVBOandIBO(GEOMETRY_BUFFER_ID::CIRCLE, meshes[geom_index].vertices, meshes[geom_index].vertex_indices);
+	bindVBOandIBO(GEOMETRY_BUFFER_ID::CIRCLE, meshes[geom_index].vertices, meshes[geom_index].vertex_indices, GL_STATIC_DRAW);
 
 	////////////////////////
 	// Initialize gradient circle
@@ -214,7 +315,7 @@ void RenderSystem::initializeGlGeometryBuffers()
 	geom_index = (int)GEOMETRY_BUFFER_ID::GRADIENT_CIRCLE;
 	meshes[geom_index].vertices = grad_circle_vertices;
 	meshes[geom_index].vertex_indices = grad_circle_indices;
-	bindVBOandIBO(GEOMETRY_BUFFER_ID::GRADIENT_CIRCLE, meshes[geom_index].vertices, meshes[geom_index].vertex_indices);
+	bindVBOandIBO(GEOMETRY_BUFFER_ID::GRADIENT_CIRCLE, meshes[geom_index].vertices, meshes[geom_index].vertex_indices, GL_STATIC_DRAW);
 	//////////////////////////////////
 	// Initialize debug line
 	std::vector<ColoredVertex> line_vertices;
@@ -234,7 +335,7 @@ void RenderSystem::initializeGlGeometryBuffers()
 	geom_index = (int)GEOMETRY_BUFFER_ID::RECTANGLE;
 	meshes[geom_index].vertices = line_vertices;
 	meshes[geom_index].vertex_indices = line_indices;
-	bindVBOandIBO(GEOMETRY_BUFFER_ID::RECTANGLE, line_vertices, line_indices);
+	bindVBOandIBO(GEOMETRY_BUFFER_ID::RECTANGLE, line_vertices, line_indices, GL_STATIC_DRAW);
 
 	///////////////////////////////////////////////////////
 	// Initialize screen triangle (yes, triangle, not quad; its more efficient).
@@ -244,7 +345,13 @@ void RenderSystem::initializeGlGeometryBuffers()
 	screen_vertices[2] = { -1,  6, 0.f };
 	// Counterclockwise as it's the default opengl front winding direction.
 	const std::vector<uint16_t> screen_indices = { 0, 1, 2 };
-	bindVBOandIBO(GEOMETRY_BUFFER_ID::SCREEN_TRIANGLE, screen_vertices, screen_indices);
+	bindVBOandIBO(GEOMETRY_BUFFER_ID::SCREEN_TRIANGLE, screen_vertices, screen_indices, GL_STATIC_DRAW);
+
+	///////////////////////////////////////////////////////
+	// Initialize font VBO.
+	std::vector<vec4> text_vertices(6);
+	const std::vector<uint16_t> text_indices;
+	bindVBOandIBO(GEOMETRY_BUFFER_ID::SCREEN_TEXT, text_vertices, text_indices, GL_DYNAMIC_DRAW);
 }
 
 RenderSystem::~RenderSystem()

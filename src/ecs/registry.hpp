@@ -2,16 +2,22 @@
 #include <vector>
 
 #include "animation/animation_components.hpp"
+#include "ai/ai_components.hpp"
 #include "camera/camera_components.hpp"
 #include "components.hpp"
-#include "controllers/player_components.hpp"
 #include "controls/control_components.hpp"
 #include "creature_system/creature_components.hpp"
+#include "game_state/game_state_component.hpp"
 #include "input/input_components.hpp"
 #include "interactables/interactable_components.hpp"
 #include "loading/loading_components.hpp"
 #include "map/map_components.hpp"
+#include "minimap/minimap_components.hpp"
+#include "player/player_components.hpp"
 #include "renderer/render_components.hpp"
+#include "text/text_components.hpp"
+#include "ui/ui_components.hpp"
+#include "window/window_components.hpp"
 
 class ECSRegistry
 {
@@ -21,6 +27,8 @@ class ECSRegistry
 public:
 	// Manually created list of all components this game has
 	// AI
+	ComponentContainer<BoidOverseer> boidOverseers;
+	ComponentContainer<Boid> boid_minnows; 
 	ComponentContainer<Charging> chargers;
 	ComponentContainer<CreatureBehaviour> creatureBehaviours;
 	ComponentContainer<CreatureBehaviourCooldown> creatureBehaviourCooldowns;
@@ -35,11 +43,13 @@ public:
 	ComponentContainer<Textured> textured;
 	// Colour System
 	ComponentContainer<vec4> colors;
+	ComponentContainer<ColourIndicatorUI> colourIndicatorUIs;
 	ComponentContainer<ColourState> colourStates;
 	ComponentContainer<ColourWheel> colourWheels;
 	ComponentContainer<ColourPalette> colourPalettes;
 	ComponentContainer<ColourMenuState> colourMenuStates;
 	ComponentContainer<ColourMenuInput> colourMenuInputs;
+	// Emission System
 	ComponentContainer<LightEmission> lightEmissions;
 	ComponentContainer<LightSource> lightSources;
 	// Controls
@@ -48,6 +58,9 @@ public:
 	ComponentContainer<InputClearRequest> inputClearRequests;
 	// Debug
 	ComponentContainer<DebugComponent> debugComponents;
+	// General
+	ComponentContainer<GameStateChangeRequest> game_state_change_requests;
+	ComponentContainer<Window> windows;
 	// Interactables
 	ComponentContainer<Box> boxes;
 	ComponentContainer<Breakable> breakables;
@@ -57,8 +70,16 @@ public:
 	ComponentContainer<MossToggle> mossToggles;
 	ComponentContainer<Mushroom> mushrooms;	
 	ComponentContainer<OrbCollected> orbCollected;
+	ComponentContainer<PressurePlate> pressurePlates;
+	ComponentContainer<PressurePlateWall> pressurePlateWalls;
+	ComponentContainer<Puzzle> puzzles;	
+	ComponentContainer<PuzzleBubble> puzzle_bubbles;	
+	ComponentContainer<PuzzleBuildRequest> puzzle_build_requests;
+	ComponentContainer<PuzzlePiece> puzzle_pieces;	
+	ComponentContainer<PuzzleTrigger> puzzle_triggers;	
 	// Loader
 	ComponentContainer<LoadRequest> loadRequests;
+	ComponentContainer<Unloadable> unloadables;
 	// Map
 	ComponentContainer<ChangeMapLevelRequest> changeMapLevelRequests;
 	ComponentContainer<ColouredWall> colouredWall;
@@ -68,23 +89,28 @@ public:
 	ComponentContainer<LevelTile> levelTiles;
 	ComponentContainer<MapTile> mapTiles;
 	ComponentContainer<Teleporter> teleporters;
+	ComponentContainer<Wall> walls;
+	// Minimap
+	ComponentContainer<MinimapRoom> minimapRooms;
+	ComponentContainer<MinimapPlayerIcon> minimapPlayerIcons;
 	// Physics - Collisions
 	ComponentContainer<ChangeBehaviour> change_behaviours;
 	ComponentContainer<Collidable> collidables;
 	ComponentContainer<Collision> collisions;
-	ComponentContainer<InCreatureRadius> inCreatureRadius;
-	ComponentContainer<InInteractableRadius> inInteractableRadius;
-	ComponentContainer<InPlayerRadius> inPlayerRadius;
-	ComponentContainer<PolygonMesh> polygons;
+	ComponentContainer<PolygonMesh> hitboxes;
+	ComponentContainer<PolygonMesh> hurtboxes;
+	ComponentContainer<InBoundingBox> inBoundingBox;
+	ComponentContainer<InRadius> inRadius;
 	// Physics - Movement / Transforms
 	ComponentContainer<Angle> angles;
+	ComponentContainer<vec2> directions;
 	ComponentContainer<vec2> positions;
 	ComponentContainer<vec2> scales;
 	ComponentContainer<Size> sizes;
 	ComponentContainer<vec2> velocities;
 	// Player
 	ComponentContainer<DeathTimer> deathTimers;
-	ComponentContainer<PlayerCreateRequests> playerCreateRequests;
+	ComponentContainer<PlayerCreateRequest> playerCreateRequests;
 	ComponentContainer<Player> players;
 	// Rendering
 	ComponentContainer<Camera> cameras;
@@ -96,17 +122,25 @@ public:
 	ComponentContainer<RenderSourceRect> renderSourceRects;
 	ComponentContainer<ScreenState> screenStates;
 	ComponentContainer<TextureLoadRequest> textureLoadRequests;
+	ComponentContainer<VisualRotationOffset> visualRotationOffsets;
 	// Shapes
 	ComponentContainer<Circle> circles; // TODO 1ch6Q0BE: Remove
 	ComponentContainer<Rect> rectangles; // TODO 1ch6Q0BE: Remove
 	// Spawnables
 	ComponentContainer<Creature> creatures;
 	ComponentContainer<Shrimp> shrimps;
+	ComponentContainer<Sawfish> sawfishes;
+	// UI
+	ComponentContainer<MenuAction> menu_actions;
+	ComponentContainer<MenuToggleRequest> menu_toggle_requests;
+	ComponentContainer<Text> texts;
 
 	// constructor that adds all containers for looping over them
 	ECSRegistry()
 	{
 		// AI
+		registry_list.push_back(&boidOverseers);
+		registry_list.push_back(&boid_minnows);
 		registry_list.push_back(&chargers);
 		registry_list.push_back(&creatureBehaviours);
 		registry_list.push_back(&creatureBehaviourCooldowns);
@@ -121,11 +155,13 @@ public:
 		registry_list.push_back(&textured);
 		// Colour System
 		registry_list.push_back(&colors);
+		registry_list.push_back(&colourIndicatorUIs);
 		registry_list.push_back(&colourStates);
 		registry_list.push_back(&colourWheels);
 		registry_list.push_back(&colourPalettes);
 		registry_list.push_back(&colourMenuStates);
 		registry_list.push_back(&colourMenuInputs);
+		// Emissions
 		registry_list.push_back(&lightEmissions);
 		registry_list.push_back(&lightSources);
 		// Controls
@@ -134,6 +170,8 @@ public:
 		registry_list.push_back(&inputClearRequests);
 		// Debug
 		registry_list.push_back(&debugComponents);
+		// General
+		registry_list.push_back(&game_state_change_requests);
 		// Interactables
 		registry_list.push_back(&boxes);
 		registry_list.push_back(&breakables);
@@ -143,6 +181,13 @@ public:
 		registry_list.push_back(&mossToggles);
 		registry_list.push_back(&mushrooms);
 		registry_list.push_back(&orbCollected);
+		registry_list.push_back(&pressurePlates);
+		registry_list.push_back(&pressurePlateWalls);
+		registry_list.push_back(&puzzles);
+		registry_list.push_back(&puzzle_bubbles);
+		registry_list.push_back(&puzzle_build_requests);
+		registry_list.push_back(&puzzle_pieces);
+		registry_list.push_back(&puzzle_triggers);
 		// Loader
 		registry_list.push_back(&loadRequests);
 		// Map
@@ -154,16 +199,21 @@ public:
 		registry_list.push_back(&levelTiles);
 		registry_list.push_back(&mapTiles);
 		registry_list.push_back(&teleporters);
+		// Minimap
+		registry_list.push_back(&minimapRooms);
+		registry_list.push_back(&minimapPlayerIcons);
+		registry_list.push_back(&walls);
 		// Physics - Collisions
 		registry_list.push_back(&change_behaviours);
 		registry_list.push_back(&collidables);
 		registry_list.push_back(&collisions);
-		registry_list.push_back(&inCreatureRadius);
-		registry_list.push_back(&inInteractableRadius);
-		registry_list.push_back(&inPlayerRadius);
-		registry_list.push_back(&polygons);
+		registry_list.push_back(&hitboxes);
+		registry_list.push_back(&hurtboxes);
+		registry_list.push_back(&inBoundingBox);
+		registry_list.push_back(&inRadius);
 		// Physics - Movement / Transforms
 		registry_list.push_back(&angles);
+		registry_list.push_back(&directions);
 		registry_list.push_back(&positions);
 		registry_list.push_back(&scales);
 		registry_list.push_back(&sizes);
@@ -180,12 +230,19 @@ public:
 		registry_list.push_back(&renderRequests);
 		registry_list.push_back(&renderSourceRects);
 		registry_list.push_back(&screenStates);
+		registry_list.push_back(&visualRotationOffsets);
+		registry_list.push_back(&textureLoadRequests);
 		// Shapes
 		registry_list.push_back(&circles); // TODO 1ch6Q0BE: Remove;
 		registry_list.push_back(&rectangles); // TODO 1ch6Q0BE: Remove
 		// Spawnables
 		registry_list.push_back(&creatures);
 		registry_list.push_back(&shrimps);
+		registry_list.push_back(&sawfishes);
+		// UI
+		registry_list.push_back(&menu_actions);
+		registry_list.push_back(&menu_toggle_requests);
+		registry_list.push_back(&texts);
 	}
 
 	void clear_all_components()

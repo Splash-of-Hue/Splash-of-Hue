@@ -1,10 +1,11 @@
-
-#include <SDL.h>
 #include <glm/trigonometric.hpp>
 #include <iostream>
+#include <SDL.h>
 
 // internal
 #include "common.hpp"
+#include "ecs/registry.hpp"
+#include "renderer/render_system.hpp"
 #include "ecs/registry.hpp"
 #include "ecs/registry.hpp"
 #include "renderer/render_system.hpp"
@@ -158,8 +159,8 @@ void RenderSystem::load_texture(const TextureLoadRequest& texture_load_request)
 }
 
 // TODO 1ch6Q0BE: Remove function
-void RenderSystem::drawShape(Entity entity,
-	const mat3& projection) {
+void RenderSystem::drawShape(Entity entity, const mat3& projection)
+{
 
 	vec2& position = registry.positions.get(entity);
 	Size& size_component = registry.sizes.get(entity);
@@ -170,7 +171,7 @@ void RenderSystem::drawShape(Entity entity,
 	Transform transform;
 	transform.translate(vec2(position.x, position.y));
 
-	if (!registry.ignoredByCamera.has(entity))
+	if (registry.cameras.size() > 0 && !registry.ignoredByCamera.has(entity))
 	{
 		const vec2& camera_position = registry.positions.get(registry.cameras.entities[0]);
 		transform.translate(window_center() - camera_position);
@@ -210,12 +211,12 @@ void RenderSystem::drawShape(Entity entity,
 
 		glEnableVertexAttribArray(in_position_loc);
 		glVertexAttribPointer(in_position_loc, 3, GL_FLOAT, GL_FALSE,
-			sizeof(ColoredVertex), (void*)0);
+							  sizeof(ColoredVertex), (void*)0);
 		gl_has_errors();
 
 		glEnableVertexAttribArray(in_color_loc);
 		glVertexAttribPointer(in_color_loc, 3, GL_FLOAT, GL_FALSE,
-			sizeof(ColoredVertex), (void*)sizeof(vec3));
+							  sizeof(ColoredVertex), (void*)sizeof(vec3));
 		gl_has_errors();
 	}
 	else
@@ -264,17 +265,20 @@ void RenderSystem::drawTexturedMesh(Entity entity,
 	Transform transform;
 	transform.translate(position);
 
-	if (!registry.ignoredByCamera.has(entity))
+	if (registry.cameras.size() > 0 && !registry.ignoredByCamera.has(entity))
 	{
 		const vec2& camera_position = registry.positions.get(registry.cameras.entities[0]);
-		transform.translate(window_center()-camera_position);
+		transform.translate(window_center() - camera_position);
 	}
 
-		transform.scale(scale);
-		transform.rotate(radians(angle.degrees));
-		// Create the textured vertex and add it to our vertices
+	vec2 velocity = registry.velocities.has(entity) ? registry.velocities.get(entity) : vec2(0);
+	vec2 flipped_scale = vec2(velocity.x < 0 ? -scale.x : scale.x, scale.y);
+	transform.scale(flipped_scale);
+	float visual_offset = registry.visualRotationOffsets.has(entity) ? registry.visualRotationOffsets.get(entity).degrees : 0.f;
+	transform.rotate(radians(angle.degrees + visual_offset));
 
-		// Loop over the 4 vertices in the 
+	assert(registry.renderRequests.has(entity));
+	const RenderRequest& render_request = registry.renderRequests.get(entity);
 
 		for (TexturedVertex textured_vertex : textured_vertices)
 		{
@@ -391,7 +395,7 @@ void RenderSystem::drawToScreen()
 	// get the vignette texture, sprite mesh, and program
 	glUseProgram(effects[(GLuint)EFFECT_ASSET_ID::VIGNETTE]);
 	gl_has_errors();
-	
+
 	// Clearing backbuffer
 	int w, h;
 	glfwGetFramebufferSize(window, &w, &h); // Note, this will be 2x the resolution given to glfwCreateWindow on retina displays
@@ -412,23 +416,23 @@ void RenderSystem::drawToScreen()
 	glBindBuffer(
 		GL_ELEMENT_ARRAY_BUFFER,
 		index_buffers[(GLuint)GEOMETRY_BUFFER_ID::SCREEN_TRIANGLE]); // Note, GL_ELEMENT_ARRAY_BUFFER associates
-																	 // indices to the bound GL_ARRAY_BUFFER
+	// indices to the bound GL_ARRAY_BUFFER
 	gl_has_errors();
 
 	// add the "vignette" effect
 	const GLuint vignette_program = effects[(GLuint)EFFECT_ASSET_ID::VIGNETTE];
 
 	// set clock
-	GLuint time_uloc       = glGetUniformLocation(vignette_program, "time");
+	GLuint time_uloc = glGetUniformLocation(vignette_program, "time");
 	GLuint dead_timer_uloc = glGetUniformLocation(vignette_program, "darken_screen_factor");
 
 	glUniform1f(time_uloc, (float)(glfwGetTime() * 10.0f));
-	
+
 	// Set the vertex position and vertex texture coordinates (both stored in the
 	// same VBO)
 	GLint in_position_loc = glGetAttribLocation(vignette_program, "in_position");
 	glEnableVertexAttribArray(in_position_loc);
-	glVertexAttribPointer(in_position_loc, 3, GL_FLOAT, GL_FALSE, sizeof(vec3), (void *)0);
+	glVertexAttribPointer(in_position_loc, 3, GL_FLOAT, GL_FALSE, sizeof(vec3), (void*)0);
 	gl_has_errors();
 
 	// Bind our texture in Texture Unit 0
@@ -441,7 +445,7 @@ void RenderSystem::drawToScreen()
 	glDrawElements(
 		GL_TRIANGLES, 3, GL_UNSIGNED_SHORT,
 		nullptr); // one triangle = 3 vertices; nullptr indicates that there is
-				  // no offset from the bound index buffer
+	// no offset from the bound index buffer
 	gl_has_errors();
 }
 
@@ -456,11 +460,11 @@ void RenderSystem::draw()
 	// First render to the custom framebuffer
 	glBindFramebuffer(GL_FRAMEBUFFER, frame_buffer);
 	gl_has_errors();
-	
+
 	// clear backbuffer
 	glViewport(0, 0, w, h);
 	glDepthRange(0.00001, 10);
-	
+
 	// Background colour
 	ScreenState& screen = registry.screenStates.get(screen_state_entity);
 	glClearColor(screen.background_color.r, screen.background_color.g, screen.background_color.b, screen.background_color.a);
@@ -470,17 +474,18 @@ void RenderSystem::draw()
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	glDisable(GL_DEPTH_TEST); // native OpenGL does not work with a depth buffer
-							  // and alpha blending, one would have to sort
-							  // sprites back to front
+	// and alpha blending, one would have to sort
+	// sprites back to front
 	gl_has_errors();
 
+	mat4 screen_projection = glm::ortho(0.0f, static_cast<float>(WINDOW_WIDTH_PX), 0.0f, static_cast<float>(WINDOW_HEIGHT_PX));
 	mat3 projection_2D = createProjectionMatrix();
 
 	// We have to sort each frame in case things move around
 	// If things haven't changed, it should be fast to sort
 	registry.renderRequests.sort([&]
-		(Entity rr_a_entity, Entity rr_b_entity)
-		{
+	(Entity rr_a_entity, Entity rr_b_entity)
+	{
 		const RENDER_LAYER& a_layer = registry.renderRequests.get(rr_a_entity).layer;
 		const RENDER_LAYER& b_layer = registry.renderRequests.get(rr_b_entity).layer;
 
@@ -496,7 +501,7 @@ void RenderSystem::draw()
 		const float& b_y_bottom = registry.positions.get(rr_b_entity).y + registry.scales.get(rr_b_entity).y;
 
 		return a_y_bottom < b_y_bottom;
-		}
+	}
 	);
 
 	registry.textured.sort([&]
@@ -529,7 +534,7 @@ void RenderSystem::draw()
 	drawTextures(projection_2D);
 
 	// draw all entities with a render request to the frame buffer
-	for (Entity entity : registry.renderRequests.entities)
+	for (Entity& entity : registry.renderRequests.entities)
 	{
 		// draw grid lines separately, as they do not have motion but need to be rendered
 		if (registry.gridLines.has(entity))
@@ -539,6 +544,10 @@ void RenderSystem::draw()
 		else if (registry.rectangles.has(entity) || registry.circles.has(entity))
 		{
 			drawShape(entity, projection_2D);
+		}
+		else if (registry.texts.has(entity))
+		{
+			drawText(entity, screen_projection);
 		}
 	}
 
@@ -565,10 +574,10 @@ void RenderSystem::draw()
 mat3 RenderSystem::createProjectionMatrix()
 {
 	// fake projection matrix, scaled to window coordinates
-	float left   = 0.f;
-	float top    = 0.f;
-	float right  = (float) WINDOW_WIDTH_PX;
-	float bottom = (float) WINDOW_HEIGHT_PX;
+	float left = 0.f;
+	float top = 0.f;
+	float right = (float)WINDOW_WIDTH_PX;
+	float bottom = (float)WINDOW_HEIGHT_PX;
 
 	float sx = 2.f / (right - left);
 	float sy = 2.f / (top - bottom);

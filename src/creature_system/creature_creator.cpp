@@ -3,14 +3,10 @@
 #include "shapes/shape_build_init.hpp"
 #include "creature_system/creature_behaviour_tree_builder.hpp"
 #include "creature_system/creature_components.hpp"
+#include "emissions/emission_constants.hpp"
 #include <iostream>
-/*
 
-    Todo: yz2rEB5j : turn the helper functions into private functions so they can't be accidentally called
-
-*/
-
-void addGeneralCreatureComponents(const int level_uid, Entity creature, vec2 position, float width, float height, COLOUR_STATE color_state, CREATURETYPE creature_type, TEXTURE_ASSET_ID texture_asset_id, bool shouldHaveInelasticCollision /* = true */) {
+void CreatureCreator::addGeneralCreatureComponents(const int level_uid, Entity creature, vec2 position, float width, float height, COLOUR_STATE color_state, CREATURETYPE creature_type, TEXTURE_ASSET_ID texture_asset_id, bool shouldHaveInelasticCollision /* = true */) {
     const ColourPalette& palette = registry.colourPalettes.components[0];
     vec4 color = palette.state_to_colour.at(color_state);
 
@@ -37,29 +33,94 @@ void addGeneralCreatureComponents(const int level_uid, Entity creature, vec2 pos
     });
 }
 
-Entity createAnglerfish(const int level_uid, vec2 position, float width, float height, COLOUR_STATE color_state)
+Entity CreatureCreator::createAnglerfish(const int level_uid, vec2 position, float width, float height, COLOUR_STATE color_state)
 {
     Entity anglerfish = Entity();
 
     addGeneralCreatureComponents(level_uid, anglerfish, position, width, height, color_state, CREATURETYPE::ANGLERFISH, TEXTURE_ASSET_ID::ANGLERFISH_01);
+    PolygonMesh& anglerfish_hitbox = registry.hitboxes.emplace(anglerfish);
+    float hitbox_height = height * 0.32;
+    float hitbox_width = width * 0.35;
+    anglerfish_hitbox.vertices.push_back(vec2(position.x - hitbox_width, position.y - hitbox_height));
+    anglerfish_hitbox.vertices.push_back(vec2(position.x + hitbox_width, position.y - hitbox_height));
+    anglerfish_hitbox.vertices.push_back(vec2(position.x + hitbox_width, position.y + hitbox_height));
+    anglerfish_hitbox.vertices.push_back(vec2(position.x - hitbox_width, position.y + hitbox_height));
+    anglerfish_hitbox.centre = position;
+    anglerfish_hitbox.base_vertices = anglerfish_hitbox.vertices;
+
+    registry.unloadables.emplace(anglerfish, Unloadable{position});
 
     Pathfinder& pathfinder = registry.pathfinders.emplace(anglerfish);
     pathfinder.target = registry.players.entities[0];
-    pathfinder.type = PATHFINDING_TYPE::BEST;
+    pathfinder.type = PATHFINDING_TYPE::DIRECT;
+    pathfinder.max_speed = ANGLERFISH_FOLLOWING_SPEED;
     CreatureBehaviour& creatureBehaviour = registry.creatureBehaviours.emplace(anglerfish);
     CreatureBehaviourTreeBuilder builder;
     creatureBehaviour.behaviour_tree = builder.buildAnglerfishTree();
-   
+    
+    //create emission
+    Entity& emission_entity = createCircle(position, 1.f, RENDER_LAYER::CREATURES, DEFAULT_COLOUR_VEC4);
+    registry.scales.emplace(emission_entity);
+    registry.unloadables.emplace(emission_entity, Unloadable{ position });
+    LightEmission& light_emission_component = registry.lightEmissions.emplace(emission_entity);
+    light_emission_component.MAX_RADIUS = EMISSION_SIZE::ANGLERFISH_EMISSION;
+    light_emission_component.TIME_TO_GROW = TIME_TO_GROW;
+    light_emission_component.offset = EMISSION_OFFSET.at("ANGLERFISH");
+    light_emission_component.lightSourceEntity = anglerfish;
+
+    PolygonMesh& emission_hitbox = registry.hitboxes.emplace(emission_entity);
+    emission_hitbox = createCircleHitbox(position, EMISSION_SIZE::ANGLERFISH_EMISSION * 0.5, 16);
+
+    LightSource& light_source_component = registry.lightSources.emplace(anglerfish);
+    light_source_component.lightEmissionEntity = emission_entity;
+
+    LevelEntity& level_entity_emission_component = registry.levelEntities.emplace(emission_entity);
+    level_entity_emission_component.level_uid = level_uid;
+
     return anglerfish;
 }
 
-Entity createCrab(const int level_uid, vec2 position, float width, float height, COLOUR_STATE color_state)
+Entity CreatureCreator::createCrab(const int level_uid, vec2 position, float width, float height, COLOUR_STATE color_state, DIRECTION curr_direction_facing)
 {
     Entity crab = Entity();
 
     // TODO add dedicated crab asset and texture ID
-	addGeneralCreatureComponents(level_uid, crab, position, width, height, color_state, CREATURETYPE::CRAB, TEXTURE_ASSET_ID::CREATURES);
-    
+    // TODO: ocWt9dv
+	addGeneralCreatureComponents(level_uid, crab, position, width, height, color_state, CREATURETYPE::CRAB, TEXTURE_ASSET_ID::CRAB_01);
+    Angle& direction_facing = registry.angles.get(crab);
+    vec2& direction = registry.directions.emplace(crab);
+	// override what's in addGeneralCreatureComponents since crab is resizable
+    registry.scales.get(crab) = vec2(width, height);
+    direction = vec2(0);
+    if (curr_direction_facing == DIRECTION::UP) {
+        direction_facing.degrees = DEGREES_DOWN * 3;
+        direction.y = -1.f;
+        registry.visualRotationOffsets.insert(crab, { -(DEGREES_DOWN * 3) });
+    }
+    else if (curr_direction_facing == DIRECTION::DOWN) {
+        direction_facing.degrees = DEGREES_DOWN;
+        direction.y = 1.f;
+        registry.visualRotationOffsets.insert(crab, { -DEGREES_DOWN });
+    }
+    else if (curr_direction_facing == DIRECTION::RIGHT) {
+        direction_facing.degrees = 0.f;
+        direction.x = 1.f;
+        // no offset needed
+    }
+    else {
+        direction_facing.degrees = DEGREES_DOWN * 2;
+        direction.x = -1.f;
+        registry.visualRotationOffsets.insert(crab, { -(DEGREES_DOWN * 2) });
+    }
+    registry.unloadables.emplace(crab, Unloadable{ position });
+    const Animatable animatable = {
+       ANIMATABLE_TYPE::CRAB,
+       ANIMATION_BEHAVIOR::LOOP,
+       ANIMATION_TRIGGER::IDLE,
+       8
+    };
+    registry.animatables.insert(crab, animatable);
+
     CreatureBehaviour& creatureBehaviour = registry.creatureBehaviours.emplace(crab);
     CreatureBehaviourTreeBuilder builder;
     creatureBehaviour.behaviour_tree = builder.buildCrabTree();
@@ -67,11 +128,30 @@ Entity createCrab(const int level_uid, vec2 position, float width, float height,
     return crab;
 }
 
-Entity createMinnows(const int level_uid, vec2 position, float width, float height, COLOUR_STATE color_state)
+Entity CreatureCreator::createMinnows(const int level_uid, vec2 position, float width, float height, COLOUR_STATE color_state)
 {
     Entity minnows = Entity();
     
 	addGeneralCreatureComponents(level_uid, minnows, position, width, height, color_state, CREATURETYPE::MINNOWS, TEXTURE_ASSET_ID::MINNOW_01);
+    registry.renderRequests.remove(minnows); // Make sure the minnow overseer is not seen
+
+    BoidOverseer& minnow_overseer = registry.boidOverseers.emplace(minnows);
+    
+    for (int i = 0; i < NUM_MINNOWS; i++)
+    {
+        Entity minnow_follower;
+        registry.boid_minnows.emplace(minnow_follower);
+
+        addGeneralCreatureComponents(level_uid, minnow_follower, position, width, height, color_state, CREATURETYPE::MINNOWS, TEXTURE_ASSET_ID::MINNOW_01);
+
+        Collidable& collidable = registry.collidables.get(minnow_follower);
+        collidable.inelastic = true; // sophia note: we can change this to true
+        collidable.overlay = false;
+
+        vec2& scaleminnow = registry.scales.get(minnow_follower);
+        scaleminnow = vec2(0.5f * GRID_CELL_WIDTH_PX, 0.5f * GRID_CELL_HEIGHT_PX);
+    }
+
 
     CreatureBehaviour& creatureBehaviour = registry.creatureBehaviours.emplace(minnows);
     CreatureBehaviourTreeBuilder builder;
@@ -81,11 +161,10 @@ Entity createMinnows(const int level_uid, vec2 position, float width, float heig
 }
 
 // Todo: AkWAGMV1 cleanup and make just createArm, cleanup hardcoded values
-// Todo: yz2rEB5j, this function is a helper, make private
 // Todo: ojg8otlR, replace rectangle with polygon mesh
 // Todo: SibWWzX3, set arms to be invisible
 // For the sake of simplicity + time for M2, just use the shrimp width to make a rectangle
-Entity createLeftArm(vec2 shrimp_position, float shrimp_width, vec4 colour)
+Entity CreatureCreator::createLeftArm(vec2 shrimp_position, float shrimp_width, vec4 colour)
 {
     float left_arm_x = shrimp_position.x - SHRIMP_ARM_TRANSLATION_X;
     float left_arm_y = shrimp_position.y + 5.0f;
@@ -96,11 +175,10 @@ Entity createLeftArm(vec2 shrimp_position, float shrimp_width, vec4 colour)
 }
 
 // Todo: AkWAGMV1 cleanup and make just createArm, cleanup hardcoded values
-// Todo: yz2rEB5j, this function is a helper, make private
 // Todo: ojg8otlR, replace rectangle with polygon mesh
 // Todo: SibWWzX3, set arms to be invisible
 // For the sake of simplicity + time for M2, just use the shrimp width to make a rectangle
-Entity createRightArm(vec2 shrimp_position, float shrimp_width, vec4 colour)
+Entity CreatureCreator::createRightArm(vec2 shrimp_position, float shrimp_width, vec4 colour)
 {
     float right_arm_x = shrimp_position.x + SHRIMP_ARM_TRANSLATION_X;
     float right_arm_y = shrimp_position.y + 5.0f;
@@ -111,11 +189,10 @@ Entity createRightArm(vec2 shrimp_position, float shrimp_width, vec4 colour)
 }
 
 // Todo: AkWAGMV1 cleanup and make just createArm, cleanup hardcoded values
-// Todo: yz2rEB5j, this function is a helper, make private
 // Todo: ojg8otlR, replace rectangle with polygon mesh
 // Todo: SibWWzX3, set arms to be invisible
 // For the sake of simplicity + time for M2, just use the shrimp width to make a rectangle
-Entity createUpArm(vec2 shrimp_position, float shrimp_width, vec4 colour)
+Entity CreatureCreator::createUpArm(vec2 shrimp_position, float shrimp_width, vec4 colour)
 {
     float up_arm_x = shrimp_position.x + 10.0f;
     float up_arm_y = shrimp_position.y - SHRIMP_ARM_TRANSLATION_Y;
@@ -126,11 +203,10 @@ Entity createUpArm(vec2 shrimp_position, float shrimp_width, vec4 colour)
 }
 
 // Todo: AkWAGMV1 cleanup and make just createArm, cleanup hardcoded values
-// Todo: yz2rEB5j, this function is a helper, make private
 // Todo: ojg8otlR, replace rectangle with polygon mesh
 // Todo: SibWWzX3, set arms to be invisible
 // For the sake of simplicity + time for M2, just use the shrimp width to make a rectangle
-Entity createDownArm(vec2 shrimp_position, float shrimp_width, vec4 colour)
+Entity CreatureCreator::createDownArm(vec2 shrimp_position, float shrimp_width, vec4 colour)
 {
     float down_arm_x = shrimp_position.x - 10.0;
     float down_arm_y = shrimp_position.y + SHRIMP_ARM_TRANSLATION_Y + 20.0f; // translate a bit extra to accommodate for body
@@ -150,7 +226,7 @@ void createThreeArmShrimp(Shrimp& shrimp_component, DIRECTION curr_direction_fac
 */
 
 // Todo: AkWAGMV1 cleanup and turn into an iterator within createShrimp
-void createTwoArmShrimp(Shrimp& shrimp_component, DIRECTION curr_direction_facing, vec2 shrimp_position, float shrimp_width, float shrimp_height)
+void CreatureCreator::createTwoArmShrimp(Shrimp& shrimp_component, DIRECTION curr_direction_facing, vec2 shrimp_position, float shrimp_width, float shrimp_height)
 {
     switch (curr_direction_facing)
     {
@@ -208,7 +284,7 @@ void createTwoArmShrimp(Shrimp& shrimp_component, DIRECTION curr_direction_facin
 }
 
 // Todo: AkWAGMV1 cleanup and turn into an iterator within createShrimp
-void createOneArmShrimp(Shrimp& shrimp_component, DIRECTION curr_direction_facing, vec2 shrimp_position, float shrimp_width, float shrimp_height)
+void CreatureCreator::createOneArmShrimp(Shrimp& shrimp_component, DIRECTION curr_direction_facing, vec2 shrimp_position, float shrimp_width, float shrimp_height)
 {
     switch (curr_direction_facing)
     {
@@ -253,7 +329,7 @@ void createOneArmShrimp(Shrimp& shrimp_component, DIRECTION curr_direction_facin
     }
 }
 
-Entity createShrimp(const int level_uid, vec2 position, float width, float height, COLOUR_STATE color_state,  DIRECTION curr_direction_facing /* = UP */, int num_arms /* = 2 */)
+Entity CreatureCreator::createShrimp(const int level_uid, vec2 position, float width, float height, COLOUR_STATE color_state,  DIRECTION curr_direction_facing /* = UP */, int num_arms /* = 2 */)
 {
     Entity shrimp = Entity();
 
@@ -327,16 +403,36 @@ Entity createShrimp(const int level_uid, vec2 position, float width, float heigh
     return shrimp;
 }
 
-Entity createSawfish(const int level_uid, vec2 position, float width, float height, COLOUR_STATE color_state)
+Entity CreatureCreator::createSawfish(const int level_uid, vec2 position, float width, float height, COLOUR_STATE color_state)
 {
     Entity sawfish = Entity();
 
-	addGeneralCreatureComponents(level_uid, sawfish, position, width, height, color_state, CREATURETYPE::SAWFISH, TEXTURE_ASSET_ID::SAWFISH);
+    addGeneralCreatureComponents(level_uid, sawfish, position, width, height, color_state, CREATURETYPE::SAWFISH, TEXTURE_ASSET_ID::SAWFISH);
+    registry.sawfishes.emplace(sawfish);
+
+    PolygonMesh& sawfish_hitbox = registry.hitboxes.emplace(sawfish);
+    float hitbox_height = height * 0.15;
+    float hitbox_width = width * 0.15;
+    sawfish_hitbox.vertices.push_back(vec2(position.x - hitbox_width, position.y - hitbox_height));
+    sawfish_hitbox.vertices.push_back(vec2(position.x + hitbox_width, position.y - hitbox_height));
+    sawfish_hitbox.vertices.push_back(vec2(position.x + hitbox_width, position.y + hitbox_height));
+    sawfish_hitbox.vertices.push_back(vec2(position.x - hitbox_width, position.y + hitbox_height));
+    sawfish_hitbox.centre = position;
+    sawfish_hitbox.base_vertices = sawfish_hitbox.vertices;
+
+    PolygonMesh& sawfish_hurtbox = registry.hurtboxes.emplace(sawfish);
+    sawfish_hurtbox.vertices.push_back(vec2(position.x + hitbox_width, position.y - hitbox_height));
+    sawfish_hurtbox.vertices.push_back(vec2(position.x + hitbox_width, position.y + hitbox_height));
+    sawfish_hurtbox.vertices.push_back(vec2(position.x + (hitbox_width*2), position.y)); //tip of sawfish nose
+    sawfish_hurtbox.centre = position;
+    sawfish_hurtbox.base_vertices = sawfish_hurtbox.vertices;
+
+    registry.unloadables.emplace(sawfish, Unloadable{ position });
 
     Pathfinder& pathfinder = registry.pathfinders.emplace(sawfish);
     pathfinder.target = registry.players.entities[0];
-    pathfinder.type = PATHFINDING_TYPE::BEST;
-    pathfinder.max_speed = 500.0f;
+    pathfinder.type = PATHFINDING_TYPE::DIRECT;
+    pathfinder.max_speed = SAWFISH_FOLLOWING_SPEED;
     CreatureBehaviour& creatureBehaviour = registry.creatureBehaviours.emplace(sawfish);
     creatureBehaviour.behaviour_tree = CreatureBehaviourTreeBuilder::buildSawfishTree();
     const Animatable animatable = {
@@ -346,11 +442,11 @@ Entity createSawfish(const int level_uid, vec2 position, float width, float heig
         1
     };
     registry.animatables.insert(sawfish, animatable);
-   
+    
     return sawfish;
 }
 
-Entity createWhale(const int level_uid, vec2 position, float width, float height, COLOUR_STATE color_state)
+Entity CreatureCreator::createWhale(const int level_uid, vec2 position, float width, float height, COLOUR_STATE color_state)
 {
     Entity whale = Entity();
 

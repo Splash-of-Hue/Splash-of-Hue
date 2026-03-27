@@ -21,17 +21,130 @@ other behaviour in the list of children for that node.
 
 BehaviourTree CreatureBehaviourTreeBuilder::buildAnglerfishTree()
 {
-	return BehaviourTree();
+	BehaviourTreeBuilder builder;
+	int root_index =
+		Root(builder,
+			Selector(builder,
+				Decorator(builder, creatureBehaviourFunctions.isCreatureWithinPlayerBlueColourRadius,
+					Sequence(builder,
+						Action(builder, creatureBehaviourFunctions.makeBlue),
+						Action(builder, creatureBehaviourFunctions.aimAtTarget),
+						Action(builder, creatureBehaviourFunctions.aStarFollowTarget),
+						Action(builder, creatureBehaviourFunctions.apply1sCooldown)
+					)
+				),
+				Decorator(builder, creatureBehaviourFunctions.isCreatureWithinPlayerRedColourRadius,
+					Sequence(builder,
+						Action(builder, creatureBehaviourFunctions.makeRed),
+						Action(builder, creatureBehaviourFunctions.aimAtTarget),
+						Action(builder, creatureBehaviourFunctions.aStarFollowTarget),
+						Action(builder, creatureBehaviourFunctions.apply1sCooldown)
+					)
+				),
+				Selector(builder,
+					Decorator(builder, creatureBehaviourFunctions.isPlayerEmitting,
+						Selector(builder, 
+							//only go back to neutral once its been out of the radius for 3 seconds
+							Decorator(builder, creatureBehaviourFunctions.isCooldownComplete,
+								Sequence(builder,
+									Action(builder, creatureBehaviourFunctions.removeCooldown),
+									Action(builder, creatureBehaviourFunctions.stopCreatureMovement),
+									Action(builder, creatureBehaviourFunctions.aimAtTarget)
+								)
+							),
+							//if still in the 3 second cooldown, still follow player
+							Sequence(builder,
+								Action(builder, creatureBehaviourFunctions.aimAtTarget),
+								Action(builder, creatureBehaviourFunctions.aStarFollowTarget)
+							)
+						)
+					),
+					Sequence(builder, 
+						Action(builder, creatureBehaviourFunctions.removeCooldown),
+						Action(builder, creatureBehaviourFunctions.stopCreatureMovement),
+						Action(builder, creatureBehaviourFunctions.aimAtTarget)
+					)
+				)
+			)
+		);
+
+	return builder.build(root_index);
 }
 
 BehaviourTree CreatureBehaviourTreeBuilder::buildCrabTree()
 {
-	return BehaviourTree();
+	BehaviourTreeBuilder builder;
+	int root_index =
+		Root(builder,
+			Selector(builder,
+				Decorator(builder, creatureBehaviourFunctions.isSliding,
+					Selector(builder,
+						Decorator(builder, creatureBehaviourFunctions.hasCreatureCollided,
+							Sequence(builder,
+								Action(builder, creatureBehaviourFunctions.makeNeutral),
+								Action(builder, creatureBehaviourFunctions.stopCreatureMovement),
+								Action(builder, creatureBehaviourFunctions.removeCollision)
+							)
+						),
+						Action(builder, creatureBehaviourFunctions.returnSuccess)
+					)
+				),
+				
+				Decorator(builder, creatureBehaviourFunctions.isCreatureWithinCreatureRedColourRadius,
+					Sequence(builder,
+						Action(builder, creatureBehaviourFunctions.makeRed),
+						Action(builder, creatureBehaviourFunctions.slideBackwards)
+					)
+				),
+
+				Decorator(builder, creatureBehaviourFunctions.isCreatureWithinCreatureBlueColourRadius,
+					Sequence(builder,
+						Action(builder, creatureBehaviourFunctions.makeBlue),
+						Action(builder, creatureBehaviourFunctions.slideForwards)
+					)
+				),
+
+				Decorator(builder, creatureBehaviourFunctions.isCreatureWithinPlayerRedColourRadius,
+					Sequence(builder,
+						Action(builder, creatureBehaviourFunctions.makeRed),
+						Action(builder, creatureBehaviourFunctions.slideBackwards)
+					)
+				),
+
+				Decorator(builder, creatureBehaviourFunctions.isCreatureWithinPlayerBlueColourRadius,
+					Sequence(builder,
+						Action(builder, creatureBehaviourFunctions.makeBlue),
+						Action(builder, creatureBehaviourFunctions.slideForwards)
+					)
+				),
+
+				Decorator(builder, creatureBehaviourFunctions.isCreatureWithinInteractableRedColourRadius,
+					Sequence(builder,
+						Action(builder, creatureBehaviourFunctions.makeRed),
+						Action(builder, creatureBehaviourFunctions.slideBackwards)
+					)
+				),
+
+				Decorator(builder, creatureBehaviourFunctions.isCreatureWithinInteractableBlueColourRadius,
+					Sequence(builder,
+						Action(builder, creatureBehaviourFunctions.makeBlue),
+						Action(builder, creatureBehaviourFunctions.slideForwards)
+					)
+				)
+			)
+		);
+
+	return builder.build(root_index);
 }
 
 BehaviourTree CreatureBehaviourTreeBuilder::buildMinnowTree()
 {
-	return BehaviourTree();
+	BehaviourTreeBuilder builder;
+	int root_index =
+		Root(builder,
+			Action(builder, creatureBehaviourFunctions.updateBoids));
+
+	return builder.build(root_index);
 }
 
 BehaviourTree CreatureBehaviourTreeBuilder::buildSawfishTree()
@@ -62,7 +175,7 @@ BehaviourTree CreatureBehaviourTreeBuilder::buildSawfishTree()
 										Action(builder, creatureBehaviourFunctions.removeCollision),
 										Action(builder, creatureBehaviourFunctions.removeCharging),
 										Action(builder, creatureBehaviourFunctions.applyDizzy),
-										Action(builder, creatureBehaviourFunctions.applyCooldown)
+										Action(builder, creatureBehaviourFunctions.apply2sCooldown)
 									)
 								),
 								Action(builder, creatureBehaviourFunctions.returnSuccess)
@@ -74,9 +187,10 @@ BehaviourTree CreatureBehaviourTreeBuilder::buildSawfishTree()
 							Selector(builder,
 								Decorator(builder, creatureBehaviourFunctions.isCooldownComplete,
 									Sequence(builder,
+										Action(builder, creatureBehaviourFunctions.removeCollision),
 										Action(builder, creatureBehaviourFunctions.removeCooldown),
 										Action(builder, creatureBehaviourFunctions.applyCharging),
-										Action(builder, creatureBehaviourFunctions.sawfishChargeAtTarget)
+										Action(builder, creatureBehaviourFunctions.chargeAtPlayer)
 									)
 								),
 								Action(builder, creatureBehaviourFunctions.returnSuccess)
@@ -84,31 +198,46 @@ BehaviourTree CreatureBehaviourTreeBuilder::buildSawfishTree()
 						)
 					)
 				),
-				Decorator(builder, creatureBehaviourFunctions.isCreatureWithinRedPlayerColourRadius,
+				Decorator(builder, creatureBehaviourFunctions.isCreatureWithinPlayerRedColourRadius,
 					Sequence(builder,
-						Action(builder, creatureBehaviourFunctions.applyCooldown),
+						Action(builder, creatureBehaviourFunctions.apply2sCooldown),
 						Action(builder, creatureBehaviourFunctions.makeRed)
 					)
 				),
-				Sequence(builder,
-					Selector(builder, 
-						Decorator(builder, creatureBehaviourFunctions.isCreatureWithinBluePlayerColourRadius,
-							Action(builder, creatureBehaviourFunctions.makeBlue)
-						),
-						Action(builder, creatureBehaviourFunctions.returnSuccess)
+				Selector(builder,
+					Decorator(builder, creatureBehaviourFunctions.isCreatureWithinPlayerBlueColourRadius,
+						Sequence(builder, 
+							Action(builder, creatureBehaviourFunctions.makeBlue),
+							Action(builder, creatureBehaviourFunctions.aimAtTarget),
+							Action(builder, creatureBehaviourFunctions.aStarFollowTarget),
+							//resetting the cooldown to max while its in the radius
+							Action(builder, creatureBehaviourFunctions.apply1sCooldown)
+						)
 					),
-
 					Selector(builder,
-						Decorator(builder, creatureBehaviourFunctions.isInBlueState,
-							Sequence(builder,
-								Action(builder, creatureBehaviourFunctions.aimAtTarget),
-								Action(builder, creatureBehaviourFunctions.aStarFollowTarget)
+						Decorator(builder, creatureBehaviourFunctions.isPlayerEmitting,
+							Selector(builder,
+								//only go back to neutral once its been out of the radius for 3 seconds
+								Decorator(builder, creatureBehaviourFunctions.isCooldownComplete,
+									Sequence(builder,
+										Action(builder, creatureBehaviourFunctions.makeNeutral),
+										Action(builder, creatureBehaviourFunctions.removeCooldown),
+										Action(builder, creatureBehaviourFunctions.stopCreatureMovement),
+										Action(builder, creatureBehaviourFunctions.aimAtTarget)
+									)
+								),
+								//if still in the 3 second cooldown, still follow player
+								Sequence(builder,
+									Action(builder, creatureBehaviourFunctions.aimAtTarget),
+									Action(builder, creatureBehaviourFunctions.aStarFollowTarget)
+								)
 							)
 						),
-						Decorator(builder, creatureBehaviourFunctions.isInNeutralState,
-							Sequence(builder,
-								Action(builder, creatureBehaviourFunctions.aimAtTarget)
-							)
+						Sequence(builder,
+							Action(builder, creatureBehaviourFunctions.makeNeutral),
+							Action(builder, creatureBehaviourFunctions.removeCooldown),
+							Action(builder, creatureBehaviourFunctions.stopCreatureMovement),
+							Action(builder, creatureBehaviourFunctions.aimAtTarget)
 						)
 					)
 				)
@@ -131,39 +260,45 @@ BehaviourTree CreatureBehaviourTreeBuilder::buildShrimpTree()
 	int root_index =
 		Root(builder,
 			Selector(builder,
-				Decorator(builder, creatureBehaviourFunctions.isCreatureWithinCreatureColourRadius,
-					Selector(builder,
-						Decorator(builder, creatureBehaviourFunctions.isInRedState,
-							Action(builder, creatureBehaviourFunctions.redArms)
-						),
-						Decorator(builder, creatureBehaviourFunctions.isInBlueState,
-							Action(builder, creatureBehaviourFunctions.blueArms)
-						)
-					)
-				),
-
-				Decorator(builder, creatureBehaviourFunctions.isCreatureWithinRedPlayerColourRadius,
-					Sequence(builder, 
+				Decorator(builder, creatureBehaviourFunctions.isCreatureWithinCreatureRedColourRadius,
+					Sequence(builder,
 						Action(builder, creatureBehaviourFunctions.makeRed),
 						Action(builder, creatureBehaviourFunctions.redArms)
 					)
 				),
 
-				Decorator(builder, creatureBehaviourFunctions.isCreatureWithinBluePlayerColourRadius,
+				Decorator(builder, creatureBehaviourFunctions.isCreatureWithinCreatureBlueColourRadius,
 					Sequence(builder,
 						Action(builder, creatureBehaviourFunctions.makeBlue),
 						Action(builder, creatureBehaviourFunctions.blueArms)
 					)
 				),
 
-				Decorator(builder, creatureBehaviourFunctions.isCreatureWithinInteractableColourRadius,
-					Selector(builder,
-						Decorator(builder, creatureBehaviourFunctions.isInRedState,
-							Action(builder, creatureBehaviourFunctions.redArms)
-						),
-						Decorator(builder, creatureBehaviourFunctions.isInBlueState,
-							Action(builder, creatureBehaviourFunctions.blueArms)
-						)
+				Decorator(builder, creatureBehaviourFunctions.isCreatureWithinPlayerRedColourRadius,
+					Sequence(builder, 
+						Action(builder, creatureBehaviourFunctions.makeRed),
+						Action(builder, creatureBehaviourFunctions.redArms)
+					)
+				),
+
+				Decorator(builder, creatureBehaviourFunctions.isCreatureWithinPlayerBlueColourRadius,
+					Sequence(builder,
+						Action(builder, creatureBehaviourFunctions.makeBlue),
+						Action(builder, creatureBehaviourFunctions.blueArms)
+					)
+				),
+
+				Decorator(builder, creatureBehaviourFunctions.isCreatureWithinInteractableRedColourRadius,
+					Sequence(builder,
+						Action(builder, creatureBehaviourFunctions.makeRed),
+						Action(builder, creatureBehaviourFunctions.redArms)
+					)
+				),
+
+				Decorator(builder, creatureBehaviourFunctions.isCreatureWithinInteractableBlueColourRadius,
+					Sequence(builder,
+						Action(builder, creatureBehaviourFunctions.makeBlue),
+						Action(builder, creatureBehaviourFunctions.blueArms)
 					)
 				),
 

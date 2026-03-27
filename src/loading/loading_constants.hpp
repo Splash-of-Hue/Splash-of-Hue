@@ -2,7 +2,10 @@
 #include "common.hpp"
 #include "creature_system/creature_constants.hpp"
 #include "ecs/components.hpp"
+#include "interactables/interactable_components.hpp"
+#include <interactables/interactable_constants.hpp>
 #include "map/map_constants.hpp"
+#include "renderer/render_constants.hpp"
 #include <map>
 #include <string>
 #include <interactables/interactable_constants.hpp>
@@ -19,7 +22,9 @@ enum class LOADING_LAYER_TYPE
 	INVALID,
 	CREATURES,
 	FLOOR_INTERACTABLE,
-	EXTRA_ENTITIES
+	EXTRA_ENTITIES,
+	DECORATIONS,
+	MINIMAP
 };
 
 enum class ENTITY_TYPE
@@ -32,13 +37,24 @@ enum class ENTITY_TYPE
 	WALL,
 	COLOUR_ORB,
 	BOX,
-	CONTROL_PNG_ENTITY
+	MUSHROOM,
+	PRESSURE_PLATE,
+	PRESSURE_PLATE_WALL,
+	MINIMAP_REFERENCE,
+	MINIMAP_HALLWAY,
+	PUZZLE_BUBBLE,
+	PUZZLE_BUBBLE_FAKE,
+	PUZZLE_WALL,
+	PUZZLE_SOLUTION,
+	CONTROL_PNG_ENTITY,
 };
 
 const std::map<std::string, LOADING_LAYER_TYPE> layer_string_to_enum_map = {
 	{ "Creatures", LOADING_LAYER_TYPE::CREATURES },
 	{ "Floor_Interactables", LOADING_LAYER_TYPE::FLOOR_INTERACTABLE },
 	{ "Extra_Entities", LOADING_LAYER_TYPE::EXTRA_ENTITIES },
+	{ "Decorations", LOADING_LAYER_TYPE::DECORATIONS },
+	{ "MiniMap", LOADING_LAYER_TYPE::MINIMAP },
 };
 
 inline LOADING_LAYER_TYPE layer_from_string(const std::string layer_string)
@@ -55,6 +71,15 @@ const std::map<std::string, ENTITY_TYPE> entity_type_string_to_enum_map = {
 	{ "Wall", ENTITY_TYPE::WALL },
 	{ "ColourOrb", ENTITY_TYPE::COLOUR_ORB },
 	{ "Box", ENTITY_TYPE::BOX },
+	{ "Mushroom", ENTITY_TYPE::MUSHROOM },
+	{ "PressurePlate", ENTITY_TYPE::PRESSURE_PLATE },
+	{ "PressurePlateWall", ENTITY_TYPE::PRESSURE_PLATE_WALL },
+	{ "MinimapReference", ENTITY_TYPE::MINIMAP_REFERENCE },
+	{ "MinimapHallway", ENTITY_TYPE::MINIMAP_HALLWAY },
+	{ "PuzzleBubble", ENTITY_TYPE::PUZZLE_BUBBLE },
+	{ "PuzzleBubbleFake", ENTITY_TYPE::PUZZLE_BUBBLE_FAKE },
+	{ "PuzzleWall", ENTITY_TYPE::PUZZLE_WALL },
+	{ "PuzzleSolution", ENTITY_TYPE::PUZZLE_SOLUTION },
 	{ "Control_PNG_entity", ENTITY_TYPE::CONTROL_PNG_ENTITY },
 };
 
@@ -67,7 +92,7 @@ inline ENTITY_TYPE entity_type_from_string(const std::string entity_string)
 const std::map<std::string, CREATURETYPE> creature_string_enum_map = {
 	{ "Sawfish", CREATURETYPE::SAWFISH },
 	{ "Anglerfish", CREATURETYPE::ANGLERFISH },
-	{ "Crab", CREATURETYPE::CRAB },
+	{ "JPCrab", CREATURETYPE::CRAB },
 	{ "Minnows", CREATURETYPE::MINNOWS },
 	{ "PShrimp", CREATURETYPE::SHRIMP },
 	{ "Whale", CREATURETYPE::WHALE },
@@ -118,6 +143,19 @@ inline COLOUR_STATE color_state_from_string(const std::string color_string)
 	return search != color_state_string_enum_map.end() ? search->second : COLOUR_STATE::NEUTRAL;
 };
 
+//todo: https://trello.com/c/qB3PaZDl/247-05-create-ldtk-size-general-enum
+const std::map<std::string, MUSHROOM_SIZE> mushroom_size_string_enum_map = {
+	{ "Small", MUSHROOM_SIZE::SMALL },
+	{ "Medium", MUSHROOM_SIZE::MEDIUM },
+	{ "Large", MUSHROOM_SIZE::LARGE },
+};
+
+inline MUSHROOM_SIZE mushroom_size_from_string(const std::string color_string)
+{
+	const auto& search = mushroom_size_string_enum_map.find(color_string);
+	return search != mushroom_size_string_enum_map.end() ? search->second : MUSHROOM_SIZE::SMALL;
+};
+
 const std::map<std::string, TEXTURE_ASSET_ID> tile_layer_texture_string_enum_map = {
 	{ "Floor", TEXTURE_ASSET_ID::ROOMS },
 };
@@ -134,6 +172,20 @@ inline std::pair<TEXTURE_ASSET_ID, std::map<std::string, TILE_TYPE>> get_tile_la
 		tile_layer_texture_string_enum_map.at(tile_layer_string),
 		tile_layer_tags_string_enum_map.at(tile_layer_string),
 	};
+};
+
+const std::map<std::string, CONTROL_PNG_TYPE> control_png_string_enum_map = {
+	{ "Invalid",        CONTROL_PNG_TYPE::INVALID },
+	{ "WASD",           CONTROL_PNG_TYPE::WASD },
+	{ "ARROW_RED",      CONTROL_PNG_TYPE::ARROW_RED },
+	{ "ARROW_NO_RED",   CONTROL_PNG_TYPE::ARROW_NO_RED },
+	{ "COLOUR_AFFECTS", CONTROL_PNG_TYPE::COLOUR_AFFECTS }
+};
+
+inline CONTROL_PNG_TYPE control_png_type_from_string(const std::string control_png_string)
+{
+	const auto& search = control_png_string_enum_map.find(control_png_string);
+	return search != control_png_string_enum_map.end() ? search->second : CONTROL_PNG_TYPE::INVALID;
 };
 
 // LDtk Constants

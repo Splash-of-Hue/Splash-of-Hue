@@ -1,6 +1,7 @@
 #pragma once
+#include "ecs/system.hpp"
 
-class CameraSystem
+class CameraSystem : public SystemInterface
 {
 public:
 	// This checks if there are any ChangeCameraTargetRequest

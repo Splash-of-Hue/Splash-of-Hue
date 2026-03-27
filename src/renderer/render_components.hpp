@@ -83,3 +83,8 @@ struct TextureLoadRequest
 	std::string uid;
 	std::string path;
 };
+
+struct VisualRotationOffset
+{
+	float degrees = 0.f;
+};

@@ -202,6 +202,110 @@ void AnimationSystem::init()
 				{ TEXTURE_ASSET_ID::CORAL_TREE_01, RenderSourceRect() }
 		}
 	);
+	generate_animation(
+		ANIMATABLE_TYPE::PUZZLE_BUBBLE,
+		ANIMATION_TRIGGER::IDLE,
+		{
+			{ TEXTURE_ASSET_ID::PUZZLE_BUBBLE, RenderSourceRect{ vec2(0.0f, 0.0f), vec2(0.2f, 0.333f) }},
+			{ TEXTURE_ASSET_ID::PUZZLE_BUBBLE, RenderSourceRect{ vec2(0.2f, 0.0f), vec2(0.2f, 0.333f) }},
+			{ TEXTURE_ASSET_ID::PUZZLE_BUBBLE, RenderSourceRect{ vec2(0.4f, 0.0f), vec2(0.2f, 0.333f) }},
+			{ TEXTURE_ASSET_ID::PUZZLE_BUBBLE, RenderSourceRect{ vec2(0.6f, 0.0f), vec2(0.2f, 0.333f) }},
+			{ TEXTURE_ASSET_ID::PUZZLE_BUBBLE, RenderSourceRect{ vec2(0.8f, 0.0f), vec2(0.2f, 0.333f) }},
+			{ TEXTURE_ASSET_ID::PUZZLE_BUBBLE, RenderSourceRect{ vec2(0.0f, 0.333f), vec2(0.2f, 0.333f) }},
+			{ TEXTURE_ASSET_ID::PUZZLE_BUBBLE, RenderSourceRect{ vec2(0.2f, 0.333f), vec2(0.2f, 0.333f) }},
+			{ TEXTURE_ASSET_ID::PUZZLE_BUBBLE, RenderSourceRect{ vec2(0.4f, 0.333f), vec2(0.2f, 0.333f) }},
+			{ TEXTURE_ASSET_ID::PUZZLE_BUBBLE, RenderSourceRect{ vec2(0.6f, 0.333f), vec2(0.2f, 0.333f) }},
+			{ TEXTURE_ASSET_ID::PUZZLE_BUBBLE, RenderSourceRect{ vec2(0.8f, 0.333f), vec2(0.2f, 0.333f) }},
+			{ TEXTURE_ASSET_ID::PUZZLE_BUBBLE, RenderSourceRect{ vec2(0.0f, 0.666f), vec2(0.2f, 0.333f) }},
+			{ TEXTURE_ASSET_ID::PUZZLE_BUBBLE, RenderSourceRect{ vec2(0.2f, 0.666f), vec2(0.2f, 0.333f) }},
+		}
+	);
+
+	// Crab Walk Forward
+generate_animation(
+    ANIMATABLE_TYPE::CRAB,
+    ANIMATION_TRIGGER::WALK_FORWARD,
+    {
+        { TEXTURE_ASSET_ID::CRAB_01, RenderSourceRect{ vec2(0.002f, 0.0f), vec2(0.198f, 0.1f) }},
+        { TEXTURE_ASSET_ID::CRAB_01, RenderSourceRect{ vec2(0.202f, 0.0f), vec2(0.198f, 0.1f) }},
+        { TEXTURE_ASSET_ID::CRAB_01, RenderSourceRect{ vec2(0.402f, 0.0f), vec2(0.198f, 0.1f) }},
+        { TEXTURE_ASSET_ID::CRAB_01, RenderSourceRect{ vec2(0.602f, 0.0f), vec2(0.198f, 0.1f) }},
+        { TEXTURE_ASSET_ID::CRAB_01, RenderSourceRect{ vec2(0.802f, 0.0f), vec2(0.198f, 0.1f) }},
+        { TEXTURE_ASSET_ID::CRAB_01, RenderSourceRect{ vec2(0.002f, 0.1f), vec2(0.198f, 0.1f) }},
+        { TEXTURE_ASSET_ID::CRAB_01, RenderSourceRect{ vec2(0.202f, 0.1f), vec2(0.198f, 0.1f) }},
+        { TEXTURE_ASSET_ID::CRAB_01, RenderSourceRect{ vec2(0.402f, 0.1f), vec2(0.198f, 0.1f) }},
+        { TEXTURE_ASSET_ID::CRAB_01, RenderSourceRect{ vec2(0.602f, 0.1f), vec2(0.198f, 0.1f) }},
+        { TEXTURE_ASSET_ID::CRAB_01, RenderSourceRect{ vec2(0.802f, 0.1f), vec2(0.198f, 0.1f) }},
+    }
+);
+
+// Crab Walk Backward
+generate_animation(
+    ANIMATABLE_TYPE::CRAB,
+    ANIMATION_TRIGGER::WALK_BACKWARD,
+    {
+        { TEXTURE_ASSET_ID::CRAB_01, RenderSourceRect{ vec2(0.002f, 0.2f), vec2(0.198f, 0.1f) }},
+        { TEXTURE_ASSET_ID::CRAB_01, RenderSourceRect{ vec2(0.202f, 0.2f), vec2(0.198f, 0.1f) }},
+        { TEXTURE_ASSET_ID::CRAB_01, RenderSourceRect{ vec2(0.402f, 0.2f), vec2(0.198f, 0.1f) }},
+        { TEXTURE_ASSET_ID::CRAB_01, RenderSourceRect{ vec2(0.602f, 0.2f), vec2(0.198f, 0.1f) }},
+        { TEXTURE_ASSET_ID::CRAB_01, RenderSourceRect{ vec2(0.802f, 0.2f), vec2(0.198f, 0.1f) }},
+        { TEXTURE_ASSET_ID::CRAB_01, RenderSourceRect{ vec2(0.002f, 0.3f), vec2(0.198f, 0.1f) }},
+        { TEXTURE_ASSET_ID::CRAB_01, RenderSourceRect{ vec2(0.202f, 0.3f), vec2(0.198f, 0.1f) }},
+        { TEXTURE_ASSET_ID::CRAB_01, RenderSourceRect{ vec2(0.402f, 0.3f), vec2(0.198f, 0.1f) }},
+        { TEXTURE_ASSET_ID::CRAB_01, RenderSourceRect{ vec2(0.602f, 0.3f), vec2(0.198f, 0.1f) }},
+        { TEXTURE_ASSET_ID::CRAB_01, RenderSourceRect{ vec2(0.802f, 0.3f), vec2(0.198f, 0.1f) }},
+    }
+);
+
+// Crab Walk Right
+generate_animation(
+    ANIMATABLE_TYPE::CRAB,
+    ANIMATION_TRIGGER::WALK_RIGHT,
+    {
+        { TEXTURE_ASSET_ID::CRAB_01, RenderSourceRect{ vec2(0.002f, 0.4f), vec2(0.198f, 0.1f) }},
+        { TEXTURE_ASSET_ID::CRAB_01, RenderSourceRect{ vec2(0.202f, 0.4f), vec2(0.198f, 0.1f) }},
+        { TEXTURE_ASSET_ID::CRAB_01, RenderSourceRect{ vec2(0.402f, 0.4f), vec2(0.198f, 0.1f) }},
+        { TEXTURE_ASSET_ID::CRAB_01, RenderSourceRect{ vec2(0.602f, 0.4f), vec2(0.198f, 0.1f) }},
+        { TEXTURE_ASSET_ID::CRAB_01, RenderSourceRect{ vec2(0.802f, 0.4f), vec2(0.198f, 0.1f) }},
+        { TEXTURE_ASSET_ID::CRAB_01, RenderSourceRect{ vec2(0.002f, 0.5f), vec2(0.198f, 0.1f) }},
+        { TEXTURE_ASSET_ID::CRAB_01, RenderSourceRect{ vec2(0.202f, 0.5f), vec2(0.198f, 0.1f) }},
+        { TEXTURE_ASSET_ID::CRAB_01, RenderSourceRect{ vec2(0.402f, 0.5f), vec2(0.198f, 0.1f) }},
+        { TEXTURE_ASSET_ID::CRAB_01, RenderSourceRect{ vec2(0.602f, 0.5f), vec2(0.198f, 0.1f) }},
+        { TEXTURE_ASSET_ID::CRAB_01, RenderSourceRect{ vec2(0.802f, 0.5f), vec2(0.198f, 0.1f) }},
+    }
+);
+
+// Crab Walk Left
+generate_animation(
+    ANIMATABLE_TYPE::CRAB,
+    ANIMATION_TRIGGER::WALK_LEFT,
+    {
+        { TEXTURE_ASSET_ID::CRAB_01, RenderSourceRect{ vec2(0.002f, 0.6f), vec2(0.198f, 0.1f) }},
+        { TEXTURE_ASSET_ID::CRAB_01, RenderSourceRect{ vec2(0.202f, 0.6f), vec2(0.198f, 0.1f) }},
+        { TEXTURE_ASSET_ID::CRAB_01, RenderSourceRect{ vec2(0.402f, 0.6f), vec2(0.198f, 0.1f) }},
+        { TEXTURE_ASSET_ID::CRAB_01, RenderSourceRect{ vec2(0.602f, 0.6f), vec2(0.198f, 0.1f) }},
+        { TEXTURE_ASSET_ID::CRAB_01, RenderSourceRect{ vec2(0.802f, 0.6f), vec2(0.198f, 0.1f) }},
+        { TEXTURE_ASSET_ID::CRAB_01, RenderSourceRect{ vec2(0.002f, 0.7f), vec2(0.198f, 0.1f) }},
+        { TEXTURE_ASSET_ID::CRAB_01, RenderSourceRect{ vec2(0.202f, 0.7f), vec2(0.198f, 0.1f) }},
+        { TEXTURE_ASSET_ID::CRAB_01, RenderSourceRect{ vec2(0.402f, 0.7f), vec2(0.198f, 0.1f) }},
+        { TEXTURE_ASSET_ID::CRAB_01, RenderSourceRect{ vec2(0.602f, 0.7f), vec2(0.198f, 0.1f) }},
+        { TEXTURE_ASSET_ID::CRAB_01, RenderSourceRect{ vec2(0.802f, 0.7f), vec2(0.198f, 0.1f) }},
+    }
+);
+
+// Crab Idle
+generate_animation(
+    ANIMATABLE_TYPE::CRAB,
+    ANIMATION_TRIGGER::IDLE,
+    {
+        { TEXTURE_ASSET_ID::CRAB_01, RenderSourceRect{ vec2(0.002f, 0.8f), vec2(0.198f, 0.1f) }},
+        { TEXTURE_ASSET_ID::CRAB_01, RenderSourceRect{ vec2(0.202f, 0.8f), vec2(0.198f, 0.1f) }},
+        { TEXTURE_ASSET_ID::CRAB_01, RenderSourceRect{ vec2(0.402f, 0.8f), vec2(0.198f, 0.1f) }},
+        { TEXTURE_ASSET_ID::CRAB_01, RenderSourceRect{ vec2(0.602f, 0.8f), vec2(0.198f, 0.1f) }},
+        { TEXTURE_ASSET_ID::CRAB_01, RenderSourceRect{ vec2(0.802f, 0.8f), vec2(0.198f, 0.1f) }},
+        { TEXTURE_ASSET_ID::CRAB_01, RenderSourceRect{ vec2(0.002f, 0.9f), vec2(0.198f, 0.1f) }},
+    }
+);
 
 	/*
 		ENVIRONMENT ANIMATIONS
@@ -235,49 +339,106 @@ void AnimationSystem::init()
 		);
 	generate_animation(
 		ANIMATABLE_TYPE::MOSS_WALL,
+		ANIMATION_TRIGGER::IDLE,
+		{
+				{ TEXTURE_ASSET_ID::MOSS_NEUTRAL, RenderSourceRect { vec2(0.300, 0.05), vec2(0.375, 0.45) }},
+		}
+		);
+	generate_animation(
+		ANIMATABLE_TYPE::MOSS_WALL,
 		ANIMATION_TRIGGER::IDLE_RED,
 		{
-				{ TEXTURE_ASSET_ID::MOSS, RenderSourceRect { vec2(0.300, 0.375), vec2(0.5, 0.25) }},
+				{ TEXTURE_ASSET_ID::MOSS, RenderSourceRect { vec2(0.3, 0.4), vec2(0.36, 0.225) }},
 		}
-	);
+		);
 	generate_animation(
 		ANIMATABLE_TYPE::MOSS_WALL,
 		ANIMATION_TRIGGER::IDLE_BLUE,
 		{
-				{ TEXTURE_ASSET_ID::MOSS, RenderSourceRect { vec2(0.300, 0.625), vec2(0.5, 0.35) }},
-				// 				{ TEXTURE_ASSET_ID::MOSS, RenderSourceRect { vec2(0.300, 0.625), vec2(0.5, 0.3) }},
-
+				{ TEXTURE_ASSET_ID::MOSS, RenderSourceRect { vec2(0.3, 0.64), vec2(0.35, 0.225) }},
 		}
 	);
+
+	/*
+		UI ANIMATIONS
+	*/
+	generate_animation(
+		ANIMATABLE_TYPE::COLOUR_INDICATOR,
+		ANIMATION_TRIGGER::HUD_BLUE,
+		{
+			{ TEXTURE_ASSET_ID::COLOUR_INDICATOR, RenderSourceRect{ vec2(0.0f, 0.0f),   vec2(0.5f, 0.333f) }},
+			{ TEXTURE_ASSET_ID::COLOUR_INDICATOR, RenderSourceRect{ vec2(0.5f, 0.0f),   vec2(0.5f, 0.333f) }}
+		}
+	);
+	generate_animation(
+		ANIMATABLE_TYPE::COLOUR_INDICATOR,
+		ANIMATION_TRIGGER::HUD_NEUTRAL,
+		{
+			{ TEXTURE_ASSET_ID::COLOUR_INDICATOR, RenderSourceRect{ vec2(0.0f, 0.333f), vec2(0.5f, 0.333f) }},
+			{ TEXTURE_ASSET_ID::COLOUR_INDICATOR, RenderSourceRect{ vec2(0.5f, 0.333f), vec2(0.5f, 0.333f) }}
+		}
+	);
+	generate_animation(
+		ANIMATABLE_TYPE::COLOUR_INDICATOR,
+		ANIMATION_TRIGGER::HUD_RED,
+		{
+			{ TEXTURE_ASSET_ID::COLOUR_INDICATOR, RenderSourceRect{ vec2(0.0f, 0.667f), vec2(0.5f, 0.333f) }},
+			{ TEXTURE_ASSET_ID::COLOUR_INDICATOR, RenderSourceRect{ vec2(0.5f, 0.667f), vec2(0.5f, 0.333f) }}
+		}
+	);
+
+	// controls 
 	generate_animation(
 		ANIMATABLE_TYPE::CONTROLS_SHEET,
 		ANIMATION_TRIGGER::WASD,
 		{
-			{ TEXTURE_ASSET_ID::CONTROLS_SHEET, RenderSourceRect { vec2(0.0f, 0.0f), vec2(1.0f, 0.25f) }}
+			{ TEXTURE_ASSET_ID::CONTROLS_SHEET, RenderSourceRect{ vec2(0.0f, 0.0f), vec2(1.0f, 0.25f) }}
 		}
 	);
 	generate_animation(
 		ANIMATABLE_TYPE::CONTROLS_SHEET,
 		ANIMATION_TRIGGER::ARROW_NO_RED,
 		{
-			{ TEXTURE_ASSET_ID::CONTROLS_SHEET, RenderSourceRect { vec2(0.0f, 0.25f), vec2(1.0f, 0.25f) }}
+			{ TEXTURE_ASSET_ID::CONTROLS_SHEET, RenderSourceRect{ vec2(0.0f, 0.25f), vec2(1.0f, 0.25f) }}
 		}
 	);
 	generate_animation(
 		ANIMATABLE_TYPE::CONTROLS_SHEET,
 		ANIMATION_TRIGGER::ARROW_RED,
 		{
-			{ TEXTURE_ASSET_ID::CONTROLS_SHEET, RenderSourceRect { vec2(0.0f, 0.5f), vec2(1.0f, 0.25) }}
+			{ TEXTURE_ASSET_ID::CONTROLS_SHEET, RenderSourceRect{ vec2(0.0f, 0.5f), vec2(1.0f, 0.25f) }}
 		}
 	);
 	generate_animation(
 		ANIMATABLE_TYPE::CONTROLS_SHEET,
 		ANIMATION_TRIGGER::COLOUR_AFFECTS,
 		{
-			{ TEXTURE_ASSET_ID::CONTROLS_SHEET, RenderSourceRect { vec2(0.0f, 0.75f), vec2(1.0f, 0.25) }}
+			{ TEXTURE_ASSET_ID::CONTROLS_SHEET, RenderSourceRect{ vec2(0.0f, 0.75f), vec2(1.0f, 0.25f) }}
 		}
 	);
+
+	// COLOUR ORB
+	generate_animation(
+		ANIMATABLE_TYPE::COLOUR_ORB,
+		ANIMATION_TRIGGER::COLOUR_ORB_IDLE,
+		{
+			{ TEXTURE_ASSET_ID::COLOUR_ORB_SHEET, RenderSourceRect{ vec2(0.0f, 0.0f),    vec2(0.2f, 0.333f) }},
+			{ TEXTURE_ASSET_ID::COLOUR_ORB_SHEET, RenderSourceRect{ vec2(0.2f, 0.0f),    vec2(0.2f, 0.333f) }},
+			{ TEXTURE_ASSET_ID::COLOUR_ORB_SHEET, RenderSourceRect{ vec2(0.4f, 0.0f),    vec2(0.2f, 0.333f) }},
+			{ TEXTURE_ASSET_ID::COLOUR_ORB_SHEET, RenderSourceRect{ vec2(0.6f, 0.0f),    vec2(0.2f, 0.333f) }},
+			{ TEXTURE_ASSET_ID::COLOUR_ORB_SHEET, RenderSourceRect{ vec2(0.8f, 0.0f),    vec2(0.2f, 0.333f) }},
+			{ TEXTURE_ASSET_ID::COLOUR_ORB_SHEET, RenderSourceRect{ vec2(0.0f, 0.333f),  vec2(0.2f, 0.333f) }},
+			{ TEXTURE_ASSET_ID::COLOUR_ORB_SHEET, RenderSourceRect{ vec2(0.2f, 0.333f),  vec2(0.2f, 0.333f) }},
+			{ TEXTURE_ASSET_ID::COLOUR_ORB_SHEET, RenderSourceRect{ vec2(0.4f, 0.333f),  vec2(0.2f, 0.333f) }},
+			{ TEXTURE_ASSET_ID::COLOUR_ORB_SHEET, RenderSourceRect{ vec2(0.6f, 0.333f),  vec2(0.2f, 0.333f) }},
+			{ TEXTURE_ASSET_ID::COLOUR_ORB_SHEET, RenderSourceRect{ vec2(0.8f, 0.333f),  vec2(0.2f, 0.333f) }},
+			{ TEXTURE_ASSET_ID::COLOUR_ORB_SHEET, RenderSourceRect{ vec2(0.0f, 0.667f),  vec2(0.2f, 0.333f) }},
+			{ TEXTURE_ASSET_ID::COLOUR_ORB_SHEET, RenderSourceRect{ vec2(0.2f, 0.667f),  vec2(0.2f, 0.333f) }},
+		}
+		);
 }
+
+
 
 void AnimationSystem::generate_animation(
 	ANIMATABLE_TYPE type,

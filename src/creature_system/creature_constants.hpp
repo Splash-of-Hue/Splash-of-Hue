@@ -15,28 +15,25 @@ enum CREATURETYPE
 
 // Creature specific constants
 struct Anglerfish
-{ // could have a pointer to its ball of light?
+{
 };
+
+const float ANGLERFISH_FOLLOWING_SPEED = 1000.f;
 
 struct Crab
 {
 };
 
-struct Minnows
-{ // could have a pointer to leader minnow
-};
+const int NUM_MINNOWS = 50;
 
 struct Sawfish
 {
+	
 };
 
-enum DIRECTION
-{
-	UP = 0,
-	DOWN = UP + 1,
-	LEFT = DOWN + 1,
-	RIGHT = LEFT + 1
-};
+const float SAWFISH_CHARGING_SPEED = 500.f;
+const float SAWFISH_WANDERING_SPEED = 100.f;
+const float SAWFISH_FOLLOWING_SPEED = 1000.f;
 
 enum SHRIMP_ARM_COLOUR
 {
@@ -67,3 +64,5 @@ constexpr float pathfinderMinDistToTarget(CREATURETYPE creatureType) {
 
 const float COOLDOWN_TIMER_DEFAULT = 3000.0f;
 const float TIMELIMIT_TIMER_DEFAULT = 3000.0f;
+
+const float DEGREES_DOWN = 90;

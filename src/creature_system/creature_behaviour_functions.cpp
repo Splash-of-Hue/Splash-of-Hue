@@ -6,6 +6,61 @@
 
 CreatureBehaviourFunctions creatureBehaviourFunctions;
 
+// ===== Colour Action Nodes =====
+BEHAVIOUR_TREE_STATUS CreatureBehaviourFunctions::makeColour(Entity& creature, COLOUR_STATE colour_state)
+{
+	if (!registry.colourStates.has(creature))
+	{
+		return BEHAVIOUR_TREE_STATUS::FAILURE;
+	}
+	ColourState& colour_state_component = registry.colourStates.get(creature);
+	colour_state_component.prev_colour_state = colour_state_component.prev_colour_state;
+	colour_state_component.curr_colour_state = colour_state;
+
+	vec4& color = registry.colors.get(creature);
+	const ColourPalette& palette = registry.colourPalettes.components[0];
+	auto& color_from_state = palette.state_to_colour.at(colour_state_component.curr_colour_state);
+	color = color_from_state;
+
+	return BEHAVIOUR_TREE_STATUS::SUCCESS;
+}
+
+BEHAVIOUR_TREE_STATUS CreatureBehaviourFunctions::makeBlue(Entity& creature, float elapsed_ms)
+{
+	return makeColour(creature, COLOUR_STATE::BLUE);
+}
+
+BEHAVIOUR_TREE_STATUS CreatureBehaviourFunctions::makeRed(Entity& creature, float elapsed_ms)
+{
+	return makeColour(creature, COLOUR_STATE::RED);
+}
+
+BEHAVIOUR_TREE_STATUS CreatureBehaviourFunctions::makeNeutral(Entity& creature, float elapsed_ms)
+{
+	return makeColour(creature, COLOUR_STATE::NEUTRAL);
+}
+
+//  ===== Movement Action Nodes =====
+BEHAVIOUR_TREE_STATUS CreatureBehaviourFunctions::chargeAtPlayer(Entity& charger, float elapsed_ms)
+{
+	Entity& targeted_entity = registry.players.entities[0];
+	vec2& charger_position = registry.positions.get(charger);
+	vec2& targeted_entity_position = registry.positions.get(targeted_entity);
+	vec2 velocity = { targeted_entity_position.x - charger_position.x,targeted_entity_position.y - charger_position.y };
+	double mag = sqrt(velocity.x * velocity.x + velocity.y * velocity.y);
+	velocity *= (1.f / mag);
+	vec2& charger_velocity = registry.velocities.get(charger);
+	float charger_individual_speed = 1.f;
+	switch (registry.creatures.get(charger).creatureType)
+	{
+		case CREATURETYPE::SAWFISH:
+			charger_individual_speed = SAWFISH_CHARGING_SPEED;
+			break;
+	}
+	charger_velocity = velocity * charger_individual_speed;
+	return BEHAVIOUR_TREE_STATUS::SUCCESS;
+}
+
 BEHAVIOUR_TREE_STATUS CreatureBehaviourFunctions::stopCreatureMovement(Entity& creature, float elapsed_ms)
 {
 	if (!registry.velocities.has(creature))
@@ -17,59 +72,41 @@ BEHAVIOUR_TREE_STATUS CreatureBehaviourFunctions::stopCreatureMovement(Entity& c
 	return BEHAVIOUR_TREE_STATUS::SUCCESS;
 }
 
-BEHAVIOUR_TREE_STATUS CreatureBehaviourFunctions::makeNeutral(Entity& creature, float elapsed_ms)
+BEHAVIOUR_TREE_STATUS CreatureBehaviourFunctions::removeCollision(Entity& creature, float elapsed_ms)
 {
-	if (!registry.colourStates.has(creature))
+	if (registry.creatureInelasticCollisions.has(creature))
 	{
-		return BEHAVIOUR_TREE_STATUS::FAILURE;
+		registry.creatureInelasticCollisions.remove(creature);
 	}
-	ColourState& colour_state_component = registry.colourStates.get(creature);
-	colour_state_component.prev_colour_state = colour_state_component.prev_colour_state;
-	colour_state_component.curr_colour_state = COLOUR_STATE::NEUTRAL;
-
-	vec4& color = registry.colors.get(creature);
-	const ColourPalette& palette = registry.colourPalettes.components[0];
-	auto& color_from_state = palette.state_to_colour.at(colour_state_component.curr_colour_state);
-	color = color_from_state;
-
-	return BEHAVIOUR_TREE_STATUS::SUCCESS;
-	
-}
-BEHAVIOUR_TREE_STATUS CreatureBehaviourFunctions::makeBlue(Entity& creature, float elapsed_ms)
-{
-	ColourState& colour_state_creature = registry.colourStates.get(creature);
-	colour_state_creature.prev_colour_state = colour_state_creature.curr_colour_state;
-	colour_state_creature.curr_colour_state = COLOUR_STATE::BLUE;
-
-	vec4& other_color = registry.colors.get(creature);
-	const ColourPalette& palette = registry.colourPalettes.components[0];
-	auto& color_from_state = palette.state_to_colour.at(COLOUR_STATE::BLUE);
-	other_color = color_from_state;
-
 	return BEHAVIOUR_TREE_STATUS::SUCCESS;
 }
 
-BEHAVIOUR_TREE_STATUS CreatureBehaviourFunctions::makeRed(Entity& creature, float elapsed_ms)
-{
-	ColourState& colour_state_creature = registry.colourStates.get(creature);
-	colour_state_creature.prev_colour_state = colour_state_creature.curr_colour_state;
-	colour_state_creature.curr_colour_state = COLOUR_STATE::RED;
-
-	vec4& other_color = registry.colors.get(creature);
-	const ColourPalette& palette = registry.colourPalettes.components[0];
-	auto& color_from_state = palette.state_to_colour.at(COLOUR_STATE::RED);
-	other_color = color_from_state;
-
-	return BEHAVIOUR_TREE_STATUS::SUCCESS;
-}
-
-BEHAVIOUR_TREE_STATUS CreatureBehaviourFunctions::applyCooldown(Entity& creature, float elapsed_ms)
+//  ===== Miscellaneous Action Nodes =====
+BEHAVIOUR_TREE_STATUS CreatureBehaviourFunctions::applyCooldown(Entity& creature, float time)
 {
 	if (!registry.creatureBehaviourCooldowns.has(creature))
 	{
 		registry.creatureBehaviourCooldowns.emplace(creature);
 	}
+	registry.creatureBehaviourCooldowns.get(creature).cooldown_default = time;
+	//resets to max if we call it before it finishes
+	registry.creatureBehaviourCooldowns.get(creature).cooldown = registry.creatureBehaviourCooldowns.get(creature).cooldown_default;
 	return BEHAVIOUR_TREE_STATUS::SUCCESS;
+}
+
+BEHAVIOUR_TREE_STATUS CreatureBehaviourFunctions::apply3sCooldown(Entity& creature, float elapsed_ms)
+{
+	return applyCooldown(creature, 3000.f);
+}
+
+BEHAVIOUR_TREE_STATUS CreatureBehaviourFunctions::apply2sCooldown(Entity& creature, float elapsed_ms)
+{
+	return applyCooldown(creature, 2000.f);
+}
+
+BEHAVIOUR_TREE_STATUS CreatureBehaviourFunctions::apply1sCooldown(Entity& creature, float elapsed_ms)
+{
+	return applyCooldown(creature, 1000.f);
 }
 
 BEHAVIOUR_TREE_STATUS CreatureBehaviourFunctions::removeCooldown(Entity& creature, float elapsed_ms)
@@ -77,15 +114,6 @@ BEHAVIOUR_TREE_STATUS CreatureBehaviourFunctions::removeCooldown(Entity& creatur
 	if (registry.creatureBehaviourCooldowns.has(creature))
 	{
 		registry.creatureBehaviourCooldowns.remove(creature);
-	}
-	return BEHAVIOUR_TREE_STATUS::SUCCESS;
-}
-
-BEHAVIOUR_TREE_STATUS CreatureBehaviourFunctions::applyCharging(Entity& creature, float elapsed_ms)
-{
-	if (!registry.chargers.has(creature))
-	{
-		registry.chargers.emplace(creature);
 	}
 	return BEHAVIOUR_TREE_STATUS::SUCCESS;
 }
@@ -100,38 +128,8 @@ BEHAVIOUR_TREE_STATUS CreatureBehaviourFunctions::returnFailure(Entity& creature
 	return BEHAVIOUR_TREE_STATUS::FAILURE;
 }
 
-BEHAVIOUR_TREE_STATUS CreatureBehaviourFunctions::removeCollision(Entity& creature, float elapsed_ms)
+BEHAVIOUR_TREE_STATUS CreatureBehaviourFunctions::debugCout(Entity& creature, float elapsed_ms)
 {
-	if (registry.creatureInelasticCollisions.has(creature))
-	{
-		registry.creatureInelasticCollisions.remove(creature);
-	}
-	return BEHAVIOUR_TREE_STATUS::SUCCESS;
-}
-
-BEHAVIOUR_TREE_STATUS CreatureBehaviourFunctions::removeCharging(Entity& creature, float elapsed_ms)
-{
-	if (registry.chargers.has(creature))
-	{
-		registry.chargers.remove(creature);
-	}
-	return BEHAVIOUR_TREE_STATUS::SUCCESS;
-}
-
-BEHAVIOUR_TREE_STATUS CreatureBehaviourFunctions::applyDizzy(Entity& creature, float elapsed_ms)
-{
-	if (!registry.dizzies.has(creature))
-	{
-		registry.dizzies.emplace(creature);
-	}
-	return BEHAVIOUR_TREE_STATUS::SUCCESS;
-}
-
-BEHAVIOUR_TREE_STATUS CreatureBehaviourFunctions::removeDizzy(Entity& creature, float elapsed_ms)
-{
-	if (registry.dizzies.has(creature))
-	{
-		registry.dizzies.remove(creature);
-	}
+	std::cout << "I have made it to here in the tree!" << std::endl;
 	return BEHAVIOUR_TREE_STATUS::SUCCESS;
 }
