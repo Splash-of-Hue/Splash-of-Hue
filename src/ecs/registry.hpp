@@ -225,6 +225,7 @@ public:
 		// Rendering
 		registry_list.push_back(&cameras);
 		registry_list.push_back(&changeCameraTargetRequests);
+		registry_list.push_back(&loadedImages);
 		registry_list.push_back(&ignoredByCamera);
 		registry_list.push_back(&meshPtrs);
 		registry_list.push_back(&renderRequests);

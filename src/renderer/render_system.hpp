@@ -113,7 +113,6 @@ private:
 	// Internal drawing functions for each entity type
 	void drawText(Entity entity, const mat4& projection);
 	void drawShape(Entity entity, const mat3& projection); // TODO 1ch6Q0BE: Remove
-	void drawGridLine(Entity entity, const mat3& projection);
 	void drawTextures(const mat3& projection);
 	void drawToScreen();
 	void load_texture(const TextureLoadRequest& texture_load_request);

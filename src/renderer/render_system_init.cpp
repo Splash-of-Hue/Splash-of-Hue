@@ -204,7 +204,7 @@ void RenderSystem::initializeGlEffects()
 		std::map<std::string, GLint> attribute_map;
 		std::map<std::string, GLint> uniform_map;
 
-		for (auto& shader_attribute : shader_attributes.at((EFFECT_ASSET_ID)i))
+		for (auto& shader_attribute : shader_attributes.at(static_cast<EFFECT_ASSET_ID>(i))
 		{
 			GLint attribute_location = glGetAttribLocation(effect_id, shader_attribute.name.c_str());
 			attribute_map[shader_attribute.name] = attribute_location;

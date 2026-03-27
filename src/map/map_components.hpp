@@ -28,6 +28,7 @@ struct LevelEntity
 	int level_uid;
 };
 
+
 /// <summary>
 /// This is the level that the associated entity is in.
 /// Only things that can move levels will have this (player, sawfish, etc.)

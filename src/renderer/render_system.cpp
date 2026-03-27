@@ -253,8 +253,7 @@ void RenderSystem::drawShape(Entity entity, const mat3& projection)
 	gl_has_errors();
 }
 
-void RenderSystem::drawTexturedMesh(Entity entity,
-									const mat3 &projection)
+void RenderSystem::drawTextures(const mat3 &projection)
 {
 	vec2& position = registry.positions.get(entity);
 	vec2& scale = registry.scales.get(entity);
@@ -280,11 +279,10 @@ void RenderSystem::drawTexturedMesh(Entity entity,
 	assert(registry.renderRequests.has(entity));
 	const RenderRequest& render_request = registry.renderRequests.get(entity);
 
-		for (TexturedVertex textured_vertex : textured_vertices)
-		{
-			textured_vertex.position = transform.mat * textured_vertex.position;
-			batch_texture_vertices.push_back(textured_vertex);
-		}
+	for (TexturedVertex textured_vertex : textured_vertices)
+	{
+		textured_vertex.position = transform.mat * textured_vertex.position;
+		batch_texture_vertices.push_back(textured_vertex);
 	}
 
 	// Do the same as above but with the current program and texture
@@ -536,12 +534,7 @@ void RenderSystem::draw()
 	// draw all entities with a render request to the frame buffer
 	for (Entity& entity : registry.renderRequests.entities)
 	{
-		// draw grid lines separately, as they do not have motion but need to be rendered
-		if (registry.gridLines.has(entity))
-		{
-			drawGridLine(entity, projection_2D);
-		}
-		else if (registry.rectangles.has(entity) || registry.circles.has(entity))
+		if (registry.rectangles.has(entity) || registry.circles.has(entity))
 		{
 			drawShape(entity, projection_2D);
 		}

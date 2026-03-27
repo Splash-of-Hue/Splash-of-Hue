@@ -10,10 +10,6 @@ const auto& LDTK_WORLD_ID = ldtk::IID::IID(WORLD_ID_STRING);
 bool is_initial_load = true;
 vec2 LEVEL_TO_SCREEN_SCALE;
 float LDTK_CAMERA_ROOM_SPEED = 800.f;
-const inline auto get_level_layer_image_path = [&](std::string filename)
-{
-	return asset_path() + "/ldtk/splashofhue/png/" + filename;
-};
 
 // Tiles
 void load_tile_layer(const ldtk::Layer& layer);
