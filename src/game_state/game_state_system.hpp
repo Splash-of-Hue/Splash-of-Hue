@@ -2,7 +2,6 @@
 #include "ecs/system.hpp"
 #include "game_state_constants.hpp"
 #include <map>
-#include <set>
 #include <vector>
 
 class GameStateSystem
@@ -28,11 +27,12 @@ public:
 	/// <param name="game_states">The list of states the systen will run in.</param>
 	void register_system(SystemInterface* system, std::vector<GAME_STATE> game_states);
 	void unregister_system(SystemInterface* system);
-	void unregister_system(SystemInterface* system, GAME_STATE game_state);
-	void unregister_system(SystemInterface* system, std::vector<GAME_STATE> game_states);
-
 private:
 	GAME_STATE current_state;
-	std::set<SystemInterface*> always_active_systems;
-	std::map<GAME_STATE, std::set<SystemInterface*>> state_systems;
+	// Use indices and vector to preserve registration order
+	std::vector<int> current_system_indices;
+	std::vector<SystemInterface*> systems;
+	std::vector<int> always_active_system_indices;
+	std::map<GAME_STATE, std::vector<int>> state_system_indices;
+	void validate_systems(SystemInterface* system);
 };
