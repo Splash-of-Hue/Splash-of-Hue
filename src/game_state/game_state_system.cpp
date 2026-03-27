@@ -13,7 +13,7 @@ void GameStateSystem::init()
 	// Initialize each set for each state
 	for (int i = 0; i < static_cast<int>(GAME_STATE::GAME_STATE_COUNT); i++)
 	{
-		state_system_indices[(GAME_STATE)i] = {};
+		state_system_indices[static_cast<GAME_STATE>(i)] = {};
 	}
 }
 
@@ -102,7 +102,7 @@ void GameStateSystem::unregister_system(SystemInterface* system)
 	// Initialize each set for each state
 	for (int i = 0; i < static_cast<int>(GAME_STATE::GAME_STATE_COUNT); i++)
 	{
-		std::vector<int> system_indices = state_system_indices[(GAME_STATE)i];
+		std::vector<int> system_indices = state_system_indices[static_cast<GAME_STATE>(i)];
 
 		for (int& system_index : system_indices)
 		{
