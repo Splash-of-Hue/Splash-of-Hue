@@ -78,9 +78,6 @@ void LoaderSystem::load_level(int level_uid)
 
 	for (const ldtk::Layer& layer : level_layers)
 	{
-		// Make an entity for the level
-
-
 		switch (layer.getType())
 		{
 			case ldtk::LayerType::AutoLayer:
@@ -430,7 +427,6 @@ void load_floor_interactables(const ldtk::Layer& layer)
 	// iterate on Enemy entities
 	for (const ldtk::Entity& floor_interactable_entity : layer.allEntities())
 	{
-		std::cout << "Floor interactable entity: " << floor_interactable_entity.getName() << std::endl; // ADD THIS
 		const std::string floor_interactable_entity_type_string = floor_interactable_entity.getName();
 		ENTITY_TYPE floor_interactable_entity_type = entity_type_from_string(floor_interactable_entity_type_string);
 
