@@ -3896,25 +3896,6 @@
 							}] }],
 							"__worldX": 1056,
 							"__worldY": -664
-						},
-						{
-							"__identifier": "ColourOrb",
-							"__grid": [68,64],
-							"__pivot": [0,0],
-							"__tags": ["Floor_Interactable"],
-							"__tile": null,
-							"__smartColor": "#3E2731",
-							"iid": "4d50b380-21a0-11f1-8551-7fd7721c958e",
-							"width": 70,
-							"height": 70,
-							"defUid": 52,
-							"px": [544,512],
-							"fieldInstances": [{ "__identifier": "ColorState", "__type": "LocalEnum.ColorState", "__value": "Red", "__tile": null, "defUid": 53, "realEditorValues": [{
-								"id": "V_String",
-								"params": ["Red"]
-							}] }],
-							"__worldX": 544,
-							"__worldY": -568
 						}
 					]
 				},
