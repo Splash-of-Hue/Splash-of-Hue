@@ -667,7 +667,10 @@ void PhysicsSystem::step(float elapsed_ms)
 					continue;
 				}
 			}
-
+			//if both minnow, skip check
+			if (registry.boid_minnows.has(entity_i) && registry.boid_minnows.has(entity_j)) {
+				continue;
+			}
 			//if passes AABB check, then try mesh collision
 			if (box_collides(entity_i, entity_j)) {
 				if (registry.hurtboxes.has(entity_i) || registry.hurtboxes.has(entity_j))
