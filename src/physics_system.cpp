@@ -405,6 +405,9 @@ void handle_inelastic_collision_box(Entity& entity_i, Entity& entity_j)
 		if (x_depth < y_depth) 
 		{
 			float x_correction = x_depth * dir_x;
+			if (vel_i.x * x_correction >= 0.f && vel_j.x * x_correction <= 0.f) {
+				x_correction *= 0.5;
+			}
 			//only correct if the entity was the one moving into the collision
 			pos_to_correct->x += vel_i.x * x_correction >= 0.f ? 0.f : x_correction;
 			other_pos->x -= vel_j.x * x_correction <= 0.f ? 0.f : x_correction;
@@ -412,6 +415,9 @@ void handle_inelastic_collision_box(Entity& entity_i, Entity& entity_j)
 		else 
 		{
 			float y_correction = y_depth * dir_y;
+			if (vel_i.y * y_correction >= 0.f && vel_j.y * y_correction <= 0.f) {
+				y_correction *= 0.5;
+			}
 			pos_to_correct->y += vel_i.y * y_correction >= 0.f ? 0.f : y_correction;
 			other_pos->y -= vel_j.y * y_correction <= 0.f ? 0.f : y_correction;
 		}
