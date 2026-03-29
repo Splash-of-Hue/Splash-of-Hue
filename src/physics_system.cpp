@@ -550,11 +550,11 @@ void handle_inelastic_collision_mesh(Entity& entity_i, Entity& entity_j, vec3 pe
 	vec2* pos_to_correct = &pos1;
 	vec2* other_pos = &pos2;
 
-	if (!registry.velocities.has(entity_i)) {
+	if (!registry.velocities.has(entity_i) && registry.velocities.has(entity_j)) {
 		pos_to_correct = &pos2;
 		other_pos = &pos1;
 	}
-	if (registry.velocities.has(entity_i) && registry.velocities.get(entity_i) == vec2(0)) {
+	if (registry.velocities.has(entity_i) && registry.velocities.get(entity_i) == vec2(0) && registry.velocities.has(entity_j) && registry.velocities.get(entity_j) != vec2(0)) {
 		pos_to_correct = &pos2;
 		other_pos = &pos1;
 	}
