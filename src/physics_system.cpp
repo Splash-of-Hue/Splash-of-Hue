@@ -404,20 +404,14 @@ void handle_inelastic_collision_box(Entity& entity_i, Entity& entity_j)
 		vec2 vel_j = registry.velocities.get(entity_j);
 		if (x_depth < y_depth) 
 		{
-			float x_correction = x_depth * dir_x;
-			if (vel_i.x * x_correction >= 0.f && vel_j.x * x_correction <= 0.f) {
-				x_correction *= 0.5;
-			}
+			float x_correction = x_depth * dir_x * 0.5;
 			//only correct if the entity was the one moving into the collision
 			pos_to_correct->x += vel_i.x * x_correction >= 0.f ? 0.f : x_correction;
 			other_pos->x -= vel_j.x * x_correction <= 0.f ? 0.f : x_correction;
 		}
 		else 
 		{
-			float y_correction = y_depth * dir_y;
-			if (vel_i.y * y_correction >= 0.f && vel_j.y * y_correction <= 0.f) {
-				y_correction *= 0.5;
-			}
+			float y_correction = y_depth * dir_y * 0.5;
 			pos_to_correct->y += vel_i.y * y_correction >= 0.f ? 0.f : y_correction;
 			other_pos->y -= vel_j.y * y_correction <= 0.f ? 0.f : y_correction;
 		}
@@ -576,14 +570,20 @@ void handle_inelastic_collision_mesh(Entity& entity_i, Entity& entity_j, vec3 pe
 	{
 		vec2 vel_i = registry.velocities.get(entity_i);
 		vec2 vel_j = registry.velocities.get(entity_j);
-		float x_correction = penetration.x * penetration.y * sign * 0.5;
+		float x_correction = penetration.x * penetration.y * sign;
 		//if moving into the collision, then it needs to be corrected
-		pos_to_correct->x += vel_i.x * x_correction >= 0.f ? 0.f : x_correction;
-		other_pos->x -= vel_j.x * x_correction <= 0.f ? 0.f : x_correction;
+		if (vel_i.x * x_correction > 0.f && vel_j.x * x_correction < 0.f) {
+			x_correction *= 0.5;
+		}
+		pos_to_correct->x += vel_i.x * x_correction <= 0.f ? 0.f : x_correction;
+		other_pos->x -= vel_j.x * x_correction >= 0.f ? 0.f : x_correction;
 
-		float y_correction = penetration.x * penetration.z * sign * 0.5;
-		pos_to_correct->y += vel_i.y * y_correction >= 0.f ? 0.f : y_correction;
-		other_pos->y -= vel_j.y * y_correction <= 0.f ? 0.f : y_correction;
+		float y_correction = penetration.x * penetration.z * sign;
+		if (vel_i.y * y_correction > 0.f && vel_j.y * y_correction < 0.f) {
+			y_correction *= 0.5;
+		}
+		pos_to_correct->y += vel_i.y * y_correction <= 0.f ? 0.f : y_correction;
+		other_pos->y -= vel_j.y * y_correction >= 0.f ? 0.f : y_correction;
 		return;
 	}
 	pos_to_correct->x += (penetration.x * penetration.y * sign);
@@ -667,7 +667,7 @@ void PhysicsSystem::step(float elapsed_ms)
 					continue;
 				}
 			}
-			//if both minnow, skip check
+			////if both minnow, skip check
 			if (registry.boid_minnows.has(entity_i) && registry.boid_minnows.has(entity_j)) {
 				continue;
 			}
