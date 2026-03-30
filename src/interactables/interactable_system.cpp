@@ -204,6 +204,17 @@ void InteractableSystem::step_pressure_plates()
 			continue;
 		}
 
+		if (registry.animation_triggers.has(pressure_plate_entity)) {
+			registry.animation_triggers.remove(pressure_plate_entity);
+		}
+
+		if (in_bounding_box_component.isTouchingOtherEntity) {
+			registry.animation_triggers.emplace(pressure_plate_entity, AnimationTrigger{ ANIMATION_TRIGGER::CHARGE });
+
+		} else {
+			registry.animation_triggers.emplace(pressure_plate_entity, AnimationTrigger{ ANIMATION_TRIGGER::IDLE });
+		}
+
 		// update connected walls!
 		for (std::string& connected_wall_id : pressure_plate_component.connected_wall_ids)
 		{

@@ -24,17 +24,16 @@ Entity createBox(vec2 position, float width, float height)
 	collidable.inelastic = true;
 	registry.breakables.emplace(box);
 	registry.boxes.emplace(box);
-	registry.rectangles.emplace(box);
 	registry.scales.insert(box, vec2(width, height));
-	registry.colors.insert(box, vec4(0.6f, 0.4f, 0.2f, 1.0f));
-	registry.unloadables.emplace(box, Unloadable{ position });
-	//so boxes can't have light pass through them
-	registry.walls.emplace(box);
+	registry.angles.emplace(box);
+
+	registry.textured.insert(box, { TEXTURE_ASSET_ID::BREAKABLE });
+
 	registry.renderRequests.insert(
 		box,
 		{
-			EFFECT_ASSET_ID::DEFAULT,
-			GEOMETRY_BUFFER_ID::RECTANGLE,
+			EFFECT_ASSET_ID::TEXTURED,
+			GEOMETRY_BUFFER_ID::SPRITE,
 			RENDER_LAYER::FLOOR_INTERACTABLES
 		}
 	);
@@ -172,13 +171,22 @@ Entity createPressurePlate(const int level_uid, vec2 position, vec2 size, std::v
 	in_bounding_box_component.updatedThisStep = true;
 
 	// todo QWNAo0jQ
-	registry.rectangles.emplace(pressure_plate_entity);
-	registry.colors.insert(pressure_plate_entity, vec4(0.0f, 0.0f, 0.75f, 1.0f));
+	registry.textured.insert(pressure_plate_entity, { TEXTURE_ASSET_ID::PRESSURE_PLATE });
+	registry.angles.emplace(pressure_plate_entity);
+
+	const Animatable animatable = {
+		ANIMATABLE_TYPE::PRESSURE_PLATE,
+		ANIMATION_BEHAVIOR::LOOP,
+		ANIMATION_TRIGGER::IDLE,
+		1
+	};
+	registry.animatables.insert(pressure_plate_entity, animatable);
+
 	registry.renderRequests.insert(
 		pressure_plate_entity,
 		{
-			EFFECT_ASSET_ID::DEFAULT,
-			GEOMETRY_BUFFER_ID::RECTANGLE,
+			EFFECT_ASSET_ID::TEXTURED,
+			GEOMETRY_BUFFER_ID::SPRITE,
 			RENDER_LAYER::FLOOR_INTERACTABLES
 		}
 	);
