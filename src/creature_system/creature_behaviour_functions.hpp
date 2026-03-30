@@ -101,6 +101,8 @@ private:
 	static BEHAVIOUR_TREE_STATUS makeColour(Entity& creature, COLOUR_STATE colour_state);
 	static BEHAVIOUR_TREE_STATUS applyCooldown(Entity& creature, float time);
 	static BEHAVIOUR_TREE_STATUS isCreatureWithinSpecificColourRadius(Entity& creature, bool& inRadius, std::vector<Entity>& radius_list, COLOUR_STATE colour_state);
+	static BEHAVIOUR_TREE_STATUS reorganizeParty(std::vector<Entity>& party);
+	static bool compareByDistanceToPlayer(const Entity& e1, const Entity& e2);
 	// Shrimp helpers
 	static BEHAVIOUR_TREE_STATUS disableCollidableComponent(std::vector<Entity>& entityList);
 	static BEHAVIOUR_TREE_STATUS enableCollidableComponent(std::vector<Entity>& entityList);

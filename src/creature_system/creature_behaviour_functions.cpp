@@ -143,9 +143,10 @@ BEHAVIOUR_TREE_STATUS CreatureBehaviourFunctions::joinPlayerParty(Entity& creatu
 	Entity& player_entity = registry.players.entities[0];
 	PartyMember& player_party_member = registry.party_members.get(player_entity);
 	Party& player_party = registry.parties.get(player_party_member.party);
-	player_party.other_party_members.push_back(creature);
 	registry.party_members.insert(creature, { player_party_member.party });
-	return BEHAVIOUR_TREE_STATUS::SUCCESS;
+	player_party.other_party_members.push_back(creature);
+	//when something joins the party, sort party by who is currently closest to player
+	return reorganizeParty(player_party.other_party_members);
 }
 
 BEHAVIOUR_TREE_STATUS CreatureBehaviourFunctions::leaveParty(Entity& creature, float elapsed_ms)
@@ -174,31 +175,17 @@ BEHAVIOUR_TREE_STATUS CreatureBehaviourFunctions::leaveParty(Entity& creature, f
 
 BEHAVIOUR_TREE_STATUS CreatureBehaviourFunctions::setPartyTarget(Entity& creature, float elapsed_ms)
 {
-	PartyMember& party_member = registry.party_members.get(creature);
-	Party& party = registry.parties.get(party_member.party);
-	Pathfinder& pathfinder = registry.pathfinders.get(creature);
-	
-	if (party.other_party_members.size() == 1)
+	PartyMember& creature_party_member = registry.party_members.get(creature);
+	Party& party = registry.parties.get(creature_party_member.party);
+	for (int index = 0; index < party.other_party_members.size(); index++)
 	{
-		// This is the only party member, target the leader
-		pathfinder.target = party.party_leader;
-	}
-	else
-	{
-		// Find where this party member is and follow the one in front
-		const auto result = std::find_if(party.other_party_members.begin(), party.other_party_members.end(), [&](Entity& e)
-		{
-			return e == creature;
-		});
+		Entity& party_entity = party.other_party_members[index];
+		Pathfinder& pathfinder = registry.pathfinders.get(party_entity);
 
-		// If the creature isn't in the party, something failed
-		if (result == party.other_party_members.end())
-		{
-			return BEHAVIOUR_TREE_STATUS::FAILURE;
-		}
-
-		// Go back 1 and dereference
-		pathfinder.target = *(result - 1);
+		if (index == 0)
+			pathfinder.target = party.party_leader;
+		else
+			pathfinder.target = party.other_party_members[index - 1];
 	}
 
 	return BEHAVIOUR_TREE_STATUS::SUCCESS;
@@ -210,4 +197,27 @@ BEHAVIOUR_TREE_STATUS CreatureBehaviourFunctions::setPlayerTarget(Entity& creatu
 	Pathfinder& pathfinder = registry.pathfinders.get(creature);
 	pathfinder.target = player_entity;
 	return BEHAVIOUR_TREE_STATUS::SUCCESS;
+}
+
+BEHAVIOUR_TREE_STATUS CreatureBehaviourFunctions::reorganizeParty(std::vector<Entity>& party)
+{
+	if (party.size() > 1)
+	{
+		std::sort(party.begin(), party.end(), compareByDistanceToPlayer);
+	}
+	return BEHAVIOUR_TREE_STATUS::SUCCESS;
+}
+
+bool CreatureBehaviourFunctions::compareByDistanceToPlayer(const Entity& e1, const Entity& e2)
+{
+	vec2 player_position = registry.positions.get(registry.players.entities[0]);
+	vec2 entity_1_position = registry.positions.get(e1);
+	vec2 entity_2_position = registry.positions.get(e2);
+
+	float dx1 = entity_1_position.x - player_position.x;
+	float dy1 = entity_1_position.y - player_position.y;
+	float dx2 = entity_2_position.x - player_position.x;
+	float dy2 = entity_2_position.y - player_position.y;
+
+	return dx1 * dx1 + dy1 * dy1 < dx2 * dx2 + dy2 * dy2;
 }
