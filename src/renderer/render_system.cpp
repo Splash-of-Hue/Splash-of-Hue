@@ -225,8 +225,9 @@ void RenderSystem::drawTexturedMesh(Entity entity,
 	}
 
 	vec2 velocity = registry.velocities.has(entity) ? registry.velocities.get(entity) : vec2(0);
-	vec2 flipped_scale = vec2(velocity.x < 0 ? -scale.x : scale.x, scale.y);
-	transform.scale(flipped_scale);
+	scale.x = velocity.x < 0 ? -abs(scale.x) : scale.x;
+	scale.x = velocity.x > 0 ? abs(scale.x) : scale.x;
+	transform.scale(vec2(scale.x, scale.y));
 	float visual_offset = registry.visualRotationOffsets.has(entity) ? registry.visualRotationOffsets.get(entity).degrees : 0.f;
 	transform.rotate(radians(angle.degrees + visual_offset));
 

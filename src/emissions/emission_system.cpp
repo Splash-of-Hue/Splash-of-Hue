@@ -116,10 +116,10 @@ void EmissionSystem::update_emission_position(Entity& emission_entity)
 		emission_position.x = source_position.x + emission_component.offset.x * cos(angle) - emission_component.offset.y * sin(angle);
 		emission_position.y = source_position.y + emission_component.offset.x * sin(angle) + emission_component.offset.y * cos(angle);
 		//covers entity flipping while its moving 
-		if (registry.velocities.has(registry.lightEmissions.get(emission_entity).lightSourceEntity))
+		if (registry.scales.has(registry.lightEmissions.get(emission_entity).lightSourceEntity))
 		{
-			vec2 source_velocity = registry.velocities.get(registry.lightEmissions.get(emission_entity).lightSourceEntity);
-			if (source_velocity.x < 0)
+			vec2 source_scale = registry.scales.get(registry.lightEmissions.get(emission_entity).lightSourceEntity);
+			if (source_scale.x < 0)
 				emission_position.x = source_position.x - emission_component.offset.x * cos(angle) + emission_component.offset.y * sin(angle);
 		}
 		return;
