@@ -456,6 +456,9 @@ void load_floor_interactables(const ldtk::Layer& layer)
 			case ENTITY_TYPE::CONTROL_PNG_ENTITY:
 				load_control_pictures(floor_interactable_entity);
 				continue;
+			case ENTITY_TYPE::SCRATCHED_FLOOR_HINT_PNG_ENTITY:
+				load_floor_hint_pictures(floor_interactable_entity);
+				continue;
 			default:
 				continue;
 		}
@@ -741,6 +744,19 @@ void load_control_pictures(const ldtk::Entity& control_picture_entity)
 	const float height = entity_size.y * LEVEL_TO_SCREEN_SCALE.y;
 	Entity control_entity = createFloorPictureControls(position, width, height, control_png_type);
 	registry.levelEntities.insert(control_entity, { control_picture_entity.layer->level->uid });
+}
+
+void load_floor_hint_pictures(const ldtk::Entity& floor_hint_png_entity)
+{
+	const ldtk::Field<ldtk::EnumValue>& floor_hint_type_field = floor_hint_png_entity.getField<ldtk::EnumValue>("FloorHintPictureType");
+	const HINT_PNG_TYPE floor_hint_png_type = floor_hint_png_type_from_string(floor_hint_type_field.value().name);
+	const ldtk::IntPoint& world_pos = floor_hint_png_entity.getWorldPosition();
+	const ldtk::IntPoint& entity_size = floor_hint_png_entity.getSize();
+	const vec2 position = vec2(world_pos.x * LEVEL_TO_SCREEN_SCALE.x, world_pos.y * LEVEL_TO_SCREEN_SCALE.y);
+	const float width = entity_size.x * LEVEL_TO_SCREEN_SCALE.x;
+	const float height = entity_size.y * LEVEL_TO_SCREEN_SCALE.y;
+	Entity floor_hint_entity = createFloorPictureHint(position, width, height, floor_hint_png_type);
+	registry.levelEntities.insert(floor_hint_entity, { floor_hint_png_entity.layer->level->uid });
 }
 
 void LoaderSystem::unload_level(int level_uid)
