@@ -48,8 +48,7 @@ BehaviourTree CreatureBehaviourTreeBuilder::buildAnglerfishTree()
 							Decorator(builder, creatureBehaviourFunctions.isCooldownComplete,
 								Sequence(builder,
 									Action(builder, creatureBehaviourFunctions.removeCooldown),
-									Action(builder, creatureBehaviourFunctions.stopCreatureMovement),
-									Action(builder, creatureBehaviourFunctions.aimAtTarget)
+									Action(builder, creatureBehaviourFunctions.stopCreatureMovement)
 								)
 							),
 							//if still in the 3 second cooldown, still follow player
@@ -61,8 +60,7 @@ BehaviourTree CreatureBehaviourTreeBuilder::buildAnglerfishTree()
 					),
 					Sequence(builder, 
 						Action(builder, creatureBehaviourFunctions.removeCooldown),
-						Action(builder, creatureBehaviourFunctions.stopCreatureMovement),
-						Action(builder, creatureBehaviourFunctions.aimAtTarget)
+						Action(builder, creatureBehaviourFunctions.stopCreatureMovement)
 					)
 				)
 			)
