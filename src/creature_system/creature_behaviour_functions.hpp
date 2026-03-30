@@ -31,6 +31,7 @@ public:
 	static BEHAVIOUR_TREE_STATUS goToNextPathStep(Entity& creature, float elapsed_ms);
 	static BEHAVIOUR_TREE_STATUS requestNewPath(Entity& creature, float elapsed_ms);
 	static BEHAVIOUR_TREE_STATUS requestNewRandomPath(Entity& creature, float elapsed_ms);
+	static BEHAVIOUR_TREE_STATUS setPlayerTarget(Entity& creature, float elapsed_ms);
 	// Colour
 	static BEHAVIOUR_TREE_STATUS makeBlue(Entity& creature, float elapsed_ms);
 	static BEHAVIOUR_TREE_STATUS makeRed(Entity& creature, float elapsed_ms);
@@ -80,6 +81,11 @@ public:
 	static BEHAVIOUR_TREE_STATUS isInRedState(Entity& creature, float elapsed_ms);
 	// Movement
 	static BEHAVIOUR_TREE_STATUS hasCreatureCollided(Entity& creature, float elapsed_ms);
+	// Party
+	static BEHAVIOUR_TREE_STATUS isInParty(Entity& creature, float elapsed_ms);
+	static BEHAVIOUR_TREE_STATUS joinPlayerParty(Entity& creature, float elapsed_ms);
+	static BEHAVIOUR_TREE_STATUS leaveParty(Entity& creature, float elapsed_ms);
+	static BEHAVIOUR_TREE_STATUS setPartyTarget(Entity& creature, float elapsed_ms);
 	// Miscellaneous
 	static BEHAVIOUR_TREE_STATUS isCooldownComplete(Entity& creature, float elapsed_ms);
 	static BEHAVIOUR_TREE_STATUS isTimerComplete(Entity& creature, float elapsed_ms);
