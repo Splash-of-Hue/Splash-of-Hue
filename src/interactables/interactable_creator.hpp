@@ -39,3 +39,4 @@ Entity createPuzzleBubble(const int level_uid, std::string id, vec2 position, CO
 Entity createPuzzleBubbleFake(const int level_uid, vec2 position, COLOUR_STATE colour);
 
 Entity createFloorPictureControls(vec2 position, float width, float height, CONTROL_PNG_TYPE control_png_type);
+Entity createFloorPictureHint(vec2 position, float width, float height, HINT_PNG_TYPE hint_png_type);

@@ -46,6 +46,7 @@ enum class ENTITY_TYPE
 	PUZZLE_WALL,
 	PUZZLE_SOLUTION,
 	CONTROL_PNG_ENTITY,
+	SCRATCHED_FLOOR_HINT_PNG_ENTITY,
 };
 
 const std::map<std::string, LOADING_LAYER_TYPE> layer_string_to_enum_map = {
@@ -80,6 +81,7 @@ const std::map<std::string, ENTITY_TYPE> entity_type_string_to_enum_map = {
 	{ "PuzzleWall", ENTITY_TYPE::PUZZLE_WALL },
 	{ "PuzzleSolution", ENTITY_TYPE::PUZZLE_SOLUTION },
 	{ "Control_PNG_entity", ENTITY_TYPE::CONTROL_PNG_ENTITY },
+	{ "FloorHintPNGEntity", ENTITY_TYPE::SCRATCHED_FLOOR_HINT_PNG_ENTITY },
 };
 
 inline ENTITY_TYPE entity_type_from_string(const std::string entity_string)
@@ -171,6 +173,22 @@ inline CONTROL_PNG_TYPE control_png_type_from_string(const std::string control_p
 {
 	const auto& search = control_png_string_enum_map.find(control_png_string);
 	return search != control_png_string_enum_map.end() ? search->second : CONTROL_PNG_TYPE::INVALID;
+};
+
+const std::map<std::string, HINT_PNG_TYPE> floor_hint_png_string_enum_map = {
+	{ "INVALID",                 HINT_PNG_TYPE::INVALID },
+	{ "ANGLERFISH",              HINT_PNG_TYPE::ANGLERFISH },
+	{ "SAWFISH_BREAK_BREAKABLE", HINT_PNG_TYPE::SAWFISH_BREAK_BREAKABLE },
+	{ "SAWFISH_SEE_BREAKABLE",   HINT_PNG_TYPE::SAWFISH_SEE_BREAKABLE },
+	{ "SHEAP_BLUE",              HINT_PNG_TYPE::SHEAP_BLUE },
+	{ "SHEAP_RED",               HINT_PNG_TYPE::SHEAP_RED },
+	{ "SHEAP_SAWFISH_BLUE",      HINT_PNG_TYPE::SHEAP_SAWFISH_BLUE },
+};
+
+inline HINT_PNG_TYPE floor_hint_png_type_from_string(const std::string floor_hint_png_string)
+{
+	const auto& search = floor_hint_png_string_enum_map.find(floor_hint_png_string);
+	return search != floor_hint_png_string_enum_map.end() ? search->second : HINT_PNG_TYPE::INVALID;
 };
 
 // LDtk Constants

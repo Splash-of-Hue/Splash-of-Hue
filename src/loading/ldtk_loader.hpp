@@ -43,6 +43,7 @@ void load_puzzle_bubble_fake(const ldtk::Entity& puzzle_bubble_fake_entity);
 void laod_minimap(const ldtk::Layer& layer);
 // tutorial pics
 void load_control_pictures(const ldtk::Entity& control_picture_entity);
+void load_floor_hint_pictures(const ldtk::Entity& floor_hint_png_entity);
 
 const inline vec2 scale_to_level(vec2 input)
 {
