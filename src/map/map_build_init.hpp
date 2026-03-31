@@ -15,6 +15,8 @@
 /// <param name="color_state">The color of the wall.</param>
 /// <returns>The entity of the wall.</returns>
 Entity createMossWall(const int level_uid, std::string id, vec2 position, vec2 size, COLOUR_STATE color_state);
+// creates moss wall indicator (line to show connection b/w moss trigger and wall)
+Entity createMossIndicator(const int level_uid, std::string id, vec2 position, vec2 size, COLOUR_STATE color_state);
 
 /// <summary>
 /// Creates a wall associated with a pressure plate and returns the entity. 

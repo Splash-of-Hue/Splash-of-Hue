@@ -70,6 +70,7 @@ class RenderSystem
 		textures_path("Breakable.png"),
 		textures_path("Pressure_Plate.png"),
 		textures_path("Pressure_Plate_Wall.png"),
+		textures_path("Moss_Indicator.png"),
 	};
 
 	std::array<GLuint, effect_count> effects;
