@@ -656,7 +656,7 @@ void PhysicsSystem::step(float elapsed_ms)
 					continue;
 				}
 			}
-			////if both minnow, skip check
+			//if both minnow, skip check
 			if (registry.boid_minnows.has(entity_i) && registry.boid_minnows.has(entity_j)) {
 				continue;
 			}
