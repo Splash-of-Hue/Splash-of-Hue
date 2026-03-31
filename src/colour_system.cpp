@@ -42,7 +42,6 @@ void ColourSystem::initialize_colour_indicator()
 	registry.scales.insert(indicator, vec2(size, size));
 	registry.angles.insert(indicator, { 0.f });
 	registry.ignoredByCamera.emplace(indicator);
-
 	bool red_unlocked = !registry.players.entities.empty() && registry.players.get(registry.players.entities[0]).red_unlocked;
 	bool blue_unlocked = !registry.players.entities.empty() && registry.players.get(registry.players.entities[0]).blue_unlocked;
 

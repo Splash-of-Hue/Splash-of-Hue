@@ -26,9 +26,7 @@ Entity createBox(vec2 position, float width, float height)
 	registry.boxes.emplace(box);
 	registry.scales.insert(box, vec2(width, height));
 	registry.angles.emplace(box);
-
 	registry.textured.insert(box, { TEXTURE_ASSET_ID::BREAKABLE });
-
 	registry.renderRequests.insert(
 		box,
 		{
@@ -173,7 +171,6 @@ Entity createPressurePlate(const int level_uid, vec2 position, vec2 size, std::v
 	// todo QWNAo0jQ
 	registry.textured.insert(pressure_plate_entity, { TEXTURE_ASSET_ID::PRESSURE_PLATE });
 	registry.angles.emplace(pressure_plate_entity);
-
 	const Animatable animatable = {
 		ANIMATABLE_TYPE::PRESSURE_PLATE,
 		ANIMATION_BEHAVIOR::LOOP,
