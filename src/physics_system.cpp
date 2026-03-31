@@ -553,30 +553,26 @@ void handle_inelastic_collision_mesh(Entity& entity_i, Entity& entity_j, vec3 pe
 	vec2 dir = pos1 - pos2;
 	// if the normal points toward the other, flip
 	float dir_check = dir.x * penetration.y + dir.y * penetration.z;
-	
 	float sign = dir_check >= 0 ? 1.0f : -1.0f;
-	
-	//if two things are moving and collide, split the correction and apply to both
 	
 	vec2 vel_i = registry.velocities.has(entity_i) ? registry.velocities.get(entity_i) : vec2(0);
 	vec2 vel_j = registry.velocities.has(entity_j) ? registry.velocities.get(entity_j) : vec2(0);
+
 	float x_correction = penetration.x * penetration.y * sign;
-	std::cout << penetration.x << std::endl;
-	std::cout << penetration.y << std::endl;
-	std::cout << penetration.z << std::endl;
-	//if moving into the collision, then it needs to be corrected
+	//if two things are moving and collide, split the correction and apply to both
 	if (vel_i.x * x_correction < 0.f && vel_j.x * x_correction > 0.f) {
 		x_correction *= 0.5;
 	}
+	//if moving into the collision, then it needs to be corrected
 	pos1.x += vel_i.x * x_correction < 0.f ? x_correction : 0.f;
-	pos2.x -= vel_j.x * x_correction > 0.f ? x_correction:  0.f ;
+	pos2.x -= vel_j.x * x_correction > 0.f ? x_correction: 0.f;
+
 	float y_correction = penetration.x * penetration.z * sign;
 	if (vel_i.y * y_correction < 0.f && vel_j.y * y_correction > 0.f) {
 		y_correction *= 0.5;
 	}
 	pos1.y += vel_i.y * y_correction < 0.f ? y_correction : 0.f;
 	pos2.y -= vel_j.y * y_correction > 0.f ? y_correction : 0.f;
-
 }
 
 void rotatePolygon(PolygonMesh& polygon, float radAngle) {
