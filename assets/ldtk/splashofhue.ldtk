@@ -6895,50 +6895,18 @@
 						},
 						{
 							"__identifier": "PressurePlateWall",
-							"__grid": [52,53],
-							"__pivot": [0.5,0.5],
-							"__tags": ["Internal_Wall"],
-							"__tile": { "tilesetUid": 113, "x": 48, "y": 64, "w": 400, "h": 416 },
-							"__smartColor": "#80ADD6",
-							"iid": "f71937a0-21a0-11f1-bde9-43af0893553b",
-							"width": 64,
-							"height": 64,
-							"defUid": 102,
-							"px": [840,856],
-							"fieldInstances": [],
-							"__worldX": 840,
-							"__worldY": -1304
-						},
-						{
-							"__identifier": "PressurePlateWall",
 							"__grid": [56,53],
 							"__pivot": [0.5,0.5],
 							"__tags": ["Internal_Wall"],
 							"__tile": { "tilesetUid": 113, "x": 48, "y": 64, "w": 400, "h": 416 },
 							"__smartColor": "#80ADD6",
-							"iid": "14fb4720-21a0-11f1-a7ff-074eee6f693d",
-							"width": 64,
-							"height": 64,
+							"iid": "f71937a0-21a0-11f1-bde9-43af0893553b",
+							"width": 128,
+							"height": 128,
 							"defUid": 102,
 							"px": [904,856],
 							"fieldInstances": [],
 							"__worldX": 904,
-							"__worldY": -1304
-						},
-						{
-							"__identifier": "PressurePlateWall",
-							"__grid": [60,53],
-							"__pivot": [0.5,0.5],
-							"__tags": ["Internal_Wall"],
-							"__tile": { "tilesetUid": 113, "x": 48, "y": 64, "w": 400, "h": 416 },
-							"__smartColor": "#80ADD6",
-							"iid": "17952be0-21a0-11f1-a7ff-7b483b916457",
-							"width": 64,
-							"height": 64,
-							"defUid": 102,
-							"px": [968,856],
-							"fieldInstances": [],
-							"__worldX": 968,
 							"__worldY": -1304
 						}
 					]
@@ -7194,35 +7162,15 @@
 							"height": 88,
 							"defUid": 103,
 							"px": [900,940],
-							"fieldInstances": [{ "__identifier": "ConnectedWalls", "__type": "Array<EntityRef>", "__value": [
-								{
-									"entityIid": "f71937a0-21a0-11f1-bde9-43af0893553b",
-									"layerIid": "1ae35cf1-fa90-11f0-95ec-9303f00b1e75",
-									"levelIid": "1ae35cf0-fa90-11f0-95ec-85cc4233bd3c",
-									"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787"
-								},
-								{
-									"entityIid": "14fb4720-21a0-11f1-a7ff-074eee6f693d",
-									"layerIid": "1ae35cf1-fa90-11f0-95ec-9303f00b1e75",
-									"levelIid": "1ae35cf0-fa90-11f0-95ec-85cc4233bd3c",
-									"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787"
-								},
-								{
-									"entityIid": "17952be0-21a0-11f1-a7ff-7b483b916457",
-									"layerIid": "1ae35cf1-fa90-11f0-95ec-9303f00b1e75",
-									"levelIid": "1ae35cf0-fa90-11f0-95ec-85cc4233bd3c",
-									"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787"
-								}
-							], "__tile": null, "defUid": 104, "realEditorValues": [ {
+							"fieldInstances": [{ "__identifier": "ConnectedWalls", "__type": "Array<EntityRef>", "__value": [{
+								"entityIid": "f71937a0-21a0-11f1-bde9-43af0893553b",
+								"layerIid": "1ae35cf1-fa90-11f0-95ec-9303f00b1e75",
+								"levelIid": "1ae35cf0-fa90-11f0-95ec-85cc4233bd3c",
+								"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787"
+							}], "__tile": null, "defUid": 104, "realEditorValues": [{
 								"id": "V_String",
 								"params": ["f71937a0-21a0-11f1-bde9-43af0893553b"]
-							}, {
-								"id": "V_String",
-								"params": ["14fb4720-21a0-11f1-a7ff-074eee6f693d"]
-							}, {
-								"id": "V_String",
-								"params": ["17952be0-21a0-11f1-a7ff-7b483b916457"]
-							} ] }],
+							}] }],
 							"__worldX": 900,
 							"__worldY": -1220
 						}
@@ -14759,7 +14707,7 @@
 						},
 						{
 							"__identifier": "Wall",
-							"__grid": [88,60],
+							"__grid": [88,59],
 							"__pivot": [0.5,0.5],
 							"__tags": ["Internal_Wall"],
 							"__tile": null,
@@ -14768,10 +14716,10 @@
 							"width": 768,
 							"height": 192,
 							"defUid": 61,
-							"px": [1416,968],
+							"px": [1416,952],
 							"fieldInstances": [],
 							"__worldX": 9096,
-							"__worldY": 2048
+							"__worldY": 2032
 						},
 						{
 							"__identifier": "Wall",
@@ -14919,7 +14867,7 @@
 						},
 						{
 							"__identifier": "PressurePlateWall",
-							"__grid": [87,15],
+							"__grid": [87,13],
 							"__pivot": [0.5,0.5],
 							"__tags": ["Internal_Wall"],
 							"__tile": { "tilesetUid": 113, "x": 48, "y": 64, "w": 400, "h": 416 },
@@ -14928,14 +14876,14 @@
 							"width": 144,
 							"height": 176,
 							"defUid": 102,
-							"px": [1400,248],
+							"px": [1400,216],
 							"fieldInstances": [],
 							"__worldX": 9080,
-							"__worldY": 1328
+							"__worldY": 1296
 						},
 						{
 							"__identifier": "PressurePlateWall",
-							"__grid": [87,23],
+							"__grid": [87,21],
 							"__pivot": [0.5,0.5],
 							"__tags": ["Internal_Wall"],
 							"__tile": { "tilesetUid": 113, "x": 48, "y": 64, "w": 400, "h": 416 },
@@ -14944,14 +14892,14 @@
 							"width": 144,
 							"height": 192,
 							"defUid": 102,
-							"px": [1400,376],
+							"px": [1400,344],
 							"fieldInstances": [],
 							"__worldX": 9080,
-							"__worldY": 1456
+							"__worldY": 1424
 						},
 						{
 							"__identifier": "PressurePlateWall",
-							"__grid": [87,32],
+							"__grid": [87,29],
 							"__pivot": [0.5,0.5],
 							"__tags": ["Internal_Wall"],
 							"__tile": { "tilesetUid": 113, "x": 48, "y": 64, "w": 400, "h": 416 },
@@ -14960,14 +14908,14 @@
 							"width": 144,
 							"height": 224,
 							"defUid": 102,
-							"px": [1400,520],
+							"px": [1400,472],
 							"fieldInstances": [],
 							"__worldX": 9080,
-							"__worldY": 1600
+							"__worldY": 1552
 						},
 						{
 							"__identifier": "PressurePlateWall",
-							"__grid": [87,41],
+							"__grid": [87,37],
 							"__pivot": [0.5,0.5],
 							"__tags": ["Internal_Wall"],
 							"__tile": { "tilesetUid": 113, "x": 48, "y": 64, "w": 400, "h": 416 },
@@ -14976,14 +14924,14 @@
 							"width": 144,
 							"height": 192,
 							"defUid": 102,
-							"px": [1400,664],
+							"px": [1400,600],
 							"fieldInstances": [],
 							"__worldX": 9080,
-							"__worldY": 1744
+							"__worldY": 1680
 						},
 						{
 							"__identifier": "PressurePlateWall",
-							"__grid": [87,49],
+							"__grid": [87,45],
 							"__pivot": [0.5,0.5],
 							"__tags": ["Internal_Wall"],
 							"__tile": { "tilesetUid": 113, "x": 48, "y": 64, "w": 400, "h": 416 },
@@ -14992,10 +14940,10 @@
 							"width": 144,
 							"height": 144,
 							"defUid": 102,
-							"px": [1400,792],
+							"px": [1400,728],
 							"fieldInstances": [],
 							"__worldX": 9080,
-							"__worldY": 1872
+							"__worldY": 1808
 						},
 						{
 							"__identifier": "PressurePlateWall",
@@ -15044,6 +14992,22 @@
 							"fieldInstances": [],
 							"__worldX": 8360,
 							"__worldY": 1312
+						},
+						{
+							"__identifier": "PressurePlateWall",
+							"__grid": [87,51],
+							"__pivot": [0.5,0.5],
+							"__tags": ["Internal_Wall"],
+							"__tile": { "tilesetUid": 113, "x": 48, "y": 64, "w": 400, "h": 416 },
+							"__smartColor": "#80ADD6",
+							"iid": "5ba8ed20-21a0-11f1-ac01-fdb085c160f0",
+							"width": 144,
+							"height": 144,
+							"defUid": 102,
+							"px": [1400,824],
+							"fieldInstances": [],
+							"__worldX": 9080,
+							"__worldY": 1904
 						}
 					]
 				},
@@ -15357,6 +15321,12 @@
 									"layerIid": "8cc5c581-21a0-11f1-8ff7-9f0d2b520150",
 									"levelIid": "8cc5c580-21a0-11f1-8ff7-79858a2ab6bd",
 									"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787"
+								},
+								{
+									"entityIid": "5ba8ed20-21a0-11f1-ac01-fdb085c160f0",
+									"layerIid": "8cc5c581-21a0-11f1-8ff7-9f0d2b520150",
+									"levelIid": "8cc5c580-21a0-11f1-8ff7-79858a2ab6bd",
+									"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787"
 								}
 							], "__tile": null, "defUid": 104, "realEditorValues": [
 								{
@@ -15378,6 +15348,10 @@
 								{
 									"id": "V_String",
 									"params": ["88954530-21a0-11f1-a7ff-2b84b9793502"]
+								},
+								{
+									"id": "V_String",
+									"params": ["5ba8ed20-21a0-11f1-ac01-fdb085c160f0"]
 								}
 							] }],
 							"__worldX": 8364,
@@ -19983,19 +19957,19 @@
 						},
 						{
 							"__identifier": "PressurePlateWall",
-							"__grid": [30,59],
+							"__grid": [30,61],
 							"__pivot": [0.5,0.5],
 							"__tags": ["Internal_Wall"],
 							"__tile": { "tilesetUid": 113, "x": 48, "y": 64, "w": 400, "h": 416 },
 							"__smartColor": "#80ADD6",
 							"iid": "4b04d040-21a0-11f1-a7ff-393e0a6d827e",
-							"width": 144,
-							"height": 144,
+							"width": 128,
+							"height": 128,
 							"defUid": 102,
-							"px": [488,952],
+							"px": [488,984],
 							"fieldInstances": [],
 							"__worldX": 8168,
-							"__worldY": 952
+							"__worldY": 984
 						},
 						{
 							"__identifier": "PressurePlateWall",
