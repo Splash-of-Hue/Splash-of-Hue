@@ -37638,6 +37638,22 @@
 							"fieldInstances": [{ "__identifier": "ColorState", "__type": "LocalEnum.ColorState", "__value": "Neutral", "__tile": null, "defUid": 117, "realEditorValues": [] }],
 							"__worldX": 1328,
 							"__worldY": -440
+						},
+						{
+							"__identifier": "MossIndicator",
+							"__grid": [84,46],
+							"__pivot": [0,0],
+							"__tags": ["Moss"],
+							"__tile": { "tilesetUid": 116, "x": 0, "y": 0, "w": 48, "h": 48 },
+							"__smartColor": "#3A4466",
+							"iid": "ae512270-21a0-11f1-ac01-9d403f4eed0f",
+							"width": 50,
+							"height": 50,
+							"defUid": 114,
+							"px": [1344,736],
+							"fieldInstances": [{ "__identifier": "ColorState", "__type": "LocalEnum.ColorState", "__value": "Neutral", "__tile": null, "defUid": 117, "realEditorValues": [] }],
+							"__worldX": 1344,
+							"__worldY": -344
 						}
 					]
 				},
@@ -37809,6 +37825,12 @@
 									"layerIid": "d27adc83-21a0-11f1-8551-29bc650db8e0",
 									"levelIid": "d27adc80-21a0-11f1-8551-8dd995c34d93",
 									"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787"
+								},
+								{
+									"entityIid": "ae512270-21a0-11f1-ac01-9d403f4eed0f",
+									"layerIid": "d27adc83-21a0-11f1-8551-29bc650db8e0",
+									"levelIid": "d27adc80-21a0-11f1-8551-8dd995c34d93",
+									"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787"
 								}
 							], "__tile": null, "defUid": 47, "realEditorValues": [
 								{
@@ -37866,6 +37888,10 @@
 								{
 									"id": "V_String",
 									"params": ["7ff77140-21a0-11f1-ac01-1f3add4c630d"]
+								},
+								{
+									"id": "V_String",
+									"params": ["ae512270-21a0-11f1-ac01-9d403f4eed0f"]
 								}
 							] }],
 							"__worldX": 1340,
@@ -37989,7 +38015,7 @@
 						},
 						{
 							"__identifier": "Control_PNG_entity",
-							"__grid": [150,44],
+							"__grid": [137,49],
 							"__pivot": [0.5,0.5],
 							"__tags": ["Floor_Interactable"],
 							"__tile": null,
@@ -37998,13 +38024,13 @@
 							"width": 400,
 							"height": 280,
 							"defUid": 63,
-							"px": [1204,356],
+							"px": [1100,396],
 							"fieldInstances": [{ "__identifier": "ControlPictureType", "__type": "LocalEnum.ControlPictureType", "__value": "ARROW_NO_RED", "__tile": null, "defUid": 65, "realEditorValues": [{
 								"id": "V_String",
 								"params": ["ARROW_NO_RED"]
 							}] }],
-							"__worldX": 1204,
-							"__worldY": -724
+							"__worldX": 1100,
+							"__worldY": -684
 						}
 					]
 				},
