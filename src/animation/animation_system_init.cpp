@@ -521,6 +521,15 @@ generate_animation(
 			{ TEXTURE_ASSET_ID::PRESSURE_PLATE, RenderSourceRect{ vec2(0.0f, 0.0f), vec2(0.5f, 1.0f) }}
 		}
 	);
+
+	// PRESSURE PLATE WALL
+	generate_animation(
+		ANIMATABLE_TYPE::PRESSURE_PLATE_WALL,
+		ANIMATION_TRIGGER::IDLE,
+		{
+			{ TEXTURE_ASSET_ID::PRESSURE_PLATE_WALL, RenderSourceRect{ vec2(0.0f, 0.0f), vec2(1.0f, 1.0f) }}
+		}
+	);
 }
 
 

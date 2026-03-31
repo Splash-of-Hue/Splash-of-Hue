@@ -11,7 +11,7 @@
 	"iid": "53e64810-d380-11f0-a1bc-4d26a5cd15e3",
 	"jsonVersion": "1.5.3",
 	"appBuildId": 473703,
-	"nextUid": 113,
+	"nextUid": 114,
 	"identifierStyle": "Capitalize",
 	"toc": [{
 		"identifier": "Teleporter",
@@ -2347,25 +2347,25 @@
 			"exportToToc": false,
 			"allowOutOfBounds": false,
 			"doc": null,
-			"width": 50,
-			"height": 50,
+			"width": 100,
+			"height": 100,
 			"resizableX": true,
 			"resizableY": true,
 			"minWidth": 16,
 			"maxWidth": null,
 			"minHeight": 16,
 			"maxHeight": null,
-			"keepAspectRatio": false,
+			"keepAspectRatio": true,
 			"tileOpacity": 1,
-			"fillOpacity": 1,
-			"lineOpacity": 1,
+			"fillOpacity": 0.08,
+			"lineOpacity": 0,
 			"hollow": false,
 			"color": "#80ADD6",
-			"renderMode": "Rectangle",
+			"renderMode": "Tile",
 			"showName": true,
-			"tilesetId": null,
+			"tilesetId": 113,
 			"tileRenderMode": "FitInside",
-			"tileRect": null,
+			"tileRect": { "tilesetUid": 113, "x": 48, "y": 64, "w": 400, "h": 416 },
 			"uiTileRect": null,
 			"nineSliceBorders": [],
 			"maxCount": 0,
@@ -2704,6 +2704,28 @@
 			"customData": [],
 			"savedSelections": [],
 			"cachedPixelData": { "opaqueTiles": "0", "averageColors": "9fff" }
+		},
+		{
+			"__cWid": 32,
+			"__cHei": 32,
+			"identifier": "Pressure_Plate_Wall",
+			"uid": 113,
+			"relPath": "../textures/Pressure_Plate_Wall.png",
+			"embedAtlas": null,
+			"pxWid": 500,
+			"pxHei": 500,
+			"tileGridSize": 16,
+			"spacing": 0,
+			"padding": 0,
+			"tags": [],
+			"tagsSourceEnumUid": null,
+			"enumTags": [],
+			"customData": [],
+			"savedSelections": [],
+			"cachedPixelData": {
+				"opaqueTiles": "0000000000000000000000000000000100000000000000000000000000000001000000000000000000000000000000010000000000000000000000000000000100000000000000000000001111100001000011111000000000000011111000010000111110000000000000111110000100001111100001111000001111100001000011111000011110000011111000010000111110000111100000111110000100001111100011111000001111100001000011111000111110000011111000010000111110001111100000111100000100001111100011111000001111000001000011111000111110000011110000010000111110001111000000111100000100001111100011110000001111000001000011111001111100000011110000010000111110011111000000111100000100001111100111111000001111000001000001111001111110000011110000010000011110011111100000111100000100001111100111111000001111000001000011111001111110000011110000010000111110011111100001111100000100001111100111111001111111000001000011111001111110011111110000010000111110011111100111111100000100001111111111111111111111100001000011111111111111111111110000010000000000000000000000000000000111111111111111111111111111111111",
+				"averageColors": "00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000047460000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001000511273348444c646653500000000000000000000000000000000000000001000511120001000000000000000000000000000000000000000000000000000c334f556f556f556f546f545522200000000000000000000000000001000b555e556f556f445f545d33400000000000000000000000000000000000000000000f556f667f667f667f667f878743400000000000000000000000027467524f757f667f667f667f667d55600000000000000000000000000000000000000000000f556f657f667f667f667f66783340000000000000000000000004746d736f757f667f667f667f667b5450000000032229445b545d556d5459212000000001736f656f747f667f667f667f667e55610000000000000000000000017369635f657f757f667f667f6679445000000008445f667f667f667f667e555000000002746f746f746f667f667f767f867f55610000000000000000000000000005111f667f667f667f667f667a44400000000c545f667f667f667f667b545000000001746e746f757f667f667f767f767d55600000000000000000000000000006333f667f667f667f667f667f55610007434f778f667f667f667f667c545374600000000b545f667f667f667f667f757b44500000000000000000000000000007333f767f767f667f667f667f6671000c555f878f778f667f667f667f646874600000000a545f667f667f667f757f757733400000000000000000000000000006323f767f767f667f667f999f6670000d556f667f667f667f667f667d736374600000000b545f667f667f667f667f667511100000000000000000000000000006323f667f667f667f667f667e5560000e556f667f667f667f667f667a545000000000000b545f667f667f667f667f667400000000000000000000000000000006333f667f667f667f667f667e5560000f556f667f667f667f667f6679445000000000000c555f667f667f667f667f657300000000000000000000000000000006333f667f667f667f667f667f6563000f556f767f767f667f667f6677334000000001000f556f667f667f667f667f656200000000000000000000000000000006323f667f667f667f667f747f5563000f656f867f767f667f667f5562000000000000000c545f778faaaf667f667f556100000000000000000000000000000006323f667f667f667f757f747f5564000f667f767f667f667f667d5560000000000000000c545f667f667f667f667f656100000000000000000000000000000006223f667f667f667f757f746e5565223f667f667f667f667f767e5560000000000000000c555f667f667f667f667f556100000000000000000000000000000005222f767f667f667f667f667d5566333f667f667f667f667f888f8896333000000000000b545f667f767f667f667f656300000000000000000000000000000004555f778f667f667f667f667d5567434f667f667f667f667f667f6678444000000000000b545f767f976f667f667f878300000000000000000000000000000003000f667f667f667f667f667d5567334f667f667f667f667f667f667a545000000000000a545f667f767f667f667f656200000000000000000000000000000003000f667f667f667f667f867d5567334f667f667f667f667f667f757c635000000000000b545f667f667f667f667e556000000000000000000000000000000005222f667f667f667f867f976d5567434f667f667f667f667f667f667d556000000000000d556f667f667f667f667c545000000000000000000000000000000008444f667f667f667f667f767c5568444f667f667f667f667f667f667e556000010007223f667f667f667f667f667d55600000000000000000000000000000000a445f778f667f667f667f667c5559445f667f667f667f667f667f667e5563112e556f667f667f667f667f667f667f556000000000000000000000000000000009444f878faabf667f667f66784449445f667f667f667f667f667faabe5567434f667f667f667f667f667f667f667f556200000000000000000000000000000008444f667f667f667f667f66784348445f667f667f667f667f767f778d556a555f667f667f667f667f667f767f99af889300000000000000000000000000000008444f667f667f667f667f667c545b445f667f667f667f667f667f667e656e656f667f667f667f667f667f667f667f667622200000000000000000000000000008444f667f667f667f667f667f667f667f667f667f767f667f667f667f667f667f667f667f667f667f667f667f667f667a44500000000000000000000000000008444f667f667f667f667f667f667f667f767f867f767f767f667f667f667f667f667f667f667f667f667f667f667f65753330000000000000000000000000000221274448444a445a545b545b545b545b545a545a445a4459445944584458444733473348334844473346323521230010000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"
+			}
 		}
 	], "enums": [
 		{ "identifier": "MapTileType", "uid": 14, "values": [{ "id": "Wall", "tileRect": null, "color": 12470831 }], "iconTilesetUid": null, "externalRelPath": null, "externalFileChecksum": null, "tags": ["Tilemaps"] },
@@ -3625,7 +3647,7 @@
 					"layerDefUid": 36,
 					"pxOffsetX": 0,
 					"pxOffsetY": 0,
-					"visible": false,
+					"visible": true,
 					"optionalRules": [],
 					"intGridCsv": [],
 					"autoLayerTiles": [],
@@ -6775,19 +6797,51 @@
 						},
 						{
 							"__identifier": "PressurePlateWall",
-							"__grid": [56,54],
+							"__grid": [52,53],
 							"__pivot": [0.5,0.5],
 							"__tags": ["Internal_Wall"],
-							"__tile": null,
+							"__tile": { "tilesetUid": 113, "x": 48, "y": 64, "w": 400, "h": 416 },
 							"__smartColor": "#80ADD6",
 							"iid": "f71937a0-21a0-11f1-bde9-43af0893553b",
-							"width": 128,
-							"height": 32,
+							"width": 64,
+							"height": 64,
 							"defUid": 102,
-							"px": [904,872],
+							"px": [840,856],
+							"fieldInstances": [],
+							"__worldX": 840,
+							"__worldY": -1304
+						},
+						{
+							"__identifier": "PressurePlateWall",
+							"__grid": [56,53],
+							"__pivot": [0.5,0.5],
+							"__tags": ["Internal_Wall"],
+							"__tile": { "tilesetUid": 113, "x": 48, "y": 64, "w": 400, "h": 416 },
+							"__smartColor": "#80ADD6",
+							"iid": "14fb4720-21a0-11f1-a7ff-074eee6f693d",
+							"width": 64,
+							"height": 64,
+							"defUid": 102,
+							"px": [904,856],
 							"fieldInstances": [],
 							"__worldX": 904,
-							"__worldY": -1288
+							"__worldY": -1304
+						},
+						{
+							"__identifier": "PressurePlateWall",
+							"__grid": [60,53],
+							"__pivot": [0.5,0.5],
+							"__tags": ["Internal_Wall"],
+							"__tile": { "tilesetUid": 113, "x": 48, "y": 64, "w": 400, "h": 416 },
+							"__smartColor": "#80ADD6",
+							"iid": "17952be0-21a0-11f1-a7ff-7b483b916457",
+							"width": 64,
+							"height": 64,
+							"defUid": 102,
+							"px": [968,856],
+							"fieldInstances": [],
+							"__worldX": 968,
+							"__worldY": -1304
 						}
 					]
 				},
@@ -7042,15 +7096,35 @@
 							"height": 88,
 							"defUid": 103,
 							"px": [900,940],
-							"fieldInstances": [{ "__identifier": "ConnectedWalls", "__type": "Array<EntityRef>", "__value": [{
-								"entityIid": "f71937a0-21a0-11f1-bde9-43af0893553b",
-								"layerIid": "1ae35cf1-fa90-11f0-95ec-9303f00b1e75",
-								"levelIid": "1ae35cf0-fa90-11f0-95ec-85cc4233bd3c",
-								"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787"
-							}], "__tile": null, "defUid": 104, "realEditorValues": [{
+							"fieldInstances": [{ "__identifier": "ConnectedWalls", "__type": "Array<EntityRef>", "__value": [
+								{
+									"entityIid": "f71937a0-21a0-11f1-bde9-43af0893553b",
+									"layerIid": "1ae35cf1-fa90-11f0-95ec-9303f00b1e75",
+									"levelIid": "1ae35cf0-fa90-11f0-95ec-85cc4233bd3c",
+									"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787"
+								},
+								{
+									"entityIid": "14fb4720-21a0-11f1-a7ff-074eee6f693d",
+									"layerIid": "1ae35cf1-fa90-11f0-95ec-9303f00b1e75",
+									"levelIid": "1ae35cf0-fa90-11f0-95ec-85cc4233bd3c",
+									"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787"
+								},
+								{
+									"entityIid": "17952be0-21a0-11f1-a7ff-7b483b916457",
+									"layerIid": "1ae35cf1-fa90-11f0-95ec-9303f00b1e75",
+									"levelIid": "1ae35cf0-fa90-11f0-95ec-85cc4233bd3c",
+									"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787"
+								}
+							], "__tile": null, "defUid": 104, "realEditorValues": [ {
 								"id": "V_String",
 								"params": ["f71937a0-21a0-11f1-bde9-43af0893553b"]
-							}] }],
+							}, {
+								"id": "V_String",
+								"params": ["14fb4720-21a0-11f1-a7ff-074eee6f693d"]
+							}, {
+								"id": "V_String",
+								"params": ["17952be0-21a0-11f1-a7ff-7b483b916457"]
+							} ] }],
 							"__worldX": 900,
 							"__worldY": -1220
 						}
@@ -12006,11 +12080,11 @@
 							"__grid": [76,19],
 							"__pivot": [0.5,0.5],
 							"__tags": ["Internal_Wall"],
-							"__tile": null,
+							"__tile": { "tilesetUid": 113, "x": 48, "y": 64, "w": 400, "h": 416 },
 							"__smartColor": "#80ADD6",
 							"iid": "df622960-21a0-11f1-bde9-1f7cab1184bb",
 							"width": 160,
-							"height": 50,
+							"height": 100,
 							"defUid": 102,
 							"px": [1224,312],
 							"fieldInstances": [],
@@ -14698,38 +14772,6 @@
 							"__worldY": 1648
 						},
 						{
-							"__identifier": "PressurePlateWall",
-							"__grid": [29,16],
-							"__pivot": [0.5,0.5],
-							"__tags": ["Internal_Wall"],
-							"__tile": null,
-							"__smartColor": "#80ADD6",
-							"iid": "81f5eb60-21a0-11f1-bde9-d98d9970c477",
-							"width": 320,
-							"height": 50,
-							"defUid": 102,
-							"px": [472,264],
-							"fieldInstances": [],
-							"__worldX": 8152,
-							"__worldY": 1344
-						},
-						{
-							"__identifier": "PressurePlateWall",
-							"__grid": [87,34],
-							"__pivot": [0.5,0.5],
-							"__tags": ["Internal_Wall"],
-							"__tile": null,
-							"__smartColor": "#80ADD6",
-							"iid": "85ca4bf0-21a0-11f1-bde9-6170f9ff6731",
-							"width": 64,
-							"height": 672,
-							"defUid": 102,
-							"px": [1400,552],
-							"fieldInstances": [],
-							"__worldX": 9080,
-							"__worldY": 1632
-						},
-						{
 							"__identifier": "Wall",
 							"__grid": [27,35],
 							"__pivot": [0.5,0.5],
@@ -14776,6 +14818,134 @@
 							"fieldInstances": [],
 							"__worldX": 8168,
 							"__worldY": 2064
+						},
+						{
+							"__identifier": "PressurePlateWall",
+							"__grid": [87,15],
+							"__pivot": [0.5,0.5],
+							"__tags": ["Internal_Wall"],
+							"__tile": { "tilesetUid": 113, "x": 48, "y": 64, "w": 400, "h": 416 },
+							"__smartColor": "#80ADD6",
+							"iid": "85e05e60-21a0-11f1-a7ff-a13c14f1b2f3",
+							"width": 144,
+							"height": 176,
+							"defUid": 102,
+							"px": [1400,248],
+							"fieldInstances": [],
+							"__worldX": 9080,
+							"__worldY": 1328
+						},
+						{
+							"__identifier": "PressurePlateWall",
+							"__grid": [87,23],
+							"__pivot": [0.5,0.5],
+							"__tags": ["Internal_Wall"],
+							"__tile": { "tilesetUid": 113, "x": 48, "y": 64, "w": 400, "h": 416 },
+							"__smartColor": "#80ADD6",
+							"iid": "86765cd0-21a0-11f1-a7ff-f313ba703566",
+							"width": 144,
+							"height": 192,
+							"defUid": 102,
+							"px": [1400,376],
+							"fieldInstances": [],
+							"__worldX": 9080,
+							"__worldY": 1456
+						},
+						{
+							"__identifier": "PressurePlateWall",
+							"__grid": [87,32],
+							"__pivot": [0.5,0.5],
+							"__tags": ["Internal_Wall"],
+							"__tile": { "tilesetUid": 113, "x": 48, "y": 64, "w": 400, "h": 416 },
+							"__smartColor": "#80ADD6",
+							"iid": "86f43f60-21a0-11f1-a7ff-1598b0db9428",
+							"width": 144,
+							"height": 224,
+							"defUid": 102,
+							"px": [1400,520],
+							"fieldInstances": [],
+							"__worldX": 9080,
+							"__worldY": 1600
+						},
+						{
+							"__identifier": "PressurePlateWall",
+							"__grid": [87,41],
+							"__pivot": [0.5,0.5],
+							"__tags": ["Internal_Wall"],
+							"__tile": { "tilesetUid": 113, "x": 48, "y": 64, "w": 400, "h": 416 },
+							"__smartColor": "#80ADD6",
+							"iid": "87775210-21a0-11f1-a7ff-ed3237b6048f",
+							"width": 144,
+							"height": 192,
+							"defUid": 102,
+							"px": [1400,664],
+							"fieldInstances": [],
+							"__worldX": 9080,
+							"__worldY": 1744
+						},
+						{
+							"__identifier": "PressurePlateWall",
+							"__grid": [87,49],
+							"__pivot": [0.5,0.5],
+							"__tags": ["Internal_Wall"],
+							"__tile": { "tilesetUid": 113, "x": 48, "y": 64, "w": 400, "h": 416 },
+							"__smartColor": "#80ADD6",
+							"iid": "88954530-21a0-11f1-a7ff-2b84b9793502",
+							"width": 144,
+							"height": 144,
+							"defUid": 102,
+							"px": [1400,792],
+							"fieldInstances": [],
+							"__worldX": 9080,
+							"__worldY": 1872
+						},
+						{
+							"__identifier": "PressurePlateWall",
+							"__grid": [19,14],
+							"__pivot": [0.5,0.5],
+							"__tags": ["Internal_Wall"],
+							"__tile": { "tilesetUid": 113, "x": 48, "y": 64, "w": 400, "h": 416 },
+							"__smartColor": "#80ADD6",
+							"iid": "a28214a0-21a0-11f1-a7ff-b3265d973699",
+							"width": 176,
+							"height": 176,
+							"defUid": 102,
+							"px": [312,232],
+							"fieldInstances": [],
+							"__worldX": 7992,
+							"__worldY": 1312
+						},
+						{
+							"__identifier": "PressurePlateWall",
+							"__grid": [30,14],
+							"__pivot": [0.5,0.5],
+							"__tags": ["Internal_Wall"],
+							"__tile": { "tilesetUid": 113, "x": 48, "y": 64, "w": 400, "h": 416 },
+							"__smartColor": "#80ADD6",
+							"iid": "a32f1d80-21a0-11f1-a7ff-016c7b546357",
+							"width": 192,
+							"height": 176,
+							"defUid": 102,
+							"px": [488,232],
+							"fieldInstances": [],
+							"__worldX": 8168,
+							"__worldY": 1312
+						},
+						{
+							"__identifier": "PressurePlateWall",
+							"__grid": [42,14],
+							"__pivot": [0.5,0.5],
+							"__tags": ["Internal_Wall"],
+							"__tile": { "tilesetUid": 113, "x": 48, "y": 64, "w": 400, "h": 416 },
+							"__smartColor": "#80ADD6",
+							"iid": "a3e8d090-21a0-11f1-a7ff-11d71e30730d",
+							"width": 208,
+							"height": 176,
+							"defUid": 102,
+							"px": [680,232],
+							"fieldInstances": [],
+							"__worldX": 8360,
+							"__worldY": 1312
 						}
 					]
 				},
@@ -15059,15 +15229,59 @@
 							"height": 176,
 							"defUid": 103,
 							"px": [684,796],
-							"fieldInstances": [{ "__identifier": "ConnectedWalls", "__type": "Array<EntityRef>", "__value": [{
-								"entityIid": "85ca4bf0-21a0-11f1-bde9-6170f9ff6731",
-								"layerIid": "8cc5c581-21a0-11f1-8ff7-9f0d2b520150",
-								"levelIid": "8cc5c580-21a0-11f1-8ff7-79858a2ab6bd",
-								"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787"
-							}], "__tile": null, "defUid": 104, "realEditorValues": [{
-								"id": "V_String",
-								"params": ["85ca4bf0-21a0-11f1-bde9-6170f9ff6731"]
-							}] }],
+							"fieldInstances": [{ "__identifier": "ConnectedWalls", "__type": "Array<EntityRef>", "__value": [
+								{
+									"entityIid": "85e05e60-21a0-11f1-a7ff-a13c14f1b2f3",
+									"layerIid": "8cc5c581-21a0-11f1-8ff7-9f0d2b520150",
+									"levelIid": "8cc5c580-21a0-11f1-8ff7-79858a2ab6bd",
+									"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787"
+								},
+								{
+									"entityIid": "86765cd0-21a0-11f1-a7ff-f313ba703566",
+									"layerIid": "8cc5c581-21a0-11f1-8ff7-9f0d2b520150",
+									"levelIid": "8cc5c580-21a0-11f1-8ff7-79858a2ab6bd",
+									"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787"
+								},
+								{
+									"entityIid": "86f43f60-21a0-11f1-a7ff-1598b0db9428",
+									"layerIid": "8cc5c581-21a0-11f1-8ff7-9f0d2b520150",
+									"levelIid": "8cc5c580-21a0-11f1-8ff7-79858a2ab6bd",
+									"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787"
+								},
+								{
+									"entityIid": "87775210-21a0-11f1-a7ff-ed3237b6048f",
+									"layerIid": "8cc5c581-21a0-11f1-8ff7-9f0d2b520150",
+									"levelIid": "8cc5c580-21a0-11f1-8ff7-79858a2ab6bd",
+									"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787"
+								},
+								{
+									"entityIid": "88954530-21a0-11f1-a7ff-2b84b9793502",
+									"layerIid": "8cc5c581-21a0-11f1-8ff7-9f0d2b520150",
+									"levelIid": "8cc5c580-21a0-11f1-8ff7-79858a2ab6bd",
+									"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787"
+								}
+							], "__tile": null, "defUid": 104, "realEditorValues": [
+								{
+									"id": "V_String",
+									"params": ["85e05e60-21a0-11f1-a7ff-a13c14f1b2f3"]
+								},
+								{
+									"id": "V_String",
+									"params": ["86765cd0-21a0-11f1-a7ff-f313ba703566"]
+								},
+								{
+									"id": "V_String",
+									"params": ["86f43f60-21a0-11f1-a7ff-1598b0db9428"]
+								},
+								{
+									"id": "V_String",
+									"params": ["87775210-21a0-11f1-a7ff-ed3237b6048f"]
+								},
+								{
+									"id": "V_String",
+									"params": ["88954530-21a0-11f1-a7ff-2b84b9793502"]
+								}
+							] }],
 							"__worldX": 8364,
 							"__worldY": 1876
 						},
@@ -15083,15 +15297,35 @@
 							"height": 176,
 							"defUid": 103,
 							"px": [308,796],
-							"fieldInstances": [{ "__identifier": "ConnectedWalls", "__type": "Array<EntityRef>", "__value": [{
-								"entityIid": "81f5eb60-21a0-11f1-bde9-d98d9970c477",
-								"layerIid": "8cc5c581-21a0-11f1-8ff7-9f0d2b520150",
-								"levelIid": "8cc5c580-21a0-11f1-8ff7-79858a2ab6bd",
-								"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787"
-							}], "__tile": null, "defUid": 104, "realEditorValues": [{
+							"fieldInstances": [{ "__identifier": "ConnectedWalls", "__type": "Array<EntityRef>", "__value": [
+								{
+									"entityIid": "a28214a0-21a0-11f1-a7ff-b3265d973699",
+									"layerIid": "8cc5c581-21a0-11f1-8ff7-9f0d2b520150",
+									"levelIid": "8cc5c580-21a0-11f1-8ff7-79858a2ab6bd",
+									"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787"
+								},
+								{
+									"entityIid": "a32f1d80-21a0-11f1-a7ff-016c7b546357",
+									"layerIid": "8cc5c581-21a0-11f1-8ff7-9f0d2b520150",
+									"levelIid": "8cc5c580-21a0-11f1-8ff7-79858a2ab6bd",
+									"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787"
+								},
+								{
+									"entityIid": "a3e8d090-21a0-11f1-a7ff-11d71e30730d",
+									"layerIid": "8cc5c581-21a0-11f1-8ff7-9f0d2b520150",
+									"levelIid": "8cc5c580-21a0-11f1-8ff7-79858a2ab6bd",
+									"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787"
+								}
+							], "__tile": null, "defUid": 104, "realEditorValues": [ {
 								"id": "V_String",
-								"params": ["81f5eb60-21a0-11f1-bde9-d98d9970c477"]
-							}] }],
+								"params": ["a28214a0-21a0-11f1-a7ff-b3265d973699"]
+							}, {
+								"id": "V_String",
+								"params": ["a32f1d80-21a0-11f1-a7ff-016c7b546357"]
+							}, {
+								"id": "V_String",
+								"params": ["a3e8d090-21a0-11f1-a7ff-11d71e30730d"]
+							} ] }],
 							"__worldX": 7988,
 							"__worldY": 1876
 						}
@@ -16052,7 +16286,7 @@
 					"layerDefUid": 36,
 					"pxOffsetX": 0,
 					"pxOffsetY": 0,
-					"visible": true,
+					"visible": false,
 					"optionalRules": [],
 					"intGridCsv": [],
 					"autoLayerTiles": [],
@@ -19346,102 +19580,6 @@
 							"__worldY": 824
 						},
 						{
-							"__identifier": "PressurePlateWall",
-							"__grid": [12,28],
-							"__pivot": [0.5,0.5],
-							"__tags": ["Internal_Wall"],
-							"__tile": null,
-							"__smartColor": "#80ADD6",
-							"iid": "d4a614b0-21a0-11f1-8ea3-791c7f08c930",
-							"width": 32,
-							"height": 272,
-							"defUid": 102,
-							"px": [200,456],
-							"fieldInstances": [],
-							"__worldX": 7880,
-							"__worldY": 456
-						},
-						{
-							"__identifier": "PressurePlateWall",
-							"__grid": [58,14],
-							"__pivot": [0.5,0.5],
-							"__tags": ["Internal_Wall"],
-							"__tile": null,
-							"__smartColor": "#80ADD6",
-							"iid": "22c0e490-21a0-11f1-8ea3-f9871400b62a",
-							"width": 224,
-							"height": 32,
-							"defUid": 102,
-							"px": [936,232],
-							"fieldInstances": [],
-							"__worldX": 8616,
-							"__worldY": 232
-						},
-						{
-							"__identifier": "PressurePlateWall",
-							"__grid": [58,19],
-							"__pivot": [0.5,0.5],
-							"__tags": ["Internal_Wall"],
-							"__tile": null,
-							"__smartColor": "#80ADD6",
-							"iid": "2c99cc20-21a0-11f1-8ea3-85d8b985a063",
-							"width": 224,
-							"height": 32,
-							"defUid": 102,
-							"px": [936,312],
-							"fieldInstances": [],
-							"__worldX": 8616,
-							"__worldY": 312
-						},
-						{
-							"__identifier": "PressurePlateWall",
-							"__grid": [29,60],
-							"__pivot": [0.5,0.5],
-							"__tags": ["Internal_Wall"],
-							"__tile": null,
-							"__smartColor": "#80ADD6",
-							"iid": "75c50770-21a0-11f1-8ea3-3d6cef31396a",
-							"width": 144,
-							"height": 48,
-							"defUid": 102,
-							"px": [472,968],
-							"fieldInstances": [],
-							"__worldX": 8152,
-							"__worldY": 968
-						},
-						{
-							"__identifier": "PressurePlateWall",
-							"__grid": [97,12],
-							"__pivot": [0.5,0.5],
-							"__tags": ["Internal_Wall"],
-							"__tile": null,
-							"__smartColor": "#80ADD6",
-							"iid": "90ac1560-21a0-11f1-8ea3-fb583723747e",
-							"width": 208,
-							"height": 48,
-							"defUid": 102,
-							"px": [1560,200],
-							"fieldInstances": [],
-							"__worldX": 9240,
-							"__worldY": 200
-						},
-						{
-							"__identifier": "PressurePlateWall",
-							"__grid": [106,36],
-							"__pivot": [0.5,0.5],
-							"__tags": ["Internal_Wall"],
-							"__tile": null,
-							"__smartColor": "#80ADD6",
-							"iid": "d58ab2e0-21a0-11f1-8ea3-1d5158da06ee",
-							"width": 48,
-							"height": 272,
-							"defUid": 102,
-							"px": [1704,584],
-							"fieldInstances": [],
-							"__worldX": 9384,
-							"__worldY": 584
-						},
-						{
 							"__identifier": "Wall",
 							"__grid": [57,27],
 							"__pivot": [0.5,0.5],
@@ -19664,6 +19802,182 @@
 							"fieldInstances": [],
 							"__worldX": 8792,
 							"__worldY": 760
+						},
+						{
+							"__identifier": "PressurePlateWall",
+							"__grid": [13,25],
+							"__pivot": [0.5,0.5],
+							"__tags": ["Internal_Wall"],
+							"__tile": { "tilesetUid": 113, "x": 48, "y": 64, "w": 400, "h": 416 },
+							"__smartColor": "#80ADD6",
+							"iid": "0763bbd0-21a0-11f1-a7ff-31a2b3e3bc72",
+							"width": 160,
+							"height": 208,
+							"defUid": 102,
+							"px": [216,408],
+							"fieldInstances": [],
+							"__worldX": 7896,
+							"__worldY": 408
+						},
+						{
+							"__identifier": "PressurePlateWall",
+							"__grid": [54,17],
+							"__pivot": [0.5,0.5],
+							"__tags": ["Internal_Wall"],
+							"__tile": { "tilesetUid": 113, "x": 48, "y": 64, "w": 400, "h": 416 },
+							"__smartColor": "#80ADD6",
+							"iid": "1dc827d0-21a0-11f1-a7ff-85a22ce6aac2",
+							"width": 112,
+							"height": 112,
+							"defUid": 102,
+							"px": [872,280],
+							"fieldInstances": [],
+							"__worldX": 8552,
+							"__worldY": 280
+						},
+						{
+							"__identifier": "PressurePlateWall",
+							"__grid": [61,17],
+							"__pivot": [0.5,0.5],
+							"__tags": ["Internal_Wall"],
+							"__tile": { "tilesetUid": 113, "x": 48, "y": 64, "w": 400, "h": 416 },
+							"__smartColor": "#80ADD6",
+							"iid": "2408f480-21a0-11f1-a7ff-d1643505701c",
+							"width": 112,
+							"height": 112,
+							"defUid": 102,
+							"px": [984,280],
+							"fieldInstances": [],
+							"__worldX": 8664,
+							"__worldY": 280
+						},
+						{
+							"__identifier": "PressurePlateWall",
+							"__grid": [54,8],
+							"__pivot": [0.5,0.5],
+							"__tags": ["Internal_Wall"],
+							"__tile": { "tilesetUid": 113, "x": 48, "y": 64, "w": 400, "h": 416 },
+							"__smartColor": "#80ADD6",
+							"iid": "37554b10-21a0-11f1-a7ff-6f957020e258",
+							"width": 112,
+							"height": 112,
+							"defUid": 102,
+							"px": [872,136],
+							"fieldInstances": [],
+							"__worldX": 8552,
+							"__worldY": 136
+						},
+						{
+							"__identifier": "PressurePlateWall",
+							"__grid": [61,8],
+							"__pivot": [0.5,0.5],
+							"__tags": ["Internal_Wall"],
+							"__tile": { "tilesetUid": 113, "x": 48, "y": 64, "w": 400, "h": 416 },
+							"__smartColor": "#80ADD6",
+							"iid": "3a213c50-21a0-11f1-a7ff-f740321c00b2",
+							"width": 112,
+							"height": 112,
+							"defUid": 102,
+							"px": [984,136],
+							"fieldInstances": [],
+							"__worldX": 8664,
+							"__worldY": 136
+						},
+						{
+							"__identifier": "PressurePlateWall",
+							"__grid": [30,56],
+							"__pivot": [0.5,0.5],
+							"__tags": ["Internal_Wall"],
+							"__tile": { "tilesetUid": 113, "x": 48, "y": 64, "w": 400, "h": 416 },
+							"__smartColor": "#80ADD6",
+							"iid": "4b04d040-21a0-11f1-a7ff-393e0a6d827e",
+							"width": 176,
+							"height": 176,
+							"defUid": 102,
+							"px": [488,904],
+							"fieldInstances": [],
+							"__worldX": 8168,
+							"__worldY": 904
+						},
+						{
+							"__identifier": "PressurePlateWall",
+							"__grid": [98,8],
+							"__pivot": [0.5,0.5],
+							"__tags": ["Internal_Wall"],
+							"__tile": { "tilesetUid": 113, "x": 48, "y": 64, "w": 400, "h": 416 },
+							"__smartColor": "#80ADD6",
+							"iid": "5ca328b0-21a0-11f1-a7ff-e93d6c7dd27d",
+							"width": 128,
+							"height": 144,
+							"defUid": 102,
+							"px": [1576,136],
+							"fieldInstances": [],
+							"__worldX": 9256,
+							"__worldY": 136
+						},
+						{
+							"__identifier": "PressurePlateWall",
+							"__grid": [106,24],
+							"__pivot": [0.5,0.5],
+							"__tags": ["Internal_Wall"],
+							"__tile": { "tilesetUid": 113, "x": 48, "y": 64, "w": 400, "h": 416 },
+							"__smartColor": "#80ADD6",
+							"iid": "669cb7a0-21a0-11f1-a7ff-61ab5892994b",
+							"width": 128,
+							"height": 176,
+							"defUid": 102,
+							"px": [1704,392],
+							"fieldInstances": [],
+							"__worldX": 9384,
+							"__worldY": 392
+						},
+						{
+							"__identifier": "PressurePlateWall",
+							"__grid": [106,31],
+							"__pivot": [0.5,0.5],
+							"__tags": ["Internal_Wall"],
+							"__tile": { "tilesetUid": 113, "x": 48, "y": 64, "w": 400, "h": 416 },
+							"__smartColor": "#80ADD6",
+							"iid": "6740bfd0-21a0-11f1-a7ff-f90dcae6361e",
+							"width": 128,
+							"height": 160,
+							"defUid": 102,
+							"px": [1704,504],
+							"fieldInstances": [],
+							"__worldX": 9384,
+							"__worldY": 504
+						},
+						{
+							"__identifier": "PressurePlateWall",
+							"__grid": [106,39],
+							"__pivot": [0.5,0.5],
+							"__tags": ["Internal_Wall"],
+							"__tile": { "tilesetUid": 113, "x": 48, "y": 64, "w": 400, "h": 416 },
+							"__smartColor": "#80ADD6",
+							"iid": "67d70c60-21a0-11f1-a7ff-4952e937ed69",
+							"width": 128,
+							"height": 160,
+							"defUid": 102,
+							"px": [1704,632],
+							"fieldInstances": [],
+							"__worldX": 9384,
+							"__worldY": 632
+						},
+						{
+							"__identifier": "PressurePlateWall",
+							"__grid": [106,46],
+							"__pivot": [0.5,0.5],
+							"__tags": ["Internal_Wall"],
+							"__tile": { "tilesetUid": 113, "x": 48, "y": 64, "w": 400, "h": 416 },
+							"__smartColor": "#80ADD6",
+							"iid": "68a88d30-21a0-11f1-a7ff-afcde9c1382d",
+							"width": 128,
+							"height": 160,
+							"defUid": 102,
+							"px": [1704,744],
+							"fieldInstances": [],
+							"__worldX": 9384,
+							"__worldY": 744
 						}
 					]
 				},
@@ -20018,15 +20332,23 @@
 							"height": 80,
 							"defUid": 103,
 							"px": [932,564],
-							"fieldInstances": [{ "__identifier": "ConnectedWalls", "__type": "Array<EntityRef>", "__value": [{
-								"entityIid": "2c99cc20-21a0-11f1-8ea3-85d8b985a063",
+							"fieldInstances": [{ "__identifier": "ConnectedWalls", "__type": "Array<EntityRef>", "__value": [ {
+								"entityIid": "1dc827d0-21a0-11f1-a7ff-85a22ce6aac2",
 								"layerIid": "95facbf1-21a0-11f1-8ff7-4bcad0a2e440",
 								"levelIid": "95facbf0-21a0-11f1-8ff7-eb7b3e31f9aa",
 								"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787"
-							}], "__tile": null, "defUid": 104, "realEditorValues": [{
+							}, {
+								"entityIid": "2408f480-21a0-11f1-a7ff-d1643505701c",
+								"layerIid": "95facbf1-21a0-11f1-8ff7-4bcad0a2e440",
+								"levelIid": "95facbf0-21a0-11f1-8ff7-eb7b3e31f9aa",
+								"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787"
+							} ], "__tile": null, "defUid": 104, "realEditorValues": [ {
 								"id": "V_String",
-								"params": ["2c99cc20-21a0-11f1-8ea3-85d8b985a063"]
-							}] }],
+								"params": ["1dc827d0-21a0-11f1-a7ff-85a22ce6aac2"]
+							}, {
+								"id": "V_String",
+								"params": ["2408f480-21a0-11f1-a7ff-d1643505701c"]
+							} ] }],
 							"__worldX": 8612,
 							"__worldY": 564
 						},
@@ -20043,13 +20365,13 @@
 							"defUid": 103,
 							"px": [836,564],
 							"fieldInstances": [{ "__identifier": "ConnectedWalls", "__type": "Array<EntityRef>", "__value": [{
-								"entityIid": "d4a614b0-21a0-11f1-8ea3-791c7f08c930",
+								"entityIid": "0763bbd0-21a0-11f1-a7ff-31a2b3e3bc72",
 								"layerIid": "95facbf1-21a0-11f1-8ff7-4bcad0a2e440",
 								"levelIid": "95facbf0-21a0-11f1-8ff7-eb7b3e31f9aa",
 								"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787"
 							}], "__tile": null, "defUid": 104, "realEditorValues": [{
 								"id": "V_String",
-								"params": ["d4a614b0-21a0-11f1-8ea3-791c7f08c930"]
+								"params": ["0763bbd0-21a0-11f1-a7ff-31a2b3e3bc72"]
 							}] }],
 							"__worldX": 8516,
 							"__worldY": 564
@@ -20067,13 +20389,13 @@
 							"defUid": 103,
 							"px": [1028,564],
 							"fieldInstances": [{ "__identifier": "ConnectedWalls", "__type": "Array<EntityRef>", "__value": [{
-								"entityIid": "90ac1560-21a0-11f1-8ea3-fb583723747e",
+								"entityIid": "5ca328b0-21a0-11f1-a7ff-e93d6c7dd27d",
 								"layerIid": "95facbf1-21a0-11f1-8ff7-4bcad0a2e440",
 								"levelIid": "95facbf0-21a0-11f1-8ff7-eb7b3e31f9aa",
 								"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787"
 							}], "__tile": null, "defUid": 104, "realEditorValues": [{
 								"id": "V_String",
-								"params": ["90ac1560-21a0-11f1-8ea3-fb583723747e"]
+								"params": ["5ca328b0-21a0-11f1-a7ff-e93d6c7dd27d"]
 							}] }],
 							"__worldX": 8708,
 							"__worldY": 564
@@ -20090,15 +20412,23 @@
 							"height": 80,
 							"defUid": 103,
 							"px": [932,700],
-							"fieldInstances": [{ "__identifier": "ConnectedWalls", "__type": "Array<EntityRef>", "__value": [{
-								"entityIid": "22c0e490-21a0-11f1-8ea3-f9871400b62a",
+							"fieldInstances": [{ "__identifier": "ConnectedWalls", "__type": "Array<EntityRef>", "__value": [ {
+								"entityIid": "37554b10-21a0-11f1-a7ff-6f957020e258",
 								"layerIid": "95facbf1-21a0-11f1-8ff7-4bcad0a2e440",
 								"levelIid": "95facbf0-21a0-11f1-8ff7-eb7b3e31f9aa",
 								"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787"
-							}], "__tile": null, "defUid": 104, "realEditorValues": [{
+							}, {
+								"entityIid": "3a213c50-21a0-11f1-a7ff-f740321c00b2",
+								"layerIid": "95facbf1-21a0-11f1-8ff7-4bcad0a2e440",
+								"levelIid": "95facbf0-21a0-11f1-8ff7-eb7b3e31f9aa",
+								"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787"
+							} ], "__tile": null, "defUid": 104, "realEditorValues": [ {
 								"id": "V_String",
-								"params": ["22c0e490-21a0-11f1-8ea3-f9871400b62a"]
-							}] }],
+								"params": ["37554b10-21a0-11f1-a7ff-6f957020e258"]
+							}, {
+								"id": "V_String",
+								"params": ["3a213c50-21a0-11f1-a7ff-f740321c00b2"]
+							} ] }],
 							"__worldX": 8612,
 							"__worldY": 700
 						},
@@ -20114,15 +20444,44 @@
 							"height": 80,
 							"defUid": 103,
 							"px": [1028,700],
-							"fieldInstances": [{ "__identifier": "ConnectedWalls", "__type": "Array<EntityRef>", "__value": [{
-								"entityIid": "d58ab2e0-21a0-11f1-8ea3-1d5158da06ee",
-								"layerIid": "95facbf1-21a0-11f1-8ff7-4bcad0a2e440",
-								"levelIid": "95facbf0-21a0-11f1-8ff7-eb7b3e31f9aa",
-								"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787"
-							}], "__tile": null, "defUid": 104, "realEditorValues": [{
+							"fieldInstances": [{ "__identifier": "ConnectedWalls", "__type": "Array<EntityRef>", "__value": [
+								{
+									"entityIid": "669cb7a0-21a0-11f1-a7ff-61ab5892994b",
+									"layerIid": "95facbf1-21a0-11f1-8ff7-4bcad0a2e440",
+									"levelIid": "95facbf0-21a0-11f1-8ff7-eb7b3e31f9aa",
+									"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787"
+								},
+								{
+									"entityIid": "6740bfd0-21a0-11f1-a7ff-f90dcae6361e",
+									"layerIid": "95facbf1-21a0-11f1-8ff7-4bcad0a2e440",
+									"levelIid": "95facbf0-21a0-11f1-8ff7-eb7b3e31f9aa",
+									"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787"
+								},
+								{
+									"entityIid": "67d70c60-21a0-11f1-a7ff-4952e937ed69",
+									"layerIid": "95facbf1-21a0-11f1-8ff7-4bcad0a2e440",
+									"levelIid": "95facbf0-21a0-11f1-8ff7-eb7b3e31f9aa",
+									"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787"
+								},
+								{
+									"entityIid": "68a88d30-21a0-11f1-a7ff-afcde9c1382d",
+									"layerIid": "95facbf1-21a0-11f1-8ff7-4bcad0a2e440",
+									"levelIid": "95facbf0-21a0-11f1-8ff7-eb7b3e31f9aa",
+									"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787"
+								}
+							], "__tile": null, "defUid": 104, "realEditorValues": [ {
 								"id": "V_String",
-								"params": ["d58ab2e0-21a0-11f1-8ea3-1d5158da06ee"]
-							}] }],
+								"params": ["669cb7a0-21a0-11f1-a7ff-61ab5892994b"]
+							}, {
+								"id": "V_String",
+								"params": ["6740bfd0-21a0-11f1-a7ff-f90dcae6361e"]
+							}, {
+								"id": "V_String",
+								"params": ["67d70c60-21a0-11f1-a7ff-4952e937ed69"]
+							}, {
+								"id": "V_String",
+								"params": ["68a88d30-21a0-11f1-a7ff-afcde9c1382d"]
+							} ] }],
 							"__worldX": 8708,
 							"__worldY": 700
 						},
@@ -20139,13 +20498,13 @@
 							"defUid": 103,
 							"px": [836,700],
 							"fieldInstances": [{ "__identifier": "ConnectedWalls", "__type": "Array<EntityRef>", "__value": [{
-								"entityIid": "75c50770-21a0-11f1-8ea3-3d6cef31396a",
+								"entityIid": "4b04d040-21a0-11f1-a7ff-393e0a6d827e",
 								"layerIid": "95facbf1-21a0-11f1-8ff7-4bcad0a2e440",
 								"levelIid": "95facbf0-21a0-11f1-8ff7-eb7b3e31f9aa",
 								"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787"
 							}], "__tile": null, "defUid": 104, "realEditorValues": [{
 								"id": "V_String",
-								"params": ["75c50770-21a0-11f1-8ea3-3d6cef31396a"]
+								"params": ["4b04d040-21a0-11f1-a7ff-393e0a6d827e"]
 							}] }],
 							"__worldX": 8516,
 							"__worldY": 700
@@ -33988,7 +34347,7 @@
 					"layerDefUid": 105,
 					"pxOffsetX": 0,
 					"pxOffsetY": 0,
-					"visible": true,
+					"visible": false,
 					"optionalRules": [],
 					"intGridCsv": [],
 					"autoLayerTiles": [],
@@ -34055,7 +34414,7 @@
 					"layerDefUid": 36,
 					"pxOffsetX": 0,
 					"pxOffsetY": 0,
-					"visible": false,
+					"visible": true,
 					"optionalRules": [],
 					"intGridCsv": [],
 					"autoLayerTiles": [],
@@ -34063,38 +34422,6 @@
 					"overrideTilesetUid": null,
 					"gridTiles": [],
 					"entityInstances": [
-						{
-							"__identifier": "PressurePlateWall",
-							"__grid": [63,16],
-							"__pivot": [0.5,0.5],
-							"__tags": ["Internal_Wall"],
-							"__tile": null,
-							"__smartColor": "#80ADD6",
-							"iid": "bd774040-21a0-11f1-8551-358f585654c2",
-							"width": 416,
-							"height": 48,
-							"defUid": 102,
-							"px": [1016,264],
-							"fieldInstances": [],
-							"__worldX": 8696,
-							"__worldY": 2424
-						},
-						{
-							"__identifier": "PressurePlateWall",
-							"__grid": [54,34],
-							"__pivot": [0.5,0.5],
-							"__tags": ["Internal_Wall"],
-							"__tile": null,
-							"__smartColor": "#80ADD6",
-							"iid": "c11611e0-21a0-11f1-8551-1f924ef1aba1",
-							"width": 128,
-							"height": 48,
-							"defUid": 102,
-							"px": [872,552],
-							"fieldInstances": [],
-							"__worldX": 8552,
-							"__worldY": 2712
-						},
 						{
 							"__identifier": "Wall",
 							"__grid": [48,13],
@@ -34254,6 +34581,70 @@
 							"fieldInstances": [],
 							"__worldX": 8776,
 							"__worldY": 2744
+						},
+						{
+							"__identifier": "PressurePlateWall",
+							"__grid": [53,13],
+							"__pivot": [0.5,0.5],
+							"__tags": ["Internal_Wall"],
+							"__tile": { "tilesetUid": 113, "x": 48, "y": 64, "w": 400, "h": 416 },
+							"__smartColor": "#80ADD6",
+							"iid": "60537bf0-21a0-11f1-a7ff-f9e3c05be07b",
+							"width": 144,
+							"height": 144,
+							"defUid": 102,
+							"px": [856,216],
+							"fieldInstances": [],
+							"__worldX": 8536,
+							"__worldY": 2376
+						},
+						{
+							"__identifier": "PressurePlateWall",
+							"__grid": [62,13],
+							"__pivot": [0.5,0.5],
+							"__tags": ["Internal_Wall"],
+							"__tile": { "tilesetUid": 113, "x": 48, "y": 64, "w": 400, "h": 416 },
+							"__smartColor": "#80ADD6",
+							"iid": "61f915a0-21a0-11f1-a7ff-afc63c302103",
+							"width": 160,
+							"height": 144,
+							"defUid": 102,
+							"px": [1000,216],
+							"fieldInstances": [],
+							"__worldX": 8680,
+							"__worldY": 2376
+						},
+						{
+							"__identifier": "PressurePlateWall",
+							"__grid": [71,13],
+							"__pivot": [0.5,0.5],
+							"__tags": ["Internal_Wall"],
+							"__tile": { "tilesetUid": 113, "x": 48, "y": 64, "w": 400, "h": 416 },
+							"__smartColor": "#80ADD6",
+							"iid": "62d8ee50-21a0-11f1-a7ff-19d0a23967cb",
+							"width": 160,
+							"height": 144,
+							"defUid": 102,
+							"px": [1144,216],
+							"fieldInstances": [],
+							"__worldX": 8824,
+							"__worldY": 2376
+						},
+						{
+							"__identifier": "PressurePlateWall",
+							"__grid": [54,35],
+							"__pivot": [0.5,0.5],
+							"__tags": ["Internal_Wall"],
+							"__tile": { "tilesetUid": 113, "x": 48, "y": 64, "w": 400, "h": 416 },
+							"__smartColor": "#80ADD6",
+							"iid": "69346ef0-21a0-11f1-a7ff-afdecc00e459",
+							"width": 128,
+							"height": 128,
+							"defUid": 102,
+							"px": [872,568],
+							"fieldInstances": [],
+							"__worldX": 8552,
+							"__worldY": 2728
 						}
 					]
 				},
@@ -34371,7 +34762,7 @@
 					"layerDefUid": 11,
 					"pxOffsetX": 0,
 					"pxOffsetY": 0,
-					"visible": false,
+					"visible": true,
 					"optionalRules": [],
 					"intGridCsv": [],
 					"autoLayerTiles": [],
@@ -34497,15 +34888,35 @@
 							"height": 104,
 							"defUid": 103,
 							"px": [644,828],
-							"fieldInstances": [{ "__identifier": "ConnectedWalls", "__type": "Array<EntityRef>", "__value": [{
-								"entityIid": "bd774040-21a0-11f1-8551-358f585654c2",
-								"layerIid": "ffa33323-21a0-11f1-8551-eb857e33cc8c",
-								"levelIid": "ffa33320-21a0-11f1-8551-0badacd96dc2",
-								"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787"
-							}], "__tile": null, "defUid": 104, "realEditorValues": [{
+							"fieldInstances": [{ "__identifier": "ConnectedWalls", "__type": "Array<EntityRef>", "__value": [
+								{
+									"entityIid": "60537bf0-21a0-11f1-a7ff-f9e3c05be07b",
+									"layerIid": "ffa33323-21a0-11f1-8551-eb857e33cc8c",
+									"levelIid": "ffa33320-21a0-11f1-8551-0badacd96dc2",
+									"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787"
+								},
+								{
+									"entityIid": "61f915a0-21a0-11f1-a7ff-afc63c302103",
+									"layerIid": "ffa33323-21a0-11f1-8551-eb857e33cc8c",
+									"levelIid": "ffa33320-21a0-11f1-8551-0badacd96dc2",
+									"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787"
+								},
+								{
+									"entityIid": "62d8ee50-21a0-11f1-a7ff-19d0a23967cb",
+									"layerIid": "ffa33323-21a0-11f1-8551-eb857e33cc8c",
+									"levelIid": "ffa33320-21a0-11f1-8551-0badacd96dc2",
+									"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787"
+								}
+							], "__tile": null, "defUid": 104, "realEditorValues": [ {
 								"id": "V_String",
-								"params": ["bd774040-21a0-11f1-8551-358f585654c2"]
-							}] }],
+								"params": ["60537bf0-21a0-11f1-a7ff-f9e3c05be07b"]
+							}, {
+								"id": "V_String",
+								"params": ["61f915a0-21a0-11f1-a7ff-afc63c302103"]
+							}, {
+								"id": "V_String",
+								"params": ["62d8ee50-21a0-11f1-a7ff-19d0a23967cb"]
+							} ] }],
 							"__worldX": 8324,
 							"__worldY": 2988
 						},
@@ -34522,13 +34933,13 @@
 							"defUid": 103,
 							"px": [644,284],
 							"fieldInstances": [{ "__identifier": "ConnectedWalls", "__type": "Array<EntityRef>", "__value": [{
-								"entityIid": "c11611e0-21a0-11f1-8551-1f924ef1aba1",
+								"entityIid": "69346ef0-21a0-11f1-a7ff-afdecc00e459",
 								"layerIid": "ffa33323-21a0-11f1-8551-eb857e33cc8c",
 								"levelIid": "ffa33320-21a0-11f1-8551-0badacd96dc2",
 								"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787"
 							}], "__tile": null, "defUid": 104, "realEditorValues": [{
 								"id": "V_String",
-								"params": ["c11611e0-21a0-11f1-8551-1f924ef1aba1"]
+								"params": ["69346ef0-21a0-11f1-a7ff-afdecc00e459"]
 							}] }],
 							"__worldX": 8324,
 							"__worldY": 2444
