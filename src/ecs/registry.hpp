@@ -115,11 +115,13 @@ public:
 	// Rendering
 	ComponentContainer<Camera> cameras;
 	ComponentContainer<ChangeCameraTargetRequest> changeCameraTargetRequests;
+	ComponentContainer<DynamicallyLoadedImage> loadedImages;
 	ComponentContainer<IgnoresCamera> ignoredByCamera;
 	ComponentContainer<Mesh*> meshPtrs;
 	ComponentContainer<RenderRequest> renderRequests;
 	ComponentContainer<RenderSourceRect> renderSourceRects;
 	ComponentContainer<ScreenState> screenStates;
+	ComponentContainer<TextureLoadRequest> textureLoadRequests;
 	ComponentContainer<VisualRotationOffset> visualRotationOffsets;
 	// Shapes
 	ComponentContainer<Circle> circles; // TODO 1ch6Q0BE: Remove
@@ -223,11 +225,13 @@ public:
 		// Rendering
 		registry_list.push_back(&cameras);
 		registry_list.push_back(&changeCameraTargetRequests);
+		registry_list.push_back(&loadedImages);
 		registry_list.push_back(&ignoredByCamera);
 		registry_list.push_back(&meshPtrs);
 		registry_list.push_back(&renderRequests);
 		registry_list.push_back(&renderSourceRects);
 		registry_list.push_back(&screenStates);
+		registry_list.push_back(&textureLoadRequests);
 		registry_list.push_back(&visualRotationOffsets);
 		// Shapes
 		registry_list.push_back(&circles); // TODO 1ch6Q0BE: Remove;

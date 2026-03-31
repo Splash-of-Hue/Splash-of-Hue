@@ -113,9 +113,10 @@ private:
 	// Internal drawing functions for each entity type
 	void drawText(Entity entity, const mat4& projection);
 	void drawShape(Entity entity, const mat3& projection); // TODO 1ch6Q0BE: Remove
-	void drawGridLine(Entity entity, const mat3& projection);
 	void drawTexturedMesh(Entity entity, const mat3& projection);
+	void drawTextures(const mat3& projection);
 	void drawToScreen();
+	void load_texture(const TextureLoadRequest& texture_load_request);
 	// Window handle
 	GLFWwindow* window;
 	// Screen texture handles
@@ -126,6 +127,9 @@ private:
 	Entity screen_state_entity;
 	// A map for each font and character
 	std::map<FONT_ID, std::map<char, Character>> font_characters;
+	std::vector<TexturedVertex> textured_vertices;
+	std::map<GLuint, std::map<std::string, GLint>> attribute_locations;
+	std::map<GLuint, std::map<std::string, GLint>> uniform_locations;
 };
 
 bool loadEffectFromFile(

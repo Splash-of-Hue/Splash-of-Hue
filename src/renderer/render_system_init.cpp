@@ -9,7 +9,9 @@
 #include "../ext/stb_image/stb_image.h"
 #include "renderer/render_system.hpp"
 #include "ecs/registry.hpp"
-#include <text/text_constants.hpp>
+#include "text/text_constants.hpp"
+#include "render_constants.hpp"
+#include "render_components.hpp"
 
 
 // Render initialization
@@ -198,6 +200,28 @@ void RenderSystem::initializeGlEffects()
 
 		bool is_valid = loadEffectFromFile(vertex_shader_name, fragment_shader_name, effects[i]);
 		assert(is_valid && (GLuint)effects[i] != 0);
+		GLuint effect_id = (GLuint)effects[i];
+		std::map<std::string, GLint> attribute_map;
+		std::map<std::string, GLint> uniform_map;
+
+		for (auto& shader_attribute : shader_attributes.at(static_cast<EFFECT_ASSET_ID>(i)))
+		{
+			GLint attribute_location = glGetAttribLocation(effect_id, shader_attribute.name.c_str());
+			attribute_map[shader_attribute.name] = attribute_location;
+			glEnableVertexAttribArray(attribute_location);
+			glVertexAttribPointer(attribute_location, shader_attribute.size, shader_attribute.type, shader_attribute.normalized, shader_attribute.stride, shader_attribute.pointer);
+			gl_has_errors();
+		}
+
+		for (auto& shader_uniform : shader_uniforms.at((EFFECT_ASSET_ID)i))
+		{
+			GLint uniform_location = glGetUniformLocation(effect_id, shader_uniform.c_str());
+			uniform_map[shader_uniform] = uniform_location;
+		}
+
+		attribute_locations[effect_id] = attribute_map;
+		uniform_locations[effect_id] = uniform_map;
+		gl_has_errors();
 	}
 }
 
@@ -248,15 +272,23 @@ void RenderSystem::initializeGlGeometryBuffers()
 	//////////////////////////
 	// Initialize sprite
 	// The position corresponds to the center of the texture.
-	std::vector<TexturedVertex> textured_vertices(4);
-	textured_vertices[0].position = { -1.f/2, +1.f/2, 0.f };
-	textured_vertices[1].position = { +1.f/2, +1.f/2, 0.f };
-	textured_vertices[2].position = { +1.f/2, -1.f/2, 0.f };
-	textured_vertices[3].position = { -1.f/2, -1.f/2, 0.f };
-	textured_vertices[0].texcoord = { 0.f, 1.f };
-	textured_vertices[1].texcoord = { 1.f, 1.f };
-	textured_vertices[2].texcoord = { 1.f, 0.f };
-	textured_vertices[3].texcoord = { 0.f, 0.f };
+	const std::vector<vec3> vertex_positions = {
+		{ -0.5f, +0.5f, 0.f },
+		{ +0.5f, +0.5f, 0.f },
+		{ +0.5f, -0.5f, 0.f },
+		{ -0.5f, -0.5f, 0.f }
+	};
+	const std::vector<vec2> vertex_texcoords = {
+		{ 0.f, 1.f },
+		{ 1.f, 1.f },
+		{ 1.f, 0.f },
+		{ 0.f, 0.f }
+	};
+
+	for (int i = 0; i < 4; i++)
+	{
+		textured_vertices.push_back({ vertex_positions[i], vertex_texcoords[i] });
+	}
 
 	// Counterclockwise as it's the default OpenGL front winding direction.
 	const std::vector<uint16_t> textured_indices = { 0, 3, 1, 1, 3, 2 };

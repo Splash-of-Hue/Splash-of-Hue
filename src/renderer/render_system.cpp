@@ -1,11 +1,52 @@
 #include <glm/trigonometric.hpp>
 #include <iostream>
 #include <SDL.h>
+#include <stb_image.h>
 
 // internal
 #include "common.hpp"
 #include "ecs/registry.hpp"
 #include "renderer/render_system.hpp"
+
+void RenderSystem::load_texture(const TextureLoadRequest& texture_load_request)
+{
+	// Load in the image from path
+	ivec2& dimensions = ivec2(0);
+	stbi_uc* data;
+	data = stbi_load(texture_load_request.path.c_str(), &dimensions.x, &dimensions.y, NULL, 4);
+
+	if (data == NULL)
+	{
+		const std::string message = "Could not load the file " + texture_load_request.path + ".";
+		fprintf(stderr, "%s", message.c_str());
+		assert(false);
+	}
+
+	// Generate texture
+	unsigned int texture_id;
+	glGenTextures(1, &texture_id);
+	glBindTexture(GL_TEXTURE_2D, texture_id);
+	// Set images properties
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, dimensions.x, dimensions.y, 0, GL_RGBA, GL_UNSIGNED_BYTE, data);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	// Check for errors and free memory
+	gl_has_errors();
+	stbi_image_free(data);
+	gl_has_errors();
+	// If it worked, keep a reference to it in a component
+	Entity loaded_image_entity;
+	registry.loadedImages.insert(loaded_image_entity,
+								 {
+									 texture_load_request.uid,
+									 texture_id,
+									 texture_load_request.path,
+									 dimensions,
+								 });
+
+	// Reset back
+	glBindTexture(GL_TEXTURE_2D, 0);
+}
 
 //
 void RenderSystem::drawText(Entity entity, const mat4& projection)
@@ -260,7 +301,7 @@ void RenderSystem::drawTexturedMesh(Entity entity,
 
 		glEnableVertexAttribArray(in_position_loc);
 		glVertexAttribPointer(in_position_loc, 3, GL_FLOAT, GL_FALSE,
-							  sizeof(TexturedVertex), (void*)0);
+								sizeof(TexturedVertex), (void*)0);
 		gl_has_errors();
 
 		glEnableVertexAttribArray(in_texcoord_loc);
@@ -455,6 +496,32 @@ void RenderSystem::draw()
 	}
 	);
 
+	registry.textured.sort([&]
+	(Entity& texture_a_entity, Entity& texture_b_entity)
+	{
+		const RenderRequest& a_render_request = registry.renderRequests.get(texture_a_entity);
+		const RenderRequest& b_render_request = registry.renderRequests.get(texture_b_entity);
+		// Sort first by layer
+		if (a_render_request.layer != b_render_request.layer)
+		{
+			return a_render_request.layer < a_render_request.layer;
+		}
+
+		const TEXTURE_ASSET_ID& a_texture_id = registry.textured.get(texture_a_entity).used_texture;
+		const TEXTURE_ASSET_ID& b_texture_id = registry.textured.get(texture_b_entity).used_texture;
+
+		// Then sort by texture if they share a layer
+		if (a_texture_id != b_texture_id)
+		{
+			return a_texture_id < b_texture_id;
+		}
+
+		// If they are the same layer and same texture, check if we are using different shaders
+		return a_render_request.used_effect < a_render_request.used_effect;
+	});
+
+	//drawTextures(projection_2D);
+
 	// draw all entities with a render request to the frame buffer
 	for (Entity& entity : registry.renderRequests.entities)
 	{
@@ -483,6 +550,17 @@ void RenderSystem::draw()
 	// flicker-free display with a double buffer
 	glfwSwapBuffers(window);
 	gl_has_errors();
+
+	// Create any texture load requests
+	if (registry.textureLoadRequests.size() > 0)
+	{
+		for (TextureLoadRequest& texture_load_request : registry.textureLoadRequests.components)
+		{
+			load_texture(texture_load_request);
+		}
+
+		registry.textureLoadRequests.clear();
+	}
 }
 
 mat3 RenderSystem::createProjectionMatrix()

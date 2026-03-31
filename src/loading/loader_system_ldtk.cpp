@@ -88,7 +88,7 @@ void LoaderSystem::load_level(int level_uid)
 				load_entity_layer(layer);
 				continue;
 			case ldtk::LayerType::Tiles:
-				load_tile_layer(layer);
+				//load_tile_layer(layer);
 				continue;
 		}
 	}

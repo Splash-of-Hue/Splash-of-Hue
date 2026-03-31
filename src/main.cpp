@@ -28,6 +28,7 @@
 #include "world_system.hpp"
 #include "ui/ui_system.hpp"
 #include "controllers/menu_controller_system.hpp"
+#include <numeric>
 
 using Clock = std::chrono::high_resolution_clock;
 
@@ -110,10 +111,51 @@ int main()
 		float elapsed_ms =
 			(float)(std::chrono::duration_cast<std::chrono::microseconds>(now - t)).count() / 1000;
 		t = now;
+
+
+		std::map<std::string, float> test_times;
+		auto get_test_ms = [&](std::chrono::steady_clock::time_point test_start, std::chrono::steady_clock::time_point  test_end)
+		{
+			return (float)(std::chrono::duration_cast<std::chrono::microseconds>(test_end - test_start)).count() / 1000;
+		};
+
+		auto test_start = Clock::now();
+		auto test_end = Clock::now();
+		float test_ms = get_test_ms(test_start, test_end);
+		test_times.insert({ "Camera", test_ms });
+		
+
+
 		// Update and draw loop
+		test_start = Clock::now();
 		game_state_system.step(elapsed_ms);
+		test_end = Clock::now();
+		test_ms = get_test_ms(test_start, test_end);
+		test_times.insert({ "Update", test_ms });
+
 		world_system.handle_behaviour_change();
+		test_start = Clock::now();
 		renderer_system.draw();
+		test_end = Clock::now();
+		test_ms = get_test_ms(test_start, test_end);
+		test_times.insert({ "Draw", test_ms });
+
+
+		const auto result = std::accumulate(
+			test_times.begin(),
+			test_times.end(),
+			0.0f, // initial value of the sum
+			[](const float previous, const std::pair<const std::string, float>& p)
+		{
+			return previous + p.second;
+		}
+		);
+
+		for (auto& time_pair : test_times)
+		{
+			std::cout << "TIME: " << time_pair.first << "System took " + std::to_string(time_pair.second) << "ms, or " << std::to_string(100.f * time_pair.second / result) << "% of time" << std::endl;
+		}
+
 	}
 
 	return EXIT_SUCCESS;

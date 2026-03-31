@@ -1,4 +1,8 @@
 #pragma once
+#include "common.hpp"
+#include <map>
+#include <string>
+#include <vector>
 
 /**
  * The following enumerators represent global identifiers refering to graphic
@@ -91,4 +95,59 @@ enum class RENDER_LAYER
 	HUD,
 	UI_BACKGROUND,
 	UI
+};
+
+struct VertexAttribute
+{
+	std::string name;
+	GLint size;
+	GLenum type;
+	GLboolean normalized;
+	GLsizei stride;
+	const void* pointer;
+};
+
+const std::map<EFFECT_ASSET_ID, std::vector<VertexAttribute>> shader_attributes =
+{
+	{
+		EFFECT_ASSET_ID::DEFAULT,
+		{
+			{ "in_position", 3, GL_FLOAT, GL_FALSE, sizeof(vec3) + sizeof(vec2), (void*)0 },
+			//{ "in_color", 3, GL_FLOAT, GL_FALSE, sizeof(vec3) + sizeof(vec2), (void*)sizeof(vec3) }
+		}
+	},
+	{
+		EFFECT_ASSET_ID::COLOURED,
+		{
+			{ "in_position", 3, GL_FLOAT, GL_FALSE, sizeof(vec3) + sizeof(vec2), (void*)0 }
+		}
+	},
+	{
+		EFFECT_ASSET_ID::TEXTURED,
+		{
+			{ "in_position", 3, GL_FLOAT, GL_FALSE, sizeof(vec3) + sizeof(vec2), (void*)0},
+			//{ "in_texcoord", 2, GL_FLOAT, GL_FALSE, sizeof(vec3) + sizeof(vec2), (void*)sizeof(vec3) }
+		}
+	},
+	{
+		EFFECT_ASSET_ID::VIGNETTE,
+		{
+			{ "in_position", 3, GL_FLOAT, GL_FALSE, sizeof(vec3), (void*)0 }
+		}
+	},
+	{
+		EFFECT_ASSET_ID::FONT,
+		{
+			{ "vertex", 4, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void*)0 }
+		}
+	}
+};
+
+const std::map<EFFECT_ASSET_ID, std::vector<std::string>> shader_uniforms =
+{
+	{ EFFECT_ASSET_ID::DEFAULT, { "fcolor", "transform", "projection" } },
+	{ EFFECT_ASSET_ID::COLOURED, { "color", "transform", "projection" } },
+	{ EFFECT_ASSET_ID::TEXTURED, { "fcolor", "source_rect", "transform", "projection"  } },
+	{ EFFECT_ASSET_ID::VIGNETTE, { "darken_screen_factor", "time" } },
+	{ EFFECT_ASSET_ID::FONT, { "textColor", "transform", "projection" } },
 };
