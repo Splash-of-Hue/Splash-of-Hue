@@ -37615,6 +37615,38 @@
 							}] }],
 							"__worldX": 1312,
 							"__worldY": -600
+						},
+						{
+							"__identifier": "MossIndicator",
+							"__grid": [80,34],
+							"__pivot": [0,0],
+							"__tags": ["Moss"],
+							"__tile": { "tilesetUid": 116, "x": 0, "y": 0, "w": 48, "h": 48 },
+							"__smartColor": "#3A4466",
+							"iid": "7e492500-21a0-11f1-ac01-05f7e0291f15",
+							"width": 50,
+							"height": 50,
+							"defUid": 114,
+							"px": [1280,544],
+							"fieldInstances": [{ "__identifier": "ColorState", "__type": "LocalEnum.ColorState", "__value": "Neutral", "__tile": null, "defUid": 117, "realEditorValues": [] }],
+							"__worldX": 1280,
+							"__worldY": -536
+						},
+						{
+							"__identifier": "MossIndicator",
+							"__grid": [83,40],
+							"__pivot": [0,0],
+							"__tags": ["Moss"],
+							"__tile": { "tilesetUid": 116, "x": 0, "y": 0, "w": 48, "h": 48 },
+							"__smartColor": "#3A4466",
+							"iid": "7ff77140-21a0-11f1-ac01-1f3add4c630d",
+							"width": 50,
+							"height": 50,
+							"defUid": 114,
+							"px": [1328,640],
+							"fieldInstances": [{ "__identifier": "ColorState", "__type": "LocalEnum.ColorState", "__value": "Neutral", "__tile": null, "defUid": 117, "realEditorValues": [] }],
+							"__worldX": 1328,
+							"__worldY": -440
 						}
 					]
 				},
@@ -37692,7 +37724,7 @@
 					"entityInstances": [
 						{
 							"__identifier": "MossToggle",
-							"__grid": [170,64],
+							"__grid": [167,95],
 							"__pivot": [0.5,0.5],
 							"__tags": [ "Floor_Interactable", "Moss" ],
 							"__tile": { "tilesetUid": 52, "x": 144, "y": 16, "w": 112, "h": 96 },
@@ -37701,7 +37733,7 @@
 							"width": 200,
 							"height": 200,
 							"defUid": 46,
-							"px": [1364,516],
+							"px": [1340,764],
 							"fieldInstances": [{ "__identifier": "ConnectedWalls", "__type": "Array<EntityRef>", "__value": [
 								{
 									"entityIid": "a56db310-21a0-11f1-8551-a56033c791d8",
@@ -37774,6 +37806,18 @@
 									"layerIid": "d27adc83-21a0-11f1-8551-29bc650db8e0",
 									"levelIid": "d27adc80-21a0-11f1-8551-8dd995c34d93",
 									"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787"
+								},
+								{
+									"entityIid": "7e492500-21a0-11f1-ac01-05f7e0291f15",
+									"layerIid": "d27adc83-21a0-11f1-8551-29bc650db8e0",
+									"levelIid": "d27adc80-21a0-11f1-8551-8dd995c34d93",
+									"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787"
+								},
+								{
+									"entityIid": "7ff77140-21a0-11f1-ac01-1f3add4c630d",
+									"layerIid": "d27adc83-21a0-11f1-8551-29bc650db8e0",
+									"levelIid": "d27adc80-21a0-11f1-8551-8dd995c34d93",
+									"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787"
 								}
 							], "__tile": null, "defUid": 47, "realEditorValues": [
 								{
@@ -37823,10 +37867,18 @@
 								{
 									"id": "V_String",
 									"params": ["27d24c00-21a0-11f1-b078-17432fb3ccd2"]
+								},
+								{
+									"id": "V_String",
+									"params": ["7e492500-21a0-11f1-ac01-05f7e0291f15"]
+								},
+								{
+									"id": "V_String",
+									"params": ["7ff77140-21a0-11f1-ac01-1f3add4c630d"]
 								}
 							] }],
-							"__worldX": 1364,
-							"__worldY": -564
+							"__worldX": 1340,
+							"__worldY": -316
 						},
 						{
 							"__identifier": "Control_PNG_entity",
@@ -37946,7 +37998,7 @@
 						},
 						{
 							"__identifier": "Control_PNG_entity",
-							"__grid": [157,98],
+							"__grid": [150,44],
 							"__pivot": [0.5,0.5],
 							"__tags": ["Floor_Interactable"],
 							"__tile": null,
@@ -37955,13 +38007,13 @@
 							"width": 400,
 							"height": 280,
 							"defUid": 63,
-							"px": [1260,788],
+							"px": [1204,356],
 							"fieldInstances": [{ "__identifier": "ControlPictureType", "__type": "LocalEnum.ControlPictureType", "__value": "ARROW_NO_RED", "__tile": null, "defUid": 65, "realEditorValues": [{
 								"id": "V_String",
 								"params": ["ARROW_NO_RED"]
 							}] }],
-							"__worldX": 1260,
-							"__worldY": -292
+							"__worldX": 1204,
+							"__worldY": -724
 						}
 					]
 				},
