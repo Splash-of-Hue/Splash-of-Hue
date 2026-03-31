@@ -544,6 +544,9 @@ vec3 mesh_collides(const Entity& entity1, const Entity& entity2,  bool isHurtCol
 
 void handle_inelastic_collision_mesh(Entity& entity_i, Entity& entity_j, vec3 penetration)
 {
+	if (registry.dizzies.has(entity_i) || registry.dizzies.has(entity_j)) {
+		return;
+	}
 	vec2& pos1 = registry.positions.get(entity_i);
 	vec2& pos2 = registry.positions.get(entity_j);
 
@@ -558,36 +561,41 @@ void handle_inelastic_collision_mesh(Entity& entity_i, Entity& entity_j, vec3 pe
 		pos_to_correct = &pos2;
 		other_pos = &pos1;
 	}
+
 	vec2 dir = *pos_to_correct - *other_pos;
 	// if the normal points toward the other, flip
 	float dir_check = dir.x * penetration.y + dir.y * penetration.z;
 	
 	float sign = dir_check >= 0 ? 1.0f : -1.0f;
-
+	
 	//if two things are moving and collide, split the correction and apply to both
-
-	if (registry.velocities.has(entity_i) && registry.velocities.has(entity_j) && registry.velocities.get(entity_i) != vec2(0) && registry.velocities.get(entity_j) != vec2(0))
+	
+	if (registry.velocities.has(entity_i) && registry.velocities.has(entity_j) && 
+		registry.velocities.get(entity_i) != vec2(0) && registry.velocities.get(entity_j) != vec2(0))
 	{
 		vec2 vel_i = registry.velocities.get(entity_i);
 		vec2 vel_j = registry.velocities.get(entity_j);
 		float x_correction = penetration.x * penetration.y * sign;
 		//if moving into the collision, then it needs to be corrected
-		if (vel_i.x * x_correction > 0.f && vel_j.x * x_correction < 0.f) {
+		if (vel_i.x * x_correction < 0.f && vel_j.x * x_correction > 0.f) {
 			x_correction *= 0.5;
 		}
-		pos_to_correct->x += vel_i.x * x_correction <= 0.f ? 0.f : x_correction;
-		other_pos->x -= vel_j.x * x_correction >= 0.f ? 0.f : x_correction;
+		pos_to_correct->x += vel_i.x * x_correction < 0.f ? x_correction : 0.f;
+		other_pos->x -= vel_j.x * x_correction > 0.f ? x_correction:  0.f ;
 
 		float y_correction = penetration.x * penetration.z * sign;
-		if (vel_i.y * y_correction > 0.f && vel_j.y * y_correction < 0.f) {
+		if (vel_i.y * y_correction < 0.f && vel_j.y * y_correction > 0.f) {
 			y_correction *= 0.5;
 		}
-		pos_to_correct->y += vel_i.y * y_correction <= 0.f ? 0.f : y_correction;
-		other_pos->y -= vel_j.y * y_correction >= 0.f ? 0.f : y_correction;
+		pos_to_correct->y += vel_i.y * y_correction < 0.f ? y_correction : 0.f;
+		other_pos->y -= vel_j.y * y_correction > 0.f ? y_correction : 0.f;
 		return;
 	}
-	pos_to_correct->x += (penetration.x * penetration.y * sign);
-	pos_to_correct->y += (penetration.x * penetration.z * sign);
+	else {
+		pos_to_correct->x += (penetration.x * penetration.y * sign);
+		pos_to_correct->y += (penetration.x * penetration.z * sign);
+	}
+	
 }
 
 void rotatePolygon(PolygonMesh& polygon, float radAngle) {
