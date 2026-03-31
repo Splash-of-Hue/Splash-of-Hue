@@ -48,6 +48,45 @@ Entity createMossWall(const int level_uid, std::string id, vec2 position, vec2 s
 	return moss_wall_entity;
 }
 
+Entity createMossIndicator(const int level_uid, std::string id, vec2 position, vec2 size, COLOUR_STATE color_state)
+{
+	Entity indicator_entity;
+	registry.positions.insert(indicator_entity, position);
+	registry.scales.insert(indicator_entity, size);
+	registry.sizes.insert(indicator_entity, { size.x, size.y });
+	registry.angles.emplace(indicator_entity);
+	registry.unloadables.emplace(indicator_entity, Unloadable{ position });
+	registry.colouredWall.insert(indicator_entity, { id });
+	registry.colourStates.insert(indicator_entity, { color_state, color_state });
+
+	std::map<COLOUR_STATE, ANIMATION_TRIGGER> colour_animation_trigger_map =
+	{
+		{ COLOUR_STATE::NEUTRAL, ANIMATION_TRIGGER::IDLE },
+		{ COLOUR_STATE::RED, ANIMATION_TRIGGER::IDLE_RED },
+		{ COLOUR_STATE::BLUE, ANIMATION_TRIGGER::IDLE_BLUE },
+	};
+
+	registry.renderRequests.insert(
+		indicator_entity,
+		{
+			EFFECT_ASSET_ID::TEXTURED,
+			GEOMETRY_BUFFER_ID::SPRITE,
+			RENDER_LAYER::FLOOR_INTERACTABLES
+		}
+	);
+
+	const Animatable animatable = {
+		ANIMATABLE_TYPE::MOSS_INDICATOR,
+		ANIMATION_BEHAVIOR::LOOP,
+		colour_animation_trigger_map[color_state],
+		1
+	};
+	registry.animatables.insert(indicator_entity, animatable);
+	registry.textured.insert(indicator_entity, { TEXTURE_ASSET_ID::MOSS_INDICATOR });
+
+	return indicator_entity;
+}
+
 Entity createPressurePlateWall(const int level_uid, std::string id, vec2 position, vec2 size, bool is_open)
 {
 		Entity pressure_plate_wall_entity;
