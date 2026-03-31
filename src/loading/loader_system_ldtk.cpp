@@ -25,7 +25,9 @@ void LoaderSystem::load_level(int level_uid)
 	{
 		// load the file
 		ldtk_project.loadFromFile(LDTK_PROJECT_PATH);
+		project_loaded = true;
 	}
+
 	std::cout << "Loading level ID " << level_uid << std::endl;
 
 	const auto level_match = [&](const Level& level) { return level.uid == level_uid; };

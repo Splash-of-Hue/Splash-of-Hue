@@ -26,44 +26,64 @@ BehaviourTree CreatureBehaviourTreeBuilder::buildAnglerfishTree()
 		Root(builder,
 			Selector(builder,
 				Decorator(builder, creatureBehaviourFunctions.isCreatureWithinPlayerBlueColourRadius,
-					Sequence(builder,
-						Action(builder, creatureBehaviourFunctions.makeBlue),
-						Action(builder, creatureBehaviourFunctions.aimAtTarget),
-						Action(builder, creatureBehaviourFunctions.aStarFollowTarget),
-						Action(builder, creatureBehaviourFunctions.apply1sCooldown)
-					)
-				),
+			        Sequence(builder,
+						Invert(builder, creatureBehaviourFunctions.isInParty,
+			                Sequence(builder,
+								Action(builder, creatureBehaviourFunctions.joinPlayerParty),
+								Action(builder, creatureBehaviourFunctions.setPartyTarget)
+		                    )
+						),
+						Sequence(builder,
+							Action(builder, creatureBehaviourFunctions.makeBlue),
+							Action(builder, creatureBehaviourFunctions.aimAtTarget),
+							Action(builder, creatureBehaviourFunctions.aStarFollowTarget),
+							Action(builder, creatureBehaviourFunctions.apply1sCooldown)
+						)
+		            )
+		        ),
 				Decorator(builder, creatureBehaviourFunctions.isCreatureWithinPlayerRedColourRadius,
-					Sequence(builder,
-						Action(builder, creatureBehaviourFunctions.makeRed),
-						Action(builder, creatureBehaviourFunctions.aimAtTarget),
-						Action(builder, creatureBehaviourFunctions.aStarFollowTarget),
-						Action(builder, creatureBehaviourFunctions.apply1sCooldown)
-					)
+			        Sequence(builder,
+			            Invert(builder, creatureBehaviourFunctions.isInParty,
+			               Sequence(builder,
+			                   Action(builder, creatureBehaviourFunctions.joinPlayerParty),
+			                   Action(builder, creatureBehaviourFunctions.setPartyTarget)
+		                   )
+		                ),
+					    Sequence(builder,
+						    Action(builder, creatureBehaviourFunctions.makeRed),
+						    Action(builder, creatureBehaviourFunctions.aimAtTarget),
+						    Action(builder, creatureBehaviourFunctions.aStarFollowTarget),
+						    Action(builder, creatureBehaviourFunctions.apply1sCooldown)
+					    )
+		            )
 				),
 				Selector(builder,
 					Decorator(builder, creatureBehaviourFunctions.isPlayerEmitting,
-						Selector(builder, 
-							//only go back to neutral once its been out of the radius for 3 seconds
-							Decorator(builder, creatureBehaviourFunctions.isCooldownComplete,
+			            Decorator(builder, creatureBehaviourFunctions.isInParty,
+							Selector(builder, 
+								// if party leader has not turned off the light, still follow player
 								Sequence(builder,
-									Action(builder, creatureBehaviourFunctions.removeCooldown),
-									Action(builder, creatureBehaviourFunctions.stopCreatureMovement)
+									Action(builder, creatureBehaviourFunctions.aimAtTarget),
+									Action(builder, creatureBehaviourFunctions.aStarFollowTarget)
 								)
-							),
-							//if still in the 3 second cooldown, still follow player
-							Sequence(builder,
-								Action(builder, creatureBehaviourFunctions.aimAtTarget),
-								Action(builder, creatureBehaviourFunctions.aStarFollowTarget)
 							)
-						)
+		                )
 					),
-					Sequence(builder, 
-						Action(builder, creatureBehaviourFunctions.removeCooldown),
-						Action(builder, creatureBehaviourFunctions.stopCreatureMovement)
-					)
-				)
-			)
+			        Selector(builder,
+			            Decorator(builder, creatureBehaviourFunctions.isInParty,
+			                Sequence(builder,
+			                    Action(builder, creatureBehaviourFunctions.leaveParty),
+			                    Action(builder, creatureBehaviourFunctions.setPlayerTarget)
+			                 )
+		                ),
+					    Sequence(builder, 
+						    Action(builder, creatureBehaviourFunctions.removeCooldown),
+						    Action(builder, creatureBehaviourFunctions.stopCreatureMovement),
+						    Action(builder, creatureBehaviourFunctions.aimAtTarget)
+					    )
+		            )
+		        )
+		    )
 		);
 
 	return builder.build(root_index);
@@ -198,45 +218,58 @@ BehaviourTree CreatureBehaviourTreeBuilder::buildSawfishTree()
 				),
 				Decorator(builder, creatureBehaviourFunctions.isCreatureWithinPlayerRedColourRadius,
 					Sequence(builder,
+						Invert(builder, creatureBehaviourFunctions.isInParty,
+							Sequence(builder,
+								Action(builder, creatureBehaviourFunctions.leaveParty),
+								Action(builder, creatureBehaviourFunctions.setPlayerTarget)
+						    )
+						),
 						Action(builder, creatureBehaviourFunctions.apply2sCooldown),
 						Action(builder, creatureBehaviourFunctions.makeRed)
 					)
 				),
 				Selector(builder,
 					Decorator(builder, creatureBehaviourFunctions.isCreatureWithinPlayerBlueColourRadius,
-						Sequence(builder, 
-							Action(builder, creatureBehaviourFunctions.makeBlue),
-							Action(builder, creatureBehaviourFunctions.aimAtTarget),
-							Action(builder, creatureBehaviourFunctions.aStarFollowTarget),
-							//resetting the cooldown to max while its in the radius
-							Action(builder, creatureBehaviourFunctions.apply1sCooldown)
-						)
+						 Sequence(builder,
+						     Invert(builder, creatureBehaviourFunctions.isInParty,
+			                     Sequence(builder,
+									 Action(builder, creatureBehaviourFunctions.joinPlayerParty),
+									 Action(builder, creatureBehaviourFunctions.setPartyTarget)
+		                         )
+					         ),
+							Sequence(builder, 
+								Action(builder, creatureBehaviourFunctions.makeBlue),
+								Action(builder, creatureBehaviourFunctions.aimAtTarget),
+								Action(builder, creatureBehaviourFunctions.aStarFollowTarget),
+								//resetting the cooldown to max while its in the radius
+								Action(builder, creatureBehaviourFunctions.apply1sCooldown)
+							)
+		                )
 					),
 					Selector(builder,
 						Decorator(builder, creatureBehaviourFunctions.isPlayerEmitting,
-							Selector(builder,
-								//only go back to neutral once its been out of the radius for 3 seconds
-								Decorator(builder, creatureBehaviourFunctions.isCooldownComplete,
-									Sequence(builder,
-										Action(builder, creatureBehaviourFunctions.makeNeutral),
-										Action(builder, creatureBehaviourFunctions.removeCooldown),
-										Action(builder, creatureBehaviourFunctions.stopCreatureMovement),
-										Action(builder, creatureBehaviourFunctions.aimAtTarget)
-									)
-								),
-								//if still in the 3 second cooldown, still follow player
+			                 Decorator(builder, creatureBehaviourFunctions.isInParty,
+								// If the player is emitting, and the sawfish is in the party, keep it following
 								Sequence(builder,
 									Action(builder, creatureBehaviourFunctions.aimAtTarget),
 									Action(builder, creatureBehaviourFunctions.aStarFollowTarget)
 								)
 							)
 						),
-						Sequence(builder,
-							Action(builder, creatureBehaviourFunctions.makeNeutral),
-							Action(builder, creatureBehaviourFunctions.removeCooldown),
-							Action(builder, creatureBehaviourFunctions.stopCreatureMovement),
-							Action(builder, creatureBehaviourFunctions.aimAtTarget)
-						)
+						Selector(builder,
+							Decorator(builder, creatureBehaviourFunctions.isInParty,
+								Sequence(builder,
+									Action(builder, creatureBehaviourFunctions.leaveParty),
+									Action(builder, creatureBehaviourFunctions.setPlayerTarget)
+								)
+							),
+							Sequence(builder,
+								Action(builder, creatureBehaviourFunctions.makeNeutral),
+								Action(builder, creatureBehaviourFunctions.removeCooldown),
+								Action(builder, creatureBehaviourFunctions.stopCreatureMovement),
+								Action(builder, creatureBehaviourFunctions.aimAtTarget)
+							)
+		                )
 					)
 				)
 			)
