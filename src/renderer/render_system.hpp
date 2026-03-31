@@ -59,7 +59,13 @@ class RenderSystem
 		textures_path("Crab.png"),
 		textures_path("Control_Sheet.png"),
 		textures_path("mushroom_1.png"),
-		textures_path("ColourOrb.png")
+		textures_path("ColourOrb.png"),
+		textures_path("scratched_hints/Anglerfish.png"),
+		textures_path("scratched_hints/Sawfish_Break_Breakable.png"),
+		textures_path("scratched_hints/Sawfish_See_Breakable.png"),
+		textures_path("scratched_hints/Sheap_Blue.png"),
+		textures_path("scratched_hints/Sheap_Red.png"),
+		textures_path("scratched_hints/Sheap_Sawfish_Blue.png"),
 	};
 
 	std::array<GLuint, effect_count> effects;

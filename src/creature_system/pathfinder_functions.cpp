@@ -21,10 +21,8 @@ BEHAVIOUR_TREE_STATUS CreatureBehaviourFunctions::updateBoids(Entity& creature, 
 // todo: https://trello.com/c/Qj457xrS/105-2-creature-behaviour-system-a-pathfinding
 BEHAVIOUR_TREE_STATUS CreatureBehaviourFunctions::aStarFollowTarget(Entity& follower, float elapsed_ms)
 {
-	if (direct_line_next_step(elapsed_ms, follower))
-	{
-		return BEHAVIOUR_TREE_STATUS::FAILURE;
-	}
+	Pathfinder& pathfinder = registry.pathfinders.get(follower);
+	direct_line_next_step(elapsed_ms, follower, pathfinder.target);
 
 	return BEHAVIOUR_TREE_STATUS::SUCCESS;
 }

@@ -19,4 +19,5 @@ private:
 	BEHAVIOUR_TREE_STATUS tickSequence(Entity& creature, CreatureBehaviour& creatureBehaviour, int node_index, float elapsed_ms);
 	BEHAVIOUR_TREE_STATUS tickSelector(Entity& creature, CreatureBehaviour& creatureBehaviour, int node_index, float elapsed_ms);
 	BEHAVIOUR_TREE_STATUS tickDecorator(Entity& creature, CreatureBehaviour& creatureBehaviour, int node_index, float elapsed_ms);
+	BEHAVIOUR_TREE_STATUS tickInverter(Entity& creature, CreatureBehaviour& creatureBehaviour, int node_index, float elapsed_ms);
 };
