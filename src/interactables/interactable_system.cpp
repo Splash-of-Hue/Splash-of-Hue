@@ -253,8 +253,8 @@ void InteractableSystem::step_pressure_plates()
 					registry.renderRequests.insert(
 						*wall_entity_iterator,
 						{
-							EFFECT_ASSET_ID::DEFAULT,
-							GEOMETRY_BUFFER_ID::RECTANGLE,
+							EFFECT_ASSET_ID::TEXTURED,
+							GEOMETRY_BUFFER_ID::SPRITE,
 							RENDER_LAYER::WALLS_FRONT
 						}
 					);

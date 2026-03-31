@@ -68,7 +68,8 @@ class RenderSystem
 		textures_path("scratched_hints/Sheap_Red.png"),
 		textures_path("scratched_hints/Sheap_Sawfish_Blue.png"),
 		textures_path("Breakable.png"),
-		textures_path("Pressure_Plate.png")
+		textures_path("Pressure_Plate.png"),
+		textures_path("Pressure_Plate_Wall.png"),
 	};
 
 	std::array<GLuint, effect_count> effects;
