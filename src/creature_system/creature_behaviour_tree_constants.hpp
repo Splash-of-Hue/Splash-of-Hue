@@ -17,7 +17,8 @@ enum class NODETYPE
 	ACTION = ROOT + 1,
 	DECORATOR = ACTION + 1, // A question with 1 child node
 	SELECTOR = DECORATOR + 1, // like A || B || C
-	SEQUENCE = SELECTOR + 1 // like A && B && C
+	SEQUENCE = SELECTOR + 1, // like A && B && C
+	INVERTER = SEQUENCE + 1 // !A
 };
 
 struct Node
@@ -68,6 +69,11 @@ inline int Action(BehaviourTreeBuilder& builder, BEHAVIOUR_TREE_STATUS(*node_fun
 inline int Decorator(BehaviourTreeBuilder& builder, BEHAVIOUR_TREE_STATUS(*node_function)(Entity& entity, float elapsed_ms), int child_index)
 {
 	return builder.makeNode(NODETYPE::DECORATOR, { child_index }, node_function);
+}
+
+inline int Invert(BehaviourTreeBuilder& builder, BEHAVIOUR_TREE_STATUS(*node_function)(Entity& entity, float elapsed_ms), int child_index)
+{
+	return builder.makeNode(NODETYPE::INVERTER, { child_index }, node_function);
 }
 
 // See Variadic functions: https://stackoverflow.com/questions/1657883/variable-number-of-arguments-in-c

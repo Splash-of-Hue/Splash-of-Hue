@@ -62,4 +62,8 @@ void PlayerSystem::create_player(int level_uid, vec2 position)
 	polygon.vertices.push_back(vec2(position.x + size.width * 0.45f, position.y + size.height * 0.45f)); // top right
 	polygon.vertices.push_back(vec2(position.x - size.width * 0.45f, position.y + size.height * 0.45f)); // top left
 	polygon.base_vertices = polygon.vertices;
+	// Create a party where the player is the leader
+	Entity player_party;
+	registry.parties.insert(player_party, { player_entity });
+	registry.party_members.insert(player_entity, { player_party });
 }

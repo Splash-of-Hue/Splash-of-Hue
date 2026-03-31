@@ -1,8 +1,8 @@
 #pragma once
 #include <vector>
 
-#include "animation/animation_components.hpp"
 #include "ai/ai_components.hpp"
+#include "animation/animation_components.hpp"
 #include "camera/camera_components.hpp"
 #include "components.hpp"
 #include "controls/control_components.hpp"
@@ -13,6 +13,7 @@
 #include "loading/loading_components.hpp"
 #include "map/map_components.hpp"
 #include "minimap/minimap_components.hpp"
+#include "party/party_components.hpp"
 #include "player/player_components.hpp"
 #include "renderer/render_components.hpp"
 #include "text/text_components.hpp"
@@ -93,6 +94,9 @@ public:
 	// Minimap
 	ComponentContainer<MinimapRoom> minimapRooms;
 	ComponentContainer<MinimapPlayerIcon> minimapPlayerIcons;
+	// Party
+	ComponentContainer<Party> parties;
+	ComponentContainer<PartyMember> party_members;
 	// Physics - Collisions
 	ComponentContainer<ChangeBehaviour> change_behaviours;
 	ComponentContainer<Collidable> collidables;
@@ -201,6 +205,9 @@ public:
 		registry_list.push_back(&minimapRooms);
 		registry_list.push_back(&minimapPlayerIcons);
 		registry_list.push_back(&walls);
+		// Party
+		registry_list.push_back(&parties);
+		registry_list.push_back(&party_members);
 		// Physics - Collisions
 		registry_list.push_back(&change_behaviours);
 		registry_list.push_back(&collidables);
