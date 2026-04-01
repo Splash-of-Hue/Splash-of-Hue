@@ -152,6 +152,18 @@ Entity CreatureCreator::createMinnows(const int level_uid, vec2 position, float 
         scaleminnow = vec2(0.5f * GRID_CELL_WIDTH_PX, 0.5f * GRID_CELL_HEIGHT_PX);
     }
 
+    Collidable& c = registry.collidables.get(minnows);
+    c.inelastic = false;
+    c.overlay = false;
+    PolygonMesh& minnows_hitbox = registry.hitboxes.emplace(minnows);
+    float hitbox_height = 0.5f * GRID_CELL_HEIGHT_PX * NUM_MINNOWS * 0.5;
+    float hitbox_width = 0.5f * GRID_CELL_WIDTH_PX * NUM_MINNOWS * 0.5;
+    minnows_hitbox.vertices.push_back(vec2(position.x - hitbox_width, position.y - hitbox_height));
+    minnows_hitbox.vertices.push_back(vec2(position.x + hitbox_width, position.y - hitbox_height));
+    minnows_hitbox.vertices.push_back(vec2(position.x + hitbox_width, position.y + hitbox_height));
+    minnows_hitbox.vertices.push_back(vec2(position.x - hitbox_width, position.y + hitbox_height));
+    minnows_hitbox.centre = position;
+    minnows_hitbox.base_vertices = minnows_hitbox.vertices;
 
     CreatureBehaviour& creatureBehaviour = registry.creatureBehaviours.emplace(minnows);
     CreatureBehaviourTreeBuilder builder;
