@@ -26,7 +26,7 @@ void AISystem::step(float elapsed_ms)
 	while (time_accumulator >= update_interval)
 	{
 		time_accumulator -= update_interval;
-		updateBoids(elapsed_ms);
+		updateBoids(update_interval);
 	}
 }
 
