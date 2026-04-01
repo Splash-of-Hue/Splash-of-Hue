@@ -758,6 +758,14 @@ void PhysicsSystem::handle_movement(float elapsed_ms)
 		Entity& e = moving_entities.entities[i];
 		vec2& pos = registry.positions.get(e);
 		vec2& vel = registry.velocities.get(e);
+		if (registry.scales.has(e))
+		{
+			vec2& scale = registry.scales.get(e);
+			//flip the direction the entity is facing relative to the velocity it is moving. 
+			scale.x = vel.x < 0 ? -abs(scale.x) : scale.x;
+			scale.x = vel.x > 0 ? abs(scale.x) : scale.x;
+		}
+
 		float step = elapsed_ms * ONE_THOUSANDTH;
 		pos += (vel * step);
 

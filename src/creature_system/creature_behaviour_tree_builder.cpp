@@ -78,8 +78,7 @@ BehaviourTree CreatureBehaviourTreeBuilder::buildAnglerfishTree()
 		                ),
 					    Sequence(builder, 
 						    Action(builder, creatureBehaviourFunctions.removeCooldown),
-						    Action(builder, creatureBehaviourFunctions.stopCreatureMovement),
-						    Action(builder, creatureBehaviourFunctions.aimAtTarget)
+						    Action(builder, creatureBehaviourFunctions.stopCreatureMovement)
 					    )
 		            )
 		        )
