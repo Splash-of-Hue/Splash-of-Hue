@@ -197,6 +197,7 @@ Entity createPuzzleBubble(const int level_uid, std::string id, vec2 position, CO
 	col.inelastic = false;
 	registry.positions.insert(puzzle_bubble_entity, position);
 	registry.scales.insert(puzzle_bubble_entity, PUZZLE_BUBBLE_SIZE);
+	registry.circles.emplace(puzzle_bubble_entity);
 	registry.sizes.insert(puzzle_bubble_entity, { PUZZLE_BUBBLE_SIZE.x, PUZZLE_BUBBLE_SIZE.y });
 	registry.angles.emplace(puzzle_bubble_entity);
 	registry.colourStates.insert(puzzle_bubble_entity, { COLOUR_STATE::NEUTRAL, COLOUR_STATE::NEUTRAL });
@@ -289,4 +290,75 @@ Entity createFloorPictureControls(vec2 position, float width, float height, CONT
 	registry.angles.emplace(control_entity);
 
 	return control_entity;
+}
+
+Entity createFloorPictureHint(vec2 position, float width, float height, HINT_PNG_TYPE hint_png_type)
+{
+	Size size = { width, height };
+	Entity hint_entity = addGeneralInteractableComponents(position, size, INTERACTABLE_TYPE::FLOOR_HINT);
+
+	registry.renderRequests.insert(
+		hint_entity,
+		{
+			EFFECT_ASSET_ID::TEXTURED,
+			GEOMETRY_BUFFER_ID::SPRITE,
+			RENDER_LAYER::WALLS_BACK
+		}
+	);
+
+	ANIMATION_TRIGGER trigger;
+	TEXTURE_ASSET_ID texture;
+	vec2 scale = vec2(width, height);
+	switch (hint_png_type)
+	{
+	case HINT_PNG_TYPE::ANGLERFISH:
+		trigger = ANIMATION_TRIGGER::FLOOR_HINT_ANGLERFISH;
+		texture = TEXTURE_ASSET_ID::FLOOR_HINT_ANGLERFISH;
+		break;
+	case HINT_PNG_TYPE::SAWFISH_BREAK_BREAKABLE:
+		trigger = ANIMATION_TRIGGER::FLOOR_HINT_SAWFISH_BREAK_BREAKABLE;
+		texture = TEXTURE_ASSET_ID::FLOOR_HINT_SAWFISH_BREAK_BREAKABLE;
+		// this image is a rectangle
+		scale = vec2(width * 2, height);
+		break;
+	case HINT_PNG_TYPE::SAWFISH_SEE_BREAKABLE:
+		trigger = ANIMATION_TRIGGER::FLOOR_HINT_SAWFISH_SEE_BREAKABLE;
+		texture = TEXTURE_ASSET_ID::FLOOR_HINT_SAWFISH_SEE_BREAKABLE;
+		// this image is a rectangle
+		scale = vec2(width * 2, height);
+		break;
+	case HINT_PNG_TYPE::SHEAP_BLUE:
+		trigger = ANIMATION_TRIGGER::FLOOR_HINT_SHEAP_BLUE;
+		texture = TEXTURE_ASSET_ID::FLOOR_HINT_SHEAP_BLUE;
+		break;
+	case HINT_PNG_TYPE::SHEAP_RED:
+		trigger = ANIMATION_TRIGGER::FLOOR_HINT_SHEAP_RED;
+		texture = TEXTURE_ASSET_ID::FLOOR_HINT_SHEAP_RED;
+		break;
+	case HINT_PNG_TYPE::SHEAP_SAWFISH_BLUE:
+		trigger = ANIMATION_TRIGGER::FLOOR_HINT_SHEAP_SAWFISH_BLUE;
+		texture = TEXTURE_ASSET_ID::FLOOR_HINT_SHEAP_SAWFISH_BLUE;
+		// this image is a rectangle
+		scale = vec2(width * 2, height);
+		break;
+	case HINT_PNG_TYPE::INVALID:
+		// fallthrough to assert
+	default:
+		assert(false, "createFloorPictureHint was not passed a valid HINT_PNG_TYPE");
+		break;
+	}
+
+	const Animatable animatable = {
+		ANIMATABLE_TYPE::SCRATCHED_FLOOR_HINT,
+		ANIMATION_BEHAVIOR::LOOP,
+		trigger,
+		1
+	};
+
+	registry.animatables.insert(hint_entity, animatable);
+	registry.textured.insert(hint_entity, { texture });
+	registry.scales.insert(hint_entity, scale * 0.5f);
+	registry.angles.emplace(hint_entity);
+
+	return hint_entity;
 }

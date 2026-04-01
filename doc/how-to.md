@@ -135,3 +135,29 @@ for (Control& control : registry.controls.components)
 	}
 }
 ```
+
+## How to add a new UI menu
+
+Adding a new menu is as easy as creating a class that inherits from the `Menu` interface such as how the `PauseMenu` does. Add new menus to `/src/ui/menus/`.
+
+```
+class PauseMenu : public Menu
+{
+   ...
+};
+```
+
+Then you need to add that menu to the `UiSystem`'s constructor, like below:
+
+```
+// src/ui/ui_system.hpp
+public:
+	UiSystem()
+	{
+		menu_references[MENU_TYPE::PAUSE_MENU] = &pause_menu;
+		...
+	}
+```
+
+Each menu is responsible for handling its construction and deconstruction, as well as handling inputs with the `confirm`, `cancel`, and `move` functions.
+Since menus might be quite different from each other, these might do different things on each menu.
