@@ -11,6 +11,7 @@
 #include "camera/camera_system.hpp"
 #include "colour_system.hpp"
 #include "common.hpp"
+#include "controllers/menu_controller_system.hpp"
 #include "controllers/player_controller_system.hpp"
 #include "controls/control_input_conversion_system.hpp"
 #include "creature_system/creature_behaviour_system.hpp"
@@ -21,13 +22,13 @@
 #include "loading/loader_system.hpp"
 #include "map/map_system.hpp"
 #include "minimap/minimap_system.hpp"	
+#include "party/party_system.hpp"
 #include "physics_system.hpp"
 #include "player/player_system.hpp"
 #include "renderer/render_system.hpp"
 #include "sound/sound_system.hpp"
-#include "world_system.hpp"
 #include "ui/ui_system.hpp"
-#include "controllers/menu_controller_system.hpp"
+#include "world_system.hpp"
 
 using Clock = std::chrono::high_resolution_clock;
 
@@ -49,6 +50,7 @@ int main()
 	MapSystem map_system;
 	MenuControllerSystem menu_controller_system;
 	MinimapSystem minimap_system;
+	PartySystem party_system;
 	PhysicsSystem physics_system;
 	PlayerSystem player_system;
 	PlayerControllerSystem player_controller_system;
@@ -64,10 +66,6 @@ int main()
 		std::cerr << "ERROR: Failed to create window.  Press any key to exit" << std::endl;
 		getchar();
 		return EXIT_FAILURE;
-	}
-
-	if (!sound_system.start_and_load_sounds()) {
-		std::cerr << "ERROR: Failed to start or load sounds." << std::endl;
 	}
 
 	// initialize the main systems
@@ -90,6 +88,7 @@ int main()
 	game_state_system.register_system(&map_system, GAME_STATE::PLAYING);
 	game_state_system.register_system(&minimap_system, GAME_STATE::PLAYING);
 	game_state_system.register_system(&world_system, GAME_STATE::PLAYING);
+	game_state_system.register_system(&party_system, GAME_STATE::PLAYING);
 	game_state_system.register_system(&ai_system, GAME_STATE::PLAYING);
 	game_state_system.register_system(&creature_behaviour_system, GAME_STATE::PLAYING);
 	game_state_system.register_system(&physics_system, GAME_STATE::PLAYING);
@@ -97,6 +96,7 @@ int main()
 	game_state_system.register_system(&interactable_system, GAME_STATE::PLAYING);
 	game_state_system.register_system(&emission_system, GAME_STATE::PLAYING);
 	game_state_system.register_system(&ui_system);
+	game_state_system.register_system(&sound_system);
 
 	// variable timestep loop
 	auto t = Clock::now();

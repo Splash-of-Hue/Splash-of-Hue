@@ -58,10 +58,11 @@ void PlayerSystem::create_player(int level_uid, vec2 position)
 	// Add mesh to player, default is triangle
 	PolygonMesh& polygon = registry.hitboxes.emplace(player_entity);
 	polygon.centre = position;
-	polygon.vertices.push_back(vec2(position.x + size.width * 0.45f, position.y - size.height * 0.45f)); 
-	polygon.vertices.push_back(vec2(position.x - size.width * 0.45f, position.y - size.height * 0.45f)); 
-	polygon.vertices.push_back(vec2(position.x + size.width * 0.45f, position.y + size.height * 0.45f));
-	polygon.vertices.push_back(vec2(position.x - size.width * 0.45f, position.y + size.height * 0.45f)); 
+    const vec2 polygon_size = 0.45f * vec2{ size.width, size.height };
+	polygon.vertices.push_back(vec2(position.x + polygon_size.x, position.y - polygon_size.y)); 
+	polygon.vertices.push_back(vec2(position.x - polygon_size.x, position.y - polygon_size.y)); 
+	polygon.vertices.push_back(vec2(position.x + polygon_size.x, position.y + polygon_size.y));
+	polygon.vertices.push_back(vec2(position.x - polygon_size.x, position.y + polygon_size.y)); 
 	polygon.base_vertices = polygon.vertices;
 	// Create a party where the player is the leader
 	Entity player_party;
