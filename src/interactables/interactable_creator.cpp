@@ -185,8 +185,8 @@ Entity createPressurePlate(const int level_uid, vec2 position, vec2 size, std::v
 	registry.renderRequests.insert(
 		pressure_plate_entity,
 		{
-			EFFECT_ASSET_ID::DEFAULT,
-			GEOMETRY_BUFFER_ID::RECTANGLE,
+			EFFECT_ASSET_ID::TEXTURED,
+			GEOMETRY_BUFFER_ID::SPRITE,
 			RENDER_LAYER::FLOOR_UNDERFOOT
 		}
 	);
