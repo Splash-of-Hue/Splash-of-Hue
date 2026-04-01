@@ -93,7 +93,6 @@ BEHAVIOUR_TREE_STATUS CreatureBehaviourFunctions::aimAtTarget(Entity& charger, f
 				degAngle = -180 - degAngle;
 		}
 	}
-	std::cout << degAngle << std::endl;
 	charger_angle.degrees = degAngle;
 	
 	return BEHAVIOUR_TREE_STATUS::SUCCESS;
