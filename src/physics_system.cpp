@@ -547,9 +547,11 @@ void handle_inelastic_collision_mesh(Entity& entity_i, Entity& entity_j, vec3 pe
 	if (registry.dizzies.has(entity_i) || registry.dizzies.has(entity_j)) {
 		return;
 	}
-	if ((registry.party_members.has(entity_i) && registry.players.has(entity_j)) ||
-		(registry.party_members.has(entity_j) && registry.players.has(entity_i))) {
-		return;
+	if (registry.party_members.has(entity_i) && registry.party_members.has(entity_j)) {
+		if (registry.party_members.get(entity_i).party == registry.party_members.get(entity_j).party)
+		{
+			return;
+		}
 	}
 	vec2& pos1 = registry.positions.get(entity_i);
 	vec2& pos2 = registry.positions.get(entity_j);

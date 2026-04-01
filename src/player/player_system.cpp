@@ -58,7 +58,7 @@ void PlayerSystem::create_player(int level_uid, vec2 position)
 	// Add mesh to player, default is triangle
 	PolygonMesh& polygon = registry.hitboxes.emplace(player_entity);
 	polygon.centre = position;
-    const vec2 polygon_size = 0.45f * { size.width, size.height };
+    const vec2 polygon_size = 0.45f * vec2{ size.width, size.height };
 	polygon.vertices.push_back(vec2(position.x + polygon_size.x, position.y - polygon_size.y)); 
 	polygon.vertices.push_back(vec2(position.x - polygon_size.x, position.y - polygon_size.y)); 
 	polygon.vertices.push_back(vec2(position.x + polygon_size.x, position.y + polygon_size.y));
