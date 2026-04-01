@@ -16,7 +16,7 @@ Entity createMossWall(const int level_uid, std::string id, vec2 position, vec2 s
 	registry.scales.insert(moss_wall_entity, size);
 	registry.sizes.insert(moss_wall_entity, { size.x, size.y });
 	registry.angles.emplace(moss_wall_entity);
-	registry.unloadables.emplace(moss_wall_entity);
+	registry.unloadables.emplace(moss_wall_entity, Unloadable{ position });
 	Collidable& col = registry.collidables.emplace(moss_wall_entity);
 	col.inelastic = true;
 	registry.colouredWall.insert(moss_wall_entity, { id });
@@ -50,27 +50,30 @@ Entity createMossWall(const int level_uid, std::string id, vec2 position, vec2 s
 
 Entity createPressurePlateWall(const int level_uid, std::string id, vec2 position, vec2 size, bool is_open)
 {
-	Entity pressure_plate_wall_entity;
-	PressurePlateWall& pressure_plate_wall = registry.pressurePlateWalls.emplace(pressure_plate_wall_entity);
-	pressure_plate_wall.is_open = is_open;
-	pressure_plate_wall.id = id;
+		Entity pressure_plate_wall_entity;
+		PressurePlateWall& pressure_plate_wall = registry.pressurePlateWalls.emplace(pressure_plate_wall_entity);
+		pressure_plate_wall.is_open = is_open;
+		pressure_plate_wall.id = id;
 
-	registry.positions.insert(pressure_plate_wall_entity, position);
-	registry.scales.insert(pressure_plate_wall_entity, size);
-	registry.sizes.insert(pressure_plate_wall_entity, { size.x, size.y });
-	registry.colors.insert(pressure_plate_wall_entity, vec4(0.0f, 0.0f, 0.75f, 1.0f));
-	registry.walls.emplace(pressure_plate_wall_entity);
-	registry.angles.emplace(pressure_plate_wall_entity);
-	registry.unloadables.emplace(pressure_plate_wall_entity, Unloadable{ position });
-	Collidable& col = registry.collidables.emplace(pressure_plate_wall_entity);
-	
-	col.inelastic = true;
+		registry.positions.insert(pressure_plate_wall_entity, position);
+		registry.scales.insert(pressure_plate_wall_entity, size);
+		registry.sizes.insert(pressure_plate_wall_entity, { size.x, size.y });
+		registry.walls.emplace(pressure_plate_wall_entity);
+		registry.angles.emplace(pressure_plate_wall_entity);
+		registry.unloadables.emplace(pressure_plate_wall_entity, Unloadable{ position });
+		Collidable& col = registry.collidables.emplace(pressure_plate_wall_entity);
+		col.inelastic = true;
 
-	// TODO QWNAo0jQ: Render request handled in interactable_system for now and 
-	// emplacing as a rectangle because there are no animations/assets for this at the moment. 
-	registry.rectangles.emplace(pressure_plate_wall_entity);
+		const Animatable animatable = {
+			ANIMATABLE_TYPE::PRESSURE_PLATE_WALL,
+			ANIMATION_BEHAVIOR::LOOP,
+			ANIMATION_TRIGGER::IDLE,
+			1
+		};
+		registry.animatables.insert(pressure_plate_wall_entity, animatable);
+		registry.textured.insert(pressure_plate_wall_entity, { TEXTURE_ASSET_ID::PRESSURE_PLATE_WALL });
 
-	return pressure_plate_wall_entity;
+		return pressure_plate_wall_entity;
 }
 
 Entity createMapTile(int tile_id, TEXTURE_ASSET_ID texture_id, ivec2 tile_position, vec4 dest_rect, vec4 source_rect, TILE_TYPE tile_type)
