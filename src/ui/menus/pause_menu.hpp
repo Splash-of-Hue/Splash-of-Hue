@@ -29,7 +29,7 @@ private:
 	{
 		{
 			"CONTINUE",
-			[&]() { registry.menu_toggle_requests.insert(Entity(), { MENU_TYPE::PAUSE_MENU }); }
+			[&]() { registry.ui_toggle_requests.insert(Entity(), { UI_TYPE::PAUSE_MENU }); }
 		},
 		{
 			"QUIT",

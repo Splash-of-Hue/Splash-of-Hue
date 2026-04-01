@@ -2,6 +2,7 @@
 #include "controls/control_constants.hpp"
 #include "ecs/registry.hpp"
 #include "game_state/game_state_constants.hpp"
+#include "ui/ui_constants.hpp"
 
 void MenuControllerSystem::step(float elapsed_ms)
 {
@@ -19,7 +20,7 @@ void MenuControllerSystem::step(float elapsed_ms)
 
 		if (control.type == CONTROL_TYPE::PAUSE)
 		{
-			registry.menu_toggle_requests.insert(Entity(), { MENU_TYPE::PAUSE_MENU });
+			registry.ui_toggle_requests.insert(Entity(), { UI_TYPE::PAUSE_MENU });
 		}
 		else if (control.type == CONTROL_TYPE::MOVE)
 		{

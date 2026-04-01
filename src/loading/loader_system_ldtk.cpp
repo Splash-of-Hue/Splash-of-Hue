@@ -1,3 +1,4 @@
+#include "camera/camera_constants.hpp"
 #include "creature_system/creature_constants.hpp"
 #include "creature_system/creature_creator.hpp"
 #include "ecs/entity.hpp"
@@ -42,7 +43,7 @@ void LoaderSystem::load_level(int level_uid)
 		Entity& level_entity = *std::find_if(registry.levels.entities.begin(), registry.levels.entities.end(), level_entity_match);
 		vec2& level_position = registry.positions.get(level_entity);
 		Entity change_camera_request;
-		registry.changeCameraTargetRequests.insert(change_camera_request, { level_position, LDTK_CAMERA_ROOM_SPEED });
+		registry.changeCameraTargetRequests.insert(change_camera_request, { level_position, CAMERA_ROOM_SPEED });
 		registry.screenStates.components[0].background_color = registry.levels.get(level_entity).background_color;
 
 		return;
@@ -167,7 +168,7 @@ void LoaderSystem::load_level(int level_uid)
 	registry.screenStates.components[0].background_color = level_component.background_color;
 	// Make the camera request at the end of loading
 	Entity change_camera_request;
-	registry.changeCameraTargetRequests.insert(change_camera_request, { registry.positions.get(level_entity), LDTK_CAMERA_ROOM_SPEED});
+	registry.changeCameraTargetRequests.insert(change_camera_request, { registry.positions.get(level_entity), CAMERA_ROOM_SPEED });
 }
 
 void load_tile_layer(const ldtk::Layer& layer)
@@ -471,6 +472,7 @@ void load_teleporter(const ldtk::Entity& teleporter_entity)
 {
 	std::cout << teleporter_entity.getName() << std::endl;
 	const ldtk::EntityRef& other_teleporter_entity_ref = teleporter_entity.getField<ldtk::EntityRef>("ConnectedTeleporter").value();
+	const bool& uses_loading_screen = teleporter_entity.getField<bool>("UsesLoadingScreen").value();
 	const auto& other_layer_grid_size = other_teleporter_entity_ref->layer->getCellSize();
 	const ldtk::IntPoint& position = teleporter_entity.getWorldPosition();
 	const ldtk::IntPoint& size = teleporter_entity.getSize();
@@ -498,7 +500,8 @@ void load_teleporter(const ldtk::Entity& teleporter_entity)
 		scale_to_level(vec2(position.x, position.y)),
 		{ size.x, size.y },
 		scale_to_level(world_arrival_point),
-		offset_direction
+		offset_direction, 
+		uses_loading_screen
 	);
 
 	// Add the connected level UIDs as neighbours to the current level (which must exist at this point)

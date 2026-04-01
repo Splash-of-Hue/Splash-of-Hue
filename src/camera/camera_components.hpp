@@ -12,4 +12,5 @@ struct ChangeCameraTargetRequest
 {
 	vec2 target;
 	float speed;
+	bool instant = false;
 };

@@ -49,8 +49,9 @@ Entity createMapTile(int tile_id, TEXTURE_ASSET_ID texture_id, ivec2 tile_positi
 /// <param name="size">The (width, height) of the teleporter.</param>
 /// <param name="connected_position">The place in the world to be sent to once stepped on.</param>
 /// <param name="offset_direction">The direction whatever teleports in will be offset to.</param>
+/// <param name="uses_loading_screen">Whether or not to show a loading screen when using the teleporter.</param>
 /// <returns>The entity of the teleporter.</returns>
-Entity createTeleporter(const int level_uid, const int connected_level_uid, vec2 position, vec2 size, vec2 connected_position, DIRECTION offset_direction);
+Entity createTeleporter(const int level_uid, const int connected_level_uid, vec2 position, vec2 size, vec2 connected_position, DIRECTION offset_direction, bool uses_loading_screen);
 
 /// <summary>
 /// Creates dungeon wall that players cannot pass

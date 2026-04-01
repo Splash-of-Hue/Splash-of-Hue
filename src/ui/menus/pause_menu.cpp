@@ -21,7 +21,7 @@ void PauseMenu::select()
 
 void PauseMenu::cancel()
 {
-	registry.menu_toggle_requests.insert(Entity(), { MENU_TYPE::PAUSE_MENU });
+	registry.ui_toggle_requests.insert(Entity(), { UI_TYPE::PAUSE_MENU });
 }
 
 void PauseMenu::move(DIRECTION direction)

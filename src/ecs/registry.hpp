@@ -134,7 +134,7 @@ public:
 	ComponentContainer<Sawfish> sawfishes;
 	// UI
 	ComponentContainer<MenuAction> menu_actions;
-	ComponentContainer<MenuToggleRequest> menu_toggle_requests;
+	ComponentContainer<UiToggleRequest> ui_toggle_requests;
 	ComponentContainer<Text> texts;
 
 	// constructor that adds all containers for looping over them
@@ -245,7 +245,7 @@ public:
 		registry_list.push_back(&sawfishes);
 		// UI
 		registry_list.push_back(&menu_actions);
-		registry_list.push_back(&menu_toggle_requests);
+		registry_list.push_back(&ui_toggle_requests);
 		registry_list.push_back(&texts);
 	}
 

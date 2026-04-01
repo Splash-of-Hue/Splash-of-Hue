@@ -23,8 +23,14 @@ void CameraSystem::step(float elapsed_ms)
 	const ChangeCameraTargetRequest& change_request = registry.changeCameraTargetRequests.get(most_recent_request_entity);
 	assert(registry.cameras.size() == 1);
 	const Entity& camera_entity = registry.cameras.entities[0];
-	const vec2& camera_position = registry.positions.get(camera_entity);
+	vec2& camera_position = registry.positions.get(camera_entity);
 	vec2& camera_velocity = registry.velocities.get(camera_entity);
+
+	// If we should instantly snap to the target, do so
+	if (change_request.instant)
+	{
+		camera_position = change_request.target;
+	}
 
 	if (camera_position == change_request.target)
 	{

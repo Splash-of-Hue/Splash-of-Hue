@@ -9,7 +9,6 @@ static ldtk::Project ldtk_project;
 const auto& LDTK_WORLD_ID = ldtk::IID::IID(WORLD_ID_STRING);
 bool is_initial_load = true;
 vec2 LEVEL_TO_SCREEN_SCALE;
-float LDTK_CAMERA_ROOM_SPEED = 1000.f;
 
 // Tiles
 void load_tile_layer(const ldtk::Layer& layer);
