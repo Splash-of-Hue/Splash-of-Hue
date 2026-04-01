@@ -2,6 +2,7 @@
 #include "ecs/tiny_ecs.hpp"
 #include "ecs/components.hpp"
 #include "ecs/registry.hpp"
+#include "sound_constants.hpp"
 #include <cassert>
 #include <sstream>
 #include <iostream>
@@ -36,7 +37,11 @@ void SoundSystem::step(float elapsed_ms)
     //play backgroundMusic if it's stopped playing
     if (!background_sound.isSoundPlaying)
     {
+        //play background music
         result = system->playSound(background_sound.sound, nullptr, false, &background_sound.channel);
+        validate_fmod_result(result);
+        //add offset to background music
+        result = background_sound.channel->setPosition(LOOP_TIME, FMOD_TIMEUNIT_MS);
         validate_fmod_result(result);
     }
 
@@ -46,7 +51,7 @@ void SoundSystem::step(float elapsed_ms)
 void SoundSystem::init()
 {
     Sound& background_sound = registry.sounds.emplace(background_entity);
-    background_sound.audio_file_path = audio_path("Lofi Final.wav");
+    background_sound.path = audio_path("New Lofi Final.wav");
     //create system
     result = FMOD::System_Create(&system);
     validate_fmod_result(result);
