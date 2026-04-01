@@ -1,6 +1,5 @@
 #include <glm/trigonometric.hpp>
 #include <iostream>
-#include <SDL.h>
 
 // internal
 #include "common.hpp"
@@ -224,9 +223,7 @@ void RenderSystem::drawTexturedMesh(Entity entity,
 		transform.translate(window_center() - camera_position);
 	}
 
-	vec2 velocity = registry.velocities.has(entity) ? registry.velocities.get(entity) : vec2(0);
-	vec2 flipped_scale = vec2(velocity.x < 0 ? -scale.x : scale.x, scale.y);
-	transform.scale(flipped_scale);
+	transform.scale(vec2(scale.x, scale.y));
 	float visual_offset = registry.visualRotationOffsets.has(entity) ? registry.visualRotationOffsets.get(entity).degrees : 0.f;
 	transform.rotate(radians(angle.degrees + visual_offset));
 

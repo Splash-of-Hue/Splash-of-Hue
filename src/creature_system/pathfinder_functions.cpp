@@ -66,7 +66,7 @@ BEHAVIOUR_TREE_STATUS CreatureBehaviourFunctions::requestNewPath(Entity& pathfin
 {
 	Pathfinder& pathfinder = registry.pathfinders.get(pathfinder_entity);
 	pathfinder.is_path_dirty = true;
-	pathfinder.target = registry.players.entities[0];
+	pathfinder.target = registry.positions.get(registry.players.entities[0]);
 	return BEHAVIOUR_TREE_STATUS::SUCCESS;
 }
 
@@ -104,7 +104,7 @@ BEHAVIOUR_TREE_STATUS CreatureBehaviourFunctions::requestNewRandomPath(Entity& p
 			vec2& position = registry.positions.emplace(entity);
 
 			position = vec2(random_it.second.first.x, random_it.second.first.y);
-			pathfinder.target = entity;
+			pathfinder.target = position;
 		}
 	}
 	return BEHAVIOUR_TREE_STATUS::SUCCESS;
