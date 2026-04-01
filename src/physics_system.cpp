@@ -676,8 +676,14 @@ void PhysicsSystem::step(float elapsed_ms)
 			if (registry.boid_minnows.has(entity_i) && registry.boid_minnows.has(entity_j)) {
 				continue;
 			}
+			//this was already done before this loop, so skip
+			if ((registry.walls.has(entity_i) && registry.lightEmissions.has(entity_j))
+				|| (registry.walls.has(entity_j) && registry.lightEmissions.has(entity_i))) {
+				continue;
+			}
 			//if passes AABB check, then try mesh collision
 			if (box_collides(entity_i, entity_j)) {
+
 				if ((registry.hurtboxes.has(entity_i) || registry.hurtboxes.has(entity_j)) && (registry.chargers.has(entity_i) || registry.chargers.has(entity_j)))
 				{
 					vec3 penetration = mesh_collides(entity_i, entity_j, true);
@@ -696,7 +702,7 @@ void PhysicsSystem::step(float elapsed_ms)
 					vec3 penetration = mesh_collides(entity_i, entity_j, false);
 
 					if (penetration.x != 0) {
-
+						
 						if (is_light_emission_collision(entity_i, entity_j))
 						{
 							light_emission_collisions(entity_i, entity_j);
