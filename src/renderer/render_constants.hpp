@@ -84,6 +84,7 @@ enum class RENDER_LAYER
 	BACKGROUND_BACK,
 	BACKGROUND_FRONT,
 	FLOOR,
+	FLOOR_UNDERFOOT,
 	WALLS_BACK,
 	/* Entities in these layers are sorted by Y-axis */
 	FLOOR_DECORATIONS,
