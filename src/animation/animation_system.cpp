@@ -35,7 +35,7 @@ void AnimationSystem::step(float elapsed_ms)
 		animatable.time_on_current_frame += elapsed_ms;
 
 		// If we should remain on the current frame, we are done
-		if (animatable.time_on_current_frame < ms_per_frame(animatable.frame_rate))
+		if (animatable.time_on_current_frame < ms_per_frame(animatable.frame_rate) && animatable.cancellable != true)
 		{
 			continue;
 		}
