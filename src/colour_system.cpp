@@ -265,6 +265,19 @@ void ColourSystem::applyColorToPlayer(COLOUR_STATE colour)
 		{
 			Entity& indicator = registry.colourIndicatorUIs.entities[0];
 			Animatable& animatable = registry.animatables.get(indicator);
+
+			if (playerComp.red_unlocked)
+			{
+				animatable.type = ANIMATABLE_TYPE::COLOUR_INDICATOR;
+				registry.textured.get(indicator).used_texture = TEXTURE_ASSET_ID::COLOUR_INDICATOR;
+			}
+			else
+			{
+				animatable.type = playerComp.blue_unlocked ? ANIMATABLE_TYPE::COLOUR_INDICATOR_NO_RED
+					: ANIMATABLE_TYPE::COLOUR_INDICATOR_LOCKED;
+				registry.textured.get(indicator).used_texture = TEXTURE_ASSET_ID::COLOUR_INDICATOR_NO_RED;
+			}
+
 			switch (colour)
 			{
 			case COLOUR_STATE::RED:

@@ -359,6 +359,29 @@ generate_animation(
 		}
 	);
 
+	// MOSS INDICATOR
+	generate_animation(
+		ANIMATABLE_TYPE::MOSS_INDICATOR,
+		ANIMATION_TRIGGER::IDLE,
+		{
+			{ TEXTURE_ASSET_ID::MOSS_INDICATOR, RenderSourceRect{ vec2(0.666f, 0.0f), vec2(0.334f, 1.0f) }}
+		}
+	);
+	generate_animation(
+		ANIMATABLE_TYPE::MOSS_INDICATOR,
+		ANIMATION_TRIGGER::IDLE_RED,
+		{
+			{ TEXTURE_ASSET_ID::MOSS_INDICATOR, RenderSourceRect{ vec2(0.333f, 0.0f), vec2(0.333f, 1.0f) }}
+		}
+	);
+	generate_animation(
+		ANIMATABLE_TYPE::MOSS_INDICATOR,
+		ANIMATION_TRIGGER::IDLE_BLUE,
+		{
+			{ TEXTURE_ASSET_ID::MOSS_INDICATOR, RenderSourceRect{ vec2(0.0f, 0.0f), vec2(0.333f, 1.0f) }}
+		}
+	);
+
 	/*
 		UI ANIMATIONS
 	*/
