@@ -7,10 +7,6 @@
 #include <random>
 #include <vector>
 
-#define SDL_MAIN_HANDLED
-#include <SDL.h>
-#include <SDL_mixer.h>
-
 #include "renderer/render_system.hpp"
 #include "input/input_system.hpp"
 #include "ecs/system.hpp"
@@ -24,9 +20,6 @@ public:
 
 	// creates main window
 	GLFWwindow* create_window();
-
-	// starts and loads music and sound effects
-	bool start_and_load_sounds();
 
 	// call to close the window
 	void close_window();
@@ -73,11 +66,6 @@ private:
 
 	// grid
 	std::vector<Entity> grid_lines;
-
-	// music references
-	Mix_Music* background_music;
-	Mix_Chunk* invader_hit_sound;
-	Mix_Chunk* tower_hit_sound;
 
 	// C++ random number generator
 	std::default_random_engine rng;

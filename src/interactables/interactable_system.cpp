@@ -297,6 +297,26 @@ void InteractableSystem::step_colour_orbs()
 			std::cout << "Player unlocked RED" << std::endl;
 		}
 
+		// Update the colour indicator when the orb is picked up
+		if (!registry.colourIndicatorUIs.entities.empty())
+		{
+			Entity& indicator = registry.colourIndicatorUIs.entities[0];
+			Animatable& animatable = registry.animatables.get(indicator);
+
+			if (playerComp.red_unlocked)
+			{
+				animatable.type = ANIMATABLE_TYPE::COLOUR_INDICATOR;
+				registry.textured.get(indicator).used_texture = TEXTURE_ASSET_ID::COLOUR_INDICATOR;
+			}
+			else
+			{
+				animatable.type = playerComp.blue_unlocked
+					? ANIMATABLE_TYPE::COLOUR_INDICATOR_NO_RED
+					: ANIMATABLE_TYPE::COLOUR_INDICATOR_LOCKED;
+				registry.textured.get(indicator).used_texture = TEXTURE_ASSET_ID::COLOUR_INDICATOR_NO_RED;
+			}
+		}
+
 		registry.remove_all_components_of(orb);
 	}
 }
