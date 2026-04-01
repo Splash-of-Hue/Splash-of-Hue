@@ -14,7 +14,7 @@ void CameraSystem::step(float elapsed_ms)
 		registry.velocities.emplace(camera_entity, vec2(0));
 	}
 
-	// TODO: Remove, M4 hack
+	// TODO BbJdP3lK: Remove, M4 hack for loading screen
 	if (loading_screen_timer < LOADING_SCREEN_CAMERA_COOLDOWN)
 	{
 		loading_screen_timer += elapsed_ms;
@@ -51,7 +51,7 @@ void CameraSystem::step(float elapsed_ms)
 		camera_velocity = vec2(0);
 		camera_position = change_request.target;
 
-		// TODO: Re-asses, for M4
+		// TODO BbJdP3lK: Re-assess, for M4
 		if (change_request.uses_loading_screen)
 		{
 			loading_screen_timer = 0;

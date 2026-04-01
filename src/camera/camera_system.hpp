@@ -8,6 +8,6 @@ public:
 	// This checks if there are any ChangeCameraTargetRequest
 	void step(float elapsed_ms);
 private:
-	// TODO: Remove, M4 hack
+	// TODO BbJdP3lK: Remove, M4 hack
 	float loading_screen_timer = LOADING_SCREEN_CAMERA_COOLDOWN + 1;
 };

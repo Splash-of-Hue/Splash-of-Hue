@@ -1,5 +1,5 @@
 #pragma once
 
 const float CAMERA_ROOM_SPEED = 1000.f;
-// TODO: Remove, M4 hack
+// TODO BbJdP3lK: Remove, M4 hack
 const float LOADING_SCREEN_CAMERA_COOLDOWN = 1000.0f;
