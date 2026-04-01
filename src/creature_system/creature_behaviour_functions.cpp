@@ -19,8 +19,9 @@ BEHAVIOUR_TREE_STATUS CreatureBehaviourFunctions::makeColour(Entity& creature, C
 	}
 	ColourState& colour_state_component = registry.colourStates.get(creature);
 
-	if (colour_state_component.curr_colour_state != colour_state)
+	if (registry.animatables.has(creature) && colour_state_component.curr_colour_state != colour_state)
 	{
+
 		Animatable& animatable = registry.animatables.get(creature);
 		animatable.cancellable = true;
 	}
