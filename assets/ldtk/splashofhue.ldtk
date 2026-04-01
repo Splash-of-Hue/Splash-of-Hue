@@ -2820,10 +2820,7 @@
 			"enumTags": [],
 			"customData": [],
 			"savedSelections": [],
-			"cachedPixelData": {
-				"opaqueTiles": "000000001000000001111111111",
-				"averageColors": "212341331000441145001777577611110000323481341000760155002998466557770000000000000000000000000000000000000000"
-			}
+			"cachedPixelData": null
 		}
 	], "enums": [
 		{ "identifier": "MapTileType", "uid": 14, "values": [{ "id": "Wall", "tileRect": null, "color": 12470831 }], "iconTilesetUid": null, "externalRelPath": null, "externalFileChecksum": null, "tags": ["Tilemaps"] },
@@ -19756,7 +19753,7 @@
 							"__smartColor": "#FEE761",
 							"iid": "4645e200-21a0-11f1-8551-9141732e8c3f",
 							"width": 80,
-							"height": 208,
+							"height": 144,
 							"defUid": 61,
 							"px": [648,632],
 							"fieldInstances": [],
@@ -19772,7 +19769,7 @@
 							"__smartColor": "#FEE761",
 							"iid": "5c931c80-21a0-11f1-8551-ed47e5c4a588",
 							"width": 80,
-							"height": 208,
+							"height": 128,
 							"defUid": 61,
 							"px": [1192,632],
 							"fieldInstances": [],
