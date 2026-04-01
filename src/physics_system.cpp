@@ -648,10 +648,7 @@ void PhysicsSystem::step(float elapsed_ms)
 			Entity& entity_j = walls.entities[j];
 			vec3 penetration = mesh_collides(entity_i, entity_j, false);
 			if (penetration.x != 0) {
-				if ((registry.walls.has(entity_i) && registry.lightEmissions.has(entity_j))
-					|| (registry.walls.has(entity_j) && registry.lightEmissions.has(entity_i))) {
-					handle_light_wall_collision(entity_i, entity_j, penetration);
-				}
+				handle_light_wall_collision(entity_i, entity_j, penetration);
 			}
 		}
 	}
