@@ -164,9 +164,7 @@ Entity CreatureCreator::createMinnows(const int level_uid, vec2 position, float 
     minnows_hitbox.vertices.push_back(vec2(position.x - hitbox_width, position.y + hitbox_height));
     minnows_hitbox.centre = position;
     minnows_hitbox.base_vertices = minnows_hitbox.vertices;
-    for (vec2& v : minnows_hitbox.vertices) {
-        createCircle(v, 30, RENDER_LAYER::UI, vec4(0, 1, 0, 1));
-    }
+
     CreatureBehaviour& creatureBehaviour = registry.creatureBehaviours.emplace(minnows);
     CreatureBehaviourTreeBuilder builder;
     creatureBehaviour.behaviour_tree = builder.buildMinnowTree();
