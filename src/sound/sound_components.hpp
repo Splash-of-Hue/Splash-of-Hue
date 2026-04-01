@@ -11,5 +11,5 @@ struct Sound
 	FMOD::Channel* channel = nullptr;
 	FMOD::Sound* sound = nullptr;
 	bool isSoundPlaying;
-	std::string path;
+	std::string audio_file_path;
 };
