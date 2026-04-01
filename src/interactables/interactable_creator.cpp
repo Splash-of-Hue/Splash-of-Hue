@@ -84,19 +84,8 @@ Entity createColourOrb(vec2 position, float radius, COLOUR_STATE colour_state)
 
 Entity createMushroom(vec2 position, float radius, COLOUR_STATE colour_state, MUSHROOM_SIZE mushroom_size)
 {
-	switch (mushroom_size)
-	{
-		case MUSHROOM_SIZE::SMALL:
-			radius = static_cast<int>(MUSHROOM_WIDTH::SMALL);
-			break;
-		case MUSHROOM_SIZE::MEDIUM:
-			radius = static_cast<int>(MUSHROOM_WIDTH::MEDIUM);
-			break;
-		case MUSHROOM_SIZE::LARGE:
-			radius = static_cast<int>(MUSHROOM_WIDTH::LARGE);
-			break;
-	}
-	Size size = { radius, radius };
+	// visual size is fixed regardless of emission/radius size
+	Size size = { MUSHROOM_VISUAL_SIZE, MUSHROOM_VISUAL_SIZE };
 	Entity mushroom = addGeneralInteractableComponents(position, size, INTERACTABLE_TYPE::MUSHROOM);
 	registry.collectables.emplace(mushroom);
 	Collidable& collidable = registry.collidables.emplace(mushroom);
@@ -106,9 +95,9 @@ Entity createMushroom(vec2 position, float radius, COLOUR_STATE colour_state, MU
 	Mushroom& mushroom_component = registry.mushrooms.emplace(mushroom);
 	mushroom_component.size = mushroom_size;
 
-	registry.scales.insert(mushroom, vec2(size.width, size.height));
+	registry.scales.insert(mushroom, vec2(MUSHROOM_VISUAL_SIZE, MUSHROOM_VISUAL_SIZE));
 	registry.colourStates.insert(mushroom, { colour_state, colour_state });
-	registry.colors.insert(mushroom, vec4(0.f, 1.f, 0.f, 1.0f));
+	registry.colors.insert(mushroom, vec4(1.f, 1.f, 1.f, 1.0f));
 	Textured& textured = registry.textured.emplace(mushroom);
 	textured.used_texture = TEXTURE_ASSET_ID::MUSHROOM;
 	registry.angles.emplace(mushroom);
