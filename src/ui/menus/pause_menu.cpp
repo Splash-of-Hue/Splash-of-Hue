@@ -156,7 +156,7 @@ Entity PauseMenu::create_menu_corner(int corner_index)
 	registry.positions.insert(menu_corner_entity, corner_position);
 	// The rest is normal
 	registry.ignoredByCamera.emplace(menu_corner_entity);
-	registry.textured.insert(menu_corner_entity, { TEXTURE_ASSET_ID::UI_MENU_CORNER });
+	registry.textured.insert(menu_corner_entity, { TEXTURE_ASSET_ID::UI_CORNER_DECORATION });
 	registry.renderRequests.insert(
 		menu_corner_entity,
 		{
