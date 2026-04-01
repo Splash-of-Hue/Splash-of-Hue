@@ -59,7 +59,7 @@ void SoundSystem::init()
     result = system->init(32, FMOD_INIT_NORMAL, nullptr);
     validate_fmod_result(result);
     //create background music
-    result = system->createSound(background_sound.path.c_str(), FMOD_DEFAULT, nullptr, &background_sound.sound);
+    result = system->createSound(background_sound.audio_file_path.c_str(), FMOD_DEFAULT, nullptr, &background_sound.sound);
     validate_fmod_result(result);
     //play background music
     result = system->playSound(background_sound.sound, nullptr, false, &background_sound.channel);
@@ -73,6 +73,6 @@ void SoundSystem::validate_fmod_result(FMOD_RESULT result)
 	if (result != FMOD_OK)
 	{
 		std::cout << "Sound System Error: " << FMOD_ErrorString(result) <<  std::endl;
-		exit(-1);
+        assert(result == FMOD_OK && "Sound System Error");
 	}
 }
