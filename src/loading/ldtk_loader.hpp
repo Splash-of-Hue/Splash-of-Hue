@@ -21,6 +21,7 @@ void load_floor_interactables(const ldtk::Layer& layer);
 void load_teleporter(const ldtk::Entity& teleporter_entity);
 void load_moss_toggle(const ldtk::Entity& moss_toggle_entity);
 void load_moss_door(const ldtk::Entity& moss_door_entity);
+void load_moss_indicator(const ldtk::Entity& indicator_entity);
 void load_pressure_plate(const ldtk::Entity& pressure_plate_entity);
 void load_pressure_plate_walls(const ldtk::Entity& pressure_plate_entity);
 void load_colour_orb(const ldtk::Entity& colour_orb_entity);
