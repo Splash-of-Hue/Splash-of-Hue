@@ -18,6 +18,13 @@ BEHAVIOUR_TREE_STATUS CreatureBehaviourFunctions::makeColour(Entity& creature, C
 		return BEHAVIOUR_TREE_STATUS::FAILURE;
 	}
 	ColourState& colour_state_component = registry.colourStates.get(creature);
+
+	if (colour_state_component.curr_colour_state != colour_state)
+	{
+		Animatable& animatable = registry.animatables.get(creature);
+		animatable.cancellable = true;
+	}
+
 	colour_state_component.prev_colour_state = colour_state_component.prev_colour_state;
 	colour_state_component.curr_colour_state = colour_state;
 
