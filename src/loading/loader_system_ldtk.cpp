@@ -308,6 +308,9 @@ void load_extra_entities(const ldtk::Layer& layer)
 			case ENTITY_TYPE::MOSS_WALL:
 				load_moss_door(extra_entity);
 				continue;
+			case ENTITY_TYPE::MOSS_INDICATOR:
+				load_moss_indicator(extra_entity);
+				continue;
 			case ENTITY_TYPE::PRESSURE_PLATE_WALL:
 				load_pressure_plate_walls(extra_entity);
 				continue;
@@ -565,6 +568,31 @@ void load_moss_door(const ldtk::Entity& moss_door_entity)
 	}
 
 	createMossWall(moss_door_entity.layer->level->uid, moss_door_id, world_position, scaled_size, color_state);
+}
+
+void load_moss_indicator(const ldtk::Entity& indicator_entity)
+{
+	const ldtk::IntPoint& position = indicator_entity.getWorldPosition();
+	const ldtk::IntPoint& size = indicator_entity.getSize();
+	const vec2 world_position = scale_to_level(vec2(position.x, position.y));
+	const vec2 scaled_size = scale_to_level(vec2(size.x, size.y));
+	std::string indicator_id = indicator_entity.iid.str();
+
+	const ldtk::Field<ldtk::EnumValue>& color_state_field = indicator_entity.getField<ldtk::EnumValue>("ColorState");
+	COLOUR_STATE color_state = color_state_from_string(color_state_field.value().name);
+
+	const auto find_toggle = [&](Entity& entity)
+		{
+			std::vector<std::string>& moss_toggle_ids = registry.mossToggles.get(entity).connected_wall_ids;
+			return std::find(moss_toggle_ids.begin(), moss_toggle_ids.end(), indicator_id) != moss_toggle_ids.end();
+		};
+	const auto toggle_iterator = std::find_if(registry.mossToggles.entities.begin(), registry.mossToggles.entities.end(), find_toggle);
+	if (toggle_iterator != registry.mossToggles.entities.end())
+	{
+		color_state = registry.colourStates.get(*toggle_iterator).curr_colour_state;
+	}
+
+	createMossIndicator(indicator_entity.layer->level->uid, indicator_id, world_position, scaled_size, color_state);
 }
 
 void load_wall(const ldtk::Entity& wall_entity)
