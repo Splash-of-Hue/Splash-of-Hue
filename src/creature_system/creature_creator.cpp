@@ -156,15 +156,17 @@ Entity CreatureCreator::createMinnows(const int level_uid, vec2 position, float 
     c.inelastic = false;
     c.overlay = false;
     PolygonMesh& minnows_hitbox = registry.hitboxes.emplace(minnows);
-    float hitbox_height = 0.5f * GRID_CELL_HEIGHT_PX * NUM_MINNOWS * 0.5;
-    float hitbox_width = 0.5f * GRID_CELL_WIDTH_PX * NUM_MINNOWS * 0.5;
+    float hitbox_height = NUM_MINNOWS * height * 0.5;
+    float hitbox_width = NUM_MINNOWS * width * 0.5;
     minnows_hitbox.vertices.push_back(vec2(position.x - hitbox_width, position.y - hitbox_height));
     minnows_hitbox.vertices.push_back(vec2(position.x + hitbox_width, position.y - hitbox_height));
     minnows_hitbox.vertices.push_back(vec2(position.x + hitbox_width, position.y + hitbox_height));
     minnows_hitbox.vertices.push_back(vec2(position.x - hitbox_width, position.y + hitbox_height));
     minnows_hitbox.centre = position;
     minnows_hitbox.base_vertices = minnows_hitbox.vertices;
-
+    for (vec2& v : minnows_hitbox.vertices) {
+        createCircle(v, 30, RENDER_LAYER::UI, vec4(0, 1, 0, 1));
+    }
     CreatureBehaviour& creatureBehaviour = registry.creatureBehaviours.emplace(minnows);
     CreatureBehaviourTreeBuilder builder;
     creatureBehaviour.behaviour_tree = builder.buildMinnowTree();
