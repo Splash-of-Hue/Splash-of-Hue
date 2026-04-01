@@ -23,6 +23,9 @@ Entity createBox(vec2 position, float width, float height)
 	Collidable& collidable = registry.collidables.emplace(box);
 	collidable.inelastic = true;
 	registry.breakables.emplace(box);
+	registry.unloadables.emplace(box, Unloadable{ position });
+	//so boxes can't have light pass through them
+	registry.walls.emplace(box);
 	registry.boxes.emplace(box);
 	registry.scales.insert(box, vec2(width, height));
 	registry.angles.emplace(box);

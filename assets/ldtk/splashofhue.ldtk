@@ -38897,7 +38897,7 @@
 						},
 						{
 							"__identifier": "FloorHintPNGEntity",
-							"__grid": [151,69],
+							"__grid": [141,94],
 							"__pivot": [0.5,0.5],
 							"__tags": ["Floor_Interactable"],
 							"__tile": null,
@@ -38906,13 +38906,13 @@
 							"width": 256,
 							"height": 256,
 							"defUid": 109,
-							"px": [1212,556],
+							"px": [1132,756],
 							"fieldInstances": [{ "__identifier": "FloorHintPictureType", "__type": "LocalEnum.FloorHintPictureType", "__value": "ANGLERFISH", "__tile": null, "defUid": 111, "realEditorValues": [{
 								"id": "V_String",
 								"params": ["ANGLERFISH"]
 							}] }],
-							"__worldX": 1212,
-							"__worldY": -524
+							"__worldX": 1132,
+							"__worldY": -324
 						},
 						{
 							"__identifier": "Teleporter",
