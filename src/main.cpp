@@ -66,10 +66,6 @@ int main()
 		return EXIT_FAILURE;
 	}
 
-	if (!sound_system.start_and_load_sounds()) {
-		std::cerr << "ERROR: Failed to start or load sounds." << std::endl;
-	}
-
 	// initialize the main systems
 	sound_system.init();
 	input_system.init(window);
@@ -97,6 +93,7 @@ int main()
 	game_state_system.register_system(&interactable_system, GAME_STATE::PLAYING);
 	game_state_system.register_system(&emission_system, GAME_STATE::PLAYING);
 	game_state_system.register_system(&ui_system);
+	game_state_system.register_system(&sound_system);
 
 	// variable timestep loop
 	auto t = Clock::now();

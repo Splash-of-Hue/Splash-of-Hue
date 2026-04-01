@@ -78,16 +78,13 @@ endif()
 set(glm_DIR ${CMAKE_CURRENT_SOURCE_DIR}/ext/glm/cmake/glm) # if necessary
 find_package(glm REQUIRED)
 
-# glfw, sdl could be precompiled (on windows) or installed by a package manager (on OSX and Linux)
+# glfw could be precompiled (on windows) or installed by a package manager (on OSX and Linux)
 if (IS_OS_LINUX OR IS_OS_MAC)
     # Try to find packages rather than to use the precompiled ones
     # Since we're on OSX or Linux, we can just use pkgconfig.
     find_package(PkgConfig REQUIRED)
 
     pkg_search_module(GLFW REQUIRED glfw3)
-
-    pkg_search_module(SDL2 REQUIRED sdl2)
-    pkg_search_module(SDL2MIXER REQUIRED SDL2_mixer)
 
     # Link Frameworks on OSX
     if (IS_OS_MAC)
@@ -101,25 +98,28 @@ if (IS_OS_LINUX OR IS_OS_MAC)
 elseif (IS_OS_WINDOWS)
 # https://stackoverflow.com/questions/17126860/cmake-link-precompiled-library-depending-on-os-and-architecture
     set(GLFW_FOUND TRUE)
-    set(SDL2_FOUND TRUE)
 
     # include directories
     set(GLFW_INCLUDE_DIRS "${CMAKE_CURRENT_SOURCE_DIR}/ext/glfw/include")
-    set(SDL2_INCLUDE_DIRS "${CMAKE_CURRENT_SOURCE_DIR}/ext/sdl/include/SDL")
 
     # library files
     set(GLFW_LIBRARIES "${CMAKE_CURRENT_SOURCE_DIR}/ext/glfw/lib/glfw3dll-x64.lib")
-    set(SDL2_LIBRARIES "${CMAKE_CURRENT_SOURCE_DIR}/ext/sdl/lib/SDL2-x64.lib")
-    set(SDL2MIXER_LIBRARIES "${CMAKE_CURRENT_SOURCE_DIR}/ext/sdl/lib/SDL2_mixer-x64.lib")
 
     # matching DLLs
     set(GLFW_DLL "${CMAKE_CURRENT_SOURCE_DIR}/ext/glfw/lib/glfw3-x64.dll")
-    set(SDL_DLL "${CMAKE_CURRENT_SOURCE_DIR}/ext/sdl/lib/SDL2-x64.dll")
-    set(SDLMIXER_DLL "${CMAKE_CURRENT_SOURCE_DIR}/ext/sdl/lib/SDL2_mixer-x64.dll")
     
     # FreeType - Windows-specific (x64 only)
     set (FREETYPE_INCLUDE_DIRS "${CMAKE_CURRENT_SOURCE_DIR}/ext/freetype/include")
     set (FREETYPE_LIBRARY "${CMAKE_CURRENT_SOURCE_DIR}/ext/freetype/release static/vs2015-2022/win64/freetype.lib")
+
+    # FMOD - Windows-specific (x64 only)
+    set (FMOD_CORE_INCLUDE_DIRS "${CMAKE_CURRENT_SOURCE_DIR}/ext/fmod/core/inc")
+    set (FMOD_CORE_LIBRARY "${CMAKE_CURRENT_SOURCE_DIR}/ext/fmod/core/lib/x64/fmod_vc.lib")
+    set (FMOD_CORE_DLL "${CMAKE_CURRENT_SOURCE_DIR}/ext/fmod/core/lib/x64/fmod.dll")
+
+    set (FMOD_STUDIO_INCLUDE_DIRS "${CMAKE_CURRENT_SOURCE_DIR}/ext/fmod/studio/inc")
+    set (FMOD_STUDIO_LIBRARY "${CMAKE_CURRENT_SOURCE_DIR}/ext/fmod/studio/lib/x64/fmodstudio_vc.lib")
+    set (FMOD_STUDIO_DLL "${CMAKE_CURRENT_SOURCE_DIR}/ext/fmod/studio/lib/x64/fmodstudio.dll")
 
     # copy DLLs to build folder and remove if necessary name
     add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
@@ -129,14 +129,13 @@ elseif (IS_OS_WINDOWS)
 
     add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
     COMMAND ${CMAKE_COMMAND} -E copy_if_different
-        "${SDL_DLL}"
-        "$<TARGET_FILE_DIR:${PROJECT_NAME}>/SDL2.dll")
+        "${FMOD_CORE_DLL}"
+        "$<TARGET_FILE_DIR:${PROJECT_NAME}>/fmod.dll")
 
     add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
     COMMAND ${CMAKE_COMMAND} -E copy_if_different
-        "${SDLMIXER_DLL}"
-        "$<TARGET_FILE_DIR:${PROJECT_NAME}>/SDL2_mixer.dll")
-
+        "${FMOD_STUDIO_DLL}"
+        "$<TARGET_FILE_DIR:${PROJECT_NAME}>/fmodstudio.dll")
     # increase warning level from default 3 to 4
     add_compile_options(/w4)
 
@@ -154,12 +153,8 @@ elseif (IS_OS_WINDOWS)
 endif()
 
 # if we can't find the include and lib, then report error and quit.
-if (NOT GLFW_FOUND OR NOT SDL2_FOUND)
-    if (NOT GLFW_FOUND)
-        message(FATAL_ERROR "Can't find GLFW." )
-    else ()
-        message(FATAL_ERROR "Can't find SDL." )
-    endif()
+if (NOT GLFW_FOUND)
+    message(FATAL_ERROR "Can't find GLFW." )
 endif()
 
 find_package(Freetype REQUIRED)
@@ -177,13 +172,13 @@ if(NOT TARGET Freetype::Freetype)
      # or create the target correctly (see cmakes newer FindFreetype.cmake)
      message(FATAL_ERROR "Can't find FreeType (fonts)." )
 endif()
- 
+
 include_directories("${CMAKE_CURRENT_SOURCE_DIR}/ext/freetype/include")
-
+include_directories("${CMAKE_CURRENT_SOURCE_DIR}/ext/fmod/core/inc")
+include_directories("${CMAKE_CURRENT_SOURCE_DIR}/ext/fmod/studio/inc")
 target_include_directories(${PROJECT_NAME} PUBLIC ${GLFW_INCLUDE_DIRS})
-target_include_directories(${PROJECT_NAME} PUBLIC ${SDL2_INCLUDE_DIRS})
 
-target_link_libraries(${PROJECT_NAME} PUBLIC ${GLFW_LIBRARIES} ${SDL2_LIBRARIES} ${SDL2MIXER_LIBRARIES} LDtkLoader::LDtkLoader glm::glm ${FREETYPE_LIBRARY})
+target_link_libraries(${PROJECT_NAME} PUBLIC ${GLFW_LIBRARIES} LDtkLoader::LDtkLoader glm::glm ${FREETYPE_LIBRARY} ${FMOD_CORE_LIBRARY} ${FMOD_STUDIO_LIBRARY})
 
 # needed to add this for Linux
 if(IS_OS_LINUX)

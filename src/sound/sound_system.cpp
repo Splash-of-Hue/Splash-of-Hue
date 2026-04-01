@@ -1,53 +1,78 @@
 #include "sound_system.hpp"
+#include "ecs/tiny_ecs.hpp"
+#include "ecs/components.hpp"
+#include "ecs/registry.hpp"
+#include "sound_constants.hpp"
 #include <cassert>
 #include <sstream>
 #include <iostream>
+#include <fmod_studio.hpp>
+#include <fmod_errors.h>
+
 SoundSystem::SoundSystem()
 {
 }
 
-SoundSystem::~SoundSystem() {
-	// Destroy music components
-	if (background_music != nullptr)
-		Mix_FreeMusic(background_music);
-	/*if (invader_hit_sound != nullptr)
-		Mix_FreeChunk(invader_hit_sound);
-	if (tower_hit_sound != nullptr)
-		Mix_FreeChunk(tower_hit_sound);*/
-	Mix_CloseAudio();
+SoundSystem::~SoundSystem()
+{
+    for (Entity& sound_entity : registry.sounds.entities)
+    {
+        Sound& sound = registry.sounds.get(sound_entity);
+        result = sound.sound->release();
+        validate_fmod_result(result);
 
+        registry.remove_all_components_of(sound_entity);
+    }
+
+    result = system->release();
+    validate_fmod_result(result);
 }
 
-bool SoundSystem::start_and_load_sounds() {
-	//////////////////////////////////////
-	// Loading music and sounds with SDL
-	if (SDL_Init(SDL_INIT_AUDIO) < 0) {
-		fprintf(stderr, "Failed to initialize SDL Audio");
-		return false;
-	}
+void SoundSystem::step(float elapsed_ms)
+{
+    Sound& background_sound = registry.sounds.get(background_entity);
+    //change isBackgroundMusicPlaying depending on if backgroundMusic has ended
+    background_sound.channel->isPlaying(&background_sound.isSoundPlaying);
 
-	if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048) == -1) {
-		fprintf(stderr, "Failed to open audio device");
-		return false;
-	}
+    //play backgroundMusic if it's stopped playing
+    if (!background_sound.isSoundPlaying)
+    {
+        //play background music
+        result = system->playSound(background_sound.sound, nullptr, false, &background_sound.channel);
+        validate_fmod_result(result);
+        //add offset to background music
+        result = background_sound.channel->setPosition(LOOP_TIME, FMOD_TIMEUNIT_MS);
+        validate_fmod_result(result);
+    }
 
-	background_music = Mix_LoadMUS(audio_path("Lofi Final.wav").c_str());
-	//invader_hit_sound = Mix_LoadWAV(audio_path("invader_hit.wav").c_str());
-	//tower_hit_sound = Mix_LoadWAV(audio_path("tower_hit.wav").c_str());
-
-	if (background_music == nullptr /* || invader_hit_sound == nullptr || tower_hit_sound == nullptr*/) {
-		fprintf(stderr, "Failed to load sounds\n %s\n %s\n %s\n make sure the data directory is present",
-			audio_path("music.wav").c_str(),
-			audio_path("invader_hit.wav").c_str(),
-			audio_path("tower_hit.wav").c_str());
-		return false;
-	}
-
-	return true;
+    system->update();
 }
 
-void SoundSystem::init() {
-	// start playing background music indefinitely
-	std::cout << "Starting music..." << std::endl;
-	Mix_PlayMusic(background_music, -1);
+void SoundSystem::init()
+{
+    Sound& background_sound = registry.sounds.emplace(background_entity);
+    background_sound.path = audio_path("New Lofi Final.wav");
+    //create system
+    result = FMOD::System_Create(&system);
+    validate_fmod_result(result);
+    //initialize system
+    result = system->init(32, FMOD_INIT_NORMAL, nullptr);
+    validate_fmod_result(result);
+    //create background music
+    result = system->createSound(background_sound.audio_file_path.c_str(), FMOD_DEFAULT, nullptr, &background_sound.sound);
+    validate_fmod_result(result);
+    //play background music
+    result = system->playSound(background_sound.sound, nullptr, false, &background_sound.channel);
+    validate_fmod_result(result);
+
+    background_sound.isSoundPlaying = true;
+}
+
+void SoundSystem::validate_fmod_result(FMOD_RESULT result)
+{
+	if (result != FMOD_OK)
+	{
+		std::cout << "Sound System Error: " << FMOD_ErrorString(result) <<  std::endl;
+        assert(result == FMOD_OK && "Sound System Error");
+	}
 }
