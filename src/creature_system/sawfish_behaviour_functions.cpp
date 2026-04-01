@@ -81,7 +81,7 @@ BEHAVIOUR_TREE_STATUS CreatureBehaviourFunctions::aimAtTarget(Entity& charger, f
 	//flip creature based on where it's facing (in cases it isn't moving)
 	if (registry.scales.has(charger) && registry.velocities.get(charger).x == 0)
 	{
-		vec2& scale = registry.scales.get(charger)
+		vec2& scale = registry.scales.get(charger);
 		scale.x = (degAngle < 90 && degAngle > -90) ? abs(scale.x) : scale.x;
 		
 		if (degAngle < -90 || degAngle > 90)
