@@ -615,12 +615,13 @@ void handle_light_wall_collision(Entity& entity_i, Entity& entity_j, vec3 penetr
 		dir = normalize(dir);
 		dir = dot(light_mesh.centre - wall_mesh.centre, dir) < 0 ? -dir : dir;
 		vec2 wall_proj = projection(wall_mesh, dir);
-		float wall_boundary = wall_proj.y;
+		vec2 tangent = vec2(-dir.y, dir.x);
+		vec2 wall_tang = projection(wall_mesh, tangent);
 		for (vec2& v : light_mesh.vertices) {
 			float v_proj = dot(v, dir);
-			if (v_proj < wall_boundary) {
-				v += dir * (wall_boundary - v_proj);
-
+			float v_tang = dot(v, tangent);
+			if (v_tang >= wall_tang.x && v_tang <= wall_tang.y && v_proj < wall_proj.y) {
+				v += dir * (wall_proj.y - v_proj);
 			}
 		}
 	}
@@ -642,6 +643,18 @@ void PhysicsSystem::step(float elapsed_ms)
 	checkIfInBoundingBox();
 
 	restore_light_meshes();
+	ComponentContainer<LightEmission> emissions = registry.lightEmissions;
+	ComponentContainer<Wall> walls = registry.walls;
+	for (uint i = 0; i < emissions.entities.size(); i++) {
+		Entity& entity_i = emissions.entities[i];
+		for (uint j = 0; j < walls.entities.size(); j++) {
+			Entity& entity_j = walls.entities[j];
+			vec3 penetration = mesh_collides(entity_i, entity_j, false);
+			if (penetration.x != 0) {
+				handle_light_wall_collision(entity_i, entity_j, penetration);
+			}
+		}
+	}
 	// check for collisions between all collidable entities
 	ComponentContainer<Collidable>& collidables = registry.collidables;
 	for (uint i = 0; i < collidables.components.size(); i++)
@@ -663,8 +676,14 @@ void PhysicsSystem::step(float elapsed_ms)
 			if (registry.boid_minnows.has(entity_i) && registry.boid_minnows.has(entity_j)) {
 				continue;
 			}
+			//this was already done before this loop, so skip
+			if ((registry.walls.has(entity_i) && registry.lightEmissions.has(entity_j))
+				|| (registry.walls.has(entity_j) && registry.lightEmissions.has(entity_i))) {
+				continue;
+			}
 			//if passes AABB check, then try mesh collision
 			if (box_collides(entity_i, entity_j)) {
+
 				if ((registry.hurtboxes.has(entity_i) || registry.hurtboxes.has(entity_j)) && (registry.chargers.has(entity_i) || registry.chargers.has(entity_j)))
 				{
 					vec3 penetration = mesh_collides(entity_i, entity_j, true);
@@ -683,11 +702,7 @@ void PhysicsSystem::step(float elapsed_ms)
 					vec3 penetration = mesh_collides(entity_i, entity_j, false);
 
 					if (penetration.x != 0) {
-						if ((registry.walls.has(entity_i) && registry.lightEmissions.has(entity_j))
-							|| (registry.walls.has(entity_j) && registry.lightEmissions.has(entity_i))) {
-							handle_light_wall_collision(entity_i, entity_j, penetration);
-						}
-
+						
 						if (is_light_emission_collision(entity_i, entity_j))
 						{
 							light_emission_collisions(entity_i, entity_j);
@@ -718,11 +733,7 @@ void PhysicsSystem::step(float elapsed_ms)
 				}
 				
 				//no mesh, resolve box collision
-				if (is_light_emission_collision(entity_i, entity_j))
-				{
-					light_emission_collisions(entity_i, entity_j);
-				}
-				else if (is_bounding_box_collision(entity_i, entity_j))
+				if (is_bounding_box_collision(entity_i, entity_j))
 				{
 					bounding_box_collisions(entity_i, entity_j);
 				}

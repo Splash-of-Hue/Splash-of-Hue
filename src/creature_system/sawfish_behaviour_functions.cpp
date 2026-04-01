@@ -76,6 +76,23 @@ BEHAVIOUR_TREE_STATUS CreatureBehaviourFunctions::aimAtTarget(Entity& charger, f
 		degAngle = -degAngle - 180;
 	}
 
+	//flip creature based on where it's facing (in cases it isn't moving)
+	if (registry.scales.has(charger) && registry.velocities.get(charger).x == 0 &&
+		!(registry.sawfishes.has(charger) && registry.colourStates.get(charger).curr_colour_state == COLOUR_STATE::RED))
+	{
+		vec2& scale = registry.scales.get(charger);
+		scale.x = (degAngle < 90 && degAngle > -90) ? abs(scale.x) : scale.x;
+
+		if (degAngle < -90 || degAngle > 90)
+		{
+			scale.x = -abs(scale.x);
+			if (degAngle > 90)
+				degAngle = 180 - degAngle;
+			else if (degAngle < -90)
+				degAngle = -180 - degAngle;
+		}
+	}
+
 	charger_angle.degrees = degAngle;
 
 	return BEHAVIOUR_TREE_STATUS::SUCCESS;
@@ -107,7 +124,8 @@ BEHAVIOUR_TREE_STATUS CreatureBehaviourFunctions::aimAtPlayer(Entity& charger, f
 		degAngle = -degAngle - 180;
 	}
 	//flip creature based on where it's facing (in cases it isn't moving)
-	if (registry.scales.has(charger) && registry.velocities.get(charger).x == 0)
+	if (registry.scales.has(charger) && registry.velocities.get(charger).x == 0 && 
+		!(registry.sawfishes.has(charger) && registry.colourStates.get(charger).curr_colour_state == COLOUR_STATE::RED))
 	{
 		vec2& scale = registry.scales.get(charger);
 		scale.x = (degAngle < 90 && degAngle > -90) ? abs(scale.x) : scale.x;
