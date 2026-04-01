@@ -887,5 +887,5 @@ void load_puzzle_wall(const ldtk::Entity& puzzle_wall_entity)
 	Entity& wall = createWall(puzzle_wall_entity.layer->level->uid, position, size.x, size.y, PUZZLE_WALL_COLOUR);
 	registry.renderRequests.get(wall).layer = RENDER_LAYER::WALLS_FRONT;
 	registry.puzzle_triggers.insert(wall, { puzzle_wall_entity.iid.str(), [&]() {} });
-	registry.unloadables.emplace(wall);
+	registry.unloadables.emplace(wall, Unloadable{ position });
 }
