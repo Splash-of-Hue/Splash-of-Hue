@@ -6,15 +6,13 @@
 #include <vector>
 
 // Bare bones direct pathfinding 
-void direct_line_next_step(float elapsed_ms, Entity& follower, Entity& target)
+void direct_line_next_step(float elapsed_ms, Entity& follower, const vec2& target_position)
 {
 	assert(registry.pathfinders.has(follower) && "The follower creature isn't registered as a pathfinder");
 	Pathfinder& pathfinder_component = registry.pathfinders.get(follower);
-	assert(registry.positions.has(target) && "Target doesn't have a position");
 	assert(registry.positions.has(follower) && "Pathfinder doesn't have a position");
 	assert(registry.velocities.has(follower) && "Pathfinder doesn't have a velocity");
 
-	const vec2& target_position = registry.positions.get(target);
 	vec2& follower_position = registry.positions.get(follower);
 	vec2& follower_velocity = registry.velocities.get(follower);
 
@@ -41,12 +39,6 @@ void direct_line_next_step(float elapsed_ms, Entity& follower, Entity& target)
 	// Slow down when approaching the player so there isn't an abrupt stop
 	float slow_radius = pathfinder_component.minimum_distance_to_target * 2;;
 	float max_speed = pathfinder_component.max_speed * elapsed_ms * 0.01;
-	if (distance < slow_radius)
-	{
-		float t = (distance - pathfinder_component.minimum_distance_to_target) / (slow_radius - pathfinder_component.minimum_distance_to_target);
-		t = std::clamp(t, 0.f, 1.f);
-		max_speed = max_speed * t;
-	}
 	follower_velocity = { norm_x * max_speed, norm_y * max_speed };
 }
 
