@@ -110,17 +110,16 @@ void EmissionSystem::update_emission_position(Entity& emission_entity)
 	if (registry.angles.has(registry.lightEmissions.get(emission_entity).lightSourceEntity))
 	{
 		LightEmission& emission_component = registry.lightEmissions.get(emission_entity);
-		float angle = registry.angles.get(registry.lightEmissions.get(emission_entity).lightSourceEntity).degrees;
-		angle = angle * 3.14 / 180;
+		const float radians = registry.angles.get(registry.lightEmissions.get(emission_entity).lightSourceEntity).degrees * 3.14 / 180;
 		//change position based off offset and creature rotation
-		emission_position.x = source_position.x + emission_component.offset.x * cos(angle) - emission_component.offset.y * sin(angle);
-		emission_position.y = source_position.y + emission_component.offset.x * sin(angle) + emission_component.offset.y * cos(angle);
+		emission_position.x = source_position.x + emission_component.offset.x * cos(radians) - emission_component.offset.y * sin(radians);
+		emission_position.y = source_position.y + emission_component.offset.x * sin(radians) + emission_component.offset.y * cos(radians);
 		//covers entity flipping while its moving 
 		if (registry.scales.has(registry.lightEmissions.get(emission_entity).lightSourceEntity))
 		{
 			vec2 source_scale = registry.scales.get(registry.lightEmissions.get(emission_entity).lightSourceEntity);
 			if (source_scale.x < 0)
-				emission_position.x = source_position.x - emission_component.offset.x * cos(angle) + emission_component.offset.y * sin(angle);
+				emission_position.x = source_position.x - emission_component.offset.x * cos(radians) + emission_component.offset.y * sin(radians);
 		}
 		return;
 	}
