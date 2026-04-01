@@ -165,7 +165,9 @@ void InteractableSystem::step_moss_toggle()
 			registry.animation_triggers.remove(moss_toggle_entity);
 		}
 		registry.animation_triggers.emplace(moss_toggle_entity, trigger);
-
+		
+		Animatable& mossToggle_animatable = registry.animatables.get(moss_toggle_entity);
+		mossToggle_animatable.cancellable = true;
 		// Update each of the connected walls that is spawned
 		for (std::string& connected_wall_id : moss_toggle.connected_wall_ids)
 		{
@@ -186,6 +188,8 @@ void InteractableSystem::step_moss_toggle()
 			}
 			registry.animation_triggers.emplace(*wall_entity_iterator, trigger);
 
+			Animatable& mossWall_animatable = registry.animatables.get(*wall_entity_iterator);
+			mossWall_animatable.cancellable = true;
 		}
 	}
 }
