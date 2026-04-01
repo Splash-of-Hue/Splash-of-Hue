@@ -9,7 +9,7 @@
 void CreatureCreator::addGeneralCreatureComponents(const int level_uid, Entity creature, vec2 position, float width, float height, COLOUR_STATE color_state, CREATURETYPE creature_type, TEXTURE_ASSET_ID texture_asset_id, bool shouldHaveInelasticCollision /* = true */) {
     const ColourPalette& palette = registry.colourPalettes.components[0];
     bool use_asset_colour = (creature_type == CREATURETYPE::ANGLERFISH || creature_type == CREATURETYPE::CRAB);
-    vec4 color = use_asset_colour ? vec4(1.f, 1.f, 1.f, 1.0f) : palette.state_to_colour.at(color_state);
+    vec4 color = use_asset_colour ? WHITE_COLOUR_VEC4 : palette.state_to_colour.at(color_state);
 
     Collidable& collidable = registry.collidables.emplace(creature);
     collidable.inelastic = shouldHaveInelasticCollision;
