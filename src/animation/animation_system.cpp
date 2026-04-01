@@ -35,7 +35,7 @@ void AnimationSystem::step(float elapsed_ms)
 		animatable.time_on_current_frame += elapsed_ms;
 
 		// If we should remain on the current frame, we are done
-		if (animatable.time_on_current_frame < ms_per_frame(animatable.frame_rate))
+		if (animatable.time_on_current_frame < ms_per_frame(animatable.frame_rate) && animatable.cancellable != true)
 		{
 			continue;
 		}
@@ -87,6 +87,7 @@ void AnimationSystem::step(float elapsed_ms)
 		RenderSourceRect& render_source_rect = render_source_rect_registry.get(entity);
 		render_source_rect = texture_source_rect;
 		//std::cout << "ANIMATION: Using texture  ID: " << (int)texture_asset_id << " for entity ID: " << (int)entity.id() << ", time spent on this frame: " << animatable.time_on_current_frame << std::endl;
+		animatable.cancellable = false;
 	}
 
 	return;
