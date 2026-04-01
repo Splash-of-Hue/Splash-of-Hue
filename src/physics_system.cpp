@@ -730,7 +730,7 @@ void PhysicsSystem::step(float elapsed_ms)
 				}
 				
 				//no mesh, resolve box collision
-				else if (is_bounding_box_collision(entity_i, entity_j))
+				if (is_bounding_box_collision(entity_i, entity_j))
 				{
 					bounding_box_collisions(entity_i, entity_j);
 				}
