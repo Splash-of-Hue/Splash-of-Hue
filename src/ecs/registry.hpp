@@ -97,6 +97,7 @@ public:
 	ComponentContainer<MinimapPlayerIcon> minimapPlayerIcons;
 	// Party
 	ComponentContainer<Party> parties;
+	ComponentContainer<PartyChangeRequest> party_change_requests;
 	ComponentContainer<PartyMember> party_members;
 	// Physics - Collisions
 	ComponentContainer<ChangeBehaviour> change_behaviours;
@@ -210,6 +211,7 @@ public:
 		registry_list.push_back(&walls);
 		// Party
 		registry_list.push_back(&parties);
+		registry_list.push_back(&party_change_requests);
 		registry_list.push_back(&party_members);
 		// Physics - Collisions
 		registry_list.push_back(&change_behaviours);
