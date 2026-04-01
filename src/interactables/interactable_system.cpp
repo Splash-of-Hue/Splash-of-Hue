@@ -204,6 +204,17 @@ void InteractableSystem::step_pressure_plates()
 			continue;
 		}
 
+		if (registry.animation_triggers.has(pressure_plate_entity)) {
+			registry.animation_triggers.remove(pressure_plate_entity);
+		}
+
+		if (in_bounding_box_component.isTouchingOtherEntity) {
+			registry.animation_triggers.emplace(pressure_plate_entity, AnimationTrigger{ ANIMATION_TRIGGER::CHARGE });
+
+		} else {
+			registry.animation_triggers.emplace(pressure_plate_entity, AnimationTrigger{ ANIMATION_TRIGGER::IDLE });
+		}
+
 		// update connected walls!
 		for (std::string& connected_wall_id : pressure_plate_component.connected_wall_ids)
 		{
@@ -242,8 +253,8 @@ void InteractableSystem::step_pressure_plates()
 					registry.renderRequests.insert(
 						*wall_entity_iterator,
 						{
-							EFFECT_ASSET_ID::DEFAULT,
-							GEOMETRY_BUFFER_ID::RECTANGLE,
+							EFFECT_ASSET_ID::TEXTURED,
+							GEOMETRY_BUFFER_ID::SPRITE,
 							RENDER_LAYER::WALLS_FRONT
 						}
 					);
@@ -280,6 +291,26 @@ void InteractableSystem::step_colour_orbs()
 		{
 			playerComp.red_unlocked = true;
 			std::cout << "Player unlocked RED" << std::endl;
+		}
+
+		// Update the colour indicator when the orb is picked up
+		if (!registry.colourIndicatorUIs.entities.empty())
+		{
+			Entity& indicator = registry.colourIndicatorUIs.entities[0];
+			Animatable& animatable = registry.animatables.get(indicator);
+
+			if (playerComp.red_unlocked)
+			{
+				animatable.type = ANIMATABLE_TYPE::COLOUR_INDICATOR;
+				registry.textured.get(indicator).used_texture = TEXTURE_ASSET_ID::COLOUR_INDICATOR;
+			}
+			else
+			{
+				animatable.type = playerComp.blue_unlocked
+					? ANIMATABLE_TYPE::COLOUR_INDICATOR_NO_RED
+					: ANIMATABLE_TYPE::COLOUR_INDICATOR_LOCKED;
+				registry.textured.get(indicator).used_texture = TEXTURE_ASSET_ID::COLOUR_INDICATOR_NO_RED;
+			}
 		}
 
 		registry.remove_all_components_of(orb);

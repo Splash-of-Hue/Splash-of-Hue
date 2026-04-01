@@ -1,11 +1,13 @@
 #pragma once
 
-#define SDL_MAIN_HANDLED
-#include <SDL.h>
-#include <SDL_mixer.h>
 #include "common.hpp"
+#include <fmod_studio.hpp>
+#include "common.hpp"
+#include "ecs/components.hpp"
+#include "ecs/entity.hpp"
+#include "ecs/system.hpp"
 
-class SoundSystem
+class SoundSystem : public SystemInterface
 {
 public:
 
@@ -13,15 +15,14 @@ public:
 
 	~SoundSystem();
 
-	bool start_and_load_sounds();
-
 	void init();
 
+	void step(float elapsed_ms);
+
 private:
-	// music references
-	Mix_Music* background_music;
+	FMOD::System* system = nullptr;
+	Entity background_entity;
+	FMOD_RESULT result;
 
-	//Mix_Chunk* invader_hit_sound;
-
-	//Mix_Chunk* tower_hit_sound;
+	void validate_fmod_result(FMOD_RESULT result);
 };

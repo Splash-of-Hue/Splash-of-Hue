@@ -18,7 +18,7 @@ struct Anglerfish
 {
 };
 
-const float ANGLERFISH_FOLLOWING_SPEED = 1000.f;
+const float ANGLERFISH_FOLLOWING_SPEED = 1700.f;
 
 struct Crab
 {
@@ -33,7 +33,7 @@ struct Sawfish
 
 const float SAWFISH_CHARGING_SPEED = 500.f;
 const float SAWFISH_WANDERING_SPEED = 100.f;
-const float SAWFISH_FOLLOWING_SPEED = 1000.f;
+const float SAWFISH_FOLLOWING_SPEED = 1700.f;
 
 enum SHRIMP_ARM_COLOUR
 {
