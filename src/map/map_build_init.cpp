@@ -101,7 +101,7 @@ Entity createTeleporter(const int level_uid, const int connected_level_id, vec2 
 	Entity teleporter_entity;
 	registry.sizes.insert(teleporter_entity, { size.x, size.y });
 	registry.positions.insert(teleporter_entity, position);
-	Teleporter teleporter = { level_uid, connected_level_id, offset_direction, vec2(connected_position.x, connected_position.y) };
+	Teleporter teleporter = { level_uid, connected_level_id, offset_direction, vec2(connected_position.x, connected_position.y), uses_loading_screen };
 	registry.teleporters.emplace(teleporter_entity, teleporter);
 	registry.collidables.emplace(teleporter_entity);
 	registry.levelEntities.insert(teleporter_entity, { level_uid });

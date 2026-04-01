@@ -20,7 +20,7 @@
 #include <string>
 #include <unordered_map>
 
-void LoaderSystem::load_level(int level_uid)
+void LoaderSystem::load_level(int level_uid, bool uses_loading_screen)
 {
 	if (!project_loaded)
 	{
@@ -43,7 +43,7 @@ void LoaderSystem::load_level(int level_uid)
 		Entity& level_entity = *std::find_if(registry.levels.entities.begin(), registry.levels.entities.end(), level_entity_match);
 		vec2& level_position = registry.positions.get(level_entity);
 		Entity change_camera_request;
-		registry.changeCameraTargetRequests.insert(change_camera_request, { level_position, CAMERA_ROOM_SPEED });
+		registry.changeCameraTargetRequests.insert(change_camera_request, { level_position, CAMERA_ROOM_SPEED, uses_loading_screen, uses_loading_screen });
 		registry.screenStates.components[0].background_color = registry.levels.get(level_entity).background_color;
 
 		return;
@@ -168,7 +168,7 @@ void LoaderSystem::load_level(int level_uid)
 	registry.screenStates.components[0].background_color = level_component.background_color;
 	// Make the camera request at the end of loading
 	Entity change_camera_request;
-	registry.changeCameraTargetRequests.insert(change_camera_request, { registry.positions.get(level_entity), CAMERA_ROOM_SPEED });
+	registry.changeCameraTargetRequests.insert(change_camera_request, { registry.positions.get(level_entity), CAMERA_ROOM_SPEED, uses_loading_screen, uses_loading_screen });
 }
 
 void load_tile_layer(const ldtk::Layer& layer)

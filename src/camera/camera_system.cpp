@@ -1,4 +1,5 @@
 #include "camera_components.hpp"
+#include "camera_constants.hpp"
 #include "camera_system.hpp"
 #include "common.hpp"
 #include "ecs/registry.hpp"
@@ -11,6 +12,17 @@ void CameraSystem::step(float elapsed_ms)
 		registry.cameras.emplace(camera_entity);
 		registry.positions.emplace(camera_entity);
 		registry.velocities.emplace(camera_entity, vec2(0));
+	}
+
+	// TODO: Remove, M4 hack
+	if (loading_screen_timer < LOADING_SCREEN_CAMERA_COOLDOWN)
+	{
+		loading_screen_timer += elapsed_ms;
+
+		if (loading_screen_timer >= LOADING_SCREEN_CAMERA_COOLDOWN)
+		{
+			registry.ui_toggle_requests.insert(Entity(), { UI_TYPE::LOADING_SCREEN });
+		}
 	}
 
 	if (registry.changeCameraTargetRequests.size() == 0)
@@ -32,11 +44,19 @@ void CameraSystem::step(float elapsed_ms)
 		camera_position = change_request.target;
 	}
 
-	if (camera_position == change_request.target)
+	if (distance(camera_position, change_request.target) < 0.2)
 	{
 		// We have arrived, clear all requests and finish
 		registry.changeCameraTargetRequests.clear();
 		camera_velocity = vec2(0);
+		camera_position = change_request.target;
+
+		// TODO: Re-asses, for M4
+		if (change_request.uses_loading_screen)
+		{
+			loading_screen_timer = 0;
+		}
+
 		return;
 	}
 

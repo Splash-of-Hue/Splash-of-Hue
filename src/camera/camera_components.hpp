@@ -12,5 +12,7 @@ struct ChangeCameraTargetRequest
 {
 	vec2 target;
 	float speed;
+	// TODO: Re-assess, for M4
+	bool uses_loading_screen = false;
 	bool instant = false;
 };
