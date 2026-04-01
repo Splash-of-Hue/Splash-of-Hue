@@ -12,14 +12,14 @@ const enum EMISSION_SIZE
 	MUSHROOM_SMALL_EMISSION = 100,
 	MUSHROOM_MEDIUM_EMISSION = 300,
 	MUSHROOM_LARGE_EMISSION = 500,
-	ANGLERFISH_EMISSION = 200
+	ANGLERFISH_EMISSION = 300
 };
 
 const std::map<std::string, vec2> EMISSION_OFFSET =
 {
 	{"PLAYER", {0,-1}},
 	{"MUSHROOM", {0,-1}},
-	{"ANGLERFISH", {50, -17}} // TODO 3KZ4EsT4
+	{"ANGLERFISH", {0, -1}} // TODO 3KZ4EsT4
 	//Angerfish offset will be dynamic with its rotation once it's implemented
 };
 

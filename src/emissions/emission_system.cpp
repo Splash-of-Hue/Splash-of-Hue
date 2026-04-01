@@ -103,27 +103,9 @@ void EmissionSystem::update_emission_position(Entity& emission_entity)
 		LevelEntity& emission_level_entity = registry.levelEntities.get(emission_entity);
 		emission_level_entity.level_uid = registry.levelEntities.get(registry.lightEmissions.get(emission_entity).lightSourceEntity).level_uid;
 	}
+
 	vec2& source_position = registry.positions.get(registry.lightEmissions.get(emission_entity).lightSourceEntity);
 	vec2& emission_position = registry.positions.get(emission_entity);
-	
-	//rotating creatures (anglerfish) will have an offset to the emission
-	if (registry.angles.has(registry.lightEmissions.get(emission_entity).lightSourceEntity))
-	{
-		LightEmission& emission_component = registry.lightEmissions.get(emission_entity);
-		const float radians = registry.angles.get(registry.lightEmissions.get(emission_entity).lightSourceEntity).degrees * 3.14 / 180;
-		//change position based off offset and creature rotation
-		emission_position.x = source_position.x + emission_component.offset.x * cos(radians) - emission_component.offset.y * sin(radians);
-		emission_position.y = source_position.y + emission_component.offset.x * sin(radians) + emission_component.offset.y * cos(radians);
-		//covers entity flipping while its moving 
-		if (registry.scales.has(registry.lightEmissions.get(emission_entity).lightSourceEntity))
-		{
-			vec2 source_scale = registry.scales.get(registry.lightEmissions.get(emission_entity).lightSourceEntity);
-			if (source_scale.x < 0)
-				emission_position.x = source_position.x - emission_component.offset.x * cos(radians) + emission_component.offset.y * sin(radians);
-		}
-		return;
-	}
-
 	emission_position.x = source_position.x;
 	emission_position.y = source_position.y;
 }
