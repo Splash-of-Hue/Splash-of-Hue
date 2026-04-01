@@ -51,7 +51,7 @@ void SoundSystem::step(float elapsed_ms)
 void SoundSystem::init()
 {
     Sound& background_sound = registry.sounds.emplace(background_entity);
-    background_sound.path = audio_path("New Lofi Final.wav");
+    background_sound.audio_file_path = audio_path("New Lofi Final.wav");
     //create system
     result = FMOD::System_Create(&system);
     validate_fmod_result(result);
