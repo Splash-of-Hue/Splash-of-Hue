@@ -434,7 +434,7 @@ Entity CreatureCreator::createSawfish(const int level_uid, vec2 position, float 
     pathfinder.target = registry.positions.get(registry.players.entities[0]);
     pathfinder.type = PATHFINDING_TYPE::DIRECT;
     pathfinder.max_speed = SAWFISH_FOLLOWING_SPEED;
-    pathfinder.minimum_distance_to_target = 60.0f;
+    pathfinder.minimum_distance_to_target = 70.0f;
     CreatureBehaviour& creatureBehaviour = registry.creatureBehaviours.emplace(sawfish);
     creatureBehaviour.behaviour_tree = CreatureBehaviourTreeBuilder::buildSawfishTree();
     const Animatable animatable = {
