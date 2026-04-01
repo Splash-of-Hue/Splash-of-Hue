@@ -148,7 +148,7 @@ Entity CreatureCreator::createMinnows(const int level_uid, vec2 position, float 
         registry.velocities.get(minnow_follower) = vec2(cos(angle), sin(angle)) * minnow_overseer.min_speed * 0.5f;
 
         // Add a small random offset so boids don't all start at exactly the same position
-        float offset_radius = rand() / static_cast<float>(RAND_MAX) * 1.0f; // up to 1 unit away
+        float offset_radius = rand() / static_cast<float>(RAND_MAX) * 1.0f;
         registry.positions.get(minnow_follower) += vec2(cos(angle), sin(angle)) * offset_radius;
 
         Collidable& collidable = registry.collidables.get(minnow_follower);
