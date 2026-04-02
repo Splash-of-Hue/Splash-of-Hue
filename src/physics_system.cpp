@@ -383,11 +383,11 @@ void handle_inelastic_collision_box(Entity& entity_i, Entity& entity_j)
 	vec2* pos_to_correct = &pos1;
 	vec2* other_pos = &pos2;
 
-	if (!registry.velocities.has(entity_i)) {
+	if (!registry.velocities.has(entity_i) && registry.velocities.has(entity_j)) {
 		pos_to_correct = &pos2;
 		other_pos = &pos1;
 	}
-	if (registry.velocities.has(entity_i) && registry.velocities.get(entity_i) == vec2(0)) {
+	if (registry.velocities.has(entity_i) && registry.velocities.get(entity_i) == vec2(0) && registry.velocities.has(entity_j) && registry.velocities.get(entity_j) != vec2(0)) {
 		pos_to_correct = &pos2;
 		other_pos = &pos1;
 	}
@@ -421,7 +421,6 @@ void handle_inelastic_collision_box(Entity& entity_i, Entity& entity_j)
 	if (x_depth < y_depth)
 	{
 		pos_to_correct->x += x_depth*dir_x;
-
 	}
 	else
 	{
@@ -545,44 +544,41 @@ vec3 mesh_collides(const Entity& entity1, const Entity& entity2,  bool isHurtCol
 
 void handle_inelastic_collision_mesh(Entity& entity_i, Entity& entity_j, vec3 penetration)
 {
+	if (registry.dizzies.has(entity_i) || registry.dizzies.has(entity_j)) {
+		return;
+	}
+	if (registry.party_members.has(entity_i) && registry.party_members.has(entity_j)) {
+		if (registry.party_members.get(entity_i).party == registry.party_members.get(entity_j).party)
+		{
+			return;
+		}
+	}
 	vec2& pos1 = registry.positions.get(entity_i);
 	vec2& pos2 = registry.positions.get(entity_j);
 
-	vec2* pos_to_correct = &pos1;
-	vec2* other_pos = &pos2;
-
-	if (!registry.velocities.has(entity_i)) {
-		pos_to_correct = &pos2;
-		other_pos = &pos1;
-	}
-	if (registry.velocities.has(entity_i) && registry.velocities.get(entity_i) == vec2(0)) {
-		pos_to_correct = &pos2;
-		other_pos = &pos1;
-	}
-	vec2 dir = *pos_to_correct - *other_pos;
+	vec2 dir = pos1 - pos2;
 	// if the normal points toward the other, flip
 	float dir_check = dir.x * penetration.y + dir.y * penetration.z;
-	
 	float sign = dir_check >= 0 ? 1.0f : -1.0f;
+	
+	vec2 vel_i = registry.velocities.has(entity_i) ? registry.velocities.get(entity_i) : vec2(0);
+	vec2 vel_j = registry.velocities.has(entity_j) ? registry.velocities.get(entity_j) : vec2(0);
 
+	float x_correction = penetration.x * penetration.y * sign;
 	//if two things are moving and collide, split the correction and apply to both
-
-	if (registry.velocities.has(entity_i) && registry.velocities.has(entity_j) && registry.velocities.get(entity_i) != vec2(0) && registry.velocities.get(entity_j) != vec2(0))
-	{
-		vec2 vel_i = registry.velocities.get(entity_i);
-		vec2 vel_j = registry.velocities.get(entity_j);
-		float x_correction = penetration.x * penetration.y * sign * 0.5;
-		//if moving into the collision, then it needs to be corrected
-		pos_to_correct->x += vel_i.x * x_correction >= 0.f ? 0.f : x_correction;
-		other_pos->x -= vel_j.x * x_correction <= 0.f ? 0.f : x_correction;
-
-		float y_correction = penetration.x * penetration.z * sign * 0.5;
-		pos_to_correct->y += vel_i.y * y_correction >= 0.f ? 0.f : y_correction;
-		other_pos->y -= vel_j.y * y_correction <= 0.f ? 0.f : y_correction;
-		return;
+	if (vel_i.x * x_correction < 0.f && vel_j.x * x_correction > 0.f) {
+		x_correction *= 0.5;
 	}
-	pos_to_correct->x += (penetration.x * penetration.y * sign);
-	pos_to_correct->y += (penetration.x * penetration.z * sign);
+	//if moving into the collision, then it needs to be corrected
+	pos1.x += vel_i.x * x_correction < 0.f ? x_correction : 0.f;
+	pos2.x -= vel_j.x * x_correction > 0.f ? x_correction: 0.f;
+
+	float y_correction = penetration.x * penetration.z * sign;
+	if (vel_i.y * y_correction < 0.f && vel_j.y * y_correction > 0.f) {
+		y_correction *= 0.5;
+	}
+	pos1.y += vel_i.y * y_correction < 0.f ? y_correction : 0.f;
+	pos2.y -= vel_j.y * y_correction > 0.f ? y_correction : 0.f;
 }
 
 void rotatePolygon(PolygonMesh& polygon, float radAngle) {
@@ -666,32 +662,18 @@ void PhysicsSystem::step(float elapsed_ms)
 			if (registry.boid_minnows.has(entity_i) && registry.boid_minnows.has(entity_j)) {
 				continue;
 			}
-
 			//if passes AABB check, then try mesh collision
 			if (box_collides(entity_i, entity_j)) {
-				if (registry.hurtboxes.has(entity_i) || registry.hurtboxes.has(entity_j))
+				if ((registry.hurtboxes.has(entity_i) || registry.hurtboxes.has(entity_j)) && (registry.chargers.has(entity_i) || registry.chargers.has(entity_j)))
 				{
 					vec3 penetration = mesh_collides(entity_i, entity_j, true);
 
 					if (penetration.x != 0) {
 						handle_hurt_collision(entity_i, entity_j);
 						//breaking a box still runs this code, so we gotta check if the entity still exists
-						if (registry.collidables.has(entity_i) && registry.collidables.has(entity_j)) {
-							if (registry.collidables.get(entity_i).inelastic && registry.collidables.get(entity_j).inelastic)
-							{
-								if (!registry.creatureInelasticCollisions.has(entity_j) && registry.creatures.has(entity_j)) {
-									registry.creatureInelasticCollisions.emplace(entity_j);
-								}
-								if (!registry.creatureInelasticCollisions.has(entity_i) && registry.creatures.has(entity_i)) {
-									registry.creatureInelasticCollisions.emplace(entity_i);
-								}
-								handle_inelastic_collision_mesh(entity_i, entity_j, penetration);
-							}
-							
-						}
-						else {
-							return;
-						}
+						if (!(registry.collidables.has(entity_i) && registry.collidables.has(entity_j))) {
+							continue;
+						}	
 					}
 				}
 
@@ -776,6 +758,14 @@ void PhysicsSystem::handle_movement(float elapsed_ms)
 		Entity& e = moving_entities.entities[i];
 		vec2& pos = registry.positions.get(e);
 		vec2& vel = registry.velocities.get(e);
+		if (registry.scales.has(e))
+		{
+			vec2& scale = registry.scales.get(e);
+			//flip the direction the entity is facing relative to the velocity it is moving. 
+			scale.x = vel.x < 0 ? -abs(scale.x) : scale.x;
+			scale.x = vel.x > 0 ? abs(scale.x) : scale.x;
+		}
+
 		float step = elapsed_ms * ONE_THOUSANDTH;
 		pos += (vel * step);
 

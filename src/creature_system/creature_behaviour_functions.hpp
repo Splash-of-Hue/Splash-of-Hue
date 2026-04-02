@@ -70,6 +70,7 @@ public:
 	static BEHAVIOUR_TREE_STATUS beDizzy(Entity& follower, float elapsed_ms);
 	static BEHAVIOUR_TREE_STATUS removeDizzy(Entity& creature, float elapsed_ms);
 	static BEHAVIOUR_TREE_STATUS aimAtTarget(Entity& follower, float elapsed_ms);
+	static BEHAVIOUR_TREE_STATUS aimAtPlayer(Entity& follower, float elapsed_ms);
 
 	// ===== Decorator Node Functions =====
 	// Colour

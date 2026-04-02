@@ -39,12 +39,15 @@ void ColourSystem::initialize_colour_indicator()
 
 	registry.positions.insert(indicator, position);
 	registry.sizes.insert(indicator, { size, size });
-	registry.scales.insert(indicator, vec2(size, size));  
-	registry.angles.insert(indicator, { 0.f });   
+	registry.scales.insert(indicator, vec2(size, size));
+	registry.angles.insert(indicator, { 0.f });
 	registry.ignoredByCamera.emplace(indicator);
-	// set texture to colour indicator asset
+	bool red_unlocked = !registry.players.entities.empty() && registry.players.get(registry.players.entities[0]).red_unlocked;
+	bool blue_unlocked = !registry.players.entities.empty() && registry.players.get(registry.players.entities[0]).blue_unlocked;
+
 	Textured& textured = registry.textured.emplace(indicator);
-	textured.used_texture = TEXTURE_ASSET_ID::COLOUR_INDICATOR;
+	textured.used_texture = red_unlocked ? TEXTURE_ASSET_ID::COLOUR_INDICATOR : TEXTURE_ASSET_ID::COLOUR_INDICATOR_NO_RED;
+
 	registry.renderRequests.insert(indicator, {
 		EFFECT_ASSET_ID::TEXTURED,
 		GEOMETRY_BUFFER_ID::SPRITE,
@@ -52,7 +55,9 @@ void ColourSystem::initialize_colour_indicator()
 		});
 
 	Animatable animatable;
-	animatable.type = ANIMATABLE_TYPE::COLOUR_INDICATOR;
+	animatable.type = red_unlocked ? ANIMATABLE_TYPE::COLOUR_INDICATOR
+		: blue_unlocked ? ANIMATABLE_TYPE::COLOUR_INDICATOR_NO_RED
+		: ANIMATABLE_TYPE::COLOUR_INDICATOR_LOCKED;
 	animatable.behavior = ANIMATION_BEHAVIOR::LOOP;
 	animatable.current_trigger = ANIMATION_TRIGGER::HUD_NEUTRAL;
 	animatable.frame_rate = 6;
@@ -259,13 +264,33 @@ void ColourSystem::applyColorToPlayer(COLOUR_STATE colour)
 		if (!registry.colourIndicatorUIs.entities.empty())
 		{
 			Entity& indicator = registry.colourIndicatorUIs.entities[0];
-
-			ANIMATION_TRIGGER trigger = colour == COLOUR_STATE::RED ? ANIMATION_TRIGGER::HUD_RED
-				: colour == COLOUR_STATE::BLUE ? ANIMATION_TRIGGER::HUD_BLUE
-				: ANIMATION_TRIGGER::HUD_NEUTRAL;
-
 			Animatable& animatable = registry.animatables.get(indicator);
-			animatable.current_trigger = trigger;
+
+			if (playerComp.red_unlocked)
+			{
+				animatable.type = ANIMATABLE_TYPE::COLOUR_INDICATOR;
+				registry.textured.get(indicator).used_texture = TEXTURE_ASSET_ID::COLOUR_INDICATOR;
+			}
+			else
+			{
+				animatable.type = playerComp.blue_unlocked ? ANIMATABLE_TYPE::COLOUR_INDICATOR_NO_RED
+					: ANIMATABLE_TYPE::COLOUR_INDICATOR_LOCKED;
+				registry.textured.get(indicator).used_texture = TEXTURE_ASSET_ID::COLOUR_INDICATOR_NO_RED;
+			}
+
+			switch (colour)
+			{
+			case COLOUR_STATE::RED:
+				animatable.current_trigger = ANIMATION_TRIGGER::HUD_RED;
+				break;
+			case COLOUR_STATE::BLUE:
+				animatable.current_trigger = ANIMATION_TRIGGER::HUD_BLUE;
+				break;
+			default:
+				animatable.current_trigger = ANIMATION_TRIGGER::HUD_NEUTRAL;
+				break;
+			}
+
 			animatable.current_frame = 0;
 			animatable.time_on_current_frame = 0;
 		}

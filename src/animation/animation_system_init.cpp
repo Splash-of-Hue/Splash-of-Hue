@@ -359,6 +359,29 @@ generate_animation(
 		}
 	);
 
+	// MOSS INDICATOR
+	generate_animation(
+		ANIMATABLE_TYPE::MOSS_INDICATOR,
+		ANIMATION_TRIGGER::IDLE,
+		{
+			{ TEXTURE_ASSET_ID::MOSS_INDICATOR, RenderSourceRect{ vec2(0.666f, 0.0f), vec2(0.334f, 1.0f) }}
+		}
+	);
+	generate_animation(
+		ANIMATABLE_TYPE::MOSS_INDICATOR,
+		ANIMATION_TRIGGER::IDLE_RED,
+		{
+			{ TEXTURE_ASSET_ID::MOSS_INDICATOR, RenderSourceRect{ vec2(0.333f, 0.0f), vec2(0.333f, 1.0f) }}
+		}
+	);
+	generate_animation(
+		ANIMATABLE_TYPE::MOSS_INDICATOR,
+		ANIMATION_TRIGGER::IDLE_BLUE,
+		{
+			{ TEXTURE_ASSET_ID::MOSS_INDICATOR, RenderSourceRect{ vec2(0.0f, 0.0f), vec2(0.333f, 1.0f) }}
+		}
+	);
+
 	/*
 		UI ANIMATIONS
 	*/
@@ -384,6 +407,30 @@ generate_animation(
 		{
 			{ TEXTURE_ASSET_ID::COLOUR_INDICATOR, RenderSourceRect{ vec2(0.0f, 0.667f), vec2(0.5f, 0.333f) }},
 			{ TEXTURE_ASSET_ID::COLOUR_INDICATOR, RenderSourceRect{ vec2(0.5f, 0.667f), vec2(0.5f, 0.333f) }}
+		}
+	);
+	generate_animation(
+		ANIMATABLE_TYPE::COLOUR_INDICATOR_NO_RED,
+		ANIMATION_TRIGGER::HUD_BLUE,
+		{
+			{ TEXTURE_ASSET_ID::COLOUR_INDICATOR_NO_RED, RenderSourceRect{ vec2(0.0f, 0.0f), vec2(0.5f, 0.333f) }},
+			{ TEXTURE_ASSET_ID::COLOUR_INDICATOR_NO_RED, RenderSourceRect{ vec2(0.5f, 0.0f), vec2(0.5f, 0.333f) }}
+		}
+	);
+	generate_animation(
+		ANIMATABLE_TYPE::COLOUR_INDICATOR_NO_RED,
+		ANIMATION_TRIGGER::HUD_NEUTRAL,
+		{
+			{ TEXTURE_ASSET_ID::COLOUR_INDICATOR_NO_RED, RenderSourceRect{ vec2(0.0f, 0.333f), vec2(0.5f, 0.333f) }},
+			{ TEXTURE_ASSET_ID::COLOUR_INDICATOR_NO_RED, RenderSourceRect{ vec2(0.5f, 0.333f), vec2(0.5f, 0.333f) }}
+		}
+	);
+	generate_animation(
+		ANIMATABLE_TYPE::COLOUR_INDICATOR_LOCKED,
+		ANIMATION_TRIGGER::HUD_NEUTRAL,
+		{
+			{ TEXTURE_ASSET_ID::COLOUR_INDICATOR_NO_RED, RenderSourceRect{ vec2(0.0f, 0.667f), vec2(0.5f, 0.333f) }},
+			{ TEXTURE_ASSET_ID::COLOUR_INDICATOR_NO_RED, RenderSourceRect{ vec2(0.5f, 0.667f), vec2(0.5f, 0.333f) }}
 		}
 	);
 
@@ -481,6 +528,31 @@ generate_animation(
 			{ TEXTURE_ASSET_ID::COLOUR_ORB_SHEET, RenderSourceRect{ vec2(0.2f, 0.667f),  vec2(0.2f, 0.333f) }},
 		}
 		);
+
+	// PRESSURE PLATE 
+	generate_animation(
+		ANIMATABLE_TYPE::PRESSURE_PLATE,
+		ANIMATION_TRIGGER::IDLE,
+		{
+			{ TEXTURE_ASSET_ID::PRESSURE_PLATE, RenderSourceRect{ vec2(0.5f, 0.0f), vec2(0.5f, 1.0f) }}
+		}
+	);
+	generate_animation(
+		ANIMATABLE_TYPE::PRESSURE_PLATE,
+		ANIMATION_TRIGGER::CHARGE,
+		{
+			{ TEXTURE_ASSET_ID::PRESSURE_PLATE, RenderSourceRect{ vec2(0.0f, 0.0f), vec2(0.5f, 1.0f) }}
+		}
+	);
+
+	// PRESSURE PLATE WALL
+	generate_animation(
+		ANIMATABLE_TYPE::PRESSURE_PLATE_WALL,
+		ANIMATION_TRIGGER::IDLE,
+		{
+			{ TEXTURE_ASSET_ID::PRESSURE_PLATE_WALL, RenderSourceRect{ vec2(0.0f, 0.0f), vec2(1.0f, 1.0f) }}
+		}
+	);
 }
 
 

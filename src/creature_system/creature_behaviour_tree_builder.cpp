@@ -29,8 +29,7 @@ BehaviourTree CreatureBehaviourTreeBuilder::buildAnglerfishTree()
 			        Sequence(builder,
 						Invert(builder, creatureBehaviourFunctions.isInParty,
 			                Sequence(builder,
-								Action(builder, creatureBehaviourFunctions.joinPlayerParty),
-								Action(builder, creatureBehaviourFunctions.setPartyTarget)
+								Action(builder, creatureBehaviourFunctions.joinPlayerParty)
 		                    )
 						),
 						Sequence(builder,
@@ -45,8 +44,7 @@ BehaviourTree CreatureBehaviourTreeBuilder::buildAnglerfishTree()
 			        Sequence(builder,
 			            Invert(builder, creatureBehaviourFunctions.isInParty,
 			               Sequence(builder,
-			                   Action(builder, creatureBehaviourFunctions.joinPlayerParty),
-			                   Action(builder, creatureBehaviourFunctions.setPartyTarget)
+			                   Action(builder, creatureBehaviourFunctions.joinPlayerParty)
 		                   )
 		                ),
 					    Sequence(builder,
@@ -78,8 +76,7 @@ BehaviourTree CreatureBehaviourTreeBuilder::buildAnglerfishTree()
 		                ),
 					    Sequence(builder, 
 						    Action(builder, creatureBehaviourFunctions.removeCooldown),
-						    Action(builder, creatureBehaviourFunctions.stopCreatureMovement),
-						    Action(builder, creatureBehaviourFunctions.aimAtTarget)
+						    Action(builder, creatureBehaviourFunctions.stopCreatureMovement)
 					    )
 		            )
 		        )
@@ -211,7 +208,7 @@ BehaviourTree CreatureBehaviourTreeBuilder::buildSawfishTree()
 						),
 						Sequence(builder,
 							Action(builder, creatureBehaviourFunctions.stopCreatureMovement),
-							Action(builder, creatureBehaviourFunctions.aimAtTarget),
+							Action(builder, creatureBehaviourFunctions.aimAtPlayer),
 							Selector(builder,
 								Decorator(builder, creatureBehaviourFunctions.isCooldownComplete,
 									Sequence(builder,
@@ -228,12 +225,7 @@ BehaviourTree CreatureBehaviourTreeBuilder::buildSawfishTree()
 				),
 				Decorator(builder, creatureBehaviourFunctions.isCreatureWithinPlayerRedColourRadius,
 					Sequence(builder,
-						Invert(builder, creatureBehaviourFunctions.isInParty,
-							Sequence(builder,
-								Action(builder, creatureBehaviourFunctions.leaveParty),
-								Action(builder, creatureBehaviourFunctions.setPlayerTarget)
-						    )
-						),
+						Action(builder, creatureBehaviourFunctions.leaveParty),
 						Action(builder, creatureBehaviourFunctions.apply2sCooldown),
 						Action(builder, creatureBehaviourFunctions.makeRed)
 					)
@@ -243,8 +235,7 @@ BehaviourTree CreatureBehaviourTreeBuilder::buildSawfishTree()
 						 Sequence(builder,
 						     Invert(builder, creatureBehaviourFunctions.isInParty,
 			                     Sequence(builder,
-									 Action(builder, creatureBehaviourFunctions.joinPlayerParty),
-									 Action(builder, creatureBehaviourFunctions.setPartyTarget)
+									 Action(builder, creatureBehaviourFunctions.joinPlayerParty)
 		                         )
 					         ),
 							Sequence(builder, 

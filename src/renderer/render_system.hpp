@@ -54,6 +54,7 @@ class RenderSystem
 		textures_path("ui/selector.png"),
 		textures_path("ui/menu_corner.png"),
 		textures_path("Colour_Indicator.png"),
+		textures_path("Colour_Indicator_noRed.png"),
 		textures_path("puzzle_bubble.png"),
 		textures_path("puzzle_bubble_fake.png"),
 		textures_path("Crab.png"),
@@ -66,6 +67,10 @@ class RenderSystem
 		textures_path("scratched_hints/Sheap_Blue.png"),
 		textures_path("scratched_hints/Sheap_Red.png"),
 		textures_path("scratched_hints/Sheap_Sawfish_Blue.png"),
+		textures_path("Breakable.png"),
+		textures_path("Pressure_Plate.png"),
+		textures_path("Pressure_Plate_Wall.png"),
+		textures_path("Moss_Indicator.png"),
 	};
 
 	std::array<GLuint, effect_count> effects;

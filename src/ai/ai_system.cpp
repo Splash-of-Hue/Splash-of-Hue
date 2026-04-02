@@ -44,7 +44,7 @@ std::vector<vec2> AISystem::generatePath(Entity pathfinder_entity)
 			float closest_grid_value = INFINITE;
 			ivec2 grid_position;
 
-			vec2 target_position = registry.positions.get(pathfinder.target);
+			vec2 target_position = pathfinder.target;
 			float closest_target_grid_value = INFINITE;
 			ivec2 target_grid_position;
 
