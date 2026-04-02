@@ -47,6 +47,7 @@ enum class ENTITY_TYPE
 	PUZZLE_SOLUTION,
 	CONTROL_PNG_ENTITY,
 	SCRATCHED_FLOOR_HINT_PNG_ENTITY,
+	MOSS_INDICATOR
 };
 
 const std::map<std::string, LOADING_LAYER_TYPE> layer_string_to_enum_map = {
@@ -82,6 +83,7 @@ const std::map<std::string, ENTITY_TYPE> entity_type_string_to_enum_map = {
 	{ "PuzzleSolution", ENTITY_TYPE::PUZZLE_SOLUTION },
 	{ "Control_PNG_entity", ENTITY_TYPE::CONTROL_PNG_ENTITY },
 	{ "FloorHintPNGEntity", ENTITY_TYPE::SCRATCHED_FLOOR_HINT_PNG_ENTITY },
+	{ "MossIndicator", ENTITY_TYPE::MOSS_INDICATOR }
 };
 
 inline ENTITY_TYPE entity_type_from_string(const std::string entity_string)
