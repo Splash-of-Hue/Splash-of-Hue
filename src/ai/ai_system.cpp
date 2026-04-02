@@ -23,7 +23,8 @@ void AISystem::step(float elapsed_ms)
 		pathfinder.is_path_dirty = false;
 	}
 
-	while (time_accumulator >= update_interval)
+	// We could do a while loop here to have it catch up if there's a frame spike after updateBoids is optimized vXaDUAZZ
+	if (time_accumulator >= update_interval)
 	{
 		time_accumulator -= update_interval;
 		updateBoids(update_interval);

@@ -5416,7 +5416,7 @@
 						},
 						{
 							"__identifier": "FloorHintPNGEntity",
-							"__grid": [102,40],
+							"__grid": [144,40],
 							"__pivot": [0.5,0.5],
 							"__tags": ["Floor_Interactable"],
 							"__tile": null,
@@ -5425,17 +5425,17 @@
 							"width": 256,
 							"height": 256,
 							"defUid": 109,
-							"px": [816,320],
+							"px": [1152,320],
 							"fieldInstances": [{ "__identifier": "FloorHintPictureType", "__type": "LocalEnum.FloorHintPictureType", "__value": "SHEAP_RED", "__tile": null, "defUid": 111, "realEditorValues": [{
 								"id": "V_String",
 								"params": ["SHEAP_RED"]
 							}] }],
-							"__worldX": 2736,
+							"__worldX": 3072,
 							"__worldY": -760
 						},
 						{
 							"__identifier": "FloorHintPNGEntity",
-							"__grid": [102,59],
+							"__grid": [144,59],
 							"__pivot": [0.5,0.5],
 							"__tags": ["Floor_Interactable"],
 							"__tile": null,
@@ -5444,17 +5444,17 @@
 							"width": 256,
 							"height": 256,
 							"defUid": 109,
-							"px": [816,472],
+							"px": [1152,472],
 							"fieldInstances": [{ "__identifier": "FloorHintPictureType", "__type": "LocalEnum.FloorHintPictureType", "__value": "SAWFISH_SEE_BREAKABLE", "__tile": null, "defUid": 111, "realEditorValues": [{
 								"id": "V_String",
 								"params": ["SAWFISH_SEE_BREAKABLE"]
 							}] }],
-							"__worldX": 2736,
+							"__worldX": 3072,
 							"__worldY": -608
 						},
 						{
 							"__identifier": "FloorHintPNGEntity",
-							"__grid": [102,81],
+							"__grid": [144,81],
 							"__pivot": [0.5,0.5],
 							"__tags": ["Floor_Interactable"],
 							"__tile": null,
@@ -5463,13 +5463,32 @@
 							"width": 256,
 							"height": 256,
 							"defUid": 109,
-							"px": [816,648],
+							"px": [1152,648],
 							"fieldInstances": [{ "__identifier": "FloorHintPictureType", "__type": "LocalEnum.FloorHintPictureType", "__value": "SAWFISH_BREAK_BREAKABLE", "__tile": null, "defUid": 111, "realEditorValues": [{
 								"id": "V_String",
 								"params": ["SAWFISH_BREAK_BREAKABLE"]
 							}] }],
-							"__worldX": 2736,
+							"__worldX": 3072,
 							"__worldY": -432
+						},
+						{
+							"__identifier": "FloorHintPNGEntity",
+							"__grid": [206,81],
+							"__pivot": [0.5,0.5],
+							"__tags": ["Floor_Interactable"],
+							"__tile": null,
+							"__smartColor": "#5A6988",
+							"iid": "16100c00-21a0-11f1-a4d5-cf2bc2291953",
+							"width": 256,
+							"height": 256,
+							"defUid": 109,
+							"px": [1652,652],
+							"fieldInstances": [{ "__identifier": "FloorHintPictureType", "__type": "LocalEnum.FloorHintPictureType", "__value": "SHEAP_SAWFISH_BLUE", "__tile": null, "defUid": 111, "realEditorValues": [{
+								"id": "V_String",
+								"params": ["SHEAP_SAWFISH_BLUE"]
+							}] }],
+							"__worldX": 3572,
+							"__worldY": -428
 						}
 					]
 				},
@@ -6927,7 +6946,7 @@
 					"layerDefUid": 19,
 					"pxOffsetX": 0,
 					"pxOffsetY": 0,
-					"visible": false,
+					"visible": true,
 					"optionalRules": [],
 					"intGridCsv": [],
 					"autoLayerTiles": [],
@@ -6982,6 +7001,25 @@
 							],
 							"__worldX": 1592,
 							"__worldY": -1560
+						},
+						{
+							"__identifier": "Minnows",
+							"__grid": [45,40],
+							"__pivot": [0,0],
+							"__tags": ["Creature"],
+							"__tile": null,
+							"__smartColor": "#124E89",
+							"iid": "ced06650-21a0-11f1-a4d5-6b23fc964c96",
+							"width": 16,
+							"height": 16,
+							"defUid": 71,
+							"px": [720,640],
+							"fieldInstances": [
+								{ "__identifier": "CreatureType", "__type": "LocalEnum.CreatureType", "__value": "Minnows", "__tile": null, "defUid": 73, "realEditorValues": [] },
+								{ "__identifier": "ColorState", "__type": "LocalEnum.ColorState", "__value": "Neutral", "__tile": null, "defUid": 74, "realEditorValues": [] }
+							],
+							"__worldX": 720,
+							"__worldY": -1520
 						}
 					]
 				},
@@ -7173,6 +7211,25 @@
 							}] }],
 							"__worldX": 900,
 							"__worldY": -1220
+						},
+						{
+							"__identifier": "ColourOrb",
+							"__grid": [62,98],
+							"__pivot": [0.5,0.5],
+							"__tags": ["Floor_Interactable"],
+							"__tile": null,
+							"__smartColor": "#3E2731",
+							"iid": "6f710f10-21a0-11f1-a4d5-49e083add628",
+							"width": 70,
+							"height": 70,
+							"defUid": 52,
+							"px": [500,788],
+							"fieldInstances": [{ "__identifier": "ColorState", "__type": "LocalEnum.ColorState", "__value": "Red", "__tile": null, "defUid": 53, "realEditorValues": [{
+								"id": "V_String",
+								"params": ["Red"]
+							}] }],
+							"__worldX": 500,
+							"__worldY": -1372
 						}
 					]
 				},

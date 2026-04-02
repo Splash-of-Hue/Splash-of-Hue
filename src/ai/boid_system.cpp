@@ -121,6 +121,7 @@ void AISystem::updateBoids(float elapsed_ms)
 
 			vec2 force = sum_cohesion * boid_overseer.cohesion_factor + sum_alignment * boid_overseer.alignment_factor + sum_separation * boid_overseer.separation_factor;
 
+			// If a target is being considered, add a force towards the target
 			if (boid_overseer.target_factor > 0) // no target
 			{
 				vec2 to_target = boid_overseer.target_position - boid_position;
