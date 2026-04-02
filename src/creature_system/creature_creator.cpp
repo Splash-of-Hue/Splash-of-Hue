@@ -137,13 +137,20 @@ Entity CreatureCreator::createMinnows(const int level_uid, vec2 position, float 
     registry.renderRequests.remove(minnows); // Make sure the minnow overseer is not seen
 
     BoidOverseer& minnow_overseer = registry.boidOverseers.emplace(minnows);
-    
+
     for (int i = 0; i < NUM_MINNOWS; i++)
     {
         Entity minnow_follower;
         registry.boid_minnows.emplace(minnow_follower);
 
         addGeneralCreatureComponents(level_uid, minnow_follower, position, width, height, color_state, CREATURETYPE::MINNOWS, TEXTURE_ASSET_ID::MINNOW_01);
+		// Give minnows a random initial velocity so they both don't all move initially in the same direction
+        float angle = rand() / static_cast<float>(RAND_MAX) * 2.0f * M_PI;
+        registry.velocities.get(minnow_follower) = vec2(cos(angle), sin(angle)) * minnow_overseer.min_speed * 0.5f;
+
+        // Add a small random offset so boids don't all start at exactly the same position
+        float offset_radius = rand() / static_cast<float>(RAND_MAX) * 1.0f;
+        registry.positions.get(minnow_follower) += vec2(cos(angle), sin(angle)) * offset_radius;
 
         Collidable& collidable = registry.collidables.get(minnow_follower);
         collidable.inelastic = true; // sophia note: we can change this to true

@@ -19,5 +19,5 @@ private:
 	void updateBoids(float elapsed_ms);
 
 	float time_accumulator = 0.0f;
-	const float update_interval = 500.0f; // ms, updating at 30fps
+	const float update_interval = 125.0f; // ms, updating at 8fps
 };
