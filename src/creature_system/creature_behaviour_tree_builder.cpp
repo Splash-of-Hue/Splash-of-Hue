@@ -157,10 +157,20 @@ BehaviourTree CreatureBehaviourTreeBuilder::buildMinnowTree()
 	BehaviourTreeBuilder builder;
 	int root_index =
 		Root(builder,
-			Action(builder, creatureBehaviourFunctions.updateBoids));
+			Selector(builder,
+				Decorator(builder, creatureBehaviourFunctions.isCreatureWithinPlayerBlueColourRadius,
+					Action(builder, creatureBehaviourFunctions.updateMinnowsBlue)),
+
+				Decorator(builder, creatureBehaviourFunctions.isCreatureWithinPlayerRedColourRadius,
+					Action(builder, creatureBehaviourFunctions.updateMinnowsRed)),
+
+				Action(builder, creatureBehaviourFunctions.updateMinnowsNeutral)
+			)
+		);
 
 	return builder.build(root_index);
 }
+
 
 BehaviourTree CreatureBehaviourTreeBuilder::buildSawfishTree()
 {

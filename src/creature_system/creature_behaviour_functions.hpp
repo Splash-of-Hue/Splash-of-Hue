@@ -49,6 +49,15 @@ public:
 	static BEHAVIOUR_TREE_STATUS returnFailure(Entity& creature, float elapsed_ms);
 	static BEHAVIOUR_TREE_STATUS debugCout(Entity& creature, float elapsed_ms);
 
+	// Crab behaviour Actions
+	static BEHAVIOUR_TREE_STATUS slideForwards(Entity& creature, float elapsed_ms);
+	static BEHAVIOUR_TREE_STATUS slideBackwards(Entity& creature, float elapsed_ms);
+
+	// Minnow Behaviour Actions
+	static BEHAVIOUR_TREE_STATUS updateMinnowsBlue(Entity& creature, float elapsed_ms);
+	static BEHAVIOUR_TREE_STATUS updateMinnowsNeutral(Entity& creature, float elapsed_ms);
+	static BEHAVIOUR_TREE_STATUS updateMinnowsRed(Entity& creature, float elapsed_ms);
+
 	// Shrimp Behaviour Actions
 	static BEHAVIOUR_TREE_STATUS neutralArms(Entity& follower, float elapsed_ms);
 	static BEHAVIOUR_TREE_STATUS blueArms(Entity& follower, float elapsed_ms);
@@ -62,10 +71,6 @@ public:
 	static BEHAVIOUR_TREE_STATUS removeDizzy(Entity& creature, float elapsed_ms);
 	static BEHAVIOUR_TREE_STATUS aimAtTarget(Entity& follower, float elapsed_ms);
 	static BEHAVIOUR_TREE_STATUS aimAtPlayer(Entity& follower, float elapsed_ms);
-
-	//Crab behaviour Actions
-	static BEHAVIOUR_TREE_STATUS slideForwards(Entity& creature, float elapsed_ms);
-	static BEHAVIOUR_TREE_STATUS slideBackwards(Entity& creature, float elapsed_ms);
 
 	// ===== Decorator Node Functions =====
 	// Colour

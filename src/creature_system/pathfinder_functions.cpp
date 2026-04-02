@@ -9,15 +9,6 @@
 #include "creature_system/creature_components.hpp"
 #include "ai/pathfinding.hpp"
 
-// This is a temporary function so that the minnows behaviour tree does not throw an error. 
-// Once I implement 1vUDbywx and XgUmULmw, there will be relevant boids functions here that
-// should hopefully only need to change the separation, alignment, and cohesion parameters
-// of the boids system to achieve the desired effect. 
-BEHAVIOUR_TREE_STATUS CreatureBehaviourFunctions::updateBoids(Entity& creature, float elapsed_ms)
-{
-	return BEHAVIOUR_TREE_STATUS::SUCCESS;
-}
-
 // todo: https://trello.com/c/Qj457xrS/105-2-creature-behaviour-system-a-pathfinding
 BEHAVIOUR_TREE_STATUS CreatureBehaviourFunctions::aStarFollowTarget(Entity& follower, float elapsed_ms)
 {
