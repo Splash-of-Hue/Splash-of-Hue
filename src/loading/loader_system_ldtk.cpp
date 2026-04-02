@@ -901,6 +901,30 @@ void load_puzzle_solution(const ldtk::Entity& puzzle_solution_entity)
 
 void load_puzzle_wall(const ldtk::Entity& puzzle_wall_entity)
 {
+	// REMOVE, KEEP FOR NOW
+	auto find_r = [&](Puzzle& puzzl) {
+
+		auto ffff = [&](PuzzleTrigger& tt) {
+			return tt.id == puzzle_wall_entity.iid.str();
+			};
+
+		auto i_r = std::find_if(registry.puzzle_triggers.components.begin(), registry.puzzle_triggers.components.end(), ffff);
+
+		if (i_r != registry.puzzle_triggers.components.end())
+		{
+			return true;
+		}
+		return false;
+		};
+
+	auto ff = std::find_if(registry.puzzles.components.begin(), registry.puzzles.components.end(), find_r);
+
+	if (ff != registry.puzzles.components.end())
+	{
+		// loaded already
+		return;
+	}
+
 	std::cout << puzzle_wall_entity.getName() << std::endl;
 	const ldtk::IntPoint& wall_world_position = puzzle_wall_entity.getWorldPosition();
 	const ldtk::IntPoint& wall_size = puzzle_wall_entity.getSize();
