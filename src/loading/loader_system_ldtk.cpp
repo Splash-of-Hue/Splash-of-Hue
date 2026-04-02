@@ -2,6 +2,7 @@
 #include "creature_system/creature_constants.hpp"
 #include "creature_system/creature_creator.hpp"
 #include "ecs/entity.hpp"
+#include "interactables/interactable_components.hpp"
 #include "interactables/interactable_creator.hpp"
 #include "ldtk_loader.hpp"
 #include "loader_system.hpp"
@@ -901,27 +902,27 @@ void load_puzzle_solution(const ldtk::Entity& puzzle_solution_entity)
 
 void load_puzzle_wall(const ldtk::Entity& puzzle_wall_entity)
 {
-	// REMOVE, KEEP FOR NOW
-	auto find_r = [&](Puzzle& puzzl) {
-
-		auto ffff = [&](PuzzleTrigger& tt) {
-			return tt.id == puzzle_wall_entity.iid.str();
+	auto find_puzzle_wall = [&](Puzzle& puzzl)
+	{
+		auto match_wall_id = [&](PuzzleTrigger& trigger)
+		{
+			return trigger.id == puzzle_wall_entity.iid.str();
 			};
 
-		auto i_r = std::find_if(registry.puzzle_triggers.components.begin(), registry.puzzle_triggers.components.end(), ffff);
+		auto find_puzzle_trigger = std::find_if(registry.puzzle_triggers.components.begin(), registry.puzzle_triggers.components.end(), match_wall_id);
 
-		if (i_r != registry.puzzle_triggers.components.end())
+		if (find_puzzle_trigger != registry.puzzle_triggers.components.end())
 		{
 			return true;
 		}
+
 		return false;
 		};
+	auto result = std::find_if(registry.puzzles.components.begin(), registry.puzzles.components.end(), find_puzzle_wall);
 
-	auto ff = std::find_if(registry.puzzles.components.begin(), registry.puzzles.components.end(), find_r);
-
-	if (ff != registry.puzzles.components.end())
+	// The puzzle wall already exists, don't reload it.
+	if (result != registry.puzzles.components.end())
 	{
-		// loaded already
 		return;
 	}
 
