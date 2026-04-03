@@ -74,7 +74,8 @@ void InteractableSystem::step_puzzles()
 			for (Entity& puzzle_trigger_entity : puzzle.puzzle_triggers)
 			{
 				// TODO 5T1tVusK: Since we are down to the wire, hardcode functionality in for now and extend later
-				registry.remove_all_components_of(puzzle_trigger_entity);
+				registry.renderRequests.remove(puzzle_trigger_entity);
+				registry.collidables.remove(puzzle_trigger_entity);
 			}
 
 			//Add to clean up after so we don't delete while in the loop
