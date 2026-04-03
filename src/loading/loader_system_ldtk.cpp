@@ -1,6 +1,8 @@
+#include "camera/camera_constants.hpp"
 #include "creature_system/creature_constants.hpp"
 #include "creature_system/creature_creator.hpp"
 #include "ecs/entity.hpp"
+#include "interactables/interactable_components.hpp"
 #include "interactables/interactable_creator.hpp"
 #include "ldtk_loader.hpp"
 #include "loader_system.hpp"
@@ -19,7 +21,7 @@
 #include <string>
 #include <unordered_map>
 
-void LoaderSystem::load_level(int level_uid)
+void LoaderSystem::load_level(int level_uid, bool uses_loading_screen)
 {
 	if (!project_loaded)
 	{
@@ -42,7 +44,7 @@ void LoaderSystem::load_level(int level_uid)
 		Entity& level_entity = *std::find_if(registry.levels.entities.begin(), registry.levels.entities.end(), level_entity_match);
 		vec2& level_position = registry.positions.get(level_entity);
 		Entity change_camera_request;
-		registry.changeCameraTargetRequests.insert(change_camera_request, { level_position, LDTK_CAMERA_ROOM_SPEED });
+		registry.changeCameraTargetRequests.insert(change_camera_request, { level_position, CAMERA_ROOM_SPEED, uses_loading_screen, uses_loading_screen });
 		registry.screenStates.components[0].background_color = registry.levels.get(level_entity).background_color;
 
 		return;
@@ -167,7 +169,7 @@ void LoaderSystem::load_level(int level_uid)
 	registry.screenStates.components[0].background_color = level_component.background_color;
 	// Make the camera request at the end of loading
 	Entity change_camera_request;
-	registry.changeCameraTargetRequests.insert(change_camera_request, { registry.positions.get(level_entity), LDTK_CAMERA_ROOM_SPEED});
+	registry.changeCameraTargetRequests.insert(change_camera_request, { registry.positions.get(level_entity), CAMERA_ROOM_SPEED, uses_loading_screen, uses_loading_screen });
 }
 
 void load_tile_layer(const ldtk::Layer& layer)
@@ -474,6 +476,7 @@ void load_teleporter(const ldtk::Entity& teleporter_entity)
 {
 	std::cout << teleporter_entity.getName() << std::endl;
 	const ldtk::EntityRef& other_teleporter_entity_ref = teleporter_entity.getField<ldtk::EntityRef>("ConnectedTeleporter").value();
+	const bool& uses_loading_screen = teleporter_entity.getField<bool>("UsesLoadingScreen").value();
 	const auto& other_layer_grid_size = other_teleporter_entity_ref->layer->getCellSize();
 	const ldtk::IntPoint& position = teleporter_entity.getWorldPosition();
 	const ldtk::IntPoint& size = teleporter_entity.getSize();
@@ -501,7 +504,8 @@ void load_teleporter(const ldtk::Entity& teleporter_entity)
 		scale_to_level(vec2(position.x, position.y)),
 		{ size.x, size.y },
 		scale_to_level(world_arrival_point),
-		offset_direction
+		offset_direction, 
+		uses_loading_screen
 	);
 
 	// Add the connected level UIDs as neighbours to the current level (which must exist at this point)
@@ -898,6 +902,30 @@ void load_puzzle_solution(const ldtk::Entity& puzzle_solution_entity)
 
 void load_puzzle_wall(const ldtk::Entity& puzzle_wall_entity)
 {
+	auto find_puzzle_wall = [&](Puzzle& puzzl)
+	{
+		auto match_wall_id = [&](PuzzleTrigger& trigger)
+		{
+			return trigger.id == puzzle_wall_entity.iid.str();
+			};
+
+		auto find_puzzle_trigger = std::find_if(registry.puzzle_triggers.components.begin(), registry.puzzle_triggers.components.end(), match_wall_id);
+
+		if (find_puzzle_trigger != registry.puzzle_triggers.components.end())
+		{
+			return true;
+		}
+
+		return false;
+		};
+	auto result = std::find_if(registry.puzzles.components.begin(), registry.puzzles.components.end(), find_puzzle_wall);
+
+	// The puzzle wall already exists, don't reload it.
+	if (result != registry.puzzles.components.end())
+	{
+		return;
+	}
+
 	std::cout << puzzle_wall_entity.getName() << std::endl;
 	const ldtk::IntPoint& wall_world_position = puzzle_wall_entity.getWorldPosition();
 	const ldtk::IntPoint& wall_size = puzzle_wall_entity.getSize();
@@ -911,9 +939,31 @@ void load_puzzle_wall(const ldtk::Entity& puzzle_wall_entity)
 			return;
 		}
 	}
-	const vec4 PUZZLE_WALL_COLOUR = vec4(vec3(105, 30, 105) / 255.0f, 1.0);
-	Entity& wall = createWall(puzzle_wall_entity.layer->level->uid, position, size.x, size.y, PUZZLE_WALL_COLOUR);
-	registry.renderRequests.get(wall).layer = RENDER_LAYER::WALLS_FRONT;
-	registry.puzzle_triggers.insert(wall, { puzzle_wall_entity.iid.str(), [&]() {} });
+
+	Entity wall;
+	registry.positions.insert(wall, position);
+	registry.scales.insert(wall, size);
+	registry.sizes.insert(wall, { size.x, size.y });
+	registry.angles.emplace(wall);
+	registry.walls.emplace(wall);
 	registry.unloadables.emplace(wall, Unloadable{ position });
+	registry.levelEntities.insert(wall, { puzzle_wall_entity.layer->level->uid });
+	Collidable& col = registry.collidables.emplace(wall);
+	col.inelastic = true;
+	registry.puzzle_triggers.insert(wall, { puzzle_wall_entity.iid.str(), [&]() {} });
+
+	registry.renderRequests.insert(wall, {
+		EFFECT_ASSET_ID::TEXTURED,
+		GEOMETRY_BUFFER_ID::SPRITE,
+		RENDER_LAYER::WALLS_FRONT
+		});
+
+	const Animatable animatable = {
+		ANIMATABLE_TYPE::PUZZLE_WALL,
+		ANIMATION_BEHAVIOR::LOOP,
+		ANIMATION_TRIGGER::IDLE,
+		1
+	};
+	registry.animatables.insert(wall, animatable);
+	registry.textured.insert(wall, { TEXTURE_ASSET_ID::PUZZLE_WALL });
 }

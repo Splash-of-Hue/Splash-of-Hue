@@ -173,6 +173,62 @@ void AnimationSystem::init()
 		{ TEXTURE_ASSET_ID::PISTOL_SHRIMP_01, RenderSourceRect{ vec2(0.8333f,0.75f), vec2(0.1667f, 0.25f) }}
 		});
 
+	/** DOWN P Shrimp ONE ARM **/
+	generate_animation(ANIMATABLE_TYPE::PISTOL_SHRIMP_ONE_ARM_DOWN, ANIMATION_TRIGGER::SHRIMP_BLUE, {
+		{ TEXTURE_ASSET_ID::PISTOL_SHRIMP_01_ONE_ARM, RenderSourceRect{ vec2(0.0f,   0.0f), vec2(0.1667f, 0.25f) }},
+		{ TEXTURE_ASSET_ID::PISTOL_SHRIMP_01_ONE_ARM, RenderSourceRect{ vec2(0.1667f,0.0f), vec2(0.1667f, 0.25f) }}
+		});
+	generate_animation(ANIMATABLE_TYPE::PISTOL_SHRIMP_ONE_ARM_DOWN, ANIMATION_TRIGGER::SHRIMP_NEUTRAL, {
+		{ TEXTURE_ASSET_ID::PISTOL_SHRIMP_01_ONE_ARM, RenderSourceRect{ vec2(0.3333f,0.0f), vec2(0.1667f, 0.25f) }},
+		{ TEXTURE_ASSET_ID::PISTOL_SHRIMP_01_ONE_ARM, RenderSourceRect{ vec2(0.5f,   0.0f), vec2(0.1667f, 0.25f) }}
+		});
+	generate_animation(ANIMATABLE_TYPE::PISTOL_SHRIMP_ONE_ARM_DOWN, ANIMATION_TRIGGER::SHRIMP_RED, {
+		{ TEXTURE_ASSET_ID::PISTOL_SHRIMP_01_ONE_ARM, RenderSourceRect{ vec2(0.6667f,0.0f), vec2(0.1667f, 0.25f) }},
+		{ TEXTURE_ASSET_ID::PISTOL_SHRIMP_01_ONE_ARM, RenderSourceRect{ vec2(0.8333f,0.0f), vec2(0.1667f, 0.25f) }}
+		});
+
+	/** LEFT P Shrimp ONE ARM **/
+	generate_animation(ANIMATABLE_TYPE::PISTOL_SHRIMP_ONE_ARM_LEFT, ANIMATION_TRIGGER::SHRIMP_BLUE, {
+		{ TEXTURE_ASSET_ID::PISTOL_SHRIMP_01_ONE_ARM, RenderSourceRect{ vec2(0.0f,   0.25f), vec2(0.1667f, 0.25f) }},
+		{ TEXTURE_ASSET_ID::PISTOL_SHRIMP_01_ONE_ARM, RenderSourceRect{ vec2(0.1667f,0.25f), vec2(0.1667f, 0.25f) }}
+		});
+	generate_animation(ANIMATABLE_TYPE::PISTOL_SHRIMP_ONE_ARM_LEFT, ANIMATION_TRIGGER::SHRIMP_NEUTRAL, {
+		{ TEXTURE_ASSET_ID::PISTOL_SHRIMP_01_ONE_ARM, RenderSourceRect{ vec2(0.3333f,0.25f), vec2(0.1667f, 0.25f) }},
+		{ TEXTURE_ASSET_ID::PISTOL_SHRIMP_01_ONE_ARM, RenderSourceRect{ vec2(0.5f,   0.25f), vec2(0.1667f, 0.25f) }}
+		});
+	generate_animation(ANIMATABLE_TYPE::PISTOL_SHRIMP_ONE_ARM_LEFT, ANIMATION_TRIGGER::SHRIMP_RED, {
+		{ TEXTURE_ASSET_ID::PISTOL_SHRIMP_01_ONE_ARM, RenderSourceRect{ vec2(0.6667f,0.25f), vec2(0.1667f, 0.25f) }},
+		{ TEXTURE_ASSET_ID::PISTOL_SHRIMP_01_ONE_ARM, RenderSourceRect{ vec2(0.8333f,0.25f), vec2(0.1667f, 0.25f) }}
+		});
+
+	/** RIGHT P Shrimp ONE ARM **/
+	generate_animation(ANIMATABLE_TYPE::PISTOL_SHRIMP_ONE_ARM_RIGHT, ANIMATION_TRIGGER::SHRIMP_BLUE, {
+		{ TEXTURE_ASSET_ID::PISTOL_SHRIMP_01_ONE_ARM, RenderSourceRect{ vec2(0.0f,   0.5f), vec2(0.1667f, 0.25f) }},
+		{ TEXTURE_ASSET_ID::PISTOL_SHRIMP_01_ONE_ARM, RenderSourceRect{ vec2(0.1667f,0.5f), vec2(0.1667f, 0.25f) }}
+		});
+	generate_animation(ANIMATABLE_TYPE::PISTOL_SHRIMP_ONE_ARM_RIGHT, ANIMATION_TRIGGER::SHRIMP_NEUTRAL, {
+		{ TEXTURE_ASSET_ID::PISTOL_SHRIMP_01_ONE_ARM, RenderSourceRect{ vec2(0.3333f,0.5f), vec2(0.1667f, 0.25f) }},
+		{ TEXTURE_ASSET_ID::PISTOL_SHRIMP_01_ONE_ARM, RenderSourceRect{ vec2(0.5f,   0.5f), vec2(0.1667f, 0.25f) }}
+		});
+	generate_animation(ANIMATABLE_TYPE::PISTOL_SHRIMP_ONE_ARM_RIGHT, ANIMATION_TRIGGER::SHRIMP_RED, {
+		{ TEXTURE_ASSET_ID::PISTOL_SHRIMP_01_ONE_ARM, RenderSourceRect{ vec2(0.6667f,0.5f), vec2(0.1667f, 0.25f) }},
+		{ TEXTURE_ASSET_ID::PISTOL_SHRIMP_01_ONE_ARM, RenderSourceRect{ vec2(0.8333f,0.5f), vec2(0.1667f, 0.25f) }}
+		});
+
+	/** UP P Shrimp ONE ARM **/
+	generate_animation(ANIMATABLE_TYPE::PISTOL_SHRIMP_ONE_ARM_UP, ANIMATION_TRIGGER::SHRIMP_BLUE, {
+		{ TEXTURE_ASSET_ID::PISTOL_SHRIMP_01_ONE_ARM, RenderSourceRect{ vec2(0.0f,   0.75f), vec2(0.1667f, 0.25f) }},
+		{ TEXTURE_ASSET_ID::PISTOL_SHRIMP_01_ONE_ARM, RenderSourceRect{ vec2(0.1667f,0.75f), vec2(0.1667f, 0.25f) }}
+		});
+	generate_animation(ANIMATABLE_TYPE::PISTOL_SHRIMP_ONE_ARM_UP, ANIMATION_TRIGGER::SHRIMP_NEUTRAL, {
+		{ TEXTURE_ASSET_ID::PISTOL_SHRIMP_01_ONE_ARM, RenderSourceRect{ vec2(0.3333f,0.75f), vec2(0.1667f, 0.25f) }},
+		{ TEXTURE_ASSET_ID::PISTOL_SHRIMP_01_ONE_ARM, RenderSourceRect{ vec2(0.5f,   0.75f), vec2(0.1667f, 0.25f) }}
+		});
+	generate_animation(ANIMATABLE_TYPE::PISTOL_SHRIMP_ONE_ARM_UP, ANIMATION_TRIGGER::SHRIMP_RED, {
+		{ TEXTURE_ASSET_ID::PISTOL_SHRIMP_01_ONE_ARM, RenderSourceRect{ vec2(0.6667f,0.75f), vec2(0.1667f, 0.25f) }},
+		{ TEXTURE_ASSET_ID::PISTOL_SHRIMP_01_ONE_ARM, RenderSourceRect{ vec2(0.8333f,0.75f), vec2(0.1667f, 0.25f) }}
+		});
+
 	generate_animation(
 		ANIMATABLE_TYPE::MINNOW,
 		ANIMATION_TRIGGER::IDLE,
@@ -218,6 +274,13 @@ void AnimationSystem::init()
 			{ TEXTURE_ASSET_ID::PUZZLE_BUBBLE, RenderSourceRect{ vec2(0.8f, 0.333f), vec2(0.2f, 0.333f) }},
 			{ TEXTURE_ASSET_ID::PUZZLE_BUBBLE, RenderSourceRect{ vec2(0.0f, 0.666f), vec2(0.2f, 0.333f) }},
 			{ TEXTURE_ASSET_ID::PUZZLE_BUBBLE, RenderSourceRect{ vec2(0.2f, 0.666f), vec2(0.2f, 0.333f) }},
+		}
+	);
+	generate_animation(
+		ANIMATABLE_TYPE::PUZZLE_WALL,
+		ANIMATION_TRIGGER::IDLE,
+		{
+			{ TEXTURE_ASSET_ID::PUZZLE_WALL, RenderSourceRect{ vec2(0.0f, 0.0f), vec2(1.0f, 1.0f) }}
 		}
 	);
 

@@ -367,7 +367,8 @@ void handle_misc_collision(Entity& entity_i, Entity& entity_j)
 			teleporter.arrival_location,
 			offset,
 			map_change_request_type,
-			teleporter.offset_direction
+			teleporter.offset_direction,
+			teleporter.uses_loading_screen,
 		};
 		registry.changeMapLevelRequests.insert(change_map_request_entity, level_change_request);
 	}

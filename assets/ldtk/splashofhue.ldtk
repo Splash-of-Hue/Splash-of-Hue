@@ -760,6 +760,43 @@
 					"allowedRefsEntityUid": null,
 					"allowedRefTags": [],
 					"tilesetUid": null
+				},
+				{
+					"identifier": "UsesLoadingScreen",
+					"doc": null,
+					"__type": "Bool",
+					"uid": 113,
+					"type": "F_Bool",
+					"isArray": false,
+					"canBeNull": false,
+					"arrayMinLength": null,
+					"arrayMaxLength": null,
+					"editorDisplayMode": "Hidden",
+					"editorDisplayScale": 1,
+					"editorDisplayPos": "Above",
+					"editorLinkStyle": "StraightArrow",
+					"editorDisplayColor": null,
+					"editorAlwaysShow": false,
+					"editorShowInWorld": true,
+					"editorCutLongValues": true,
+					"editorTextSuffix": null,
+					"editorTextPrefix": null,
+					"useForSmartColor": false,
+					"exportToToc": false,
+					"searchable": false,
+					"min": null,
+					"max": null,
+					"regex": null,
+					"acceptFileTypes": null,
+					"defaultOverride": null,
+					"textLanguageMode": null,
+					"symmetricalRef": false,
+					"autoChainRef": true,
+					"allowOutOfLevelRef": true,
+					"allowedRefs": "OnlySame",
+					"allowedRefsEntityUid": null,
+					"allowedRefTags": [],
+					"tilesetUid": null
 				}
 			]
 		},
@@ -3159,7 +3196,8 @@
 								{ "__identifier": "OffsetDirection", "__type": "LocalEnum.Direction", "__value": "Down", "__tile": null, "defUid": 61, "realEditorValues": [{
 									"id": "V_String",
 									"params": ["Down"]
-								}] }
+								}] },
+								{ "__identifier": "UsesLoadingScreen", "__type": "Bool", "__value": false, "__tile": null, "defUid": 113, "realEditorValues": [] }
 							],
 							"__worldX": 900,
 							"__worldY": 1188
@@ -4037,7 +4075,8 @@
 								{ "__identifier": "OffsetDirection", "__type": "LocalEnum.Direction", "__value": "Up", "__tile": null, "defUid": 61, "realEditorValues": [{
 									"id": "V_String",
 									"params": ["Up"]
-								}] }
+								}] },
+								{ "__identifier": "UsesLoadingScreen", "__type": "Bool", "__value": false, "__tile": null, "defUid": 113, "realEditorValues": [] }
 							],
 							"__worldX": 892,
 							"__worldY": 1012
@@ -4068,7 +4107,8 @@
 								{ "__identifier": "OffsetDirection", "__type": "LocalEnum.Direction", "__value": "Down", "__tile": null, "defUid": 61, "realEditorValues": [{
 									"id": "V_String",
 									"params": ["Down"]
-								}] }
+								}] },
+								{ "__identifier": "UsesLoadingScreen", "__type": "Bool", "__value": false, "__tile": null, "defUid": 113, "realEditorValues": [] }
 							],
 							"__worldX": 892,
 							"__worldY": 116
@@ -4843,7 +4883,7 @@
 							"__tile": null,
 							"__smartColor": "#FEE761",
 							"iid": "4c14f620-21a0-11f1-90e1-81f22c868c8b",
-							"width": 208,
+							"width": 224,
 							"height": 128,
 							"defUid": 61,
 							"px": [168,456],
@@ -4953,7 +4993,8 @@
 								{ "__identifier": "OffsetDirection", "__type": "LocalEnum.Direction", "__value": "Left", "__tile": null, "defUid": 61, "realEditorValues": [{
 									"id": "V_String",
 									"params": ["Left"]
-								}] }
+								}] },
+								{ "__identifier": "UsesLoadingScreen", "__type": "Bool", "__value": false, "__tile": null, "defUid": 113, "realEditorValues": [] }
 							],
 							"__worldX": 3812,
 							"__worldY": -540
@@ -4984,7 +5025,8 @@
 								{ "__identifier": "OffsetDirection", "__type": "LocalEnum.Direction", "__value": "Down", "__tile": null, "defUid": 61, "realEditorValues": [{
 									"id": "V_String",
 									"params": ["Down"]
-								}] }
+								}] },
+								{ "__identifier": "UsesLoadingScreen", "__type": "Bool", "__value": false, "__tile": null, "defUid": 113, "realEditorValues": [] }
 							],
 							"__worldX": 2276,
 							"__worldY": -932
@@ -5413,7 +5455,7 @@
 						},
 						{
 							"__identifier": "FloorHintPNGEntity",
-							"__grid": [102,40],
+							"__grid": [144,40],
 							"__pivot": [0.5,0.5],
 							"__tags": ["Floor_Interactable"],
 							"__tile": null,
@@ -5422,17 +5464,17 @@
 							"width": 256,
 							"height": 256,
 							"defUid": 109,
-							"px": [816,320],
+							"px": [1152,320],
 							"fieldInstances": [{ "__identifier": "FloorHintPictureType", "__type": "LocalEnum.FloorHintPictureType", "__value": "SHEAP_RED", "__tile": null, "defUid": 111, "realEditorValues": [{
 								"id": "V_String",
 								"params": ["SHEAP_RED"]
 							}] }],
-							"__worldX": 2736,
+							"__worldX": 3072,
 							"__worldY": -760
 						},
 						{
 							"__identifier": "FloorHintPNGEntity",
-							"__grid": [102,59],
+							"__grid": [144,59],
 							"__pivot": [0.5,0.5],
 							"__tags": ["Floor_Interactable"],
 							"__tile": null,
@@ -5441,17 +5483,17 @@
 							"width": 256,
 							"height": 256,
 							"defUid": 109,
-							"px": [816,472],
+							"px": [1152,472],
 							"fieldInstances": [{ "__identifier": "FloorHintPictureType", "__type": "LocalEnum.FloorHintPictureType", "__value": "SAWFISH_SEE_BREAKABLE", "__tile": null, "defUid": 111, "realEditorValues": [{
 								"id": "V_String",
 								"params": ["SAWFISH_SEE_BREAKABLE"]
 							}] }],
-							"__worldX": 2736,
+							"__worldX": 3072,
 							"__worldY": -608
 						},
 						{
 							"__identifier": "FloorHintPNGEntity",
-							"__grid": [102,81],
+							"__grid": [144,81],
 							"__pivot": [0.5,0.5],
 							"__tags": ["Floor_Interactable"],
 							"__tile": null,
@@ -5460,13 +5502,32 @@
 							"width": 256,
 							"height": 256,
 							"defUid": 109,
-							"px": [816,648],
+							"px": [1152,648],
 							"fieldInstances": [{ "__identifier": "FloorHintPictureType", "__type": "LocalEnum.FloorHintPictureType", "__value": "SAWFISH_BREAK_BREAKABLE", "__tile": null, "defUid": 111, "realEditorValues": [{
 								"id": "V_String",
 								"params": ["SAWFISH_BREAK_BREAKABLE"]
 							}] }],
-							"__worldX": 2736,
+							"__worldX": 3072,
 							"__worldY": -432
+						},
+						{
+							"__identifier": "FloorHintPNGEntity",
+							"__grid": [206,81],
+							"__pivot": [0.5,0.5],
+							"__tags": ["Floor_Interactable"],
+							"__tile": null,
+							"__smartColor": "#5A6988",
+							"iid": "16100c00-21a0-11f1-a4d5-cf2bc2291953",
+							"width": 256,
+							"height": 256,
+							"defUid": 109,
+							"px": [1652,652],
+							"fieldInstances": [{ "__identifier": "FloorHintPictureType", "__type": "LocalEnum.FloorHintPictureType", "__value": "SHEAP_SAWFISH_BLUE", "__tile": null, "defUid": 111, "realEditorValues": [{
+								"id": "V_String",
+								"params": ["SHEAP_SAWFISH_BLUE"]
+							}] }],
+							"__worldX": 3572,
+							"__worldY": -428
 						}
 					]
 				},
@@ -6614,7 +6675,7 @@
 					"layerDefUid": 36,
 					"pxOffsetX": 0,
 					"pxOffsetY": 0,
-					"visible": true,
+					"visible": false,
 					"optionalRules": [],
 					"intGridCsv": [],
 					"autoLayerTiles": [],
@@ -6924,7 +6985,7 @@
 					"layerDefUid": 19,
 					"pxOffsetX": 0,
 					"pxOffsetY": 0,
-					"visible": false,
+					"visible": true,
 					"optionalRules": [],
 					"intGridCsv": [],
 					"autoLayerTiles": [],
@@ -6979,6 +7040,25 @@
 							],
 							"__worldX": 1592,
 							"__worldY": -1560
+						},
+						{
+							"__identifier": "Minnows",
+							"__grid": [45,40],
+							"__pivot": [0,0],
+							"__tags": ["Creature"],
+							"__tile": null,
+							"__smartColor": "#124E89",
+							"iid": "ced06650-21a0-11f1-a4d5-6b23fc964c96",
+							"width": 16,
+							"height": 16,
+							"defUid": 71,
+							"px": [720,640],
+							"fieldInstances": [
+								{ "__identifier": "CreatureType", "__type": "LocalEnum.CreatureType", "__value": "Minnows", "__tile": null, "defUid": 73, "realEditorValues": [] },
+								{ "__identifier": "ColorState", "__type": "LocalEnum.ColorState", "__value": "Neutral", "__tile": null, "defUid": 74, "realEditorValues": [] }
+							],
+							"__worldX": 720,
+							"__worldY": -1520
 						}
 					]
 				},
@@ -7032,7 +7112,8 @@
 								{ "__identifier": "OffsetDirection", "__type": "LocalEnum.Direction", "__value": "Up", "__tile": null, "defUid": 61, "realEditorValues": [{
 									"id": "V_String",
 									"params": ["Up"]
-								}] }
+								}] },
+								{ "__identifier": "UsesLoadingScreen", "__type": "Bool", "__value": false, "__tile": null, "defUid": 113, "realEditorValues": [] }
 							],
 							"__worldX": 900,
 							"__worldY": -1132
@@ -7063,6 +7144,10 @@
 								{ "__identifier": "OffsetDirection", "__type": "LocalEnum.Direction", "__value": "Down", "__tile": null, "defUid": 61, "realEditorValues": [{
 									"id": "V_String",
 									"params": ["Down"]
+								}] },
+								{ "__identifier": "UsesLoadingScreen", "__type": "Bool", "__value": true, "__tile": null, "defUid": 113, "realEditorValues": [{
+									"id": "V_Bool",
+									"params": [ true ]
 								}] }
 							],
 							"__worldX": 764,
@@ -7126,7 +7211,8 @@
 								{ "__identifier": "OffsetDirection", "__type": "LocalEnum.Direction", "__value": "Left", "__tile": null, "defUid": 61, "realEditorValues": [{
 									"id": "V_String",
 									"params": ["Left"]
-								}] }
+								}] },
+								{ "__identifier": "UsesLoadingScreen", "__type": "Bool", "__value": false, "__tile": null, "defUid": 113, "realEditorValues": [] }
 							],
 							"__worldX": 1860,
 							"__worldY": -1628
@@ -9611,7 +9697,8 @@
 								{ "__identifier": "OffsetDirection", "__type": "LocalEnum.Direction", "__value": "Right", "__tile": null, "defUid": 61, "realEditorValues": [{
 									"id": "V_String",
 									"params": ["Right"]
-								}] }
+								}] },
+								{ "__identifier": "UsesLoadingScreen", "__type": "Bool", "__value": false, "__tile": null, "defUid": 113, "realEditorValues": [] }
 							],
 							"__worldX": 2084,
 							"__worldY": -1620
@@ -9642,7 +9729,8 @@
 								{ "__identifier": "OffsetDirection", "__type": "LocalEnum.Direction", "__value": "Left", "__tile": null, "defUid": 61, "realEditorValues": [{
 									"id": "V_String",
 									"params": ["Left"]
-								}] }
+								}] },
+								{ "__identifier": "UsesLoadingScreen", "__type": "Bool", "__value": false, "__tile": null, "defUid": 113, "realEditorValues": [] }
 							],
 							"__worldX": 3716,
 							"__worldY": -1620
@@ -9893,7 +9981,8 @@
 								{ "__identifier": "OffsetDirection", "__type": "LocalEnum.Direction", "__value": "Up", "__tile": null, "defUid": 61, "realEditorValues": [{
 									"id": "V_String",
 									"params": ["Up"]
-								}] }
+								}] },
+								{ "__identifier": "UsesLoadingScreen", "__type": "Bool", "__value": false, "__tile": null, "defUid": 113, "realEditorValues": [] }
 							],
 							"__worldX": 2268,
 							"__worldY": -1236
@@ -11208,7 +11297,8 @@
 								{ "__identifier": "OffsetDirection", "__type": "LocalEnum.Direction", "__value": "Right", "__tile": null, "defUid": 61, "realEditorValues": [{
 									"id": "V_String",
 									"params": ["Right"]
-								}] }
+								}] },
+								{ "__identifier": "UsesLoadingScreen", "__type": "Bool", "__value": false, "__tile": null, "defUid": 113, "realEditorValues": [] }
 							],
 							"__worldX": 3916,
 							"__worldY": -1652
@@ -11239,7 +11329,8 @@
 								{ "__identifier": "OffsetDirection", "__type": "LocalEnum.Direction", "__value": "Up", "__tile": null, "defUid": 61, "realEditorValues": [{
 									"id": "V_String",
 									"params": ["Up"]
-								}] }
+								}] },
+								{ "__identifier": "UsesLoadingScreen", "__type": "Bool", "__value": false, "__tile": null, "defUid": 113, "realEditorValues": [] }
 							],
 							"__worldX": 5060,
 							"__worldY": -1268
@@ -12263,7 +12354,8 @@
 								{ "__identifier": "OffsetDirection", "__type": "LocalEnum.Direction", "__value": "Right", "__tile": null, "defUid": 61, "realEditorValues": [{
 									"id": "V_String",
 									"params": ["Right"]
-								}] }
+								}] },
+								{ "__identifier": "UsesLoadingScreen", "__type": "Bool", "__value": false, "__tile": null, "defUid": 113, "realEditorValues": [] }
 							],
 							"__worldX": 3868,
 							"__worldY": -532
@@ -12294,7 +12386,8 @@
 								{ "__identifier": "OffsetDirection", "__type": "LocalEnum.Direction", "__value": "Down", "__tile": null, "defUid": 61, "realEditorValues": [{
 									"id": "V_String",
 									"params": ["Down"]
-								}] }
+								}] },
+								{ "__identifier": "UsesLoadingScreen", "__type": "Bool", "__value": false, "__tile": null, "defUid": 113, "realEditorValues": [] }
 							],
 							"__worldX": 5068,
 							"__worldY": -1012
@@ -14050,34 +14143,86 @@
 									"id": "V_String",
 									"params": ["a9009cf0-21a0-11f1-aa60-9de157f4f24a"]
 								} ] },
-								{ "__identifier": "Triggers", "__type": "Array<EntityRef>", "__value": [{
-									"entityIid": "cf38e850-21a0-11f1-aa60-5195df9e6182",
-									"layerIid": "bd5b0440-21a0-11f1-8ff7-51b6b599da9e",
-									"levelIid": "bd5add30-21a0-11f1-8ff7-cf0a441145d5",
-									"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787"
-								}], "__tile": null, "defUid": 100, "realEditorValues": [{
+								{ "__identifier": "Triggers", "__type": "Array<EntityRef>", "__value": [
+									{
+										"entityIid": "cf38e850-21a0-11f1-aa60-5195df9e6182",
+										"layerIid": "bd5b0440-21a0-11f1-8ff7-51b6b599da9e",
+										"levelIid": "bd5add30-21a0-11f1-8ff7-cf0a441145d5",
+										"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787"
+									},
+									{
+										"entityIid": "c7bdff00-21a0-11f1-973a-5f5e2bdbbbe4",
+										"layerIid": "bd5b0440-21a0-11f1-8ff7-51b6b599da9e",
+										"levelIid": "bd5add30-21a0-11f1-8ff7-cf0a441145d5",
+										"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787"
+									},
+									{
+										"entityIid": "129d2be0-21a0-11f1-973a-0d2f807e2fb1",
+										"layerIid": "bd5b0440-21a0-11f1-8ff7-51b6b599da9e",
+										"levelIid": "bd5add30-21a0-11f1-8ff7-cf0a441145d5",
+										"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787"
+									}
+								], "__tile": null, "defUid": 100, "realEditorValues": [ {
 									"id": "V_String",
 									"params": ["cf38e850-21a0-11f1-aa60-5195df9e6182"]
-								}] }
+								}, {
+									"id": "V_String",
+									"params": ["c7bdff00-21a0-11f1-973a-5f5e2bdbbbe4"]
+								}, {
+									"id": "V_String",
+									"params": ["129d2be0-21a0-11f1-973a-0d2f807e2fb1"]
+								} ] }
 							],
 							"__worldX": 9128,
 							"__worldY": 4984
 						},
 						{
 							"__identifier": "PuzzleWall",
-							"__grid": [58,17],
+							"__grid": [49,14],
 							"__pivot": [0.5,0.5],
 							"__tags": [ "Internal_Wall", "Puzzle_Trigger" ],
 							"__tile": null,
 							"__smartColor": "#2CE8F5",
 							"iid": "cf38e850-21a0-11f1-aa60-5195df9e6182",
-							"width": 592,
-							"height": 64,
+							"width": 112,
+							"height": 112,
 							"defUid": 101,
-							"px": [936,280],
+							"px": [792,232],
 							"fieldInstances": [],
-							"__worldX": 8616,
-							"__worldY": 4600
+							"__worldX": 8472,
+							"__worldY": 4552
+						},
+						{
+							"__identifier": "PuzzleWall",
+							"__grid": [57,14],
+							"__pivot": [0.5,0.5],
+							"__tags": [ "Internal_Wall", "Puzzle_Trigger" ],
+							"__tile": null,
+							"__smartColor": "#2CE8F5",
+							"iid": "c7bdff00-21a0-11f1-973a-5f5e2bdbbbe4",
+							"width": 128,
+							"height": 112,
+							"defUid": 101,
+							"px": [920,232],
+							"fieldInstances": [],
+							"__worldX": 8600,
+							"__worldY": 4552
+						},
+						{
+							"__identifier": "PuzzleWall",
+							"__grid": [65,14],
+							"__pivot": [0.5,0.5],
+							"__tags": [ "Internal_Wall", "Puzzle_Trigger" ],
+							"__tile": null,
+							"__smartColor": "#2CE8F5",
+							"iid": "129d2be0-21a0-11f1-973a-0d2f807e2fb1",
+							"width": 112,
+							"height": 112,
+							"defUid": 101,
+							"px": [1048,232],
+							"fieldInstances": [],
+							"__worldX": 8728,
+							"__worldY": 4552
 						}
 					]
 				},
@@ -14156,7 +14301,8 @@
 								{ "__identifier": "OffsetDirection", "__type": "LocalEnum.Direction", "__value": "Up", "__tile": null, "defUid": 61, "realEditorValues": [{
 									"id": "V_String",
 									"params": ["Up"]
-								}] }
+								}] },
+								{ "__identifier": "UsesLoadingScreen", "__type": "Bool", "__value": false, "__tile": null, "defUid": 113, "realEditorValues": [] }
 							],
 							"__worldX": 8604,
 							"__worldY": 5284
@@ -14225,7 +14371,8 @@
 								{ "__identifier": "OffsetDirection", "__type": "LocalEnum.Direction", "__value": "Down", "__tile": null, "defUid": 61, "realEditorValues": [{
 									"id": "V_String",
 									"params": ["Down"]
-								}] }
+								}] },
+								{ "__identifier": "UsesLoadingScreen", "__type": "Bool", "__value": false, "__tile": null, "defUid": 113, "realEditorValues": [] }
 							],
 							"__worldX": 8604,
 							"__worldY": 4500
@@ -15107,7 +15254,8 @@
 								{ "__identifier": "OffsetDirection", "__type": "LocalEnum.Direction", "__value": "Up", "__tile": null, "defUid": 61, "realEditorValues": [{
 									"id": "V_String",
 									"params": ["Up"]
-								}] }
+								}] },
+								{ "__identifier": "UsesLoadingScreen", "__type": "Bool", "__value": false, "__tile": null, "defUid": 113, "realEditorValues": [] }
 							],
 							"__worldX": 8636,
 							"__worldY": 2028
@@ -15138,7 +15286,8 @@
 								{ "__identifier": "OffsetDirection", "__type": "LocalEnum.Direction", "__value": "Down", "__tile": null, "defUid": 61, "realEditorValues": [{
 									"id": "V_String",
 									"params": ["Down"]
-								}] }
+								}] },
+								{ "__identifier": "UsesLoadingScreen", "__type": "Bool", "__value": false, "__tile": null, "defUid": 113, "realEditorValues": [] }
 							],
 							"__worldX": 8156,
 							"__worldY": 1268
@@ -15169,7 +15318,8 @@
 								{ "__identifier": "OffsetDirection", "__type": "LocalEnum.Direction", "__value": "Left", "__tile": null, "defUid": 61, "realEditorValues": [{
 									"id": "V_String",
 									"params": ["Left"]
-								}] }
+								}] },
+								{ "__identifier": "UsesLoadingScreen", "__type": "Bool", "__value": false, "__tile": null, "defUid": 113, "realEditorValues": [] }
 							],
 							"__worldX": 9444,
 							"__worldY": 1684
@@ -16355,7 +16505,7 @@
 					"layerDefUid": 36,
 					"pxOffsetX": 0,
 					"pxOffsetY": 0,
-					"visible": false,
+					"visible": true,
 					"optionalRules": [],
 					"intGridCsv": [],
 					"autoLayerTiles": [],
@@ -16798,18 +16948,18 @@
 						},
 						{
 							"__identifier": "PuzzleWall",
-							"__grid": [50,42],
+							"__grid": [52,42],
 							"__pivot": [0.5,0.5],
 							"__tags": [ "Internal_Wall", "Puzzle_Trigger" ],
 							"__tile": null,
 							"__smartColor": "#2CE8F5",
 							"iid": "f56a4820-21a0-11f1-aa60-cbe998e8273b",
-							"width": 64,
-							"height": 80,
+							"width": 112,
+							"height": 112,
 							"defUid": 101,
-							"px": [808,680],
+							"px": [840,680],
 							"fieldInstances": [],
-							"__worldX": 10408,
+							"__worldX": 10440,
 							"__worldY": 1760
 						},
 						{
@@ -17085,7 +17235,8 @@
 								{ "__identifier": "OffsetDirection", "__type": "LocalEnum.Direction", "__value": "Right", "__tile": null, "defUid": 61, "realEditorValues": [{
 									"id": "V_String",
 									"params": ["Right"]
-								}] }
+								}] },
+								{ "__identifier": "UsesLoadingScreen", "__type": "Bool", "__value": false, "__tile": null, "defUid": 113, "realEditorValues": [] }
 							],
 							"__worldX": 9740,
 							"__worldY": 1524
@@ -18405,7 +18556,7 @@
 					"layerDefUid": 19,
 					"pxOffsetX": 0,
 					"pxOffsetY": 0,
-					"visible": true,
+					"visible": false,
 					"optionalRules": [],
 					"intGridCsv": [],
 					"autoLayerTiles": [],
@@ -18477,7 +18628,7 @@
 					"layerDefUid": 11,
 					"pxOffsetX": 0,
 					"pxOffsetY": 0,
-					"visible": false,
+					"visible": true,
 					"optionalRules": [],
 					"intGridCsv": [],
 					"autoLayerTiles": [],
@@ -18527,7 +18678,8 @@
 								{ "__identifier": "OffsetDirection", "__type": "LocalEnum.Direction", "__value": "Right", "__tile": null, "defUid": 61, "realEditorValues": [{
 									"id": "V_String",
 									"params": ["Right"]
-								}] }
+								}] },
+								{ "__identifier": "UsesLoadingScreen", "__type": "Bool", "__value": false, "__tile": null, "defUid": 113, "realEditorValues": [] }
 							],
 							"__worldX": 9732,
 							"__worldY": 588
@@ -18561,6 +18713,10 @@
 								{ "__identifier": "OffsetDirection", "__type": "LocalEnum.Direction", "__value": "Left", "__tile": null, "defUid": 61, "realEditorValues": [{
 									"id": "V_String",
 									"params": ["Left"]
+								}] },
+								{ "__identifier": "UsesLoadingScreen", "__type": "Bool", "__value": true, "__tile": null, "defUid": 113, "realEditorValues": [{
+									"id": "V_Bool",
+									"params": [ true ]
 								}] }
 							],
 							"__worldX": 11276,
@@ -20172,7 +20328,8 @@
 								{ "__identifier": "OffsetDirection", "__type": "LocalEnum.Direction", "__value": "Up", "__tile": null, "defUid": 61, "realEditorValues": [{
 									"id": "V_String",
 									"params": ["Up"]
-								}] }
+								}] },
+								{ "__identifier": "UsesLoadingScreen", "__type": "Bool", "__value": false, "__tile": null, "defUid": 113, "realEditorValues": [] }
 							],
 							"__worldX": 8164,
 							"__worldY": 1036
@@ -20203,7 +20360,8 @@
 								{ "__identifier": "OffsetDirection", "__type": "LocalEnum.Direction", "__value": "Down", "__tile": null, "defUid": 61, "realEditorValues": [{
 									"id": "V_String",
 									"params": ["Down"]
-								}] }
+								}] },
+								{ "__identifier": "UsesLoadingScreen", "__type": "Bool", "__value": false, "__tile": null, "defUid": 113, "realEditorValues": [] }
 							],
 							"__worldX": 8604,
 							"__worldY": 124
@@ -20234,7 +20392,8 @@
 								{ "__identifier": "OffsetDirection", "__type": "LocalEnum.Direction", "__value": "Down", "__tile": null, "defUid": 61, "realEditorValues": [{
 									"id": "V_String",
 									"params": ["Down"]
-								}] }
+								}] },
+								{ "__identifier": "UsesLoadingScreen", "__type": "Bool", "__value": false, "__tile": null, "defUid": 113, "realEditorValues": [] }
 							],
 							"__worldX": 9252,
 							"__worldY": 116
@@ -20265,7 +20424,8 @@
 								{ "__identifier": "OffsetDirection", "__type": "LocalEnum.Direction", "__value": "Left", "__tile": null, "defUid": 61, "realEditorValues": [{
 									"id": "V_String",
 									"params": ["Left"]
-								}] }
+								}] },
+								{ "__identifier": "UsesLoadingScreen", "__type": "Bool", "__value": false, "__tile": null, "defUid": 113, "realEditorValues": [] }
 							],
 							"__worldX": 9468,
 							"__worldY": 580
@@ -20296,7 +20456,8 @@
 								{ "__identifier": "OffsetDirection", "__type": "LocalEnum.Direction", "__value": "Right", "__tile": null, "defUid": 61, "realEditorValues": [{
 									"id": "V_String",
 									"params": ["Right"]
-								}] }
+								}] },
+								{ "__identifier": "UsesLoadingScreen", "__type": "Bool", "__value": false, "__tile": null, "defUid": 113, "realEditorValues": [] }
 							],
 							"__worldX": 7812,
 							"__worldY": 412
@@ -21881,34 +22042,42 @@
 										"params": ["205d99a0-21a0-11f1-aa60-c72b2af2db7e"]
 									}
 								] },
-								{ "__identifier": "Triggers", "__type": "Array<EntityRef>", "__value": [{
+								{ "__identifier": "Triggers", "__type": "Array<EntityRef>", "__value": [ {
 									"entityIid": "b8f041b0-21a0-11f1-aa60-553bce3cd061",
 									"layerIid": "9745c281-21a0-11f1-8ff7-857507b0fc5e",
 									"levelIid": "9745c280-21a0-11f1-8ff7-15d55e2cbecf",
 									"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787"
-								}], "__tile": null, "defUid": 100, "realEditorValues": [{
+								}, {
+									"entityIid": "66c2c450-21a0-11f1-973a-4fd83ec8ccd7",
+									"layerIid": "9745c281-21a0-11f1-8ff7-857507b0fc5e",
+									"levelIid": "9745c280-21a0-11f1-8ff7-15d55e2cbecf",
+									"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787"
+								} ], "__tile": null, "defUid": 100, "realEditorValues": [ {
 									"id": "V_String",
 									"params": ["b8f041b0-21a0-11f1-aa60-553bce3cd061"]
-								}] }
+								}, {
+									"id": "V_String",
+									"params": ["66c2c450-21a0-11f1-973a-4fd83ec8ccd7"]
+								} ] }
 							],
 							"__worldX": 7112,
 							"__worldY": -104
 						},
 						{
 							"__identifier": "PuzzleWall",
-							"__grid": [33,43],
+							"__grid": [33,39],
 							"__pivot": [0.5,0.5],
 							"__tags": [ "Internal_Wall", "Puzzle_Trigger" ],
 							"__tile": null,
 							"__smartColor": "#2CE8F5",
 							"iid": "b8f041b0-21a0-11f1-aa60-553bce3cd061",
-							"width": 48,
-							"height": 160,
+							"width": 112,
+							"height": 144,
 							"defUid": 101,
-							"px": [536,696],
+							"px": [536,632],
 							"fieldInstances": [],
 							"__worldX": 6296,
-							"__worldY": 696
+							"__worldY": 632
 						},
 						{
 							"__identifier": "Wall",
@@ -22058,6 +22227,22 @@
 							}] }],
 							"__worldX": 7264,
 							"__worldY": 544
+						},
+						{
+							"__identifier": "PuzzleWall",
+							"__grid": [33,48],
+							"__pivot": [0.5,0.5],
+							"__tags": [ "Internal_Wall", "Puzzle_Trigger" ],
+							"__tile": null,
+							"__smartColor": "#2CE8F5",
+							"iid": "66c2c450-21a0-11f1-973a-4fd83ec8ccd7",
+							"width": 112,
+							"height": 144,
+							"defUid": 101,
+							"px": [536,776],
+							"fieldInstances": [],
+							"__worldX": 6296,
+							"__worldY": 776
 						}
 					]
 				},
@@ -22178,7 +22363,8 @@
 								{ "__identifier": "OffsetDirection", "__type": "LocalEnum.Direction", "__value": "Left", "__tile": null, "defUid": 61, "realEditorValues": [{
 									"id": "V_String",
 									"params": ["Left"]
-								}] }
+								}] },
+								{ "__identifier": "UsesLoadingScreen", "__type": "Bool", "__value": false, "__tile": null, "defUid": 113, "realEditorValues": [] }
 							],
 							"__worldX": 7612,
 							"__worldY": 412
@@ -24243,7 +24429,8 @@
 								{ "__identifier": "OffsetDirection", "__type": "LocalEnum.Direction", "__value": "Up", "__tile": null, "defUid": 61, "realEditorValues": [{
 									"id": "V_String",
 									"params": ["Up"]
-								}] }
+								}] },
+								{ "__identifier": "UsesLoadingScreen", "__type": "Bool", "__value": false, "__tile": null, "defUid": 113, "realEditorValues": [] }
 							],
 							"__worldX": 8604,
 							"__worldY": -132
@@ -24274,7 +24461,8 @@
 								{ "__identifier": "OffsetDirection", "__type": "LocalEnum.Direction", "__value": "Up", "__tile": null, "defUid": 61, "realEditorValues": [{
 									"id": "V_String",
 									"params": ["Up"]
-								}] }
+								}] },
+								{ "__identifier": "UsesLoadingScreen", "__type": "Bool", "__value": false, "__tile": null, "defUid": 113, "realEditorValues": [] }
 							],
 							"__worldX": 9244,
 							"__worldY": -132
@@ -24305,7 +24493,8 @@
 								{ "__identifier": "OffsetDirection", "__type": "LocalEnum.Direction", "__value": "Down", "__tile": null, "defUid": 61, "realEditorValues": [{
 									"id": "V_String",
 									"params": ["Down"]
-								}] }
+								}] },
+								{ "__identifier": "UsesLoadingScreen", "__type": "Bool", "__value": false, "__tile": null, "defUid": 113, "realEditorValues": [] }
 							],
 							"__worldX": 8572,
 							"__worldY": -948
@@ -25536,7 +25725,8 @@
 								{ "__identifier": "OffsetDirection", "__type": "LocalEnum.Direction", "__value": "Up", "__tile": null, "defUid": 61, "realEditorValues": [{
 									"id": "V_String",
 									"params": ["Up"]
-								}] }
+								}] },
+								{ "__identifier": "UsesLoadingScreen", "__type": "Bool", "__value": false, "__tile": null, "defUid": 113, "realEditorValues": [] }
 							],
 							"__worldX": 8580,
 							"__worldY": -1172
@@ -26759,7 +26949,8 @@
 								{ "__identifier": "OffsetDirection", "__type": "LocalEnum.Direction", "__value": "Left", "__tile": null, "defUid": 61, "realEditorValues": [{
 									"id": "V_String",
 									"params": ["Left"]
-								}] }
+								}] },
+								{ "__identifier": "UsesLoadingScreen", "__type": "Bool", "__value": false, "__tile": null, "defUid": 113, "realEditorValues": [] }
 							],
 							"__worldX": 15284,
 							"__worldY": 564
@@ -26790,7 +26981,8 @@
 								{ "__identifier": "OffsetDirection", "__type": "LocalEnum.Direction", "__value": "Down", "__tile": null, "defUid": 61, "realEditorValues": [{
 									"id": "V_String",
 									"params": ["Down"]
-								}] }
+								}] },
+								{ "__identifier": "UsesLoadingScreen", "__type": "Bool", "__value": false, "__tile": null, "defUid": 113, "realEditorValues": [] }
 							],
 							"__worldX": 14236,
 							"__worldY": 148
@@ -28449,7 +28641,8 @@
 								{ "__identifier": "OffsetDirection", "__type": "LocalEnum.Direction", "__value": "Up", "__tile": null, "defUid": 61, "realEditorValues": [{
 									"id": "V_String",
 									"params": ["Up"]
-								}] }
+								}] },
+								{ "__identifier": "UsesLoadingScreen", "__type": "Bool", "__value": false, "__tile": null, "defUid": 113, "realEditorValues": [] }
 							],
 							"__worldX": 14244,
 							"__worldY": -140
@@ -29221,7 +29414,8 @@
 								{ "__identifier": "OffsetDirection", "__type": "LocalEnum.Direction", "__value": "Up", "__tile": null, "defUid": 61, "realEditorValues": [{
 									"id": "V_String",
 									"params": ["Up"]
-								}] }
+								}] },
+								{ "__identifier": "UsesLoadingScreen", "__type": "Bool", "__value": false, "__tile": null, "defUid": 113, "realEditorValues": [] }
 							],
 							"__worldX": 15620,
 							"__worldY": 1004
@@ -29252,7 +29446,8 @@
 								{ "__identifier": "OffsetDirection", "__type": "LocalEnum.Direction", "__value": "Right", "__tile": null, "defUid": 61, "realEditorValues": [{
 									"id": "V_String",
 									"params": ["Right"]
-								}] }
+								}] },
+								{ "__identifier": "UsesLoadingScreen", "__type": "Bool", "__value": false, "__tile": null, "defUid": 113, "realEditorValues": [] }
 							],
 							"__worldX": 15420,
 							"__worldY": 532
@@ -29283,7 +29478,8 @@
 								{ "__identifier": "OffsetDirection", "__type": "LocalEnum.Direction", "__value": "Left", "__tile": null, "defUid": 61, "realEditorValues": [{
 									"id": "V_String",
 									"params": ["Left"]
-								}] }
+								}] },
+								{ "__identifier": "UsesLoadingScreen", "__type": "Bool", "__value": false, "__tile": null, "defUid": 113, "realEditorValues": [] }
 							],
 							"__worldX": 17156,
 							"__worldY": 524
@@ -30600,34 +30796,42 @@
 									"id": "V_String",
 									"params": ["dcea2f70-21a0-11f1-aa60-4de8038766ad"]
 								} ] },
-								{ "__identifier": "Triggers", "__type": "Array<EntityRef>", "__value": [{
+								{ "__identifier": "Triggers", "__type": "Array<EntityRef>", "__value": [ {
 									"entityIid": "0a5fbad0-21a0-11f1-aa60-3d12476cfc3a",
 									"layerIid": "afce1ff1-21a0-11f1-8ff7-9b57c1a71ae8",
 									"levelIid": "afce1ff0-21a0-11f1-8ff7-edcb2953dc85",
 									"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787"
-								}], "__tile": null, "defUid": 100, "realEditorValues": [{
+								}, {
+									"entityIid": "8242b6e0-21a0-11f1-973a-99c6a9e9cdf9",
+									"layerIid": "afce1ff1-21a0-11f1-8ff7-9b57c1a71ae8",
+									"levelIid": "afce1ff0-21a0-11f1-8ff7-edcb2953dc85",
+									"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787"
+								} ], "__tile": null, "defUid": 100, "realEditorValues": [ {
 									"id": "V_String",
 									"params": ["0a5fbad0-21a0-11f1-aa60-3d12476cfc3a"]
-								}] }
+								}, {
+									"id": "V_String",
+									"params": ["8242b6e0-21a0-11f1-973a-99c6a9e9cdf9"]
+								} ] }
 							],
 							"__worldX": 15704,
 							"__worldY": 2272
 						},
 						{
 							"__identifier": "PuzzleWall",
-							"__grid": [51,18],
+							"__grid": [53,11],
 							"__pivot": [0.5,0.5],
 							"__tags": [ "Internal_Wall", "Puzzle_Trigger" ],
 							"__tile": null,
 							"__smartColor": "#2CE8F5",
 							"iid": "0a5fbad0-21a0-11f1-aa60-3d12476cfc3a",
-							"width": 64,
-							"height": 256,
+							"width": 128,
+							"height": 144,
 							"defUid": 101,
-							"px": [824,296],
+							"px": [856,184],
 							"fieldInstances": [],
-							"__worldX": 16184,
-							"__worldY": 1376
+							"__worldX": 16216,
+							"__worldY": 1264
 						},
 						{
 							"__identifier": "MossWall",
@@ -30663,6 +30867,22 @@
 							"fieldInstances": [],
 							"__worldX": 16328,
 							"__worldY": 1936
+						},
+						{
+							"__identifier": "PuzzleWall",
+							"__grid": [53,21],
+							"__pivot": [0.5,0.5],
+							"__tags": [ "Internal_Wall", "Puzzle_Trigger" ],
+							"__tile": null,
+							"__smartColor": "#2CE8F5",
+							"iid": "8242b6e0-21a0-11f1-973a-99c6a9e9cdf9",
+							"width": 128,
+							"height": 144,
+							"defUid": 101,
+							"px": [856,344],
+							"fieldInstances": [],
+							"__worldX": 16216,
+							"__worldY": 1424
 						}
 					]
 				},
@@ -30766,7 +30986,8 @@
 								{ "__identifier": "OffsetDirection", "__type": "LocalEnum.Direction", "__value": "Left", "__tile": null, "defUid": 61, "realEditorValues": [{
 									"id": "V_String",
 									"params": ["Left"]
-								}] }
+								}] },
+								{ "__identifier": "UsesLoadingScreen", "__type": "Bool", "__value": false, "__tile": null, "defUid": 113, "realEditorValues": [] }
 							],
 							"__worldX": 17204,
 							"__worldY": 1420
@@ -30797,7 +31018,8 @@
 								{ "__identifier": "OffsetDirection", "__type": "LocalEnum.Direction", "__value": "Left", "__tile": null, "defUid": 61, "realEditorValues": [{
 									"id": "V_String",
 									"params": ["Left"]
-								}] }
+								}] },
+								{ "__identifier": "UsesLoadingScreen", "__type": "Bool", "__value": false, "__tile": null, "defUid": 113, "realEditorValues": [] }
 							],
 							"__worldX": 17204,
 							"__worldY": 1876
@@ -30828,7 +31050,8 @@
 								{ "__identifier": "OffsetDirection", "__type": "LocalEnum.Direction", "__value": "Down", "__tile": null, "defUid": 61, "realEditorValues": [{
 									"id": "V_String",
 									"params": ["Down"]
-								}] }
+								}] },
+								{ "__identifier": "UsesLoadingScreen", "__type": "Bool", "__value": false, "__tile": null, "defUid": 113, "realEditorValues": [] }
 							],
 							"__worldX": 15612,
 							"__worldY": 1172
@@ -32171,18 +32394,18 @@
 						},
 						{
 							"__identifier": "PuzzleWall",
-							"__grid": [97,58],
+							"__grid": [96,58],
 							"__pivot": [0.5,0.5],
 							"__tags": [ "Internal_Wall", "Puzzle_Trigger" ],
 							"__tile": null,
 							"__smartColor": "#2CE8F5",
 							"iid": "21fd9130-21a0-11f1-aa60-e39490097ad0",
 							"width": 176,
-							"height": 48,
+							"height": 128,
 							"defUid": 101,
-							"px": [1560,936],
+							"px": [1544,936],
 							"fieldInstances": [],
-							"__worldX": 18840,
+							"__worldX": 18824,
 							"__worldY": 936
 						}
 					]
@@ -32320,6 +32543,10 @@
 								{ "__identifier": "OffsetDirection", "__type": "LocalEnum.Direction", "__value": "Left", "__tile": null, "defUid": 61, "realEditorValues": [{
 									"id": "V_String",
 									"params": ["Left"]
+								}] },
+								{ "__identifier": "UsesLoadingScreen", "__type": "Bool", "__value": true, "__tile": null, "defUid": 113, "realEditorValues": [{
+									"id": "V_Bool",
+									"params": [ true ]
 								}] }
 							],
 							"__worldX": 19108,
@@ -32351,7 +32578,8 @@
 								{ "__identifier": "OffsetDirection", "__type": "LocalEnum.Direction", "__value": "Up", "__tile": null, "defUid": 61, "realEditorValues": [{
 									"id": "V_String",
 									"params": ["Up"]
-								}] }
+								}] },
+								{ "__identifier": "UsesLoadingScreen", "__type": "Bool", "__value": false, "__tile": null, "defUid": 113, "realEditorValues": [] }
 							],
 							"__worldX": 18828,
 							"__worldY": 996
@@ -32382,7 +32610,8 @@
 								{ "__identifier": "OffsetDirection", "__type": "LocalEnum.Direction", "__value": "Right", "__tile": null, "defUid": 61, "realEditorValues": [{
 									"id": "V_String",
 									"params": ["Right"]
-								}] }
+								}] },
+								{ "__identifier": "UsesLoadingScreen", "__type": "Bool", "__value": false, "__tile": null, "defUid": 113, "realEditorValues": [] }
 							],
 							"__worldX": 17500,
 							"__worldY": 556
@@ -34052,7 +34281,8 @@
 								{ "__identifier": "OffsetDirection", "__type": "LocalEnum.Direction", "__value": "Down", "__tile": null, "defUid": 61, "realEditorValues": [{
 									"id": "V_String",
 									"params": ["Down"]
-								}] }
+								}] },
+								{ "__identifier": "UsesLoadingScreen", "__type": "Bool", "__value": false, "__tile": null, "defUid": 113, "realEditorValues": [] }
 							],
 							"__worldX": 18820,
 							"__worldY": 1228
@@ -34083,7 +34313,8 @@
 								{ "__identifier": "OffsetDirection", "__type": "LocalEnum.Direction", "__value": "Right", "__tile": null, "defUid": 61, "realEditorValues": [{
 									"id": "V_String",
 									"params": ["Right"]
-								}] }
+								}] },
+								{ "__identifier": "UsesLoadingScreen", "__type": "Bool", "__value": false, "__tile": null, "defUid": 113, "realEditorValues": [] }
 							],
 							"__worldX": 17348,
 							"__worldY": 1444
@@ -34114,7 +34345,8 @@
 								{ "__identifier": "OffsetDirection", "__type": "LocalEnum.Direction", "__value": "Right", "__tile": null, "defUid": 61, "realEditorValues": [{
 									"id": "V_String",
 									"params": ["Right"]
-								}] }
+								}] },
+								{ "__identifier": "UsesLoadingScreen", "__type": "Bool", "__value": false, "__tile": null, "defUid": 113, "realEditorValues": [] }
 							],
 							"__worldX": 17356,
 							"__worldY": 1892
@@ -35721,7 +35953,8 @@
 								{ "__identifier": "OffsetDirection", "__type": "LocalEnum.Direction", "__value": "Up", "__tile": null, "defUid": 61, "realEditorValues": [{
 									"id": "V_String",
 									"params": ["Up"]
-								}] }
+								}] },
+								{ "__identifier": "UsesLoadingScreen", "__type": "Bool", "__value": false, "__tile": null, "defUid": 113, "realEditorValues": [] }
 							],
 							"__worldX": 8612,
 							"__worldY": 3140
@@ -35752,7 +35985,8 @@
 								{ "__identifier": "OffsetDirection", "__type": "LocalEnum.Direction", "__value": "Down", "__tile": null, "defUid": 61, "realEditorValues": [{
 									"id": "V_String",
 									"params": ["Down"]
-								}] }
+								}] },
+								{ "__identifier": "UsesLoadingScreen", "__type": "Bool", "__value": false, "__tile": null, "defUid": 113, "realEditorValues": [] }
 							],
 							"__worldX": 8612,
 							"__worldY": 2332
@@ -36440,34 +36674,42 @@
 									"id": "V_String",
 									"params": ["e6e466f0-21a0-11f1-8551-572457382f9b"]
 								} ] },
-								{ "__identifier": "Triggers", "__type": "Array<EntityRef>", "__value": [{
+								{ "__identifier": "Triggers", "__type": "Array<EntityRef>", "__value": [ {
 									"entityIid": "18f10e00-21a0-11f1-8551-cd88661d74f1",
 									"layerIid": "00900423-21a0-11f1-8551-e7b246d08ee0",
 									"levelIid": "00900420-21a0-11f1-8551-5d5073fea92f",
 									"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787"
-								}], "__tile": null, "defUid": 100, "realEditorValues": [{
+								}, {
+									"entityIid": "357f1290-21a0-11f1-973a-8dfb931b2189",
+									"layerIid": "00900423-21a0-11f1-8551-e7b246d08ee0",
+									"levelIid": "00900420-21a0-11f1-8551-5d5073fea92f",
+									"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787"
+								} ], "__tile": null, "defUid": 100, "realEditorValues": [ {
 									"id": "V_String",
 									"params": ["18f10e00-21a0-11f1-8551-cd88661d74f1"]
-								}] }
+								}, {
+									"id": "V_String",
+									"params": ["357f1290-21a0-11f1-973a-8dfb931b2189"]
+								} ] }
 							],
 							"__worldX": 9096,
 							"__worldY": 3616
 						},
 						{
 							"__identifier": "PuzzleWall",
-							"__grid": [62,16],
+							"__grid": [53,13],
 							"__pivot": [0.5,0.5],
 							"__tags": [ "Internal_Wall", "Puzzle_Trigger" ],
 							"__tile": null,
 							"__smartColor": "#2CE8F5",
 							"iid": "18f10e00-21a0-11f1-8551-cd88661d74f1",
-							"width": 464,
-							"height": 50,
+							"width": 160,
+							"height": 128,
 							"defUid": 101,
-							"px": [1000,264],
+							"px": [856,216],
 							"fieldInstances": [],
-							"__worldX": 8680,
-							"__worldY": 3504
+							"__worldX": 8536,
+							"__worldY": 3456
 						},
 						{
 							"__identifier": "Wall",
@@ -36596,6 +36838,22 @@
 							"fieldInstances": [],
 							"__worldX": 8824,
 							"__worldY": 3392
+						},
+						{
+							"__identifier": "PuzzleWall",
+							"__grid": [64,13],
+							"__pivot": [0.5,0.5],
+							"__tags": [ "Internal_Wall", "Puzzle_Trigger" ],
+							"__tile": null,
+							"__smartColor": "#2CE8F5",
+							"iid": "357f1290-21a0-11f1-973a-8dfb931b2189",
+							"width": 160,
+							"height": 128,
+							"defUid": 101,
+							"px": [1032,216],
+							"fieldInstances": [],
+							"__worldX": 8712,
+							"__worldY": 3456
 						}
 					]
 				},
@@ -36674,7 +36932,8 @@
 								{ "__identifier": "OffsetDirection", "__type": "LocalEnum.Direction", "__value": "Up", "__tile": null, "defUid": 61, "realEditorValues": [{
 									"id": "V_String",
 									"params": ["Up"]
-								}] }
+								}] },
+								{ "__identifier": "UsesLoadingScreen", "__type": "Bool", "__value": false, "__tile": null, "defUid": 113, "realEditorValues": [] }
 							],
 							"__worldX": 8604,
 							"__worldY": 4220
@@ -36705,7 +36964,8 @@
 								{ "__identifier": "OffsetDirection", "__type": "LocalEnum.Direction", "__value": "Down", "__tile": null, "defUid": 61, "realEditorValues": [{
 									"id": "V_String",
 									"params": ["Down"]
-								}] }
+								}] },
+								{ "__identifier": "UsesLoadingScreen", "__type": "Bool", "__value": false, "__tile": null, "defUid": 113, "realEditorValues": [] }
 							],
 							"__worldX": 8604,
 							"__worldY": 3420
@@ -37983,7 +38243,8 @@
 								{ "__identifier": "OffsetDirection", "__type": "LocalEnum.Direction", "__value": "Down", "__tile": null, "defUid": 61, "realEditorValues": [{
 									"id": "V_String",
 									"params": ["Down"]
-								}] }
+								}] },
+								{ "__identifier": "UsesLoadingScreen", "__type": "Bool", "__value": false, "__tile": null, "defUid": 113, "realEditorValues": [] }
 							],
 							"__worldX": 892,
 							"__worldY": -972
@@ -38014,7 +38275,8 @@
 								{ "__identifier": "OffsetDirection", "__type": "LocalEnum.Direction", "__value": "Up", "__tile": null, "defUid": 61, "realEditorValues": [{
 									"id": "V_String",
 									"params": ["Up"]
-								}] }
+								}] },
+								{ "__identifier": "UsesLoadingScreen", "__type": "Bool", "__value": false, "__tile": null, "defUid": 113, "realEditorValues": [] }
 							],
 							"__worldX": 892,
 							"__worldY": -52

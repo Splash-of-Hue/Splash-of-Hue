@@ -24,7 +24,22 @@ struct Crab
 {
 };
 
-const int NUM_MINNOWS = 50;
+const int NUM_MINNOWS = 25;
+const float MINNOW_BLUE_ALIGNMENT_FACTOR = 0.002f;
+const float MINNOW_BLUE_COHESION_FACTOR = 5.5f;
+const float MINNOW_BLUE_SEPARATION_FACTOR = 10.5f;
+const float MINNOW_BLUE_TARGET_FACTOR = 10.0f;
+
+const float MINNOW_NEUTRAL_ALIGNMENT_FACTOR = 0.02f;
+const float MINNOW_NEUTRAL_COHESION_FACTOR = 0.08f;
+const float MINNOW_NEUTRAL_SEPARATION_FACTOR = 5.5f;
+const float MINNOW_NEUTRAL_TARGET_FACTOR = 0.0f;
+
+const float MINNOW_RED_ALIGNMENT_FACTOR = 0.08f;
+const float MINNOW_RED_COHESION_FACTOR = 0.001f;
+const float MINNOW_RED_SEPARATION_FACTOR = 10.5f;
+const float MINNOW_RED_TARGET_FACTOR = -10.0f;
+
 
 struct Sawfish
 {

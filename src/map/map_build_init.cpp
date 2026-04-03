@@ -138,12 +138,12 @@ Entity createMapTile(int tile_id, TEXTURE_ASSET_ID texture_id, ivec2 tile_positi
 	return map_tile_entity;
 }
 
-Entity createTeleporter(const int level_uid, const int connected_level_id, vec2 position, vec2 size, vec2 connected_position, DIRECTION offset_direction)
+Entity createTeleporter(const int level_uid, const int connected_level_id, vec2 position, vec2 size, vec2 connected_position, DIRECTION offset_direction, bool uses_loading_screen)
 {
 	Entity teleporter_entity;
 	registry.sizes.insert(teleporter_entity, { size.x, size.y });
 	registry.positions.insert(teleporter_entity, position);
-	Teleporter teleporter = { level_uid, connected_level_id, offset_direction, vec2(connected_position.x, connected_position.y) };
+	Teleporter teleporter = { level_uid, connected_level_id, offset_direction, vec2(connected_position.x, connected_position.y), uses_loading_screen };
 	registry.teleporters.emplace(teleporter_entity, teleporter);
 	registry.collidables.emplace(teleporter_entity);
 	registry.levelEntities.insert(teleporter_entity, { level_uid });

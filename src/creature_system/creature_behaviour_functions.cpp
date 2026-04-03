@@ -21,10 +21,16 @@ BEHAVIOUR_TREE_STATUS CreatureBehaviourFunctions::makeColour(Entity& creature, C
 	colour_state_component.prev_colour_state = colour_state_component.prev_colour_state;
 	colour_state_component.curr_colour_state = colour_state;
 
-	vec4& color = registry.colors.get(creature);
-	const ColourPalette& palette = registry.colourPalettes.components[0];
-	auto& color_from_state = palette.state_to_colour.at(colour_state_component.curr_colour_state);
-	color = color_from_state;
+	if (registry.creatures.has(creature))
+	{
+		CREATURETYPE type = registry.creatures.get(creature).creatureType;
+		if (type != CREATURETYPE::ANGLERFISH)
+		{
+			vec4& color = registry.colors.get(creature);
+			const ColourPalette& palette = registry.colourPalettes.components[0];
+			color = palette.state_to_colour.at(colour_state_component.curr_colour_state);
+		}
+	}
 
 	return BEHAVIOUR_TREE_STATUS::SUCCESS;
 }

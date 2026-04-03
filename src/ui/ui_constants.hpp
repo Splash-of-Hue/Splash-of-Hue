@@ -1,9 +1,10 @@
 #pragma once
 
-enum class MENU_TYPE
+enum class UI_TYPE
 {
 	INVALID,
 	PAUSE_MENU,
+	LOADING_SCREEN,
 };
 
 enum class MENU_ACTION
