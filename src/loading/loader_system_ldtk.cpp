@@ -911,9 +911,31 @@ void load_puzzle_wall(const ldtk::Entity& puzzle_wall_entity)
 			return;
 		}
 	}
-	const vec4 PUZZLE_WALL_COLOUR = vec4(vec3(105, 30, 105) / 255.0f, 1.0);
-	Entity& wall = createWall(puzzle_wall_entity.layer->level->uid, position, size.x, size.y, PUZZLE_WALL_COLOUR);
-	registry.renderRequests.get(wall).layer = RENDER_LAYER::WALLS_FRONT;
+
+	Entity wall;
+	registry.positions.insert(wall, position);
+	registry.scales.insert(wall, size);
+	registry.sizes.insert(wall, { size.x, size.y });
+	registry.angles.emplace(wall);
+	registry.walls.emplace(wall);
+	registry.unloadables.emplace(wall, Unloadable{ position });
+	registry.levelEntities.insert(wall, { puzzle_wall_entity.layer->level->uid });
+	Collidable& col = registry.collidables.emplace(wall);
+	col.inelastic = true;
 	registry.puzzle_triggers.insert(wall, { puzzle_wall_entity.iid.str(), [&]() {} });
-	registry.unloadables.emplace(wall);
+
+	registry.renderRequests.insert(wall, {
+		EFFECT_ASSET_ID::TEXTURED,
+		GEOMETRY_BUFFER_ID::SPRITE,
+		RENDER_LAYER::WALLS_FRONT
+		});
+
+	const Animatable animatable = {
+		ANIMATABLE_TYPE::PUZZLE_WALL,
+		ANIMATION_BEHAVIOR::LOOP,
+		ANIMATION_TRIGGER::IDLE,
+		1
+	};
+	registry.animatables.insert(wall, animatable);
+	registry.textured.insert(wall, { TEXTURE_ASSET_ID::PUZZLE_WALL });
 }

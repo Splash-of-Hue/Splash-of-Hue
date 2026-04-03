@@ -14589,34 +14589,86 @@
 									"id": "V_String",
 									"params": ["a9009cf0-21a0-11f1-aa60-9de157f4f24a"]
 								} ] },
-								{ "__identifier": "Triggers", "__type": "Array<EntityRef>", "__value": [{
-									"entityIid": "cf38e850-21a0-11f1-aa60-5195df9e6182",
-									"layerIid": "bd5b0440-21a0-11f1-8ff7-51b6b599da9e",
-									"levelIid": "bd5add30-21a0-11f1-8ff7-cf0a441145d5",
-									"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787"
-								}], "__tile": null, "defUid": 100, "realEditorValues": [{
+								{ "__identifier": "Triggers", "__type": "Array<EntityRef>", "__value": [
+									{
+										"entityIid": "cf38e850-21a0-11f1-aa60-5195df9e6182",
+										"layerIid": "bd5b0440-21a0-11f1-8ff7-51b6b599da9e",
+										"levelIid": "bd5add30-21a0-11f1-8ff7-cf0a441145d5",
+										"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787"
+									},
+									{
+										"entityIid": "c7bdff00-21a0-11f1-973a-5f5e2bdbbbe4",
+										"layerIid": "bd5b0440-21a0-11f1-8ff7-51b6b599da9e",
+										"levelIid": "bd5add30-21a0-11f1-8ff7-cf0a441145d5",
+										"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787"
+									},
+									{
+										"entityIid": "129d2be0-21a0-11f1-973a-0d2f807e2fb1",
+										"layerIid": "bd5b0440-21a0-11f1-8ff7-51b6b599da9e",
+										"levelIid": "bd5add30-21a0-11f1-8ff7-cf0a441145d5",
+										"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787"
+									}
+								], "__tile": null, "defUid": 100, "realEditorValues": [ {
 									"id": "V_String",
 									"params": ["cf38e850-21a0-11f1-aa60-5195df9e6182"]
-								}] }
+								}, {
+									"id": "V_String",
+									"params": ["c7bdff00-21a0-11f1-973a-5f5e2bdbbbe4"]
+								}, {
+									"id": "V_String",
+									"params": ["129d2be0-21a0-11f1-973a-0d2f807e2fb1"]
+								} ] }
 							],
 							"__worldX": 9128,
 							"__worldY": 4984
 						},
 						{
 							"__identifier": "PuzzleWall",
-							"__grid": [58,17],
+							"__grid": [49,14],
 							"__pivot": [0.5,0.5],
 							"__tags": [ "Internal_Wall", "Puzzle_Trigger" ],
 							"__tile": null,
 							"__smartColor": "#2CE8F5",
 							"iid": "cf38e850-21a0-11f1-aa60-5195df9e6182",
-							"width": 592,
-							"height": 64,
+							"width": 112,
+							"height": 112,
 							"defUid": 101,
-							"px": [936,280],
+							"px": [792,232],
 							"fieldInstances": [],
-							"__worldX": 8616,
-							"__worldY": 4600
+							"__worldX": 8472,
+							"__worldY": 4552
+						},
+						{
+							"__identifier": "PuzzleWall",
+							"__grid": [57,14],
+							"__pivot": [0.5,0.5],
+							"__tags": [ "Internal_Wall", "Puzzle_Trigger" ],
+							"__tile": null,
+							"__smartColor": "#2CE8F5",
+							"iid": "c7bdff00-21a0-11f1-973a-5f5e2bdbbbe4",
+							"width": 128,
+							"height": 112,
+							"defUid": 101,
+							"px": [920,232],
+							"fieldInstances": [],
+							"__worldX": 8600,
+							"__worldY": 4552
+						},
+						{
+							"__identifier": "PuzzleWall",
+							"__grid": [65,14],
+							"__pivot": [0.5,0.5],
+							"__tags": [ "Internal_Wall", "Puzzle_Trigger" ],
+							"__tile": null,
+							"__smartColor": "#2CE8F5",
+							"iid": "129d2be0-21a0-11f1-973a-0d2f807e2fb1",
+							"width": 112,
+							"height": 112,
+							"defUid": 101,
+							"px": [1048,232],
+							"fieldInstances": [],
+							"__worldX": 8728,
+							"__worldY": 4552
 						}
 					]
 				},
@@ -16894,7 +16946,7 @@
 					"layerDefUid": 36,
 					"pxOffsetX": 0,
 					"pxOffsetY": 0,
-					"visible": false,
+					"visible": true,
 					"optionalRules": [],
 					"intGridCsv": [],
 					"autoLayerTiles": [],
@@ -17337,18 +17389,18 @@
 						},
 						{
 							"__identifier": "PuzzleWall",
-							"__grid": [50,42],
+							"__grid": [52,42],
 							"__pivot": [0.5,0.5],
 							"__tags": [ "Internal_Wall", "Puzzle_Trigger" ],
 							"__tile": null,
 							"__smartColor": "#2CE8F5",
 							"iid": "f56a4820-21a0-11f1-aa60-cbe998e8273b",
-							"width": 64,
-							"height": 80,
+							"width": 112,
+							"height": 112,
 							"defUid": 101,
-							"px": [808,680],
+							"px": [840,680],
 							"fieldInstances": [],
-							"__worldX": 10408,
+							"__worldX": 10440,
 							"__worldY": 1760
 						},
 						{
@@ -22420,34 +22472,42 @@
 										"params": ["205d99a0-21a0-11f1-aa60-c72b2af2db7e"]
 									}
 								] },
-								{ "__identifier": "Triggers", "__type": "Array<EntityRef>", "__value": [{
+								{ "__identifier": "Triggers", "__type": "Array<EntityRef>", "__value": [ {
 									"entityIid": "b8f041b0-21a0-11f1-aa60-553bce3cd061",
 									"layerIid": "9745c281-21a0-11f1-8ff7-857507b0fc5e",
 									"levelIid": "9745c280-21a0-11f1-8ff7-15d55e2cbecf",
 									"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787"
-								}], "__tile": null, "defUid": 100, "realEditorValues": [{
+								}, {
+									"entityIid": "66c2c450-21a0-11f1-973a-4fd83ec8ccd7",
+									"layerIid": "9745c281-21a0-11f1-8ff7-857507b0fc5e",
+									"levelIid": "9745c280-21a0-11f1-8ff7-15d55e2cbecf",
+									"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787"
+								} ], "__tile": null, "defUid": 100, "realEditorValues": [ {
 									"id": "V_String",
 									"params": ["b8f041b0-21a0-11f1-aa60-553bce3cd061"]
-								}] }
+								}, {
+									"id": "V_String",
+									"params": ["66c2c450-21a0-11f1-973a-4fd83ec8ccd7"]
+								} ] }
 							],
 							"__worldX": 7112,
 							"__worldY": -104
 						},
 						{
 							"__identifier": "PuzzleWall",
-							"__grid": [33,43],
+							"__grid": [33,39],
 							"__pivot": [0.5,0.5],
 							"__tags": [ "Internal_Wall", "Puzzle_Trigger" ],
 							"__tile": null,
 							"__smartColor": "#2CE8F5",
 							"iid": "b8f041b0-21a0-11f1-aa60-553bce3cd061",
-							"width": 48,
-							"height": 160,
+							"width": 112,
+							"height": 144,
 							"defUid": 101,
-							"px": [536,696],
+							"px": [536,632],
 							"fieldInstances": [],
 							"__worldX": 6296,
-							"__worldY": 696
+							"__worldY": 632
 						},
 						{
 							"__identifier": "Wall",
@@ -22597,6 +22657,22 @@
 							}] }],
 							"__worldX": 7264,
 							"__worldY": 544
+						},
+						{
+							"__identifier": "PuzzleWall",
+							"__grid": [33,48],
+							"__pivot": [0.5,0.5],
+							"__tags": [ "Internal_Wall", "Puzzle_Trigger" ],
+							"__tile": null,
+							"__smartColor": "#2CE8F5",
+							"iid": "66c2c450-21a0-11f1-973a-4fd83ec8ccd7",
+							"width": 112,
+							"height": 144,
+							"defUid": 101,
+							"px": [536,776],
+							"fieldInstances": [],
+							"__worldX": 6296,
+							"__worldY": 776
 						}
 					]
 				},
@@ -31543,34 +31619,42 @@
 									"id": "V_String",
 									"params": ["dcea2f70-21a0-11f1-aa60-4de8038766ad"]
 								} ] },
-								{ "__identifier": "Triggers", "__type": "Array<EntityRef>", "__value": [{
+								{ "__identifier": "Triggers", "__type": "Array<EntityRef>", "__value": [ {
 									"entityIid": "0a5fbad0-21a0-11f1-aa60-3d12476cfc3a",
 									"layerIid": "afce1ff1-21a0-11f1-8ff7-9b57c1a71ae8",
 									"levelIid": "afce1ff0-21a0-11f1-8ff7-edcb2953dc85",
 									"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787"
-								}], "__tile": null, "defUid": 100, "realEditorValues": [{
+								}, {
+									"entityIid": "8242b6e0-21a0-11f1-973a-99c6a9e9cdf9",
+									"layerIid": "afce1ff1-21a0-11f1-8ff7-9b57c1a71ae8",
+									"levelIid": "afce1ff0-21a0-11f1-8ff7-edcb2953dc85",
+									"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787"
+								} ], "__tile": null, "defUid": 100, "realEditorValues": [ {
 									"id": "V_String",
 									"params": ["0a5fbad0-21a0-11f1-aa60-3d12476cfc3a"]
-								}] }
+								}, {
+									"id": "V_String",
+									"params": ["8242b6e0-21a0-11f1-973a-99c6a9e9cdf9"]
+								} ] }
 							],
 							"__worldX": 15704,
 							"__worldY": 2272
 						},
 						{
 							"__identifier": "PuzzleWall",
-							"__grid": [51,18],
+							"__grid": [53,11],
 							"__pivot": [0.5,0.5],
 							"__tags": [ "Internal_Wall", "Puzzle_Trigger" ],
 							"__tile": null,
 							"__smartColor": "#2CE8F5",
 							"iid": "0a5fbad0-21a0-11f1-aa60-3d12476cfc3a",
-							"width": 64,
-							"height": 256,
+							"width": 128,
+							"height": 144,
 							"defUid": 101,
-							"px": [824,296],
+							"px": [856,184],
 							"fieldInstances": [],
-							"__worldX": 16184,
-							"__worldY": 1376
+							"__worldX": 16216,
+							"__worldY": 1264
 						},
 						{
 							"__identifier": "MossWall",
@@ -31606,6 +31690,22 @@
 							"fieldInstances": [],
 							"__worldX": 16328,
 							"__worldY": 1936
+						},
+						{
+							"__identifier": "PuzzleWall",
+							"__grid": [53,21],
+							"__pivot": [0.5,0.5],
+							"__tags": [ "Internal_Wall", "Puzzle_Trigger" ],
+							"__tile": null,
+							"__smartColor": "#2CE8F5",
+							"iid": "8242b6e0-21a0-11f1-973a-99c6a9e9cdf9",
+							"width": 128,
+							"height": 144,
+							"defUid": 101,
+							"px": [856,344],
+							"fieldInstances": [],
+							"__worldX": 16216,
+							"__worldY": 1424
 						}
 					]
 				},
@@ -33114,18 +33214,18 @@
 						},
 						{
 							"__identifier": "PuzzleWall",
-							"__grid": [97,58],
+							"__grid": [96,58],
 							"__pivot": [0.5,0.5],
 							"__tags": [ "Internal_Wall", "Puzzle_Trigger" ],
 							"__tile": null,
 							"__smartColor": "#2CE8F5",
 							"iid": "21fd9130-21a0-11f1-aa60-e39490097ad0",
 							"width": 176,
-							"height": 48,
+							"height": 128,
 							"defUid": 101,
-							"px": [1560,936],
+							"px": [1544,936],
 							"fieldInstances": [],
-							"__worldX": 18840,
+							"__worldX": 18824,
 							"__worldY": 936
 						}
 					]
@@ -37435,34 +37535,42 @@
 									"id": "V_String",
 									"params": ["e6e466f0-21a0-11f1-8551-572457382f9b"]
 								} ] },
-								{ "__identifier": "Triggers", "__type": "Array<EntityRef>", "__value": [{
+								{ "__identifier": "Triggers", "__type": "Array<EntityRef>", "__value": [ {
 									"entityIid": "18f10e00-21a0-11f1-8551-cd88661d74f1",
 									"layerIid": "00900423-21a0-11f1-8551-e7b246d08ee0",
 									"levelIid": "00900420-21a0-11f1-8551-5d5073fea92f",
 									"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787"
-								}], "__tile": null, "defUid": 100, "realEditorValues": [{
+								}, {
+									"entityIid": "357f1290-21a0-11f1-973a-8dfb931b2189",
+									"layerIid": "00900423-21a0-11f1-8551-e7b246d08ee0",
+									"levelIid": "00900420-21a0-11f1-8551-5d5073fea92f",
+									"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787"
+								} ], "__tile": null, "defUid": 100, "realEditorValues": [ {
 									"id": "V_String",
 									"params": ["18f10e00-21a0-11f1-8551-cd88661d74f1"]
-								}] }
+								}, {
+									"id": "V_String",
+									"params": ["357f1290-21a0-11f1-973a-8dfb931b2189"]
+								} ] }
 							],
 							"__worldX": 9096,
 							"__worldY": 3616
 						},
 						{
 							"__identifier": "PuzzleWall",
-							"__grid": [62,16],
+							"__grid": [53,13],
 							"__pivot": [0.5,0.5],
 							"__tags": [ "Internal_Wall", "Puzzle_Trigger" ],
 							"__tile": null,
 							"__smartColor": "#2CE8F5",
 							"iid": "18f10e00-21a0-11f1-8551-cd88661d74f1",
-							"width": 464,
-							"height": 50,
+							"width": 160,
+							"height": 128,
 							"defUid": 101,
-							"px": [1000,264],
+							"px": [856,216],
 							"fieldInstances": [],
-							"__worldX": 8680,
-							"__worldY": 3504
+							"__worldX": 8536,
+							"__worldY": 3456
 						},
 						{
 							"__identifier": "Wall",
@@ -37591,6 +37699,22 @@
 							"fieldInstances": [],
 							"__worldX": 8824,
 							"__worldY": 3392
+						},
+						{
+							"__identifier": "PuzzleWall",
+							"__grid": [64,13],
+							"__pivot": [0.5,0.5],
+							"__tags": [ "Internal_Wall", "Puzzle_Trigger" ],
+							"__tile": null,
+							"__smartColor": "#2CE8F5",
+							"iid": "357f1290-21a0-11f1-973a-8dfb931b2189",
+							"width": 160,
+							"height": 128,
+							"defUid": 101,
+							"px": [1032,216],
+							"fieldInstances": [],
+							"__worldX": 8712,
+							"__worldY": 3456
 						}
 					]
 				},

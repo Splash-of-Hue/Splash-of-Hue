@@ -276,6 +276,13 @@ void AnimationSystem::init()
 			{ TEXTURE_ASSET_ID::PUZZLE_BUBBLE, RenderSourceRect{ vec2(0.2f, 0.666f), vec2(0.2f, 0.333f) }},
 		}
 	);
+	generate_animation(
+		ANIMATABLE_TYPE::PUZZLE_WALL,
+		ANIMATION_TRIGGER::IDLE,
+		{
+			{ TEXTURE_ASSET_ID::PUZZLE_WALL, RenderSourceRect{ vec2(0.0f, 0.0f), vec2(1.0f, 1.0f) }}
+		}
+	);
 
 	// Crab Walk Forward
 generate_animation(
