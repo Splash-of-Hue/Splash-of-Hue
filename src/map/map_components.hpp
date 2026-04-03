@@ -47,6 +47,7 @@ struct Teleporter
 	/// </summary>
 	DIRECTION offset_direction;
 	vec2 arrival_location;
+	bool uses_loading_screen;
 };
 
 // Used for level entity
@@ -97,6 +98,7 @@ struct ChangeMapLevelRequest
 	vec2 arrival_offset;
 	MAP_CHANGE_REQUEST_TYPE type = MAP_CHANGE_REQUEST_TYPE::INVALID;
 	DIRECTION offset_direction;
+	bool uses_loading_screen;
 };
 
 struct ColouredWall

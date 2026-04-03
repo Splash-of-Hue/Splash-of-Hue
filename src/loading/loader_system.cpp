@@ -18,7 +18,8 @@ void LoaderSystem::step(float elapsed_ms)
 		switch (load_request.load_type)
 		{
 			case LOAD_TYPE::LOAD_LEVEL:
-				load_level(load_request.uid);
+				// TODO: Temporary change for M4, for camera
+				load_level(load_request.uid, load_request.uses_loading_screen);
 				break;
 			case LOAD_TYPE::UNLOAD_LEVEL:
 				unload_level(load_request.uid);
