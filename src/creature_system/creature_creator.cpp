@@ -377,23 +377,47 @@ Entity CreatureCreator::createShrimp(const int level_uid, vec2 position, float w
     }
 
     ANIMATABLE_TYPE shrimp_anim_type;
-    switch (curr_direction_facing)
+    if (num_arms == 1)
     {
-        case DIRECTION::UP:    
-            shrimp_anim_type = ANIMATABLE_TYPE::PISTOL_SHRIMP_UP;    
+        switch (curr_direction_facing)
+        {
+        case DIRECTION::UP:
+            shrimp_anim_type = ANIMATABLE_TYPE::PISTOL_SHRIMP_ONE_ARM_UP;
             break;
-        case DIRECTION::DOWN:  
-            shrimp_anim_type = ANIMATABLE_TYPE::PISTOL_SHRIMP_DOWN;  
+        case DIRECTION::DOWN:
+            shrimp_anim_type = ANIMATABLE_TYPE::PISTOL_SHRIMP_ONE_ARM_DOWN;
             break;
-        case DIRECTION::LEFT:  
-            shrimp_anim_type = ANIMATABLE_TYPE::PISTOL_SHRIMP_LEFT;  
+        case DIRECTION::LEFT:
+            shrimp_anim_type = ANIMATABLE_TYPE::PISTOL_SHRIMP_ONE_ARM_LEFT;
             break;
-        case DIRECTION::RIGHT: 
-            shrimp_anim_type = ANIMATABLE_TYPE::PISTOL_SHRIMP_RIGHT; 
+        case DIRECTION::RIGHT:
+            shrimp_anim_type = ANIMATABLE_TYPE::PISTOL_SHRIMP_ONE_ARM_RIGHT;
             break;
-        default:               
-            shrimp_anim_type = ANIMATABLE_TYPE::PISTOL_SHRIMP_UP;    
+        default:
+            shrimp_anim_type = ANIMATABLE_TYPE::PISTOL_SHRIMP_ONE_ARM_UP;
             break;
+        }
+    }
+    else
+    {
+        switch (curr_direction_facing)
+        {
+        case DIRECTION::UP:
+            shrimp_anim_type = ANIMATABLE_TYPE::PISTOL_SHRIMP_UP;
+            break;
+        case DIRECTION::DOWN:
+            shrimp_anim_type = ANIMATABLE_TYPE::PISTOL_SHRIMP_DOWN;
+            break;
+        case DIRECTION::LEFT:
+            shrimp_anim_type = ANIMATABLE_TYPE::PISTOL_SHRIMP_LEFT;
+            break;
+        case DIRECTION::RIGHT:
+            shrimp_anim_type = ANIMATABLE_TYPE::PISTOL_SHRIMP_RIGHT;
+            break;
+        default:
+            shrimp_anim_type = ANIMATABLE_TYPE::PISTOL_SHRIMP_UP;
+            break;
+        }
     }
 
     const Animatable animatable = {
