@@ -40,7 +40,7 @@ Unlock new colours and use those colours to have get creatures to act differentl
 - [19] Reloadability -> Loading and unloading levels using LDtk library implemented by Clair
 - [26] Numerous sophisticated integrated assets -> Same art style for assets implemented by Clair, Abby and Sophia
 ## Milestone Screenshots
-Minimap and colour menu UI added to tutorial, and updated
+Minimap and colour menu UI added to tutorial, and updated to show unlocked colours
 ![Screenshot 2026-04-03 225004](https://github.students.cs.ubc.ca/user-attachments/assets/07c5c2c4-0bd2-41a5-9cd0-3ed584e1fd1a)
 New dungeon with new entities, with updated assets and fixed behaviour
 ![Screenshot 2026-04-03 230352](https://github.students.cs.ubc.ca/user-attachments/assets/7a37c5f7-a1a3-4d38-bbbe-017baab417d4)
