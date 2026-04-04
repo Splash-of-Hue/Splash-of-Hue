@@ -31,6 +31,7 @@ Unlock new colours and use those colours to have get creatures to act differentl
 - Challenge -> Player is stopped by obstacles, like the pistol shrimp, non-passable boxes and walls, dangerous sawfish, and must figure out ways to bypass obstacles and understand AI behaviours, such as sawfish following, charging and pistol shrimp rotation, to traverse the tutorial and enter the final room.
 ## Milestone Required Elements
 - Memory Management: We used Visual Studio's diagnostic tools and Visual Studio's performance profiler and found our game uses about 500 MB of memory, but there were no instances of memory leaks or hoarding. 
+
 - Realtime performance: We profiled the runtime of our systems, and found that the rendering and physics systems were runtime bottlenecks, where the rendering system took about 90% of the time, and the physics system took about 6%. We changed the physics system to use broad pass by checking for an AABB collision and only running mesh collision if that check was successful, which made slight improvements. We also attempted to resolve rendering slowdown by unloading entities to decrease the amount of entities that need to be rendered, but are still working on optimizing the rendering system further. 
 ## Milestone Creative Features
 - [10] Precise collisions -> Mesh based collisions using seperability axis theorem implemented by Geetika
@@ -39,10 +40,10 @@ Unlock new colours and use those colours to have get creatures to act differentl
 - [19] Reloadability -> Loading and unloading levels using LDtk library implemented by Clair
 - [26] Numerous sophisticated integrated assets -> Same art style for assets implemented by Clair, Abby and Sophia
 ## Milestone Screenshots
-Minimap and colour menu UI added to tutorial
-![Screenshot 2026-03-20 213717](https://github.students.cs.ubc.ca/user-attachments/assets/7ffd645e-0a56-4f89-914d-1eeaf5db66de)
-New dungeon with colour emitting entities
-![Screenshot 2026-03-20 213828](https://github.students.cs.ubc.ca/user-attachments/assets/dedea943-1305-4cf3-a04c-a785256a2679)
+Minimap and colour menu UI added to tutorial, and updated
+![Screenshot 2026-04-03 225004](https://github.students.cs.ubc.ca/user-attachments/assets/07c5c2c4-0bd2-41a5-9cd0-3ed584e1fd1a)
+New dungeon with new entities, with updated assets and fixed behaviour
+![Screenshot 2026-04-03 230352](https://github.students.cs.ubc.ca/user-attachments/assets/7a37c5f7-a1a3-4d38-bbbe-017baab417d4)
 Improved dungeon design, assets and hints
 ![Screenshot 2026-04-03 225147](https://github.students.cs.ubc.ca/user-attachments/assets/d33b24e0-053b-4395-b269-4525c54e33cc)
 
