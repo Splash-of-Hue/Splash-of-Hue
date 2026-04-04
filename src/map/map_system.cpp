@@ -43,7 +43,7 @@ void MapSystem::step(float elapsed_ms)
 	}
 	// Load the new level. If the level is already loaded, it will just move the camera
 	Entity load_request_entity;
-	registry.loadRequests.insert(load_request_entity, { LOAD_TYPE::LOAD_LEVEL, new_level_uid });
+	registry.loadRequests.insert(load_request_entity, { LOAD_TYPE::LOAD_LEVEL, new_level_uid, change_map_level_request.uses_loading_screen });
 	// For each level that was adjacent to the previous level, that isn't the current level, unload it
 	const auto previous_level_match = [&](const Level& level) { return level.uid == previous_level_uid; };
 	const auto& level_iterator = std::find_if(registry.levels.components.begin(), registry.levels.components.end(), previous_level_match);
@@ -66,4 +66,9 @@ void MapSystem::step(float elapsed_ms)
 	registry.game_state_change_requests.insert(game_state_request_entity, { GAME_STATE::LOADING });
 	// Once all load requests are taken care of, remove them
 	changeMapLevelRequestRegistry.clear();
+
+	if (change_map_level_request.uses_loading_screen)
+	{
+		registry.ui_toggle_requests.insert(Entity(), { UI_TYPE::LOADING_SCREEN });
+	}
 }

@@ -5,7 +5,8 @@
 class LoaderSystem : public SystemInterface
 {
 private:
-	void load_level(int level_uid);
+	// TODO BbJdP3lK: Re-assess, loading screen for M4, if we need param uses_loading_screen
+	void load_level(int level_uid, bool uses_loading_screen = false);
 	void unload_level(int level_uid);
 
 public:

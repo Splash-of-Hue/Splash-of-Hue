@@ -760,6 +760,43 @@
 					"allowedRefsEntityUid": null,
 					"allowedRefTags": [],
 					"tilesetUid": null
+				},
+				{
+					"identifier": "UsesLoadingScreen",
+					"doc": null,
+					"__type": "Bool",
+					"uid": 113,
+					"type": "F_Bool",
+					"isArray": false,
+					"canBeNull": false,
+					"arrayMinLength": null,
+					"arrayMaxLength": null,
+					"editorDisplayMode": "Hidden",
+					"editorDisplayScale": 1,
+					"editorDisplayPos": "Above",
+					"editorLinkStyle": "StraightArrow",
+					"editorDisplayColor": null,
+					"editorAlwaysShow": false,
+					"editorShowInWorld": true,
+					"editorCutLongValues": true,
+					"editorTextSuffix": null,
+					"editorTextPrefix": null,
+					"useForSmartColor": false,
+					"exportToToc": false,
+					"searchable": false,
+					"min": null,
+					"max": null,
+					"regex": null,
+					"acceptFileTypes": null,
+					"defaultOverride": null,
+					"textLanguageMode": null,
+					"symmetricalRef": false,
+					"autoChainRef": true,
+					"allowOutOfLevelRef": true,
+					"allowedRefs": "OnlySame",
+					"allowedRefsEntityUid": null,
+					"allowedRefTags": [],
+					"tilesetUid": null
 				}
 			]
 		},
@@ -2566,8 +2603,8 @@
 			"exportToToc": false,
 			"allowOutOfBounds": false,
 			"doc": null,
-			"width": 70,
-			"height": 70,
+			"width": 50,
+			"height": 50,
 			"resizableX": true,
 			"resizableY": true,
 			"minWidth": 50,
@@ -2820,10 +2857,7 @@
 			"enumTags": [],
 			"customData": [],
 			"savedSelections": [],
-			"cachedPixelData": {
-				"opaqueTiles": "000000001000000001111111111",
-				"averageColors": "212341331000441145001777577611110000323481341000760155002998466557770000000000000000000000000000000000000000"
-			}
+			"cachedPixelData": null
 		}
 	], "enums": [
 		{ "identifier": "MapTileType", "uid": 14, "values": [{ "id": "Wall", "tileRect": null, "color": 12470831 }], "iconTilesetUid": null, "externalRelPath": null, "externalFileChecksum": null, "tags": ["Tilemaps"] },
@@ -3162,7 +3196,8 @@
 								{ "__identifier": "OffsetDirection", "__type": "LocalEnum.Direction", "__value": "Down", "__tile": null, "defUid": 61, "realEditorValues": [{
 									"id": "V_String",
 									"params": ["Down"]
-								}] }
+								}] },
+								{ "__identifier": "UsesLoadingScreen", "__type": "Bool", "__value": false, "__tile": null, "defUid": 113, "realEditorValues": [] }
 							],
 							"__worldX": 900,
 							"__worldY": 1188
@@ -4040,7 +4075,8 @@
 								{ "__identifier": "OffsetDirection", "__type": "LocalEnum.Direction", "__value": "Up", "__tile": null, "defUid": 61, "realEditorValues": [{
 									"id": "V_String",
 									"params": ["Up"]
-								}] }
+								}] },
+								{ "__identifier": "UsesLoadingScreen", "__type": "Bool", "__value": false, "__tile": null, "defUid": 113, "realEditorValues": [] }
 							],
 							"__worldX": 892,
 							"__worldY": 1012
@@ -4071,7 +4107,8 @@
 								{ "__identifier": "OffsetDirection", "__type": "LocalEnum.Direction", "__value": "Down", "__tile": null, "defUid": 61, "realEditorValues": [{
 									"id": "V_String",
 									"params": ["Down"]
-								}] }
+								}] },
+								{ "__identifier": "UsesLoadingScreen", "__type": "Bool", "__value": false, "__tile": null, "defUid": 113, "realEditorValues": [] }
 							],
 							"__worldX": 892,
 							"__worldY": 116
@@ -4846,7 +4883,7 @@
 							"__tile": null,
 							"__smartColor": "#FEE761",
 							"iid": "4c14f620-21a0-11f1-90e1-81f22c868c8b",
-							"width": 208,
+							"width": 224,
 							"height": 128,
 							"defUid": 61,
 							"px": [168,456],
@@ -4956,7 +4993,8 @@
 								{ "__identifier": "OffsetDirection", "__type": "LocalEnum.Direction", "__value": "Left", "__tile": null, "defUid": 61, "realEditorValues": [{
 									"id": "V_String",
 									"params": ["Left"]
-								}] }
+								}] },
+								{ "__identifier": "UsesLoadingScreen", "__type": "Bool", "__value": false, "__tile": null, "defUid": 113, "realEditorValues": [] }
 							],
 							"__worldX": 3812,
 							"__worldY": -540
@@ -4987,7 +5025,8 @@
 								{ "__identifier": "OffsetDirection", "__type": "LocalEnum.Direction", "__value": "Down", "__tile": null, "defUid": 61, "realEditorValues": [{
 									"id": "V_String",
 									"params": ["Down"]
-								}] }
+								}] },
+								{ "__identifier": "UsesLoadingScreen", "__type": "Bool", "__value": false, "__tile": null, "defUid": 113, "realEditorValues": [] }
 							],
 							"__worldX": 2276,
 							"__worldY": -932
@@ -6636,7 +6675,7 @@
 					"layerDefUid": 36,
 					"pxOffsetX": 0,
 					"pxOffsetY": 0,
-					"visible": true,
+					"visible": false,
 					"optionalRules": [],
 					"intGridCsv": [],
 					"autoLayerTiles": [],
@@ -7073,7 +7112,8 @@
 								{ "__identifier": "OffsetDirection", "__type": "LocalEnum.Direction", "__value": "Up", "__tile": null, "defUid": 61, "realEditorValues": [{
 									"id": "V_String",
 									"params": ["Up"]
-								}] }
+								}] },
+								{ "__identifier": "UsesLoadingScreen", "__type": "Bool", "__value": false, "__tile": null, "defUid": 113, "realEditorValues": [] }
 							],
 							"__worldX": 900,
 							"__worldY": -1132
@@ -7104,6 +7144,10 @@
 								{ "__identifier": "OffsetDirection", "__type": "LocalEnum.Direction", "__value": "Down", "__tile": null, "defUid": 61, "realEditorValues": [{
 									"id": "V_String",
 									"params": ["Down"]
+								}] },
+								{ "__identifier": "UsesLoadingScreen", "__type": "Bool", "__value": true, "__tile": null, "defUid": 113, "realEditorValues": [{
+									"id": "V_Bool",
+									"params": [ true ]
 								}] }
 							],
 							"__worldX": 764,
@@ -7167,7 +7211,8 @@
 								{ "__identifier": "OffsetDirection", "__type": "LocalEnum.Direction", "__value": "Left", "__tile": null, "defUid": 61, "realEditorValues": [{
 									"id": "V_String",
 									"params": ["Left"]
-								}] }
+								}] },
+								{ "__identifier": "UsesLoadingScreen", "__type": "Bool", "__value": false, "__tile": null, "defUid": 113, "realEditorValues": [] }
 							],
 							"__worldX": 1860,
 							"__worldY": -1628
@@ -9400,7 +9445,7 @@
 					"layerDefUid": 36,
 					"pxOffsetX": 0,
 					"pxOffsetY": 0,
-					"visible": true,
+					"visible": false,
 					"optionalRules": [],
 					"intGridCsv": [],
 					"autoLayerTiles": [],
@@ -9551,86 +9596,6 @@
 							"fieldInstances": [],
 							"__worldX": 2984,
 							"__worldY": -1144
-						},
-						{
-							"__identifier": "MossIndicator",
-							"__grid": [81,29],
-							"__pivot": [0,0],
-							"__tags": ["Moss"],
-							"__tile": { "tilesetUid": 116, "x": 0, "y": 0, "w": 48, "h": 48 },
-							"__smartColor": "#3A4466",
-							"iid": "cd309c00-21a0-11f1-b222-251adf7db983",
-							"width": 70,
-							"height": 70,
-							"defUid": 114,
-							"px": [1296,464],
-							"fieldInstances": [{ "__identifier": "ColorState", "__type": "LocalEnum.ColorState", "__value": "Neutral", "__tile": null, "defUid": 117, "realEditorValues": [] }],
-							"__worldX": 3216,
-							"__worldY": -1696
-						},
-						{
-							"__identifier": "MossIndicator",
-							"__grid": [88,28],
-							"__pivot": [0,0],
-							"__tags": ["Moss"],
-							"__tile": { "tilesetUid": 116, "x": 0, "y": 0, "w": 48, "h": 48 },
-							"__smartColor": "#3A4466",
-							"iid": "ce01a7a0-21a0-11f1-b222-07fbae81c29e",
-							"width": 70,
-							"height": 70,
-							"defUid": 114,
-							"px": [1408,448],
-							"fieldInstances": [{ "__identifier": "ColorState", "__type": "LocalEnum.ColorState", "__value": "Neutral", "__tile": null, "defUid": 117, "realEditorValues": [] }],
-							"__worldX": 3328,
-							"__worldY": -1712
-						},
-						{
-							"__identifier": "MossIndicator",
-							"__grid": [94,30],
-							"__pivot": [0,0],
-							"__tags": ["Moss"],
-							"__tile": { "tilesetUid": 116, "x": 0, "y": 0, "w": 48, "h": 48 },
-							"__smartColor": "#3A4466",
-							"iid": "cec3bf20-21a0-11f1-b222-e7b629de522c",
-							"width": 70,
-							"height": 70,
-							"defUid": 114,
-							"px": [1504,480],
-							"fieldInstances": [{ "__identifier": "ColorState", "__type": "LocalEnum.ColorState", "__value": "Neutral", "__tile": null, "defUid": 117, "realEditorValues": [] }],
-							"__worldX": 3424,
-							"__worldY": -1680
-						},
-						{
-							"__identifier": "MossIndicator",
-							"__grid": [100,32],
-							"__pivot": [0,0],
-							"__tags": ["Moss"],
-							"__tile": { "tilesetUid": 116, "x": 0, "y": 0, "w": 48, "h": 48 },
-							"__smartColor": "#3A4466",
-							"iid": "cf3a75c0-21a0-11f1-b222-55e1a2f10366",
-							"width": 70,
-							"height": 70,
-							"defUid": 114,
-							"px": [1600,512],
-							"fieldInstances": [{ "__identifier": "ColorState", "__type": "LocalEnum.ColorState", "__value": "Neutral", "__tile": null, "defUid": 117, "realEditorValues": [] }],
-							"__worldX": 3520,
-							"__worldY": -1648
-						},
-						{
-							"__identifier": "MossIndicator",
-							"__grid": [106,32],
-							"__pivot": [0,0],
-							"__tags": ["Moss"],
-							"__tile": { "tilesetUid": 116, "x": 0, "y": 0, "w": 48, "h": 48 },
-							"__smartColor": "#3A4466",
-							"iid": "cfbb1770-21a0-11f1-b222-eb0b28e70c7a",
-							"width": 70,
-							"height": 70,
-							"defUid": 114,
-							"px": [1696,512],
-							"fieldInstances": [{ "__identifier": "ColorState", "__type": "LocalEnum.ColorState", "__value": "Neutral", "__tile": null, "defUid": 117, "realEditorValues": [] }],
-							"__worldX": 3616,
-							"__worldY": -1648
 						}
 					]
 				},
@@ -9698,7 +9663,7 @@
 					"layerDefUid": 11,
 					"pxOffsetX": 0,
 					"pxOffsetY": 0,
-					"visible": true,
+					"visible": false,
 					"optionalRules": [],
 					"intGridCsv": [],
 					"autoLayerTiles": [],
@@ -9732,7 +9697,8 @@
 								{ "__identifier": "OffsetDirection", "__type": "LocalEnum.Direction", "__value": "Right", "__tile": null, "defUid": 61, "realEditorValues": [{
 									"id": "V_String",
 									"params": ["Right"]
-								}] }
+								}] },
+								{ "__identifier": "UsesLoadingScreen", "__type": "Bool", "__value": false, "__tile": null, "defUid": 113, "realEditorValues": [] }
 							],
 							"__worldX": 2084,
 							"__worldY": -1620
@@ -9763,7 +9729,8 @@
 								{ "__identifier": "OffsetDirection", "__type": "LocalEnum.Direction", "__value": "Left", "__tile": null, "defUid": 61, "realEditorValues": [{
 									"id": "V_String",
 									"params": ["Left"]
-								}] }
+								}] },
+								{ "__identifier": "UsesLoadingScreen", "__type": "Bool", "__value": false, "__tile": null, "defUid": 113, "realEditorValues": [] }
 							],
 							"__worldX": 3716,
 							"__worldY": -1620
@@ -9798,211 +9765,17 @@
 									"layerIid": "2091ada1-fa90-11f0-95ec-5305befd8ab4",
 									"levelIid": "2091ada0-fa90-11f0-95ec-63798b15b604",
 									"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787"
-								},
-								{
-									"entityIid": "cd309c00-21a0-11f1-b222-251adf7db983",
-									"layerIid": "1f0a2341-fa90-11f0-95ec-f9b5486446cd",
-									"levelIid": "1f0a2340-fa90-11f0-95ec-b5764b7730ff",
-									"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787"
-								},
-								{
-									"entityIid": "ce01a7a0-21a0-11f1-b222-07fbae81c29e",
-									"layerIid": "1f0a2341-fa90-11f0-95ec-f9b5486446cd",
-									"levelIid": "1f0a2340-fa90-11f0-95ec-b5764b7730ff",
-									"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787"
-								},
-								{
-									"entityIid": "cec3bf20-21a0-11f1-b222-e7b629de522c",
-									"layerIid": "1f0a2341-fa90-11f0-95ec-f9b5486446cd",
-									"levelIid": "1f0a2340-fa90-11f0-95ec-b5764b7730ff",
-									"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787"
-								},
-								{
-									"entityIid": "cf3a75c0-21a0-11f1-b222-55e1a2f10366",
-									"layerIid": "1f0a2341-fa90-11f0-95ec-f9b5486446cd",
-									"levelIid": "1f0a2340-fa90-11f0-95ec-b5764b7730ff",
-									"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787"
-								},
-								{
-									"entityIid": "cfbb1770-21a0-11f1-b222-eb0b28e70c7a",
-									"layerIid": "1f0a2341-fa90-11f0-95ec-f9b5486446cd",
-									"levelIid": "1f0a2340-fa90-11f0-95ec-b5764b7730ff",
-									"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787"
-								},
-								{
-									"entityIid": "d25a5360-21a0-11f1-b222-871a13c1b961",
-									"layerIid": "2091ada1-fa90-11f0-95ec-5305befd8ab4",
-									"levelIid": "2091ada0-fa90-11f0-95ec-63798b15b604",
-									"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787"
-								},
-								{
-									"entityIid": "d30b7af0-21a0-11f1-b222-392a2d321e92",
-									"layerIid": "2091ada1-fa90-11f0-95ec-5305befd8ab4",
-									"levelIid": "2091ada0-fa90-11f0-95ec-63798b15b604",
-									"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787"
-								},
-								{
-									"entityIid": "d3c4dfe0-21a0-11f1-b222-e118c8fc3fea",
-									"layerIid": "2091ada1-fa90-11f0-95ec-5305befd8ab4",
-									"levelIid": "2091ada0-fa90-11f0-95ec-63798b15b604",
-									"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787"
-								},
-								{
-									"entityIid": "d44a1570-21a0-11f1-b222-89ed8e00b9ca",
-									"layerIid": "2091ada1-fa90-11f0-95ec-5305befd8ab4",
-									"levelIid": "2091ada0-fa90-11f0-95ec-63798b15b604",
-									"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787"
-								},
-								{
-									"entityIid": "d4cade30-21a0-11f1-b222-fda008cb4301",
-									"layerIid": "2091ada1-fa90-11f0-95ec-5305befd8ab4",
-									"levelIid": "2091ada0-fa90-11f0-95ec-63798b15b604",
-									"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787"
-								},
-								{
-									"entityIid": "d5eb9070-21a0-11f1-b222-c1f0df811b36",
-									"layerIid": "2091ada1-fa90-11f0-95ec-5305befd8ab4",
-									"levelIid": "2091ada0-fa90-11f0-95ec-63798b15b604",
-									"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787"
-								},
-								{
-									"entityIid": "d64aee80-21a0-11f1-b222-dd37234be316",
-									"layerIid": "2091ada1-fa90-11f0-95ec-5305befd8ab4",
-									"levelIid": "2091ada0-fa90-11f0-95ec-63798b15b604",
-									"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787"
-								},
-								{
-									"entityIid": "d6a0d6b0-21a0-11f1-b222-d97ff4048685",
-									"layerIid": "2091ada1-fa90-11f0-95ec-5305befd8ab4",
-									"levelIid": "2091ada0-fa90-11f0-95ec-63798b15b604",
-									"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787"
-								},
-								{
-									"entityIid": "d720b510-21a0-11f1-b222-67d0ffe3d886",
-									"layerIid": "2091ada1-fa90-11f0-95ec-5305befd8ab4",
-									"levelIid": "2091ada0-fa90-11f0-95ec-63798b15b604",
-									"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787"
-								},
-								{
-									"entityIid": "d768ba90-21a0-11f1-b222-65bdb3b1d06d",
-									"layerIid": "2091ada1-fa90-11f0-95ec-5305befd8ab4",
-									"levelIid": "2091ada0-fa90-11f0-95ec-63798b15b604",
-									"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787"
-								},
-								{
-									"entityIid": "d7df9840-21a0-11f1-b222-f7426390bc7e",
-									"layerIid": "2091ada1-fa90-11f0-95ec-5305befd8ab4",
-									"levelIid": "2091ada0-fa90-11f0-95ec-63798b15b604",
-									"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787"
-								},
-								{
-									"entityIid": "d835a780-21a0-11f1-b222-8598e219deb7",
-									"layerIid": "2091ada1-fa90-11f0-95ec-5305befd8ab4",
-									"levelIid": "2091ada0-fa90-11f0-95ec-63798b15b604",
-									"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787"
-								},
-								{
-									"entityIid": "d8a2c130-21a0-11f1-b222-cf4225e196aa",
-									"layerIid": "2091ada1-fa90-11f0-95ec-5305befd8ab4",
-									"levelIid": "2091ada0-fa90-11f0-95ec-63798b15b604",
-									"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787"
-								},
-								{
-									"entityIid": "d8ffae40-21a0-11f1-b222-75345051c2cc",
-									"layerIid": "2091ada1-fa90-11f0-95ec-5305befd8ab4",
-									"levelIid": "2091ada0-fa90-11f0-95ec-63798b15b604",
-									"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787"
 								}
-							], "__tile": null, "defUid": 47, "realEditorValues": [
-								{
-									"id": "V_String",
-									"params": ["496a6f90-fa90-11f0-aace-2df8892a2ee1"]
-								},
-								{
-									"id": "V_String",
-									"params": ["74515af0-fa90-11f0-9290-2b7088ff7928"]
-								},
-								{
-									"id": "V_String",
-									"params": ["756710b0-fa90-11f0-9290-8ba1d3a481bf"]
-								},
-								{
-									"id": "V_String",
-									"params": ["cd309c00-21a0-11f1-b222-251adf7db983"]
-								},
-								{
-									"id": "V_String",
-									"params": ["ce01a7a0-21a0-11f1-b222-07fbae81c29e"]
-								},
-								{
-									"id": "V_String",
-									"params": ["cec3bf20-21a0-11f1-b222-e7b629de522c"]
-								},
-								{
-									"id": "V_String",
-									"params": ["cf3a75c0-21a0-11f1-b222-55e1a2f10366"]
-								},
-								{
-									"id": "V_String",
-									"params": ["cfbb1770-21a0-11f1-b222-eb0b28e70c7a"]
-								},
-								{
-									"id": "V_String",
-									"params": ["d25a5360-21a0-11f1-b222-871a13c1b961"]
-								},
-								{
-									"id": "V_String",
-									"params": ["d30b7af0-21a0-11f1-b222-392a2d321e92"]
-								},
-								{
-									"id": "V_String",
-									"params": ["d3c4dfe0-21a0-11f1-b222-e118c8fc3fea"]
-								},
-								{
-									"id": "V_String",
-									"params": ["d44a1570-21a0-11f1-b222-89ed8e00b9ca"]
-								},
-								{
-									"id": "V_String",
-									"params": ["d4cade30-21a0-11f1-b222-fda008cb4301"]
-								},
-								{
-									"id": "V_String",
-									"params": ["d5eb9070-21a0-11f1-b222-c1f0df811b36"]
-								},
-								{
-									"id": "V_String",
-									"params": ["d64aee80-21a0-11f1-b222-dd37234be316"]
-								},
-								{
-									"id": "V_String",
-									"params": ["d6a0d6b0-21a0-11f1-b222-d97ff4048685"]
-								},
-								{
-									"id": "V_String",
-									"params": ["d720b510-21a0-11f1-b222-67d0ffe3d886"]
-								},
-								{
-									"id": "V_String",
-									"params": ["d768ba90-21a0-11f1-b222-65bdb3b1d06d"]
-								},
-								{
-									"id": "V_String",
-									"params": ["d7df9840-21a0-11f1-b222-f7426390bc7e"]
-								},
-								{
-									"id": "V_String",
-									"params": ["d835a780-21a0-11f1-b222-8598e219deb7"]
-								},
-								{
-									"id": "V_String",
-									"params": ["d8a2c130-21a0-11f1-b222-cf4225e196aa"]
-								},
-								{
-									"id": "V_String",
-									"params": ["d8ffae40-21a0-11f1-b222-75345051c2cc"]
-								}
-							] }],
+							], "__tile": null, "defUid": 47, "realEditorValues": [ {
+								"id": "V_String",
+								"params": ["496a6f90-fa90-11f0-aace-2df8892a2ee1"]
+							}, {
+								"id": "V_String",
+								"params": ["74515af0-fa90-11f0-9290-2b7088ff7928"]
+							}, {
+								"id": "V_String",
+								"params": ["756710b0-fa90-11f0-9290-8ba1d3a481bf"]
+							} ] }],
 							"__worldX": 3180,
 							"__worldY": -1700
 						},
@@ -10208,7 +9981,8 @@
 								{ "__identifier": "OffsetDirection", "__type": "LocalEnum.Direction", "__value": "Up", "__tile": null, "defUid": 61, "realEditorValues": [{
 									"id": "V_String",
 									"params": ["Up"]
-								}] }
+								}] },
+								{ "__identifier": "UsesLoadingScreen", "__type": "Bool", "__value": false, "__tile": null, "defUid": 113, "realEditorValues": [] }
 							],
 							"__worldX": 2268,
 							"__worldY": -1236
@@ -11228,7 +11002,7 @@
 					"layerDefUid": 36,
 					"pxOffsetX": 0,
 					"pxOffsetY": 0,
-					"visible": true,
+					"visible": false,
 					"optionalRules": [],
 					"intGridCsv": [],
 					"autoLayerTiles": [],
@@ -11420,230 +11194,6 @@
 							"fieldInstances": [],
 							"__worldX": 3896,
 							"__worldY": -1960
-						},
-						{
-							"__identifier": "MossIndicator",
-							"__grid": [6,30],
-							"__pivot": [0,0],
-							"__tags": ["Moss"],
-							"__tile": { "tilesetUid": 116, "x": 0, "y": 0, "w": 48, "h": 48 },
-							"__smartColor": "#3A4466",
-							"iid": "d25a5360-21a0-11f1-b222-871a13c1b961",
-							"width": 70,
-							"height": 70,
-							"defUid": 114,
-							"px": [96,480],
-							"fieldInstances": [{ "__identifier": "ColorState", "__type": "LocalEnum.ColorState", "__value": "Neutral", "__tile": null, "defUid": 117, "realEditorValues": [] }],
-							"__worldX": 3936,
-							"__worldY": -1680
-						},
-						{
-							"__identifier": "MossIndicator",
-							"__grid": [14,30],
-							"__pivot": [0,0],
-							"__tags": ["Moss"],
-							"__tile": { "tilesetUid": 116, "x": 0, "y": 0, "w": 48, "h": 48 },
-							"__smartColor": "#3A4466",
-							"iid": "d30b7af0-21a0-11f1-b222-392a2d321e92",
-							"width": 70,
-							"height": 70,
-							"defUid": 114,
-							"px": [224,480],
-							"fieldInstances": [{ "__identifier": "ColorState", "__type": "LocalEnum.ColorState", "__value": "Neutral", "__tile": null, "defUid": 117, "realEditorValues": [] }],
-							"__worldX": 4064,
-							"__worldY": -1680
-						},
-						{
-							"__identifier": "MossIndicator",
-							"__grid": [21,30],
-							"__pivot": [0,0],
-							"__tags": ["Moss"],
-							"__tile": { "tilesetUid": 116, "x": 0, "y": 0, "w": 48, "h": 48 },
-							"__smartColor": "#3A4466",
-							"iid": "d3c4dfe0-21a0-11f1-b222-e118c8fc3fea",
-							"width": 70,
-							"height": 70,
-							"defUid": 114,
-							"px": [336,480],
-							"fieldInstances": [{ "__identifier": "ColorState", "__type": "LocalEnum.ColorState", "__value": "Neutral", "__tile": null, "defUid": 117, "realEditorValues": [] }],
-							"__worldX": 4176,
-							"__worldY": -1680
-						},
-						{
-							"__identifier": "MossIndicator",
-							"__grid": [28,30],
-							"__pivot": [0,0],
-							"__tags": ["Moss"],
-							"__tile": { "tilesetUid": 116, "x": 0, "y": 0, "w": 48, "h": 48 },
-							"__smartColor": "#3A4466",
-							"iid": "d44a1570-21a0-11f1-b222-89ed8e00b9ca",
-							"width": 70,
-							"height": 70,
-							"defUid": 114,
-							"px": [448,480],
-							"fieldInstances": [{ "__identifier": "ColorState", "__type": "LocalEnum.ColorState", "__value": "Neutral", "__tile": null, "defUid": 117, "realEditorValues": [] }],
-							"__worldX": 4288,
-							"__worldY": -1680
-						},
-						{
-							"__identifier": "MossIndicator",
-							"__grid": [36,30],
-							"__pivot": [0,0],
-							"__tags": ["Moss"],
-							"__tile": { "tilesetUid": 116, "x": 0, "y": 0, "w": 48, "h": 48 },
-							"__smartColor": "#3A4466",
-							"iid": "d4cade30-21a0-11f1-b222-fda008cb4301",
-							"width": 70,
-							"height": 70,
-							"defUid": 114,
-							"px": [576,480],
-							"fieldInstances": [{ "__identifier": "ColorState", "__type": "LocalEnum.ColorState", "__value": "Neutral", "__tile": null, "defUid": 117, "realEditorValues": [] }],
-							"__worldX": 4416,
-							"__worldY": -1680
-						},
-						{
-							"__identifier": "MossIndicator",
-							"__grid": [43,30],
-							"__pivot": [0,0],
-							"__tags": ["Moss"],
-							"__tile": { "tilesetUid": 116, "x": 0, "y": 0, "w": 48, "h": 48 },
-							"__smartColor": "#3A4466",
-							"iid": "d5eb9070-21a0-11f1-b222-c1f0df811b36",
-							"width": 70,
-							"height": 70,
-							"defUid": 114,
-							"px": [688,480],
-							"fieldInstances": [{ "__identifier": "ColorState", "__type": "LocalEnum.ColorState", "__value": "Neutral", "__tile": null, "defUid": 117, "realEditorValues": [] }],
-							"__worldX": 4528,
-							"__worldY": -1680
-						},
-						{
-							"__identifier": "MossIndicator",
-							"__grid": [50,30],
-							"__pivot": [0,0],
-							"__tags": ["Moss"],
-							"__tile": { "tilesetUid": 116, "x": 0, "y": 0, "w": 48, "h": 48 },
-							"__smartColor": "#3A4466",
-							"iid": "d64aee80-21a0-11f1-b222-dd37234be316",
-							"width": 70,
-							"height": 70,
-							"defUid": 114,
-							"px": [800,480],
-							"fieldInstances": [{ "__identifier": "ColorState", "__type": "LocalEnum.ColorState", "__value": "Neutral", "__tile": null, "defUid": 117, "realEditorValues": [] }],
-							"__worldX": 4640,
-							"__worldY": -1680
-						},
-						{
-							"__identifier": "MossIndicator",
-							"__grid": [57,31],
-							"__pivot": [0,0],
-							"__tags": ["Moss"],
-							"__tile": { "tilesetUid": 116, "x": 0, "y": 0, "w": 48, "h": 48 },
-							"__smartColor": "#3A4466",
-							"iid": "d6a0d6b0-21a0-11f1-b222-d97ff4048685",
-							"width": 70,
-							"height": 70,
-							"defUid": 114,
-							"px": [912,496],
-							"fieldInstances": [{ "__identifier": "ColorState", "__type": "LocalEnum.ColorState", "__value": "Neutral", "__tile": null, "defUid": 117, "realEditorValues": [] }],
-							"__worldX": 4752,
-							"__worldY": -1664
-						},
-						{
-							"__identifier": "MossIndicator",
-							"__grid": [64,30],
-							"__pivot": [0,0],
-							"__tags": ["Moss"],
-							"__tile": { "tilesetUid": 116, "x": 0, "y": 0, "w": 48, "h": 48 },
-							"__smartColor": "#3A4466",
-							"iid": "d720b510-21a0-11f1-b222-67d0ffe3d886",
-							"width": 70,
-							"height": 70,
-							"defUid": 114,
-							"px": [1024,480],
-							"fieldInstances": [{ "__identifier": "ColorState", "__type": "LocalEnum.ColorState", "__value": "Neutral", "__tile": null, "defUid": 117, "realEditorValues": [] }],
-							"__worldX": 4864,
-							"__worldY": -1680
-						},
-						{
-							"__identifier": "MossIndicator",
-							"__grid": [71,30],
-							"__pivot": [0,0],
-							"__tags": ["Moss"],
-							"__tile": { "tilesetUid": 116, "x": 0, "y": 0, "w": 48, "h": 48 },
-							"__smartColor": "#3A4466",
-							"iid": "d768ba90-21a0-11f1-b222-65bdb3b1d06d",
-							"width": 70,
-							"height": 70,
-							"defUid": 114,
-							"px": [1136,480],
-							"fieldInstances": [{ "__identifier": "ColorState", "__type": "LocalEnum.ColorState", "__value": "Neutral", "__tile": null, "defUid": 117, "realEditorValues": [] }],
-							"__worldX": 4976,
-							"__worldY": -1680
-						},
-						{
-							"__identifier": "MossIndicator",
-							"__grid": [77,33],
-							"__pivot": [0,0],
-							"__tags": ["Moss"],
-							"__tile": { "tilesetUid": 116, "x": 0, "y": 0, "w": 48, "h": 48 },
-							"__smartColor": "#3A4466",
-							"iid": "d7df9840-21a0-11f1-b222-f7426390bc7e",
-							"width": 70,
-							"height": 70,
-							"defUid": 114,
-							"px": [1232,528],
-							"fieldInstances": [{ "__identifier": "ColorState", "__type": "LocalEnum.ColorState", "__value": "Neutral", "__tile": null, "defUid": 117, "realEditorValues": [] }],
-							"__worldX": 5072,
-							"__worldY": -1632
-						},
-						{
-							"__identifier": "MossIndicator",
-							"__grid": [79,38],
-							"__pivot": [0,0],
-							"__tags": ["Moss"],
-							"__tile": { "tilesetUid": 116, "x": 0, "y": 0, "w": 48, "h": 48 },
-							"__smartColor": "#3A4466",
-							"iid": "d835a780-21a0-11f1-b222-8598e219deb7",
-							"width": 70,
-							"height": 70,
-							"defUid": 114,
-							"px": [1264,608],
-							"fieldInstances": [{ "__identifier": "ColorState", "__type": "LocalEnum.ColorState", "__value": "Neutral", "__tile": null, "defUid": 117, "realEditorValues": [] }],
-							"__worldX": 5104,
-							"__worldY": -1552
-						},
-						{
-							"__identifier": "MossIndicator",
-							"__grid": [80,44],
-							"__pivot": [0,0],
-							"__tags": ["Moss"],
-							"__tile": { "tilesetUid": 116, "x": 0, "y": 0, "w": 48, "h": 48 },
-							"__smartColor": "#3A4466",
-							"iid": "d8a2c130-21a0-11f1-b222-cf4225e196aa",
-							"width": 70,
-							"height": 70,
-							"defUid": 114,
-							"px": [1280,704],
-							"fieldInstances": [{ "__identifier": "ColorState", "__type": "LocalEnum.ColorState", "__value": "Neutral", "__tile": null, "defUid": 117, "realEditorValues": [] }],
-							"__worldX": 5120,
-							"__worldY": -1456
-						},
-						{
-							"__identifier": "MossIndicator",
-							"__grid": [79,50],
-							"__pivot": [0,0],
-							"__tags": ["Moss"],
-							"__tile": { "tilesetUid": 116, "x": 0, "y": 0, "w": 48, "h": 48 },
-							"__smartColor": "#3A4466",
-							"iid": "d8ffae40-21a0-11f1-b222-75345051c2cc",
-							"width": 70,
-							"height": 70,
-							"defUid": 114,
-							"px": [1264,800],
-							"fieldInstances": [{ "__identifier": "ColorState", "__type": "LocalEnum.ColorState", "__value": "Neutral", "__tile": null, "defUid": 117, "realEditorValues": [] }],
-							"__worldX": 5104,
-							"__worldY": -1360
 						}
 					]
 				},
@@ -11747,7 +11297,8 @@
 								{ "__identifier": "OffsetDirection", "__type": "LocalEnum.Direction", "__value": "Right", "__tile": null, "defUid": 61, "realEditorValues": [{
 									"id": "V_String",
 									"params": ["Right"]
-								}] }
+								}] },
+								{ "__identifier": "UsesLoadingScreen", "__type": "Bool", "__value": false, "__tile": null, "defUid": 113, "realEditorValues": [] }
 							],
 							"__worldX": 3916,
 							"__worldY": -1652
@@ -11778,7 +11329,8 @@
 								{ "__identifier": "OffsetDirection", "__type": "LocalEnum.Direction", "__value": "Up", "__tile": null, "defUid": 61, "realEditorValues": [{
 									"id": "V_String",
 									"params": ["Up"]
-								}] }
+								}] },
+								{ "__identifier": "UsesLoadingScreen", "__type": "Bool", "__value": false, "__tile": null, "defUid": 113, "realEditorValues": [] }
 							],
 							"__worldX": 5060,
 							"__worldY": -1268
@@ -12802,7 +12354,8 @@
 								{ "__identifier": "OffsetDirection", "__type": "LocalEnum.Direction", "__value": "Right", "__tile": null, "defUid": 61, "realEditorValues": [{
 									"id": "V_String",
 									"params": ["Right"]
-								}] }
+								}] },
+								{ "__identifier": "UsesLoadingScreen", "__type": "Bool", "__value": false, "__tile": null, "defUid": 113, "realEditorValues": [] }
 							],
 							"__worldX": 3868,
 							"__worldY": -532
@@ -12833,7 +12386,8 @@
 								{ "__identifier": "OffsetDirection", "__type": "LocalEnum.Direction", "__value": "Down", "__tile": null, "defUid": 61, "realEditorValues": [{
 									"id": "V_String",
 									"params": ["Down"]
-								}] }
+								}] },
+								{ "__identifier": "UsesLoadingScreen", "__type": "Bool", "__value": false, "__tile": null, "defUid": 113, "realEditorValues": [] }
 							],
 							"__worldX": 5068,
 							"__worldY": -1012
@@ -14589,34 +14143,86 @@
 									"id": "V_String",
 									"params": ["a9009cf0-21a0-11f1-aa60-9de157f4f24a"]
 								} ] },
-								{ "__identifier": "Triggers", "__type": "Array<EntityRef>", "__value": [{
-									"entityIid": "cf38e850-21a0-11f1-aa60-5195df9e6182",
-									"layerIid": "bd5b0440-21a0-11f1-8ff7-51b6b599da9e",
-									"levelIid": "bd5add30-21a0-11f1-8ff7-cf0a441145d5",
-									"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787"
-								}], "__tile": null, "defUid": 100, "realEditorValues": [{
+								{ "__identifier": "Triggers", "__type": "Array<EntityRef>", "__value": [
+									{
+										"entityIid": "cf38e850-21a0-11f1-aa60-5195df9e6182",
+										"layerIid": "bd5b0440-21a0-11f1-8ff7-51b6b599da9e",
+										"levelIid": "bd5add30-21a0-11f1-8ff7-cf0a441145d5",
+										"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787"
+									},
+									{
+										"entityIid": "c7bdff00-21a0-11f1-973a-5f5e2bdbbbe4",
+										"layerIid": "bd5b0440-21a0-11f1-8ff7-51b6b599da9e",
+										"levelIid": "bd5add30-21a0-11f1-8ff7-cf0a441145d5",
+										"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787"
+									},
+									{
+										"entityIid": "129d2be0-21a0-11f1-973a-0d2f807e2fb1",
+										"layerIid": "bd5b0440-21a0-11f1-8ff7-51b6b599da9e",
+										"levelIid": "bd5add30-21a0-11f1-8ff7-cf0a441145d5",
+										"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787"
+									}
+								], "__tile": null, "defUid": 100, "realEditorValues": [ {
 									"id": "V_String",
 									"params": ["cf38e850-21a0-11f1-aa60-5195df9e6182"]
-								}] }
+								}, {
+									"id": "V_String",
+									"params": ["c7bdff00-21a0-11f1-973a-5f5e2bdbbbe4"]
+								}, {
+									"id": "V_String",
+									"params": ["129d2be0-21a0-11f1-973a-0d2f807e2fb1"]
+								} ] }
 							],
 							"__worldX": 9128,
 							"__worldY": 4984
 						},
 						{
 							"__identifier": "PuzzleWall",
-							"__grid": [58,17],
+							"__grid": [49,14],
 							"__pivot": [0.5,0.5],
 							"__tags": [ "Internal_Wall", "Puzzle_Trigger" ],
 							"__tile": null,
 							"__smartColor": "#2CE8F5",
 							"iid": "cf38e850-21a0-11f1-aa60-5195df9e6182",
-							"width": 592,
-							"height": 64,
+							"width": 112,
+							"height": 112,
 							"defUid": 101,
-							"px": [936,280],
+							"px": [792,232],
 							"fieldInstances": [],
-							"__worldX": 8616,
-							"__worldY": 4600
+							"__worldX": 8472,
+							"__worldY": 4552
+						},
+						{
+							"__identifier": "PuzzleWall",
+							"__grid": [57,14],
+							"__pivot": [0.5,0.5],
+							"__tags": [ "Internal_Wall", "Puzzle_Trigger" ],
+							"__tile": null,
+							"__smartColor": "#2CE8F5",
+							"iid": "c7bdff00-21a0-11f1-973a-5f5e2bdbbbe4",
+							"width": 128,
+							"height": 112,
+							"defUid": 101,
+							"px": [920,232],
+							"fieldInstances": [],
+							"__worldX": 8600,
+							"__worldY": 4552
+						},
+						{
+							"__identifier": "PuzzleWall",
+							"__grid": [65,14],
+							"__pivot": [0.5,0.5],
+							"__tags": [ "Internal_Wall", "Puzzle_Trigger" ],
+							"__tile": null,
+							"__smartColor": "#2CE8F5",
+							"iid": "129d2be0-21a0-11f1-973a-0d2f807e2fb1",
+							"width": 112,
+							"height": 112,
+							"defUid": 101,
+							"px": [1048,232],
+							"fieldInstances": [],
+							"__worldX": 8728,
+							"__worldY": 4552
 						}
 					]
 				},
@@ -14695,7 +14301,8 @@
 								{ "__identifier": "OffsetDirection", "__type": "LocalEnum.Direction", "__value": "Up", "__tile": null, "defUid": 61, "realEditorValues": [{
 									"id": "V_String",
 									"params": ["Up"]
-								}] }
+								}] },
+								{ "__identifier": "UsesLoadingScreen", "__type": "Bool", "__value": false, "__tile": null, "defUid": 113, "realEditorValues": [] }
 							],
 							"__worldX": 8604,
 							"__worldY": 5284
@@ -14764,7 +14371,8 @@
 								{ "__identifier": "OffsetDirection", "__type": "LocalEnum.Direction", "__value": "Down", "__tile": null, "defUid": 61, "realEditorValues": [{
 									"id": "V_String",
 									"params": ["Down"]
-								}] }
+								}] },
+								{ "__identifier": "UsesLoadingScreen", "__type": "Bool", "__value": false, "__tile": null, "defUid": 113, "realEditorValues": [] }
 							],
 							"__worldX": 8604,
 							"__worldY": 4500
@@ -15646,7 +15254,8 @@
 								{ "__identifier": "OffsetDirection", "__type": "LocalEnum.Direction", "__value": "Up", "__tile": null, "defUid": 61, "realEditorValues": [{
 									"id": "V_String",
 									"params": ["Up"]
-								}] }
+								}] },
+								{ "__identifier": "UsesLoadingScreen", "__type": "Bool", "__value": false, "__tile": null, "defUid": 113, "realEditorValues": [] }
 							],
 							"__worldX": 8636,
 							"__worldY": 2028
@@ -15677,7 +15286,8 @@
 								{ "__identifier": "OffsetDirection", "__type": "LocalEnum.Direction", "__value": "Down", "__tile": null, "defUid": 61, "realEditorValues": [{
 									"id": "V_String",
 									"params": ["Down"]
-								}] }
+								}] },
+								{ "__identifier": "UsesLoadingScreen", "__type": "Bool", "__value": false, "__tile": null, "defUid": 113, "realEditorValues": [] }
 							],
 							"__worldX": 8156,
 							"__worldY": 1268
@@ -15708,7 +15318,8 @@
 								{ "__identifier": "OffsetDirection", "__type": "LocalEnum.Direction", "__value": "Left", "__tile": null, "defUid": 61, "realEditorValues": [{
 									"id": "V_String",
 									"params": ["Left"]
-								}] }
+								}] },
+								{ "__identifier": "UsesLoadingScreen", "__type": "Bool", "__value": false, "__tile": null, "defUid": 113, "realEditorValues": [] }
 							],
 							"__worldX": 9444,
 							"__worldY": 1684
@@ -16894,7 +16505,7 @@
 					"layerDefUid": 36,
 					"pxOffsetX": 0,
 					"pxOffsetY": 0,
-					"visible": false,
+					"visible": true,
 					"optionalRules": [],
 					"intGridCsv": [],
 					"autoLayerTiles": [],
@@ -17337,18 +16948,18 @@
 						},
 						{
 							"__identifier": "PuzzleWall",
-							"__grid": [50,42],
+							"__grid": [52,42],
 							"__pivot": [0.5,0.5],
 							"__tags": [ "Internal_Wall", "Puzzle_Trigger" ],
 							"__tile": null,
 							"__smartColor": "#2CE8F5",
 							"iid": "f56a4820-21a0-11f1-aa60-cbe998e8273b",
-							"width": 64,
-							"height": 80,
+							"width": 112,
+							"height": 112,
 							"defUid": 101,
-							"px": [808,680],
+							"px": [840,680],
 							"fieldInstances": [],
-							"__worldX": 10408,
+							"__worldX": 10440,
 							"__worldY": 1760
 						},
 						{
@@ -17624,7 +17235,8 @@
 								{ "__identifier": "OffsetDirection", "__type": "LocalEnum.Direction", "__value": "Right", "__tile": null, "defUid": 61, "realEditorValues": [{
 									"id": "V_String",
 									"params": ["Right"]
-								}] }
+								}] },
+								{ "__identifier": "UsesLoadingScreen", "__type": "Bool", "__value": false, "__tile": null, "defUid": 113, "realEditorValues": [] }
 							],
 							"__worldX": 9740,
 							"__worldY": 1524
@@ -18944,7 +18556,7 @@
 					"layerDefUid": 19,
 					"pxOffsetX": 0,
 					"pxOffsetY": 0,
-					"visible": true,
+					"visible": false,
 					"optionalRules": [],
 					"intGridCsv": [],
 					"autoLayerTiles": [],
@@ -19016,7 +18628,7 @@
 					"layerDefUid": 11,
 					"pxOffsetX": 0,
 					"pxOffsetY": 0,
-					"visible": false,
+					"visible": true,
 					"optionalRules": [],
 					"intGridCsv": [],
 					"autoLayerTiles": [],
@@ -19066,7 +18678,8 @@
 								{ "__identifier": "OffsetDirection", "__type": "LocalEnum.Direction", "__value": "Right", "__tile": null, "defUid": 61, "realEditorValues": [{
 									"id": "V_String",
 									"params": ["Right"]
-								}] }
+								}] },
+								{ "__identifier": "UsesLoadingScreen", "__type": "Bool", "__value": false, "__tile": null, "defUid": 113, "realEditorValues": [] }
 							],
 							"__worldX": 9732,
 							"__worldY": 588
@@ -19100,6 +18713,10 @@
 								{ "__identifier": "OffsetDirection", "__type": "LocalEnum.Direction", "__value": "Left", "__tile": null, "defUid": 61, "realEditorValues": [{
 									"id": "V_String",
 									"params": ["Left"]
+								}] },
+								{ "__identifier": "UsesLoadingScreen", "__type": "Bool", "__value": true, "__tile": null, "defUid": 113, "realEditorValues": [{
+									"id": "V_Bool",
+									"params": [ true ]
 								}] }
 							],
 							"__worldX": 11276,
@@ -20292,7 +19909,7 @@
 							"__smartColor": "#FEE761",
 							"iid": "4645e200-21a0-11f1-8551-9141732e8c3f",
 							"width": 80,
-							"height": 208,
+							"height": 128,
 							"defUid": 61,
 							"px": [648,632],
 							"fieldInstances": [],
@@ -20308,7 +19925,7 @@
 							"__smartColor": "#FEE761",
 							"iid": "5c931c80-21a0-11f1-8551-ed47e5c4a588",
 							"width": 80,
-							"height": 208,
+							"height": 128,
 							"defUid": 61,
 							"px": [1192,632],
 							"fieldInstances": [],
@@ -20711,7 +20328,8 @@
 								{ "__identifier": "OffsetDirection", "__type": "LocalEnum.Direction", "__value": "Up", "__tile": null, "defUid": 61, "realEditorValues": [{
 									"id": "V_String",
 									"params": ["Up"]
-								}] }
+								}] },
+								{ "__identifier": "UsesLoadingScreen", "__type": "Bool", "__value": false, "__tile": null, "defUid": 113, "realEditorValues": [] }
 							],
 							"__worldX": 8164,
 							"__worldY": 1036
@@ -20742,7 +20360,8 @@
 								{ "__identifier": "OffsetDirection", "__type": "LocalEnum.Direction", "__value": "Down", "__tile": null, "defUid": 61, "realEditorValues": [{
 									"id": "V_String",
 									"params": ["Down"]
-								}] }
+								}] },
+								{ "__identifier": "UsesLoadingScreen", "__type": "Bool", "__value": false, "__tile": null, "defUid": 113, "realEditorValues": [] }
 							],
 							"__worldX": 8604,
 							"__worldY": 124
@@ -20773,7 +20392,8 @@
 								{ "__identifier": "OffsetDirection", "__type": "LocalEnum.Direction", "__value": "Down", "__tile": null, "defUid": 61, "realEditorValues": [{
 									"id": "V_String",
 									"params": ["Down"]
-								}] }
+								}] },
+								{ "__identifier": "UsesLoadingScreen", "__type": "Bool", "__value": false, "__tile": null, "defUid": 113, "realEditorValues": [] }
 							],
 							"__worldX": 9252,
 							"__worldY": 116
@@ -20804,7 +20424,8 @@
 								{ "__identifier": "OffsetDirection", "__type": "LocalEnum.Direction", "__value": "Left", "__tile": null, "defUid": 61, "realEditorValues": [{
 									"id": "V_String",
 									"params": ["Left"]
-								}] }
+								}] },
+								{ "__identifier": "UsesLoadingScreen", "__type": "Bool", "__value": false, "__tile": null, "defUid": 113, "realEditorValues": [] }
 							],
 							"__worldX": 9468,
 							"__worldY": 580
@@ -20835,7 +20456,8 @@
 								{ "__identifier": "OffsetDirection", "__type": "LocalEnum.Direction", "__value": "Right", "__tile": null, "defUid": 61, "realEditorValues": [{
 									"id": "V_String",
 									"params": ["Right"]
-								}] }
+								}] },
+								{ "__identifier": "UsesLoadingScreen", "__type": "Bool", "__value": false, "__tile": null, "defUid": 113, "realEditorValues": [] }
 							],
 							"__worldX": 7812,
 							"__worldY": 412
@@ -22420,34 +22042,42 @@
 										"params": ["205d99a0-21a0-11f1-aa60-c72b2af2db7e"]
 									}
 								] },
-								{ "__identifier": "Triggers", "__type": "Array<EntityRef>", "__value": [{
+								{ "__identifier": "Triggers", "__type": "Array<EntityRef>", "__value": [ {
 									"entityIid": "b8f041b0-21a0-11f1-aa60-553bce3cd061",
 									"layerIid": "9745c281-21a0-11f1-8ff7-857507b0fc5e",
 									"levelIid": "9745c280-21a0-11f1-8ff7-15d55e2cbecf",
 									"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787"
-								}], "__tile": null, "defUid": 100, "realEditorValues": [{
+								}, {
+									"entityIid": "66c2c450-21a0-11f1-973a-4fd83ec8ccd7",
+									"layerIid": "9745c281-21a0-11f1-8ff7-857507b0fc5e",
+									"levelIid": "9745c280-21a0-11f1-8ff7-15d55e2cbecf",
+									"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787"
+								} ], "__tile": null, "defUid": 100, "realEditorValues": [ {
 									"id": "V_String",
 									"params": ["b8f041b0-21a0-11f1-aa60-553bce3cd061"]
-								}] }
+								}, {
+									"id": "V_String",
+									"params": ["66c2c450-21a0-11f1-973a-4fd83ec8ccd7"]
+								} ] }
 							],
 							"__worldX": 7112,
 							"__worldY": -104
 						},
 						{
 							"__identifier": "PuzzleWall",
-							"__grid": [33,43],
+							"__grid": [33,39],
 							"__pivot": [0.5,0.5],
 							"__tags": [ "Internal_Wall", "Puzzle_Trigger" ],
 							"__tile": null,
 							"__smartColor": "#2CE8F5",
 							"iid": "b8f041b0-21a0-11f1-aa60-553bce3cd061",
-							"width": 48,
-							"height": 160,
+							"width": 112,
+							"height": 144,
 							"defUid": 101,
-							"px": [536,696],
+							"px": [536,632],
 							"fieldInstances": [],
 							"__worldX": 6296,
-							"__worldY": 696
+							"__worldY": 632
 						},
 						{
 							"__identifier": "Wall",
@@ -22473,8 +22103,8 @@
 							"__tile": { "tilesetUid": 116, "x": 0, "y": 0, "w": 48, "h": 48 },
 							"__smartColor": "#3A4466",
 							"iid": "58db53d0-21a0-11f1-b078-0bfa24ed3325",
-							"width": 70,
-							"height": 70,
+							"width": 50,
+							"height": 50,
 							"defUid": 114,
 							"px": [1616,848],
 							"fieldInstances": [{ "__identifier": "ColorState", "__type": "LocalEnum.ColorState", "__value": "Neutral", "__tile": null, "defUid": 117, "realEditorValues": [{
@@ -22492,8 +22122,8 @@
 							"__tile": { "tilesetUid": 116, "x": 0, "y": 0, "w": 48, "h": 48 },
 							"__smartColor": "#3A4466",
 							"iid": "5bd077f0-21a0-11f1-b078-df08cfe8ec31",
-							"width": 70,
-							"height": 70,
+							"width": 50,
+							"height": 50,
 							"defUid": 114,
 							"px": [1552,832],
 							"fieldInstances": [{ "__identifier": "ColorState", "__type": "LocalEnum.ColorState", "__value": "Neutral", "__tile": null, "defUid": 117, "realEditorValues": [{
@@ -22511,8 +22141,8 @@
 							"__tile": { "tilesetUid": 116, "x": 0, "y": 0, "w": 48, "h": 48 },
 							"__smartColor": "#3A4466",
 							"iid": "5c952780-21a0-11f1-b078-05fcaa42f28c",
-							"width": 70,
-							"height": 70,
+							"width": 50,
+							"height": 50,
 							"defUid": 114,
 							"px": [1536,768],
 							"fieldInstances": [{ "__identifier": "ColorState", "__type": "LocalEnum.ColorState", "__value": "Neutral", "__tile": null, "defUid": 117, "realEditorValues": [{
@@ -22530,8 +22160,8 @@
 							"__tile": { "tilesetUid": 116, "x": 0, "y": 0, "w": 48, "h": 48 },
 							"__smartColor": "#3A4466",
 							"iid": "5d43de10-21a0-11f1-b078-cbfb29053cc9",
-							"width": 70,
-							"height": 70,
+							"width": 50,
+							"height": 50,
 							"defUid": 114,
 							"px": [1552,688],
 							"fieldInstances": [{ "__identifier": "ColorState", "__type": "LocalEnum.ColorState", "__value": "Neutral", "__tile": null, "defUid": 117, "realEditorValues": [{
@@ -22549,8 +22179,8 @@
 							"__tile": { "tilesetUid": 116, "x": 0, "y": 0, "w": 48, "h": 48 },
 							"__smartColor": "#3A4466",
 							"iid": "5daeadd0-21a0-11f1-b078-ade638e93739",
-							"width": 70,
-							"height": 70,
+							"width": 50,
+							"height": 50,
 							"defUid": 114,
 							"px": [1568,640],
 							"fieldInstances": [{ "__identifier": "ColorState", "__type": "LocalEnum.ColorState", "__value": "Neutral", "__tile": null, "defUid": 117, "realEditorValues": [{
@@ -22568,8 +22198,8 @@
 							"__tile": { "tilesetUid": 116, "x": 0, "y": 0, "w": 48, "h": 48 },
 							"__smartColor": "#3A4466",
 							"iid": "5e37db00-21a0-11f1-b078-bbfea67c7699",
-							"width": 70,
-							"height": 70,
+							"width": 50,
+							"height": 50,
 							"defUid": 114,
 							"px": [1536,592],
 							"fieldInstances": [{ "__identifier": "ColorState", "__type": "LocalEnum.ColorState", "__value": "Neutral", "__tile": null, "defUid": 117, "realEditorValues": [{
@@ -22587,8 +22217,8 @@
 							"__tile": { "tilesetUid": 116, "x": 0, "y": 0, "w": 48, "h": 48 },
 							"__smartColor": "#3A4466",
 							"iid": "5f271d00-21a0-11f1-b078-b1edd9743b39",
-							"width": 70,
-							"height": 70,
+							"width": 50,
+							"height": 50,
 							"defUid": 114,
 							"px": [1504,544],
 							"fieldInstances": [{ "__identifier": "ColorState", "__type": "LocalEnum.ColorState", "__value": "Neutral", "__tile": null, "defUid": 117, "realEditorValues": [{
@@ -22597,6 +22227,22 @@
 							}] }],
 							"__worldX": 7264,
 							"__worldY": 544
+						},
+						{
+							"__identifier": "PuzzleWall",
+							"__grid": [33,48],
+							"__pivot": [0.5,0.5],
+							"__tags": [ "Internal_Wall", "Puzzle_Trigger" ],
+							"__tile": null,
+							"__smartColor": "#2CE8F5",
+							"iid": "66c2c450-21a0-11f1-973a-4fd83ec8ccd7",
+							"width": 112,
+							"height": 144,
+							"defUid": 101,
+							"px": [536,776],
+							"fieldInstances": [],
+							"__worldX": 6296,
+							"__worldY": 776
 						}
 					]
 				},
@@ -22717,7 +22363,8 @@
 								{ "__identifier": "OffsetDirection", "__type": "LocalEnum.Direction", "__value": "Left", "__tile": null, "defUid": 61, "realEditorValues": [{
 									"id": "V_String",
 									"params": ["Left"]
-								}] }
+								}] },
+								{ "__identifier": "UsesLoadingScreen", "__type": "Bool", "__value": false, "__tile": null, "defUid": 113, "realEditorValues": [] }
 							],
 							"__worldX": 7612,
 							"__worldY": 412
@@ -24253,8 +23900,8 @@
 							"__tile": { "tilesetUid": 116, "x": 0, "y": 0, "w": 48, "h": 48 },
 							"__smartColor": "#3A4466",
 							"iid": "7a6d8900-21a0-11f1-b078-e161d9e51a85",
-							"width": 70,
-							"height": 70,
+							"width": 50,
+							"height": 50,
 							"defUid": 114,
 							"px": [1328,512],
 							"fieldInstances": [{ "__identifier": "ColorState", "__type": "LocalEnum.ColorState", "__value": "Neutral", "__tile": null, "defUid": 117, "realEditorValues": [{
@@ -24272,8 +23919,8 @@
 							"__tile": { "tilesetUid": 116, "x": 0, "y": 0, "w": 48, "h": 48 },
 							"__smartColor": "#3A4466",
 							"iid": "7baf30c0-21a0-11f1-b078-ebce1148d9cd",
-							"width": 70,
-							"height": 70,
+							"width": 50,
+							"height": 50,
 							"defUid": 114,
 							"px": [1376,464],
 							"fieldInstances": [{ "__identifier": "ColorState", "__type": "LocalEnum.ColorState", "__value": "Neutral", "__tile": null, "defUid": 117, "realEditorValues": [{
@@ -24291,8 +23938,8 @@
 							"__tile": { "tilesetUid": 116, "x": 0, "y": 0, "w": 48, "h": 48 },
 							"__smartColor": "#3A4466",
 							"iid": "7c1cbfa0-21a0-11f1-b078-559e28d9e1e3",
-							"width": 70,
-							"height": 70,
+							"width": 50,
+							"height": 50,
 							"defUid": 114,
 							"px": [1456,432],
 							"fieldInstances": [{ "__identifier": "ColorState", "__type": "LocalEnum.ColorState", "__value": "Neutral", "__tile": null, "defUid": 117, "realEditorValues": [{
@@ -24310,8 +23957,8 @@
 							"__tile": { "tilesetUid": 116, "x": 0, "y": 0, "w": 48, "h": 48 },
 							"__smartColor": "#3A4466",
 							"iid": "7c5d9930-21a0-11f1-b078-df57ed9a0d23",
-							"width": 70,
-							"height": 70,
+							"width": 50,
+							"height": 50,
 							"defUid": 114,
 							"px": [1536,448],
 							"fieldInstances": [{ "__identifier": "ColorState", "__type": "LocalEnum.ColorState", "__value": "Neutral", "__tile": null, "defUid": 117, "realEditorValues": [{
@@ -24329,8 +23976,8 @@
 							"__tile": { "tilesetUid": 116, "x": 0, "y": 0, "w": 48, "h": 48 },
 							"__smartColor": "#3A4466",
 							"iid": "7cceaa80-21a0-11f1-b078-65dd1a62951b",
-							"width": 70,
-							"height": 70,
+							"width": 50,
+							"height": 50,
 							"defUid": 114,
 							"px": [1600,496],
 							"fieldInstances": [{ "__identifier": "ColorState", "__type": "LocalEnum.ColorState", "__value": "Neutral", "__tile": null, "defUid": 117, "realEditorValues": [{
@@ -24348,8 +23995,8 @@
 							"__tile": { "tilesetUid": 116, "x": 0, "y": 0, "w": 48, "h": 48 },
 							"__smartColor": "#3A4466",
 							"iid": "7e2dc550-21a0-11f1-b078-fd04fdd703ed",
-							"width": 70,
-							"height": 70,
+							"width": 50,
+							"height": 50,
 							"defUid": 114,
 							"px": [1632,544],
 							"fieldInstances": [{ "__identifier": "ColorState", "__type": "LocalEnum.ColorState", "__value": "Neutral", "__tile": null, "defUid": 117, "realEditorValues": [{
@@ -24782,7 +24429,8 @@
 								{ "__identifier": "OffsetDirection", "__type": "LocalEnum.Direction", "__value": "Up", "__tile": null, "defUid": 61, "realEditorValues": [{
 									"id": "V_String",
 									"params": ["Up"]
-								}] }
+								}] },
+								{ "__identifier": "UsesLoadingScreen", "__type": "Bool", "__value": false, "__tile": null, "defUid": 113, "realEditorValues": [] }
 							],
 							"__worldX": 8604,
 							"__worldY": -132
@@ -24813,7 +24461,8 @@
 								{ "__identifier": "OffsetDirection", "__type": "LocalEnum.Direction", "__value": "Up", "__tile": null, "defUid": 61, "realEditorValues": [{
 									"id": "V_String",
 									"params": ["Up"]
-								}] }
+								}] },
+								{ "__identifier": "UsesLoadingScreen", "__type": "Bool", "__value": false, "__tile": null, "defUid": 113, "realEditorValues": [] }
 							],
 							"__worldX": 9244,
 							"__worldY": -132
@@ -24844,7 +24493,8 @@
 								{ "__identifier": "OffsetDirection", "__type": "LocalEnum.Direction", "__value": "Down", "__tile": null, "defUid": 61, "realEditorValues": [{
 									"id": "V_String",
 									"params": ["Down"]
-								}] }
+								}] },
+								{ "__identifier": "UsesLoadingScreen", "__type": "Bool", "__value": false, "__tile": null, "defUid": 113, "realEditorValues": [] }
 							],
 							"__worldX": 8572,
 							"__worldY": -948
@@ -26075,7 +25725,8 @@
 								{ "__identifier": "OffsetDirection", "__type": "LocalEnum.Direction", "__value": "Up", "__tile": null, "defUid": 61, "realEditorValues": [{
 									"id": "V_String",
 									"params": ["Up"]
-								}] }
+								}] },
+								{ "__identifier": "UsesLoadingScreen", "__type": "Bool", "__value": false, "__tile": null, "defUid": 113, "realEditorValues": [] }
 							],
 							"__worldX": 8580,
 							"__worldY": -1172
@@ -27142,8 +26793,8 @@
 							"__tile": { "tilesetUid": 116, "x": 0, "y": 0, "w": 48, "h": 48 },
 							"__smartColor": "#3A4466",
 							"iid": "aed51000-21a0-11f1-b078-3d5c998aac11",
-							"width": 70,
-							"height": 70,
+							"width": 50,
+							"height": 50,
 							"defUid": 114,
 							"px": [784,160],
 							"fieldInstances": [{ "__identifier": "ColorState", "__type": "LocalEnum.ColorState", "__value": "Neutral", "__tile": null, "defUid": 117, "realEditorValues": [] }],
@@ -27158,8 +26809,8 @@
 							"__tile": { "tilesetUid": 116, "x": 0, "y": 0, "w": 48, "h": 48 },
 							"__smartColor": "#3A4466",
 							"iid": "b06e9bc0-21a0-11f1-b078-6d3297db7515",
-							"width": 70,
-							"height": 70,
+							"width": 50,
+							"height": 50,
 							"defUid": 114,
 							"px": [800,368],
 							"fieldInstances": [{ "__identifier": "ColorState", "__type": "LocalEnum.ColorState", "__value": "Neutral", "__tile": null, "defUid": 117, "realEditorValues": [] }],
@@ -27174,8 +26825,8 @@
 							"__tile": { "tilesetUid": 116, "x": 0, "y": 0, "w": 48, "h": 48 },
 							"__smartColor": "#3A4466",
 							"iid": "bc4a0a10-21a0-11f1-b078-e934a84814ba",
-							"width": 70,
-							"height": 70,
+							"width": 50,
+							"height": 50,
 							"defUid": 114,
 							"px": [720,240],
 							"fieldInstances": [{ "__identifier": "ColorState", "__type": "LocalEnum.ColorState", "__value": "Neutral", "__tile": null, "defUid": 117, "realEditorValues": [] }],
@@ -27190,205 +26841,13 @@
 							"__tile": { "tilesetUid": 116, "x": 0, "y": 0, "w": 48, "h": 48 },
 							"__smartColor": "#3A4466",
 							"iid": "be4d2d10-21a0-11f1-b078-2f33f7d3667d",
-							"width": 70,
-							"height": 70,
+							"width": 50,
+							"height": 50,
 							"defUid": 114,
 							"px": [768,320],
 							"fieldInstances": [{ "__identifier": "ColorState", "__type": "LocalEnum.ColorState", "__value": "Neutral", "__tile": null, "defUid": 117, "realEditorValues": [] }],
 							"__worldX": 14208,
 							"__worldY": 320
-						},
-						{
-							"__identifier": "MossIndicator",
-							"__grid": [107,15],
-							"__pivot": [0,0],
-							"__tags": ["Moss"],
-							"__tile": { "tilesetUid": 116, "x": 0, "y": 0, "w": 48, "h": 48 },
-							"__smartColor": "#3A4466",
-							"iid": "13ea8b70-21a0-11f1-ac01-3bf6953180ff",
-							"width": 70,
-							"height": 70,
-							"defUid": 114,
-							"px": [1712,240],
-							"fieldInstances": [{ "__identifier": "ColorState", "__type": "LocalEnum.ColorState", "__value": "Neutral", "__tile": null, "defUid": 117, "realEditorValues": [] }],
-							"__worldX": 15152,
-							"__worldY": 240
-						},
-						{
-							"__identifier": "MossIndicator",
-							"__grid": [103,18],
-							"__pivot": [0,0],
-							"__tags": ["Moss"],
-							"__tile": { "tilesetUid": 116, "x": 0, "y": 0, "w": 48, "h": 48 },
-							"__smartColor": "#3A4466",
-							"iid": "15008f50-21a0-11f1-ac01-835b5c956f60",
-							"width": 70,
-							"height": 70,
-							"defUid": 114,
-							"px": [1648,288],
-							"fieldInstances": [{ "__identifier": "ColorState", "__type": "LocalEnum.ColorState", "__value": "Neutral", "__tile": null, "defUid": 117, "realEditorValues": [] }],
-							"__worldX": 15088,
-							"__worldY": 288
-						},
-						{
-							"__identifier": "MossIndicator",
-							"__grid": [102,21],
-							"__pivot": [0,0],
-							"__tags": ["Moss"],
-							"__tile": { "tilesetUid": 116, "x": 0, "y": 0, "w": 48, "h": 48 },
-							"__smartColor": "#3A4466",
-							"iid": "15904c30-21a0-11f1-ac01-4997eaf922db",
-							"width": 70,
-							"height": 70,
-							"defUid": 114,
-							"px": [1632,336],
-							"fieldInstances": [{ "__identifier": "ColorState", "__type": "LocalEnum.ColorState", "__value": "Neutral", "__tile": null, "defUid": 117, "realEditorValues": [] }],
-							"__worldX": 15072,
-							"__worldY": 336
-						},
-						{
-							"__identifier": "MossIndicator",
-							"__grid": [100,24],
-							"__pivot": [0,0],
-							"__tags": ["Moss"],
-							"__tile": { "tilesetUid": 116, "x": 0, "y": 0, "w": 48, "h": 48 },
-							"__smartColor": "#3A4466",
-							"iid": "15cae430-21a0-11f1-ac01-ddfb384d4ba7",
-							"width": 70,
-							"height": 70,
-							"defUid": 114,
-							"px": [1600,384],
-							"fieldInstances": [{ "__identifier": "ColorState", "__type": "LocalEnum.ColorState", "__value": "Neutral", "__tile": null, "defUid": 117, "realEditorValues": [] }],
-							"__worldX": 15040,
-							"__worldY": 384
-						},
-						{
-							"__identifier": "MossIndicator",
-							"__grid": [95,25],
-							"__pivot": [0,0],
-							"__tags": ["Moss"],
-							"__tile": { "tilesetUid": 116, "x": 0, "y": 0, "w": 48, "h": 48 },
-							"__smartColor": "#3A4466",
-							"iid": "1664da40-21a0-11f1-ac01-058250aa4daf",
-							"width": 70,
-							"height": 70,
-							"defUid": 114,
-							"px": [1520,400],
-							"fieldInstances": [{ "__identifier": "ColorState", "__type": "LocalEnum.ColorState", "__value": "Neutral", "__tile": null, "defUid": 117, "realEditorValues": [] }],
-							"__worldX": 14960,
-							"__worldY": 400
-						},
-						{
-							"__identifier": "MossIndicator",
-							"__grid": [91,26],
-							"__pivot": [0,0],
-							"__tags": ["Moss"],
-							"__tile": { "tilesetUid": 116, "x": 0, "y": 0, "w": 48, "h": 48 },
-							"__smartColor": "#3A4466",
-							"iid": "169a1b10-21a0-11f1-ac01-5b310136c0a4",
-							"width": 70,
-							"height": 70,
-							"defUid": 114,
-							"px": [1456,416],
-							"fieldInstances": [{ "__identifier": "ColorState", "__type": "LocalEnum.ColorState", "__value": "Neutral", "__tile": null, "defUid": 117, "realEditorValues": [] }],
-							"__worldX": 14896,
-							"__worldY": 416
-						},
-						{
-							"__identifier": "MossIndicator",
-							"__grid": [85,26],
-							"__pivot": [0,0],
-							"__tags": ["Moss"],
-							"__tile": { "tilesetUid": 116, "x": 0, "y": 0, "w": 48, "h": 48 },
-							"__smartColor": "#3A4466",
-							"iid": "16f97920-21a0-11f1-ac01-d7c6367e1d10",
-							"width": 70,
-							"height": 70,
-							"defUid": 114,
-							"px": [1360,416],
-							"fieldInstances": [{ "__identifier": "ColorState", "__type": "LocalEnum.ColorState", "__value": "Neutral", "__tile": null, "defUid": 117, "realEditorValues": [] }],
-							"__worldX": 14800,
-							"__worldY": 416
-						},
-						{
-							"__identifier": "MossIndicator",
-							"__grid": [81,26],
-							"__pivot": [0,0],
-							"__tags": ["Moss"],
-							"__tile": { "tilesetUid": 116, "x": 0, "y": 0, "w": 48, "h": 48 },
-							"__smartColor": "#3A4466",
-							"iid": "17b464b0-21a0-11f1-ac01-ab170a2608d6",
-							"width": 70,
-							"height": 70,
-							"defUid": 114,
-							"px": [1296,416],
-							"fieldInstances": [{ "__identifier": "ColorState", "__type": "LocalEnum.ColorState", "__value": "Neutral", "__tile": null, "defUid": 117, "realEditorValues": [] }],
-							"__worldX": 14736,
-							"__worldY": 416
-						},
-						{
-							"__identifier": "MossIndicator",
-							"__grid": [79,28],
-							"__pivot": [0,0],
-							"__tags": ["Moss"],
-							"__tile": { "tilesetUid": 116, "x": 0, "y": 0, "w": 48, "h": 48 },
-							"__smartColor": "#3A4466",
-							"iid": "17e9f3a0-21a0-11f1-ac01-0bb65f0cd993",
-							"width": 70,
-							"height": 70,
-							"defUid": 114,
-							"px": [1264,448],
-							"fieldInstances": [{ "__identifier": "ColorState", "__type": "LocalEnum.ColorState", "__value": "Neutral", "__tile": null, "defUid": 117, "realEditorValues": [] }],
-							"__worldX": 14704,
-							"__worldY": 448
-						},
-						{
-							"__identifier": "MossIndicator",
-							"__grid": [74,30],
-							"__pivot": [0,0],
-							"__tags": ["Moss"],
-							"__tile": { "tilesetUid": 116, "x": 0, "y": 0, "w": 48, "h": 48 },
-							"__smartColor": "#3A4466",
-							"iid": "18350660-21a0-11f1-ac01-d5d437712b14",
-							"width": 70,
-							"height": 70,
-							"defUid": 114,
-							"px": [1184,480],
-							"fieldInstances": [{ "__identifier": "ColorState", "__type": "LocalEnum.ColorState", "__value": "Neutral", "__tile": null, "defUid": 117, "realEditorValues": [] }],
-							"__worldX": 14624,
-							"__worldY": 480
-						},
-						{
-							"__identifier": "MossIndicator",
-							"__grid": [70,32],
-							"__pivot": [0,0],
-							"__tags": ["Moss"],
-							"__tile": { "tilesetUid": 116, "x": 0, "y": 0, "w": 48, "h": 48 },
-							"__smartColor": "#3A4466",
-							"iid": "18d9aad0-21a0-11f1-ac01-5309b237f2f3",
-							"width": 70,
-							"height": 70,
-							"defUid": 114,
-							"px": [1120,512],
-							"fieldInstances": [{ "__identifier": "ColorState", "__type": "LocalEnum.ColorState", "__value": "Neutral", "__tile": null, "defUid": 117, "realEditorValues": [] }],
-							"__worldX": 14560,
-							"__worldY": 512
-						},
-						{
-							"__identifier": "MossIndicator",
-							"__grid": [65,34],
-							"__pivot": [0,0],
-							"__tags": ["Moss"],
-							"__tile": { "tilesetUid": 116, "x": 0, "y": 0, "w": 48, "h": 48 },
-							"__smartColor": "#3A4466",
-							"iid": "19ce6b10-21a0-11f1-ac01-99eea714d320",
-							"width": 70,
-							"height": 70,
-							"defUid": 114,
-							"px": [1040,544],
-							"fieldInstances": [{ "__identifier": "ColorState", "__type": "LocalEnum.ColorState", "__value": "Neutral", "__tile": null, "defUid": 117, "realEditorValues": [] }],
-							"__worldX": 14480,
-							"__worldY": 544
 						}
 					]
 				},
@@ -27408,7 +26867,7 @@
 					"layerDefUid": 19,
 					"pxOffsetX": 0,
 					"pxOffsetY": 0,
-					"visible": false,
+					"visible": true,
 					"optionalRules": [],
 					"intGridCsv": [],
 					"autoLayerTiles": [],
@@ -27490,7 +26949,8 @@
 								{ "__identifier": "OffsetDirection", "__type": "LocalEnum.Direction", "__value": "Left", "__tile": null, "defUid": 61, "realEditorValues": [{
 									"id": "V_String",
 									"params": ["Left"]
-								}] }
+								}] },
+								{ "__identifier": "UsesLoadingScreen", "__type": "Bool", "__value": false, "__tile": null, "defUid": 113, "realEditorValues": [] }
 							],
 							"__worldX": 15284,
 							"__worldY": 564
@@ -27521,7 +26981,8 @@
 								{ "__identifier": "OffsetDirection", "__type": "LocalEnum.Direction", "__value": "Down", "__tile": null, "defUid": 61, "realEditorValues": [{
 									"id": "V_String",
 									"params": ["Down"]
-								}] }
+								}] },
+								{ "__identifier": "UsesLoadingScreen", "__type": "Bool", "__value": false, "__tile": null, "defUid": 113, "realEditorValues": [] }
 							],
 							"__worldX": 14236,
 							"__worldY": 148
@@ -27556,141 +27017,17 @@
 									"layerIid": "ac602251-21a0-11f1-8ff7-2d55fe2c4032",
 									"levelIid": "ac602250-21a0-11f1-8ff7-8b5d8cba06fc",
 									"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787"
-								},
-								{
-									"entityIid": "13ea8b70-21a0-11f1-ac01-3bf6953180ff",
-									"layerIid": "ac602251-21a0-11f1-8ff7-2d55fe2c4032",
-									"levelIid": "ac602250-21a0-11f1-8ff7-8b5d8cba06fc",
-									"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787"
-								},
-								{
-									"entityIid": "15008f50-21a0-11f1-ac01-835b5c956f60",
-									"layerIid": "ac602251-21a0-11f1-8ff7-2d55fe2c4032",
-									"levelIid": "ac602250-21a0-11f1-8ff7-8b5d8cba06fc",
-									"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787"
-								},
-								{
-									"entityIid": "15904c30-21a0-11f1-ac01-4997eaf922db",
-									"layerIid": "ac602251-21a0-11f1-8ff7-2d55fe2c4032",
-									"levelIid": "ac602250-21a0-11f1-8ff7-8b5d8cba06fc",
-									"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787"
-								},
-								{
-									"entityIid": "15cae430-21a0-11f1-ac01-ddfb384d4ba7",
-									"layerIid": "ac602251-21a0-11f1-8ff7-2d55fe2c4032",
-									"levelIid": "ac602250-21a0-11f1-8ff7-8b5d8cba06fc",
-									"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787"
-								},
-								{
-									"entityIid": "1664da40-21a0-11f1-ac01-058250aa4daf",
-									"layerIid": "ac602251-21a0-11f1-8ff7-2d55fe2c4032",
-									"levelIid": "ac602250-21a0-11f1-8ff7-8b5d8cba06fc",
-									"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787"
-								},
-								{
-									"entityIid": "169a1b10-21a0-11f1-ac01-5b310136c0a4",
-									"layerIid": "ac602251-21a0-11f1-8ff7-2d55fe2c4032",
-									"levelIid": "ac602250-21a0-11f1-8ff7-8b5d8cba06fc",
-									"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787"
-								},
-								{
-									"entityIid": "16f97920-21a0-11f1-ac01-d7c6367e1d10",
-									"layerIid": "ac602251-21a0-11f1-8ff7-2d55fe2c4032",
-									"levelIid": "ac602250-21a0-11f1-8ff7-8b5d8cba06fc",
-									"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787"
-								},
-								{
-									"entityIid": "17b464b0-21a0-11f1-ac01-ab170a2608d6",
-									"layerIid": "ac602251-21a0-11f1-8ff7-2d55fe2c4032",
-									"levelIid": "ac602250-21a0-11f1-8ff7-8b5d8cba06fc",
-									"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787"
-								},
-								{
-									"entityIid": "17e9f3a0-21a0-11f1-ac01-0bb65f0cd993",
-									"layerIid": "ac602251-21a0-11f1-8ff7-2d55fe2c4032",
-									"levelIid": "ac602250-21a0-11f1-8ff7-8b5d8cba06fc",
-									"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787"
-								},
-								{
-									"entityIid": "18350660-21a0-11f1-ac01-d5d437712b14",
-									"layerIid": "ac602251-21a0-11f1-8ff7-2d55fe2c4032",
-									"levelIid": "ac602250-21a0-11f1-8ff7-8b5d8cba06fc",
-									"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787"
-								},
-								{
-									"entityIid": "18d9aad0-21a0-11f1-ac01-5309b237f2f3",
-									"layerIid": "ac602251-21a0-11f1-8ff7-2d55fe2c4032",
-									"levelIid": "ac602250-21a0-11f1-8ff7-8b5d8cba06fc",
-									"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787"
-								},
-								{
-									"entityIid": "19ce6b10-21a0-11f1-ac01-99eea714d320",
-									"layerIid": "ac602251-21a0-11f1-8ff7-2d55fe2c4032",
-									"levelIid": "ac602250-21a0-11f1-8ff7-8b5d8cba06fc",
-									"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787"
 								}
-							], "__tile": null, "defUid": 47, "realEditorValues": [
-								{
-									"id": "V_String",
-									"params": ["a4facef0-21a0-11f1-bde9-ddd63e064edf"]
-								},
-								{
-									"id": "V_String",
-									"params": ["a93ee140-21a0-11f1-bde9-21c7b280ce9b"]
-								},
-								{
-									"id": "V_String",
-									"params": ["acd0ba90-21a0-11f1-bde9-9f20e7bb2ca9"]
-								},
-								{
-									"id": "V_String",
-									"params": ["13ea8b70-21a0-11f1-ac01-3bf6953180ff"]
-								},
-								{
-									"id": "V_String",
-									"params": ["15008f50-21a0-11f1-ac01-835b5c956f60"]
-								},
-								{
-									"id": "V_String",
-									"params": ["15904c30-21a0-11f1-ac01-4997eaf922db"]
-								},
-								{
-									"id": "V_String",
-									"params": ["15cae430-21a0-11f1-ac01-ddfb384d4ba7"]
-								},
-								{
-									"id": "V_String",
-									"params": ["1664da40-21a0-11f1-ac01-058250aa4daf"]
-								},
-								{
-									"id": "V_String",
-									"params": ["169a1b10-21a0-11f1-ac01-5b310136c0a4"]
-								},
-								{
-									"id": "V_String",
-									"params": ["16f97920-21a0-11f1-ac01-d7c6367e1d10"]
-								},
-								{
-									"id": "V_String",
-									"params": ["17b464b0-21a0-11f1-ac01-ab170a2608d6"]
-								},
-								{
-									"id": "V_String",
-									"params": ["17e9f3a0-21a0-11f1-ac01-0bb65f0cd993"]
-								},
-								{
-									"id": "V_String",
-									"params": ["18350660-21a0-11f1-ac01-d5d437712b14"]
-								},
-								{
-									"id": "V_String",
-									"params": ["18d9aad0-21a0-11f1-ac01-5309b237f2f3"]
-								},
-								{
-									"id": "V_String",
-									"params": ["19ce6b10-21a0-11f1-ac01-99eea714d320"]
-								}
-							] }],
+							], "__tile": null, "defUid": 47, "realEditorValues": [ {
+								"id": "V_String",
+								"params": ["a4facef0-21a0-11f1-bde9-ddd63e064edf"]
+							}, {
+								"id": "V_String",
+								"params": ["a93ee140-21a0-11f1-bde9-21c7b280ce9b"]
+							}, {
+								"id": "V_String",
+								"params": ["acd0ba90-21a0-11f1-bde9-9f20e7bb2ca9"]
+							} ] }],
 							"__worldX": 15196,
 							"__worldY": 212
 						},
@@ -28905,8 +28242,8 @@
 							"__tile": { "tilesetUid": 116, "x": 0, "y": 0, "w": 48, "h": 48 },
 							"__smartColor": "#3A4466",
 							"iid": "9e9bc5d0-21a0-11f1-b078-5ddc1a8e6a56",
-							"width": 70,
-							"height": 70,
+							"width": 50,
+							"height": 50,
 							"defUid": 114,
 							"px": [928,304],
 							"fieldInstances": [{ "__identifier": "ColorState", "__type": "LocalEnum.ColorState", "__value": "Neutral", "__tile": null, "defUid": 117, "realEditorValues": [{
@@ -28924,8 +28261,8 @@
 							"__tile": { "tilesetUid": 116, "x": 0, "y": 0, "w": 48, "h": 48 },
 							"__smartColor": "#3A4466",
 							"iid": "a85bf540-21a0-11f1-b078-07d8643df3c0",
-							"width": 70,
-							"height": 70,
+							"width": 50,
+							"height": 50,
 							"defUid": 114,
 							"px": [816,368],
 							"fieldInstances": [{ "__identifier": "ColorState", "__type": "LocalEnum.ColorState", "__value": "Neutral", "__tile": null, "defUid": 117, "realEditorValues": [] }],
@@ -28940,8 +28277,8 @@
 							"__tile": { "tilesetUid": 116, "x": 0, "y": 0, "w": 48, "h": 48 },
 							"__smartColor": "#3A4466",
 							"iid": "a8db3760-21a0-11f1-b078-01a4c2ee2946",
-							"width": 70,
-							"height": 70,
+							"width": 50,
+							"height": 50,
 							"defUid": 114,
 							"px": [784,416],
 							"fieldInstances": [{ "__identifier": "ColorState", "__type": "LocalEnum.ColorState", "__value": "Neutral", "__tile": null, "defUid": 117, "realEditorValues": [] }],
@@ -28956,8 +28293,8 @@
 							"__tile": { "tilesetUid": 116, "x": 0, "y": 0, "w": 48, "h": 48 },
 							"__smartColor": "#3A4466",
 							"iid": "a9cf8270-21a0-11f1-b078-a924c7f63469",
-							"width": 70,
-							"height": 70,
+							"width": 50,
+							"height": 50,
 							"defUid": 114,
 							"px": [768,576],
 							"fieldInstances": [{ "__identifier": "ColorState", "__type": "LocalEnum.ColorState", "__value": "Neutral", "__tile": null, "defUid": 117, "realEditorValues": [] }],
@@ -28972,8 +28309,8 @@
 							"__tile": { "tilesetUid": 116, "x": 0, "y": 0, "w": 48, "h": 48 },
 							"__smartColor": "#3A4466",
 							"iid": "aa736390-21a0-11f1-b078-03609e237318",
-							"width": 70,
-							"height": 70,
+							"width": 50,
+							"height": 50,
 							"defUid": 114,
 							"px": [800,720],
 							"fieldInstances": [{ "__identifier": "ColorState", "__type": "LocalEnum.ColorState", "__value": "Neutral", "__tile": null, "defUid": 117, "realEditorValues": [] }],
@@ -28988,8 +28325,8 @@
 							"__tile": { "tilesetUid": 116, "x": 0, "y": 0, "w": 48, "h": 48 },
 							"__smartColor": "#3A4466",
 							"iid": "ab14fac0-21a0-11f1-b078-d5ecf59dd651",
-							"width": 70,
-							"height": 70,
+							"width": 50,
+							"height": 50,
 							"defUid": 114,
 							"px": [816,800],
 							"fieldInstances": [{ "__identifier": "ColorState", "__type": "LocalEnum.ColorState", "__value": "Neutral", "__tile": null, "defUid": 117, "realEditorValues": [] }],
@@ -29004,61 +28341,13 @@
 							"__tile": { "tilesetUid": 116, "x": 0, "y": 0, "w": 48, "h": 48 },
 							"__smartColor": "#3A4466",
 							"iid": "abd67600-21a0-11f1-b078-c98f15a840ab",
-							"width": 70,
-							"height": 70,
+							"width": 50,
+							"height": 50,
 							"defUid": 114,
 							"px": [816,896],
 							"fieldInstances": [{ "__identifier": "ColorState", "__type": "LocalEnum.ColorState", "__value": "Neutral", "__tile": null, "defUid": 117, "realEditorValues": [] }],
 							"__worldX": 14256,
 							"__worldY": -184
-						},
-						{
-							"__identifier": "MossIndicator",
-							"__grid": [48,31],
-							"__pivot": [0,0],
-							"__tags": ["Moss"],
-							"__tile": { "tilesetUid": 116, "x": 0, "y": 0, "w": 48, "h": 48 },
-							"__smartColor": "#3A4466",
-							"iid": "d94f1e20-21a0-11f1-ac01-83315df3b827",
-							"width": 70,
-							"height": 70,
-							"defUid": 114,
-							"px": [768,496],
-							"fieldInstances": [{ "__identifier": "ColorState", "__type": "LocalEnum.ColorState", "__value": "Neutral", "__tile": null, "defUid": 117, "realEditorValues": [] }],
-							"__worldX": 14208,
-							"__worldY": -584
-						},
-						{
-							"__identifier": "MossIndicator",
-							"__grid": [49,41],
-							"__pivot": [0,0],
-							"__tags": ["Moss"],
-							"__tile": { "tilesetUid": 116, "x": 0, "y": 0, "w": 48, "h": 48 },
-							"__smartColor": "#3A4466",
-							"iid": "d9e14c00-21a0-11f1-ac01-5bd78124d01e",
-							"width": 70,
-							"height": 70,
-							"defUid": 114,
-							"px": [784,656],
-							"fieldInstances": [{ "__identifier": "ColorState", "__type": "LocalEnum.ColorState", "__value": "Neutral", "__tile": null, "defUid": 117, "realEditorValues": [] }],
-							"__worldX": 14224,
-							"__worldY": -424
-						},
-						{
-							"__identifier": "MossIndicator",
-							"__grid": [55,20],
-							"__pivot": [0,0],
-							"__tags": ["Moss"],
-							"__tile": { "tilesetUid": 116, "x": 0, "y": 0, "w": 48, "h": 48 },
-							"__smartColor": "#3A4466",
-							"iid": "dae611d0-21a0-11f1-ac01-e3828caef1e1",
-							"width": 70,
-							"height": 70,
-							"defUid": 114,
-							"px": [880,320],
-							"fieldInstances": [{ "__identifier": "ColorState", "__type": "LocalEnum.ColorState", "__value": "Neutral", "__tile": null, "defUid": 117, "realEditorValues": [] }],
-							"__worldX": 14320,
-							"__worldY": -760
 						}
 					]
 				},
@@ -29260,30 +28549,6 @@
 									"layerIid": "ac602251-21a0-11f1-8ff7-2d55fe2c4032",
 									"levelIid": "ac602250-21a0-11f1-8ff7-8b5d8cba06fc",
 									"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787"
-								},
-								{
-									"entityIid": "9e9bc5d0-21a0-11f1-b078-5ddc1a8e6a56",
-									"layerIid": "ad77d3e1-21a0-11f1-8ff7-8febbaf76234",
-									"levelIid": "ad77d3e0-21a0-11f1-8ff7-e555459b1369",
-									"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787"
-								},
-								{
-									"entityIid": "dae611d0-21a0-11f1-ac01-e3828caef1e1",
-									"layerIid": "ad77d3e1-21a0-11f1-8ff7-8febbaf76234",
-									"levelIid": "ad77d3e0-21a0-11f1-8ff7-e555459b1369",
-									"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787"
-								},
-								{
-									"entityIid": "d94f1e20-21a0-11f1-ac01-83315df3b827",
-									"layerIid": "ad77d3e1-21a0-11f1-8ff7-8febbaf76234",
-									"levelIid": "ad77d3e0-21a0-11f1-8ff7-e555459b1369",
-									"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787"
-								},
-								{
-									"entityIid": "d9e14c00-21a0-11f1-ac01-5bd78124d01e",
-									"layerIid": "ad77d3e1-21a0-11f1-8ff7-8febbaf76234",
-									"levelIid": "ad77d3e0-21a0-11f1-8ff7-e555459b1369",
-									"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787"
 								}
 							], "__tile": null, "defUid": 47, "realEditorValues": [
 								{
@@ -29345,22 +28610,6 @@
 								{
 									"id": "V_String",
 									"params": ["b06e9bc0-21a0-11f1-b078-6d3297db7515"]
-								},
-								{
-									"id": "V_String",
-									"params": ["9e9bc5d0-21a0-11f1-b078-5ddc1a8e6a56"]
-								},
-								{
-									"id": "V_String",
-									"params": ["dae611d0-21a0-11f1-ac01-e3828caef1e1"]
-								},
-								{
-									"id": "V_String",
-									"params": ["d94f1e20-21a0-11f1-ac01-83315df3b827"]
-								},
-								{
-									"id": "V_String",
-									"params": ["d9e14c00-21a0-11f1-ac01-5bd78124d01e"]
 								}
 							] }],
 							"__worldX": 14444,
@@ -29392,7 +28641,8 @@
 								{ "__identifier": "OffsetDirection", "__type": "LocalEnum.Direction", "__value": "Up", "__tile": null, "defUid": 61, "realEditorValues": [{
 									"id": "V_String",
 									"params": ["Up"]
-								}] }
+								}] },
+								{ "__identifier": "UsesLoadingScreen", "__type": "Bool", "__value": false, "__tile": null, "defUid": 113, "realEditorValues": [] }
 							],
 							"__worldX": 14244,
 							"__worldY": -140
@@ -30164,7 +29414,8 @@
 								{ "__identifier": "OffsetDirection", "__type": "LocalEnum.Direction", "__value": "Up", "__tile": null, "defUid": 61, "realEditorValues": [{
 									"id": "V_String",
 									"params": ["Up"]
-								}] }
+								}] },
+								{ "__identifier": "UsesLoadingScreen", "__type": "Bool", "__value": false, "__tile": null, "defUid": 113, "realEditorValues": [] }
 							],
 							"__worldX": 15620,
 							"__worldY": 1004
@@ -30195,7 +29446,8 @@
 								{ "__identifier": "OffsetDirection", "__type": "LocalEnum.Direction", "__value": "Right", "__tile": null, "defUid": 61, "realEditorValues": [{
 									"id": "V_String",
 									"params": ["Right"]
-								}] }
+								}] },
+								{ "__identifier": "UsesLoadingScreen", "__type": "Bool", "__value": false, "__tile": null, "defUid": 113, "realEditorValues": [] }
 							],
 							"__worldX": 15420,
 							"__worldY": 532
@@ -30226,7 +29478,8 @@
 								{ "__identifier": "OffsetDirection", "__type": "LocalEnum.Direction", "__value": "Left", "__tile": null, "defUid": 61, "realEditorValues": [{
 									"id": "V_String",
 									"params": ["Left"]
-								}] }
+								}] },
+								{ "__identifier": "UsesLoadingScreen", "__type": "Bool", "__value": false, "__tile": null, "defUid": 113, "realEditorValues": [] }
 							],
 							"__worldX": 17156,
 							"__worldY": 524
@@ -31543,34 +30796,42 @@
 									"id": "V_String",
 									"params": ["dcea2f70-21a0-11f1-aa60-4de8038766ad"]
 								} ] },
-								{ "__identifier": "Triggers", "__type": "Array<EntityRef>", "__value": [{
+								{ "__identifier": "Triggers", "__type": "Array<EntityRef>", "__value": [ {
 									"entityIid": "0a5fbad0-21a0-11f1-aa60-3d12476cfc3a",
 									"layerIid": "afce1ff1-21a0-11f1-8ff7-9b57c1a71ae8",
 									"levelIid": "afce1ff0-21a0-11f1-8ff7-edcb2953dc85",
 									"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787"
-								}], "__tile": null, "defUid": 100, "realEditorValues": [{
+								}, {
+									"entityIid": "8242b6e0-21a0-11f1-973a-99c6a9e9cdf9",
+									"layerIid": "afce1ff1-21a0-11f1-8ff7-9b57c1a71ae8",
+									"levelIid": "afce1ff0-21a0-11f1-8ff7-edcb2953dc85",
+									"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787"
+								} ], "__tile": null, "defUid": 100, "realEditorValues": [ {
 									"id": "V_String",
 									"params": ["0a5fbad0-21a0-11f1-aa60-3d12476cfc3a"]
-								}] }
+								}, {
+									"id": "V_String",
+									"params": ["8242b6e0-21a0-11f1-973a-99c6a9e9cdf9"]
+								} ] }
 							],
 							"__worldX": 15704,
 							"__worldY": 2272
 						},
 						{
 							"__identifier": "PuzzleWall",
-							"__grid": [51,18],
+							"__grid": [53,11],
 							"__pivot": [0.5,0.5],
 							"__tags": [ "Internal_Wall", "Puzzle_Trigger" ],
 							"__tile": null,
 							"__smartColor": "#2CE8F5",
 							"iid": "0a5fbad0-21a0-11f1-aa60-3d12476cfc3a",
-							"width": 64,
-							"height": 256,
+							"width": 128,
+							"height": 144,
 							"defUid": 101,
-							"px": [824,296],
+							"px": [856,184],
 							"fieldInstances": [],
-							"__worldX": 16184,
-							"__worldY": 1376
+							"__worldX": 16216,
+							"__worldY": 1264
 						},
 						{
 							"__identifier": "MossWall",
@@ -31606,6 +30867,22 @@
 							"fieldInstances": [],
 							"__worldX": 16328,
 							"__worldY": 1936
+						},
+						{
+							"__identifier": "PuzzleWall",
+							"__grid": [53,21],
+							"__pivot": [0.5,0.5],
+							"__tags": [ "Internal_Wall", "Puzzle_Trigger" ],
+							"__tile": null,
+							"__smartColor": "#2CE8F5",
+							"iid": "8242b6e0-21a0-11f1-973a-99c6a9e9cdf9",
+							"width": 128,
+							"height": 144,
+							"defUid": 101,
+							"px": [856,344],
+							"fieldInstances": [],
+							"__worldX": 16216,
+							"__worldY": 1424
 						}
 					]
 				},
@@ -31709,7 +30986,8 @@
 								{ "__identifier": "OffsetDirection", "__type": "LocalEnum.Direction", "__value": "Left", "__tile": null, "defUid": 61, "realEditorValues": [{
 									"id": "V_String",
 									"params": ["Left"]
-								}] }
+								}] },
+								{ "__identifier": "UsesLoadingScreen", "__type": "Bool", "__value": false, "__tile": null, "defUid": 113, "realEditorValues": [] }
 							],
 							"__worldX": 17204,
 							"__worldY": 1420
@@ -31740,7 +31018,8 @@
 								{ "__identifier": "OffsetDirection", "__type": "LocalEnum.Direction", "__value": "Left", "__tile": null, "defUid": 61, "realEditorValues": [{
 									"id": "V_String",
 									"params": ["Left"]
-								}] }
+								}] },
+								{ "__identifier": "UsesLoadingScreen", "__type": "Bool", "__value": false, "__tile": null, "defUid": 113, "realEditorValues": [] }
 							],
 							"__worldX": 17204,
 							"__worldY": 1876
@@ -31771,7 +31050,8 @@
 								{ "__identifier": "OffsetDirection", "__type": "LocalEnum.Direction", "__value": "Down", "__tile": null, "defUid": 61, "realEditorValues": [{
 									"id": "V_String",
 									"params": ["Down"]
-								}] }
+								}] },
+								{ "__identifier": "UsesLoadingScreen", "__type": "Bool", "__value": false, "__tile": null, "defUid": 113, "realEditorValues": [] }
 							],
 							"__worldX": 15612,
 							"__worldY": 1172
@@ -33114,18 +32394,18 @@
 						},
 						{
 							"__identifier": "PuzzleWall",
-							"__grid": [97,58],
+							"__grid": [96,58],
 							"__pivot": [0.5,0.5],
 							"__tags": [ "Internal_Wall", "Puzzle_Trigger" ],
 							"__tile": null,
 							"__smartColor": "#2CE8F5",
 							"iid": "21fd9130-21a0-11f1-aa60-e39490097ad0",
 							"width": 176,
-							"height": 48,
+							"height": 128,
 							"defUid": 101,
-							"px": [1560,936],
+							"px": [1544,936],
 							"fieldInstances": [],
-							"__worldX": 18840,
+							"__worldX": 18824,
 							"__worldY": 936
 						}
 					]
@@ -33263,6 +32543,10 @@
 								{ "__identifier": "OffsetDirection", "__type": "LocalEnum.Direction", "__value": "Left", "__tile": null, "defUid": 61, "realEditorValues": [{
 									"id": "V_String",
 									"params": ["Left"]
+								}] },
+								{ "__identifier": "UsesLoadingScreen", "__type": "Bool", "__value": true, "__tile": null, "defUid": 113, "realEditorValues": [{
+									"id": "V_Bool",
+									"params": [ true ]
 								}] }
 							],
 							"__worldX": 19108,
@@ -33294,7 +32578,8 @@
 								{ "__identifier": "OffsetDirection", "__type": "LocalEnum.Direction", "__value": "Up", "__tile": null, "defUid": 61, "realEditorValues": [{
 									"id": "V_String",
 									"params": ["Up"]
-								}] }
+								}] },
+								{ "__identifier": "UsesLoadingScreen", "__type": "Bool", "__value": false, "__tile": null, "defUid": 113, "realEditorValues": [] }
 							],
 							"__worldX": 18828,
 							"__worldY": 996
@@ -33325,7 +32610,8 @@
 								{ "__identifier": "OffsetDirection", "__type": "LocalEnum.Direction", "__value": "Right", "__tile": null, "defUid": 61, "realEditorValues": [{
 									"id": "V_String",
 									"params": ["Right"]
-								}] }
+								}] },
+								{ "__identifier": "UsesLoadingScreen", "__type": "Bool", "__value": false, "__tile": null, "defUid": 113, "realEditorValues": [] }
 							],
 							"__worldX": 17500,
 							"__worldY": 556
@@ -34661,8 +33947,8 @@
 							"__tile": { "tilesetUid": 116, "x": 0, "y": 0, "w": 48, "h": 48 },
 							"__smartColor": "#3A4466",
 							"iid": "f0a8b770-21a0-11f1-b078-cdee18e5ca49",
-							"width": 70,
-							"height": 70,
+							"width": 50,
+							"height": 50,
 							"defUid": 114,
 							"px": [240,416],
 							"fieldInstances": [{ "__identifier": "ColorState", "__type": "LocalEnum.ColorState", "__value": "Neutral", "__tile": null, "defUid": 117, "realEditorValues": [] }],
@@ -34671,51 +33957,51 @@
 						},
 						{
 							"__identifier": "MossIndicator",
-							"__grid": [20,27],
+							"__grid": [22,29],
 							"__pivot": [0,0],
 							"__tags": ["Moss"],
 							"__tile": { "tilesetUid": 116, "x": 0, "y": 0, "w": 48, "h": 48 },
 							"__smartColor": "#3A4466",
 							"iid": "f1613200-21a0-11f1-b078-23c6565568fa",
-							"width": 70,
-							"height": 70,
+							"width": 50,
+							"height": 50,
 							"defUid": 114,
-							"px": [320,432],
+							"px": [352,464],
 							"fieldInstances": [{ "__identifier": "ColorState", "__type": "LocalEnum.ColorState", "__value": "Neutral", "__tile": null, "defUid": 117, "realEditorValues": [] }],
-							"__worldX": 17600,
-							"__worldY": 1512
+							"__worldX": 17632,
+							"__worldY": 1544
 						},
 						{
 							"__identifier": "MossIndicator",
-							"__grid": [25,27],
+							"__grid": [26,29],
 							"__pivot": [0,0],
 							"__tags": ["Moss"],
 							"__tile": { "tilesetUid": 116, "x": 0, "y": 0, "w": 48, "h": 48 },
 							"__smartColor": "#3A4466",
 							"iid": "f1c0b720-21a0-11f1-b078-352868e635ce",
-							"width": 70,
-							"height": 70,
+							"width": 50,
+							"height": 50,
 							"defUid": 114,
-							"px": [400,432],
+							"px": [416,464],
 							"fieldInstances": [{ "__identifier": "ColorState", "__type": "LocalEnum.ColorState", "__value": "Neutral", "__tile": null, "defUid": 117, "realEditorValues": [] }],
-							"__worldX": 17680,
-							"__worldY": 1512
+							"__worldX": 17696,
+							"__worldY": 1544
 						},
 						{
 							"__identifier": "MossIndicator",
-							"__grid": [34,32],
+							"__grid": [31,27],
 							"__pivot": [0,0],
 							"__tags": ["Moss"],
 							"__tile": { "tilesetUid": 116, "x": 0, "y": 0, "w": 48, "h": 48 },
 							"__smartColor": "#3A4466",
 							"iid": "f1f9c880-21a0-11f1-b078-751b5e0a371a",
-							"width": 70,
-							"height": 70,
+							"width": 50,
+							"height": 50,
 							"defUid": 114,
-							"px": [544,512],
+							"px": [496,432],
 							"fieldInstances": [{ "__identifier": "ColorState", "__type": "LocalEnum.ColorState", "__value": "Neutral", "__tile": null, "defUid": 117, "realEditorValues": [] }],
-							"__worldX": 17824,
-							"__worldY": 1592
+							"__worldX": 17776,
+							"__worldY": 1512
 						},
 						{
 							"__identifier": "MossIndicator",
@@ -34725,8 +34011,8 @@
 							"__tile": { "tilesetUid": 116, "x": 0, "y": 0, "w": 48, "h": 48 },
 							"__smartColor": "#3A4466",
 							"iid": "f2753a10-21a0-11f1-b078-6155e2edb4be",
-							"width": 70,
-							"height": 70,
+							"width": 50,
+							"height": 50,
 							"defUid": 114,
 							"px": [608,560],
 							"fieldInstances": [{ "__identifier": "ColorState", "__type": "LocalEnum.ColorState", "__value": "Neutral", "__tile": null, "defUid": 117, "realEditorValues": [] }],
@@ -34741,8 +34027,8 @@
 							"__tile": { "tilesetUid": 116, "x": 0, "y": 0, "w": 48, "h": 48 },
 							"__smartColor": "#3A4466",
 							"iid": "f2afab00-21a0-11f1-b078-eb9fa5b64a30",
-							"width": 70,
-							"height": 70,
+							"width": 50,
+							"height": 50,
 							"defUid": 114,
 							"px": [688,608],
 							"fieldInstances": [{ "__identifier": "ColorState", "__type": "LocalEnum.ColorState", "__value": "Neutral", "__tile": null, "defUid": 117, "realEditorValues": [] }],
@@ -34757,45 +34043,13 @@
 							"__tile": { "tilesetUid": 116, "x": 0, "y": 0, "w": 48, "h": 48 },
 							"__smartColor": "#3A4466",
 							"iid": "f3012660-21a0-11f1-b078-dbba9460e9df",
-							"width": 70,
-							"height": 70,
+							"width": 50,
+							"height": 50,
 							"defUid": 114,
 							"px": [768,640],
 							"fieldInstances": [{ "__identifier": "ColorState", "__type": "LocalEnum.ColorState", "__value": "Neutral", "__tile": null, "defUid": 117, "realEditorValues": [] }],
 							"__worldX": 18048,
 							"__worldY": 1720
-						},
-						{
-							"__identifier": "MossIndicator",
-							"__grid": [31,28],
-							"__pivot": [0,0],
-							"__tags": ["Moss"],
-							"__tile": { "tilesetUid": 116, "x": 0, "y": 0, "w": 48, "h": 48 },
-							"__smartColor": "#3A4466",
-							"iid": "f15b1fa0-21a0-11f1-ac01-e774a03912a6",
-							"width": 70,
-							"height": 70,
-							"defUid": 114,
-							"px": [496,448],
-							"fieldInstances": [{ "__identifier": "ColorState", "__type": "LocalEnum.ColorState", "__value": "Neutral", "__tile": null, "defUid": 117, "realEditorValues": [] }],
-							"__worldX": 17776,
-							"__worldY": 1528
-						},
-						{
-							"__identifier": "MossIndicator",
-							"__grid": [53,39],
-							"__pivot": [0,0],
-							"__tags": ["Moss"],
-							"__tile": { "tilesetUid": 116, "x": 0, "y": 0, "w": 48, "h": 48 },
-							"__smartColor": "#3A4466",
-							"iid": "f3b71100-21a0-11f1-ac01-390b204f2f5a",
-							"width": 70,
-							"height": 70,
-							"defUid": 114,
-							"px": [848,624],
-							"fieldInstances": [{ "__identifier": "ColorState", "__type": "LocalEnum.ColorState", "__value": "Neutral", "__tile": null, "defUid": 117, "realEditorValues": [] }],
-							"__worldX": 18128,
-							"__worldY": 1704
 						}
 					]
 				},
@@ -34959,18 +34213,6 @@
 									"layerIid": "b322c931-21a0-11f1-8ff7-7734bef7d32a",
 									"levelIid": "b322c930-21a0-11f1-8ff7-51b51c7f8925",
 									"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787"
-								},
-								{
-									"entityIid": "f3b71100-21a0-11f1-ac01-390b204f2f5a",
-									"layerIid": "b322c931-21a0-11f1-8ff7-7734bef7d32a",
-									"levelIid": "b322c930-21a0-11f1-8ff7-51b51c7f8925",
-									"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787"
-								},
-								{
-									"entityIid": "f15b1fa0-21a0-11f1-ac01-e774a03912a6",
-									"layerIid": "b322c931-21a0-11f1-8ff7-7734bef7d32a",
-									"levelIid": "b322c930-21a0-11f1-8ff7-51b51c7f8925",
-									"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787"
 								}
 							], "__tile": null, "defUid": 47, "realEditorValues": [
 								{
@@ -35008,14 +34250,6 @@
 								{
 									"id": "V_String",
 									"params": ["f0a8b770-21a0-11f1-b078-cdee18e5ca49"]
-								},
-								{
-									"id": "V_String",
-									"params": ["f3b71100-21a0-11f1-ac01-390b204f2f5a"]
-								},
-								{
-									"id": "V_String",
-									"params": ["f15b1fa0-21a0-11f1-ac01-e774a03912a6"]
 								}
 							] }],
 							"__worldX": 18188,
@@ -35047,7 +34281,8 @@
 								{ "__identifier": "OffsetDirection", "__type": "LocalEnum.Direction", "__value": "Down", "__tile": null, "defUid": 61, "realEditorValues": [{
 									"id": "V_String",
 									"params": ["Down"]
-								}] }
+								}] },
+								{ "__identifier": "UsesLoadingScreen", "__type": "Bool", "__value": false, "__tile": null, "defUid": 113, "realEditorValues": [] }
 							],
 							"__worldX": 18820,
 							"__worldY": 1228
@@ -35078,7 +34313,8 @@
 								{ "__identifier": "OffsetDirection", "__type": "LocalEnum.Direction", "__value": "Right", "__tile": null, "defUid": 61, "realEditorValues": [{
 									"id": "V_String",
 									"params": ["Right"]
-								}] }
+								}] },
+								{ "__identifier": "UsesLoadingScreen", "__type": "Bool", "__value": false, "__tile": null, "defUid": 113, "realEditorValues": [] }
 							],
 							"__worldX": 17348,
 							"__worldY": 1444
@@ -35109,7 +34345,8 @@
 								{ "__identifier": "OffsetDirection", "__type": "LocalEnum.Direction", "__value": "Right", "__tile": null, "defUid": 61, "realEditorValues": [{
 									"id": "V_String",
 									"params": ["Right"]
-								}] }
+								}] },
+								{ "__identifier": "UsesLoadingScreen", "__type": "Bool", "__value": false, "__tile": null, "defUid": 113, "realEditorValues": [] }
 							],
 							"__worldX": 17356,
 							"__worldY": 1892
@@ -36716,7 +35953,8 @@
 								{ "__identifier": "OffsetDirection", "__type": "LocalEnum.Direction", "__value": "Up", "__tile": null, "defUid": 61, "realEditorValues": [{
 									"id": "V_String",
 									"params": ["Up"]
-								}] }
+								}] },
+								{ "__identifier": "UsesLoadingScreen", "__type": "Bool", "__value": false, "__tile": null, "defUid": 113, "realEditorValues": [] }
 							],
 							"__worldX": 8612,
 							"__worldY": 3140
@@ -36747,7 +35985,8 @@
 								{ "__identifier": "OffsetDirection", "__type": "LocalEnum.Direction", "__value": "Down", "__tile": null, "defUid": 61, "realEditorValues": [{
 									"id": "V_String",
 									"params": ["Down"]
-								}] }
+								}] },
+								{ "__identifier": "UsesLoadingScreen", "__type": "Bool", "__value": false, "__tile": null, "defUid": 113, "realEditorValues": [] }
 							],
 							"__worldX": 8612,
 							"__worldY": 2332
@@ -37435,34 +36674,42 @@
 									"id": "V_String",
 									"params": ["e6e466f0-21a0-11f1-8551-572457382f9b"]
 								} ] },
-								{ "__identifier": "Triggers", "__type": "Array<EntityRef>", "__value": [{
+								{ "__identifier": "Triggers", "__type": "Array<EntityRef>", "__value": [ {
 									"entityIid": "18f10e00-21a0-11f1-8551-cd88661d74f1",
 									"layerIid": "00900423-21a0-11f1-8551-e7b246d08ee0",
 									"levelIid": "00900420-21a0-11f1-8551-5d5073fea92f",
 									"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787"
-								}], "__tile": null, "defUid": 100, "realEditorValues": [{
+								}, {
+									"entityIid": "357f1290-21a0-11f1-973a-8dfb931b2189",
+									"layerIid": "00900423-21a0-11f1-8551-e7b246d08ee0",
+									"levelIid": "00900420-21a0-11f1-8551-5d5073fea92f",
+									"worldIid": "53e64811-d380-11f0-a1bc-7748024d4787"
+								} ], "__tile": null, "defUid": 100, "realEditorValues": [ {
 									"id": "V_String",
 									"params": ["18f10e00-21a0-11f1-8551-cd88661d74f1"]
-								}] }
+								}, {
+									"id": "V_String",
+									"params": ["357f1290-21a0-11f1-973a-8dfb931b2189"]
+								} ] }
 							],
 							"__worldX": 9096,
 							"__worldY": 3616
 						},
 						{
 							"__identifier": "PuzzleWall",
-							"__grid": [62,16],
+							"__grid": [53,13],
 							"__pivot": [0.5,0.5],
 							"__tags": [ "Internal_Wall", "Puzzle_Trigger" ],
 							"__tile": null,
 							"__smartColor": "#2CE8F5",
 							"iid": "18f10e00-21a0-11f1-8551-cd88661d74f1",
-							"width": 464,
-							"height": 50,
+							"width": 160,
+							"height": 128,
 							"defUid": 101,
-							"px": [1000,264],
+							"px": [856,216],
 							"fieldInstances": [],
-							"__worldX": 8680,
-							"__worldY": 3504
+							"__worldX": 8536,
+							"__worldY": 3456
 						},
 						{
 							"__identifier": "Wall",
@@ -37591,6 +36838,22 @@
 							"fieldInstances": [],
 							"__worldX": 8824,
 							"__worldY": 3392
+						},
+						{
+							"__identifier": "PuzzleWall",
+							"__grid": [64,13],
+							"__pivot": [0.5,0.5],
+							"__tags": [ "Internal_Wall", "Puzzle_Trigger" ],
+							"__tile": null,
+							"__smartColor": "#2CE8F5",
+							"iid": "357f1290-21a0-11f1-973a-8dfb931b2189",
+							"width": 160,
+							"height": 128,
+							"defUid": 101,
+							"px": [1032,216],
+							"fieldInstances": [],
+							"__worldX": 8712,
+							"__worldY": 3456
 						}
 					]
 				},
@@ -37669,7 +36932,8 @@
 								{ "__identifier": "OffsetDirection", "__type": "LocalEnum.Direction", "__value": "Up", "__tile": null, "defUid": 61, "realEditorValues": [{
 									"id": "V_String",
 									"params": ["Up"]
-								}] }
+								}] },
+								{ "__identifier": "UsesLoadingScreen", "__type": "Bool", "__value": false, "__tile": null, "defUid": 113, "realEditorValues": [] }
 							],
 							"__worldX": 8604,
 							"__worldY": 4220
@@ -37700,7 +36964,8 @@
 								{ "__identifier": "OffsetDirection", "__type": "LocalEnum.Direction", "__value": "Down", "__tile": null, "defUid": 61, "realEditorValues": [{
 									"id": "V_String",
 									"params": ["Down"]
-								}] }
+								}] },
+								{ "__identifier": "UsesLoadingScreen", "__type": "Bool", "__value": false, "__tile": null, "defUid": 113, "realEditorValues": [] }
 							],
 							"__worldX": 8604,
 							"__worldY": 3420
@@ -38502,8 +37767,8 @@
 							"__tile": { "tilesetUid": 116, "x": 0, "y": 0, "w": 48, "h": 48 },
 							"__smartColor": "#3A4466",
 							"iid": "38b22be0-21a0-11f1-b078-f1ef75b7f6db",
-							"width": 70,
-							"height": 70,
+							"width": 50,
+							"height": 50,
 							"defUid": 114,
 							"px": [1248,432],
 							"fieldInstances": [{ "__identifier": "ColorState", "__type": "LocalEnum.ColorState", "__value": "Neutral", "__tile": null, "defUid": 117, "realEditorValues": [{
@@ -38521,8 +37786,8 @@
 							"__tile": { "tilesetUid": 116, "x": 0, "y": 0, "w": 48, "h": 48 },
 							"__smartColor": "#3A4466",
 							"iid": "39de28c0-21a0-11f1-b078-0bc72d8fcfc2",
-							"width": 70,
-							"height": 70,
+							"width": 50,
+							"height": 50,
 							"defUid": 114,
 							"px": [1264,368],
 							"fieldInstances": [{ "__identifier": "ColorState", "__type": "LocalEnum.ColorState", "__value": "Neutral", "__tile": null, "defUid": 117, "realEditorValues": [{
@@ -38540,8 +37805,8 @@
 							"__tile": { "tilesetUid": 116, "x": 0, "y": 0, "w": 48, "h": 48 },
 							"__smartColor": "#3A4466",
 							"iid": "3a50e7c0-21a0-11f1-b078-4b2ccd9607d1",
-							"width": 70,
-							"height": 70,
+							"width": 50,
+							"height": 50,
 							"defUid": 114,
 							"px": [1216,336],
 							"fieldInstances": [{ "__identifier": "ColorState", "__type": "LocalEnum.ColorState", "__value": "Neutral", "__tile": null, "defUid": 117, "realEditorValues": [{
@@ -38559,8 +37824,8 @@
 							"__tile": { "tilesetUid": 116, "x": 0, "y": 0, "w": 48, "h": 48 },
 							"__smartColor": "#3A4466",
 							"iid": "3af62870-21a0-11f1-b078-2da77d2ec475",
-							"width": 70,
-							"height": 70,
+							"width": 50,
+							"height": 50,
 							"defUid": 114,
 							"px": [1184,288],
 							"fieldInstances": [{ "__identifier": "ColorState", "__type": "LocalEnum.ColorState", "__value": "Neutral", "__tile": null, "defUid": 117, "realEditorValues": [{
@@ -38572,22 +37837,22 @@
 						},
 						{
 							"__identifier": "MossIndicator",
-							"__grid": [71,14],
+							"__grid": [71,16],
 							"__pivot": [0,0],
 							"__tags": ["Moss"],
 							"__tile": { "tilesetUid": 116, "x": 0, "y": 0, "w": 48, "h": 48 },
 							"__smartColor": "#3A4466",
 							"iid": "27d24c00-21a0-11f1-b078-17432fb3ccd2",
-							"width": 70,
-							"height": 70,
+							"width": 50,
+							"height": 50,
 							"defUid": 114,
-							"px": [1136,224],
+							"px": [1136,256],
 							"fieldInstances": [{ "__identifier": "ColorState", "__type": "LocalEnum.ColorState", "__value": "Neutral", "__tile": null, "defUid": 117, "realEditorValues": [{
 								"id": "V_String",
 								"params": ["Neutral"]
 							}] }],
 							"__worldX": 1136,
-							"__worldY": -856
+							"__worldY": -824
 						},
 						{
 							"__identifier": "MossIndicator",
@@ -38597,8 +37862,8 @@
 							"__tile": { "tilesetUid": 116, "x": 0, "y": 0, "w": 48, "h": 48 },
 							"__smartColor": "#3A4466",
 							"iid": "83799590-21a0-11f1-b078-57dde66cc657",
-							"width": 70,
-							"height": 70,
+							"width": 50,
+							"height": 50,
 							"defUid": 114,
 							"px": [1312,480],
 							"fieldInstances": [{ "__identifier": "ColorState", "__type": "LocalEnum.ColorState", "__value": "Neutral", "__tile": null, "defUid": 117, "realEditorValues": [{
@@ -38616,8 +37881,8 @@
 							"__tile": { "tilesetUid": 116, "x": 0, "y": 0, "w": 48, "h": 48 },
 							"__smartColor": "#3A4466",
 							"iid": "7e492500-21a0-11f1-ac01-05f7e0291f15",
-							"width": 70,
-							"height": 70,
+							"width": 50,
+							"height": 50,
 							"defUid": 114,
 							"px": [1280,544],
 							"fieldInstances": [{ "__identifier": "ColorState", "__type": "LocalEnum.ColorState", "__value": "Neutral", "__tile": null, "defUid": 117, "realEditorValues": [] }],
@@ -38632,8 +37897,8 @@
 							"__tile": { "tilesetUid": 116, "x": 0, "y": 0, "w": 48, "h": 48 },
 							"__smartColor": "#3A4466",
 							"iid": "7ff77140-21a0-11f1-ac01-1f3add4c630d",
-							"width": 70,
-							"height": 70,
+							"width": 50,
+							"height": 50,
 							"defUid": 114,
 							"px": [1328,640],
 							"fieldInstances": [{ "__identifier": "ColorState", "__type": "LocalEnum.ColorState", "__value": "Neutral", "__tile": null, "defUid": 117, "realEditorValues": [] }],
@@ -38648,8 +37913,8 @@
 							"__tile": { "tilesetUid": 116, "x": 0, "y": 0, "w": 48, "h": 48 },
 							"__smartColor": "#3A4466",
 							"iid": "ae512270-21a0-11f1-ac01-9d403f4eed0f",
-							"width": 70,
-							"height": 70,
+							"width": 50,
+							"height": 50,
 							"defUid": 114,
 							"px": [1344,736],
 							"fieldInstances": [{ "__identifier": "ColorState", "__type": "LocalEnum.ColorState", "__value": "Neutral", "__tile": null, "defUid": 117, "realEditorValues": [] }],
@@ -38935,7 +38200,7 @@
 						},
 						{
 							"__identifier": "FloorHintPNGEntity",
-							"__grid": [141,94],
+							"__grid": [151,69],
 							"__pivot": [0.5,0.5],
 							"__tags": ["Floor_Interactable"],
 							"__tile": null,
@@ -38944,13 +38209,13 @@
 							"width": 256,
 							"height": 256,
 							"defUid": 109,
-							"px": [1132,756],
+							"px": [1212,556],
 							"fieldInstances": [{ "__identifier": "FloorHintPictureType", "__type": "LocalEnum.FloorHintPictureType", "__value": "ANGLERFISH", "__tile": null, "defUid": 111, "realEditorValues": [{
 								"id": "V_String",
 								"params": ["ANGLERFISH"]
 							}] }],
-							"__worldX": 1132,
-							"__worldY": -324
+							"__worldX": 1212,
+							"__worldY": -524
 						},
 						{
 							"__identifier": "Teleporter",
@@ -38978,7 +38243,8 @@
 								{ "__identifier": "OffsetDirection", "__type": "LocalEnum.Direction", "__value": "Down", "__tile": null, "defUid": 61, "realEditorValues": [{
 									"id": "V_String",
 									"params": ["Down"]
-								}] }
+								}] },
+								{ "__identifier": "UsesLoadingScreen", "__type": "Bool", "__value": false, "__tile": null, "defUid": 113, "realEditorValues": [] }
 							],
 							"__worldX": 892,
 							"__worldY": -972
@@ -39009,7 +38275,8 @@
 								{ "__identifier": "OffsetDirection", "__type": "LocalEnum.Direction", "__value": "Up", "__tile": null, "defUid": 61, "realEditorValues": [{
 									"id": "V_String",
 									"params": ["Up"]
-								}] }
+								}] },
+								{ "__identifier": "UsesLoadingScreen", "__type": "Bool", "__value": false, "__tile": null, "defUid": 113, "realEditorValues": [] }
 							],
 							"__worldX": 892,
 							"__worldY": -52

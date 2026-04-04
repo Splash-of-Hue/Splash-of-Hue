@@ -12,12 +12,19 @@ struct Menu
 	virtual void disable() = 0;
 };
 
-struct MenuToggleRequest
+struct UiToggleRequest
 {
-	MENU_TYPE type;
+	UI_TYPE type;
 };
 
 struct MenuAction
 {
 	MENU_ACTION type;
+};
+
+struct Screen
+{
+	bool active = false;
+	virtual void enable() = 0;
+	virtual void disable() = 0;
 };
