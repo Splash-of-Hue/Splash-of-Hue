@@ -15,12 +15,15 @@ Move using WASD and enter new rooms by approaching the openings in walls. Collec
 ## Gameplay
 Change colour and walk through walls of same colour.
 ![Screenshot 2026-04-03 225004](https://github.students.cs.ubc.ca/user-attachments/assets/a87a9081-550c-49b3-8d66-57bed8f549b6)
+
 Interact with and change the colour of creatures and entities around you, like the anglerfish and moss toggle below.
-![Screenshot 2026-04-03 225147](https://github.students.cs.ubc.ca/user-attachments/assets/b00a5470-91e6-412f-b129-5ad3de7016c1)
+![Screenshot 2026-04-03 225022](https://github.students.cs.ubc.ca/user-attachments/assets/c8edf811-26b5-4c01-b23d-cedae995942f)
+
 Interacting with creatures helps open up new pathways and progress further into the dungeon.
 ![Screenshot 2026-04-03 225039](https://github.students.cs.ubc.ca/user-attachments/assets/f7d9aab6-b930-4c7d-ab8c-7f6699784f0f)
+
 Unlock new colours and use those colours to have get creatures to act differently, such as the sawfish charging and breaking boxes when red, and following player when blue. 
-![Screenshot 2026-04-03 225022](https://github.students.cs.ubc.ca/user-attachments/assets/c8edf811-26b5-4c01-b23d-cedae995942f)
+![Screenshot 2026-04-03 225147](https://github.students.cs.ubc.ca/user-attachments/assets/b00a5470-91e6-412f-b129-5ad3de7016c1)
 
 ## Milestone 4
 ## Milestone Engagement Criteria
