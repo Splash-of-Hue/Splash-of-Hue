@@ -13,10 +13,13 @@ WASD for up, left, down, right movement. Use left and right arrow keys for blue 
 ## How to Play
 Move using WASD and enter new rooms by approaching the openings in walls. Collect a colour by walking up to and colliding with a colour orb. Once you have collected the corresponding colour orbs, change colour using left/right arrow keys and return to neutral with up/down. Collide with entities while your colour radius is on and see what happens! Use these interactions and your colour to solve puzzles and progress through the dungeon. 
 ## Gameplay
-![Screenshot 2026-03-31 222223](https://github.students.cs.ubc.ca/user-attachments/assets/e3f8cc59-9474-41f9-afb5-b5bb69c52edf)
+Change colour and walk through walls of same colour.
 ![Screenshot 2026-04-03 225004](https://github.students.cs.ubc.ca/user-attachments/assets/a87a9081-550c-49b3-8d66-57bed8f549b6)
+Interact with and change the colour of creatures and entities around you, like the anglerfish and moss toggle below.
 ![Screenshot 2026-04-03 225147](https://github.students.cs.ubc.ca/user-attachments/assets/b00a5470-91e6-412f-b129-5ad3de7016c1)
+Interacting with creatures helps open up new pathways and progress further into the dungeon.
 ![Screenshot 2026-04-03 225039](https://github.students.cs.ubc.ca/user-attachments/assets/f7d9aab6-b930-4c7d-ab8c-7f6699784f0f)
+Unlock new colours and use those colours to have get creatures to act differently, such as the sawfish charging and breaking boxes when red, and following player when blue. 
 ![Screenshot 2026-04-03 225022](https://github.students.cs.ubc.ca/user-attachments/assets/c8edf811-26b5-4c01-b23d-cedae995942f)
 
 ## Milestone 4
