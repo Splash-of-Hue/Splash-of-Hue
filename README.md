@@ -30,7 +30,7 @@ Unlock new colours and use those colours to have get creatures to act differentl
 - Discovery -> Player can discover new things by moving and exploring rooms, and collide with objects to see what happens.
 - Challenge -> Player is stopped by obstacles, like the pistol shrimp, non-passable boxes and walls, dangerous sawfish, and must figure out ways to bypass obstacles and understand AI behaviours, such as sawfish following, charging and pistol shrimp rotation, to traverse the tutorial and enter the final room.
 ## Milestone Required Elements
-- Memory Management: We used Visual Studio's diagnostic tools and Visual Studio's performance profiler and found our game uses about 300 MB of memory, but there were no instances of memory leaks or hoarding. 
+- Memory Management: We used Visual Studio's diagnostic tools and Visual Studio's performance profiler and found our game uses about 500 MB of memory, but there were no instances of memory leaks or hoarding. 
 - Realtime performance: We profiled the runtime of our systems, and found that the rendering and physics systems were runtime bottlenecks, where the rendering system took about 90% of the time, and the physics system took about 6%. We changed the physics system to use broad pass by checking for an AABB collision and only running mesh collision if that check was successful, which made slight improvements. We also attempted to resolve rendering slowdown by unloading entities to decrease the amount of entities that need to be rendered, but are still working on optimizing the rendering system further. 
 ## Milestone Creative Features
 - [10] Precise collisions -> Mesh based collisions using seperability axis theorem implemented by Geetika
