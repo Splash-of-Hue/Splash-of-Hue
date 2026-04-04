@@ -176,7 +176,7 @@ Entity createPressurePlate(const int level_uid, vec2 position, vec2 size, std::v
 		{
 			EFFECT_ASSET_ID::TEXTURED,
 			GEOMETRY_BUFFER_ID::SPRITE,
-			RENDER_LAYER::FLOOR_INTERACTABLES
+			RENDER_LAYER::FLOOR_UNDERFOOT
 		}
 	);
 
