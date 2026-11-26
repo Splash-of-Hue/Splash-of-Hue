@@ -45,6 +45,7 @@ class RenderSystem
 		textures_path("sawfish-sheet.png"),
 		textures_path("Whale.png"),
 		textures_path("P_Shrimp_Sheet_resized.png"),
+		textures_path("P_Shrimp_One_Arm.png"),
 		textures_path("Minnow.png"),
 		textures_path("Anglerfish.png"),
 		textures_path("Coral Tree.png"),
@@ -71,6 +72,7 @@ class RenderSystem
 		textures_path("Pressure_Plate.png"),
 		textures_path("Pressure_Plate_Wall.png"),
 		textures_path("Moss_Indicator.png"),
+		textures_path("Puzzle_Wall.png"),
 	};
 
 	std::array<GLuint, effect_count> effects;

@@ -9,7 +9,7 @@ void UiSystem::step(float elapsed_ms)
 {
 	for (MenuAction& action : registry.menu_actions.components)
 	{
-		for (std::pair<MENU_TYPE, Menu*> menu_pair: menu_references)
+		for (std::pair<UI_TYPE, Menu*> menu_pair: menu_references)
 		{
 			Menu* menu = menu_pair.second;
 
@@ -46,20 +46,37 @@ void UiSystem::step(float elapsed_ms)
 	}
 
 	// Handle any change requests
-	for (MenuToggleRequest& toggle_request : registry.menu_toggle_requests.components)
+	for (UiToggleRequest& toggle_request : registry.ui_toggle_requests.components)
 	{
-		Menu* menu = menu_references.at(toggle_request.type);
+		if (menu_references.count(toggle_request.type) > 0)
+		{
+			Menu* menu = menu_references.at(toggle_request.type);
 
-		if (menu->active)
-		{
-			menu->disable();
+			if (menu->active)
+			{
+				menu->disable();
+			}
+			else
+			{
+				menu->enable();
+			}
 		}
-		else
+
+		if (screen_references.count(toggle_request.type) > 0)
 		{
-			menu->enable();
+			Screen* screen = screen_references.at(toggle_request.type);
+
+			if (screen->active)
+			{
+				screen->disable();
+			}
+			else
+			{
+				screen->enable();
+			}
 		}
 	}
 
 	registry.menu_actions.clear();
-	registry.menu_toggle_requests.clear();
+	registry.ui_toggle_requests.clear();
 }

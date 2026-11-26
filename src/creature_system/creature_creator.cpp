@@ -8,7 +8,8 @@
 
 void CreatureCreator::addGeneralCreatureComponents(const int level_uid, Entity creature, vec2 position, float width, float height, COLOUR_STATE color_state, CREATURETYPE creature_type, TEXTURE_ASSET_ID texture_asset_id, bool shouldHaveInelasticCollision /* = true */) {
     const ColourPalette& palette = registry.colourPalettes.components[0];
-    vec4 color = palette.state_to_colour.at(color_state);
+    bool use_asset_colour = (creature_type == CREATURETYPE::ANGLERFISH || creature_type == CREATURETYPE::CRAB);
+    vec4 color = use_asset_colour ? WHITE_COLOUR_VEC4 : palette.state_to_colour.at(color_state);
 
     Collidable& collidable = registry.collidables.emplace(creature);
     collidable.inelastic = shouldHaveInelasticCollision;
@@ -137,13 +138,20 @@ Entity CreatureCreator::createMinnows(const int level_uid, vec2 position, float 
     registry.renderRequests.remove(minnows); // Make sure the minnow overseer is not seen
 
     BoidOverseer& minnow_overseer = registry.boidOverseers.emplace(minnows);
-    
+
     for (int i = 0; i < NUM_MINNOWS; i++)
     {
         Entity minnow_follower;
         registry.boid_minnows.emplace(minnow_follower);
 
         addGeneralCreatureComponents(level_uid, minnow_follower, position, width, height, color_state, CREATURETYPE::MINNOWS, TEXTURE_ASSET_ID::MINNOW_01);
+		// Give minnows a random initial velocity so they both don't all move initially in the same direction
+        float angle = rand() / static_cast<float>(RAND_MAX) * 2.0f * M_PI;
+        registry.velocities.get(minnow_follower) = vec2(cos(angle), sin(angle)) * minnow_overseer.min_speed * 0.5f;
+
+        // Add a small random offset so boids don't all start at exactly the same position
+        float offset_radius = rand() / static_cast<float>(RAND_MAX) * 1.0f;
+        registry.positions.get(minnow_follower) += vec2(cos(angle), sin(angle)) * offset_radius;
 
         Collidable& collidable = registry.collidables.get(minnow_follower);
         collidable.inelastic = true; // sophia note: we can change this to true
@@ -370,23 +378,47 @@ Entity CreatureCreator::createShrimp(const int level_uid, vec2 position, float w
     }
 
     ANIMATABLE_TYPE shrimp_anim_type;
-    switch (curr_direction_facing)
+    if (num_arms == 1)
     {
-        case DIRECTION::UP:    
-            shrimp_anim_type = ANIMATABLE_TYPE::PISTOL_SHRIMP_UP;    
+        switch (curr_direction_facing)
+        {
+        case DIRECTION::UP:
+            shrimp_anim_type = ANIMATABLE_TYPE::PISTOL_SHRIMP_ONE_ARM_UP;
             break;
-        case DIRECTION::DOWN:  
-            shrimp_anim_type = ANIMATABLE_TYPE::PISTOL_SHRIMP_DOWN;  
+        case DIRECTION::DOWN:
+            shrimp_anim_type = ANIMATABLE_TYPE::PISTOL_SHRIMP_ONE_ARM_DOWN;
             break;
-        case DIRECTION::LEFT:  
-            shrimp_anim_type = ANIMATABLE_TYPE::PISTOL_SHRIMP_LEFT;  
+        case DIRECTION::LEFT:
+            shrimp_anim_type = ANIMATABLE_TYPE::PISTOL_SHRIMP_ONE_ARM_LEFT;
             break;
-        case DIRECTION::RIGHT: 
-            shrimp_anim_type = ANIMATABLE_TYPE::PISTOL_SHRIMP_RIGHT; 
+        case DIRECTION::RIGHT:
+            shrimp_anim_type = ANIMATABLE_TYPE::PISTOL_SHRIMP_ONE_ARM_RIGHT;
             break;
-        default:               
-            shrimp_anim_type = ANIMATABLE_TYPE::PISTOL_SHRIMP_UP;    
+        default:
+            shrimp_anim_type = ANIMATABLE_TYPE::PISTOL_SHRIMP_ONE_ARM_UP;
             break;
+        }
+    }
+    else
+    {
+        switch (curr_direction_facing)
+        {
+        case DIRECTION::UP:
+            shrimp_anim_type = ANIMATABLE_TYPE::PISTOL_SHRIMP_UP;
+            break;
+        case DIRECTION::DOWN:
+            shrimp_anim_type = ANIMATABLE_TYPE::PISTOL_SHRIMP_DOWN;
+            break;
+        case DIRECTION::LEFT:
+            shrimp_anim_type = ANIMATABLE_TYPE::PISTOL_SHRIMP_LEFT;
+            break;
+        case DIRECTION::RIGHT:
+            shrimp_anim_type = ANIMATABLE_TYPE::PISTOL_SHRIMP_RIGHT;
+            break;
+        default:
+            shrimp_anim_type = ANIMATABLE_TYPE::PISTOL_SHRIMP_UP;
+            break;
+        }
     }
 
     const Animatable animatable = {
