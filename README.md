@@ -9,15 +9,30 @@ Our game is a top-down puzzle based dungeon crawler where the player will find a
 ## Setting
 A bioluminescent sea creature journeys up to the surface to return to the sun that it has heard legends of and believes it originates from. Along the way, this creature introduces colour and light to a world that has never experienced it before.
 ## Controls
-WASD for up, left, down, right movement. E to open up colour menu. Use arrow keys when colour menu pops up to toggle between different colours and press E again to select colour. Move and collide with other objects to change their colours. 
+WASD for up, left, down, right movement. Use left and right arrow keys for blue and red colours, and up/down to return to neutral. 
+## How to Play
+Move using WASD and enter new rooms by approaching the openings in walls. Collect a colour by walking up to and colliding with a colour orb. Once you have collected the corresponding colour orbs, change colour using left/right arrow keys and return to neutral with up/down. Collide with entities while your colour radius is on and see what happens! Use these interactions and your colour to solve puzzles and progress through the dungeon. 
+## Gameplay
+Change colour and walk through walls of same colour.
+![Change colour and walk through walls of same colour](./doc/images/a87a9081-550c-49b3-8d66-57bed8f549b6.png)
 
-## Milestone 3
+Interact with and change the colour of creatures and entities around you, like the anglerfish and moss toggle below.
+![Interact with and change the colour of creatures and entities around you](./doc/images/c8edf811-26b5-4c01-b23d-cedae995942f.png)
+
+Interacting with creatures helps open up new pathways and progress further into the dungeon.
+![Interacting with creatures helps open up new pathways](./doc/images/f7d9aab6-b930-4c7d-ab8c-7f6699784f0f.png)
+
+Unlock new colours and use those colours to have get creatures to act differently, such as the sawfish charging and breaking boxes when red, and following player when blue. 
+![Unlock new colours](./doc/images/b00a5470-91e6-412f-b129-5ad3de7016c1.png)
+
+## Milestone 4
 ## Milestone Engagement Criteria
 - Discovery -> Player can discover new things by moving and exploring rooms, and collide with objects to see what happens.
 - Challenge -> Player is stopped by obstacles, like the pistol shrimp, non-passable boxes and walls, dangerous sawfish, and must figure out ways to bypass obstacles and understand AI behaviours, such as sawfish following, charging and pistol shrimp rotation, to traverse the tutorial and enter the final room.
 ## Milestone Required Elements
-- Memory Management: We used Visual Studio's diagnostic tools and Visual Studio's performance profiler and found our game uses about 300 MB of memory, but there were no instances of memory leaks or hoarding. 
-- Realtime performance: We profiled the runtime of our systems, and found that the rendering and physics systems were runtime bottlenecks, where the rendering system took about 90% of the time, and the physics system took about 6%. We changed the physics system to use broad pass by checking for an AABB collision and only running mesh collision if that check was successful, which made slight improvements. 
+- Memory Management: We used Visual Studio's diagnostic tools and Visual Studio's performance profiler and found our game uses about 500 MB of memory, but there were no instances of memory leaks or hoarding. 
+
+- Realtime performance: We profiled the runtime of our systems, and found that the rendering and physics systems were runtime bottlenecks, where the rendering system took about 90% of the time, and the physics system took about 6%. We changed the physics system to use broad pass by checking for an AABB collision and only running mesh collision if that check was successful, which made slight improvements. We also attempted to resolve rendering slowdown by unloading entities to decrease the amount of entities that need to be rendered, but are still working on optimizing the rendering system further. 
 ## Milestone Creative Features
 - [10] Precise collisions -> Mesh based collisions using seperability axis theorem implemented by Geetika
 - [16] Swarm behaviour -> Minnows will swarm and flock to each other and move like a school of fish, implemented by Sophia  using BOIDS, who has also set it up so that simply changing the separation, cohesion, and alignment parameters in the code can vastly change the way the minnows swarm, allowing for different movement patterns. 
@@ -25,12 +40,12 @@ WASD for up, left, down, right movement. E to open up colour menu. Use arrow key
 - [19] Reloadability -> Loading and unloading levels using LDtk library implemented by Clair
 - [26] Numerous sophisticated integrated assets -> Same art style for assets implemented by Clair, Abby and Sophia
 ## Milestone Screenshots
-Minimap and colour menu UI added to tutorial
-![Minimap and colour menu UI added to tutorial](./doc/images/7ffd645e-0a56-4f89-914d-1eeaf5db66de.png)
-New dungeon with sliding entities
-![New dungeon with sliding entities](./doc/images/435c2917-2d37-43df-ba71-e7a22e576f04.png)
-New dungeon with colour emitting entities
-![New dungeon with colour emitting entities](./doc/images/dedea943-1305-4cf3-a04c-a785256a2679.png)
+Minimap and colour menu UI added to tutorial, and updated to show unlocked colours
+![Minimap and colour menu UI](./doc/images/07c5c2c4-0bd2-41a5-9cd0-3ed584e1fd1a.png)
+New dungeon with new entities, with updated assets and fixed behaviour
+![New dungeon with new entities](./doc/images/7a37c5f7-a1a3-4d38-bbbe-017baab417d4.png)
+Improved dungeon design, assets and hints
+![Improved dungeon design](./doc/images/d33b24e0-053b-4395-b269-4525c54e33cc.png)
 
 # Docs
 
