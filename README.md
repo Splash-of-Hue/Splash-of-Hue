@@ -14,16 +14,16 @@ WASD for up, left, down, right movement. Use left and right arrow keys for blue 
 Move using WASD and enter new rooms by approaching the openings in walls. Collect a colour by walking up to and colliding with a colour orb. Once you have collected the corresponding colour orbs, change colour using left/right arrow keys and return to neutral with up/down. Collide with entities while your colour radius is on and see what happens! Use these interactions and your colour to solve puzzles and progress through the dungeon. 
 ## Gameplay
 Change colour and walk through walls of same colour.
-![Screenshot 2026-04-03 225004](https://github.students.cs.ubc.ca/user-attachments/assets/a87a9081-550c-49b3-8d66-57bed8f549b6)
+![Change colour and walk through walls of same colour](./doc/images/a87a9081-550c-49b3-8d66-57bed8f549b6.png)
 
 Interact with and change the colour of creatures and entities around you, like the anglerfish and moss toggle below.
-![Screenshot 2026-04-03 225022](https://github.students.cs.ubc.ca/user-attachments/assets/c8edf811-26b5-4c01-b23d-cedae995942f)
+![Interact with and change the colour of creatures and entities around you](./doc/images/c8edf811-26b5-4c01-b23d-cedae995942f.png)
 
 Interacting with creatures helps open up new pathways and progress further into the dungeon.
-![Screenshot 2026-04-03 225039](https://github.students.cs.ubc.ca/user-attachments/assets/f7d9aab6-b930-4c7d-ab8c-7f6699784f0f)
+![Interacting with creatures helps open up new pathways](./doc/images/f7d9aab6-b930-4c7d-ab8c-7f6699784f0f.png)
 
 Unlock new colours and use those colours to have get creatures to act differently, such as the sawfish charging and breaking boxes when red, and following player when blue. 
-![Screenshot 2026-04-03 225147](https://github.students.cs.ubc.ca/user-attachments/assets/b00a5470-91e6-412f-b129-5ad3de7016c1)
+![Unlock new colours](./doc/images/b00a5470-91e6-412f-b129-5ad3de7016c1.png)
 
 ## Milestone 4
 ## Milestone Engagement Criteria
@@ -41,11 +41,11 @@ Unlock new colours and use those colours to have get creatures to act differentl
 - [26] Numerous sophisticated integrated assets -> Same art style for assets implemented by Clair, Abby and Sophia
 ## Milestone Screenshots
 Minimap and colour menu UI added to tutorial, and updated to show unlocked colours
-![Screenshot 2026-04-03 225004](https://github.students.cs.ubc.ca/user-attachments/assets/07c5c2c4-0bd2-41a5-9cd0-3ed584e1fd1a)
+![Minimap and colour menu UI](./doc/images/07c5c2c4-0bd2-41a5-9cd0-3ed584e1fd1a.png)
 New dungeon with new entities, with updated assets and fixed behaviour
-![Screenshot 2026-04-03 230352](https://github.students.cs.ubc.ca/user-attachments/assets/7a37c5f7-a1a3-4d38-bbbe-017baab417d4)
+![New dungeon with new entities](./doc/images/7a37c5f7-a1a3-4d38-bbbe-017baab417d4.png)
 Improved dungeon design, assets and hints
-![Screenshot 2026-04-03 225147](https://github.students.cs.ubc.ca/user-attachments/assets/d33b24e0-053b-4395-b269-4525c54e33cc)
+![Improved dungeon design](./doc/images/d33b24e0-053b-4395-b269-4525c54e33cc.png)
 
 # Docs
 
